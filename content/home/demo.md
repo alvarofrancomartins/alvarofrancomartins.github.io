@@ -4,10 +4,10 @@
 widget: blank
 
 # Activate this widget? true/false
-active: true
+active: false
 
 # This file represents a page section.
-headless: true
+headless: false
 
 # Order that this section appears on the page.
 weight: 15
@@ -20,7 +20,7 @@ design:
   background:
     image: open-book.jpg
     image_darken: 1.0
-    image_parallax: true
+    image_parallax: false
     image_position: center
     image_size: cover
     text_color_light: false
