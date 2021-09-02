@@ -6,7 +6,7 @@ title: Alvaro Franco Martins
 superuser: true
 
 # Role/position/tagline
-role: Network Scientist
+role: Data Scientist
 
 # Organizations/Affiliations to show in About widget
 organizations:
