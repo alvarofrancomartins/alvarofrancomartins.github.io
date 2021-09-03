@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Corruption networks | Alvaro Franco Martins</title>
-    <link>https://academic-demo.netlify.app/tag/corruption-networks/</link>
-      <atom:link href="https://academic-demo.netlify.app/tag/corruption-networks/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://alvarofrancomartins.com/tag/corruption-networks/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/corruption-networks/index.xml" rel="self" type="application/rss+xml" />
     <description>Corruption networks</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 13 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://academic-demo.netlify.app/media/icon_hud466ce8c88c83e2fc8771cab0bf93b26_62231_512x512_fill_lanczos_center_2.png</url>
+      <url>https://alvarofrancomartins.com/media/icon_hud466ce8c88c83e2fc8771cab0bf93b26_62231_512x512_fill_lanczos_center_2.png</url>
       <title>Corruption networks</title>
-      <link>https://academic-demo.netlify.app/tag/corruption-networks/</link>
+      <link>https://alvarofrancomartins.com/tag/corruption-networks/</link>
     </image>
     
     <item>
       <title>A computational model for political corruption networks</title>
-      <link>https://academic-demo.netlify.app/post/model/</link>
+      <link>https://alvarofrancomartins.com/post/model/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://academic-demo.netlify.app/post/model/</guid>
+      <guid>https://alvarofrancomartins.com/post/model/</guid>
       <description>&lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
 &lt;p&gt;NaN&lt;/p&gt;
 </description>
