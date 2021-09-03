@@ -36,6 +36,6 @@ categories:
 
 ## The model 
 
-{{.mmodel}}
+{{ .mmodel }}
 
 NaN

@@ -18,7 +18,7 @@
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/model/</guid>
       <description>&lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
-&lt;p&gt;{{.mmodel}}&lt;/p&gt;
+&lt;p&gt;{{ .mmodel }}&lt;/p&gt;
 &lt;p&gt;NaN&lt;/p&gt;
 </description>
     </item>
