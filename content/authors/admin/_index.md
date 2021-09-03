@@ -14,13 +14,12 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research interests include distributed robotics, mobile computing and programmable matter.
+bio: NaN.
 
 # Interests to show in About widget
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Machine Learning
+- Data Visualization
 
 # Education to show in About widget
 education:
