@@ -36,6 +36,6 @@ categories:
 
 ## The model 
 
-<iframe width="100%" height="150" name="iframe" src="../mode/html/mmodel.html"></iframe>
+<iframe width="100%" height="150" name="iframe" src="../model/html/mmodel.html"></iframe>
 
 NaNA
