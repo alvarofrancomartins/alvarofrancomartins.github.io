@@ -32,10 +32,10 @@ authors:
 - admin
 
 tags:
-- Academic
+- Corruption networks
 
 categories:
-- Demo
+- corruption_networks
 ---
 
 ## The model 
