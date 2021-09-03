@@ -128,16 +128,6 @@ The variance of the distribution is $\sigma^{2}$.
     </item>
     
     <item>
-      <title>A computational model for political corruption networks</title>
-      <link>https://alvarofrancomartins.com/post/model/</link>
-      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/model/</guid>
-      <description>&lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
-&lt;p&gt;NaN&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Welcome to Wowchemy, the website builder for Hugo</title>
       <link>https://alvarofrancomartins.com/post/getting-started/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
@@ -242,7 +232,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-831452976&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-247935186&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -252,7 +242,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-831452976&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-247935186&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
