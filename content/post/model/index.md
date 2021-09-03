@@ -36,6 +36,6 @@ categories:
 
 ## The model 
 
-{{ .mmodel }}
+<iframe width="100%" height="150" name="iframe" src="/html/mmodel.html"></iframe>
 
 NaN
