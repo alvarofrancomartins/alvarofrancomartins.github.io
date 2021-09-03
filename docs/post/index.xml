@@ -19,7 +19,18 @@
       <guid>https://alvarofrancomartins.com/post/model/</guid>
       <description>&lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
 &lt;!-- &lt;iframe width=&#34;100%&#34; height=&#34;150&#34; name=&#34;iframe&#34; src=&#34;../model/html/mmodel.html&#34;&gt;&lt;/iframe&gt; --&gt;
-&lt;p&gt;0&lt;/p&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h1&gt;My First Heading&lt;/h1&gt;
+
+&lt;p&gt;My first paragraph.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+&lt;p&gt;00&lt;/p&gt;
 </description>
     </item>
     
@@ -128,7 +139,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-185264397&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-384962517&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -138,7 +149,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-185264397&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-384962517&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

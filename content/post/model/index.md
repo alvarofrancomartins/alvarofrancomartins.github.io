@@ -38,4 +38,6 @@ categories:
 
 <!-- <iframe width="100%" height="150" name="iframe" src="../model/html/mmodel.html"></iframe> -->
 
-0
+{{< include-html "content/post/model/mmodel.html" >}}
+
+00
