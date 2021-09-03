@@ -20,24 +20,22 @@ draft: true
 # Show this page in the Featured widget?
 featured: false
 
-# Featured image
-# Place an image named `featured.jpg/png` in this page's folder and customize its options here.
-# image:
-#   caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)'
-#   focal_point: ""
-#   placement: 2
-#   preview_only: false
-
 authors:
 - admin
 
 tags:
 - Corruption networks
 
+# custom_css = ["css/model/pubjs.css"]
+# custom_js  = ["js/model/bibtex_js.js"]
+
 categories:
 - corruption_networks
+
 ---
 
 ## The model 
+
+{{.mmodel}}
 
 NaN
