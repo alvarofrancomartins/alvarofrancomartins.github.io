@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Minimal"
+
+# Optional Google font URL
+google_fonts = "family=Roboto:wght@300&display"
+
+# Font families
+heading_font = "Roboto"
+body_font = "Roboto"
+nav_font = "Roboto"
+mono_font = "Roboto"
