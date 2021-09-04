@@ -47,7 +47,7 @@ url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 
 image:
-  placement: 1
+  placement: 2
   caption: "The Brazilian Corruption Network"
   focal_point: "Smart"
   preview_only: false
