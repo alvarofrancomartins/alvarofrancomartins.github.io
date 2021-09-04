@@ -35,20 +35,20 @@ featured: false
 # - name: ""
 #   url: ""
 url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
-url_code: ''
-url_dataset: ''
-url_poster: ''
-url_project: ''
-url_slides: ''
-url_source: ''
-url_video: ''
+# url_code: ''
+# url_dataset: ''
+# url_poster: ''
+# url_project: ''
+# url_slides: ''
+# url_source: ''
+# url_video: ''
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 
 image:
-  placement: 3
-  caption: "The Brazilian ccorruption Network"
+  placement: 1
+  caption: "The Brazilian Corruption Network"
   focal_point: "Smart"
   preview_only: false
   alt_text: The Brazilian Corruption Network
@@ -65,7 +65,7 @@ projects: []
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set `slides: ""`.
-slides: ""
+# slides: ""
 ---
 
 <!-- {{% callout note %}}
