@@ -48,10 +48,10 @@ url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
 
 image:
   placement: 1
-  caption: "The Brazilian Ccorruption Network"
+  caption: "The Brazilian Corruption Network"
   focal_point: "Smart"
   preview_only: false
-  alt_text: The Brazilian Ccorruption Network
+  alt_text: The Brazilian Corruption Network
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
