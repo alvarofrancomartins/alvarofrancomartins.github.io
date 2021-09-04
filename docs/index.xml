@@ -7,7 +7,7 @@
     <description>Alvaro Franco Martins</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://alvarofrancomartins.com/media/icon_hud466ce8c88c83e2fc8771cab0bf93b26_62231_512x512_fill_lanczos_center_2.png</url>
+      <url>https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_2.png</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/</link>
     </image>
@@ -254,7 +254,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-837169542&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-736159482&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -264,7 +264,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-837169542&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-736159482&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
