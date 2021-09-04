@@ -45,7 +45,7 @@ url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
-image:
+image: 
   caption: 'The Brazilian Corruption Network'
   focal_point: ""
   preview_only: false
@@ -63,7 +63,7 @@ projects:
 #   Simply enter your slide deck's filename without extension.
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set `slides: ""`.
-slides: example
+slides: ""
 ---
 
 <!-- {{% callout note %}}
