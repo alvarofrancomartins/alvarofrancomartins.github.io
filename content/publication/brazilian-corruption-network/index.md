@@ -31,21 +31,21 @@ tags:
 - Corruption Networks
 featured: false
 
-links:
-- name: Journal of Complex Networks
-  url: http://dx.doi.org/10.1093/comnet/cny002
+# links:
+# - name: ""
+#   url: ""
 url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
-# url_code: '#'
-# url_dataset: '#'
-# url_poster: '#'
-# url_project: ''
-# url_slides: ''
-# url_source: '#'
-# url_video: '#'
+url_code: ''
+url_dataset: ''
+url_poster: ''
+url_project: ''
+url_slides: ''
+url_source: ''
+url_video: ''
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
-image: 
+image:
   caption: 'The Brazilian Corruption Network'
   focal_point: ""
   preview_only: false
@@ -55,8 +55,7 @@ image:
 #   Simply enter your project's folder or file name without extension.
 #   E.g. `internal-project` references `content/project/internal-project/index.md`.
 #   Otherwise, set `projects: []`.
-projects:
-- internal-project
+projects: []
 
 # Slides (optional).
 #   Associate this publication with Markdown slides.
@@ -67,8 +66,12 @@ slides: ""
 ---
 
 <!-- {{% callout note %}}
-Create your slides in Markdown - click the *Slides* button to check out the example.
-{{% /callout %}} -->
+Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
+{{% /callout %}}
 
-<!-- Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/).
+{{% callout note %}}
+Create your slides in Markdown - click the *Slides* button to check out the example.
+{{% /callout %}}
+
+Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/).
  -->
