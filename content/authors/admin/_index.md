@@ -19,7 +19,7 @@ bio: NaN.
 # Interests to show in About widget
 interests:
 - Data Analysis
-- Deep learning
+- Deep Learning
 - Machine Learning
 - Data Visualization
 
