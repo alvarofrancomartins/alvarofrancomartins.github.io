@@ -45,10 +45,13 @@ url_video: ''
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
+
 image:
-  caption: 'The Brazilian Corruption Network'
-  focal_point: "Center"
+  placement: 3
+  caption: "The Brazilian Corruption Network"
+  focal_point: "Smart"
   preview_only: false
+  alt_text: The Brazilian Corruption Network
 
 # Associated Projects (optional).
 #   Associate this publication with one or more of your projects.
