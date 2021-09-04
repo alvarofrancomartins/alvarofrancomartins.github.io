@@ -20,9 +20,9 @@ twitter: ''
 
 # Contact (edit or remove options as required)
 
-email: alvarought@gmail.com
-email: alvarofmartins@dfi.uem.br
-phone: '+55 (44) 9 8841-5260'
+# email: alvarought@gmail.com
+# email: afmartins@dfi.uem.br
+# phone: '+55 (44) 9 8841-5260'
 # address:
 #   street: 450 Serra Mall
 #   city: Stanford
@@ -38,15 +38,15 @@ phone: '+55 (44) 9 8841-5260'
 #   - 'Monday 10:00 to 13:00'
 #   - 'Wednesday 09:00 to 10:00'
 # appointment_url: 'https://calendly.com'
-contact_links:
-  - icon: twitter
-    icon_pack: fab
-    name: DM Me
-    link: 'https://twitter.com/alvarofmartins'
-  - icon: skype
-    icon_pack: fab
-    name: Skype Me
-    link: 'skype:allvarors?call'
+# contact_links:
+#   - icon: twitter
+#     icon_pack: fab
+#     name: DM Me
+#     link: 'https://twitter.com/alvarofmartins'
+#   - icon: skype
+#     icon_pack: fab
+#     name: Skype Me
+#     link: 'skype:allvarors?call'
 
 # Site header
 
