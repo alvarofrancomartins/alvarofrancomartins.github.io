@@ -6,11 +6,11 @@ authors:
 - Luiz G. A. Alves
 - Ervin K. Lenzi 
 - Matjaz Perc
-date: "2021-09"
+date: "2018-01-24T00:00:00Z"
 doi: "http://dx.doi.org/10.1093/comnet/cny002"
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2018"
+# publishDate: "2018-01-24T00:00:00Z"
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
