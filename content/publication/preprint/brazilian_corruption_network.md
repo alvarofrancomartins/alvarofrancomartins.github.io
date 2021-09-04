@@ -2,6 +2,10 @@
 title: "The dynamical structure of political corruption networks"
 authors:
 - admin
+- Haroldo V. Ribeiro
+- Luiz G. A. Alves
+- Ervin K. Lenzi 
+- Matjaz Perc
 date: "2021-09"
 doi: "http://dx.doi.org/10.1093/comnet/cny002"
 

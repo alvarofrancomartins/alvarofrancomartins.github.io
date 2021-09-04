@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ervin K. Lenzi | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/author/ervin-k.-lenzi/</link>
+      <atom:link href="https://alvarofrancomartins.com/author/ervin-k.-lenzi/index.xml" rel="self" type="application/rss+xml" />
+    <description>Ervin K. Lenzi</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
+    <image>
+      <url>https://alvarofrancomartins.com/media/icon_hud466ce8c88c83e2fc8771cab0bf93b26_62231_512x512_fill_lanczos_center_2.png</url>
+      <title>Ervin K. Lenzi</title>
+      <link>https://alvarofrancomartins.com/author/ervin-k.-lenzi/</link>
+    </image>
+    
+    <item>
+      <title>The dynamical structure of political corruption networks</title>
+      <link>https://alvarofrancomartins.com/publication/preprint/brazilian_corruption_network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/publication/preprint/brazilian_corruption_network/</guid>
+      <description>&lt;!-- &lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Create your slides in Markdown - click the &lt;em&gt;Slides&lt;/em&gt; button to check out the example.
+  &lt;/div&gt;
+&lt;/div&gt;
+ --&gt;
+&lt;!-- Supplementary notes can be added here, including [code, math, and images](https://wowchemy.com/docs/writing-markdown-latex/).
+ --&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
