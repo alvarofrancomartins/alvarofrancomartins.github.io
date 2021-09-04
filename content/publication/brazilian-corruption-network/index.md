@@ -48,7 +48,7 @@ url_video: ''
 
 image:
   placement: 3
-  caption: "The Brazilian Corruption Network"
+  caption: "The Brazilian ccorruption Network"
   focal_point: "Smart"
   preview_only: false
   alt_text: The Brazilian Corruption Network
