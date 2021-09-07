@@ -23,6 +23,7 @@
 
   &lt;head&gt;
     &lt;title&gt;Network Corruption Model&lt;/title&gt;
+    
     &lt;style&gt;
       #mynetwork {
         display: inline-block;
@@ -57,9 +58,8 @@
       .col-auto {
         margin: 4px;
       }
-
-
     &lt;/style&gt;
+
     &lt;script type=&#34;text/javascript&#34; src=&#34;https://unpkg.com/vis-network/standalone/umd/vis-network.min.js&#34;&gt;&lt;/script&gt;
     &lt;script src=&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&#34;&gt;&lt;/script&gt;
   &lt;/head&gt;
@@ -347,7 +347,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-746893521&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-281759364&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -357,7 +357,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-746893521&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-281759364&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
