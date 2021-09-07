@@ -33,25 +33,7 @@
         background-color: #222222;
       }
 
-      #startNewNetwork
-      {
-        position: absolute;
 
-        display: inline-block;
-        padding: 14px 15px;
-        font-size: 20px;
-        bottom: 0;
-      }
-
-      #add_new_scandal
-      {
-        position: absolute;
-        display: inline-block;
-        padding: 14px 15px;
-        right: 0;
-        bottom: 0;
-
-      }
 
     &lt;/style&gt;
 
@@ -342,7 +324,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-546937812&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-758612943&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -352,7 +334,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-546937812&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-758612943&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
