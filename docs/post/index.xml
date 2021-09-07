@@ -33,8 +33,17 @@
         background-color: #222222;
       }
 
+      .input-group {
+        width: 70%;
+      }
 
+      #recidivism_rate {
+        margin-left: 2%;
+      }
 
+      #beta_parameter {
+        margin-left: 2%;
+      }
     &lt;/style&gt;
 
     &lt;script type=&#34;text/javascript&#34; src=&#34;https://unpkg.com/vis-network/standalone/umd/vis-network.min.js&#34;&gt;&lt;/script&gt;
@@ -43,12 +52,17 @@
 
   &lt;body&gt;
     &lt;div class=&#34;input-group&#34;&gt;
-          &lt;input type=&#34;number&#34; name=&#34;recidivism_rate&#34; min=0 max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; class=&#34;form-control&#34; /&gt;
-          &lt;input type=&#34;number&#34; name=&#34;beta_parameter&#34; min=-100 max=0 step=-1 value=-11 id=&#34;beta_parameter&#34; class=&#34;form-control&#34; /&gt;
-        &lt;div class=&#34;input-group-append&#34;&gt;
+
+          &lt;label for=&#34;recidivism_rate&#34;&gt;$\alpha$:&lt;/label&gt;
+          &lt;input type=&#34;number&#34;  placeholder=&#34;$\alpha$:&#34; name=&#34;recidivism_rate&#34; min=0    max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; class=&#34;form-control&#34; /&gt;
+
+          &lt;label for=&#34;beta_parameter&#34;&gt;$\beta$:&lt;/label&gt;
+          &lt;input type=&#34;number&#34; name=&#34;beta_parameter&#34;  min=-100 max=0 step=-1    value=-11   id=&#34;beta_parameter&#34;  class=&#34;form-control&#34; /&gt;
+          
+      &lt;div class=&#34;input-group-append&#34;&gt;
           &lt;button id=&#34;startNewNetwork&#34; class=&#34;btn btn-primary&#34; onclick=&#34;startNewNetwork();addCompleteGraph();enableAddGraph();&#34;&gt;Start new network&lt;/button&gt;
           &lt;button id=&#34;add_new_scandal&#34; class=&#34;btn btn-outline-primary&#34; onclick=&#34;addCompleteGraph();&#34; disabled&gt;Add new scandal&lt;/button&gt;
-        &lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
 
     &lt;div id=&#34;mynetwork&#34;&gt;&lt;/div&gt;
@@ -90,6 +104,10 @@
       &#34;nodes&#34;: {
         &#34;shape&#34;: &#34;dot&#34;,
         &#34;size&#34;: 10,
+      },
+      &#34;interaction&#34;: {
+        &#34;dragNodes&#34;: false,
+        &#34;dragView&#34;:true
       }
     }
 
@@ -318,7 +336,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-862795341&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-985471326&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -328,7 +346,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-862795341&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-985471326&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
