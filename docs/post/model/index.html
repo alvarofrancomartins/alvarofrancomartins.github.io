@@ -752,7 +752,7 @@
     <style>
       #mynetwork {
         display: inline-block;
-        height: 600px;
+        height: 620px;
         width: 100%;
         border: 1px solid #444444;
         background-color: #222222;
@@ -761,12 +761,12 @@
       #startNewNetwork
       {
         position: absolute;
-        left: 44%;
+        left: 34%;
         top: 48%;
 
-      display: inline-block;
-      padding: 14px 15px;
-      font-size: 20px;
+        display: inline-block;
+        padding: 14px 15px;
+        font-size: 20px;
 
       }
 
@@ -776,8 +776,9 @@
         right: 3px;
         top: 51%;
 
-              display: inline-block;
-      padding: 14px 15px;
+        display: inline-block;
+        padding: 14px 15px;
+
       }
 
       .col-auto {
@@ -793,7 +794,7 @@
     <div class="input-group">
         <div class="form-row align-items-center">
           <div class="col-auto">
-            <label>Recidivism rateA</label>
+            <label>Recidivism rate</label>
             <input type="number" name="recidivism_rate" min=0 max=1 step=0.001 value=0.142 id="recidivism_rate" class="form-control" />
           </div>
           <div class="col-auto">
@@ -801,8 +802,10 @@
             <input type="number" name="beta_parameter" min=-100 max=0 step=-1 value=-11 id="beta_parameter" class="form-control" />
           </div>
         </div>      
-      <button id="startNewNetwork" class="btn btn-primary btn-lg" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
-      <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
+        <div class="input-group-append">
+          <button id="startNewNetwork" class="btn btn-primary btn-lg" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
+          <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
+        </div>
     </div>
 
     <div id="mynetwork"></div>
