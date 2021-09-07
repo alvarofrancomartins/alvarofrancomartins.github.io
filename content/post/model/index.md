@@ -32,4 +32,4 @@ categories:
 
 ---
 
-{{< include-html "content/post/model/mmodel.html" >}}
+{{< include-html "content/post/model/model.html" >}}
