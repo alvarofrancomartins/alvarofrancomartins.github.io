@@ -26,18 +26,10 @@ authors:
 tags:
 - Corruption networks
 
-# custom_css = ["css/model/pubjs.css"]
-# custom_js  = ["js/model/bibtex_js.js"]
-
 categories:
 - corruption_networks
 
+
 ---
 
-## The model 
-
-<!-- <iframe width="100%" height="150" name="iframe" src="../model/html/mmodel.html"></iframe> -->
-
-{{< include-html "content/post/model/mmodel.html" >}}
-
-aa
+{{< include-html "content/post/model/model.html" >}}

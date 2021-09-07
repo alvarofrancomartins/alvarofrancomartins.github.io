@@ -2,3 +2,6 @@ baseURL = "http://example.org/"
 languageCode = "en-us"
 title = ""
 publishDir = "docs"
+
+modelCSS = ["css/index.css"]
+modelJS = ["js/network_model.js"]
