@@ -27,7 +27,7 @@
       #mynetwork {
         display: inline-block;
         height: 600px;
-        width: 998px;
+        width: 100%;
         border: 1px solid #444444;
         background-color: #222222;
       }
@@ -35,7 +35,7 @@
       #startNewNetwork
       {
         position: absolute;
-        left: 32%;
+        left: 44%;
         top: 48%;
 
       display: inline-block;
@@ -47,7 +47,7 @@
       #add_new_scandal
       {
         position: absolute;
-        right: 0;
+        right: 3px;
         top: 51%;
 
               display: inline-block;

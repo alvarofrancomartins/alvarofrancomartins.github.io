@@ -27,7 +27,7 @@
       #mynetwork {
         display: inline-block;
         height: 600px;
-        width: 998px;
+        width: 100%;
         border: 1px solid #444444;
         background-color: #222222;
       }
@@ -35,7 +35,7 @@
       #startNewNetwork
       {
         position: absolute;
-        left: 32%;
+        left: 44%;
         top: 48%;
 
       display: inline-block;
@@ -47,7 +47,7 @@
       #add_new_scandal
       {
         position: absolute;
-        right: 0;
+        right: 3px;
         top: 51%;
 
               display: inline-block;
@@ -347,7 +347,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-512793468&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-746893521&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -357,7 +357,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-512793468&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-746893521&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
