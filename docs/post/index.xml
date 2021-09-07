@@ -68,7 +68,7 @@
     &lt;div class=&#34;input-group&#34;&gt;
         &lt;div class=&#34;form-row align-items-center&#34;&gt;
           &lt;div class=&#34;col-auto&#34;&gt;
-            &lt;label&gt;Recidivism rate&lt;/label&gt;
+            &lt;label&gt;Recidivism rateA&lt;/label&gt;
             &lt;input type=&#34;number&#34; name=&#34;recidivism_rate&#34; min=0 max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; class=&#34;form-control&#34; /&gt;
           &lt;/div&gt;
           &lt;div class=&#34;col-auto&#34;&gt;
@@ -347,7 +347,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-281759364&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-419825367&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -357,7 +357,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-281759364&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-419825367&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
