@@ -1,7 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://alvarofrancomartins.com"
 languageCode = "en-us"
-title = ""
+title = "Alvaro Franco Martins"
 publishDir = "docs"
-
-modelCSS = ["css/index.css"]
-modelJS = ["js/network_model.js"]
