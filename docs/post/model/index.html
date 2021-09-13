@@ -290,8 +290,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
 
   <link rel="canonical" href="https://alvarofrancomartins.com/post/model/" />
 
@@ -312,8 +312,8 @@
   <meta property="og:site_name" content="Alvaro Franco Martins" />
   <meta property="og:url" content="https://alvarofrancomartins.com/post/model/" />
   <meta property="og:title" content="A computational model for political corruption networks | Alvaro Franco Martins" />
-  <meta property="og:description" content="Welcome [...]" /><meta property="og:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_3.png" />
-    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  <meta property="og:description" content="Welcome [...]" /><meta property="og:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_2.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_2.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
@@ -362,7 +362,7 @@
     "name": "Alvaro Franco Martins",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "Welcome [...]"
@@ -375,11 +375,11 @@
 
   
 
-  <style>
-.article-container {
-   max-width: 1000px;
-}
-</style>
+  
+
+
+
+
 
   <title>A computational model for political corruption networks | Alvaro Franco Martins</title>
 </head>
@@ -708,7 +708,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    3 min read
   </span>
   
 
@@ -742,13 +742,84 @@
   <div class="article-container">
 
     <div class="article-style">
-      
+      <h2 id="a">A</h2>
+<h3 id="c">C</h3>
+<pre><code class="language-py">def generate_net_incremental(tmax = 100, lambda_ = 7.33, a = 0.09, b = -11.5, proba = 0.024):
+    &quot;&quot;&quot;
+    Generate a corruption network based on our model.
+    
+    Parameters
+    ---------
+
+    tmax : int
+           Number iteration steps (default: 100).
+    lambda_ : float
+           Characteristic number of people per scandal.
+    a, b : int
+           Parameters defining the number of repeated agents (nr) as a function
+           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
+    proba : float
+            Probabilty selecting a repeated agent that was already involved in
+            another scandal (default: 0.024091841863485983).
+
+    Returns
+    -------
+    links_list : list of ndarrays
+                 A list of ndarrays where each element is ndarray with the edge
+                 list at a particular iteration step.
+    &quot;&quot;&quot;
+
+    t                          = 0
+    links                      = []
+    links_list                 = []
+    agent_names                = set()
+    last_agent_index           = 0
+    repeated_agent_names       = set()
+    total_repeated_agents      = 0
+
+    while t &lt; tmax:
+        n_new_agents = int(np.round(np.random.exponential(lambda_)))
+
+        if n_new_agents &gt; 1:
+
+            new_agent_names     = [x for x in np.arange(last_agent_index, last_agent_index + n_new_agents)]
+            last_agent_index   += n_new_agents
+
+            new_repeated_agents = int(np.round((a*(len(agent_names)) + b - total_repeated_agents)))
+
+            if new_repeated_agents &gt; 0:
+                for i in range(min(new_repeated_agents, len(new_agent_names))):
+
+                    if (np.random.uniform() &lt;= proba) &amp; (len(repeated_agent_names) &gt; 0):
+                        #select from repeated_agent_names
+                        repeated_agent = np.random.choice(list(repeated_agent_names))
+                    else:
+                        #select from agent_names
+                        repeated_agent = np.random.choice(list(repeated_agent_names^agent_names))
+                        total_repeated_agents += 1
+
+                    new_agent_names[i] = repeated_agent
+                    repeated_agent_names.add(repeated_agent)
+
+            for agent_ in new_agent_names:
+                agent_names.add(agent_)
+            
+            new_links = np.asarray(list(combinations(new_agent_names, 2))).tolist()
+
+            links      += new_links
+            links_list += [np.asarray(links)]
+            t          += 1
+            
+    return links_list
+</code></pre>
+<p>Teste teste testea</p>
+
 <!DOCTYPE html>
 <html lang="en">
 
   <head>
     <title>Network Corruption Model</title>
-    
+
     <style>
       #mynetwork {
         display: inline-block;
@@ -775,179 +846,177 @@
   <body>
     <div class="input-group">
 
-          <label style="font-size:25px;">$\alpha$ &nbsp</label><input type="number" name="recidivism_rate" min=0    max=1 step=0.001 value=0.142 id="recidivism_rate" class="form-control" />
+      <label style="font-size:25px;">$\alpha$ &nbsp</label><input type="number" name="recidivism_rate" min=0 max=1 step=0.001 value=0.142 id="recidivism_rate" class="form-control" />
 
-          <label style="font-size:25px;">&nbsp&nbsp $\beta$ &nbsp</label><input type="number" name="beta_parameter"  min=-100 max=0 step=-1    value=-11   id="beta_parameter"  class="form-control" />
-          
+      <label style="font-size:25px;">&nbsp&nbsp $\beta$ &nbsp</label><input type="number" name="beta_parameter" min=-100 max=0 step=-1 value=-11 id="beta_parameter" class="form-control" />
+
       <div class="input-group-append">
-          <button id="startNewNetwork" class="btn btn-primary" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
-          <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
+        <button id="startNewNetwork" class="btn btn-primary" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
+        <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
       </div>
     </div>
 
     <div id="mynetwork"></div>
 
     <script type="text/javascript">
+      var container = document.getElementById("mynetwork");
 
-    var container = document.getElementById("mynetwork");
+      proba = 0.024;
+      lambda = 7.33;
 
-    proba = 0.024;
-    lambda = 7.33;
-
-    const options = {
-      "autoResize": true,
-      "height": '100%',
-      "width": '100%',
-      "physics": {
-        "enabled": true,
-        "forceAtlas2Based": {
-          "theta": 0.9,
-          "gravitationalConstant": -100,
-          "centralGravity": 0.01,
-          "springConstant": 0.08,
-          "springLength": 100,
-          "damping": 0.7,
-          "avoidOverlap": 0
+      const options = {
+        "autoResize": true,
+        "height": '100%',
+        "width": '100%',
+        "physics": {
+          "enabled": true,
+          "forceAtlas2Based": {
+            "theta": 0.9,
+            "gravitationalConstant": -100,
+            "centralGravity": 0.01,
+            "springConstant": 0.08,
+            "springLength": 100,
+            "damping": 0.7,
+            "avoidOverlap": 0
+          },
+          "maxVelocity": 50,
+          "minVelocity": 0.1,
+          "solver": 'forceAtlas2Based',
+          "stabilization": {
+            "enabled": false
+          },
+          "timestep": 0.2,
+          "adaptiveTimestep": true,
         },
-        "maxVelocity": 50,
-        "minVelocity": 0.1,
-        "solver": 'forceAtlas2Based',
-        "stabilization": { 
-          "enabled": false
+        "edges": {
+          "smooth": false
         },
-        "timestep": 0.2,
-        "adaptiveTimestep": true,
-      },
-      "edges": {
-        "smooth": false
-      },
-      "nodes": {
-        "shape": "dot",
-        "size": 10,
-      },
-      "interaction": {
-        "dragNodes": false,
-        "dragView":true
-      }
-    }
-
-    function startNewNetwork() {
-      a = parseFloat(document.getElementById("recidivism_rate").value);
-      b = parseFloat(document.getElementById("beta_parameter").value);
-
-      last_agent_index = 0;
-      total_repeated_agents = 0;
-
-      repeated_agent_names = [];
-      agent_names = [];
-
-      nodes = new vis.DataSet();
-      edges = new vis.DataSet();
-
-      data = {
-        nodes: nodes,
-        edges: edges,
-      };
-
-      return network = new vis.Network(container, data, options);
-    }
-
-    function expoSampling(scale) {
-      return Math.round(-scale * Math.log(1.0 - Math.random()));
-    }
-
-    function addCompleteGraph() {
-      // calculate the size of the complete graph to enter the network
-      var n_new_agents = expoSampling(lambda);
-
-      while (n_new_agents <= 1) {
-        var n_new_agents = expoSampling(lambda);
-      }
-
-      // get index from new nodes
-      var new_agent_names = [];
-      for (let n = last_agent_index; n < last_agent_index + n_new_agents; n++) {
-        new_agent_names.push(n);
-      }
-      last_agent_index += n_new_agents;
-
-      size_network = agent_names.length;
-
-      // apply model
-      var new_repeated_agents = Math.round(a * (size_network) + b - total_repeated_agents);
-
-      if (new_repeated_agents > 0) {
-
-        var minimo = Math.min(new_repeated_agents, new_agent_names.length);
-
-        for (let i = 0; i < minimo; i++) {
-
-          if ((Math.random() <= proba) && (repeated_agent_names.length > 0)) {
-
-            id_old = repeated_agent_names[Math.floor(Math.random() * repeated_agent_names.length)];
-
-          } else {
-
-            let difference = agent_names.filter(x => !repeated_agent_names.includes(x));
-
-            id_old = difference[Math.floor(Math.random() * difference.length)];
-
-            total_repeated_agents += 1;
-          }
-
-          new_agent_names[i] = id_old;
-          repeated_agent_names.push(id_old);
+        "nodes": {
+          "shape": "dot",
+          "size": 10,
+        },
+        "interaction": {
+          "dragNodes": false,
+          "dragView": true
         }
       }
-      
-      for (let i = 0; i < new_agent_names.length; i++) {
-        if (!agent_names.includes(new_agent_names[i])){
+
+      function startNewNetwork() {
+        a = parseFloat(document.getElementById("recidivism_rate").value);
+        b = parseFloat(document.getElementById("beta_parameter").value);
+
+        last_agent_index = 0;
+        total_repeated_agents = 0;
+
+        repeated_agent_names = [];
+        agent_names = [];
+
+        nodes = new vis.DataSet();
+        edges = new vis.DataSet();
+
+        data = {
+          nodes: nodes,
+          edges: edges,
+        };
+
+        return network = new vis.Network(container, data, options);
+      }
+
+      function expoSampling(scale) {
+        return Math.round(-scale * Math.log(1.0 - Math.random()));
+      }
+
+      function addCompleteGraph() {
+        // calculate the size of the complete graph to enter the network
+        var n_new_agents = expoSampling(lambda);
+
+        while (n_new_agents <= 1) {
+          var n_new_agents = expoSampling(lambda);
+        }
+
+        // get index from new nodes
+        var new_agent_names = [];
+        for (let n = last_agent_index; n < last_agent_index + n_new_agents; n++) {
+          new_agent_names.push(n);
+        }
+        last_agent_index += n_new_agents;
+
+        size_network = agent_names.length;
+
+        // apply model
+        var new_repeated_agents = Math.round(a * (size_network) + b - total_repeated_agents);
+
+        if (new_repeated_agents > 0) {
+
+          var minimo = Math.min(new_repeated_agents, new_agent_names.length);
+
+          for (let i = 0; i < minimo; i++) {
+
+            if ((Math.random() <= proba) && (repeated_agent_names.length > 0)) {
+
+              id_old = repeated_agent_names[Math.floor(Math.random() * repeated_agent_names.length)];
+
+            } else {
+
+              let difference = agent_names.filter(x => !repeated_agent_names.includes(x));
+
+              id_old = difference[Math.floor(Math.random() * difference.length)];
+
+              total_repeated_agents += 1;
+            }
+
+            new_agent_names[i] = id_old;
+            repeated_agent_names.push(id_old);
+          }
+        }
+
+        for (let i = 0; i < new_agent_names.length; i++) {
+          if (!agent_names.includes(new_agent_names[i])) {
             agent_names.push(new_agent_names[i])
           }
-      }
+        }
 
-      // add complete graph to the network
-      for (let n = 0; n < new_agent_names.length; n++) {
-        nodes.update({
-          id: new_agent_names[n]
-         })
-      }
+        // add complete graph to the network
+        for (let n = 0; n < new_agent_names.length; n++) {
+          nodes.update({
+            id: new_agent_names[n]
+          })
+        }
 
-      for (let i = 0; i < new_agent_names.length; i++) {
-        for (let j = i + 1; j < new_agent_names.length; j++) {
-          let i_ = new_agent_names[i];
-          let j_ = new_agent_names[j];
+        for (let i = 0; i < new_agent_names.length; i++) {
+          for (let j = i + 1; j < new_agent_names.length; j++) {
+            let i_ = new_agent_names[i];
+            let j_ = new_agent_names[j];
 
-          if (i_ != j_) {
-            edges.update({
-              from: i_,
-              to: j_
-            });
+            if (i_ != j_) {
+              edges.update({
+                from: i_,
+                to: j_
+              });
+            }
           }
         }
+        network.fit();
       }
-      network.fit();
-    }
 
-    // button dynamics
-    const numSeconds = 1
-    document.querySelector('#add_new_scandal').addEventListener('click', (e) => {
-      e.target.disabled = true
-      setTimeout(() => {
-        e.target.disabled = false
-      }, numSeconds * 500)
-    })
+      // button dynamics
+      const numSeconds = 1
+      document.querySelector('#add_new_scandal').addEventListener('click', (e) => {
+        e.target.disabled = true
+        setTimeout(() => {
+          e.target.disabled = false
+        }, numSeconds * 500)
+      })
 
-    function enableAddGraph() {
-      document.getElementById("add_new_scandal").disabled = false;
-    }
+      function enableAddGraph() {
+        document.getElementById("add_new_scandal").disabled = false;
+      }
 
     </script>
 
   </body>
 
 </html>
-
 
     </div>
 
@@ -1363,7 +1432,7 @@
       
     
     
-    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
 
     
   <script async defer src="https://buttons.github.io/buttons.js"></script>
