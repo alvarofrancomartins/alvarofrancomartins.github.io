@@ -91,6 +91,14 @@
       
     
     
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
 
     
     
@@ -368,35 +376,9 @@
   
 
   <style>
-.article-container {
-   max-width: 1000px;
-}
-
-code[class*="language-"],
-
-pre[class*="language-"] {
-  color: #ccc;
-  background: none;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  font-size: 1.2em; 
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-  word-break: normal;
-  word-wrap: normal;
-  line-height: 1.5;
-  padding-left: 2.5px;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-
-}
+  .article-container {
+     max-width: 1000px;
+  }
 </style>
 
   <title>A computational model for political corruption networks | Alvaro Franco Martins</title>
@@ -966,75 +948,74 @@ pre[class*="language-"] {
   </body>
 
 </html>
-<pre><code class="language-py">def generate_net_incremental(tmax = 100, lambda_ = 7.33, a = 0.09, b = -11.5, proba = 0.024):
-    &quot;&quot;&quot;
-    Generate a corruption network based on our model.
-    
-    Parameters
-    ---------
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_net_incremental</span>(tmax <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>, lambda_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">7.33</span>, a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.09</span>, b <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">11.5</span>, proba <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.024</span>):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Generate a corruption network based on our model.
+</span><span style="color:#e6db74">    
+</span><span style="color:#e6db74">    Parameters
+</span><span style="color:#e6db74">    ---------
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    tmax : int
+</span><span style="color:#e6db74">           Number iteration steps (default: 100).
+</span><span style="color:#e6db74">    lambda_ : float
+</span><span style="color:#e6db74">           Characteristic number of people per scandal.
+</span><span style="color:#e6db74">    a, b : int
+</span><span style="color:#e6db74">           Parameters defining the number of repeated agents (nr) as a function
+</span><span style="color:#e6db74">           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
+</span><span style="color:#e6db74">    proba : float
+</span><span style="color:#e6db74">            Probabilty selecting a repeated agent that was already involved in
+</span><span style="color:#e6db74">            another scandal (default: 0.024091841863485983).
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    Returns
+</span><span style="color:#e6db74">    -------
+</span><span style="color:#e6db74">    links_list : list of ndarrays
+</span><span style="color:#e6db74">                 A list of ndarrays where each element is ndarray with the edge
+</span><span style="color:#e6db74">                 list at a particular iteration step.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
 
-    tmax : int
-           Number iteration steps (default: 100).
-    lambda_ : float
-           Characteristic number of people per scandal.
-    a, b : int
-           Parameters defining the number of repeated agents (nr) as a function
-           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
-    proba : float
-            Probabilty selecting a repeated agent that was already involved in
-            another scandal (default: 0.024091841863485983).
+    t                          <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    links                      <span style="color:#f92672">=</span> []
+    links_list                 <span style="color:#f92672">=</span> []
+    agent_names                <span style="color:#f92672">=</span> set()
+    last_agent_index           <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    repeated_agent_names       <span style="color:#f92672">=</span> set()
+    total_repeated_agents      <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
 
-    Returns
-    -------
-    links_list : list of ndarrays
-                 A list of ndarrays where each element is ndarray with the edge
-                 list at a particular iteration step.
-    &quot;&quot;&quot;
+    <span style="color:#66d9ef">while</span> t <span style="color:#f92672">&lt;</span> tmax:
+        n_new_agents <span style="color:#f92672">=</span> int(np<span style="color:#f92672">.</span>round(np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>exponential(lambda_)))
 
-    t                          = 0
-    links                      = []
-    links_list                 = []
-    agent_names                = set()
-    last_agent_index           = 0
-    repeated_agent_names       = set()
-    total_repeated_agents      = 0
+        <span style="color:#66d9ef">if</span> n_new_agents <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
 
-    while t &lt; tmax:
-        n_new_agents = int(np.round(np.random.exponential(lambda_)))
+            new_agent_names     <span style="color:#f92672">=</span> [x <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> np<span style="color:#f92672">.</span>arange(last_agent_index, last_agent_index <span style="color:#f92672">+</span> n_new_agents)]
+            last_agent_index   <span style="color:#f92672">+=</span> n_new_agents
 
-        if n_new_agents &gt; 1:
+            new_repeated_agents <span style="color:#f92672">=</span> int(np<span style="color:#f92672">.</span>round((a<span style="color:#f92672">*</span>(len(agent_names)) <span style="color:#f92672">+</span> b <span style="color:#f92672">-</span> total_repeated_agents)))
 
-            new_agent_names     = [x for x in np.arange(last_agent_index, last_agent_index + n_new_agents)]
-            last_agent_index   += n_new_agents
+            <span style="color:#66d9ef">if</span> new_repeated_agents <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+                <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(min(new_repeated_agents, len(new_agent_names))):
 
-            new_repeated_agents = int(np.round((a*(len(agent_names)) + b - total_repeated_agents)))
+                    <span style="color:#66d9ef">if</span> (np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>uniform() <span style="color:#f92672">&lt;=</span> proba) <span style="color:#f92672">&amp;</span> (len(repeated_agent_names) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>):
+                        <span style="color:#75715e">#select from repeated_agent_names</span>
+                        repeated_agent <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice(list(repeated_agent_names))
+                    <span style="color:#66d9ef">else</span>:
+                        <span style="color:#75715e">#select from agent_names</span>
+                        repeated_agent <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>choice(list(repeated_agent_names<span style="color:#f92672">^</span>agent_names))
+                        total_repeated_agents <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 
-            if new_repeated_agents &gt; 0:
-                for i in range(min(new_repeated_agents, len(new_agent_names))):
+                    new_agent_names[i] <span style="color:#f92672">=</span> repeated_agent
+                    repeated_agent_names<span style="color:#f92672">.</span>add(repeated_agent)
 
-                    if (np.random.uniform() &lt;= proba) &amp; (len(repeated_agent_names) &gt; 0):
-                        #select from repeated_agent_names
-                        repeated_agent = np.random.choice(list(repeated_agent_names))
-                    else:
-                        #select from agent_names
-                        repeated_agent = np.random.choice(list(repeated_agent_names^agent_names))
-                        total_repeated_agents += 1
-
-                    new_agent_names[i] = repeated_agent
-                    repeated_agent_names.add(repeated_agent)
-
-            for agent_ in new_agent_names:
-                agent_names.add(agent_)
+            <span style="color:#66d9ef">for</span> agent_ <span style="color:#f92672">in</span> new_agent_names:
+                agent_names<span style="color:#f92672">.</span>add(agent_)
             
-            new_links = np.asarray(list(combinations(new_agent_names, 2))).tolist()
+            new_links <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>asarray(list(combinations(new_agent_names, <span style="color:#ae81ff">2</span>)))<span style="color:#f92672">.</span>tolist()
 
-            links      += new_links
-            links_list += [np.asarray(links)]
-            t          += 1
+            links      <span style="color:#f92672">+=</span> new_links
+            links_list <span style="color:#f92672">+=</span> [np<span style="color:#f92672">.</span>asarray(links)]
+            t          <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
             
-    return links_list
-</code></pre>
-
+    <span style="color:#66d9ef">return</span> links_list
+</code></pre></div>
     </div>
 
     
@@ -1371,6 +1352,17 @@ pre[class*="language-"] {
       
 
       
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
 
     
 
@@ -1438,10 +1430,11 @@ pre[class*="language-"] {
       
     
     
-    <script src="/en/js/wowchemy.min.ea2c153d3e439b91646a77d67da36b6a.js"></script>
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
 
     
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
 
 
 

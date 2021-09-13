@@ -58,6 +58,17 @@ taxonomies:
   author: authors
 markup:
   _merge: deep
+  highlight:
+    anchorLineNos: true
+    codeFences: true
+    guessSyntax: false
+    hl_Lines: ""
+    lineAnchors: ""
+    lineNoStart: 1
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: true
+    tabWidth: 4
 related:
   threshold: 80
   includeNewer: true
@@ -67,3 +78,5 @@ related:
       weight: 100
     - name: categories
       weight: 70
+
+
