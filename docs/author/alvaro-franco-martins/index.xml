@@ -36,25 +36,34 @@
       }
 
       .input-group {
-        width: 70%;
-        padding:  5px;
+        width: 80%;
+        padding:  0px;
       }
 
-      .form-control {
+      .my_input {
         border: solid 1px #ccc;
 
-        height:100%; 
-        padding:18px;
+        padding-left: 10px;
+
+        border-radius: 5px;
+        margin-bottom: 5px;
+
         }
 
       .btn-primary{
-        font-size: 16px;
-        margin: 1.6px 3px;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
       }
 
       .btn-outline-primary{
-        font-size: 16px;
-        margin: 1.6px 1px;
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .row {
+        margin-left:2px;
       }
 }
 
@@ -66,13 +75,15 @@
 
   &lt;body&gt;
     &lt;div class=&#34;input-group&#34;&gt;
+      &lt;label style=&#34;font-size:28px;padding-top:5px;&#34;&gt;$\alpha$ &amp;nbsp&lt;/label&gt;&lt;input class = &#34;my_input&#34; type=&#34;number&#34; name=&#34;recidivism_rate&#34; min=0 max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; /&gt;
 
-      &lt;label style=&#34;font-size:28px;padding-top:5px; &#34;&gt;$\alpha$ &amp;nbsp&lt;/label&gt;&lt;input type=&#34;number&#34; name=&#34;recidivism_rate&#34; min=0 max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; class=&#34;form-control&#34; /&gt;
+      &lt;label style=&#34;font-size:28px;padding-top:5px;&#34;&gt;&amp;nbsp&amp;nbsp $\beta$ &amp;nbsp&lt;/label&gt;&lt;input class = &#34;my_input&#34; type=&#34;number&#34; name=&#34;beta_parameter&#34; min=-100 max=0 step=-1 value=-11 id=&#34;beta_parameter&#34; /&gt;
 
-      &lt;label style=&#34;font-size:28px;padding-top:5px;&#34;&gt;&amp;nbsp&amp;nbsp $\beta$ &amp;nbsp&lt;/label&gt;&lt;input type=&#34;number&#34; name=&#34;beta_parameter&#34; min=-100 max=0 step=-1 value=-11 id=&#34;beta_parameter&#34; class=&#34;form-control&#34; /&gt;
+      &lt;div class=&#34;row&#34;&gt;
+        &lt;button id=&#34;startNewNetwork&#34; class=&#34;btn btn-primary&#34; onclick=&#34;startNewNetwork();addCompleteGraph();enableAddGraph();&#34;&gt;Start new network&lt;/button&gt;
+        &lt;button id=&#34;add_new_scandal&#34; class=&#34;btn btn-outline-primary&#34; onclick=&#34;addCompleteGraph();&#34; disabled&gt;Add new scandal&lt;/button&gt;
+      &lt;/div&gt;
 
-      &lt;button id=&#34;startNewNetwork&#34; class=&#34;btn btn-primary&#34; onclick=&#34;startNewNetwork();addCompleteGraph();enableAddGraph();&#34;&gt;Start new network&lt;/button&gt;
-      &lt;button id=&#34;add_new_scandal&#34; class=&#34;btn btn-outline-primary&#34; onclick=&#34;addCompleteGraph();&#34; disabled&gt;Add new scandal&lt;/button&gt;
     &lt;/div&gt;
 
     &lt;div id=&#34;mynetwork&#34;&gt;&lt;/div&gt;
