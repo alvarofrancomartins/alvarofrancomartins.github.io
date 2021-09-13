@@ -762,8 +762,15 @@
 
       .input-group {
         width: 70%;
-        padding:  0px;
+        padding:  5px;
       }
+
+      .form-control {
+        border: solid 1px #ccc;
+
+        height:100%; 
+        padding:15px;
+        }
 
       .btn-primary{
         font-size: 16px;
@@ -774,7 +781,6 @@
         font-size: 16px;
         margin: 1px 1px;
       }
-
 }
 
     </style>
@@ -786,9 +792,9 @@
   <body>
     <div class="input-group">
 
-      <label style="font-size:28px;">$\alpha$ &nbsp</label><input style="height:100%; padding:15px;" type="number" name="recidivism_rate" min=0 max=1 step=0.001 value=0.142 id="recidivism_rate" class="form-control" />
+      <label style="font-size:28px;">$\alpha$ &nbsp</label><input type="number" name="recidivism_rate" min=0 max=1 step=0.001 value=0.142 id="recidivism_rate" class="form-control" />
 
-      <label style="font-size:28px;">&nbsp&nbsp $\beta$ &nbsp</label><input style="height:100%; padding:15px;" type="number" name="beta_parameter" min=-100 max=0 step=-1 value=-11 id="beta_parameter" class="form-control" />
+      <label style="font-size:28px;">&nbsp&nbsp $\beta$ &nbsp</label><input type="number" name="beta_parameter" min=-100 max=0 step=-1 value=-11 id="beta_parameter" class="form-control" />
 
       <button id="startNewNetwork" class="btn btn-primary" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
       <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
