@@ -67,7 +67,7 @@ address_format: en-us
 
 # Site features
 
-highlight: false
+highlight: true
 highlight_languages:
   - r
   - python
