@@ -380,8 +380,37 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
 
   
 
-  
+  <style>
+.article-container {
+   max-width: 1000px;
+}
 
+code[class*="language-"],
+
+pre[class*="language-"] {
+  color: #ccc;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 1.2em; 
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  padding-left: 2.5px;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+</style>
 
 
 
@@ -767,7 +796,7 @@ data.head()
 <p>Demo:</p>
 
 
-<div id="chart-491687253" class="chart"></div>
+<div id="chart-795316482" class="chart"></div>
 <script>
   (function() {
     let a = setInterval( function() {
@@ -777,7 +806,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json("./line-chart.json", function(chart) {
-        Plotly.plot('chart-491687253', chart.data, chart.layout, {responsive: true});
+        Plotly.plot('chart-795316482', chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
