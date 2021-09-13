@@ -31,9 +31,10 @@ categories:
 
 ---
 
-## A
+# Play with the model
 
-### C
+{{< include-html "content/post/model/model.html" >}}
+
 
 ```py
 def generate_net_incremental(tmax = 100, lambda_ = 7.33, a = 0.09, b = -11.5, proba = 0.024):
@@ -104,7 +105,3 @@ def generate_net_incremental(tmax = 100, lambda_ = 7.33, a = 0.09, b = -11.5, pr
             
     return links_list
 ```
-
-Teste teste testea
-
-{{< include-html "content/post/model/model.html" >}}
