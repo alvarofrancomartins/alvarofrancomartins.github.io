@@ -15,8 +15,8 @@ font_size: L
 site_type: Person
 local_business_type: ''
 org_name: ''
-description: ''
-twitter: ''
+description: 'Data Scientist'
+twitter: 'alvarofmartins'
 
 # Contact (edit or remove options as required)
 
@@ -90,10 +90,10 @@ show_related:
   project: true
   publication: true
   event: true
-reading_time: true
+reading_time: false
 section_pager: false
 docs_section_pager: true
-sharing: true
+sharing: false
 copyright_license:
   enable: false
   allow_derivatives: false
@@ -142,7 +142,7 @@ map:
 marketing:
   google_analytics: ''
   google_tag_manager: ''
-  google_site_verification: ''
+  google_site_verification: 'U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU'
   baidu_site_verification: ''
   baidu_tongji: ''
 cms:
