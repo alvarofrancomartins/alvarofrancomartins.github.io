@@ -9486,6 +9486,3 @@ div.chart {
   margin-right: auto;
   margin-bottom: 1rem;
   overflow-x: auto; }
-
-#about {
-  background-color: #c9c9c9; }
