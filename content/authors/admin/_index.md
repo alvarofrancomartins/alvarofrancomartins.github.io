@@ -26,9 +26,9 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  # - course: PhD in Physics
-  #   institution: State University of Maringá
-  #   year: 2024
+  - course: PhD Student 
+    institution: State University of Maringá
+    year: 2021-2024
   - course: MSc in Physics
     institution: State University of Maringá
     year: 2021
@@ -74,8 +74,7 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-NaN
+Ut porttitor mollis lacus, id rhoncus metus luctus quis. Nam id leo a sapien ullamcorper sollicitudin. Fusce a nunc at risus consectetur condimentum sit amet nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed bibendum blandit nibh, placerat posuere est commodo sit amet. Donec posuere non nibh ut interdum. Aliquam eget rutrum tellus. Duis et pharetra augue. Donec blandit rutrum ultricies. Proin facilisis augue ac purus pulvinar iaculis. Phasellus faucibus lobortis ultricies. Aliquam erat volutpat. Mauris accumsan vel ex a porta. Vivamus tempor volutpat ante, sit amet rhoncus libero sodales eget. Sed vestibulum lacus sit amet tristique interdum. Donec ultricies interdum ipsum, ac elementum enim ultricies eget.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.

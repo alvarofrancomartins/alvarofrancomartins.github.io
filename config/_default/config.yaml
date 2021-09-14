@@ -58,7 +58,7 @@ taxonomies:
   author: authors
 markup:
   highlight:
-    noClasses: true
+    noClasses: false
     tabWidth: 4
 related:
   threshold: 80
