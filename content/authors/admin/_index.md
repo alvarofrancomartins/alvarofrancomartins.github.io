@@ -14,7 +14,7 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: NaN.
+bio: Physicist working on complex networks and data science.
 
 # Interests to show in About widget
 interests:
@@ -74,7 +74,7 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-Ut porttitor mollis lacus, id rhoncus metus luctus quis. Nam id leo a sapien ullamcorper sollicitudin. Fusce a nunc at risus consectetur condimentum sit amet nec elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed bibendum blandit nibh, placerat posuere est commodo sit amet. Donec posuere non nibh ut interdum. Aliquam eget rutrum tellus. Duis et pharetra augue. Donec blandit rutrum ultricies. Proin facilisis augue ac purus pulvinar iaculis. Phasellus faucibus lobortis ultricies. Aliquam erat volutpat. Mauris accumsan vel ex a porta. Vivamus tempor volutpat ante, sit amet rhoncus libero sodales eget. Sed vestibulum lacus sit amet tristique interdum. Donec ultricies interdum ipsum, ac elementum enim ultricies eget.
+Physicist working on complex networks and data science.
 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
