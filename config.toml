@@ -2,3 +2,6 @@ baseURL = "https://alvarofrancomartins.com/"
 languageCode = "en-us"
 title = "Alvaro Franco Martins"
 publishDir = "docs"
+
+
+pygmentsUseClassic = false
