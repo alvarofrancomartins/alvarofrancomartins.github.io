@@ -767,16 +767,16 @@ data.head()
 ```
 </code></pre>
 <p>renders as</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
-data <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_csv(<span style="color:#e6db74">&#34;data.csv&#34;</span>)
-data<span style="color:#f92672">.</span>head()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&#34;data.csv&#34;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div><h3 id="charts">Charts</h3>
 <p>Academic supports the popular <a href="https://plot.ly/" target="_blank" rel="noopener">Plotly</a> chart format.</p>
 <p>Save your Plotly JSON in your page folder, for example <code>chart.json</code>, and then add the <code>{{&lt; chart data=&quot;chart&quot; &gt;}}</code> shortcode where you would like the chart to appear.</p>
 <p>Demo:</p>
 
 
-<div id="chart-948157623" class="chart"></div>
+<div id="chart-182935476" class="chart"></div>
 <script>
   (function() {
     let a = setInterval( function() {
@@ -786,7 +786,7 @@ data<span style="color:#f92672">.</span>head()
       clearInterval( a );
 
       Plotly.d3.json("./line-chart.json", function(chart) {
-        Plotly.plot('chart-948157623', chart.data, chart.layout, {responsive: true});
+        Plotly.plot('chart-182935476', chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
@@ -796,16 +796,16 @@ data<span style="color:#f92672">.</span>head()
 <p>Academic supports a Markdown extension for $\LaTeX$ math. You can enable this feature by toggling the <code>math</code> option in your <code>config/_default/params.toml</code> file.</p>
 <p>To render <em>inline</em> or <em>block</em> math, wrap your LaTeX math with <code>$...$</code> or <code>$$...$$</code>, respectively.</p>
 <p>Example <strong>math block</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$$</span>\gamma_{n} <span style="color:#f92672">=</span> \frac{ 
-\left | \left <span style="color:#f92672">(</span>\mathbf x_{n} <span style="color:#f92672">-</span> \mathbf x_{n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>} \right <span style="color:#f92672">)</span>^T 
-\left <span style="color:#f92672">[</span>\nabla F <span style="color:#f92672">(</span>\mathbf x_{n}<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> \nabla F <span style="color:#f92672">(</span>\mathbf x_{n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}<span style="color:#f92672">)</span> \right <span style="color:#f92672">]</span> \right |}
-{\left \|\nabla F<span style="color:#f92672">(</span>\mathbf{x}_{n}<span style="color:#f92672">)</span> <span style="color:#f92672">-</span> \nabla F<span style="color:#f92672">(</span>\mathbf{x}_{n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}<span style="color:#f92672">)</span> \right \|^<span style="color:#ae81ff">2</span>}<span style="color:#e6db74">$$</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-latex" data-lang="latex"><span class="sb">$$</span><span class="nv">\gamma</span><span class="nb">_{n} </span><span class="o">=</span><span class="nb"> </span><span class="nv">\frac</span><span class="nb">{ 
+</span><span class="nb"></span><span class="nv">\left</span><span class="nb"> | </span><span class="nv">\left</span><span class="nb"> </span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb"> x_{n} </span><span class="o">-</span><span class="nb"> </span><span class="nv">\mathbf</span><span class="nb"> x_{n</span><span class="o">-</span><span class="m">1</span><span class="nb">} </span><span class="nv">\right</span><span class="nb"> </span><span class="o">)</span><span class="nb">^T 
+</span><span class="nb"></span><span class="nv">\left</span><span class="nb"> </span><span class="o">[</span><span class="nv">\nabla</span><span class="nb"> F </span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb"> x_{n}</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> </span><span class="nv">\nabla</span><span class="nb"> F </span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb"> x_{n</span><span class="o">-</span><span class="m">1</span><span class="nb">}</span><span class="o">)</span><span class="nb"> </span><span class="nv">\right</span><span class="nb"> </span><span class="o">]</span><span class="nb"> </span><span class="nv">\right</span><span class="nb"> |}
+</span><span class="nb">{</span><span class="nv">\left</span><span class="nb"> </span><span class="nv">\|\nabla</span><span class="nb"> F</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}_{n}</span><span class="o">)</span><span class="nb"> </span><span class="o">-</span><span class="nb"> </span><span class="nv">\nabla</span><span class="nb"> F</span><span class="o">(</span><span class="nv">\mathbf</span><span class="nb">{x}_{n</span><span class="o">-</span><span class="m">1</span><span class="nb">}</span><span class="o">)</span><span class="nb"> </span><span class="nv">\right</span><span class="nb"> </span><span class="nv">\|</span><span class="nb">^</span><span class="m">2</span><span class="nb">}</span><span class="s">$$</span>
 </code></pre></div><p>renders as</p>
 <p>$$\gamma_{n} = \frac{ \left | \left (\mathbf x_{n} - \mathbf x_{n-1} \right )^T \left [\nabla F (\mathbf x_{n}) - \nabla F (\mathbf x_{n-1}) \right ] \right |}{\left |\nabla F(\mathbf{x}_{n}) - \nabla F(\mathbf{x}_{n-1}) \right |^2}$$</p>
 <p>Example <strong>inline math</strong> <code>$\nabla F(\mathbf{x}_{n})$</code> renders as $\nabla F(\mathbf{x}_{n})$.</p>
 <p>Example <strong>multi-line math</strong> using the <code>\\\\</code> math linebreak:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$$</span>f<span style="color:#f92672">(</span>k;p_{<span style="color:#ae81ff">0</span>}^{<span style="color:#f92672">*</span>}<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> \begin{cases}p_{<span style="color:#ae81ff">0</span>}^{<span style="color:#f92672">*</span>} &amp; \text{if }k<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, \\\\
-<span style="color:#ae81ff">1</span><span style="color:#f92672">-</span>p_{<span style="color:#ae81ff">0</span>}^{<span style="color:#f92672">*</span>} &amp; \text{if }k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>.\end{cases}<span style="color:#e6db74">$$</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-latex" data-lang="latex"><span class="sb">$$</span><span class="nb">f</span><span class="o">(</span><span class="nb">k;p_{</span><span class="m">0</span><span class="nb">}^{</span><span class="o">*</span><span class="nb">}</span><span class="o">)</span><span class="nb"> </span><span class="o">=</span><span class="nb"> </span><span class="nv">\begin</span><span class="nb">{cases}p_{</span><span class="m">0</span><span class="nb">}^{</span><span class="o">*</span><span class="nb">} &amp; </span><span class="nv">\text</span><span class="nb">{if }k</span><span class="o">=</span><span class="m">1</span><span class="nb">, </span><span class="nv">\\\\</span><span class="nb">
+</span><span class="nb"></span><span class="m">1</span><span class="o">-</span><span class="nb">p_{</span><span class="m">0</span><span class="nb">}^{</span><span class="o">*</span><span class="nb">} &amp; </span><span class="nv">\text</span><span class="nb">{if }k</span><span class="o">=</span><span class="m">0</span><span class="nb">.</span><span class="nv">\end</span><span class="nb">{cases}</span><span class="s">$$</span>
 </code></pre></div><p>renders as</p>
 <p>$$f(k;p_{0}^{*}) = \begin{cases}p_{0}^{*} &amp; \text{if }k=1, \\<br>
 1-p_{0}^{*} &amp; \text{if }k=0.\end{cases}$$</p>
@@ -928,9 +928,9 @@ Moving --&gt; Crash
 Crash --&gt; [*]
 </code></pre><h3 id="todo-lists">Todo lists</h3>
 <p>You can even write your todo lists in Academic too:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"><span style="color:#66d9ef">- [x]</span> Write math example
-<span style="color:#66d9ef">- [x]</span> Write diagram example
-<span style="color:#66d9ef">- [ ]</span> Do something else
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="k">- [x]</span> Write math example
+<span class="k">- [x]</span> Write diagram example
+<span class="k">- [ ]</span> Do something else
 </code></pre></div><p>renders as</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> Write math example</li>
@@ -939,7 +939,7 @@ Crash --&gt; [*]
 </ul>
 <h3 id="tables">Tables</h3>
 <p>Represent your data in tables:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">| First Header  | Second Header |
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">| First Header  | Second Header |
 | ------------- | ------------- |
 | Content Cell  | Content Cell  |
 | Content Cell  | Content Cell  |
@@ -964,16 +964,16 @@ Crash --&gt; [*]
 </table>
 <h3 id="callouts">Callouts</h3>
 <p>Academic supports a <a href="https://wowchemy.com/docs/content/writing-markdown-latex/#callouts" target="_blank" rel="noopener">shortcode for callouts</a>, also referred to as <em>asides</em>, <em>hints</em>, or <em>alerts</em>. By wrapping a paragraph in <code>{{% callout note %}} ... {{% /callout %}}</code>, it will render as an aside.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">{{% callout note %}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">{{% callout note %}}
 A Markdown aside is useful for displaying notices, hints, or definitions to your readers.
 {{% /callout %}}
 </code></pre></div><p>renders as</p>
 <!-- raw HTML omitted -->
 <h3 id="spoilers">Spoilers</h3>
 <p>Add a spoiler to a page to reveal text, such as an answer to a question, after a button is clicked.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">{{&lt; <span style="color:#f92672">spoiler</span> <span style="color:#a6e22e">text</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Click to view the spoiler&#34;</span> &gt;}}
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">spoiler</span> <span class="na">text</span><span class="o">=</span><span class="s">&#34;Click to view the spoiler&#34;</span> <span class="p">&gt;</span>}}
 You found me!
-{{&lt; /<span style="color:#f92672">spoiler</span> &gt;}}
+{{<span class="p">&lt;</span> <span class="p">/</span><span class="nt">spoiler</span> <span class="p">&gt;</span>}}
 </code></pre></div><p>renders as</p>
 <details class="spoiler "  id="spoiler-2">
   <summary>Click to view the spoiler</summary>
@@ -982,9 +982,9 @@ You found me!
 <h3 id="icons">Icons</h3>
 <p>Academic enables you to use a wide range of <a href="https://sourcethemes.com/academic/docs/page-builder/#icons" target="_blank" rel="noopener">icons from <em>Font Awesome</em> and <em>Academicons</em></a> in addition to <a href="https://sourcethemes.com/academic/docs/writing-markdown-latex/#emojis" target="_blank" rel="noopener">emojis</a>.</p>
 <p>Here are some examples using the <code>icon</code> shortcode to render icons:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">{{&lt; <span style="color:#f92672">icon</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;terminal&#34;</span> <span style="color:#a6e22e">pack</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fas&#34;</span> &gt;}} Terminal  
-{{&lt; <span style="color:#f92672">icon</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;python&#34;</span> <span style="color:#a6e22e">pack</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab&#34;</span> &gt;}} Python  
-{{&lt; <span style="color:#f92672">icon</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;r-project&#34;</span> <span style="color:#a6e22e">pack</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fab&#34;</span> &gt;}} R
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown">{{<span class="p">&lt;</span> <span class="nt">icon</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;terminal&#34;</span> <span class="na">pack</span><span class="o">=</span><span class="s">&#34;fas&#34;</span> <span class="p">&gt;</span>}} Terminal  
+{{<span class="p">&lt;</span> <span class="nt">icon</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;python&#34;</span> <span class="na">pack</span><span class="o">=</span><span class="s">&#34;fab&#34;</span> <span class="p">&gt;</span>}} Python  
+{{<span class="p">&lt;</span> <span class="nt">icon</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;r-project&#34;</span> <span class="na">pack</span><span class="o">=</span><span class="s">&#34;fab&#34;</span> <span class="p">&gt;</span>}} R
 </code></pre></div><p>renders as</p>
 <p>
   <i class="fas fa-terminal  pr-1 fa-fw"></i> Terminal<br>
