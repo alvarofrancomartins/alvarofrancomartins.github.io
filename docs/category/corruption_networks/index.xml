@@ -5,12 +5,47 @@
     <link>https://alvarofrancomartins.com/category/corruption_networks/</link>
       <atom:link href="https://alvarofrancomartins.com/category/corruption_networks/index.xml" rel="self" type="application/rss+xml" />
     <description>corruption_networks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 13 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>corruption_networks</title>
       <link>https://alvarofrancomartins.com/category/corruption_networks/</link>
     </image>
+    
+    <item>
+      <title>Political corruption networks</title>
+      <link>https://alvarofrancomartins.com/post/political_corruption_networks/</link>
+      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/political_corruption_networks/</guid>
+      <description>&lt;h1 id=&#34;our-main-results&#34;&gt;Our main results&lt;/h1&gt;
+&lt;p&gt;We have studied the corruption networks of Brazil and Spain. Here I present our main findings:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The countries have distributions of people per scandal with approximately the same characteristic number ($\approx$ 7 people). It seems, therefore, that people usually act in small groups when involved in corruption processes.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The networks display small-world properties (high clustering coefficient and low average path length). However, corruption agents have tried to increase their distance as these networks have evolved. This result indicates an agreement with the so-called &lt;a href=&#34;https://www.jstor.org/stable/2095954&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;theory of secret societies&lt;/a&gt;, in which the evolution of illegal networks is assumed to maximize concealment.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The networks have degree distributions well described by exponential distributions. Moreover, their characteristic degrees have essentially the same evolving pattern.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The networks present modular structures and the number of modules grows linearly with the number of scandals.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by repeat offenders (i.e, individuals that are involved in at least two scandals).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The countries have number of repeat offenders that grows linearly with the total number of offenders. The recidivism rates (number of repeat offenders / total number of offenders) are 9% for Spain and 14,2% for Brazil, and stay the same throughout the entire network growth.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The repeat offenders are able to connect different parts of the network and function as brokers. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. The difference in the network metrics (such as density and average path length) are then explained by the difference in the recidivism rates.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal.&lt;/p&gt;
+&lt;p&gt;Our model have not only produced visually strikingly similar networks to the empirical ones, but were capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>A computational model for political corruption networks</title>
@@ -353,41 +388,6 @@
 &lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;&amp;lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&amp;gt;&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Political corruption networks</title>
-      <link>https://alvarofrancomartins.com/post/political_corruption_networks/</link>
-      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/political_corruption_networks/</guid>
-      <description>&lt;h1 id=&#34;our-main-results&#34;&gt;Our main results&lt;/h1&gt;
-&lt;p&gt;We have studied the corruption networks of Brazil and Spain. Here I present our main findings:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;The countries have distributions of people per scandal with approximately the same characteristic number ($\approx$ 7 people). It seems, therefore, that people usually act in small groups when involved in corruption processes.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The networks display small-world properties (high clustering coefficient and low average path length). However, corruption agents have tried to increase their distance as these networks have evolved. This result indicates an agreement with the so-called &lt;a href=&#34;https://www.jstor.org/stable/2095954&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;theory of secret societies&lt;/a&gt;, in which the evolution of illegal networks is assumed to maximize concealment.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The networks have degree distributions well described by exponential distributions. Moreover, their characteristic degrees have essentially the same evolving pattern.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The networks present modular structures and the number of modules grows linearly with the number of scandals.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by repeat offenders (i.e, individuals that are involved in at least two scandals).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The countries have number of repeat offenders that grows linearly with the total number of offenders. The recidivism rates (number of repeat offenders / total number of offenders) are 9% for Spain and 14,2% for Brazil, and stay the same throughout the entire network growth.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The repeat offenders are able to connect different parts of the network and function as brokers. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. The difference in the network metrics (such as density and average path length) are then explained by the difference in the recidivism rates.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal.&lt;/p&gt;
-&lt;p&gt;Our model have not only produced visually strikingly similar networks to the empirical ones, but were capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/p&gt;
 </description>
     </item>
     
