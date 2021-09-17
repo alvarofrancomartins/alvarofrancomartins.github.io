@@ -32,12 +32,6 @@
     <loc>https://alvarofrancomartins.com/tags/</loc>
     <lastmod>2020-12-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://alvarofrancomartins.com/slides/</loc>
-    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://alvarofrancomartins.com/slides/example/</loc>
-    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://alvarofrancomartins.com/publication-type/2/</loc>
     <lastmod>2018-01-24T00:00:00+00:00</lastmod>
   </url><url>
@@ -63,5 +57,7 @@
     <lastmod>2018-01-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alvarofrancomartins.com/admin/</loc>
+  </url><url>
+    <loc>https://alvarofrancomartins.com/experience/</loc>
   </url>
 </urlset>
