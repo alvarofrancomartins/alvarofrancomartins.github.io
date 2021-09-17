@@ -77,4 +77,4 @@ highlight_name: true
 Physicist working on complex networks and data science.
 
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}CV{{< /staticref >}}.

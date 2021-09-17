@@ -743,13 +743,14 @@
   <div class="article-container">
 
     <div class="article-style">
-      <details class="toc-inpage d-print-none  " open>
-  <summary class="font-weight-bold">Table of Contents</summary>
-  <nav id="TableOfContents"></nav>
-</details>
-
-<h1 id="the-model">The model</h1>
+      <h1 id="the-model">The model</h1>
 <p>$$r(n) = \alpha n + \beta$$</p>
+<ul>
+<li>$\alpha$: The recidivism rate, that is, number of repeat offenders / total offenders.</li>
+<li>$\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network.</li>
+<li>$p_a$: Probability of repeat offenders to reoffend in more than two cases.</li>
+<li>$1/\lambda$: Characteristic number of people per corruption scandals (found to be $\approx 7$ people).</li>
+</ul>
 <h1 id="play-with-the-model">Play with the model</h1>
 <p>Donec eget orci at felis auctor malesuada vel a ante. Aliquam dictum, tellus id pharetra varius, lacus elit auctor mi, ut consequat risus metus at neque. Praesent ut tortor quis magna eleifend pulvinar et sit amet libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis ut leo convallis, tristique risus nec, placerat mauris. Fusce urna orci, ullamcorper in metus sed, tincidunt efficitur tellus. Phasellus iaculis urna a orci pulvinar, at lacinia ligula cursus.</p>
 
@@ -988,7 +989,7 @@
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
 </code></pre></div><p><a href="https://git.skewed.de/count0/graph-tool/wikis/installation-instructions" target="_blank" rel="noopener">See graph-tool installation instructions.</a></p>
 <p>Duis ut leo convallis, tristique risus nec, placerat mauris. Fusce urna orci, ullamcorper in metus sed, tincidunt efficitur tellus. Phasellus iaculis urna a orci pulvinar, at lacinia ligula cursus. Vivamus ullamcorper purus in mauris volutpat, ac aliquet risus molestie. Nulla a nisi laoreet, imperdiet augue id, dictum magna. Integer vel quam nec augue maximus elementum nec et ex.</p>
-<details class="spoiler "  id="spoiler-2">
+<details class="spoiler "  id="spoiler-1">
   <summary>Click to view the full algorithm</summary>
   <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
     <span class="s2">&#34;&#34;&#34;

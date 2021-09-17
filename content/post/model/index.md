@@ -31,12 +31,14 @@ categories:
 
 ---
 
-{{< toc >}}
-
 # The model
 
 $$r(n) = \alpha n + \beta$$
 
+- $\alpha$: The recidivism rate, that is, number of repeat offenders / total offenders.
+- $\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network.
+- $p_a$: Probability of repeat offenders to reoffend in more than two cases.
+- $1/\lambda$: Characteristic number of people per corruption scandals (found to be $\approx 7$ people).
 
 # Play with the model
 
