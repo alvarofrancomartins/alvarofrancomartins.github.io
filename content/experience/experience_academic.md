@@ -39,7 +39,7 @@ date_format = "Jan 2006"
 [[experience]]
   title = "BSc in Physics"
   company = "State University of Maringá"
-  company_url = "http://uem.br"
+  company_url = "http://www.uem.br"
   location = "Maringá, Paraná, Brasil"
   date_start = "2014-03-01"
   date_end = "2018-12-01"
