@@ -14,9 +14,9 @@
     
     <item>
       <title>Political corruption networks</title>
-      <link>https://alvarofrancomartins.com/post/political_corruption_networks/</link>
+      <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
       <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/political_corruption_networks/</guid>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
       <description>&lt;h1 id=&#34;our-main-results&#34;&gt;Our main results&lt;/h1&gt;
 &lt;p&gt;We have studied the corruption networks of Brazil and Spain. Here I present our main findings:&lt;/p&gt;
 &lt;ol&gt;
@@ -49,9 +49,9 @@
     
     <item>
       <title>A computational model for political corruption networks</title>
-      <link>https://alvarofrancomartins.com/post/model/</link>
+      <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/model/</guid>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
       <description>&lt;h1 id=&#34;the-model&#34;&gt;The model&lt;/h1&gt;
 &lt;p&gt;$$r(n) = \alpha n + \beta$$&lt;/p&gt;
 &lt;ul&gt;
