@@ -56,4 +56,4 @@ We have studied the corruption networks of Brazil and Spain. Here I present our 
 
 Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal. 
 
-Our model have not only produced visually strikingly similar networks to the empirical ones, but were capable of describing all the evolving patterns (3, 4 and 5) discussed above.
+Our model have not only produced visually strikingly similar networks to the empirical ones, but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.
