@@ -392,6 +392,64 @@
     </item>
     
     <item>
+      <title>Ok</title>
+      <link>https://alvarofrancomartins.com/post/teste/</link>
+      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/teste/</guid>
+      <description>&lt;h1 id=&#34;hello&#34;&gt;Hello&lt;/h1&gt;
+&lt;p&gt;teste teste teste&lt;/p&gt;
+
+&lt;script src=&#34;https://d3js.org/d3.v4.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://d3js.org/d3-scale-chromatic.v1.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://d3js.org/d3-geo-projection.v2.min.js&#34;&gt;&lt;/script&gt;
+
+&lt;!-- Create an element where the map will take place --&gt;
+&lt;svg id=&#34;my_dataviz&#34; width=&#34;1000&#34; height=&#34;400&#34;&gt;&lt;/svg&gt;
+
+&lt;script&gt;
+var svg = d3.select(&#34;svg&#34;),
+  width = +svg.attr(&#34;width&#34;),
+  height = +svg.attr(&#34;height&#34;);
+
+var path = d3.geoPath();
+var projection = d3.geoMercator()
+  .scale(70)
+  .center([0,20])
+  .translate([width / 2, height / 2]);
+
+var data = d3.map();
+var colorScale = d3.scaleThreshold()
+  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .range(d3.schemeBlues[7]);
+
+d3.queue()
+  .defer(d3.json, &#34;https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson&#34;)
+  .defer(d3.csv,  &#34;https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv&#34;, function(d) { data.set(d.code, +d.pop); })
+  .await(ready);
+
+function ready(error, topo) {
+
+  // Draw the map
+  svg.append(&#34;g&#34;)
+    .selectAll(&#34;path&#34;)
+    .data(topo.features)
+    .enter()
+    .append(&#34;path&#34;)
+      // draw each country
+      .attr(&#34;d&#34;, d3.geoPath()
+        .projection(projection)
+      )
+      // set the color of each country
+      .attr(&#34;fill&#34;, function (d) {
+        d.total = data.get(d.id) || 0;
+        return colorScale(d.total);
+      });
+    }
+&lt;/script&gt;
+</description>
+    </item>
+    
+    <item>
       <title>The dynamical structure of political corruption networks</title>
       <link>https://alvarofrancomartins.com/publication/brazilian-corruption-network/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
