@@ -1,7 +1,7 @@
 ---
 title: "D3.js bars"
 date: 2020-03-24T00:00:00Z
-draft: false
+draft: true
 ---
 
 # Hello

@@ -392,20 +392,6 @@
     </item>
     
     <item>
-      <title>D3.js bars</title>
-      <link>https://alvarofrancomartins.com/post/teste/</link>
-      <pubDate>Tue, 24 Mar 2020 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/teste/</guid>
-      <description>&lt;h1 id=&#34;hello&#34;&gt;Hello&lt;/h1&gt;
-&lt;div class=&#34;visualisation&#34;&gt; &lt;/div&gt; &lt;!-- Hugo supports html in markdown --&gt;
-&lt;script src = &#34;https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.js&#34;&gt;&lt;/script&gt; &lt;!-- load d3.js from CDN. you could potentially load it from /static folder as well--&gt;
-&lt;script src = &#34;/example.js&#34;&gt;&lt;/script&gt; &lt;!-- this will pick our scipt up and render the chart --&gt;
-&lt;p&gt;Ok, so let&amp;rsquo;s start by dividing the plot into two equal parts. Ok, so let&amp;rsquo;s start by dividing the plot into two equal parts.
-Ok, so let&amp;rsquo;s start by dividing the plot into two equal parts.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>The dynamical structure of political corruption networks</title>
       <link>https://alvarofrancomartins.com/publication/brazilian-corruption-network/</link>
       <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
