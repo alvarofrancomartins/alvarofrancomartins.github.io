@@ -13,7 +13,7 @@
     </image>
     
     <item>
-      <title>Political corruption networks</title>
+      <title>Unveiling the hidden patterns of political corruption networks</title>
       <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
       <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
@@ -44,24 +44,37 @@
 &lt;/ol&gt;
 &lt;p&gt;Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal.&lt;/p&gt;
 &lt;p&gt;Our model have not only produced visually strikingly similar networks to the empirical ones, but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/p&gt;
+&lt;p&gt;All our results are better described in our &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;publication&lt;/a&gt; in the Journal X. Also, an interactive version of our model is available &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
-      <title>A computational model for political corruption networks</title>
+      <title>The computational model of political corruption networks</title>
       <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
-      <description>&lt;h1 id=&#34;the-model&#34;&gt;The model&lt;/h1&gt;
-&lt;p&gt;$$r(n) = \alpha n + \beta$$&lt;/p&gt;
+      <description>
+
+
+
+
+&lt;img src=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/redee_huc6360f0431f8b41f0608ca4af5426c9a_1848332_600x478_fit_lanczos_2.png&#34; width=&#34;600&#34; height=&#34;478&#34; alt=&#34;Alternate Text&#34;&gt;
+&lt;p&gt;In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and then show the Python code used to create the networks. This model is extensively described and studied in our &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;publication&lt;/a&gt; in Journal X. I also made a &lt;a href=&#34;https://www.alvarofrancomartins.com/post/corruption-networks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; of our main findings on the political corruption networks of Brazil and Spain.&lt;/p&gt;
+&lt;h1 id=&#34;the-model&#34;&gt;The model&lt;/h1&gt;
+&lt;p&gt;In summary, we have proposed the model based off two of our main findings about political corruption networks.&lt;/p&gt;
+&lt;p&gt;The first finding is that the number of people per scandal seems to follow an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.&lt;/p&gt;
+&lt;p&gt;The second finding is that the number of repeat offenders can be modeled by the following equation.&lt;/p&gt;
+&lt;p&gt;$$r(n) = \alpha n + \beta,$$&lt;/p&gt;
+&lt;p&gt;where $n$ is the total number of people. The parameters are&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;$\alpha$: The recidivism rate, that is, number of repeat offenders / total offenders.&lt;/li&gt;
+&lt;li&gt;$\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). It can go from $0$ to $1$.&lt;/li&gt;
 &lt;li&gt;$\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network.&lt;/li&gt;
-&lt;li&gt;$p_a$: Probability of repeat offenders to reoffend in more than two cases.&lt;/li&gt;
-&lt;li&gt;$1/\lambda$: Characteristic number of people per corruption scandals (found to be $\approx 7$ people).&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;And that is basically it&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. If you want to see in detail how the model was written, skip to the &lt;a href=&#34;#algorithm&#34;&gt;algorithm&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The networks in our model grows by the addition of &amp;ldquo;scandals&amp;rdquo; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Complete_graph&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;complete graphs&lt;/a&gt;. The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offender $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. And, since the model is stochastic, every new network will be different.&lt;/p&gt;
 &lt;h1 id=&#34;play-with-the-model&#34;&gt;Play with the model&lt;/h1&gt;
-&lt;p&gt;Donec eget orci at felis auctor malesuada vel a ante. Aliquam dictum, tellus id pharetra varius, lacus elit auctor mi, ut consequat risus metus at neque. Praesent ut tortor quis magna eleifend pulvinar et sit amet libero. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis ut leo convallis, tristique risus nec, placerat mauris. Fusce urna orci, ullamcorper in metus sed, tincidunt efficitur tellus. Phasellus iaculis urna a orci pulvinar, at lacinia ligula cursus.&lt;/p&gt;
+&lt;p&gt;Below you can grow the networks generated by our model&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; and see how it evolves as you keep adding the scandals&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. To play with the model, first click in &lt;strong&gt;Start new network&lt;/strong&gt; and then keep clicking on &lt;strong&gt;Add new scandal&lt;/strong&gt;. You will note that, in the beginning, only complete graphs are appearing. However, after a while you will see that they will start to connect different parts of the network and a structure will develop.&lt;/p&gt;
+&lt;p&gt;If the visualization starts to lag after adding too many complete graphs, just click in &lt;strong&gt;Start new network&lt;/strong&gt; again.&lt;/p&gt;
 
 &lt;!DOCTYPE html&gt;
 &lt;html lang=&#34;en&#34;&gt;
@@ -290,15 +303,15 @@
   &lt;/body&gt;
 
 &lt;/html&gt;
-&lt;h1 id=&#34;python-code&#34;&gt;Python code&lt;/h1&gt;
-&lt;p&gt;First of all,&lt;/p&gt;
+&lt;p&gt;This interactive visualization was made using &lt;a href=&#34;https://visjs.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visjs&lt;/a&gt;, a browser based visualization library.&lt;/p&gt;
+&lt;h1 id=&#34;algorithm&#34;&gt;The python algorithm&lt;/h1&gt;
+&lt;p&gt;First of all, we need the following packages.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt;          &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;graph_tool.all&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gt&lt;/span&gt;
 
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;itertools&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;combinations&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://git.skewed.de/count0/graph-tool/wikis/installation-instructions&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;See graph-tool installation instructions.&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Duis ut leo convallis, tristique risus nec, placerat mauris. Fusce urna orci, ullamcorper in metus sed, tincidunt efficitur tellus. Phasellus iaculis urna a orci pulvinar, at lacinia ligula cursus. Vivamus ullamcorper purus in mauris volutpat, ac aliquet risus molestie. Nulla a nisi laoreet, imperdiet augue id, dictum magna. Integer vel quam nec augue maximus elementum nec et ex.&lt;/p&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-1&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After importing these modules, we can then write the model function:&lt;/p&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
   &lt;summary&gt;Click to view the full algorithm&lt;/summary&gt;
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;7.33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.09&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;11.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;proba&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
     &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
@@ -368,84 +381,41 @@
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;links_list&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
-&lt;p&gt;Donec eleifend turpis sit amet magna faucibus egestas. Duis nulla mi, venenatis in lacinia vitae, volutpat maximus enim.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.09&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Vivamus ullamcorper purus in mauris volutpat, ac aliquet risus molestie. Nulla a nisi laoreet, imperdiet augue id, dictum magna. Integer vel quam nec augue maximus elementum nec et ex. Nunc id lobortis nunc. Morbi aliquam nec arcu sed iaculis. Maecenas vitae varius mi, in imperdiet lacus.&lt;/p&gt;
+&lt;p&gt;This function returns a list of edge lists where each element correspond to a particular iteration step.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To create the network until the $i$ step, now we need to concatenate these lists.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edges_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Graph&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;directed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;edge_list_i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;concatenate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edges_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
     
     &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_edge_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge_list_i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    
+
+    &lt;span class=&#34;c1&#34;&gt;# Since we have not yet dealt with self loops and parallel edges, we will remove them. &lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_self_loops&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_parallel_edges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally, generate the network until $i$ steps&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;rede_final&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;rede_final&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Returning the following network&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can finally generate the network until $i$ steps (100 in this case).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;final_network&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;final_network&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And then, voilà&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;&amp;lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&amp;gt;&lt;/em&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ok</title>
-      <link>https://alvarofrancomartins.com/post/teste/</link>
-      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/teste/</guid>
-      <description>&lt;h1 id=&#34;hello&#34;&gt;Hello&lt;/h1&gt;
-&lt;p&gt;teste teste teste&lt;/p&gt;
-
-&lt;script src=&#34;https://d3js.org/d3.v4.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://d3js.org/d3-scale-chromatic.v1.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://d3js.org/d3-geo-projection.v2.min.js&#34;&gt;&lt;/script&gt;
-
-&lt;!-- Create an element where the map will take place --&gt;
-&lt;svg id=&#34;my_dataviz&#34; width=&#34;1000&#34; height=&#34;400&#34;&gt;&lt;/svg&gt;
-
-&lt;script&gt;
-var svg = d3.select(&#34;svg&#34;),
-  width = +svg.attr(&#34;width&#34;),
-  height = +svg.attr(&#34;height&#34;);
-
-var path = d3.geoPath();
-var projection = d3.geoMercator()
-  .scale(70)
-  .center([0,20])
-  .translate([width / 2, height / 2]);
-
-var data = d3.map();
-var colorScale = d3.scaleThreshold()
-  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-  .range(d3.schemeBlues[7]);
-
-d3.queue()
-  .defer(d3.json, &#34;https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson&#34;)
-  .defer(d3.csv,  &#34;https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv&#34;, function(d) { data.set(d.code, +d.pop); })
-  .await(ready);
-
-function ready(error, topo) {
-
-  // Draw the map
-  svg.append(&#34;g&#34;)
-    .selectAll(&#34;path&#34;)
-    .data(topo.features)
-    .enter()
-    .append(&#34;path&#34;)
-      // draw each country
-      .attr(&#34;d&#34;, d3.geoPath()
-        .projection(projection)
-      )
-      // set the color of each country
-      .attr(&#34;fill&#34;, function (d) {
-        d.total = data.get(d.id) || 0;
-        return colorScale(d.total);
-      });
-    }
-&lt;/script&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;In order to make our model more precise, we also take into account the fraction of repeat offenders that reoffend in more than two cases. Represented as $p_a$, our empirical results show that $p_a \approx 0.024$ in both Brazilian and Spanish corruption networks.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The default $\alpha = 0.142$ is the empirical recidivism rate found in the Brazilian corruption network. The recidivism rate found in the Spanish corruption network is $\alpha = 0.09$.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Keep in mind that, depending on the value of $\alpha$, you will have to add enough complete graphs for the repeat offenders appear and start to connect to the other nodes in the network. That is, if $\alpha \to 1$ then the repeat offenders will appear quickly. On the other hand, when $\alpha \to 0$ you will need to add more complete graphs.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 </description>
     </item>
     

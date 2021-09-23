@@ -1,9 +1,9 @@
 ---
-title: Political corruption networks 
-subtitle: NaN
+title: Unveiling the hidden patterns of political corruption networks
+subtitle: Deep dive on the hidden patterns of worldwide corruption networks
 
 # Summary for listings and search engines
-summary: NaN
+summary: Deep dive on the hidden patterns of worldwide corruption networks
 
 # Link this post with a project
 projects: []
@@ -31,9 +31,9 @@ categories:
 
 image:
   placement: 3
-  caption: ""
+  caption: "The community structure of political corruption networks"
   focal_point: "Smart"
-  preview_only: true
+  preview_only: false
 ---
 
 # Our main results
@@ -57,3 +57,5 @@ We have studied the corruption networks of Brazil and Spain. Here I present our 
 Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal. 
 
 Our model have not only produced visually strikingly similar networks to the empirical ones, but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.
+
+All our results are better described in our [publication](https://www.google.com) in the Journal X. Also, an interactive version of our model is available [here](https://alvarofrancomartins.com/post/corruption-networks-model/).
