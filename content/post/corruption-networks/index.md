@@ -44,20 +44,65 @@ We have studied the corruption networks of Brazil and Spain. Here I present our 
 
 1. The countries have distributions of people per scandal with approximately the same characteristic number ($\approx$ 7 people). It seems, therefore, that people usually act in small groups when involved in corruption processes.
 
+<figure>
+    <img src="1_time_series.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
+
 2. The networks display small-world properties (high clustering coefficient and low average path length). However, corruption agents have tried to increase their distance as these networks have evolved. This result indicates an agreement with the so-called [theory of secret societies](https://www.jstor.org/stable/2095954), in which the evolution of illegal networks is assumed to maximize concealment.
+
+<figure>
+    <img src="2_networks.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
 
 3. The networks have degree distributions well described by exponential distributions. Moreover, their characteristic degrees have essentially the same evolving pattern.
 
+<figure>
+    <img src="degree.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
+
 4. The networks present modular structures and the number of modules grows linearly with the number of scandals.
+
+<figure>
+    <img src="modules.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
 
 5. The evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by repeat offenders (i.e, individuals that are involved in at least two scandals). 
 
+<figure>
+    <img src="coalescence.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
+
 6. The countries have number of repeat offenders that grows linearly with the total number of offenders. The recidivism rates (number of repeat offenders / total number of offenders) are 9% for Spain and 14,2% for Brazil, and stay the same throughout the entire network growth. 
+
+<figure>
+    <img src="repeat.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
 
 7. The repeat offenders are able to connect different parts of the network and function as brokers. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. The difference in the network metrics (such as density and average path length) are then explained by the difference in the recidivism rates. 
 
-Last but not least, we have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal. 
+<figure>
+    <img src="repeat_red.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
 
-Our model have not only produced visually strikingly similar networks to the empirical ones, but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.
+8. We have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal. 
+
+<figure>
+    <img src="model.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
+
+9. Our model have not only produced visually strikingly similar networks to the empirical ones, but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.
+
+<figure>
+    <img src="similar.png" width="530px" height="443px" />
+    <figcaption>Figure: The community structure of political corruption networks</figcaption>
+</figure>
 
 All our results are better described in our [publication](https://www.google.com) in the Journal X. Also, an interactive version of our model is available [here](https://alvarofrancomartins.com/post/corruption-networks-model/).
