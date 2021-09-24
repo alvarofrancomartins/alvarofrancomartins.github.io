@@ -1,9 +1,9 @@
 ---
 title: Unveiling the hidden patterns of political corruption networks
-subtitle: Deep dive into the hidden patterns of worldwide corruption networks
+subtitle: A deep dive into the hidden patterns of worldwide corruption networks
 
 # Summary for listings and search engines
-summary: Deep dive into the hidden patterns of worldwide corruption networks
+summary: A deep dive into the hidden patterns of worldwide corruption networks
 
 # Link this post with a project
 projects: []
@@ -33,8 +33,10 @@ image:
   placement: 3
   caption: "The community structure of political corruption networks"
   focal_point: "Smart"
-  preview_only: false
+  preview_only: true
 ---
+
+{{< include-html "content/post/corruption-networks/add_image.html" >}}
 
 # Our main results
 

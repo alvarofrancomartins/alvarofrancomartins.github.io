@@ -33,7 +33,7 @@ image:
   preview_only: true
 ---
 
-{{< imgresize redee.png "600x478" "Alternate Text" >}}
+{{< include-html "content/post/corruption-networks-model/add_image.html" >}}
 
 In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and then show the Python code used to create the networks. This model is extensively described and studied in our [publication](https://www.google.com) in Journal X. I also made a [post](https://www.alvarofrancomartins.com/post/corruption-networks) of our main findings on the political corruption networks of Brazil and Spain. 
 
