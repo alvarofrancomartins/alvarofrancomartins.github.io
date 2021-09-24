@@ -1100,7 +1100,7 @@
 </details>
 <p>This function returns a list of edge lists where each element correspond to a particular iteration step.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
-</code></pre></div><p>Now, to create the network until step $t$ we need to concatenate these lists.</p>
+</code></pre></div><p>To create the network until step $t$ we need to concatenate these lists.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
     <span class="n">g</span>           <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">directed</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">edge_list_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">edges_list</span><span class="p">[:</span><span class="n">t</span><span class="p">])</span>

@@ -163,7 +163,7 @@ This function returns a list of edge lists where each element correspond to a pa
 edge_lists = generate_net_links(tmax = 100, a = 0.142) # e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]
 ```
 
-Now, to create the network until step $t$ we need to concatenate these lists. 
+To create the network until step $t$ we need to concatenate these lists. 
 
 ```py
 def network(t, edges_list):
