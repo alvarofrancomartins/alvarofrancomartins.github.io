@@ -163,14 +163,14 @@ This function returns a list of edge lists where each element correspond to a pa
 edge_lists = generate_net_links(tmax = 100, a = 0.142) # e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]
 ```
 
-To create the network until the $i$ step, now we need to concatenate these lists. 
+Now, to create the network until step $t$, we need to concatenate these lists. 
 
 ```py
-def network(i, edges_list):
+def network(t, edges_list):
     g           = gt.Graph(directed = False)
-    edge_list_i = np.concatenate(edges_list[:i])
+    edge_list_t = np.concatenate(edges_list[:t])
     
-    g.add_edge_list(edge_list_i, hashed = True)
+    g.add_edge_list(edge_list_t, hashed = True)
 
     # Since we have not yet dealt with self loops and parallel edges, we will remove them. 
     gt.remove_self_loops(g)
@@ -179,7 +179,7 @@ def network(i, edges_list):
     return g
 ```
 
-Now we can finally generate the network until $i$ steps (100 in this case).
+Now we can finally generate the network until $t$ steps (100 in this case).
 
 ```py
 final_network = network(100, edge_lists)
