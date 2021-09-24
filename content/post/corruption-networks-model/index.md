@@ -52,9 +52,9 @@ where $n$ is the total number of people. The parameters are
 - $\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). It can go from $0$ to $1$.
 - $\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network.
 
-And that is basically it[^1]. If you want to see in detail how the model was written, skip to the [algorithm](#algorithm). 
-
 The networks in our model grows by the addition of "scandals" or [complete graphs](https://en.wikipedia.org/wiki/Complete_graph). The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offender $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. And, since the model is stochastic, every new network will be different.
+
+And that is basically it[^1]. If you want to see in detail how the model was written, skip to the [algorithm](#algorithm). 
 
 [^1]: In order to make our model more precise, we also take into account the fraction of repeat offenders that reoffend in more than two cases. Represented as $p_a$, our empirical results show that $p_a \approx 0.024$ in both Brazilian and Spanish corruption networks. 
 
