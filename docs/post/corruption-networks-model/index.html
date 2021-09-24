@@ -391,6 +391,15 @@
    .see-all {
       text-transform: none !important;
    }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
    </style>
 
    <script src="/js/prism.js"></script>
@@ -681,9 +690,25 @@
   </div>
 
   <div class="page-body">
-    <article class="article">
+    
+<div class="container-fluid docs">
+    <div class="row flex-xl-nowrap">
+      <div class="d-none d-xl-block col-xl-2 docs-toc">
+        <ul class="nav toc-top">
+          <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+        </ul>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-model">The model</a></li>
+    <li><a href="#play">Play with the model</a></li>
+    <li><a href="#algorithm">The python algorithm</a></li>
+  </ul>
+</nav>
+      </div>
+      <main class="col-12 col-md-0 col-xl-10 py-md-3 pl-md-5 docs-content" role="main">
 
-  
+        <article class="article">
+            
 
 
 
@@ -767,11 +792,9 @@
 </div>
 
 
-
-  <div class="article-container">
-
-    <div class="article-style">
-      
+            <div class="article-container">
+              <div class="article-style">
+                
 <style>
 figure {
     display: flex;
@@ -1162,9 +1185,8 @@ figcaption {
 </ol>
 </section>
 
-    </div>
-
-    
+              </div>
+              
 
 
 
@@ -1335,9 +1357,13 @@ figcaption {
 
 
 
-
+            </div>
+        </article>
+  
+      </main>
+    </div>
   </div>
-</article>
+  
   </div>
 
   <div class="page-footer">

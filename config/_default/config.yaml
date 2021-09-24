@@ -66,6 +66,8 @@ related:
     - name: categories
       weight: 70
 markup:
+  tableOfContents:
+    startLevel: 1
   highlight:
     noClasses: false
   goldmark:

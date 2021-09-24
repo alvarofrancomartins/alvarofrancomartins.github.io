@@ -26,6 +26,8 @@ tags:
 categories:
 - corruption_networks
 
+toc: true
+
 image:
   placement: 3
   caption: ""
