@@ -45,7 +45,7 @@ If you just want to play with the model networks, skip to [here](#play).
 
 In summary, we have proposed a model based on two of our main findings about political corruption networks. 
 
-The first finding is that the **number of people per scandal** is reasonably described by an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.
+The first finding is that the **number of people per scandal** is reasonably well described by an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.
 
 The second finding is that the number of **repeat offenders** can be modeled by the following equation.
 

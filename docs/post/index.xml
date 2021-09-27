@@ -53,7 +53,7 @@ figcaption {
 &lt;p&gt;If you just want to play with the model networks, skip to &lt;a href=&#34;#play&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h1 id=&#34;the-model&#34;&gt;The model&lt;/h1&gt;
 &lt;p&gt;In summary, we have proposed a model based on two of our main findings about political corruption networks.&lt;/p&gt;
-&lt;p&gt;The first finding is that the &lt;strong&gt;number of people per scandal&lt;/strong&gt; is reasonably described by an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.&lt;/p&gt;
+&lt;p&gt;The first finding is that the &lt;strong&gt;number of people per scandal&lt;/strong&gt; is reasonably well described by an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.&lt;/p&gt;
 &lt;p&gt;The second finding is that the number of &lt;strong&gt;repeat offenders&lt;/strong&gt; can be modeled by the following equation.&lt;/p&gt;
 &lt;p&gt;$$r(n) = \alpha n + \beta,$$&lt;/p&gt;
 &lt;p&gt;where $n$ is the total number of people. The parameters are&lt;/p&gt;
