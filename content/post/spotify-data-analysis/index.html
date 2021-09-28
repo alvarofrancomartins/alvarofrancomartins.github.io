@@ -11,51 +11,50 @@
       font-size: 24px;
       font-weight: 500;
     }
-      text.subTitle{
-        font-weight: 500;
-        fill: #777777;
-      }
-      text.caption{
-        font-weight: 400;
-        font-size: 14px;
-        fill: #777777;
-      }
-      text.label{
-        font-weight: 600;
-      }
-    
-      text.valueLabel{
-       font-weight: 300;
-      }
-    
-      text.yearText{
-        font-size: 64px;
-        font-weight: 700;
-        opacity: 0.25;
-      }
-      .tick text {
-        fill: #777777;
-      }
-      .xAxis .tick:nth-child(2) text {
-        text-anchor: start;
-      }
-      .tick line {
-        shape-rendering: CrispEdges;
-        stroke: #dddddd;
-      }
-      .tick line.origin{
-        stroke: #aaaaaa;
-      }
-      path.domain{
-        display: none;
-      }
+    text.subTitle{
+      font-weight: 500;
+      fill: #777777;
+    }
+    text.caption{
+      font-weight: 400;
+      font-size: 14px;
+      fill: #777777;
+    }
+    text.label{
+      font-weight: 600;
+    }
+    text.valueLabel{
+     font-weight: 300;
+    }
+    text.yearText{
+      font-size: 64px;
+      font-weight: 700;
+      opacity: 0.25;
+    }
+    .tick text {
+      fill: #777777;
+    }
+    .xAxis .tick:nth-child(2) text {
+      text-anchor: start;
+    }
+    .tick line {
+      shape-rendering: CrispEdges;
+      stroke: #dddddd;
+    }
+    .tick line.origin{
+      stroke: #aaaaaa;
+    }
+    path.domain{
+      display: none;
+    }
   </style>
 </head>
 
 <body>
+  <div id="chat"></div>
+
   <script>
-    // Feel free to change or delete any of the code you see in this editor!
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#chat").append("svg")
       .attr("width", 960)
       .attr("height", 600);
     
@@ -88,8 +87,8 @@
      .attr('class', 'caption')
      .attr('x', width)
      .attr('y', height-5)
-     .style('text-anchor', 'end')
-     .html('Source: Interbrand');
+     .style('text-anchor', 'end');
+     // .html('Source: Interbrand');
 
      let year = 2000;
     
@@ -314,7 +313,5 @@
      .style('opacity', 1);
    
 }   
-  
-
   </script>
 </body>

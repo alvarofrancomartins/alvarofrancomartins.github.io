@@ -37,7 +37,7 @@ image:
 
 {{< include-html "content/post/corruption-networks-model/add_image.html" >}}
 
-In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and then show the code in Python. This model is extensively described and studied in our [publication](https://www.google.com) in Journal X. I also made a [post](https://www.alvarofrancomartins.com/post/corruption-networks) of our main findings on the political corruption networks of Brazil and Spain. 
+In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and show the code in Python. This model is extensively described and studied in our [publication](https://www.google.com) in Journal X. I also made a [post](https://www.alvarofrancomartins.com/post/corruption-networks) of our main findings on the political corruption networks of Brazil and Spain. 
 
 If you just want to play with the model networks, skip to [here](#play).
 
@@ -56,7 +56,7 @@ where $n$ is the total number of people. The parameters are
 - $\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). $\in \[0, 1\]$.
 - $\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network. $\in \[-\infty, 0\)$.
 
-The networks in our model grows by the addition of "scandals" or [complete graphs](https://en.wikipedia.org/wiki/Complete_graph). The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offender $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. Since the model is stochastic, every network will be different.
+The networks in our model grows by the addition of "scandals" or [complete graphs](https://en.wikipedia.org/wiki/Complete_graph). The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offenders $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. Since the model is stochastic, every network will be different.
 
 And that is basically it[^1]. If you want to see in detail how the model was written, skip to the [algorithm](#algorithm). 
 
@@ -72,24 +72,21 @@ If eventually the visualization starts to lag, just click in **Start new network
 
 [^3]: Keep in mind that, depending on the value of $\alpha$, you will have to add enough complete graphs for the repeat offenders appear and start to connect to the other nodes in the network. That is, if $\alpha \to 1$ then the repeat offenders will appear quickly. On the other hand, when $\alpha \to 0$ you will need to add more complete graphs.
 
-
 {{< include-html "content/post/corruption-networks-model/model.html" >}}
 
-This interactive visualization was made using [visjs](https://visjs.org/), a browser based visualization library. Below you can see a visual comparison between the Brazilian corruption network (left) and an artificial network generated using our model and the Brazilian recidivism rate (right).
+This interactive visualization was made using [visjs](https://visjs.org/), a browser based visualization library. Below you can see a visual comparison between the Brazilian corruption network (Figure 1) and an artificial network generated using our model and the Brazilian recidivism rate (Figure 2).
 
-<div class="row"> 
-  <div class="column" style = "padding-left: 40px;">
-    <figure style = "margin-top: 0px !important;">
-        <img src="brazil.png" width="530px" height="443px" />
-        <figcaption>Figure 1: The Brazilian political corruption network. </figcaption>
-    </figure>
-  </div>
-  <div class="column" style = "padding-left: 40px">
-    <figure style = "margin-top: 0px !important;"> 
-        <img src="model.png" width="524px" height="443px" />
-        <figcaption>Figure 2: An artificial network generated using our model. </figcaption>
-    </figure>
-  </div>
+
+<div class="parent" style = "display:flex">
+<figure>
+<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="brazil.png">
+<figcaption>Figure 1: The Brazilian political corruption network. </figcaption>
+</figure>
+
+<figure>
+<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="model.png">
+<figcaption >Figure 2: An artificial network generated using our model. </figcaption>
+</figure>
 </div>
 
 # The model algorithm in Python {#algorithm}

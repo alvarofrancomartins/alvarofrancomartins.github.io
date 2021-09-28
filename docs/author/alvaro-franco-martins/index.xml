@@ -13,6 +13,332 @@
     </image>
     
     <item>
+      <title>Spotify data analysis</title>
+      <link>https://alvarofrancomartins.com/post/spotify-data-analysis/</link>
+      <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/spotify-data-analysis/</guid>
+      <description>
+&lt;!DOCTYPE html&gt;
+&lt;head&gt;
+  &lt;meta charset=&#34;utf-8&#34;&gt;
+  &lt;script src=&#34;https://d3js.org/d3.v5.min.js&#34;&gt;&lt;/script&gt;
+  &lt;style&gt;
+    text{
+      font-size: 16px;
+      font-family: Open Sans, sans-serif;
+    }
+    text.title{
+      font-size: 24px;
+      font-weight: 500;
+    }
+    text.subTitle{
+      font-weight: 500;
+      fill: #777777;
+    }
+    text.caption{
+      font-weight: 400;
+      font-size: 14px;
+      fill: #777777;
+    }
+    text.label{
+      font-weight: 600;
+    }
+    text.valueLabel{
+     font-weight: 300;
+    }
+    text.yearText{
+      font-size: 64px;
+      font-weight: 700;
+      opacity: 0.25;
+    }
+    .tick text {
+      fill: #777777;
+    }
+    .xAxis .tick:nth-child(2) text {
+      text-anchor: start;
+    }
+    .tick line {
+      shape-rendering: CrispEdges;
+      stroke: #dddddd;
+    }
+    .tick line.origin{
+      stroke: #aaaaaa;
+    }
+    path.domain{
+      display: none;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div id=&#34;chat&#34;&gt;&lt;/div&gt;
+
+  &lt;script&gt;
+    var svg = d3.select(&#34;#chat&#34;).append(&#34;svg&#34;)
+      .attr(&#34;width&#34;, 960)
+      .attr(&#34;height&#34;, 600);
+    
+    var tickDuration = 500;
+    
+    var top_n = 12;
+    var height = 600;
+    var width = 960;
+    
+    const margin = {
+      top: 80,
+      right: 0,
+      bottom: 5,
+      left: 0
+    };
+  
+    let barPadding = (height-(margin.bottom+margin.top))/(top_n*5);
+      
+    let title = svg.append(&#39;text&#39;)
+     .attr(&#39;class&#39;, &#39;title&#39;)
+     .attr(&#39;y&#39;, 24)
+     .html(&#39;18 years of Interbrand’s Top Global Brands&#39;);
+  
+    let subTitle = svg.append(&#34;text&#34;)
+     .attr(&#34;class&#34;, &#34;subTitle&#34;)
+     .attr(&#34;y&#34;, 55)
+     .html(&#34;Brand value, $m&#34;);
+   
+    let caption = svg.append(&#39;text&#39;)
+     .attr(&#39;class&#39;, &#39;caption&#39;)
+     .attr(&#39;x&#39;, width)
+     .attr(&#39;y&#39;, height-5)
+     .style(&#39;text-anchor&#39;, &#39;end&#39;);
+     // .html(&#39;Source: Interbrand&#39;);
+
+     let year = 2000;
+    
+  d3.csv(&#39;/brand_values.csv&#39;).then(function(data) {
+    //if (error) throw error;
+      
+      console.log(data);
+      
+       data.forEach(d =&gt; {
+        d.value = +d.value,
+        d.lastValue = +d.lastValue,
+        d.value = isNaN(d.value) ? 0 : d.value,
+        d.year = +d.year,
+        d.colour = d3.hsl(Math.random()*360,0.75,0.75)
+      });
+
+     console.log(data);
+    
+     let yearSlice = data.filter(d =&gt; d.year == year &amp;&amp; !isNaN(d.value))
+      .sort((a,b) =&gt; b.value - a.value)
+      .slice(0, top_n);
+  
+      yearSlice.forEach((d,i) =&gt; d.rank = i);
+    
+     console.log(&#39;yearSlice: &#39;, yearSlice)
+  
+     let x = d3.scaleLinear()
+        .domain([0, d3.max(yearSlice, d =&gt; d.value)])
+        .range([margin.left, width-margin.right-65]);
+  
+     let y = d3.scaleLinear()
+        .domain([top_n, 0])
+        .range([height-margin.bottom, margin.top]);
+  
+     let xAxis = d3.axisTop()
+        .scale(x)
+        .ticks(width &gt; 500 ? 5:2)
+        .tickSize(-(height-margin.top-margin.bottom))
+        .tickFormat(d =&gt; d3.format(&#39;,&#39;)(d));
+  
+     svg.append(&#39;g&#39;)
+       .attr(&#39;class&#39;, &#39;axis xAxis&#39;)
+       .attr(&#39;transform&#39;, `translate(0, ${margin.top})`)
+       .call(xAxis)
+       .selectAll(&#39;.tick line&#39;)
+       .classed(&#39;origin&#39;, d =&gt; d == 0);
+  
+     svg.selectAll(&#39;rect.bar&#39;)
+        .data(yearSlice, d =&gt; d.name)
+        .enter()
+        .append(&#39;rect&#39;)
+        .attr(&#39;class&#39;, &#39;bar&#39;)
+        .attr(&#39;x&#39;, x(0)+1)
+        .attr(&#39;width&#39;, d =&gt; x(d.value)-x(0)-1)
+        .attr(&#39;y&#39;, d =&gt; y(d.rank)+5)
+        .attr(&#39;height&#39;, y(1)-y(0)-barPadding)
+        .style(&#39;fill&#39;, d =&gt; d.colour);
+      
+     svg.selectAll(&#39;text.label&#39;)
+        .data(yearSlice, d =&gt; d.name)
+        .enter()
+        .append(&#39;text&#39;)
+        .attr(&#39;class&#39;, &#39;label&#39;)
+        .attr(&#39;x&#39;, d =&gt; x(d.value)-8)
+        .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1)
+        .style(&#39;text-anchor&#39;, &#39;end&#39;)
+        .html(d =&gt; d.name);
+      
+    svg.selectAll(&#39;text.valueLabel&#39;)
+      .data(yearSlice, d =&gt; d.name)
+      .enter()
+      .append(&#39;text&#39;)
+      .attr(&#39;class&#39;, &#39;valueLabel&#39;)
+      .attr(&#39;x&#39;, d =&gt; x(d.value)+5)
+      .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1)
+      .text(d =&gt; d3.format(&#39;,.0f&#39;)(d.lastValue));
+
+    let yearText = svg.append(&#39;text&#39;)
+      .attr(&#39;class&#39;, &#39;yearText&#39;)
+      .attr(&#39;x&#39;, width-margin.right)
+      .attr(&#39;y&#39;, height-25)
+      .style(&#39;text-anchor&#39;, &#39;end&#39;)
+      .html(~~year)
+      .call(halo, 10);
+     
+   let ticker = d3.interval(e =&gt; {
+
+      yearSlice = data.filter(d =&gt; d.year == year &amp;&amp; !isNaN(d.value))
+        .sort((a,b) =&gt; b.value - a.value)
+        .slice(0,top_n);
+
+      yearSlice.forEach((d,i) =&gt; d.rank = i);
+     
+      //console.log(&#39;IntervalYear: &#39;, yearSlice);
+
+      x.domain([0, d3.max(yearSlice, d =&gt; d.value)]); 
+     
+      svg.select(&#39;.xAxis&#39;)
+        .transition()
+        .duration(tickDuration)
+        .ease(d3.easeLinear)
+        .call(xAxis);
+    
+       let bars = svg.selectAll(&#39;.bar&#39;).data(yearSlice, d =&gt; d.name);
+    
+       bars
+        .enter()
+        .append(&#39;rect&#39;)
+        .attr(&#39;class&#39;, d =&gt; `bar ${d.name.replace(/\s/g,&#39;_&#39;)}`)
+        .attr(&#39;x&#39;, x(0)+1)
+        .attr( &#39;width&#39;, d =&gt; x(d.value)-x(0)-1)
+        .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5)
+        .attr(&#39;height&#39;, y(1)-y(0)-barPadding)
+        .style(&#39;fill&#39;, d =&gt; d.colour)
+        .transition()
+          .duration(tickDuration)
+          .ease(d3.easeLinear)
+          .attr(&#39;y&#39;, d =&gt; y(d.rank)+5);
+          
+       bars
+        .transition()
+          .duration(tickDuration)
+          .ease(d3.easeLinear)
+          .attr(&#39;width&#39;, d =&gt; x(d.value)-x(0)-1)
+          .attr(&#39;y&#39;, d =&gt; y(d.rank)+5);
+            
+       bars
+        .exit()
+        .transition()
+          .duration(tickDuration)
+          .ease(d3.easeLinear)
+          .attr(&#39;width&#39;, d =&gt; x(d.value)-x(0)-1)
+          .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5)
+          .remove();
+
+       let labels = svg.selectAll(&#39;.label&#39;)
+          .data(yearSlice, d =&gt; d.name);
+     
+       labels
+        .enter()
+        .append(&#39;text&#39;)
+        .attr(&#39;class&#39;, &#39;label&#39;)
+        .attr(&#39;x&#39;, d =&gt; x(d.value)-8)
+        .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5+((y(1)-y(0))/2))
+        .style(&#39;text-anchor&#39;, &#39;end&#39;)
+        .html(d =&gt; d.name)    
+        .transition()
+          .duration(tickDuration)
+          .ease(d3.easeLinear)
+          .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1);
+             
+    
+   	   labels
+          .transition()
+          .duration(tickDuration)
+            .ease(d3.easeLinear)
+            .attr(&#39;x&#39;, d =&gt; x(d.value)-8)
+            .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1);
+     
+       labels
+          .exit()
+          .transition()
+            .duration(tickDuration)
+            .ease(d3.easeLinear)
+            .attr(&#39;x&#39;, d =&gt; x(d.value)-8)
+            .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5)
+            .remove();
+         
+
+     
+       let valueLabels = svg.selectAll(&#39;.valueLabel&#39;).data(yearSlice, d =&gt; d.name);
+    
+       valueLabels
+          .enter()
+          .append(&#39;text&#39;)
+          .attr(&#39;class&#39;, &#39;valueLabel&#39;)
+          .attr(&#39;x&#39;, d =&gt; x(d.value)+5)
+          .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5)
+          .text(d =&gt; d3.format(&#39;,.0f&#39;)(d.lastValue))
+          .transition()
+            .duration(tickDuration)
+            .ease(d3.easeLinear)
+            .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1);
+            
+       valueLabels
+          .transition()
+            .duration(tickDuration)
+            .ease(d3.easeLinear)
+            .attr(&#39;x&#39;, d =&gt; x(d.value)+5)
+            .attr(&#39;y&#39;, d =&gt; y(d.rank)+5+((y(1)-y(0))/2)+1)
+            .tween(&#34;text&#34;, function(d) {
+               let i = d3.interpolateRound(d.lastValue, d.value);
+               return function(t) {
+                 this.textContent = d3.format(&#39;,&#39;)(i(t));
+              };
+            });
+      
+     
+      valueLabels
+        .exit()
+        .transition()
+          .duration(tickDuration)
+          .ease(d3.easeLinear)
+          .attr(&#39;x&#39;, d =&gt; x(d.value)+5)
+          .attr(&#39;y&#39;, d =&gt; y(top_n+1)+5)
+          .remove();
+    
+      yearText.html(~~year);
+     
+     if(year == 2018) ticker.stop();
+     year = d3.format(&#39;.1f&#39;)((+year) + 0.1);
+   },tickDuration);
+
+ });
+    
+ const halo = function(text, strokeWidth) {
+  text.select(function() { return this.parentNode.insertBefore(this.cloneNode(true), this); })
+    .style(&#39;fill&#39;, &#39;#ffffff&#39;)
+     .style( &#39;stroke&#39;,&#39;#ffffff&#39;)
+     .style(&#39;stroke-width&#39;, strokeWidth)
+     .style(&#39;stroke-linejoin&#39;, &#39;round&#39;)
+     .style(&#39;opacity&#39;, 1);
+   
+}   
+  &lt;/script&gt;
+&lt;/body&gt;
+</description>
+    </item>
+    
+    <item>
       <title>The computational model of political corruption networks</title>
       <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
       <pubDate>Sun, 13 Dec 2020 00:00:00 +0000</pubDate>
@@ -30,11 +356,12 @@ figcaption {
   font-weight: 500;
   margin-top: 0.5rem !important; 
   margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
   line-height: 1.25;
   color: #313131;
   text-rendering: optimizeLegibility;
   /* Ensure long words do not overflow into content. */
-  overflow-wrap: break-word;
+  overflow-wrap: break-word; 
   word-wrap: break-word;
   word-break: break-word;
   /* Add a hyphen where the word breaks (use `&amp;shy;` to insert a soft-hyphen in a word). */
@@ -46,10 +373,10 @@ figcaption {
 
 &lt;figure&gt;
     &lt;img src=&#34;rede.png&#34; width=&#34;500px&#34; height=&#34;399px&#34; alt = &#39;ok&#39;/&gt;
-    &lt;figcaption&gt;Visualization of an artificial network generated &lt;br&gt; by the corruption network model.&lt;/figcaption&gt;
+    &lt;figcaption&gt;Visualization of an artificial network &lt;br &gt;generated by the corruption network model.&lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and then show the code in Python. This model is extensively described and studied in our &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;publication&lt;/a&gt; in Journal X. I also made a &lt;a href=&#34;https://www.alvarofrancomartins.com/post/corruption-networks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; of our main findings on the political corruption networks of Brazil and Spain.&lt;/p&gt;
+&lt;p&gt;In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and show the code in Python. This model is extensively described and studied in our &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;publication&lt;/a&gt; in Journal X. I also made a &lt;a href=&#34;https://www.alvarofrancomartins.com/post/corruption-networks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; of our main findings on the political corruption networks of Brazil and Spain.&lt;/p&gt;
 &lt;p&gt;If you just want to play with the model networks, skip to &lt;a href=&#34;#play&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h1 id=&#34;the-model&#34;&gt;The model&lt;/h1&gt;
 &lt;p&gt;In summary, we have proposed a model based on two of our main findings about political corruption networks.&lt;/p&gt;
@@ -61,7 +388,7 @@ figcaption {
 &lt;li&gt;$\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). $\in [0, 1]$.&lt;/li&gt;
 &lt;li&gt;$\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network. $\in [-\infty, 0)$.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The networks in our model grows by the addition of &amp;ldquo;scandals&amp;rdquo; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Complete_graph&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;complete graphs&lt;/a&gt;. The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offender $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. Since the model is stochastic, every network will be different.&lt;/p&gt;
+&lt;p&gt;The networks in our model grows by the addition of &amp;ldquo;scandals&amp;rdquo; or &lt;a href=&#34;https://en.wikipedia.org/wiki/Complete_graph&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;complete graphs&lt;/a&gt;. The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offenders $r(n)$ also grows and they start to connect different parts of the network. Depending on the value of $\alpha$, we get different network structures. Since the model is stochastic, every network will be different.&lt;/p&gt;
 &lt;p&gt;And that is basically it&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. If you want to see in detail how the model was written, skip to the &lt;a href=&#34;#algorithm&#34;&gt;algorithm&lt;/a&gt;.&lt;/p&gt;
 &lt;h1 id=&#34;play&#34;&gt;Play with the model&lt;/h1&gt;
 &lt;p&gt;Below you can grow artificial networks generated by our model&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; and see how it evolves as you keep adding the scandals&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. First click in &lt;strong&gt;Start new network&lt;/strong&gt; and then keep clicking on &lt;strong&gt;Add new scandal&lt;/strong&gt;. You will note that, in the beginning, only complete graphs appear. After a while, however, the repeat offenders will show up and then connect different parts of the network.&lt;/p&gt;
@@ -83,14 +410,15 @@ figcaption {
       }
 
       .input-group {
-        width: 80%;
+        width: 100%;
         padding:  0px;
+
       }
 
       .my_input {
         border: solid 1px #ccc;
 
-        padding-left: 10px;
+        padding-left: 20px;
 
         border-radius: 5px;
         margin-bottom: 5px;
@@ -294,20 +622,16 @@ figcaption {
   &lt;/body&gt;
 
 &lt;/html&gt;
-&lt;p&gt;This interactive visualization was made using &lt;a href=&#34;https://visjs.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visjs&lt;/a&gt;, a browser based visualization library. Below you can see a visual comparison between the Brazilian corruption network (left) and an artificial network generated using our model and the Brazilian recidivism rate (right).&lt;/p&gt;
-&lt;div class=&#34;row&#34;&gt; 
-  &lt;div class=&#34;column&#34; style = &#34;padding-left: 40px;&#34;&gt;
-    &lt;figure style = &#34;margin-top: 0px !important;&#34;&gt;
-        &lt;img src=&#34;brazil.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
-        &lt;figcaption&gt;Figure 1: The Brazilian political corruption network. &lt;/figcaption&gt;
-    &lt;/figure&gt;
-  &lt;/div&gt;
-  &lt;div class=&#34;column&#34; style = &#34;padding-left: 40px&#34;&gt;
-    &lt;figure style = &#34;margin-top: 0px !important;&#34;&gt; 
-        &lt;img src=&#34;model.png&#34; width=&#34;524px&#34; height=&#34;443px&#34; /&gt;
-        &lt;figcaption&gt;Figure 2: An artificial network generated using our model. &lt;/figcaption&gt;
-    &lt;/figure&gt;
-  &lt;/div&gt;
+&lt;p&gt;This interactive visualization was made using &lt;a href=&#34;https://visjs.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visjs&lt;/a&gt;, a browser based visualization library. Below you can see a visual comparison between the Brazilian corruption network (Figure 1) and an artificial network generated using our model and the Brazilian recidivism rate (Figure 2).&lt;/p&gt;
+&lt;div class=&#34;parent&#34; style = &#34;display:flex&#34;&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block;padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;brazil.png&#34;&gt;
+&lt;figcaption&gt;Figure 1: The Brazilian political corruption network. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block; padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;model.png&#34;&gt;
+&lt;figcaption &gt;Figure 2: An artificial network generated using our model. &lt;/figcaption&gt;
+&lt;/figure&gt;
 &lt;/div&gt;
 &lt;h1 id=&#34;algorithm&#34;&gt;The model algorithm in Python&lt;/h1&gt;
 &lt;p&gt;First of all, we need the following packages.&lt;/p&gt;
