@@ -26,11 +26,9 @@ tags:
 categories:
 - corruption_networks
 
-toc: true
-
 image:
   placement: 3
-  caption: "The community structure of political corruption networkss"
+  caption: "The community structure of political corruption networks"
   focal_point: "Smart"
   preview_only: false
 ---
