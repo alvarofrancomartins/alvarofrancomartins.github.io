@@ -35,9 +35,7 @@ image:
   preview_only: false
 ---
 
-Nesse post irei brevemente descrever nosso modelo computacional de redes de corrupção política. Também apresentarei uma versão interativa do modelo e seu código em Python. Esse modelo foi descrito e estudado na nossa [publicação](https://www.google.com) no Journal X. Eu também fiz uma [postagem](https://www.alvarofrancomartins.com/post/corruption-networks) dos nossos principais resultados relacionados às redes de corrupção do Brasil e da Espanha.
-
-Caso você queira apenas interagir com o modelo, pule pra [cá](#play).
+Nesse post irei brevemente descrever nosso modelo computacional de redes de corrupção política. Também apresentarei uma versão interativa do modelo e seu código em Python. Esse modelo foi descrito e estudado na nossa [publicação](https://www.google.com) no Journal X. Eu também fiz uma [postagem](https://www.alvarofrancomartins.com/post/corruption-networks) dos nossos principais resultados relacionados às redes de corrupção do Brasil e da Espanha. Caso você queira apenas interagir com o modelo, pule pra [cá](#play).
 
 # O modelo computacional
 
@@ -62,13 +60,13 @@ E é basicamente isso[^2]. Caso você queira saber em detalhes como o modelo foi
 
 # Interaja com o modelo {#play}
 
-Abaixo você pode crescer as redes artificiais geradas pelo modelo[^3] e ver como elas se desenvolvem ao passo que você adiciona novos escândalos[^4]. Primeiramente, clique em **Iniciar nova rede** e depois clique diversas vezes em **Adicionar novo escândalo**. Você vai notar que inicialmente surgem apenas grafos completos. No entanto, depois de um tempo, os reincidentes começarão a aparecer e então eles irão conectar diferentes partes da rede. 
-
-Se depois de um tempo a visualização começar a ficar lenta, clique novamente em **Iniciar nova rede**.
+Abaixo você pode crescer as redes artificiais geradas pelo modelo[^3] e ver como elas se desenvolvem ao passo que você adiciona novos escândalos[^4]. Primeiramente, clique em **Iniciar nova rede** e depois clique diversas vezes em **Adicionar novo escândalo**. Você vai notar que inicialmente surgem apenas grafos completos. No entanto, depois de um tempo, os reincidentes começarão a aparecer e então eles irão conectar diferentes partes da rede.  Se depois de um tempo a visualização começar a ficar lenta, clique novamente em **Iniciar nova rede**.
 
 [^3]: O valor de $\alpha = 0.142$ é o valor empírico da taxa de reincidência para a rede de corrupção brasileira. A taxa de reincidência da rede de corrupção espanhola é $\alpha = 0.09$  
 
 [^4]: Tenha em mente que dependendo do valor de $\alpha$, irá demorar um pouco para que os reincidentes comecem a surgir. Isto é, se $\alpha \to 1$ então os reincidentes irão aparecer logo no início. Por outro lado, quando $\alpha \to 0$, você precisará adicionar bastantes grafos completos até que eles apareçam.
+
+<br>
 
 {{< include-html "content/post/modelo-redes-corrupcao/model.html" >}}
 
@@ -98,6 +96,8 @@ from itertools import combinations
 ```
 
 Depois de importá-las, podemos escrever a função que gera as redes do modelo:
+
+<br>
 
 {{< spoiler text="Clique para abrir o código completo" >}}
 ```py
