@@ -74,9 +74,16 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-Physicist working on complex networks and data science. 
+I'm a **physicist** working on **data science** and **complex networks**. 
 
 <br>
 
+I hold both a Bachelor's and a Master's degree in Physics from State University of Maringá. At the moment, I'm a **PhD fellow** on the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. 
 
+<br>
+
+Currently I'm working on the project "Network and data science applied on the study of corruption and organized crime." My primary goal is to extract meaningful patterns from these type of data, uncovering rules and mechanisms governing their structure and dynamics. 
+
+<br>
+  
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}CV{{< /staticref >}}.
