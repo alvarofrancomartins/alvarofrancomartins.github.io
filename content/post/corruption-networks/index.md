@@ -1,9 +1,9 @@
 ---
 title: Unveiling the hidden patterns of political corruption networks
-subtitle: A deep dive into the hidden patterns of worldwide corruption networks
+subtitle: A deep dive into the hidden patterns of corruption networks
 
 # Summary for listings and search engines
-summary: A deep dive into the hidden patterns of worldwide corruption networks
+summary: A deep dive into the hidden patterns of corruption networks
 
 # Link this post with a project
 projects: []
