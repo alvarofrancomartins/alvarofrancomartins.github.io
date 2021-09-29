@@ -15,7 +15,7 @@ date: "2021-07-13T00:00:00Z"
 lastmod: "2021-07-13T00:00:00Z"
 
 # Is this an unpublished draft?
-draft: true
+draft: false
 
 # Show this page in the Featured widget?
 featured: true
@@ -33,10 +33,10 @@ image:
   placement: 3
   caption: "The community structure of political corruption networks"
   focal_point: "Smart"
-  preview_only: true
+  preview_only: false
 ---
 
-{{< include-html "content/post/corruption-networks/add_image.html" >}}
+<!-- {{< include-html "content/post/corruption-networks/add_image.html" >}} -->
 
 # Our main results
 

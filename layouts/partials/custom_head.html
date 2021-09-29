@@ -6,6 +6,7 @@
 
  /* Non standard for webkit */
      word-break: break-word;
+     display:  inline;
 
     -webkit-hyphens: auto;
        -moz-hyphens: auto;
@@ -36,6 +37,31 @@
    .docs-toc {
       padding-top:  3.2rem;
    }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+
+figcaption {
+  font-size:  20px !important; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+  /* Ensure long words do not overflow into content. */
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+  /* Add a hyphen where the word breaks (use `&shy;` to insert a soft-hyphen in a word). */
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
 
    </style>
 
