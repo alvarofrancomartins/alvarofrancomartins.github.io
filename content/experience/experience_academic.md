@@ -34,7 +34,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2019-03-01"
   date_end = "2021-03-01"
-  description = """ **Thesis**: The dynamics of political corruption networks.       <a href="https://www.alvarofrancomartins.com/uploads/dinamica_de_redes_de_corrupcao_politica.pdf">Dissertation</a>
+  description = """ **Thesis**: The dynamics of political corruption networks. <a href="https://www.alvarofrancomartins.com/uploads/dinamica_de_redes_de_corrupcao_politica.pdf" target="_blank">Download</a>.
                 """
 
 [[experience]]
@@ -44,6 +44,6 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2014-03-01"
   date_end = "2018-12-01"
-  description = """ **Thesis**: Time series analysis via complexity-entropy curves. <a href="https://www.alvarofrancomartins.com/uploads/analise_series_temporais.pdf">TCC</a>
+  description = """ **Thesis**: Time series analysis via complexity-entropy curves.  <a href="https://www.alvarofrancomartins.com/uploads/analise_series_temporais.pdf" target="_blank">Download</a>.
                 """
 +++
