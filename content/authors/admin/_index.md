@@ -74,7 +74,9 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-Physicist working on complex networks and data science.
+Physicist working on complex networks and data science. 
+
+<br>
 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}CV{{< /staticref >}}.
