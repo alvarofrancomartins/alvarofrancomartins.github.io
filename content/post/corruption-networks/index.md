@@ -17,9 +17,6 @@ lastmod: "2021-07-13T00:00:00Z"
 # Is this an unpublished draft?
 draft: false
 
-# Show this page in the Featured widget?
-featured: true
-
 authors:
 - admin
 
@@ -29,9 +26,11 @@ tags:
 categories:
 - corruption_networks
 
+toc: true
+
 image:
   placement: 3
-  caption: "The community structure of political corruption networks"
+  caption: "The community structure of political corruption networkss"
   focal_point: "Smart"
   preview_only: false
 ---
