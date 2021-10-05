@@ -25,7 +25,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2021-04-01"
   date_end = ""
-  description = """<p> Here I continue my work using network and data science applied to study the organized crime. I'm currently a PhD fellow on the Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences.<p>"""
+  description = """<p> Here I continue my work applying network and data science to study organized crime. I'm currently a PhD fellow on the Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences.<p>"""
 
 [[experience]]
   title = "MSc in Physics"
