@@ -373,24 +373,13 @@
   <head>
    <style>
    p {
-    -ms-word-break: break-all;
-    word-break: break-all;
-
-  
-     word-break: break-word;
-
-    -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-        -ms-hyphens: auto;
-            hyphens: auto;
-      }
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
 
    .article-container {
       max-width: 1250px;
-   }
-
-   #about {
-      background-image: url('/media/graph-draw.png');
    }
 
    #container-publications {
@@ -408,6 +397,31 @@
    .docs-toc {
       padding-top:  3.2rem;
    }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+
+figcaption {
+  font-size:  20px !important; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
 
    </style>
 

@@ -2,16 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://alvarofrancomartins.com/publication-type/2/</loc>
-    <lastmod>2018-01-24T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://alvarofrancomartins.com/</loc>
-    <lastmod>2018-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alvarofrancomartins.com/author/alvaro-franco-martins/</loc>
-    <lastmod>2018-01-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alvarofrancomartins.com/authors/</loc>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alvarofrancomartins.com/post/</loc>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alvarofrancomartins.com/post/spotify-data-analysis/</loc>
+    <lastmod>2020-12-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://alvarofrancomartins.com/publication-type/2/</loc>
     <lastmod>2018-01-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://alvarofrancomartins.com/tag/corruption-networks/</loc>
@@ -46,7 +52,5 @@
     <loc>https://alvarofrancomartins.com/categories/</loc>
   </url><url>
     <loc>https://alvarofrancomartins.com/experience/</loc>
-  </url><url>
-    <loc>https://alvarofrancomartins.com/post/</loc>
   </url>
 </urlset>
