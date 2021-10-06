@@ -283,8 +283,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
 
   <link rel="canonical" href="https://alvarofrancomartins.com/post/corruption-networks-model/" />
 
@@ -361,7 +361,7 @@
     "name": "Alvaro Franco Martins",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_2.png"
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
     }
   },
   "description": "Play with artificial networks that simulate real political corruption networks"
@@ -384,12 +384,6 @@
 
    .article-container {
       max-width: 1250px;
-   }
-
-   #about {
-      background-image: url('/media/graph0.png');
-      background-repeat:  no-repeat;
-      background-position:  center;
    }
 
    #container-publications {
@@ -1115,7 +1109,7 @@ figcaption {
 </div>
 <h1 id="algorithm">The model algorithm in Python</h1>
 <p>First of all, we need the following packages.</p>
-<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>          <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>          <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">graph_tool.all</span> <span class="k">as</span> <span class="nn">gt</span>
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
@@ -1123,7 +1117,7 @@ figcaption {
 <br>
 <details class="spoiler "  id="spoiler-2">
   <summary>Click to view the full algorithm</summary>
-  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
     <span class="s2">&#34;&#34;&#34;
 </span><span class="s2">    Generate a corruption network based on our model.
 </span><span class="s2">    
@@ -1192,9 +1186,9 @@ figcaption {
 </code></pre></div></p>
 </details>
 <p>This function returns a list of edge lists where each element correspond to a particular iteration step.</p>
-<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
 </code></pre></div><p>To create the network until step $t$ we need to concatenate these lists.</p>
-<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
     <span class="n">g</span>           <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">directed</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">edge_list_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">edges_list</span><span class="p">[:</span><span class="n">t</span><span class="p">])</span>
     
@@ -1206,7 +1200,7 @@ figcaption {
     
     <span class="k">return</span> <span class="n">g</span>
 </code></pre></div><p>Now we can finally generate the network until $t$ steps (100 in this case).</p>
-<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">final_network</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">edge_lists</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">final_network</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">edge_lists</span><span class="p">)</span>
 <span class="n">final_network</span>
 </code></pre></div><blockquote>
 <p><em>&lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&gt;</em></p>
@@ -1564,7 +1558,7 @@ figcaption {
       
     
     
-    <script src="/en/js/wowchemy.min.ea2c153d3e439b91646a77d67da36b6a.js"></script>
+    <script src="/en/js/wowchemy.min.1e0d08e76174cf86fae2f45a189987fb.js"></script>
 
     
 

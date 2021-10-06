@@ -15,7 +15,7 @@ date: "2021-05-13T00:00:00Z"
 lastmod: "2021-05-13T00:00:00Z"
 
 # Is this an unpublished draft?
-draft: true
+draft: false
 
 authors:
 - admin

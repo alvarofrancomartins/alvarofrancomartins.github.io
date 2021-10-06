@@ -43,5 +43,5 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2014-03-01"
   date_end = "2018-12-01"
-  description = """**Thesis**: Time series analysis via complexity-entropy curves.  <a href="https://www.alvarofrancomartins.com/uploads/analise_series_temporais.pdf" target="_blank">Download</a>. <br><br> <p>I have employed a new parameter (embedding delay) to analyze time series from several sources. By generalizing the <a href="https://doi.org/10.1103/PhysRevE.95.062106" target="_blank">complexity-entropy curve approach</a>, this analysis was useful for finding periodic behaviors in noisy signals. <p>"""
+  description = """**Thesis**: Time series analysis via complexity-entropy curves.  <a href="https://www.alvarofrancomartins.com/uploads/analise_series_temporais.pdf" target="_blank">Download</a> <br><br> <p>I have employed a new parameter (embedding delay) to analyze time series from several sources. By generalizing the <a href="https://doi.org/10.1103/PhysRevE.95.062106" target="_blank">complexity-entropy curve approach</a>, this analysis was useful for finding periodic behaviors in noisy signals. <p>"""
 +++
