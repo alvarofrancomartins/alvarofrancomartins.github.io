@@ -86,4 +86,4 @@ Currently I'm working on the project "Network and data science applied on the st
 
 <br>
   
-{{< icon name="download" pack="fas" >}} Download my _curriculum vitae_ ({{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}eng{{< /staticref >}} / {{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}pt{{< /staticref >}}).
+{{< icon name="download" pack="fas" >}} Download my _curriculum vitae_ ({{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}eng{{< /staticref >}} / {{< staticref "uploads/alvaro_cv_pt.pdf" "newtab" >}}pt{{< /staticref >}}).
