@@ -54,7 +54,7 @@ As redes no nosso modelo crescem com a adição de "escândalos" ou [grafos comp
 
 [^1]: Os envolvidos reincidentes são capazes de conectar diferentes partes da rede. Quanto maior a taxa de reincidência $\alpha$, mais densamente conectada será a rede. Por outro lado, se $\alpha$ é pequeno ($<0.065$) a rede será esparsamente conectada, com um número maior de componentes.
 
-E é basicamente isso[^2]. Caso você queira saber em detalhes como o modelo foi escrito, pule para o [algoritmo](#algorithm). 
+E é basicamente isso[^2]. Caso você queira saber em detalhes como o modelo foi escrito, pule para o [algoritmo](#algoritmo). 
 
 [^2]: Para deixar o modelo mais preciso, nós também levamos em conta a fração do número de reincidentes que reofendem em mais de dois casos. Representado como $p_a$, nossos resultados empíricos mostraram que $p_a \approx 0.024$ nas duas redes de corrupção brasileira e espanhola.
 
@@ -84,7 +84,7 @@ Essa visualização interativa foi criada utilizando a biblioteca de Javascript 
 </figure>
 </div>
 
-# Código do modelo em Python {#algorithm}
+# Código do modelo em Python {#algoritmo}
 
 Para escrever e usar o modelo, precisamos das seguintes bibliotecas. 
 
