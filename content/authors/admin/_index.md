@@ -14,7 +14,7 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: Physicist working on complex networks and data science.
+bio: Physicist working on complex networks and data science. I have over 5 years of experience studying criminal networks.
 
 # Interests to show in About widget
 interests:
@@ -82,7 +82,7 @@ I hold both a Bachelor's and a Master's degree in Physics from State University 
 
 <br>
 
-Currently I'm working on the project "Network and data science applied on the study of corruption and organized crime." My primary goal is to extract meaningful patterns from these type of data, uncovering rules and mechanisms governing their structure and dynamics. 
+I have over 5 years of experience studying criminal networks. I'm currently working on the project "Network and data science applied on the study of corruption and organized crime." My primary goal is to extract meaningful patterns from these type of data, uncovering rules and mechanisms governing their structure and dynamics. 
 
 <br>
   
