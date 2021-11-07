@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  display: block;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width:  100%;
+  max-height: 400px;
+  overflow-x:auto;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  margin: 0 auto;
+  width:  50%;
+  padding: 20px;
+}
+
+/* Table Striped */
+table > tbody > tr:nth-child(odd) > td,
+table > tbody > tr:nth-child(odd) > th {
+  background-color: #ffffff !important; }
+
+table > tbody > tr:hover > td,
+table > tbody > tr:hover > th {
+  background-color: #f5f5f5 !important; }
+
+</style>
+</head>
+<body>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Buscar nome..." title="Digite um nome">
+
+<table id="myTable" style="margin: 0px auto;">
+  <tr class="header">
+    <th style="width:600px; background-color:  #f5f5f5 !important;">Nome</th>
+    <th style="width:600px; background-color:  #f5f5f5 !important;">Acusações</th>
+  </tr>
+<tr>
+    <td>Roberto Dias</td>
+    <td>Formação de Organização Criminosa, Improbidade Administrativa, Corrupção Passiva</td>
+   </tr>
+<tr>
+    <td>Paolo Zanotto</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Eduardo Bolsonaro</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Mayra Pinheiro</td>
+    <td>Prevaricação, Epidemia com Resultado em Morte, Crime Contra Humanidade</td>
+   </tr>
+<tr>
+    <td>Bia Kicis</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Carlos Wizard</td>
+    <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Regina Célia Oliveira</td>
+    <td>Advocacia Administrativa</td>
+   </tr>
+<tr>
+    <td>Rodrigo Esper</td>
+    <td>Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem</td>
+   </tr>
+<tr>
+    <td>Luiz Paulo Dominghetti</td>
+    <td>Corrupção Ativa</td>
+   </tr>
+<tr>
+    <td>Osmar Terra</td>
+    <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Marcelo Bento Pires</td>
+    <td>Advocacia Administrativa</td>
+   </tr>
+<tr>
+    <td>Fábio Wajngarten</td>
+    <td>Prevaricação, Advocacia Administrativa</td>
+   </tr>
+<tr>
+    <td>Fernando Parrillo</td>
+    <td>Falsidade Ideológica, Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem, Omissão de Notificação de Doença</td>
+   </tr>
+<tr>
+    <td>Carla Guerra</td>
+    <td>Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem</td>
+   </tr>
+<tr>
+    <td>Marcelo Queiroga</td>
+    <td>Prevaricação, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Marcelo Blanco</td>
+    <td>Corrupção Ativa</td>
+   </tr>
+<tr>
+    <td>Filipe Martins</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Wilson Lima</td>
+    <td>Prevaricação, Crimes de Responsabilidade</td>
+   </tr>
+<tr>
+    <td>Roberto Jefferson</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Flávio Adsuara Cadegiani</td>
+    <td>Crime Contra Humanidade</td>
+   </tr>
+<tr>
+    <td>Marcellus José Barroso Campêlo</td>
+    <td>Prevaricação</td>
+   </tr>
+<tr>
+    <td>Bernardo Kuster</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Rafael Francisco Carmo Alves</td>
+    <td>Corrupção Ativa</td>
+   </tr>
+<tr>
+    <td>Oswaldo Eustáquio</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>José Odilon Torres</td>
+    <td>Corrupção Ativa</td>
+   </tr>
+<tr>
+    <td>Paola Werneck</td>
+    <td>Perigo Para a vida ou Saúde de Outrem</td>
+   </tr>
+<tr>
+    <td>Carlos Jordy</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Mauro Luiz de Brito Ribeiro</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Daniel Garrido Baena</td>
+    <td>Falsidade Ideológica</td>
+   </tr>
+<tr>
+    <td>Nise Yamaguchi</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Hélio Angotti Netto</td>
+    <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Marcos Tolentino</td>
+    <td>Formação de Organização Criminosa, Improbidade Administrativa, Fraude em Contrato</td>
+   </tr>
+<tr>
+    <td>Luis Carlos Heinze</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Flávio Cadegiani</td>
+    <td>Crime Contra Humanidade</td>
+   </tr>
+<tr>
+    <td>Emanuela Medrades</td>
+    <td>Formação de Organização Criminosa, Improbidade Administrativa, Falsidade Ideológica, Fraude Processual, Uso de Documento Falso</td>
+   </tr>
+<tr>
+    <td>Flávio Bolsonaro</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Carlos Alberto de Sá</td>
+    <td>Corrupção Ativa, Improbidade Administrativa</td>
+   </tr>
+<tr>
+    <td>Airton Soligo</td>
+    <td>Usurpação de Função Pública</td>
+   </tr>
+<tr>
+    <td>Leandro Ruschel</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Marconny Nunes Ribeiro</td>
+    <td>Formação de Organização Criminosa</td>
+   </tr>
+<tr>
+    <td>João Paulo F. Barros</td>
+    <td>Falsidade Ideológica</td>
+   </tr>
+<tr>
+    <td>Allan dos Santos</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>José Alves Filho</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Alex Lial Marinho</td>
+    <td>Advocacia Administrativa</td>
+   </tr>
+<tr>
+    <td>Eduardo Parrillo</td>
+    <td>Falsidade Ideológica, Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem, Omissão de Notificação de Doença</td>
+   </tr>
+<tr>
+    <td>José Ricardo Santana</td>
+    <td>Formação de Organização Criminosa</td>
+   </tr>
+<tr>
+    <td>Onyx Lorenzoni</td>
+    <td>Incitação ao crime, Crime Contra Humanidade</td>
+   </tr>
+<tr>
+    <td>Luciano Hang</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Danilo Trento</td>
+    <td>Formação de Organização Criminosa, Improbidade Administrativa, Fraude em Contrato</td>
+   </tr>
+<tr>
+    <td>Wagner Rosário</td>
+    <td>Prevaricação</td>
+   </tr>
+<tr>
+    <td>Arthur Weintraub</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Paulo Eneas</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Teresa Cristina Reis de Sá</td>
+    <td>Corrupção Ativa, Improbidade Administrativa</td>
+   </tr>
+<tr>
+    <td>Carla Zambelli</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Eduardo Pazuello</td>
+    <td>Prevaricação, Epidemia com Resultado em Morte, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Comunicação Falsa de Crime</td>
+   </tr>
+<tr>
+    <td>Raimundo Nonato Brasil</td>
+    <td>Corrupção Ativa, Improbidade Administrativa</td>
+   </tr>
+<tr>
+    <td>Heitor Freire de Abreu</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Francisco Emerson Maximiano</td>
+    <td>Formação de Organização Criminosa, Improbidade Administrativa, Fraude em Contrato, Falsidade Ideológica, Fraude Processual, Uso de Documento Falso</td>
+   </tr>
+<tr>
+    <td>Richards Pozzer</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Ricardo Barros</td>
+    <td>Incitação ao crime, Advocacia Administrativa, Formação de Organização Criminosa, Improbidade Administrativa</td>
+   </tr>
+<tr>
+    <td>Otávio Fakhoury</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Pedro Benedito Batista Junior</td>
+    <td>Falsidade Ideológica, Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem, Omissão de Notificação de Doença</td>
+   </tr>
+<tr>
+    <td>Andreia da Silva Lima</td>
+    <td>Corrupção Ativa, Improbidade Administrativa</td>
+   </tr>
+<tr>
+    <td>Thiago Fernandes da Costa</td>
+    <td>Advocacia Administrativa</td>
+   </tr>
+<tr>
+    <td>Ernesto Araújo</td>
+    <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Fernando Oikawa</td>
+    <td>Crime Contra Humanidade, Perigo Para a vida ou Saúde de Outrem</td>
+   </tr>
+<tr>
+    <td>Tercio Arnaud Tomaz</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Roberto Goidanich</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Túlio Silveira</td>
+    <td>Improbidade Administrativa, Falsidade Ideológica, Uso de Documento Falso</td>
+   </tr>
+<tr>
+    <td>Jair Bolsonaro</td>
+    <td>Incitação ao crime, Prevaricação, Epidemia com Resultado em Morte, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Crimes de Responsabilidade, Charlatanismo, Infração a Medidas Sanitárias Preventivas, Falsificação de Documento Particular</td>
+   </tr>
+<tr>
+    <td>Amilton Gomes de Paula</td>
+    <td>Tráfico de Influência</td>
+   </tr>
+<tr>
+    <td>Carlos Bolsonaro</td>
+    <td>Incitação ao crime</td>
+   </tr>
+<tr>
+    <td>Elcio Franco</td>
+    <td>Improbidade Administrativa, Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Cristiano Carvalho</td>
+    <td>Corrupção Ativa</td>
+   </tr>
+<tr>
+    <td>Fernanda de Oliveira Igarashi</td>
+    <td>Falsidade Ideológica</td>
+   </tr>
+<tr>
+    <td>Daniella de Aguiar Moreira da Silva</td>
+    <td>Tentativa de Homicídio</td>
+   </tr>
+<tr>
+    <td>Braga Netto</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+<tr>
+    <td>Luciano Dias</td>
+    <td>Epidemia com Resultado em Morte</td>
+   </tr>
+</table>
+
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>
