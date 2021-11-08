@@ -59,7 +59,7 @@ O aspecto visual dessa rede oferece algumas pistas. Por exemplo, podemos notar q
 
 <br>
 
-Podemos ser mais quantitativos e calcular algumas medidas dessa rede para caracterizá-la. Essa rede apresenta um [coeficiente de agrupamento médio](https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento) alto (0,87), uma [densidade](https://bookdown.org/omarlizardo/_main/2-9-density.html) considerável (0,25) e um valor de [diâmetro](https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter) relativamente baixo (4,0). De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.
+Podemos ser mais quantitativos e calcular algumas medidas dessa rede a fim de caracterizá-la. Essa rede apresenta um [coeficiente de agrupamento médio](https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento) alto (0,87), uma [densidade](https://bookdown.org/omarlizardo/_main/2-9-density.html) considerável (0,25) e um valor de [diâmetro](https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter) relativamente baixo (4,0). Além disso, o [coeficiente de assortividade](https://networkx.org/nx-guides/content/algorithms/assortativity/correlation.html) dessa rede possui um valor positivo (0,23), nos permitindo concluir que os indivíduos possuem a tendência de se conectarem com vértices que possuem importância similar. De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.
 
 # Medidas de Centralidade
 
@@ -128,7 +128,6 @@ Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra 
 <button class="btn btn-secondary btn-lg" onclick="update('pessoas')">Número de pessoas</button>
 <button class="btn btn-secondary btn-lg" onclick="update('crimes')"> Número de crimes</button>
 
-<br>
 <br>
 
 <div id="barplots_nc"></div>
