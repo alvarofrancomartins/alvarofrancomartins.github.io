@@ -56,7 +56,7 @@
 &lt;h1 id=&#34;estrutura-de-comunidades&#34;&gt;Estrutura de Comunidades&lt;/h1&gt;
 &lt;p&gt;A estrutura de comunidades (ou módulos) é uma propriedade encontrada em diversos tipos de redes. De forma simplificada, essas comunidades podem ser pensadas como &lt;strong&gt;grupos de vértices mais densamente conectados&lt;/strong&gt; entre si do que com outros grupos de vértices da rede. A detecção dessas estruturas pode fornecer informações importantes. Em geral, redes e organizações criminosas possuem a tendência de formar comunidades com a finalidade de reduzir o risco de vazamento de informações.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algoritmo de detecção de comunidades conhecido como &lt;em&gt;infomap&lt;/em&gt;&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; . A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas.&lt;/p&gt;
+&lt;p&gt;Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algoritmo de detecção de comunidades conhecido como &lt;em&gt;infomap&lt;/em&gt;&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas.&lt;/p&gt;
 &lt;br&gt;
 &lt;div id=&#34;cpi_covid_modulos&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/cpi_covid_modulos.js&#34;&gt; &lt;/script&gt;
