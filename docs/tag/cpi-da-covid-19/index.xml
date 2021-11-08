@@ -24,51 +24,55 @@
 &lt;br&gt;
 &lt;p&gt;Nossa análise terá o enfoque da &lt;a href=&#34;https://en.wikipedia.org/wiki/Network_science&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ciência de redes&lt;/a&gt;. A representação de dados em grafos fornece uma abordagem poderosa, capaz de revelar padrões e estruturas não triviais entre agentes que possuem alguma relação de conexão. A CPI da COVID apresenta &lt;strong&gt;24 acusações&lt;/strong&gt; e &lt;strong&gt;78 nomes&lt;/strong&gt; citados, resultando em um total de &lt;strong&gt;695 conexões&lt;/strong&gt;. Por meio de ferramentas advindas da teoria dos grafos, elaboramos uma visualização dessa rede, calculamos algumas medidas de centralidade e mostramos que ela possui uma estrutura de comunidades.&lt;/p&gt;
 &lt;h1 id=&#34;a-rede-da-cpi-da-covid&#34;&gt;A rede da CPI da COVID&lt;/h1&gt;
-&lt;p&gt;Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligações entre esses vértices. Aqui, a ligação entre duas pessoas ocorre se elas foram acusadas de um mesmo crime. Abaixo eu apresento uma visualização interativa dessa rede, com 75 nomes&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; e 695 conexões. O tamanho de cada vértice é proporcional ao número de ligações e, passando o mouse sobre alguns dos vértices, você pode visualizar as suas quantidades de conexões e indiciações.&lt;/p&gt;
+&lt;p&gt;Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligações entre esses vértices. Aqui, a ligação entre duas pessoas ocorre se elas foram acusadas de um mesmo crime &lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Abaixo você encontra uma visualização interativa dessa rede, com 75 nomes&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; e 695 conexões. Cada vértice possui um tamanho proporcional ao seu número de ligações e, ao passar ao mouse sobre os vértices, você pode ver suas quantidades de conexões e acusações.&lt;/p&gt;
 &lt;div id=&#34;cpi_covid&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/cpi_covid.js&#34;&gt; &lt;/script&gt;
 &lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede da CPI da COVID&lt;/b&gt;: 24 acusações, 75 vértices e 695 conexões.&lt;p/&gt;&lt;br&gt;
 &lt;h1 id=&#34;medidas-de-centralidade&#34;&gt;Medidas de Centralidade&lt;/h1&gt;
 &lt;h2 id=&#34;grau&#34;&gt;Grau&lt;/h2&gt;
-&lt;p&gt;A centralidade de &lt;strong&gt;grau&lt;/strong&gt; oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam &lt;strong&gt;indivíduos populares&lt;/strong&gt; e que possuem uma &lt;strong&gt;posição privilegiada&lt;/strong&gt; na rede.&lt;/p&gt;
-&lt;br&gt;
+&lt;p&gt;A centralidade de &lt;strong&gt;grau&lt;/strong&gt; oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam &lt;strong&gt;indivíduos populares&lt;/strong&gt; e que possuem uma &lt;strong&gt;posição privilegiada&lt;/strong&gt; na rede. A &lt;b&gt;Figura 1&lt;/b&gt; mostra os nomes dos vértices da rede que possuem os maiores valores de grau.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;barplots_degree&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/barplots_degree.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 1&lt;/b&gt;: Dez vértices da rede que possuem os maiores valores de &lt;b&gt;grau&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 1&lt;/b&gt;: Dez nomes da rede que possuem os maiores valores de &lt;b&gt;grau&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
 &lt;h2 id=&#34;intermediação&#34;&gt;Intermediação&lt;/h2&gt;
-&lt;p&gt;A &lt;strong&gt;intermediação&lt;/strong&gt; quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Ou ainda, essa medida para um determinado vértice representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem &lt;strong&gt;transmitir informações com facilidade&lt;/strong&gt; e também têm tendência de serem &lt;strong&gt;bem informados&lt;/strong&gt;.&lt;/p&gt;
-&lt;br&gt;
+&lt;p&gt;A &lt;strong&gt;intermediação&lt;/strong&gt; quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Ou ainda, essa medida para um determinado vértice representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem &lt;strong&gt;transmitir informações com facilidade&lt;/strong&gt; e também têm tendência de serem &lt;strong&gt;bem informados&lt;/strong&gt;. A &lt;b&gt;Figura 2&lt;/b&gt; mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação.&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;barplots_bets&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/barplots_bets.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 2&lt;/b&gt;: Dez vértices da rede que possuem os maiores valores de &lt;b&gt;intermediação&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 2&lt;/b&gt;: Dez nomes da rede que possuem os maiores valores de &lt;b&gt;intermediação&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
 &lt;h2 id=&#34;proximidade&#34;&gt;Proximidade&lt;/h2&gt;
-&lt;p&gt;A &lt;strong&gt;proximidade&lt;/strong&gt; de um vértice quantifica sua distância média em relação a todas os outros vértices. Assim, pessoas com maiores valores de proximidade estão, em média, &lt;strong&gt;mais perto de todas&lt;/strong&gt; as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue &lt;strong&gt;disseminar melhor as informações&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;proximidade&lt;/strong&gt; de um vértice quantifica sua distância média em relação a todas os outros vértices. Assim, pessoas com maiores valores de proximidade estão, em média, &lt;strong&gt;mais perto de todas&lt;/strong&gt; as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue &lt;strong&gt;disseminar melhor as informações&lt;/strong&gt;. A &lt;b&gt;Figura 3&lt;/b&gt; mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
 &lt;div id=&#34;barplots_clos&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/barplots_clos.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 3&lt;/b&gt;: Dez vértices da rede que possuem os maiores valores de &lt;b&gt;proximidade&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
-&lt;p&gt;Apesar de aparentarem serem medidas parecidas, a intermediação e a proximidade medem características diferentes: a intermediação fornece um quantitativo de &lt;strong&gt;quantos caminhos&lt;/strong&gt; passam por determinado vértice durante a comunicação entre todos os vértices da rede; a proximidade, por outro lado, quantifica a &lt;strong&gt;distância média&lt;/strong&gt; de um vértice em relação aos demais vértices. Podemos dizer que pessoas com maior intermediação (ou proximidade) possuem influência considerável na rede por virtude de seu &lt;strong&gt;controle sobre a informação que circula&lt;/strong&gt;.&lt;/p&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 3&lt;/b&gt;: Dez nomes da rede que possuem os maiores valores de &lt;b&gt;proximidade&lt;/b&gt;.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Apesar de aparentarem ser medidas parecidas, a intermediação e a proximidade medem características diferentes: a intermediação fornece um quantitativo de &lt;strong&gt;quantos caminhos&lt;/strong&gt; passam por determinado vértice durante a comunicação entre todos os vértices da rede; a proximidade, por outro lado, quantifica a &lt;strong&gt;distância média&lt;/strong&gt; de um vértice em relação aos demais vértices. Podemos dizer que pessoas com maior intermediação (ou proximidade) possuem influência considerável na rede por virtude de seu &lt;strong&gt;controle sobre a informação que circula&lt;/strong&gt;.&lt;/p&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;estrutura-de-comunidades&#34;&gt;Estrutura de Comunidades&lt;/h1&gt;
-&lt;p&gt;A estrutura de comunidades (ou módulos) é uma propriedade encontrada em diversos tipos de redes. De forma simplificada, esses módulos ou comunidades podem ser pensados como &lt;strong&gt;grupos de vértices mais densamente conectados&lt;/strong&gt; entre si do que com outros grupos de vértices da rede. A detecção dessas estruturas pode fornecer informações importantes. Em geral, redes e organizações criminosas possuem a tendência de formar comunidades com a finalidade de reduzir o risco de vazamento de informações.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos o modelo bayesiano de blocos estocásticos (SBM)&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. A &lt;b&gt;Figura 4&lt;/b&gt; mostra a rede da CPI da COVID com sua estrutura modular em destaque. Nessa figura, as cores representam diferentes comunidades e os círculos dos vértices são divididos segundo a probabilidade de estar na comunidade associada à respectiva cor.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;rede_comunidades.png&#34; width=&#34;760px&#34; height=&#34;654px&#34;/&gt;
-    &lt;figcaption&gt;&lt;b&gt;Figura 4&lt;/b&gt;: Visualização da estrutura modular da rede.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;De imediato, notamos que existe um número muito menor de comunidades do que de supostos crimes. A rede dessa figura possui 9 comunidades. Uma vez que estamos interessados no número de comunidades da rede, devemos saber que o modelo SBM é intrinsecamente aleatório e pode retornar números de comunidades ligeiramente diferentes a cada realização. Considerando esse aspecto, podemos fazer várias realizações do modelo&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, obter a distribuição de probabilidade do número de módulos e usar sua média como indicador do número de módulos da rede. A &lt;b&gt;Figura 5&lt;/b&gt; mostra essa distribuição.&lt;/p&gt;
+&lt;p&gt;A estrutura de comunidades (ou módulos) é uma propriedade encontrada em diversos tipos de redes. De forma simplificada, essas comunidades podem ser pensadas como &lt;strong&gt;grupos de vértices mais densamente conectados&lt;/strong&gt; entre si do que com outros grupos de vértices da rede. A detecção dessas estruturas pode fornecer informações importantes. Em geral, redes e organizações criminosas possuem a tendência de formar comunidades com a finalidade de reduzir o risco de vazamento de informações.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos o modelo bayesiano de blocos estocásticos (SBM)&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. A &lt;b&gt;Figura 4&lt;/b&gt; mostra a rede da CPI da COVID com sua estrutura modular em destaque. Nessa figura, as cores representam diferentes comunidades e os círculos dos vértices são divididos segundo a probabilidade de estar na comunidade associada à respectiva cor.&lt;/p&gt;
+&lt;div id=&#34;cpi_covid_modulos&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cpi_covid_modulos.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede da CPI da COVID&lt;/b&gt;: 24 acusações, 75 vértices e 695 conexões.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;De imediato, notamos que existe um número muito menor de comunidades do que de supostos crimes. A rede dessa figura possui 9 comunidades. Uma vez que estamos interessados no número de comunidades da rede, devemos saber que o modelo SBM é intrinsecamente aleatório e pode retornar números de comunidades ligeiramente diferentes a cada realização. Considerando esse aspecto, podemos fazer várias realizações do modelo[^4], obter a distribuição de probabilidade do número de módulos e usar sua média como indicador do número de módulos da rede. A &lt;b&gt;Figura 5&lt;/b&gt; mostra essa distribuição.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Portanto, em média, foram encontradas &lt;strong&gt;5 comunidades&lt;/strong&gt; para a rede da CPI da COVID. No entanto, o número de supostos crimes é quase o triplo disso, o que significa que vários desses poderiam ser considerados como um só.&lt;/p&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;div id=&#34;barplots_hist&#34;&gt;&lt;/div&gt;
-&lt;script type=&#34;text/javascript&#34; src=&#34;js/barplots_hist.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 5&lt;/b&gt;: Probabilidade do número de módulos da rede da CPI.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;&lt;button class=&#34;btn btn-secondary btn-lg&#34; onclick=&#34;update(&#39;npessoas&#39;)&#34;&gt;Número de pessoas&lt;/button&gt;
+&lt;button class=&#34;btn btn-secondary btn-lg&#34; onclick=&#34;update(&#39;ncasos&#39;)&#34;&gt;Número de crimes atribuídos&lt;/button&gt;
 &lt;br&gt;
-&lt;p&gt;Portanto, em média, foram encontradas &lt;strong&gt;9 comunidades&lt;/strong&gt; para a rede da CPI da COVID. No entanto, o número de supostos crimes é quase o triplo disso, o que significa que vários desses poderiam ser considerados como um só.
 &lt;br&gt;&lt;/p&gt;
-&lt;p&gt;Por último, deixo aqui, em forma de tabela, os dados completos que foram coletados para criar a rede da CPI. Abaixo você encontra duas tabelas para uma checagem rápida dos acusados e seus supostos crimes.&lt;/p&gt;
+&lt;div id=&#34;barplots_nc&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/barplots_nc.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Figura 6&lt;/b&gt;: Número de supostos crimes dentro de cada comunidade encontrada.&lt;p/&gt;&lt;br&gt;
+&lt;h1 id=&#34;dados-completos&#34;&gt;Dados completos&lt;/h1&gt;
 &lt;br&gt;
-&lt;h2 style=&#34;text-align: center;&#34;&gt;Acusados e seus supostos crimes&lt;/h2&gt;
+&lt;p&gt;Por último, deixo aqui, em forma de tabela, os dados completos que foram coletados para criar a rede da CPI. Abaixo você encontra duas tabelas para uma checagem rápida dos acusados e seus supostos crimes.&lt;/p&gt;
+&lt;h2 id=&#34;acusados-e-seus-supostos-crimes&#34;&gt;Acusados e seus supostos crimes&lt;/h2&gt;
 &lt;br&gt;
 
 &lt;!DOCTYPE html&gt;
@@ -85,11 +89,12 @@
   border: 1px solid #ddd;
   display: block;
   margin-bottom: 12px;
+  margin-left: 30px;
 }
 
 #myTable {
   border-collapse: collapse;
-  width:  100%;
+  width:  95%;
   max-height: 400px;
   overflow-x:auto;
   font-size: 18px;
@@ -461,7 +466,7 @@ function myFunction() {
 &lt;/html&gt;
 
 &lt;br&gt;
-&lt;h2 style=&#34;text-align: center;&#34;&gt;Acusados que compartilham as mesmas acusações&lt;/h2&gt;
+&lt;h2 id=&#34;acusados-que-compartilham-as-mesmas-acusações&#34;&gt;Acusados que compartilham as mesmas acusações&lt;/h2&gt;
 &lt;br&gt;
 
 &lt;!DOCTYPE html&gt;
@@ -481,14 +486,15 @@ function myFunction() {
   /*margin-right: auto;*/
   /*margin-left: 25%; */
   margin-bottom: 12px;
+  margin-left: 30px;
+
 }
 
 #myTable2 {
   border-collapse: collapse;
-  /*width:  100%;*/
-  max-height: 400px;
-  /*border: 1px solid #ddd;*/
-  overflow-x: auto;
+  width:  95%;
+  max-height: 470px;
+  overflow-x:auto;
   font-size: 18px;
 }
 
@@ -498,6 +504,13 @@ function myFunction() {
   padding: 20px;
 }
 
+#myTable2 th, #myTable2 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -506,9 +519,9 @@ function myFunction() {
 
 &lt;table class = &#34;table table-striped&#34; id=&#34;myTable2&#34; style=&#34;margin: 10px auto;&#34;&gt;
   &lt;tr class=&#34;header2&#34;&gt;
-    &lt;th style=&#34;width:400px; background-color: #f5f5f5 !important;&#34;&gt;Pessoa 1&lt;/th&gt;
-    &lt;th style=&#34;width:400px; background-color: #f5f5f5 !important;&#34;&gt;Pessoa 2&lt;/th&gt;
-    &lt;th style=&#34;width:400px; background-color: #f5f5f5 !important;&#34;&gt;Supostos crimes compartilhados&lt;/th&gt;
+    &lt;th style=&#34;width:300px; background-color: #f5f5f5 !important;&#34;&gt;Pessoa 1&lt;/th&gt;
+    &lt;th style=&#34;width:300px; background-color: #f5f5f5 !important;&#34;&gt;Pessoa 2&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5 !important;&#34;&gt;Supostos crimes compartilhados&lt;/th&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
             &lt;td&gt;Elcio Franco&lt;/td&gt;
@@ -7487,19 +7500,20 @@ function myFunction2() {
 &lt;/html&gt;
 
 &lt;br&gt;
+&lt;br&gt;
 &lt;p&gt;Dessa forma, fornecendo uma compreensão mais profunda sobre a relação entre os citados pela CPI.&lt;/p&gt;
-&lt;p&gt;What&amp;rsquo;s next?&lt;/p&gt;
+&lt;p&gt;What&amp;rsquo;s next? Número de acusações x medidas de centralidade :: número de supostos crimes/comunidade :: distribuicao de grau :: número de supostos crimes/nome citado&lt;/p&gt;
 &lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Do total de 78 citados, três deles estão citados separadamente em três diferentes supostos crimes. Uma vez que esses vértices são isolados, não os incluímos na rede e, portanto, o número de vértices se reduz a 75.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;É importante frisar que ligação entre duas pessoas significa &lt;strong&gt;apenas&lt;/strong&gt; que elas foram citadas em um mesmo crime. Portanto, não afirmamos que, se existe ligação entre duas pessoas, elas necessariamente possuem uma relação e/ou comunicação direta.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;&lt;a href=&#34;https://graph-tool.skewed.de/static/doc/demos/inference/inference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Inferring modular network structure&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Do total de &lt;a href=&#34;https://g1.globo.com/politica/cpi-da-covid/noticia/2021/10/20/cpi-da-covid-lista-alvos-de-sugestao-de-indiciamento.ghtml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;78 nomes&lt;/a&gt;, três deles estão citados separadamente em três diferentes supostos crimes. Uma vez que esses vértices são isolados, não os incluímos na rede e, portanto, o número de vértices se reduz a 75.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;Essa distribuição foi obtida após 1000 realizações do SBM.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://graph-tool.skewed.de/static/doc/demos/inference/inference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Inferring modular network structure&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;

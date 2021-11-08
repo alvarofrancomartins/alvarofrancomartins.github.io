@@ -41,6 +41,11 @@
     font-family: Helvetica;
 }
 
+.bar {
+  stroke: black;
+  stroke-width: 0.8
+}
+
 .xAxis {
   font-size: 13.5px;
   font-family: Helvetica;
