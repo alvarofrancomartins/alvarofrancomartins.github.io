@@ -2,21 +2,21 @@
 const svgNetwork_modulos = d3.select('#cpi_covid_modulos')
 	              .append('svg')
 	               .attr("class", "content")
-	               .attr("viewBox", `0 0 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom+58}`)
+	               .attr("viewBox", `0 30 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom - 50}`)
 	               .attr("preserveAspectRatio", "none")
 
 var color2 = ['#662506', '#cc4c02', '#fe9929', '#fee391', '#ffffe5']
 
-svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",15).attr("r", 8).style("fill", '#662506').style("stroke", "#000000").style("stroke-width", "0.5")
-svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",55).attr("r", 8).style("fill", '#cc4c02').style("stroke", "#000000").style("stroke-width", "0.5")
-svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",95).attr("r", 8).style("fill", '#fe9929').style("stroke", "#000000").style("stroke-width", "0.5")
-svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",135).attr("r", 8).style("fill", '#fee391').style("stroke", "#000000").style("stroke-width", "0.5")
-svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",175).attr("r", 8).style("fill", '#ffffe5').style("stroke", "#000000").style("stroke-width", "0.5")
-svgNetwork_modulos.append("text").attr("x", 25).attr("y", 16).text("Comunidade 1").style("font-size", "10px").attr("alignment-baseline","middle")
-svgNetwork_modulos.append("text").attr("x", 25).attr("y", 56).text("Comunidade 2").style("font-size", "10px").attr("alignment-baseline","middle")
-svgNetwork_modulos.append("text").attr("x", 25).attr("y", 96).text("Comunidade 3").style("font-size", "10px").attr("alignment-baseline","middle")
-svgNetwork_modulos.append("text").attr("x", 25).attr("y", 136).text("Comunidade 4").style("font-size", "10px").attr("alignment-baseline","middle")
-svgNetwork_modulos.append("text").attr("x", 25).attr("y", 176).text("Comunidade 5").style("font-size", "10px").attr("alignment-baseline","middle")
+svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",35+10).attr("r", 8).style("fill", '#662506').style("stroke", "#000000").style("stroke-width", "0.5")
+svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",75+10).attr("r", 8).style("fill", '#cc4c02').style("stroke", "#000000").style("stroke-width", "0.5")
+svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",115+10).attr("r", 8).style("fill", '#fe9929').style("stroke", "#000000").style("stroke-width", "0.5")
+svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",155+10).attr("r", 8).style("fill", '#fee391').style("stroke", "#000000").style("stroke-width", "0.5")
+svgNetwork_modulos.append("circle").attr("cx",10).attr("cy",195+10).attr("r", 8).style("fill", '#ffffe5').style("stroke", "#000000").style("stroke-width", "0.5")
+svgNetwork_modulos.append("text").attr("x", 25).attr("y", 36+10).text("Comunidade 1").style("font-size", "10px").attr("alignment-baseline","middle")
+svgNetwork_modulos.append("text").attr("x", 25).attr("y", 76+10).text("Comunidade 2").style("font-size", "10px").attr("alignment-baseline","middle")
+svgNetwork_modulos.append("text").attr("x", 25).attr("y", 116+10).text("Comunidade 3").style("font-size", "10px").attr("alignment-baseline","middle")
+svgNetwork_modulos.append("text").attr("x", 25).attr("y", 156+10).text("Comunidade 4").style("font-size", "10px").attr("alignment-baseline","middle")
+svgNetwork_modulos.append("text").attr("x", 25).attr("y", 196+10).text("Comunidade 5").style("font-size", "10px").attr("alignment-baseline","middle")
 
 var simulation_modulos = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
@@ -114,10 +114,10 @@ d3.json("data/cpi_covid_modulos.json")
 
   simulation_modulos.force("link")
       .links(graph.links)
-      .distance(5);
+      .distance(20);
 
   simulation_modulos.force("charge")
-        .strength(-200)
+        .strength(-110)
         .distanceMin(5)
         .distanceMax(3000);
 

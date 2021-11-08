@@ -19,12 +19,7 @@ tags:
 
 categories:
 - criminal_networks
-- network_analysis
-- data_analysis
-
-# Featured image
-# To use, add an image named `featured.jpg/png` to your page's folder. 
-# toc: true
+- redes_criminosas
 
 image:
   placement: 3
@@ -32,13 +27,7 @@ image:
   focal_point: "Smart"
   preview_only: true
 
-# Projects (optional).
-#   Associate this post with one or more of your projects.
-#   Simply enter your project's folder or file name without extension.
-#   E.g. `projects = ["internal-project"]` references 
-#   `content/project/deep-learning/index.md`.
-#   Otherwise, set `projects = []`.
-projects: [criminal_networks]
+projects: [criminal_networks, redes_criminosas]
 # profile: true
 ---
 
@@ -51,6 +40,8 @@ Nessa postagem apresento uma perspectiva inédita para entender as relações en
 <br>
 
 Nossa análise terá o enfoque da [ciência de redes](https://en.wikipedia.org/wiki/Network_science). A representação de dados em grafos fornece uma abordagem poderosa, capaz de revelar padrões e estruturas não triviais entre agentes que possuem alguma relação de conexão. A CPI da COVID apresenta **24 acusações** e **78 nomes** citados, resultando em um total de **695 conexões**. Por meio de ferramentas advindas da teoria dos grafos, elaboramos uma visualização dessa rede, calculamos algumas medidas de centralidade e mostramos que ela possui uma estrutura de comunidades.
+
+<br>
 
 # A rede da CPI da COVID
 
@@ -70,7 +61,8 @@ Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligaç�
 
 A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam **indivíduos populares** e que possuem uma **posição privilegiada** na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau. 
 
-<br><br>
+<br>
+<br>
 
 <div id="barplots_degree"></div>
 <script type="text/javascript" src="js/barplots_degree.js"> </script>
@@ -80,7 +72,8 @@ A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O g
 
 A **intermediação** quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Ou ainda, essa medida para um determinado vértice representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem **transmitir informações com facilidade** e também têm tendência de serem **bem informados**. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação. 
 
-<br><br>
+<br>
+<br>
 
 <div id="barplots_bets"></div>
 <script type="text/javascript" src="js/barplots_bets.js"> </script>
@@ -90,7 +83,8 @@ A **intermediação** quantifica o número de vezes que um vértice age como pon
 
 A **proximidade** de um vértice quantifica sua distância média em relação a todas os outros vértices. Assim, pessoas com maiores valores de proximidade estão, em média, **mais perto de todas** as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue **disseminar melhor as informações**. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.
 
-<br><br>
+<br>
+<br>
 
 <div id="barplots_clos"></div>
 <script type="text/javascript" src="js/barplots_clos.js"> </script>
@@ -102,39 +96,54 @@ Apesar de aparentarem ser medidas parecidas, a intermediação e a proximidade m
 
 # Estrutura de Comunidades
 
-<br>
-
 A estrutura de comunidades (ou módulos) é uma propriedade encontrada em diversos tipos de redes. De forma simplificada, essas comunidades podem ser pensadas como **grupos de vértices mais densamente conectados** entre si do que com outros grupos de vértices da rede. A detecção dessas estruturas pode fornecer informações importantes. Em geral, redes e organizações criminosas possuem a tendência de formar comunidades com a finalidade de reduzir o risco de vazamento de informações. 
 
 <br>
 
-Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algorítmo de detecção de comunidades conhecido como [_infomap_](https://www.mapequation.org/infomap/). A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas[^3].
+Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algoritmo de detecção de comunidades conhecido como _infomap_[^3] . A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas.
 
-[^3]: O algoritmo do _infomap_ é bastante robusto pois busca encontrar as comunidades por meio de caminhadas aleatórias na rede, obtendo regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de 4 comunidades. Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
+[^3]: O [_infomap_](https://www.mapequation.org/infomap/) é bastante robusto pois busca encontrar comunidades por meio de caminhadas aleatórias na rede. São consideradas comunidades as regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Por outro lado, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
 
 <br>
 <div id="cpi_covid_modulos"></div>
 <script type="text/javascript" src="js/cpi_covid_modulos.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: Destaque para 5 comunidades encontradas.<p/><br>
 
-Nossa análise retornou um número 5 comunidades para essa rede. Portanto, o número de supostos crimes é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que cada crime configuraria uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. A <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada uma dos módulos encontrados.
+No total, nossa análise retornou 5 comunidades. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, nessa rede, existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.
+
+<br>
+
+Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.
 
 <br>
 
 <button class="btn btn-secondary btn-lg" onclick="update('pessoas')">Número de pessoas</button>
-<button class="btn btn-secondary btn-lg" onclick="update('crimes')">Número de crimes atribuídos</button>
+<button class="btn btn-secondary btn-lg" onclick="update('crimes')"> Número de crimes</button>
+
 <br>
 <br>
 
 <div id="barplots_nc"></div>
 <script type="text/javascript" src="js/barplots_nc.js"> </script>
-<p style="text-align: center"><b>Figura 6</b>: Número de citados e seus supostos crimes dentro de cada comunidade encontrada.<p/><br>
+<p style="text-align: center"><b>Figura 6</b>: Número de pessoas e seus supostos crimes dentro de cada comunidade.<p/><br>
 
-# Dados completos
+Existem outras inúmeras informações desses dados que poderíamos explorar. A próxima informação que, ao meu ver, seria interessante saber é se a distribuição de grau da rede apresenta algum padrão. Ou ainda, poderíamos também explorar a informação sobre o número de acusações dos citados: encontrar, por exemplo, se existe alguma relação entre o número de acusações de cada pessoa e suas medidas de centralidade.
 
 <br>
 
-Por último, deixo aqui, em forma de tabela, os dados completos que foram coletados para criar a rede da CPI. Abaixo você encontra duas tabelas para uma checagem rápida dos acusados e seus supostos crimes.
+Poderíamos ir ainda além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria as funções (ou cargos) dos envolvidos citados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, vou deixar essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em entrar [em contato](mailto:alvarought@gmail.com). Também fico à disposição para quaisquer dúvidas. 
+
+<br>
+
+Por fim, agradeço a contribuição dos colegas [Diego Domingues Lopes](https://www.linkedin.com/in/diego-domingues-lopes-963a761b9/) e [Andre Seiji Sunahara](https://ansesu.github.io/) na elaboração dessa postagem.
+
+<br>
+
+# Informações gerais
+
+Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações[^4] para cada comunidade.
+
+[^4]: Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.
 
 ## Acusados e seus supostos crimes
 
@@ -151,8 +160,19 @@ Por último, deixo aqui, em forma de tabela, os dados completos que foram coleta
 {{< include-html "content/post/cpi_covid/tabela2.html" >}}
 
 <br>
+
+## Acusados dentro de cada comunidade
+
 <br>
 
-Dessa forma, fornecendo uma compreensão mais profunda sobre a relação entre os citados pela CPI.
+{{< include-html "content/post/cpi_covid/tabela3.html" >}}
 
-What's next? Número de acusações x medidas de centralidade :: número de supostos crimes/comunidade :: distribuicao de grau :: número de supostos crimes/nome citado
+<br>
+
+## Supostos crimes dentro de cada comunidade
+
+<br>
+
+{{< include-html "content/post/cpi_covid/tabela4.html" >}}
+
+<br>

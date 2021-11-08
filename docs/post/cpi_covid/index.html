@@ -765,7 +765,7 @@ figcaption {
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a>, <a href="/category/network_analysis/">network_analysis</a>, <a href="/category/data_analysis/">data_analysis</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a>, <a href="/category/redes_criminosas/">redes_criminosas</a></span>
   
 
 </div>
@@ -800,6 +800,10 @@ figcaption {
     
   
 
+  
+    
+  
+
 
 
 
@@ -825,6 +829,7 @@ figcaption {
 <p>Nessa postagem apresento uma perspectiva inédita para entender as relações entre os citados pela CPI da COVID-19. Essa comissão parlamentar de inquérito apresenta uma rede de supostos envolvidos em diversos crimes, entre eles <em>corrupção ativa</em>, <em>charlatanismo</em>, <em>prevaricação</em> e <em>fraude</em>. Todas as informações são de público acesso e foram coletadas do <a href="https://g1.globo.com/politica/cpi-da-covid/noticia/2021/10/20/cpi-da-covid-crimes-atribuidos-lista.ghtml" target="_blank" rel="noopener">portal G1</a>.</p>
 <br>
 <p>Nossa análise terá o enfoque da <a href="https://en.wikipedia.org/wiki/Network_science" target="_blank" rel="noopener">ciência de redes</a>. A representação de dados em grafos fornece uma abordagem poderosa, capaz de revelar padrões e estruturas não triviais entre agentes que possuem alguma relação de conexão. A CPI da COVID apresenta <strong>24 acusações</strong> e <strong>78 nomes</strong> citados, resultando em um total de <strong>695 conexões</strong>. Por meio de ferramentas advindas da teoria dos grafos, elaboramos uma visualização dessa rede, calculamos algumas medidas de centralidade e mostramos que ela possui uma estrutura de comunidades.</p>
+<br>
 <h1 id="a-rede-da-cpi-da-covid">A rede da CPI da COVID</h1>
 <p>Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligações entre esses vértices. Aqui, a ligação entre duas pessoas ocorre se elas foram acusadas de um mesmo crime<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Abaixo você encontra uma visualização interativa dessa rede, com 75 nomes<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> e 695 conexões. Cada vértice possui um tamanho proporcional ao seu número de ligações e, ao passar ao mouse sobre os vértices, você pode ver suas quantidades de conexões e acusações.</p>
 <div id="cpi_covid"></div>
@@ -833,45 +838,54 @@ figcaption {
 <h1 id="medidas-de-centralidade">Medidas de Centralidade</h1>
 <h2 id="grau">Grau</h2>
 <p>A centralidade de <strong>grau</strong> oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam <strong>indivíduos populares</strong> e que possuem uma <strong>posição privilegiada</strong> na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau.</p>
-<p><br><br></p>
+<br>
+<br>
 <div id="barplots_degree"></div>
 <script type="text/javascript" src="js/barplots_degree.js"> </script>
 <p style="text-align: center"><b>Figura 1</b>: Dez nomes da rede que possuem os maiores valores de <b>grau</b>.<p/><br>
 <h2 id="intermediação">Intermediação</h2>
 <p>A <strong>intermediação</strong> quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Ou ainda, essa medida para um determinado vértice representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem <strong>transmitir informações com facilidade</strong> e também têm tendência de serem <strong>bem informados</strong>. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação.</p>
-<p><br><br></p>
+<br>
+<br>
 <div id="barplots_bets"></div>
 <script type="text/javascript" src="js/barplots_bets.js"> </script>
 <p style="text-align: center"><b>Figura 2</b>: Dez nomes da rede que possuem os maiores valores de <b>intermediação</b>.<p/><br>
 <h2 id="proximidade">Proximidade</h2>
 <p>A <strong>proximidade</strong> de um vértice quantifica sua distância média em relação a todas os outros vértices. Assim, pessoas com maiores valores de proximidade estão, em média, <strong>mais perto de todas</strong> as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue <strong>disseminar melhor as informações</strong>. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.</p>
-<p><br><br></p>
+<br>
+<br>
 <div id="barplots_clos"></div>
 <script type="text/javascript" src="js/barplots_clos.js"> </script>
 <p style="text-align: center"><b>Figura 3</b>: Dez nomes da rede que possuem os maiores valores de <b>proximidade</b>.<p/><br>
 <p>Apesar de aparentarem ser medidas parecidas, a intermediação e a proximidade medem características diferentes: a intermediação fornece um quantitativo de <strong>quantos caminhos</strong> passam por determinado vértice durante a comunicação entre todos os vértices da rede; a proximidade, por outro lado, quantifica a <strong>distância média</strong> de um vértice em relação aos demais vértices. Podemos dizer que pessoas com maior intermediação (ou proximidade) possuem influência considerável na rede por virtude de seu <strong>controle sobre a informação que circula</strong>.</p>
 <br>
 <h1 id="estrutura-de-comunidades">Estrutura de Comunidades</h1>
-<br>
 <p>A estrutura de comunidades (ou módulos) é uma propriedade encontrada em diversos tipos de redes. De forma simplificada, essas comunidades podem ser pensadas como <strong>grupos de vértices mais densamente conectados</strong> entre si do que com outros grupos de vértices da rede. A detecção dessas estruturas pode fornecer informações importantes. Em geral, redes e organizações criminosas possuem a tendência de formar comunidades com a finalidade de reduzir o risco de vazamento de informações.</p>
 <br>
-<p>Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algorítmo de detecção de comunidades conhecido como <a href="https://www.mapequation.org/infomap/" target="_blank" rel="noopener"><em>infomap</em></a>. A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algoritmo de detecção de comunidades conhecido como <em>infomap</em><sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> . A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas.</p>
 <br>
 <div id="cpi_covid_modulos"></div>
 <script type="text/javascript" src="js/cpi_covid_modulos.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: Destaque para 5 comunidades encontradas.<p/><br>
-<p>Nossa análise retornou um número 5 comunidades para essa rede. Portanto, o número de supostos crimes é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que cada crime configuraria uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. A <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada uma dos módulos encontrados.</p>
+<p>No total, nossa análise retornou 5 comunidades. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, nessa rede, existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.</p>
+<br>
+<p>Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.</p>
 <br>
 <p><button class="btn btn-secondary btn-lg" onclick="update('pessoas')">Número de pessoas</button>
-<button class="btn btn-secondary btn-lg" onclick="update('crimes')">Número de crimes atribuídos</button>
+<button class="btn btn-secondary btn-lg" onclick="update('crimes')"> Número de crimes</button></p>
 <br>
-<br></p>
+<br>
 <div id="barplots_nc"></div>
 <script type="text/javascript" src="js/barplots_nc.js"> </script>
-<p style="text-align: center"><b>Figura 6</b>: Número de citados e seus supostos crimes dentro de cada comunidade encontrada.<p/><br>
-<h1 id="dados-completos">Dados completos</h1>
+<p style="text-align: center"><b>Figura 6</b>: Número de pessoas e seus supostos crimes dentro de cada comunidade.<p/><br>
+<p>Existem outras inúmeras informações desses dados que poderíamos explorar. A próxima informação que, ao meu ver, seria interessante saber é se a distribuição de grau da rede apresenta algum padrão. Ou ainda, poderíamos também explorar a informação sobre o número de acusações dos citados: encontrar, por exemplo, se existe alguma relação entre o número de acusações de cada pessoa e suas medidas de centralidade.</p>
 <br>
-<p>Por último, deixo aqui, em forma de tabela, os dados completos que foram coletados para criar a rede da CPI. Abaixo você encontra duas tabelas para uma checagem rápida dos acusados e seus supostos crimes.</p>
+<p>Poderíamos ir ainda além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria as funções (ou cargos) dos envolvidos citados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, vou deixar essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em entrar <a href="mailto:alvarought@gmail.com">em contato</a>. Também fico à disposição para quaisquer dúvidas.</p>
+<br>
+<p>Por fim, agradeço a contribuição dos colegas <a href="https://www.linkedin.com/in/diego-domingues-lopes-963a761b9/" target="_blank" rel="noopener">Diego Domingues Lopes</a> e <a href="https://ansesu.github.io/" target="_blank" rel="noopener">Andre Seiji Sunahara</a> na elaboração dessa postagem.</p>
+<br>
+<h1 id="informações-gerais">Informações gerais</h1>
+<p>Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> para cada comunidade.</p>
 <h2 id="acusados-e-seus-supostos-crimes">Acusados e seus supostos crimes</h2>
 <br>
 
@@ -884,12 +898,11 @@ figcaption {
 }
 
 #myInput {
-  font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
-  display: block;
+  /*display: block;*/
   margin-bottom: 12px;
-  margin-left: 30px;
+  margin-left: 2.5%;
 }
 
 #myTable {
@@ -905,6 +918,10 @@ figcaption {
   margin: 0 auto;
   width:  50%;
   padding: 20px;
+}
+
+td {
+    display: 10;
 }
 
 /* Table Striped */
@@ -1279,15 +1296,13 @@ function myFunction() {
 }
 
 #myInput2 {
-  font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   display: block;
   /*margin-right: auto;*/
   /*margin-left: 25%; */
   margin-bottom: 12px;
-  margin-left: 30px;
-
+  margin-left: 2.5%;
 }
 
 #myTable2 {
@@ -8300,10 +8315,141 @@ function myFunction2() {
 </html>
 
 <br>
+<h2 id="acusados-dentro-de-cada-comunidade">Acusados dentro de cada comunidade</h2>
 <br>
-<p>Dessa forma, fornecendo uma compreensão mais profunda sobre a relação entre os citados pela CPI.</p>
-<p>What&rsquo;s next? Número de acusações x medidas de centralidade :: número de supostos crimes/comunidade :: distribuicao de grau :: número de supostos crimes/nome citado</p>
-<section class="footnotes" role="doc-endnotes">
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myTable3 {
+  border-collapse: collapse;
+  width:  95%;
+  max-height: 470px;
+  overflow-x:auto;
+  font-size: 18px;
+}
+
+#myTable3 th, #myTable3 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#myTable3 th, #myTable3 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+
+</style>
+</head>
+<body>
+
+<table class = "table table-striped" id="myTable3" style="margin: 10px auto;">
+  <tr class="header2">
+    <th style="width:600px; background-color: #f5f5f5 !important;">Índice da comunidade</th>
+    <th style="width:600px; background-color: #f5f5f5 !important;">Pessoas</th>
+  </tr>
+<tr>
+                <td>1</td>
+                <td>Bernardo Kuster, Osmar Terra, Carlos Bolsonaro, Tercio Arnaud Tomaz, Flávio Bolsonaro, Richards Pozzer, Onyx Lorenzoni, Leandro Ruschel, Filipe Martins, Roberto Goidanich, Ernesto Araújo, Ricardo Barros, Carlos Jordy, Hélio Angotti Netto, Allan dos Santos, Luis Carlos Heinze, Luciano Hang, Oswaldo Eustáquio, Carla Zambelli, Bia Kicis, Jair Bolsonaro, Otávio Fakhoury, Roberto Jefferson, Paulo Eneas, Eduardo Bolsonaro, Carlos Wizard</td>
+    </tr>
+<tr>
+                <td>2</td>
+                <td>Paolo Zanotto, José Alves Filho, Wagner Rosário, Wilson Lima, Elcio Franco, Heitor Freire de Abreu, Eduardo Pazuello, Arthur Weintraub, Nise Yamaguchi, Luciano Dias, Mayra Pinheiro, Marcelo Queiroga, Braga Netto, Mauro Luiz de Brito Ribeiro, Marcellus José Barroso Campêlo</td>
+    </tr>
+<tr>
+                <td>3</td>
+                <td>José Odilon Torres, Marcos Tolentino, Túlio Silveira, Francisco Emerson Maximiano, Raimundo Nonato Brasil, Luiz Paulo Dominghetti, Andreia da Silva Lima, José Ricardo Santana, Teresa Cristina Reis de Sá, Marconny Nunes Ribeiro, Roberto Dias, Rafael Francisco Carmo Alves, Cristiano Carvalho, Emanuela Medrades, Carlos Alberto de Sá, Marcelo Blanco, Danilo Trento</td>
+    </tr>
+<tr>
+                <td>4</td>
+                <td>Eduardo Parrillo, João Paulo F. Barros, Paola Werneck, Rodrigo Esper, Fernando Oikawa, Flávio Cadegiani, Daniel Garrido Baena, Pedro Benedito Batista Junior, Flávio Adsuara Cadegiani, Fernando Parrillo, Fernanda de Oliveira Igarashi, Carla Guerra</td>
+    </tr>
+<tr>
+                <td>5</td>
+                <td>Thiago Fernandes da Costa, Marcelo Bento Pires, Regina Célia Oliveira, Fábio Wajngarten, Alex Lial Marinho</td>
+    </tr>
+</table>
+
+</body>
+</html>
+
+<br>
+<h2 id="supostos-crimes-dentro-de-cada-comunidade">Supostos crimes dentro de cada comunidade</h2>
+<br>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myTable4 {
+  border-collapse: collapse;
+  width:  95%;
+  max-height: 470px;
+  overflow-x:auto;
+  font-size: 18px;
+}
+
+#myTable4 th, #myTable4 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#myTable4 th, #myTable4 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+</style>
+</head>
+<body>
+
+<table class = "table table-striped" id="myTable4" style="margin: 10px auto;">
+  <tr class="header2">
+    <th style="width:600px; background-color: #f5f5f5 !important;">Índice da comunidade</th>
+    <th style="width:600px; background-color: #f5f5f5 !important;">Supostos crimes</th>
+  </tr>
+<tr>
+                <td>1</td>
+                <td>Prevaricação, Infração a Medidas Sanitárias Preventivas, Advocacia Administrativa, Improbidade Administrativa, Epidemia com Resultado em Morte, Incitação ao crime, Falsificação de Documento Particular, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Charlatanismo, Crimes de Responsabilidade, Formação de Organização Criminosa</td>
+    </tr>
+<tr>
+                <td>2</td>
+                <td>Prevaricação, Comunicação Falsa de Crime, Improbidade Administrativa, Epidemia com Resultado em Morte, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Crimes de Responsabilidade</td>
+    </tr>
+<tr>
+                <td>3</td>
+                <td>Corrupção Ativa, Improbidade Administrativa, Uso de Documento Falso, Corrupção Passiva, Fraude Processual, Falsidade Ideológica, Formação de Organização Criminosa, Fraude em Contrato</td>
+    </tr>
+<tr>
+                <td>4</td>
+                <td>Omissão de Notificação de Doença, Perigo Para a vida ou Saúde de Outrem, Falsidade Ideológica, Crime Contra Humanidade</td>
+    </tr>
+<tr>
+                <td>5</td>
+                <td>Prevaricação, Advocacia Administrativa</td>
+    </tr>
+</table>
+
+</body>
+</html>
+
+<br><section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
@@ -8313,7 +8459,10 @@ function myFunction2() {
 <p>Do total de <a href="https://g1.globo.com/politica/cpi-da-covid/noticia/2021/10/20/cpi-da-covid-lista-alvos-de-sugestao-de-indiciamento.ghtml" target="_blank" rel="noopener">78 nomes</a>, três deles estão citados separadamente em três diferentes supostos crimes. Uma vez que esses vértices são isolados, não os incluímos na rede e, portanto, o número de vértices se reduz a 75.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>O algoritmo do <em>infomap</em> é bastante robusto pois busca encontrar as comunidades por meio de caminhadas aleatórias na rede, obtendo regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo <a href="https://en.wikipedia.org/wiki/Unsupervised_learning" target="_blank" rel="noopener">não supervisionado</a>, o resultado de 5 módulos obtido via <em>infomap</em> deve ser encarado com ceticismo. Uma breve análise via <a href="https://www.pnas.org/content/103/23/8577" target="_blank" rel="noopener">maximização de modularidade</a> nos retornou um valor próximo a esse, com média de 4 comunidades. Futuramente podemos podem considerar <a href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html" target="_blank" rel="noopener">outros algoritmos</a> para tratar esse problema.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>O <a href="https://www.mapequation.org/infomap/" target="_blank" rel="noopener"><em>infomap</em></a> é bastante robusto pois busca encontrar comunidades por meio de caminhadas aleatórias na rede. São consideradas comunidades as regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo <a href="https://en.wikipedia.org/wiki/Unsupervised_learning" target="_blank" rel="noopener">não supervisionado</a>, o resultado de 5 módulos obtido via <em>infomap</em> deve ser encarado com ceticismo. Por outro lado, uma breve análise via <a href="https://www.pnas.org/content/103/23/8577" target="_blank" rel="noopener">maximização de modularidade</a> nos retornou um valor próximo a esse, com média de <a href="https://alvarofrancomartins.com/cpi_covid/modularity.png" target="_blank" rel="noopener">4 comunidades</a>. Futuramente podemos podem considerar <a href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html" target="_blank" rel="noopener">outros algoritmos</a> para tratar esse problema.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>

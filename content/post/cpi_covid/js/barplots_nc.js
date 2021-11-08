@@ -8,7 +8,7 @@ const svg_c = d3.select("#barplots_nc")
                 // .attr("width",  width + margin.left + margin.right)
                 // .attr("height",  width + margin.left + margin.right)
                 .attr("class", "content")
-                .attr("viewBox", `${-margin.left} 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
+                .attr("viewBox", `${-margin.left+75} 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`)
 
 
 const tooltipc = d3.select("#barplots_nc").append("div")
@@ -69,7 +69,7 @@ function update(selectedVar) {
     xAxis.transition().duration(1000).call(d3.axisBottom(x).ticks(5));
 
     // Add Y axis
-    y.domain([0, d3.max(data, d => +d[selectedVar])+5]);
+    y.domain([0, d3.max(data, d => +d[selectedVar])+3]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y).ticks(5));
 
     const u = svg_c.selectAll("rect")
@@ -96,4 +96,4 @@ function update(selectedVar) {
 
 // Initialize plot
 update('pessoas')
-update('crimes')
+update('pessoas')
