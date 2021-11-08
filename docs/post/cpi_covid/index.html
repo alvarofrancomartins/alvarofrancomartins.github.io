@@ -835,6 +835,9 @@ figcaption {
 <div id="cpi_covid"></div>
 <script type="text/javascript" src="js/cpi_covid.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: 24 acusações, 75 vértices e 695 conexões.<p/><br>
+<p>O aspecto visual dessa rede oferece algumas pistas. Por exemplo, podemos notar que possuir muitas acusações nem sempre significa que o vértice possui um grande número de conexões. Isto é, existem diversos vértices com bastante acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e bastante conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede (Jair Bolsonaro com 9 acusações e Ricardo Barros com 4 acusações) possuem os maiores números de conexões.</p>
+<br>
+<p>Podemos ser mais quantitativos e calcular algumas medidas dessa rede para caracterizá-la. Essa rede apresenta um <a href="https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento" target="_blank" rel="noopener">coeficiente de agrupamento médio</a> alto (0,87), uma <a href="https://bookdown.org/omarlizardo/_main/2-9-density.html" target="_blank" rel="noopener">densidade</a> considerável (0,25) e um valor de <a href="https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter" target="_blank" rel="noopener">diâmetro</a> relativamente baixo (4,0). De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.</p>
 <h1 id="medidas-de-centralidade">Medidas de Centralidade</h1>
 <h2 id="grau">Grau</h2>
 <p>A centralidade de <strong>grau</strong> oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam <strong>indivíduos populares</strong> e que possuem uma <strong>posição privilegiada</strong> na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau.</p>

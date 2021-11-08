@@ -55,6 +55,12 @@ Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligaç�
 <script type="text/javascript" src="js/cpi_covid.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: 24 acusações, 75 vértices e 695 conexões.<p/><br>
 
+O aspecto visual dessa rede oferece algumas pistas. Por exemplo, podemos notar que possuir muitas acusações nem sempre significa que o vértice possui um grande número de conexões. Isto é, existem diversos vértices com bastante acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e bastante conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede (Jair Bolsonaro com 9 acusações e Ricardo Barros com 4 acusações) possuem os maiores números de conexões.
+
+<br>
+
+Podemos ser mais quantitativos e calcular algumas medidas dessa rede para caracterizá-la. Essa rede apresenta um [coeficiente de agrupamento médio](https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento) alto (0,87), uma [densidade](https://bookdown.org/omarlizardo/_main/2-9-density.html) considerável (0,25) e um valor de [diâmetro](https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter) relativamente baixo (4,0). De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.
+
 # Medidas de Centralidade
 
 ## Grau
