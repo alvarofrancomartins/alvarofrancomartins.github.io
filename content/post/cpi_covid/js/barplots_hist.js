@@ -67,5 +67,5 @@ svg_hist.selectAll("mybar")
     .attr("fill", "#69b3a2")
     .on("mouseover",  mouseoverhist)
     .on("mouseleave", mouseouthist)
-    .style("fill",   function (d,i){return collors(i)});
+    .style("fill", "#a50f15");
 })
