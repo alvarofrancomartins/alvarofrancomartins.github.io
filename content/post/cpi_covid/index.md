@@ -10,7 +10,7 @@ tags: []
 categories: []
 date: "2021-11-04"
 featured: true
-draft: true
+draft: false
 tags: 
 - Redes criminosas
 - CPI da Covid-19
@@ -54,7 +54,7 @@ Nossa análise terá o enfoque da [ciência de redes](https://en.wikipedia.org/w
 
 # A rede da CPI da COVID
 
-Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligações entre esses vértices. Aqui, a ligação entre duas pessoas ocorre se elas foram acusadas de um mesmo crime [^1]. Abaixo você encontra uma visualização interativa dessa rede, com 75 nomes[^2] e 695 conexões. Cada vértice possui um tamanho proporcional ao seu número de ligações e, ao passar ao mouse sobre os vértices, você pode ver suas quantidades de conexões e acusações.
+Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligações entre esses vértices. Aqui, a ligação entre duas pessoas ocorre se elas foram acusadas de um mesmo crime[^1]. Abaixo você encontra uma visualização interativa dessa rede, com 75 nomes[^2] e 695 conexões. Cada vértice possui um tamanho proporcional ao seu número de ligações e, ao passar ao mouse sobre os vértices, você pode ver suas quantidades de conexões e acusações.
 
 [^1]: É importante frisar que ligação entre duas pessoas significa **apenas** que elas foram citadas em um mesmo crime. Portanto, não afirmamos que, se existe ligação entre duas pessoas, elas necessariamente possuem uma relação e/ou comunicação direta.
 
@@ -108,32 +108,27 @@ A estrutura de comunidades (ou módulos) é uma propriedade encontrada em divers
 
 <br>
 
-Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos o modelo bayesiano de blocos estocásticos (SBM)[^3]. A <b>Figura 4</b> mostra a rede da CPI da COVID com sua estrutura modular em destaque. Nessa figura, as cores representam diferentes comunidades e os círculos dos vértices são divididos segundo a probabilidade de estar na comunidade associada à respectiva cor.
+Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algorítmo de detecção de comunidades conhecido como [_infomap_](https://www.mapequation.org/infomap/). A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas[^3].
 
-[^3]: [Inferring modular network structure](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html).
+[^3]: O algoritmo do _infomap_ é bastante robusto pois busca encontrar as comunidades por meio de caminhadas aleatórias na rede, obtendo regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de 4 comunidades. Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
 
+<br>
 <div id="cpi_covid_modulos"></div>
 <script type="text/javascript" src="js/cpi_covid_modulos.js"> </script>
-<p style="text-align: center"><b>Rede da CPI da COVID</b>: 24 acusações, 75 vértices e 695 conexões.<p/><br>
+<p style="text-align: center"><b>Rede da CPI da COVID</b>: Destaque para 5 comunidades encontradas.<p/><br>
 
-De imediato, notamos que existe um número muito menor de comunidades do que de supostos crimes. A rede dessa figura possui 9 comunidades. Uma vez que estamos interessados no número de comunidades da rede, devemos saber que o modelo SBM é intrinsecamente aleatório e pode retornar números de comunidades ligeiramente diferentes a cada realização. Considerando esse aspecto, podemos fazer várias realizações do modelo[^4], obter a distribuição de probabilidade do número de módulos e usar sua média como indicador do número de módulos da rede. A <b>Figura 5</b> mostra essa distribuição.
-
-<br>
-
-Portanto, em média, foram encontradas **5 comunidades** para a rede da CPI da COVID. No entanto, o número de supostos crimes é quase o triplo disso, o que significa que vários desses poderiam ser considerados como um só.
+Nossa análise retornou um número 5 comunidades para essa rede. Portanto, o número de supostos crimes é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que cada crime configuraria uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. A <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada uma dos módulos encontrados.
 
 <br>
-<br>
 
-<button class="btn btn-secondary btn-lg" onclick="update('npessoas')">Número de pessoas</button>
-<button class="btn btn-secondary btn-lg" onclick="update('ncasos')">Número de crimes atribuídos</button>
+<button class="btn btn-secondary btn-lg" onclick="update('pessoas')">Número de pessoas</button>
+<button class="btn btn-secondary btn-lg" onclick="update('crimes')">Número de crimes atribuídos</button>
 <br>
 <br>
 
 <div id="barplots_nc"></div>
 <script type="text/javascript" src="js/barplots_nc.js"> </script>
-<p style="text-align: center"><b>Figura 6</b>: Número de supostos crimes dentro de cada comunidade encontrada.<p/><br>
-
+<p style="text-align: center"><b>Figura 6</b>: Número de citados e seus supostos crimes dentro de cada comunidade encontrada.<p/><br>
 
 # Dados completos
 
