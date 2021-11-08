@@ -108,7 +108,7 @@ A estrutura de comunidades (ou módulos) é uma propriedade encontrada em divers
 
 Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamos um algoritmo de detecção de comunidades conhecido como _infomap_[^3]. A visualização abaixo apresenta a rede da CPI da COVID com destaque para sua estrutura modular, onde as cores representam as diferentes comunidades encontradas.
 
-[^3]: O [_infomap_](https://www.mapequation.org/infomap/) é bastante robusto pois busca encontrar comunidades por meio de caminhadas aleatórias na rede. São consideradas comunidades as regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Por outro lado, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/post/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
+[^3]: O [_infomap_](https://www.mapequation.org/infomap/) é bastante robusto pois busca encontrar comunidades por meio de caminhadas aleatórias na rede. São consideradas comunidades as regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. 
 
 <br>
 <div id="cpi_covid_modulos"></div>
@@ -117,7 +117,7 @@ Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamo
 
 No total, nossa análise retornou 5 comunidades[^4]. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, nosso resultado sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, podemos pensar que nessa rede existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.
 
-[^4]: Por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Entretanto, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
+[^4]: Por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Entretanto, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/post/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
 
 <br>
 
