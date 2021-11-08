@@ -867,7 +867,7 @@ figcaption {
 <div id="cpi_covid_modulos"></div>
 <script type="text/javascript" src="js/cpi_covid_modulos.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: Destaque para 5 comunidades encontradas.<p/><br>
-<p>No total, nossa análise retornou 5 comunidades. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, nessa rede, existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.</p>
+<p>No total, nossa análise retornou 5 comunidades<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, nessa rede, existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.</p>
 <br>
 <p>Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.</p>
 <br>
@@ -885,7 +885,7 @@ figcaption {
 <p>Por fim, agradeço a contribuição dos colegas <a href="https://www.linkedin.com/in/diego-domingues-lopes-963a761b9/" target="_blank" rel="noopener">Diego Domingues Lopes</a> e <a href="https://ansesu.github.io/" target="_blank" rel="noopener">Andre Seiji Sunahara</a> na elaboração dessa postagem.</p>
 <br>
 <h1 id="informações-gerais">Informações gerais</h1>
-<p>Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> para cada comunidade.</p>
+<p>Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> para cada comunidade.</p>
 <h2 id="acusados-e-seus-supostos-crimes">Acusados e seus supostos crimes</h2>
 <br>
 
@@ -8462,7 +8462,10 @@ function myFunction2() {
 <p>O <a href="https://www.mapequation.org/infomap/" target="_blank" rel="noopener"><em>infomap</em></a> é bastante robusto pois busca encontrar comunidades por meio de caminhadas aleatórias na rede. São consideradas comunidades as regiões nas quais o caminhante aleatório tende a permanecer por um tempo maior do que o esperado. Entretanto, por se tratar de um algoritmo <a href="https://en.wikipedia.org/wiki/Unsupervised_learning" target="_blank" rel="noopener">não supervisionado</a>, o resultado de 5 módulos obtido via <em>infomap</em> deve ser encarado com ceticismo. Por outro lado, uma breve análise via <a href="https://www.pnas.org/content/103/23/8577" target="_blank" rel="noopener">maximização de modularidade</a> nos retornou um valor próximo a esse, com média de <a href="https://alvarofrancomartins.com/cpi_covid/modularity.png" target="_blank" rel="noopener">4 comunidades</a>. Futuramente podemos podem considerar <a href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html" target="_blank" rel="noopener">outros algoritmos</a> para tratar esse problema.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:4" role="doc-endnote">
-<p>Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Por se tratar de um algoritmo <a href="https://en.wikipedia.org/wiki/Unsupervised_learning" target="_blank" rel="noopener">não supervisionado</a>, o resultado de 5 módulos obtido via <em>infomap</em> deve ser encarado com ceticismo. Entretanto, uma breve análise via <a href="https://www.pnas.org/content/103/23/8577" target="_blank" rel="noopener">maximização de modularidade</a> nos retornou um valor próximo a esse, com média de <a href="https://alvarofrancomartins.com/cpi_covid/modularity.png" target="_blank" rel="noopener">4 comunidades</a>. Futuramente podemos podem considerar <a href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html" target="_blank" rel="noopener">outros algoritmos</a> para tratar esse problema.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:5" role="doc-endnote">
+<p>Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
