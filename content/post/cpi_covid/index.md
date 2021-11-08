@@ -111,6 +111,8 @@ Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamo
 
 No total, nossa análise retornou 5 comunidades. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, o resultado da nossa análise da estrutura modular sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, nessa rede, existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.
 
+[^4]: Por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Entretanto, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
+
 <br>
 
 Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.
@@ -141,9 +143,9 @@ Por fim, agradeço a contribuição dos colegas [Diego Domingues Lopes](https://
 
 # Informações gerais
 
-Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações[^4] para cada comunidade.
+Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações[^5] para cada comunidade.
 
-[^4]: Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.
+[^5]: Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.
 
 ## Acusados e seus supostos crimes
 
