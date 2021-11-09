@@ -76,7 +76,7 @@ A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O g
 
 ## Intermediação
 
-A **intermediação** quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Mais especificamente, para um determinado vértice, essa medida representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem **transmitir informações com facilidade** e também têm tendência a serem **bem informadas**. No nosso caso, esses indivíduos são aqueles que atuam como pontes entre envolvidos acusados de diferentes crimes presentes na rede. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação. 
+A **intermediação** quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Mais especificamente, para um determinado vértice, essa medida representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem **transmitir informações com facilidade** e também têm tendência a serem **bem informadas**. No nosso caso, esses indivíduos são aqueles que atuam como pontes entre os acusados de diferentes crimes presentes na rede. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação. 
 
 <br>
 <br>
@@ -87,7 +87,7 @@ A **intermediação** quantifica o número de vezes que um vértice age como pon
 
 ## Proximidade
 
-A **proximidade** de um vértice quantifica sua distância média em relação a todos os outros vértices. Dessa forma, pessoas com maiores valores de proximidade estão, em média, **mais perto de todas** as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue **disseminar melhor as informações**. No nosso caso, pessoas com alta proximidade são aquelas que, por compartilharem acusações com pessoas em crimes com muitos envolvidos, possuem uma distância próxima da maioria dos outros acusados. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.
+A **proximidade** de um vértice quantifica sua distância média em relação a todos os outros vértices. Dessa forma, pessoas com maiores valores de proximidade estão, em média, **mais perto de todas** as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue **disseminar melhor as informações**. No nosso caso, pessoas com alta proximidade são aquelas que, por compartilharem acusações com muitas outras, possuem uma distância próxima da maioria dos acusados. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.
 
 <br>
 <br>
@@ -142,7 +142,7 @@ Existem outras inúmeras informações desses dados que poderíamos explorar. A 
 
 <br>
 
-Poderíamos ir além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria considerar as funções (ou cargos) dos envolvidos citados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, deixarei essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em me [contatar](mailto:alvarought@gmail.com). Também fico à disposição para quaisquer dúvidas. 
+Poderíamos ir além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria considerar as funções (ou cargos) dos acusados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, deixarei essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em me [contatar](mailto:alvarought@gmail.com). Também fico à disposição para quaisquer dúvidas. 
 
 <br>
 
