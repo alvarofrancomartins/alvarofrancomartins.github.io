@@ -55,17 +55,17 @@ Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligaç�
 <script type="text/javascript" src="js/cpi_covid.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: 24 acusações, 75 vértices e 695 conexões.<p/><br>
 
-O aspecto visual dessa rede oferece algumas pistas. Por exemplo, notamos que possuir muitas acusações nem sempre significa que o vértice realiza um grande número de conexões. Isto é, existem diversos vértices com bastante acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e bastante conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede, Jair Bolsonaro com 49 conexões possui 9 acusações e Ricardo Barros com 43 conexões possui 4 acusações.
+O aspecto visual dessa rede oferece algumas pistas. Por exemplo, notamos que possuir muitas acusações nem sempre significa que o vértice realiza um grande número de conexões. Isto é, determinados tipos de acusação englobam poucas pessoas, enquanto outros englobam mais pessoas. Por exemplo, existem diversos vértices com várias acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e várias conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede, Jair Bolsonaro com 49 conexões possui 9 acusações e Ricardo Barros com 43 conexões possui 4 acusações.
 
 <br>
 
-Podemos ser mais quantitativos e calcular algumas medidas dessa rede a fim de caracterizá-la. Essa rede apresenta um [coeficiente de agrupamento médio](https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento) alto (0,87), uma [densidade](https://bookdown.org/omarlizardo/_main/2-9-density.html) considerável (0,25) e um valor de [diâmetro](https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter) relativamente baixo (4,0). Além disso, o [coeficiente de assortividade](https://networkx.org/nx-guides/content/algorithms/assortativity/correlation.html) dessa rede possui um valor positivo (0,23), nos permitindo concluir que os indivíduos possuem a tendência de se conectarem com vértices que possuem importância similar. De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.
+Podemos ser mais quantitativos e calcular algumas medidas dessa rede a fim de caracterizá-la. Essa rede apresenta um [coeficiente de agrupamento médio](https://pt.wikipedia.org/wiki/Coeficiente_de_agrupamento) alto (0,87), uma [densidade](https://bookdown.org/omarlizardo/_main/2-9-density.html) considerável (0,25) e um valor de [diâmetro](https://graph-tool.skewed.de/static/doc/topology.html#graph_tool.topology.pseudo_diameter) relativamente baixo (4,0). Além disso, o [coeficiente de assortividade](https://networkx.org/nx-guides/content/algorithms/assortativity/correlation.html) dessa rede possui um valor positivo (0,23), nos permitindo concluir que os indivíduos possuem a tendência de se conectar com vértices que possuem importância (em termos de número de conexões) similar. De forma geral, essas medidas sugerem que estamos tratando de uma rede bastante coesa.
 
 # Medidas de Centralidade
 
 ## Grau
 
-A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam **indivíduos populares** e que possuem uma **posição privilegiada** na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau. 
+A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam **indivíduos populares** e que possuem uma **posição privilegiada** na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau. No nosso caso, um grau elevado indica que a pessoa está sendo acusada por crime(s) com grande número de acusados, enquanto um grau reduzido indica que as acusações são por crimes com baixo número de acusados.
 
 <br>
 <br>
@@ -76,7 +76,7 @@ A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O g
 
 ## Intermediação
 
-A **intermediação** quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Ou ainda, essa medida para um determinado vértice representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem **transmitir informações com facilidade** e também têm tendência de serem **bem informados**. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação. 
+A **intermediação** quantifica o número de vezes que um vértice age como ponte de comunicação entre dois vértices quaisquer da rede. Mais especificamente, para um determinado vértice, essa medida representa a quantidade de vezes que ele atua como intermediário das comunicações. Pessoas com alto valor de intermediação conseguem **transmitir informações com facilidade** e também têm tendência a serem **bem informadas**. No nosso caso, esses indivíduos são aqueles que atuam como pontes entre envolvidos acusados de diferentes crimes presentes na rede. A <b>Figura 2</b> mostra os nomes dos vértices da rede que possuem os maiores valores de intermediação. 
 
 <br>
 <br>
@@ -87,7 +87,7 @@ A **intermediação** quantifica o número de vezes que um vértice age como pon
 
 ## Proximidade
 
-A **proximidade** de um vértice quantifica sua distância média em relação a todas os outros vértices. Assim, pessoas com maiores valores de proximidade estão, em média, **mais perto de todas** as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue **disseminar melhor as informações**. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.
+A **proximidade** de um vértice quantifica sua distância média em relação a todos os outros vértices. Dessa forma, pessoas com maiores valores de proximidade estão, em média, **mais perto de todas** as outras pessoas. Numa rede social, por exemplo, a pessoa com maior proximidade, assim como para intermediação, consegue **disseminar melhor as informações**. No nosso caso, pessoas com alta proximidade são aquelas que, por compartilharem acusações com pessoas em crimes com muitos envolvidos, possuem uma distância próxima da maioria dos outros acusados. A <b>Figura 3</b> mostra os nomes dos vértices da rede que possuem os maiores valores de proximidade.
 
 <br>
 <br>
@@ -96,7 +96,11 @@ A **proximidade** de um vértice quantifica sua distância média em relação a
 <script type="text/javascript" src="js/barplots_clos.js"> </script>
 <p style="text-align: center"><b>Figura 3</b>: Dez nomes da rede que possuem os maiores valores de <b>proximidade</b>.<p/><br>
 
-Apesar de aparentarem ser medidas parecidas, a intermediação e a proximidade medem características diferentes: a intermediação fornece um quantitativo de **quantos caminhos** passam por determinado vértice durante a comunicação entre todos os vértices da rede; a proximidade, por outro lado, quantifica a **distância média** de um vértice em relação aos demais vértices. Podemos dizer que pessoas com maior intermediação (ou proximidade) possuem influência considerável na rede por virtude de seu **controle sobre a informação que circula**. 
+Do ponto de vista técnico, apesar de aparentarem ser medidas parecidas, a intermediação e a proximidade medem características diferentes: a intermediação fornece um quantitativo de **quantos caminhos** passam por determinado vértice durante a comunicação entre todos os vértices da rede e a proximidade, por outro lado, quantifica a **distância média** de um vértice em relação aos demais. Podemos dizer que pessoas com maior intermediação (ou proximidade) possuem influência considerável na rede por virtude de seu **controle sobre a informação que circula**. 
+
+<br>
+
+Considerando os dados da CPI da COVID, a conexão entre duas pessoas significa simplesmente que a elas foi atribuído o mesmo crime. Portanto, as medidas de centralidade acima devem ser interpretadas com cautela. No entanto, caso as acusações e suas conexões sejam comprovadas, as medidas terão a interpretação usual e poderemos destacar com mais certeza os indivíduos importantes na concretização e articulação dos crimes.
 
 <br>
 
@@ -115,13 +119,13 @@ Com o objetivo de encontrar a estrutura de comunidades da rede da CPI, utilizamo
 <script type="text/javascript" src="js/cpi_covid_modulos.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: Destaque para 5 comunidades encontradas.<p/><br>
 
-No total, nossa análise retornou 5 comunidades[^4]. Portanto, o número de supostos crimes (24) é quase cinco vezes o número de comunidades. Isso surpreende porque poderia se imaginar, por exemplo, que a maioria dos crimes configurariam uma comunidade. No entanto, nosso resultado sugere que vários desses supostos crimes poderiam ser considerados como um só. Ou ainda, podemos pensar que nessa rede existem grupos de pessoas mais densamente conectadas que estão citadas em diversos crimes mas que talvez pudessem estar envolvidos em um crime diferente pelo qual não foram descobertas.
+No total, nossa análise retornou 5 comunidades[^4]. Portanto, o número de supostos crimes (24) é quase cinco vezes esse valor. Esse resultado surpreende, uma vez que tende-se a imaginar que a maioria dos crimes configurariam suas próprias comunidades. No entanto, o resultado sugere que vários desses supostos crimes podem ser considerados como um só. 
 
-[^4]: Por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Entretanto, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/post/cpi_covid/modularity.png). Futuramente podemos podem considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
+[^4]: Por se tratar de um algoritmo [não supervisionado](https://en.wikipedia.org/wiki/Unsupervised_learning), o resultado de 5 módulos obtido via _infomap_ deve ser encarado com ceticismo. Entretanto, uma breve análise via [maximização de modularidade](https://www.pnas.org/content/103/23/8577) nos retornou um valor próximo a esse, com média de [4 comunidades](https://alvarofrancomartins.com/post/cpi_covid/modularity.png). Futuramente, podemos considerar [outros algoritmos](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html) para tratar esse problema. 
 
 <br>
 
-Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra a quantidade de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.
+Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra o número de pessoas e supostos crimes dentro de cada um dos módulos. Os valores do eixo-x representam cada comunidade, de acordo com os índices mostrados na rede acima. Além disso, as cores das barras também são correspondentes às cores de cada comunidade.
 
 <br>
 
@@ -134,11 +138,11 @@ Para se ter uma ideia quantitativa dessas comunidades, a <b>Figura 6</b> mostra 
 <script type="text/javascript" src="js/barplots_nc.js"> </script>
 <p style="text-align: center"><b>Figura 6</b>: Número de pessoas e seus supostos crimes dentro de cada comunidade.<p/><br>
 
-Existem outras inúmeras informações desses dados que poderíamos explorar. A próxima informação que, ao meu ver, seria interessante saber é se a distribuição de grau da rede apresenta algum padrão. Ou ainda, poderíamos também explorar a informação sobre o número de acusações dos citados: encontrar, por exemplo, se existe alguma relação entre o número de acusações de cada pessoa e suas medidas de centralidade.
+Existem outras inúmeras informações desses dados que poderíamos explorar. A próxima análise que, ao meu ver, seria interessante realizar, é verificar se a distribuição de grau da rede apresenta algum padrão. Ou ainda, explorar a informação sobre o número de acusações dos citados: encontrar, por exemplo, se existe alguma relação entre o número de acusações de cada pessoa e suas medidas de centralidade.
 
 <br>
 
-Poderíamos ir ainda além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria as funções (ou cargos) dos envolvidos citados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, vou deixar essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em entrar [em contato](mailto:alvarought@gmail.com). Também fico à disposição para quaisquer dúvidas. 
+Poderíamos ir além e agregar outras informações não contidas nesse conjunto de dados. Um exemplo seria considerar as funções (ou cargos) dos envolvidos citados. Isso nos possibilitaria verificar a existência de cargos mais privilegiados na rede. As opções são inúmeras. Entretanto, deixarei essas questões em aberto para o caso de alguma colaboração futura. Caso você tenha interesse em trabalhar com esses dados, não hesite em me [contatar](mailto:alvarought@gmail.com). Também fico à disposição para quaisquer dúvidas. 
 
 <br>
 
@@ -148,7 +152,7 @@ Por fim, agradeço a contribuição dos colegas [Diego Domingues Lopes](https://
 
 # Informações gerais
 
-Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras são para uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações[^5] para cada comunidade.
+Abaixo você encontra quatro tabelas contendo os dados da rede da CPI. As duas primeiras oferecem uma checagem rápida dos acusados e de seus supostos crimes, e as duas últimas contém essas informações[^5] para cada comunidade.
 
 [^5]: Note que duas comunidades diferentes podem compartilhar um mesmo crime. Nada impede, por exemplo, que duas pessoas com os mesmos crimes atribuídos estejam em comunidades diferentes.
 
