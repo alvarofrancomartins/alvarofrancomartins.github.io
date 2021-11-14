@@ -66,7 +66,10 @@ d3.json("data/cpi_covid_modulos.json")
 		   .duration(300) 		  
 		   .attr("r", function (d) {if (d.degree < 18) {return 10;} else {return d.degree*0.5}});
 
-		var html_modulos = d.id + '<br> ' + d.degree + ' conexões </br> comunidade: ' + d.group + ' </br>';
+		var html_modulos = '<p style="color:black;">' + d.id                    + '</p>' +
+						           '<p style="color:black;">' + d.degree + ' conexões'  + '</p>' +
+						           '<p style="color:black;"> comunidade: ' + d.group    + '</p>';
+
 
 		tooltipNetwork_modulos.html(html_modulos)
 					   .style("left", (event.pageX) + "px")
