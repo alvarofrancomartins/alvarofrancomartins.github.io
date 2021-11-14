@@ -40,7 +40,7 @@ d3.csv("data/cpi_bets.csv").then(function(data) {
           .duration(300)
           .style("opacity", 0.8);
 
-      var html = d.bet + '';
+      var html = '<p style="color:black;">' +  d.bet + '</p>';
 
       tooltipbets.html(html)
                .style("left", (event.pageX) + "px")

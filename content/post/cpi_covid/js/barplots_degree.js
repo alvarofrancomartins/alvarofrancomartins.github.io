@@ -55,7 +55,7 @@ d3.csv("data/cpi_degree.csv").then(function(data) {
           .duration(300) 
           .style("opacity", 0.8);
 
-      var html = d.grau + ' conexões';
+      var html = '<p style="color:black;">' +  d.grau + ' conexões' + '</p>';
 
       tooltipdegree.html(html)
                .style("left", (event.pageX) + "px")

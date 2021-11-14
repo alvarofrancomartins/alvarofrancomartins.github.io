@@ -36,7 +36,7 @@ d3.csv("data/cpi_clos.csv").then(function(data) {
           .duration(300)
           .style("opacity", 0.8);
 
-      var html = d.clos + '';
+      var html = '<p style="color:black;">' +  d.clos + '</p>';
 
       tooltipclos.html(html)
                .style("left", (event.pageX) + "px")
