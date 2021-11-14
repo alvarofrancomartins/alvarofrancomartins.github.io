@@ -77,7 +77,6 @@ d3.json("data/cpi_covid.json")
 		           '<p style="color:black;">' + d.degree + ' conexões'  + '</p>' +
 		           '<p style="color:black;">' + d.group  + ' acusações' + '</p>';
 
-
 		tooltipNetwork.html(html)
 					   .style("left", (event.pageX) + "px")
 					   .style("top", (event.pageY)  + "px")

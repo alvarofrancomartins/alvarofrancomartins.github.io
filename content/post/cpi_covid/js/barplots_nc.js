@@ -40,7 +40,7 @@ function update(selectedVar) {
           .duration(300) 
           .style("opacity", 0.9);
 
-      var html = d[selectedVar] + ' ' + selectedVar;
+      var html = '<p style="color:black;">' +  d[selectedVar] + ' ' + selectedVar + '</p>';
 
       tooltipc.html(html)
                .style("left", (event.pageX) + "px")
