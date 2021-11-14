@@ -904,7 +904,7 @@ figcaption {
 #myInput {
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
-  /*display: block;*/
+  display: block;
   margin-bottom: 12px;
   margin-left: 2.5%;
 }
@@ -1328,6 +1328,15 @@ function myFunction() {
   margin: 0 auto;
   padding: 20px;
 }
+
+/* Table Striped */
+table > tbody > tr:nth-child(odd) > td,
+table > tbody > tr:nth-child(odd) > th {
+  background-color: #ffffff; }
+
+table > tbody > tr:hover > td,
+table > tbody > tr:hover > th {
+  background-color: #f5f5f5; }
 
 
 </style>

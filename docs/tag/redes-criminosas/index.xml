@@ -98,7 +98,7 @@
 #myInput {
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
-  /*display: block;*/
+  display: block;
   margin-bottom: 12px;
   margin-left: 2.5%;
 }
@@ -522,6 +522,15 @@ function myFunction() {
   margin: 0 auto;
   padding: 20px;
 }
+
+/* Table Striped */
+table &gt; tbody &gt; tr:nth-child(odd) &gt; td,
+table &gt; tbody &gt; tr:nth-child(odd) &gt; th {
+  background-color: #ffffff; }
+
+table &gt; tbody &gt; tr:hover &gt; td,
+table &gt; tbody &gt; tr:hover &gt; th {
+  background-color: #f5f5f5; }
 
 
 &lt;/style&gt;
