@@ -55,7 +55,7 @@ Uma rede (ou grafo) é composta por vértices (pessoas, no nosso caso) e ligaç�
 <script type="text/javascript" src="js/cpi_covid.js"> </script>
 <p style="text-align: center"><b>Rede da CPI da COVID</b>: 24 acusações, 75 vértices e 695 conexões.<p/><br>
 
-O aspecto visual dessa rede oferece algumas pistas. Por exemplo, notamos que possuir muitas acusações nem sempre significa que o vértice realiza um grande número de conexões. Isto é, determinados tipos de acusação englobam poucas pessoas, enquanto outros englobam mais pessoas. Por exemplo, existem diversos vértices com várias acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e várias conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede, Jair Bolsonaro com 49 conexões possui 9 acusações e Ricardo Barros com 43 conexões possui 4 acusações.
+O aspecto visual dessa rede oferece algumas pistas. Notamos que possuir muitas acusações nem sempre significa que o vértice realiza um grande número de conexões. Isto é, determinados tipos de acusação englobam poucas pessoas, enquanto outros englobam mais pessoas. Por exemplo, existem diversos vértices com várias acusações e poucas conexões (Francisco Emerson Maximiano, Emanuela Medrades, etc) e diversos vértices com poucas acusações e várias conexões (Osmar Terra, Ernesto Araújo, etc). Por outro lado, os dois maiores vértices da rede, Jair Bolsonaro com 49 conexões possui 9 acusações e Ricardo Barros com 43 conexões possui 4 acusações.
 
 <br>
 
