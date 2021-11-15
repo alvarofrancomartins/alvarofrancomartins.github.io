@@ -114,12 +114,7 @@
 #myTable th, #myTable td {
   text-align: left;
   margin: 0 auto;
-  width:  50%;
   padding: 20px;
-}
-
-td {
-    display: 10;
 }
 
 /* Table Striped */
@@ -139,8 +134,8 @@ table &gt; tbody &gt; tr:hover &gt; th {
 
 &lt;table id=&#34;myTable&#34; style=&#34;margin: 0px auto;&#34;&gt;
   &lt;tr class=&#34;header1&#34;&gt;
-    &lt;th style=&#34;width:600px; background-color:  #f5f5f5;&#34;&gt;Nome&lt;/th&gt;
-    &lt;th style=&#34;width:600px; background-color:  #f5f5f5;&#34;&gt;Acusações&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color:  #f5f5f5; color: black;&#34;&gt;Nome&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color:  #f5f5f5; color: black;&#34;&gt;Acusações&lt;/th&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td&gt;Roberto Dias&lt;/td&gt;
@@ -522,26 +517,17 @@ function myFunction() {
   padding: 20px;
 }
 
-/* Table Striped */
-table &gt; tbody &gt; tr:nth-child(odd) &gt; td,
-table &gt; tbody &gt; tr:nth-child(odd) &gt; th {
-  background-color: #ffffff; }
-
-table &gt; tbody &gt; tr:hover &gt; td,
-table &gt; tbody &gt; tr:hover &gt; th {
-  background-color: #f5f5f5; }
-
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
 &lt;input type=&#34;text&#34; id=&#34;myInput2&#34; onkeyup=&#34;myFunction2()&#34; placeholder=&#34;Buscar nome...&#34; title=&#34;Digite um nome&#34;&gt;
 
-&lt;table class = &#34;table table-striped&#34; id=&#34;myTable2&#34; style=&#34;margin: 10px auto;&#34;&gt;
+&lt;table id=&#34;myTable2&#34; style=&#34;margin: 10px auto;&#34;&gt;
   &lt;tr class=&#34;header2&#34;&gt;
-    &lt;th style=&#34;width:300px; background-color: #f5f5f5;&#34;&gt;Pessoa 1&lt;/th&gt;
-    &lt;th style=&#34;width:300px; background-color: #f5f5f5;&#34;&gt;Pessoa 2&lt;/th&gt;
-    &lt;th style=&#34;width:600px; background-color: #f5f5f5;&#34;&gt;Supostos crimes compartilhados&lt;/th&gt;
+    &lt;th style=&#34;width:300px; background-color: #f5f5f5; color: black;&#34;&gt;Pessoa 1&lt;/th&gt;
+    &lt;th style=&#34;width:300px; background-color: #f5f5f5; color: black;&#34;&gt;Pessoa 2&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5; color: black;&#34;&gt;Supostos crimes compartilhados&lt;/th&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
             &lt;td&gt;Elcio Franco&lt;/td&gt;
@@ -7555,10 +7541,10 @@ function myFunction2() {
 &lt;/head&gt;
 &lt;body&gt;
 
-&lt;table class = &#34;table table-striped&#34; id=&#34;myTable3&#34; style=&#34;margin: 10px auto;&#34;&gt;
+&lt;table type=&#34;text&#34; id=&#34;myTable3&#34; style=&#34;margin: 10px auto;&#34;&gt;
   &lt;tr class=&#34;header2&#34;&gt;
-    &lt;th style=&#34;width:600px; background-color: #f5f5f5;&#34;&gt;Índice da comunidade&lt;/th&gt;
-    &lt;th style=&#34;width:600px; background-color: #f5f5f5;&#34;&gt;Pessoas&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5; color: black;&#34;&gt;Índice da comunidade&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5; color: black;&#34;&gt;Pessoas&lt;/th&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
                 &lt;td&gt;1&lt;/td&gt;
@@ -7621,10 +7607,10 @@ function myFunction2() {
 &lt;/head&gt;
 &lt;body&gt;
 
-&lt;table class = &#34;table table-striped&#34; id=&#34;myTable4&#34; style=&#34;margin: 10px auto;&#34;&gt;
+&lt;table type=&#34;text&#34; id=&#34;myTable4&#34; style=&#34;margin: 10px auto;&#34;&gt;
   &lt;tr class=&#34;header2&#34;&gt;
-    &lt;th style=&#34;width:600px; background-color: #f5f5f5;&#34;&gt;Índice da comunidade&lt;/th&gt;
-    &lt;th style=&#34;width:600px; background-color: #f5f5f5;&#34;&gt;Supostos crimes&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5; color: black;&#34;&gt;Índice da comunidade&lt;/th&gt;
+    &lt;th style=&#34;width:600px; background-color: #f5f5f5; color: black;&#34;&gt;Supostos crimes&lt;/th&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
                 &lt;td&gt;1&lt;/td&gt;
