@@ -138,7 +138,7 @@ table &gt; tbody &gt; tr:hover &gt; th {
 &lt;input type=&#34;text&#34; id=&#34;myInput&#34; onkeyup=&#34;myFunction()&#34; placeholder=&#34;Buscar nome...&#34; title=&#34;Digite um nome&#34;&gt;
 
 &lt;table id=&#34;myTable&#34; style=&#34;margin: 0px auto;&#34;&gt;
-  &lt;tr class=&#34;header&#34;&gt;
+  &lt;tr class=&#34;header1&#34;&gt;
     &lt;th style=&#34;width:600px; background-color:  #f5f5f5;&#34;&gt;Nome&lt;/th&gt;
     &lt;th style=&#34;width:600px; background-color:  #f5f5f5;&#34;&gt;Acusações&lt;/th&gt;
   &lt;/tr&gt;
