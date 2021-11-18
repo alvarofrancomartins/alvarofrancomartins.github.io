@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cocaine | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/cocaine/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/cocaine/index.xml" rel="self" type="application/rss+xml" />
+    <description>Cocaine</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 17 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Cocaine</title>
+      <link>https://alvarofrancomartins.com/tag/cocaine/</link>
+    </image>
+    
+    <item>
+      <title>Cocaine Smuggling Networks</title>
+      <link>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</link>
+      <pubDate>Wed, 17 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;p&gt;Parece haver um padrão onde a conexão de dois vértices com grais mais alto é usualmente intermediada por um outro vértice.&lt;/p&gt;
+&lt;p&gt;Nessa postagem apresento uma perspectiva inédita para entender as relações entre os citados pela CPI da COVID-19. Essa comissão parlamentar de inquérito apresenta uma rede de supostos envolvidos em diversos crimes, entre eles &lt;em&gt;corrupção ativa&lt;/em&gt;, &lt;em&gt;charlatanismo&lt;/em&gt;, &lt;em&gt;prevaricação&lt;/em&gt; e &lt;em&gt;fraude&lt;/em&gt;. Todas as informações são de público acesso e foram coletadas do &lt;a href=&#34;https://g1.globo.com/politica/cpi-da-covid/noticia/2021/10/20/cpi-da-covid-crimes-atribuidos-lista.ghtml&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;portal G1&lt;/a&gt;.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Nossa análise terá o enfoque da &lt;a href=&#34;https://en.wikipedia.org/wiki/Network_science&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ciência de redes&lt;/a&gt;. A representação de dados em grafos fornece uma abordagem poderosa, capaz de revelar padrões e estruturas não triviais entre agentes que possuem alguma relação de conexão. A CPI da COVID apresenta &lt;strong&gt;24 acusações&lt;/strong&gt; e &lt;strong&gt;78 nomes&lt;/strong&gt; citados, resultando em um total de &lt;strong&gt;695 conexões&lt;/strong&gt;. Por meio de ferramentas advindas da teoria dos grafos, elaboramos uma visualização dessa rede, calculamos algumas medidas de centralidade e mostramos que ela possui uma estrutura de comunidades.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;the-four-operations&#34;&gt;The four operations&lt;/h1&gt;
+&lt;br&gt; 
+&lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_1.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Mambo network&lt;/b&gt;: 31 vertices and 58 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;ACERO&lt;/strong&gt;: This investigation started in 2007 and involved a smaller family-based group. The group was composed mainly of members of a same family and was led by a female. They distributed cocaine in Madrid (Spain) that was provided to them by other groups based in a northwest region of the country, one of the most active areas in the provision of cocaine from the countries of origin. The group also had their own procedures to launder money.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_2&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_2.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Acero network&lt;/b&gt;: 25 vertices and 37 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JAKE&lt;/strong&gt;: In 2008, the group investigated was operating as a wholesale supplier and retail distributor of cocaine and heroin in a large distribution zone located in Madrid (Spain), where gypsy clans traditionally carry out similar activities. The group was in charge of acquiring, manipulating and selling the drugs in the gypsy quarter.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_3&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_3.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Jake network&lt;/b&gt;: 38 vertices and 50 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JUANES&lt;/strong&gt;: In 2009, the police investigation detected a group involved in the smuggling of cocaine from Mexico to be distributed in Madrid (Spain). In this case, the group operated in close cooperation with another organization that was laundering the illegal income from drug distribution from this and other groups. The cocaine traffickers earned an estimated EUR 60 million.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_4&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_4.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Juanes network&lt;/b&gt;: 51 vertices and 93 edges.&lt;p/&gt;&lt;br &gt;
+&lt;h1 id=&#34;medidas-de-centralidade&#34;&gt;Medidas de Centralidade&lt;/h1&gt;
+&lt;p&gt;A centralidade de &lt;strong&gt;grau&lt;/strong&gt; oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam &lt;strong&gt;indivíduos populares&lt;/strong&gt; e que possuem uma &lt;strong&gt;posição privilegiada&lt;/strong&gt; na rede. A &lt;b&gt;Figura 1&lt;/b&gt; mostra os nomes dos vértices da rede que possuem os maiores valores de grau. No nosso caso, um grau elevado indica que a pessoa está sendo acusada por crime(s) com grande número de acusados, enquanto um grau reduzido indica que as acusações são por crimes com baixo número de acusados.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
