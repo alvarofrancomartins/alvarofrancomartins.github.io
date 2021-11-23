@@ -19,7 +19,7 @@ var simulation_ = d3.forceSimulation()
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(widthNetwork / 2, heightNetwork / 2));
 
-// svgNetwork_.append("text").attr("x", 3).attr("y", -100).text("NETWORK DISMANTLING").style("font-size", "20px").style("font-weight", "bold").attr("alignment-baseline","middle")
+//svgNetwork_.append("text").attr("x", 3).attr("y", -100).text("ATTACK").style("font-size", "20px").style("font-weight", "bold").attr("alignment-baseline","middle")
 
 d3.json("data/cocaine_smuggling_4_ç.json")
   .then(function(graph) {
@@ -92,6 +92,8 @@ d3.json("data/cocaine_smuggling_4_ç.json")
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
+    .style('stroke-width', 0.8)
+    .style('stroke','#000000');
   var node = svgNetwork_.append("g")
     .attr("class", "nodes")
     .selectAll("g")

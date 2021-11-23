@@ -87,6 +87,8 @@ d3.json("data/cocaine_smuggling_1.json")
     .selectAll("line")
     .data(graph.links)
     .enter().append("line")
+    .style('stroke-width', 0.4)
+    .style('stroke','#000000');
   var node = svgNetwork.append("g")
     .attr("class", "nodes")
     .selectAll("g")
