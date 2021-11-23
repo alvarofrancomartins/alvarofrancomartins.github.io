@@ -34,9 +34,7 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget.
-
-Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.
+Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget. Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.
 
 <br>
 
