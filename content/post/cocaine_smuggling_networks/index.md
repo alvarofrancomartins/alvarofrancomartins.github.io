@@ -1,14 +1,14 @@
 ---
 title: Cocaine Smuggling Networks
-subtitle: Entenda melhor a rede dos supostos crimes praticados durante a pandemia da COVID-19
-summary: Entenda melhor a rede dos supostos crimes praticados durante a pandemia da COVID-19
+subtitle: Dismantling a cocaine trafficking network
+summary: Dismantling a cocaine trafficking network
 authors:
 - admin
 tags: []
 categories: []
-date: "2021-11-17"
+date: "2021-11-23"
 featured: false
-draft: true
+draft: false
 tags: 
 - Networks
 - Cocaine
@@ -22,9 +22,9 @@ categories:
 
 image:
   placement: 3
-  caption: "Estrutura de comunidades da CPI da COVID-19"
+  # caption: "Network Attack"
   focal_point: "Smart"
-  preview_only: true
+  preview_only: false
 
 projects: [criminal_networks]
 # profile: true
@@ -34,13 +34,13 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Parece haver um padrão onde a conexão de dois vértices com grais mais alto é usualmente intermediada por um outro vértice.
+Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget.
 
-Nessa postagem apresento uma perspectiva inédita para entender as relações entre os citados pela CPI da COVID-19. Essa comissão parlamentar de inquérito apresenta uma rede de supostos envolvidos em diversos crimes, entre eles _corrupção ativa_, _charlatanismo_, _prevaricação_ e _fraude_. Todas as informações são de público acesso e foram coletadas do [portal G1](https://g1.globo.com/politica/cpi-da-covid/noticia/2021/10/20/cpi-da-covid-crimes-atribuidos-lista.ghtml).
+Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.
 
 <br>
 
-Nossa análise terá o enfoque da [ciência de redes](https://en.wikipedia.org/wiki/Network_science). A representação de dados em grafos fornece uma abordagem poderosa, capaz de revelar padrões e estruturas não triviais entre agentes que possuem alguma relação de conexão. A CPI da COVID apresenta **24 acusações** e **78 nomes** citados, resultando em um total de **695 conexões**. Por meio de ferramentas advindas da teoria dos grafos, elaboramos uma visualização dessa rede, calculamos algumas medidas de centralidade e mostramos que ela possui uma estrutura de comunidades.
+Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
 
 <br>
 
@@ -72,6 +72,42 @@ Operation **JUANES**: In 2009, the police investigation detected a group involve
 <script type="text/javascript" src="js/cocaine_smuggling_4.js"> </script>
 <p style="text-align: center"><b>Juanes network</b>: 51 vertices and 93 edges.<p/><br >
 
-# Medidas de Centralidade
+# Network dismantling
 
-A centralidade de **grau** oferece uma das grandezas mais básicas de redes. O grau de um vértice representa simplesmente seu número de conexões. Valores mais altos dessa grandeza indicam **indivíduos populares** e que possuem uma **posição privilegiada** na rede. A <b>Figura 1</b> mostra os nomes dos vértices da rede que possuem os maiores valores de grau. No nosso caso, um grau elevado indica que a pessoa está sendo acusada por crime(s) com grande número de acusados, enquanto um grau reduzido indica que as acusações são por crimes com baixo número de acusados.
+<br>
+
+<!-- While criminal and corruption networks are one of humanity’s biggest problems, it seems that effective ways to dismantle them are still needed. A typical approach to fight organized crime and corruption is to try to identify the underlying organization’s network and then to remove the leader of the organization. It turns out, however, that it often requires an extremely great effort to remove the higher echelons of such organizations, because of their special protection measures. Removal costs of criminals or corrupt persons largely depend on their position in the network. It has also been found that it is often ineffective to remove the boss of a corruption or criminal network, as someone else will quickly take the leadership position of the organization and continue running the criminal or corruption network (33); besides, the transition period is often characterized by an increase in the level of crime, until the power struggle is decided. Therefore, we generalize the dismantling problem to nonunit node removal costs. -->
+
+<br>
+
+{{< youtube EGfhAPnPnlE >}}
+
+<br>
+
+Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget.
+
+## Mambo network
+<figure>
+    <img src="images/mambo.png" width="900px" height="563px" />
+    <figcaption>Figure 1: Mambo network dismantling.</figcaption>
+</figure>
+
+## Acero network
+<figure>
+    <img src="images/acero.png" width="900px" height="563px" />
+    <figcaption>Figure 2: Acero network dismantling.</figcaption>
+</figure>
+
+## Jake network
+<figure>
+    <img src="images/jake.png" width="900px" height="563px" />
+    <figcaption>Figure 3: Jake network dismantling.</figcaption>
+</figure>
+
+## Juanes network
+<figure>
+    <img src="images/juanes.png" width="900px" height="563px" />
+    <figcaption>Figure 4: Juanes network dismantling</figcaption>
+</figure>
+
+Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.

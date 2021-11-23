@@ -1,0 +1,136 @@
+
+
+const marginNetwork = { top: 0, right: 0, bottom: 0	, left: 0 };
+const widthNetwork  = 680 - marginNetwork.left - marginNetwork.right;
+const heightNetwork = 440 - marginNetwork.top  - marginNetwork.bottom;
+
+//Create SVG element in chart id element
+const svgNetwork_ = d3.select('#dismantling_cocaine_networks')
+	              .append('svg')
+	               .attr("class", "content")
+	               .attr("viewBox", `0 -250 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom + 500}`)
+	               .attr("preserveAspectRatio", "none")
+	               // .attr("transform", "translate(0,0) rotate(0)")
+
+var color_ = ['#fbb4ae', '#b3cde3', '#decbe4', '#ffffcc', '#fddaec', '#f2f2f2']
+
+var simulation_ = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(widthNetwork / 2, heightNetwork / 2));
+
+// svgNetwork_.append("text").attr("x", 3).attr("y", -100).text("NETWORK DISMANTLING").style("font-size", "20px").style("font-weight", "bold").attr("alignment-baseline","middle")
+
+d3.json("data/cocaine_smuggling_4_24.json")
+  .then(function(graph) {
+
+	function ticked() {
+	link
+	    .attr("x1", function(d) { return d.source.x; })
+	    .attr("y1", function(d) { return d.source.y; })
+	    .attr("x2", function(d) { return d.target.x; })
+	    .attr("y2", function(d) { return d.target.y; });
+
+	node
+	    .attr("transform", function(d) {
+	      return "translate(" + d.x + "," + d.y + ")";
+	    })
+	}
+
+	function dragstarted(event, d) {
+	  if (!event.active) simulation_.alphaTarget(0.3).restart();
+	  d.fx = d.x;
+	  d.fy = d.y;
+	}
+
+	function dragged(event, d) {
+	  d.fx = event.x;
+	  d.fy = event.y;
+	}
+
+	function dragended(event, d) {
+	  if (!event.active) simulation_.alphaTarget(0);
+	  d.fx = null;
+	  d.fy = null;
+	}  
+
+	// tooltip
+	var tooltipNetwork_ = d3.select("#dismantling_cocaine_networks").append("div")
+	                        .attr("class", "tooltip-html")
+	                        .style("opacity", 0); 
+	// tooltip mouseover event handler
+	var mouseoverNetwork_ = function(event, d) {
+		d3.select(this)
+		   .transition()
+		   .duration(300) 		  
+		   .attr("r", function (d) {if (d.degree <= 1) {return 6} else {return 8*Math.log(d.degree);}});
+
+		var html_ = '<p style="color:black;">' + d.id                    + '</p>' +
+		            '<p style="color:black;">' + d.degree + ' conexões'  + '</p>' +
+		            '<p style="color:black;">' + d.group  + ' group'     + '</p>';
+
+		tooltipNetwork_.html(html_)
+					   .style("left", (event.pageX) + "px")
+					   .style("top", (event.pageY)  + "px")
+					   .transition()
+					   .duration(300) // ms
+					   .style("opacity", 1); // started as 0!
+	};
+	// tooltip mouseout event handler
+	var mouseoutNetwork_ = function(d) {
+		d3.select(this)
+		   .transition()
+		   .duration(300) 		  
+		   .attr("r", function (d) {if (d.degree <= 1) {return 3} else {return 5*Math.log(d.degree);}});
+
+		tooltipNetwork_.transition()
+		               .duration(300) // ms                       
+		               .style("opacity", 0); // don't care about position!;                       
+	};
+  var link = svgNetwork_.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .enter().append("line")
+  var node = svgNetwork_.append("g")
+    .attr("class", "nodes")
+    .selectAll("g")
+    .data(graph.nodes)
+    .enter().append("g")
+    .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag",  dragged)
+          .on("end",   dragended))
+
+  var circles = node.append("circle")
+      .attr("r",    function (d) {if (d.degree <= 1) {return 3} else {return 5*Math.log(d.degree);}})
+      .attr("fill", function (d) {if (d.nextarget == 1) {return '#e41a1c';} else {return color_[d.group-1];}})
+      .style("stroke-width", function (d) {if (d.nextarget == 1) {return 0.7;} else {return 0.7;}})
+      .style("stroke", '#000000')
+      // .style("stroke", function (d) {if (d.nextarget == 1) {return '#e41a1c';} else {return '#000000';}})
+      .on("mouseover", mouseoverNetwork_)
+      .on("mouseout", mouseoutNetwork_);
+
+  node.append("text")
+    .attr("dx", 12)
+    .attr("dy", ".35em")
+    .text(function(d) {if (d.nextarget == 1) { return 'TARGET' }})
+    .style('font-weight', 'bold');
+
+  simulation_
+      .nodes(graph.nodes)
+      .on("tick", ticked);
+
+  simulation_.force("link")
+      .links(graph.links)
+      .distance(50);
+
+  simulation_.force("charge")
+        .strength(-250)
+        .distanceMin(5)
+        .distanceMax(3000);
+
+   simulation_.force("xAxis",d3.forceX(150))
+          .force("yAxis",d3.forceY(5));
+
+});

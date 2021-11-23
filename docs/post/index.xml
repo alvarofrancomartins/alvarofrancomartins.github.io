@@ -5,12 +5,78 @@
     <link>https://alvarofrancomartins.com/post/</link>
       <atom:link href="https://alvarofrancomartins.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 08 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 23 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Posts</title>
       <link>https://alvarofrancomartins.com/post/</link>
     </image>
+    
+    <item>
+      <title>Cocaine Smuggling Networks</title>
+      <link>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</link>
+      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;p&gt;Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget.&lt;/p&gt;
+&lt;p&gt;Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;the-four-operations&#34;&gt;The four operations&lt;/h1&gt;
+&lt;br&gt; 
+&lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_1.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Mambo network&lt;/b&gt;: 31 vertices and 58 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;ACERO&lt;/strong&gt;: This investigation started in 2007 and involved a smaller family-based group. The group was composed mainly of members of a same family and was led by a female. They distributed cocaine in Madrid (Spain) that was provided to them by other groups based in a northwest region of the country, one of the most active areas in the provision of cocaine from the countries of origin. The group also had their own procedures to launder money.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_2&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_2.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Acero network&lt;/b&gt;: 25 vertices and 37 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JAKE&lt;/strong&gt;: In 2008, the group investigated was operating as a wholesale supplier and retail distributor of cocaine and heroin in a large distribution zone located in Madrid (Spain), where gypsy clans traditionally carry out similar activities. The group was in charge of acquiring, manipulating and selling the drugs in the gypsy quarter.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_3&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_3.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Jake network&lt;/b&gt;: 38 vertices and 50 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JUANES&lt;/strong&gt;: In 2009, the police investigation detected a group involved in the smuggling of cocaine from Mexico to be distributed in Madrid (Spain). In this case, the group operated in close cooperation with another organization that was laundering the illegal income from drug distribution from this and other groups. The cocaine traffickers earned an estimated EUR 60 million.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_4&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_4.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Juanes network&lt;/b&gt;: 51 vertices and 93 edges.&lt;p/&gt;&lt;br &gt;
+&lt;h1 id=&#34;network-dismantling&#34;&gt;Network dismantling&lt;/h1&gt;
+&lt;br&gt;
+&lt;!-- While criminal and corruption networks are one of humanity’s biggest problems, it seems that effective ways to dismantle them are still needed. A typical approach to fight organized crime and corruption is to try to identify the underlying organization’s network and then to remove the leader of the organization. It turns out, however, that it often requires an extremely great effort to remove the higher echelons of such organizations, because of their special protection measures. Removal costs of criminals or corrupt persons largely depend on their position in the network. It has also been found that it is often ineffective to remove the boss of a corruption or criminal network, as someone else will quickly take the leadership position of the organization and continue running the criminal or corruption network (33); besides, the transition period is often characterized by an increase in the level of crime, until the power struggle is decided. Therefore, we generalize the dismantling problem to nonunit node removal costs. --&gt;
+&lt;br&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/EGfhAPnPnlE&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;br&gt;
+&lt;p&gt;Proin posuere lacus in faucibus rhoncus. Praesent vel mollis arcu. Sed elementum elementum dictum. Fusce interdum massa cursus nisi pellentesque iaculis. Donec pulvinar lacus non dui ultrices, id lobortis mauris dictum. Suspendisse magna sapien, faucibus aliquam posuere sit amet, porttitor vel mi. Quisque pretium molestie dui ut lobortis. Nunc sed arcu dolor. Pellentesque faucibus dolor ut urna eleifend tempus. Etiam egestas sapien sit amet felis vehicula congue. Nullam laoreet semper ligula, at feugiat ligula interdum eget.&lt;/p&gt;
+&lt;h2 id=&#34;mambo-network&#34;&gt;Mambo network&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/mambo.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;Figure 1: Mambo network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id=&#34;acero-network&#34;&gt;Acero network&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/acero.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;Figure 2: Acero network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id=&#34;jake-network&#34;&gt;Jake network&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/jake.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;Figure 3: Jake network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h2 id=&#34;juanes-network&#34;&gt;Juanes network&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/juanes.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;Figure 4: Juanes network dismantling&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Praesent augue nulla, fermentum nec tortor ac, sodales molestie risus. Nulla nec justo sit amet justo congue imperdiet. Sed pretium vel turpis sit amet pharetra. In hac habitasse platea dictumst. Maecenas nec vestibulum tortor. Maecenas eget risus quam. Pellentesque varius leo id quam sollicitudin pharetra. Donec in viverra velit, sit amet volutpat ante. Fusce consequat dignissim porta. Nulla facilisi.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Visualizando a CPI da COVID</title>

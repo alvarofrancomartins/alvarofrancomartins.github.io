@@ -46,9 +46,9 @@ d3.json("data/cocaine_smuggling_4.json")
 	}  
 
 	// tooltip
-	var tooltipNetwork4 = d3.select("#cocaine_smuggling_4").append("div")
-	                        .attr("class", "tooltip-html")
-	                        .style("opacity", 0); 
+	// var tooltipNetwork4 = d3.select("#cocaine_smuggling_4").append("div")
+	                        // .attr("class", "tooltip-html")
+	                        // .style("opacity", 0); 
 	// tooltip mouseover event handler
 	var mouseoverNetwork4 = function(event, d) {
 		d3.select(this)
@@ -56,16 +56,16 @@ d3.json("data/cocaine_smuggling_4.json")
 		   .duration(300) 		  
 		   .attr("r", function (d) {if (d.degree <= 1) {return 6} else {return 8*Math.log(d.degree);}});
 
-		var html4 = '<p style="color:black;">' + d.id                    + '</p>' +
-		            '<p style="color:black;">' + d.degree + ' conexões'  + '</p>' +
-		            '<p style="color:black;">' + d.group  + ' group' + '</p>';
+		// var html4 = '<p style="color:black;">' + d.id                    + '</p>' +
+		            // '<p style="color:black;">' + d.degree + ' conexões'  + '</p>' +
+		            // '<p style="color:black;">' + d.group  + ' group' + '</p>';
 
-		tooltipNetwork4.html(html4)
-					   .style("left", (event.pageX) + "px")
-					   .style("top", (event.pageY)  + "px")
-					   .transition()
-					   .duration(300) // ms
-					   .style("opacity", 1); // started as 0!
+		// tooltipNetwork4.html(html4)
+					   // .style("left", (event.pageX) + "px")
+					   // .style("top", (event.pageY)  + "px")
+					   // .transition()
+					   // .duration(300) // ms
+					   // .style("opacity", 1); // started as 0!
 	};
 	// tooltip mouseout event handler
 	var mouseoutNetwork4 = function(d) {
@@ -74,9 +74,9 @@ d3.json("data/cocaine_smuggling_4.json")
 		   .duration(300) 		  
 		   .attr("r", function (d) {if (d.degree <= 1) {return 3} else {return 5*Math.log(d.degree);}});
 
-		tooltipNetwork4.transition()
-		               .duration(300) // ms                       
-		               .style("opacity", 0); // don't care about position!;                       
+		// tooltipNetwork4.transition()
+		               // .duration(300) // ms                       
+		               // .style("opacity", 0); // don't care about position!;                       
 	};
   var link = svgNetwork4.append("g")
       .attr("class", "links")
