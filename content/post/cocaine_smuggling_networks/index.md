@@ -24,7 +24,7 @@ image:
   placement: 3
   # caption: "Network Attack"
   focal_point: "Smart"
-  preview_only: true
+  preview_only: false
 
 projects: [criminal_networks]
 # profile: true
