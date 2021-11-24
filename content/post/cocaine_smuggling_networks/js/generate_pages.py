@@ -1,5 +1,4 @@
-long_string = """
-
+long_string1 = """
 const marginNetwork = { top: 0, right: 0, bottom: 0	, left: 0 };
 const widthNetwork  = 680 - marginNetwork.left - marginNetwork.right;
 const heightNetwork = 440 - marginNetwork.top  - marginNetwork.bottom;
@@ -106,17 +105,33 @@ d3.json("data/cocaine_smuggling_4_ç.json")
 
   var circles = node.append("circle")
       .attr("r",    function (d) {if (d.degree <= 1) {return 3} else {return 5*Math.log(d.degree);}})
-      .attr("fill", function (d) {if (d.nextarget == 1) {return '#e41a1c';} else {return color_[d.group-1];}})
-      .style("stroke-width", function (d) {if (d.nextarget == 1) {return 0.7;} else {return 0.7;}})
+      .attr("fill", function (d) {return color_[d.group-1];})
+      .style("stroke-width", 0.7)
       .style("stroke", '#000000')
-      // .style("stroke", function (d) {if (d.nextarget == 1) {return '#e41a1c';} else {return '#000000';}})
       .on("mouseover", mouseoverNetwork_)
       .on("mouseout", mouseoutNetwork_);
 
-  node.append("text")
+  circles.filter((d) => d.nextarget == 1)
+     .transition()
+		 .delay(800)
+		 .duration(100)
+		 .attr("fill", '#e41a1c');
+
+  circles.filter((d) => d.nextarget != 1)
+     .transition()
+		 .delay(500)
+		 .duration(50)
+		 .attr("fill", '');
+
+  node.filter((d) => d.nextarget == 1).append("text")
+    .transition()
+		.delay(800)
+		.duration(100)
     .attr("dx", 12)
     .attr("dy", ".35em")
-    .text(function(d) {if (d.nextarget == 1) { return 'TARGET' }})
+    .text(function(d) {if (d.nextarget == 1) { return 'TARGET'}})
+    //.style("z-index", 1000).style("stroke", "#ffffff").style("stroke-width", 2)
+    //.style("opacity", 1)
     .style('font-weight', 'bold');
 
   simulation_
@@ -134,26 +149,27 @@ d3.json("data/cocaine_smuggling_4_ç.json")
 
    simulation_.force("xAxis",d3.forceX(150))
           .force("yAxis",d3.forceY(5));
-
 });
 """
+
+addTARGET  = """svgNetwork_.append("text").attr("x", 3).attr("y", -100).transition().delay(2500).duration(0).text("REMOVING TARGET").style("font-size", "30px").style("font-weight", "bold").attr("alignment-baseline","middle")"""
 
 from time import sleep
 
 for i in range(52):
 
-	if i == 0:
+	if i  == 0:
 
-		for _ in range(2):
+		sleep(2.2)
 
-			sleep(1.8)
-
-			with open('dismantling_cocaine_networksa.js', 'w') as f:
-				f.write(long_string.replace('ç', str(i)))
+		with open('dismantling_cocaine_networksa.js', 'w') as f:
+			f.write(long_string1.replace('ç', str(i)) + addTARGET)
 
 	else:
 
-		sleep(1.8)
+		sleep(2.2)
 
 		with open('dismantling_cocaine_networksa.js', 'w') as f:
-			f.write(long_string.replace('ç', str(i)))
+			f.write(long_string1.replace('ç', str(i)).replace('TARGET', 'NEW TARGET') + addTARGET)
+
+	sleep(2.2)
