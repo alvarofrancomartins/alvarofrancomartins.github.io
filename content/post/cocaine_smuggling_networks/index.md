@@ -180,8 +180,6 @@ The figures below show the (normalized) size of the largest connected component 
 
 <br>
 
-Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
-
 <figure>
     <img src="images/mambo.png" width="900px" height="563px" />
     <figcaption><b>Figure 2</b>: Mambo network dismantling.</figcaption>

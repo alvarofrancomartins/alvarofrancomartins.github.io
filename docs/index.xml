@@ -128,7 +128,6 @@
 &lt;br&gt;
 &lt;p&gt;The figures below show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. I have used the LLC size to measure the effect of the dismantling, but other metrics could also be used, such as the efficiency of the network. In each figure, the pale pink color represents the dismantling using the degree centrality and the pale blue color represents the dismantling using the &lt;em&gt;Generalized network dismantling&lt;/em&gt; method.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;images/mambo.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
     &lt;figcaption&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Mambo network dismantling.&lt;/figcaption&gt;
