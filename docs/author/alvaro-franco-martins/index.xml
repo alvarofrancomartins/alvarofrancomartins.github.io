@@ -164,7 +164,7 @@
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/teste.js&#34;&gt; &lt;/script&gt;
 &lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network generated ($n = 38$,  $m_1 = 1$ and $m_2 = 5$) using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
 &lt;br&gt;
-&lt;p&gt;I know present a comparison between the metrics for the empirical and modeled networks.&lt;/p&gt;
+&lt;p&gt;I now present a comparison between the metrics for the empirical and modeled networks.&lt;/p&gt;
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;

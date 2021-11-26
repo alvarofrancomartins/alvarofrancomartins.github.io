@@ -238,7 +238,7 @@ What's the importance of modeling networks?
 
 <br>
 
-I know present a comparison between the metrics for the empirical and modeled networks. 
+I now present a comparison between the metrics for the empirical and modeled networks. 
 
 <br>
 
