@@ -1,7 +1,7 @@
 ---
-title: Cocaine smuggling networks
-subtitle: Comparing the costs of dismantling cocaine smuggling networks
-summary: Comparing the costs of dismantling cocaine smuggling networks
+title: Dismantling and modeling cocaine trafficking networks
+subtitle: Insights about four cocaine smuggling networks
+summary: Insights about four cocaine smuggling networks
 authors:
 - admin
 tags: []
@@ -34,7 +34,7 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling in four cocaine smuggling networks. These networks are a result of operations[^1] from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay.
+Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling in four cocaine smuggling networks. These networks are a result of operations[^1] from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Lastly, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
 
 [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. 
 
@@ -348,6 +348,8 @@ smuggling_networks_global_efficiency
 5.6 # Random (1000 iterations)
 ```
 {{< /spoiler >}}
+
+Of course, this is not perfect. But it is close.
 
 <br>
 

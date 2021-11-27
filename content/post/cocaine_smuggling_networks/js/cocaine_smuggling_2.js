@@ -2,7 +2,7 @@
 const svgNetwork2 = d3.select('#cocaine_smuggling_2')
 	              .append('svg')
 	               .attr("class", "content")
-	               .attr("viewBox", `0 12 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom}`)
+	               .attr("viewBox", `0 12 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom + 10}`)
 	               .attr("preserveAspectRatio", "none")
 	               // .attr("transform", "translate(0,0) rotate(0)")
 
