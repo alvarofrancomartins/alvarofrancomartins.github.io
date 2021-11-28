@@ -4,19 +4,14 @@ subtitle: Insights about four cocaine smuggling networks
 summary: Insights about four cocaine smuggling networks
 authors:
 - admin
-tags: []
-categories: []
 date: "2021-11-23"
 featured: false
 draft: false
 tags: 
-- Networks
+- Spain
 - Cocaine
 - Organized crime
 - Criminal networks
-- Cocaine networks
-- Smuggling networks  
-- Cocaine smuggling
 
 categories:
 - criminal_networks
@@ -27,6 +22,8 @@ image:
   focal_point: "Smart"
   preview_only: false
 
+reading_time: true
+
 projects: [criminal_networks]
 ---
 
@@ -34,38 +31,41 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling in four cocaine smuggling networks. These networks are a result of operations[^1] from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Lastly, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
+Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling to four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. By the end of the post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
 
-[^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. 
+<!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
 <br>
 
-The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc.org/unodc/en/drug-trafficking/index.html) drug trafficking as "a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws". A 2021 [report](https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf) revealed that the global quantity of cocaine seized reached record levels in 2019, and its bulk continues to be seized in the Americas. Overall, despite immense and increasingly efforts to interrupt these activities, counterdrug interdictions seems to make things [even worse](https://doi.org/10.1073/pnas.1812459116). Drug trafficking networks are [flexible, fluid structures](https://doi.org/10.1080/17440572.2013.787927) and can respond immediately to attacks. It has been argued, for example, that [some](https://doi.org/10.1038/srep04238) networks might even become more efficient after targeted attacks.
+The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc.org/unodc/en/drug-trafficking/index.html) drug trafficking as "a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws". A 2021 [report](https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf) revealed that the global quantity of cocaine seized reached record levels in 2019, and its bulk continues to be seized in the Americas. Overall, despite immense and increasingly efforts to interrupt these activities, counterdrug interdictions seem to make things [even worse](https://doi.org/10.1073/pnas.1812459116). Drug trafficking networks are [flexible, fluid structures](https://doi.org/10.1080/17440572.2013.787927) and can respond immediately to attacks. It has been argued, for example, that [some](https://doi.org/10.1038/srep04238) networks might even become more efficient after targeted attacks.
 
 <figure>
     <img src="images/worldwide_cocaine_trafficking_flow.png" width="1200px" height="570px" />
     <figcaption><b>Figure 1</b>: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.</figcaption>
 </figure>
 
-In terms of network dismantling, a naive approach for attacking criminal networks is to target the high ranking individuals or the most connected people (highest degree centrality). But this does not work realistically. It turns out that the cost of targeting these individuals are substantially greater than attacking other criminals in the network. Moreover, in times of conflicts these positions are often replaceable by another criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the invididuals are repleacable. These features makes the efforts of dismantling criminal networks an arduous task.
+In terms of network dismantling, a naive approach for attacking criminal networks is to target the high ranking individuals or the most connected people (highest degree centrality). But realistically this does not work. It turns out that the cost of targeting these individuals is substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the invididuals are repleacable. These features make the efforts of dismantling criminal networks an arduous task.
 
 <br>
 
-Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided in either link or node removal. [Here](https://www.nature.com/articles/s41598-018-31902-8) you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying a dismantling method proposed in a PNAS paper ([Generalized network dismantling](https://doi.org/10.1073/pnas.1806108116)) on four [Cocaine Smuggling Networks](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0). The advantage of this method is that it takes into account the cost of attacking the vertices. More specifically, the cost of removing a vertex is its degree centrality.
+Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. [Here](https://www.nature.com/articles/s41598-018-31902-8) you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four [Cocaine Smuggling Networks](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0), a dismantling method proposed in a PNAS paper ([Generalized Network Dismantling](https://doi.org/10.1073/pnas.1806108116)). The advantage of this method is that it takes into account the cost of attacking the vertices. More specifically, the cost of removing a vertex is its degree centrality.
 
 <br>
 
-To carry out the dismatling analysis, I have adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted to Python 3 and applied on the networks. Ultimately, my goal here is to present the method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied. 
+To carry out the dismatling analysis, I have adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. Ultimately, my goals here are
 
 <br>
 
-# The four operations
+- To present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied. 
+- To suggest that these cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.
 
 <br>
 
-The networks are shown below[^2]. The short descriptions of each operation was taken from [here](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0). Unfortunately, I could not find more details about the operations. 
+# Cocaine trafficking groups
 
-[^2]: The network visualizations were made using [d3js](https://d3js.org) and the size of each node is proportional to its degree.
+<br>
+
+The [dataset](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0) contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks which vertices represent the individuals and links if they communicate. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node's size is proportional to its degree.
 
 <br>
 
@@ -93,10 +93,7 @@ Operation **JUANES**: In 2009, the police investigation detected a group involve
 <script type="text/javascript" src="js/cocaine_smuggling_4.js"> </script>
 <p style="text-align: center"><b>Juanes network</b>: 51 vertices and 93 edges.<p/><br >
 
-In terms of network metrics, these networks have relatively low [density](https://bookdown.org/omarlizardo/_main/2-9-density.html) (which means they are sparse),  negative [assortativity](https://en.wikipedia.org/wiki/Assortativity) (which means that high degree nodes have a slight tendency to connect with low degree nodes) and low [average clustering](https://en.wikipedia.org/wiki/Clustering_coefficient). Since these networks are relatively small in size, a [degree distribution](https://en.wikipedia.org/wiki/Degree_distribution) analysis would not be so meaningful. However, a short preliminary calculation using [powerlaw](https://pypi.org/project/powerlaw/)’s Python package have shown more accordance with free scale distributions when compared to exponential distributions. The community structure analysis was also not very helpful. Although I have used [Infomap](https://www.mapequation.org/infomap/) for coloring the nodes according to each module, I was not able to find community structures with the [Bayesian SBM](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html).
-
-## Network metrics
-Below you can find some of the main metrics that I have calculated for these networks.
+In terms of network metrics, these networks have low [density](https://bookdown.org/omarlizardo/_main/2-9-density.html) (which means they are sparse),  negative [assortativity](https://en.wikipedia.org/wiki/Assortativity) (which means that high degree nodes have a slight tendency to connect with low degree nodes) and relatively low [average clustering](https://en.wikipedia.org/wiki/Clustering_coefficient). Since these networks are relatively small in size, a [degree distribution](https://en.wikipedia.org/wiki/Degree_distribution) analysis would not be so meaningful. However, a short preliminary calculation using [powerlaw](https://pypi.org/project/powerlaw/)’s Python package have shown more accordance with free scale distributions when compared to exponential distributions. The community structure analysis was also not very helpful. Although I have used [Infomap](https://www.mapequation.org/infomap/) for coloring the nodes according to each module, I was not able to find community structures with the [Bayesian SBM](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html). Below you can find some of the main metrics that I have calculated for these networks.
 
 <br>
 
@@ -206,15 +203,21 @@ Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit i
     <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
 </figure>
 
-The general thing that I can see in these networks that I found interesting is that they all (especially the Jake network) appear to have nodes with a lot of connections with other nodes that do not have any connections themselves. This is an indication of preferential attachment, a core property of free scale networks. Since there is not a lot information about these networks, all I can do is hypothesis, but these nodes could be people selling drugs or a provider of several other people making the drug, I dont know. 
-
 <br>
 
 # Network modeling
 
 <br>
 
+The general thing that I can see in these networks that I found interesting is that they all (especially the Jake network) appear to have nodes with a lot of connections with other nodes that do not have any connections themselves. This is an indication of preferential attachment, a core property of free scale networks. Since there is not a lot information about these networks, all I can do is hypothesis, but these nodes could be people selling drugs or a provider of several other people making the drug, I dont know. 
+
+<br>
+
 Since I have a suspection that these cocaine smuggling networks are shaped by preferential attachment, I could think of using the Barabási-Albert model. I know that in this model, the networks also display negative assortativity, low diameter and low average clustering. In this case, a graph of $n$ nodes is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, this would not produces the behavior seen before, in which a node has high degree because is connected to a lot of nodes that themselves are not connected with anyone. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model.
+
+<br>
+
+also the old barabasi model does not has clustering coefficient greater than zero, the dual model has it. old barabasi with m = 1 => no clustering coefficient. with m = 2 does not reproduce similar graphs. so I used an extension of the model.
 
 <br>
 
@@ -349,8 +352,12 @@ smuggling_networks_global_efficiency
 ```
 {{< /spoiler >}}
 
-Of course, this is not perfect. But it is close.
+Of course, this is not perfect. But it is close. The thing is, since the model has 2 parameters, if more data is available, we could test this hypothesis and even find the optimal $m_1$ and $m_2$ that best simulate real cocaine smuggling networks.    
 
 <br>
 
-Lastly, I also have carry out a link prediction analysis using [Node2Vec](https://snap.stanford.edu/node2vec/) and a [Random Forest Classifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html). Since there is not information about the time evolution of these networks, the link prediction was done by trying to create a graph which may have been existed at a previous point in time. To do this, I removed some vertices which the links would not change the structure of the graphs. Then, I was able to get an AUC score greater than .7 for all networks. I haven't finish this analysis yet, so I may post it in the future.
+## What's next?
+
+<br>
+
+I also have carry out a link prediction analysis using [Node2Vec](https://snap.stanford.edu/node2vec/) and a [Random Forest Classifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html). Since there is not information about the time evolution of these networks, I tried to recreate a graph which may have been existed at a previous point in time. To do this, I removed some links which would not completely affect the structure of the graphs. Hence, I had two snapshots of the networks and then I was able to test the link prediction. Ultimately, I have got an AUC score greater than $0.7$ for all networks. I haven't finish this analysis yet, so I may post the details in the future.
