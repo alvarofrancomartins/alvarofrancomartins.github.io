@@ -1,7 +1,7 @@
 ---
 title: Dismantling and modeling cocaine trafficking networks
-subtitle: Insights about four cocaine smuggling networks
-summary: Insights about four cocaine smuggling networks
+subtitle: Data insights on four cocaine smuggling networks
+summary:  Data insights on four cocaine smuggling networks
 authors:
 - admin
 date: "2021-11-23"
@@ -31,7 +31,7 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling to four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. By the end of the post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
+Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling on four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
@@ -52,12 +52,18 @@ Several approaches have been proposed for the purpose of dismantling networks. T
 
 <br>
 
-To carry out the dismatling analysis, I have adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. Ultimately, my goals here are
+To carry out the dismatling analysis, I have adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. 
 
 <br>
 
-- To present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied. 
-- To suggest that these cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.
+
+Ultimately, my main in this post are
+
+<br>
+
+
+- Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied. 
+- Suggest that these cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.
 
 <br>
 
@@ -65,7 +71,7 @@ To carry out the dismatling analysis, I have adapted Petter Holme's [implementat
 
 <br>
 
-The [dataset](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0) contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks which vertices represent the individuals and links if they communicate. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node's size is proportional to its degree.
+The [dataset](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0) contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and links that happen when individuals communicate. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node's size is proportional to its degree.
 
 <br>
 
@@ -165,7 +171,7 @@ smuggling_networks_global_efficiency
 
 # Network dismantling
 
-The video below demonstrate the Juanes network dismantling using the simplest removing approach (based on degree).
+The following video demonstrates a dismantling simulation of the Juanes network. For a better visualization I have applied the simplest approach based on degree. However, any other approach could have been used. The purpose of this video is to show how the network is changing when the high degree nodes are removed.
 
 <br>
 
@@ -173,7 +179,7 @@ The video below demonstrate the Juanes network dismantling using the simplest re
 
 <br>
 
-The figures below show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. I have used the LLC size to measure the effect of the dismantling, but other metrics could also be used, such as the efficiency of the network. In each figure, the pale pink color represents the dismantling using the degree centrality and the pale blue color represents the dismantling using the _Generalized network dismantling_ method.
+The following figures show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. The LLC size serves as a measure to quantify the effect of the dismantling, but other metrics could also be used (e.g, the network efficiency). In each figure, pale pink represents the dismantling using the degree centrality and pale blue represents the dismantling using the GND method. As a side note, the GND method uses a cascading approach for dismantling, that is, for each new removed vertex, the method recalculates the next vertex to be removed. Therefore, the baseline approach of removing the highest degree vertices were also applied using the same approach. For a better description between the cascading or simultaneos attack, see [here](https://ok.com). are in general more effective because measurements are updated after each deletion.
 
 <br>
 
@@ -182,26 +188,23 @@ The figures below show the (normalized) size of the largest connected component 
     <figcaption><b>Figure 2</b>: Mambo network dismantling.</figcaption>
 </figure>
 
-Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
-
 <figure>
     <img src="images/acero.png" width="900px" height="563px" />
     <figcaption><b>Figure 3</b>: Acero network dismantling.</figcaption>
 </figure>
-
-Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
 
 <figure>
     <img src="images/jake.png" width="900px" height="563px" />
     <figcaption><b>Figure 4</b>: Jake network dismantling.</figcaption>
 </figure>
 
-Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
-
 <figure>
     <img src="images/juanes.png" width="900px" height="563px" />
     <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
 </figure>
+
+Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.
+
 
 <br>
 
@@ -352,7 +355,7 @@ smuggling_networks_global_efficiency
 ```
 {{< /spoiler >}}
 
-Of course, this is not perfect. But it is close. The thing is, since the model has 2 parameters, if more data is available, we could test this hypothesis and even find the optimal $m_1$ and $m_2$ that best simulate real cocaine smuggling networks.    
+Of course, this is not perfect. But it is close. The thing is, since the model has 2 parameters, if more data is available, we could test this hypothesis and even find the optimal $m_1$ and $m_2$ that best simulate real cocaine smuggling networks. If more data come and more cocaine smuggling networks present similar structures, these networks could surely be modeled by this dual extension.
 
 <br>
 
