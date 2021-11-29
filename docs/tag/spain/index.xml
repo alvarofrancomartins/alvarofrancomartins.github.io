@@ -34,16 +34,16 @@
 &lt;br&gt;
 &lt;p&gt;To carry out the dismatling analysis, I have adapted Petter Holme&amp;rsquo;s &lt;a href=&#34;https://github.com/pholme/gnd/blob/master/gnd.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;implementation&lt;/a&gt;. Thanks to him, the method proposed in the paper was converted from &lt;a href=&#34;https://github.com/renxiaolong/Generalized-Network-Dismantling&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;C++&lt;/a&gt; to Python 2. I then converted it to Python 3 and applied it to the networks.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Ultimately, my main in this post are&lt;/p&gt;
+&lt;p&gt;Ultimately, my main goals in this post are&lt;/p&gt;
 &lt;br&gt;
 &lt;ul&gt;
 &lt;li&gt;Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied.&lt;/li&gt;
-&lt;li&gt;Suggest that these cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.&lt;/li&gt;
+&lt;li&gt;Suggest that cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;cocaine-trafficking-groups&#34;&gt;Cocaine trafficking groups&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;The &lt;a href=&#34;https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dataset&lt;/a&gt; contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and links that happen when individuals communicate. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node&amp;rsquo;s size is proportional to its degree.&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&#34;https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dataset&lt;/a&gt; contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and the links indicate their communication. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node&amp;rsquo;s size is proportional to its degree.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
 &lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
@@ -61,11 +61,11 @@
 &lt;div id=&#34;cocaine_smuggling_4&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_4.js&#34;&gt; &lt;/script&gt;
 &lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Juanes network&lt;/b&gt;: 51 vertices and 93 edges.&lt;p/&gt;&lt;br &gt;
-&lt;p&gt;In terms of network metrics, these networks have low &lt;a href=&#34;https://bookdown.org/omarlizardo/_main/2-9-density.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;density&lt;/a&gt; (which means they are sparse),  negative &lt;a href=&#34;https://en.wikipedia.org/wiki/Assortativity&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;assortativity&lt;/a&gt; (which means that high degree nodes have a slight tendency to connect with low degree nodes) and relatively low &lt;a href=&#34;https://en.wikipedia.org/wiki/Clustering_coefficient&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;average clustering&lt;/a&gt;. Since these networks are relatively small in size, a &lt;a href=&#34;https://en.wikipedia.org/wiki/Degree_distribution&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;degree distribution&lt;/a&gt; analysis would not be so meaningful. However, a short preliminary calculation using &lt;a href=&#34;https://pypi.org/project/powerlaw/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;powerlaw&lt;/a&gt;’s Python package have shown more accordance with free scale distributions when compared to exponential distributions. The community structure analysis was also not very helpful. Although I have used &lt;a href=&#34;https://www.mapequation.org/infomap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Infomap&lt;/a&gt; for coloring the nodes according to each module, I was not able to find community structures with the &lt;a href=&#34;https://graph-tool.skewed.de/static/doc/demos/inference/inference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bayesian SBM&lt;/a&gt;. Below you can find some of the main metrics that I have calculated for these networks.&lt;/p&gt;
+&lt;p&gt;In terms of network metrics, these networks have low &lt;a href=&#34;https://bookdown.org/omarlizardo/_main/2-9-density.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;density&lt;/a&gt; (which means they are sparse),  negative &lt;a href=&#34;https://en.wikipedia.org/wiki/Assortativity&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;assortativity&lt;/a&gt; (which means that high degree nodes have a slight tendency to connect with low degree nodes) and relatively low &lt;a href=&#34;https://en.wikipedia.org/wiki/Clustering_coefficient&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;average clustering&lt;/a&gt;. Since these networks are relatively small in size, a &lt;a href=&#34;https://en.wikipedia.org/wiki/Degree_distribution&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;degree distribution&lt;/a&gt; analysis would not be so meaningful. However, a short preliminary calculation using &lt;a href=&#34;https://pypi.org/project/powerlaw/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;powerlaw&lt;/a&gt;’s Python package have shown more accordance with free scale distributions when compared to exponential distributions. The community structure analysis was also not very helpful. Although I have used &lt;a href=&#34;https://www.mapequation.org/infomap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Infomap&lt;/a&gt; for coloring the nodes according to each module, I was not able to find community structures with the &lt;a href=&#34;https://graph-tool.skewed.de/static/doc/demos/inference/inference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bayesian SBM&lt;/a&gt;. See below some of the main metrics I have calculated for these networks.&lt;/p&gt;
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-0&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.123&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -75,7 +75,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-1&#34;&gt;
   &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.160&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -85,7 +85,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
   &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.268&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -95,7 +95,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-3&#34;&gt;
   &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.481&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -105,7 +105,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
   &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;2.413&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -115,7 +115,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-5&#34;&gt;
   &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;5.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -123,8 +123,9 @@
 &lt;span class=&#34;mf&#34;&gt;7.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
+&lt;br&gt;
 &lt;h1 id=&#34;network-dismantling&#34;&gt;Network dismantling&lt;/h1&gt;
-&lt;p&gt;The following video demonstrates a dismantling simulation of the Juanes network. For a better visualization I have applied the simplest approach based on degree. However, any other approach could have been used. The purpose of this video is to show how the network is changing when the high degree nodes are removed.&lt;/p&gt;
+&lt;p&gt;The following video demonstrates a simple dismantling simulation of the Juanes network. For a better visualization, I have applied the basic approach based on degree. The purpose of this video is to show the network changing while the high degree nodes are being removed.&lt;/p&gt;
 &lt;br&gt;
 
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
@@ -132,49 +133,52 @@
 &lt;/div&gt;
 
 &lt;br&gt;
-&lt;p&gt;The following figures show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. The LLC size serves as a measure to quantify the effect of the dismantling, but other metrics could also be used (e.g, the network efficiency). In each figure, pale pink represents the dismantling using the degree centrality and pale blue represents the dismantling using the GND method. As a side note, the GND method uses a cascading approach for dismantling, that is, for each new removed vertex, the method recalculates the next vertex to be removed. Therefore, the baseline approach of removing the highest degree vertices were also applied using the same approach. For a better description between the cascading or simultaneos attack, see &lt;a href=&#34;https://ok.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. are in general more effective because measurements are updated after each deletion.&lt;/p&gt;
+&lt;p&gt;In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Since Petter Holme&amp;rsquo;s implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used the average value. Moreover, in order to have a fair comparison, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices.&lt;/p&gt;
+&lt;div class=&#34;parent&#34; style = &#34;display:flex&#34;&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block;padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;images/mambo.png&#34;&gt;
+&lt;figcaption&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Mambo network dismantling. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block; padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;images/acero.png&#34;&gt;
+&lt;figcaption&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Acero network dismantling. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+&lt;p&gt;While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes with a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (&lt;b&gt;Figure 4&lt;/b&gt;), we have a slightly different scenario. In this case, the GND cost is lower but still seems to works equally well compared to the degree-based approach.&lt;/p&gt;
+&lt;div class=&#34;parent&#34; style = &#34;display:flex&#34;&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block;padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;images/jake.png&#34;&gt;
+&lt;figcaption&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Jake network dismantling. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block; padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;images/juanes.png&#34;&gt;
+&lt;figcaption&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Juanes network dismantling. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
 &lt;br&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;images/mambo.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
-    &lt;figcaption&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Mambo network dismantling.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;images/acero.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
-    &lt;figcaption&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Acero network dismantling.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;images/jake.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
-    &lt;figcaption&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Jake network dismantling.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;images/juanes.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
-    &lt;figcaption&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Juanes network dismantling.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;Cras hendrerit feugiat ipsum et mattis. Integer eu aliquet sapien. Ut sed elit id neque mollis cursus. Proin vel odio volutpat, hendrerit turpis ut, posuere dolor. Nam non nibh sapien. Proin id dapibus sapien. Nunc venenatis mauris id orci suscipit, a sagittis nunc eleifend. Vestibulum vitae rhoncus urna. Sed non lacus massa.&lt;/p&gt;
+&lt;p&gt;Overall, these two approachs can be useful as baselines. The degree-based approach is always going to have a greater associated cost than the GND method. The difference between the inset curves presents a direct indicative of the different approach&amp;rsquo;s costs. Other approachs can be compared against these two.&lt;/p&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;network-modeling&#34;&gt;Network modeling&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;The general thing that I can see in these networks that I found interesting is that they all (especially the Jake network) appear to have nodes with a lot of connections with other nodes that do not have any connections themselves. This is an indication of preferential attachment, a core property of free scale networks. Since there is not a lot information about these networks, all I can do is hypothesis, but these nodes could be people selling drugs or a provider of several other people making the drug, I dont know.&lt;/p&gt;
+&lt;p&gt;Network models represent useful frameworks in which we can study real-world complex networks. Some classical models and their extensions have  been capable of reproducing the evolution and function of real systems and some of their main features. See &lt;a href=&#34;https://doi.org/10.1038/s41598-017-05444-4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; for some characteristics of the classical random graph models.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Since I have a suspection that these cocaine smuggling networks are shaped by preferential attachment, I could think of using the Barabási-Albert model. I know that in this model, the networks also display negative assortativity, low diameter and low average clustering. In this case, a graph of $n$ nodes is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, this would not produces the behavior seen before, in which a node has high degree because is connected to a lot of nodes that themselves are not connected with anyone. Click &lt;a href=&#34;images/barabasi.png&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to view an example of this model.&lt;/p&gt;
+&lt;p&gt;Looking with more attention to these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative model of free scale networks.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;also the old barabasi model does not has clustering coefficient greater than zero, the dual model has it. old barabasi with m = 1 =&amp;gt; no clustering coefficient. with m = 2 does not reproduce similar graphs. so I used an extension of the model.&lt;/p&gt;
+&lt;p&gt;In a first guess, we could try to use the well-known Barabási–Albert model, since it produces networks with negative assortativity, low average clustering e low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ this would produce networks with clustering coefficient equals to zero, but the average clustering coefficient we have is nonzero. Then, if we try to set $m = 2$, we will see that the graphs visually differ greatly from the empirical networks. Click &lt;a href=&#34;images/barabasi.png&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to view an example of this model for three different values of $m$.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Searching a little bit a found a version of the barabasi model called &lt;a href=&#34;https://arxiv.org/abs/1810.10538&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dual Barabási–Albert preferential attachment model&lt;/a&gt;. I think I could be able to model these networks using the dual_barabasi_albert_graph model implemented in &lt;a href=&#34;https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NetworkX&lt;/a&gt;. This model have two parameters that control the attachment probabilities of new nodes, that is, a graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree.&lt;/p&gt;
+&lt;p&gt;Searching a little bit a found a version of the barabasi model called &lt;a href=&#34;https://arxiv.org/abs/1810.10538&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dual Barabási–Albert preferential attachment model&lt;/a&gt;, implemented in &lt;a href=&#34;https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NetworkX&lt;/a&gt;. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;This is because even though I haven&amp;rsquo;t proved the networks are scale free, they look that are functioning with preferential attachment. Also, similar to networks generated using this principle have shown negative assortativity, low average clustering e low density. The network below is an example of a random network generated by the dual_barabasi_albert_graph model. You can see the visual similarity. This is something that I could further do more analysis on it, because I think there&amp;rsquo;s something interesting in it. Moreover, as they explain in the paper of the dual model, this model does not necessarily have a degree distribution of power law. So, it would not be a problem to try and model the smuggling networks using this model.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;What&amp;rsquo;s the importance of modeling networks?&lt;/p&gt;
+&lt;p&gt;The network below is an example of a random network generated by this model. You can see the visual similarity. This is something that I could further do more analysis on it, because I think there&amp;rsquo;s something interesting in it. Moreover, as they explain in the paper of the dual model, this model does not necessarily has a degree distribution of power law. So, it would not be a problem to try and model the smuggling networks using this model.&lt;/p&gt;
 &lt;br&gt;
 &lt;div id=&#34;teste&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/teste.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network generated ($n = 38$,  $m_1 = 1$ and $m_2 = 5$) using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network ($n = 38$,  $m_1 = 1$ and $m_2 = 5$) generated using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
 &lt;br&gt;
 &lt;p&gt;I now present a comparison between the metrics for the empirical and modeled networks.&lt;/p&gt;
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo &lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.130&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
@@ -191,7 +195,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
   &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.090&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
@@ -209,7 +213,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-9&#34;&gt;
   &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.207&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
@@ -226,7 +230,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-10&#34;&gt;
   &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
@@ -243,7 +247,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-11&#34;&gt;
   &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;2.479&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 realizations)&lt;/span&gt;
@@ -260,7 +264,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-12&#34;&gt;
   &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;4.9&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
@@ -276,10 +280,19 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
 &lt;p&gt;Of course, this is not perfect. But it is close. The thing is, since the model has 2 parameters, if more data is available, we could test this hypothesis and even find the optimal $m_1$ and $m_2$ that best simulate real cocaine smuggling networks. If more data come and more cocaine smuggling networks present similar structures, these networks could surely be modeled by this dual extension.&lt;/p&gt;
+&lt;p&gt;Of course, more data analysis is needed. Indeed, more data needs to be gathered to confirm my claim and more analysis should be done to support or refute my claim.&lt;/p&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s next?&lt;/h2&gt;
 &lt;br&gt;
 &lt;p&gt;I also have carry out a link prediction analysis using &lt;a href=&#34;https://snap.stanford.edu/node2vec/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Node2Vec&lt;/a&gt; and a &lt;a href=&#34;https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Random Forest Classifier&lt;/a&gt;. Since there is not information about the time evolution of these networks, I tried to recreate a graph which may have been existed at a previous point in time. To do this, I removed some links which would not completely affect the structure of the graphs. Hence, I had two snapshots of the networks and then I was able to test the link prediction. Ultimately, I have got an AUC score greater than $0.7$ for all networks. I haven&amp;rsquo;t finish this analysis yet, so I may post the details in the future.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The GND method uses a cascading approach for dismantling, which means that measurements are updated after each deletion. For this reason, the same procedure was applied for removing the highest degree vertices. The alternative approach, in which the nodes to be removed are obtained only once, is known as &lt;a href=&#34;https://www.nature.com/articles/srep37954&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;simultaneous attack&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
 </description>
     </item>
     
