@@ -181,7 +181,7 @@ The following video demonstrates a simple dismantling simulation of the Juanes n
 
 <br>
 
-In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used the average value. Moreover, in order to have a fair comparison, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices. 
+In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used the average value. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices. 
 
 [^1]: The GND method uses a cascading approach for dismantling, which means that measurements are updated after each deletion. For this reason, the same procedure was applied for removing the highest degree vertices. The alternative approach, in which the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
 
@@ -197,7 +197,7 @@ In the figures below, I show the (normalized) size of the largest connected comp
 </figure>
 </div>
 
-While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes with a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, the GND cost is lower but still seems to works equally well compared to the degree-based approach. 
+While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, the GND cost is lower but still seems to works equally well compared to the degree-based approach. 
 
 <div class="parent" style = "display:flex">
 <figure>
@@ -211,11 +211,9 @@ While both methods are better than random node removal, the degree-based dismant
 </figure>
 </div>
 
-
-
 <br>
 
-Overall, these two approachs can be useful as baselines. The degree-based approach is always going to have a greater associated cost than the GND method. The difference between the inset curves presents a direct indicative of the different approach's costs. Other approachs can be compared against these two.
+Overall, these two approachs can also be useful as baselines. The degree-based approach is always going to have a greater associated cost than the GND method. The difference between the inset curves presents a direct indicative of the different approach's costs. Other approachs can be compared against these two.
 
 <br>
 
@@ -223,16 +221,15 @@ Overall, these two approachs can be useful as baselines. The degree-based approa
 
 <br>
 
-
-Network models represent useful frameworks in which we can study real-world complex networks. Some classical models and their extensions have  been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://doi.org/10.1038/s41598-017-05444-4) for some characteristics of the classical random graph models.
-
-<br>
-
-Looking with more attention to these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative model of free scale networks.
+Network models represent useful frameworks in which we can study real-world complex networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://arxiv.org/abs/cond-mat/0303516) an outdated but essential review of developments in this field.
 
 <br>
 
-In a first guess, we could try to use the well-known Barabási–Albert model, since it produces networks with negative assortativity, low average clustering e low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ this would produce networks with clustering coefficient equals to zero, but the average clustering coefficient we have is nonzero. Then, if we try to set $m = 2$, we will see that the graphs visually differ greatly from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.
+Looking with more attention to these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative free scale model.
+
+<br>
+
+In a first guess, we could try to use the well-known Barabási–Albert model, since it is capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ this would produce networks with clustering coefficient equals to zero, and we have networks with average clustering coefficient nonzero. We can try setting $m = 2$, but we will see that the graphs visually differ greatly from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.
 
 <br>
 
