@@ -247,7 +247,7 @@ Of course, this is just one example with specifics parameters. We obviously have
 
 <br>
 
-Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good. 
+Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good. 
 
 <br>
 
@@ -360,7 +360,7 @@ smuggling_networks_global_efficiency
 ```
 {{< /spoiler >}}
 
-Obviously, even though the metrics are quite close, only six coefficients plus the visual aspect are not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.
+Obviously, even though the metrics are quite close, matching only six coefficients and a visual aspect is not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.
 
 <br>
 

@@ -172,7 +172,7 @@
 &lt;br&gt;
 &lt;p&gt;Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good.&lt;/p&gt;
+&lt;p&gt;Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good.&lt;/p&gt;
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
@@ -277,7 +277,7 @@
 &lt;span class=&#34;mf&#34;&gt;5.6&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
-&lt;p&gt;Obviously, even though the metrics are quite close, only six coefficients plus the visual aspect are not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.&lt;/p&gt;
+&lt;p&gt;Obviously, even though the metrics are quite close, matching only six coefficients and a visual aspect is not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.&lt;/p&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s next?&lt;/h2&gt;
 &lt;br&gt;
