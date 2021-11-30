@@ -31,20 +31,20 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling on four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
+Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling on four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
 <br>
 
-The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc.org/unodc/en/drug-trafficking/index.html) drug trafficking as "a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws". A 2021 [report](https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf) revealed that the global quantity of cocaine seized reached record levels in 2019, and its bulk continues to be seized in the Americas. Overall, despite immense and increasingly efforts to interrupt these activities, counterdrug interdictions seem to make things [even worse](https://doi.org/10.1073/pnas.1812459116). Drug trafficking networks are [flexible, fluid structures](https://doi.org/10.1080/17440572.2013.787927) and can respond immediately to attacks. It has been argued, for example, that [some](https://doi.org/10.1038/srep04238) networks might even become more efficient after targeted attacks.
+The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc.org/unodc/en/drug-trafficking/index.html) drug trafficking as "a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws". A 2021 [report](https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf) indicates that the amount of cocaine seized globally reached record levels in 2019, with the majority of cocaine continuing to be seized in the Americas. Despite immense and increasing efforts to interrupt these activities, counterdrug interdictions appear to be [making the situation worse](https://doi.org/10.1073/pnas.1812459116). Drug trafficking networks are [flexible, fluid structures](https://doi.org/10.1080/17440572.2013.787927) and can respond instantly to attacks. For example, it has been suggested that [some](https://doi.org/10.1038/srep04238) networks can become even more efficient after targeted attacks.
 
 <figure>
     <img src="images/worldwide_cocaine_trafficking_flow.png" width="1200px" height="570px" />
     <figcaption><b>Figure 1</b>: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.</figcaption>
 </figure>
 
-In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (the ones with high degree centrality). But realistically this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the invididuals are repleacable. These features make the efforts of dismantling criminal networks an arduous task.
+In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with high degree centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the invididuals are repleacable. These characteristics make dismantling criminal networks an arduous task.
 
 <br>
 
@@ -52,7 +52,7 @@ Several approaches have been proposed for the purpose of dismantling networks. T
 
 <br>
 
-To carry out the dismatling analysis, I have adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. 
+To perform the dismatling analysis, I adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. 
 
 <br>
 
@@ -63,7 +63,7 @@ Ultimately, my main goals in this post are
 
 
 - Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the high degree vertices) is applied. 
-- Suggest that cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.
+- Suggest that cocaine smuggling networks can be modeled via an extension of the Barabási-Albert model.
 
 <br>
 
@@ -71,7 +71,7 @@ Ultimately, my main goals in this post are
 
 <br>
 
-The [dataset](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0) contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and the links indicate their communication. The networks are shown below, where each node's size is proportional to its degree.
+The [dataset](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0) contains information collected during police investigations of four groups involved in cocaine trafficking. These groups form networks in which the vertices represent the individuals and the links indicate their communications. The networks are shown below, with the size of each node proportional to its degree.
 
 <br>
 
@@ -99,7 +99,7 @@ Operation **JUANES**: In 2009, the police investigation detected a group involve
 <script type="text/javascript" src="js/cocaine_smuggling_4.js"> </script>
 <p style="text-align: center"><b>Juanes network</b>: 51 vertices and 93 edges.<p/><br >
 
-In terms of network metrics, these networks have low [density](https://bookdown.org/omarlizardo/_main/2-9-density.html) (which means they are sparse),  negative [assortativity](https://en.wikipedia.org/wiki/Assortativity) (which means that high degree nodes have a slight tendency to connect with low degree nodes) and relatively low [average clustering](https://en.wikipedia.org/wiki/Clustering_coefficient). Since these networks are relatively small in size, a [degree distribution](https://en.wikipedia.org/wiki/Degree_distribution) analysis would not be so meaningful. However, a short preliminary calculation using [powerlaw](https://pypi.org/project/powerlaw/)’s Python package have shown more accordance with free scale distributions when compared to exponential distributions. The community structure analysis was also not very helpful. Although I have used [Infomap](https://www.mapequation.org/infomap/) for coloring the nodes according to each module, I was not able to find community structures with the [Bayesian SBM](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html). See below some of the main metrics I have calculated for these networks.
+In terms of network metrics, these networks exhibit low [density](https://bookdown.org/omarlizardo/_main/2-9-density.html) (i.e, they are sparse), negative [assortativity](https://en.wikipedia.org/wiki/Assortativity) (which means that high degree nodes have a slight tendency to connect to low degree nodes), and relatively low [average clustering](https://en.wikipedia.org/wiki/Clustering_coefficient). Since these networks are relatively small in size, an analysis of the [degree distribution](https://en.wikipedia.org/wiki/Degree_distribution) would not be so informative. However, a brief preliminary calculation using [Powerlaw](https://pypi.org/project/powerlaw/)’s Python package showed that power law distributions were in better agreement compared to the exponential distributions. The community structure analysis was also not very helpful. Although I used [Infomap](https://www.mapequation.org/infomap/) to color the nodes according to each module, I was unable to find community structures using the [Bayesian SBM](https://graph-tool.skewed.de/static/doc/demos/inference/inference.html). Below are some of the main metrics I calculated for these networks.
 
 <br>
 
@@ -181,9 +181,9 @@ The following video demonstrates a simple dismantling simulation of the Juanes n
 
 <br>
 
-In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices. 
+In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices. 
 
-[^1]: The GND method uses a cascading approach for dismantling, which means that measurements are updated after each deletion. For this reason, the same procedure was applied for removing the highest degree vertices. The alternative approach, in which the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
+[^1]: The GND method uses a cascading approach for dismantling, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with high degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
 
 <figure>
     <img src="images/mambo.png" width="900px" height="563px" />
@@ -205,7 +205,7 @@ In the figures below, I show the (normalized) size of the largest connected comp
     <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
 </figure>
 
-While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, the GND cost is still lower but both aproachs seems to work equally well. 
+While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, although the degree-based dismantling outperforms the GND method, the cost is always higher. Interestingly, we have a slightly different scenario for the Juanes network (<b>Figure 4</b>). In this case, the GND cost is still lower, but both aproachs seem to perform equally well. 
 
 <br>
 
@@ -217,23 +217,23 @@ Overall, these two approachs can also be useful as baselines. Costs curves from 
 
 <br>
 
-Network models represent useful frameworks in which we can study real-world complex networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://arxiv.org/abs/cond-mat/0303516) an outdated but essential review of developments in this field.
+Network models represent useful frameworks in which we can study complex real-world networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://arxiv.org/abs/cond-mat/0303516) a dated but essential review of developments in this field.
 
 <br>
 
-Looking with more attention at these cocaine smuggling networks, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably described by power laws, we could try to simulate these networks using a free scale model.
+Looking more closely at these cocaine smuggling networks, they seem to be based on preferential attachment. Some nodes have many connections to other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Although I have not concluded that their distributions are adequately described by power laws, we could try to simulate these networks with a free scale model.
 
 <br>
 
-For a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks would have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.
+As a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.
 
 <br>
 
-After some searching, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regading the degree distributions of the empirical networks is not of huge concern. 
+After some searching, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regading the degree distributions of the empirical networks is not of great concern. 
 
 <br>
 
-The network below is an example of a random network generated by this model. The visual similarity is surprising. Looking closely, we can see some of the connection patterns seen in the empirical networks. 
+The network below is an example of a random network generated by this model. The visual similarity is surprising. If we look closely, we can see some of the connection patterns seen in the empirical networks. 
 
 <br>
 
@@ -243,7 +243,7 @@ The network below is an example of a random network generated by this model. The
 
 <br>
 
-Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to a lot of other nodes which, in turn, have just one connection, either $m_1$ or $m_2$ have to be set equals to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily. 
+Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily. 
 
 <br>
 
@@ -360,7 +360,7 @@ smuggling_networks_global_efficiency
 ```
 {{< /spoiler >}}
 
-Obviously, even though the metrics are pretty close, only six coefficients plus the visual aspect are not enough for concluding that this model is a good fit for smuggling networks. Besides, we must remember that we have only four networks of this type.  Nonetheless, if more data of this type is available, we could be able to support or refute this idea. 
+Obviously, even though the metrics are quite close, only six coefficients plus the visual aspect are not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.
 
 <br>
 
@@ -368,4 +368,4 @@ Obviously, even though the metrics are pretty close, only six coefficients plus 
 
 <br>
 
-I also have carry out a link prediction analysis using [Node2Vec](https://snap.stanford.edu/node2vec/) and a [Random Forest Classifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html). Since there is not information about the time evolution of these networks, I tried to recreate a graph which may have been existed at a previous point in time. To do this, I removed some links which would not completely affect the structure of the graphs. Hence, I had two snapshots of the networks and then I was able to test the link prediction. Ultimately, I have got an AUC score greater than $0.7$ for all networks. I haven't finish this analysis yet, so I may post the details in the future.
+I also performed a link prediction analysis using [Node2Vec](https://snap.stanford.edu/node2vec/) and a [Random Forest Classifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html). Since there is no information about the evolution of these networks over time, I tried to recreate a graph that might have existed at a previous point in time. To do this, I removed some links that would not completely affect the structure of the graphs. This gave me two snapshots of the networks and allowed me to test the link prediction. In the end, I got an AUC score greater than $0.7$ for all networks. I have not completed this analysis yet, so I may post the details in the future.
