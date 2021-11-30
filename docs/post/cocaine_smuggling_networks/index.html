@@ -269,8 +269,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
 
   <link rel="canonical" href="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/" />
 
@@ -353,7 +353,7 @@
     "name": "Alvaro Franco Martins",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "Data insights on four cocaine smuggling networks"
@@ -878,7 +878,7 @@ figcaption {
 <br>
 <details class="spoiler "  id="spoiler-0">
   <summary>Click to show the density</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
 
 <span class="mf">0.125</span> <span class="c1"># Mambo</span>
 <span class="mf">0.123</span> <span class="c1"># Acero</span>
@@ -888,7 +888,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-1">
   <summary>Click to show the assortativity</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
 
 <span class="o">-</span><span class="mf">0.088</span> <span class="c1"># Mambo</span>
 <span class="o">-</span><span class="mf">0.160</span> <span class="c1"># Acero</span>
@@ -898,7 +898,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-2">
   <summary>Click to show average clustering</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
 
 <span class="mf">0.442</span> <span class="c1"># Mambo</span>
 <span class="mf">0.268</span> <span class="c1"># Acero</span>
@@ -908,7 +908,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-3">
   <summary>Click to show network efficiency</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
 
 <span class="mf">0.473</span> <span class="c1"># Mambo</span>
 <span class="mf">0.481</span> <span class="c1"># Acero</span>
@@ -918,7 +918,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-4">
   <summary>Click to show average shortest path</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
 
 <span class="mf">2.473</span> <span class="c1"># Mambo</span>
 <span class="mf">2.413</span> <span class="c1"># Acero</span>
@@ -928,7 +928,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-5">
   <summary>Click to show the pseudo network diameter</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
 
 <span class="mf">4.0</span> <span class="c1"># Mambo</span>
 <span class="mf">5.0</span> <span class="c1"># Acero</span>
@@ -985,11 +985,11 @@ figcaption {
 <br>
 <p>Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to a lot of other nodes which, in turn, have just one connection, either $m_1$ or $m_2$ have to be set equals to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.</p>
 <br>
-<p>Naturally, we can also examine if the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 artificial networks. For a fair comparison, each network was grown using the same nodes as their corresponding empirical network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. However, as we can see below, the results are surprisingly good. Ultimately, I could vary these parameters and possibly get better results by tuning them.</p>
+<p>Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 networks grown of same size as each smuggling network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good.</p>
 <br>
 <details class="spoiler "  id="spoiler-7">
   <summary>Click to show the density</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
 
 <span class="mf">0.125</span> <span class="c1"># Mambo </span>
 <span class="mf">0.130</span> <span class="c1"># Model</span>
@@ -1006,7 +1006,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-8">
   <summary>Click to show the assortativity</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
 
 <span class="o">-</span><span class="mf">0.088</span> <span class="c1"># Mambo</span>
 <span class="o">-</span><span class="mf">0.090</span> <span class="c1"># Model </span>
@@ -1024,7 +1024,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-9">
   <summary>Click to show average clustering</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
 
 <span class="mf">0.442</span> <span class="c1"># Mambo</span>
 <span class="mf">0.207</span> <span class="c1"># Model </span>
@@ -1041,7 +1041,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-10">
   <summary>Click to show network efficiency</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
 
 <span class="mf">0.473</span> <span class="c1"># Mambo</span>
 <span class="mf">0.473</span> <span class="c1"># Model </span>
@@ -1058,7 +1058,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-11">
   <summary>Click to show average shortest path</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
 
 <span class="mf">2.473</span> <span class="c1"># Mambo</span>
 <span class="mf">2.479</span> <span class="c1"># Model </span>
@@ -1075,7 +1075,7 @@ figcaption {
 </details>
 <details class="spoiler "  id="spoiler-12">
   <summary>Click to show the pseudo network diameter</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
 
 <span class="mf">4.0</span> <span class="c1"># Mambo</span>
 <span class="mf">4.9</span> <span class="c1"># Model </span>
@@ -1090,7 +1090,7 @@ figcaption {
 <span class="mf">5.6</span> <span class="c1"># Model </span>
 </code></pre></div></p>
 </details>
-<p>Of course, the metrics does not match exactly but they are rather closer. Of course, just the metrics and the visual aspect are not enough for us to conclude that this a good model fit for the smuggling networks. More data and network analysis are needed to support or refute the suspicion. We would also need more data on these type of criminal networks. Nonetheless, this is my take on modeling these networks for now.</p>
+<p>Obviously, just these few metrics and the visual aspect are not enough for concluding that this model is a good fit for the smuggling networks. Nonetheless, these metrics are pretty close. More data and network analysis are needed to support or refute this idea.</p>
 <br>
 <h2 id="whats-next">What&rsquo;s next?</h2>
 <br>
@@ -1426,7 +1426,7 @@ figcaption {
       
     
     
-    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
+    <script src="/en/js/wowchemy.min.d0e701359d3886f92c33eaa1b43f4fba.js"></script>
 
     
 

@@ -247,7 +247,7 @@ Of course, this is just one example with specifics parameters. We obviously have
 
 <br>
 
-Naturally, we can also examine if the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 artificial networks. For a fair comparison, each network was grown using the same nodes as their corresponding empirical network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. However, as we can see below, the results are surprisingly good. Ultimately, I could vary these parameters and possibly get better results by tuning them.
+Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 networks grown of same size as each smuggling network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good. 
 
 <br>
 
@@ -360,7 +360,7 @@ smuggling_networks_global_efficiency
 ```
 {{< /spoiler >}}
 
-Of course, the metrics does not match exactly but they are rather closer. Of course, just the metrics and the visual aspect are not enough for us to conclude that this a good model fit for the smuggling networks. More data and network analysis are needed to support or refute the suspicion. We would also need more data on these type of criminal networks. Nonetheless, this is my take on modeling these networks for now.
+Obviously, just these few metrics and the visual aspect are not enough for concluding that this model is a good fit for the smuggling networks. Nonetheless, these metrics are pretty close. More data and network analysis are needed to support or refute this idea. 
 
 <br>
 
