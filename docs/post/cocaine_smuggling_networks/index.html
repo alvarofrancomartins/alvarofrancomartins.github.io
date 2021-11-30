@@ -856,7 +856,7 @@ figcaption {
 <br>
 <h1 id="cocaine-trafficking-groups">Cocaine trafficking groups</h1>
 <br>
-<p>The <a href="https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0" target="_blank" rel="noopener">dataset</a> contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and the links indicate their communication. Unfortunately, I could not find more details about the operations. The networks are shown below, where each node&rsquo;s size is proportional to its degree.</p>
+<p>The <a href="https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0" target="_blank" rel="noopener">dataset</a> contains information collected by police investigations about four groups involved in cocaine trafficking. These groups form networks in which vertices represent the individuals and the links indicate their communication. The networks are shown below, where each node&rsquo;s size is proportional to its degree.</p>
 <br>
 <p>Operation <strong>MAMBO</strong>: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.</p>
 <div id="cocaine_smuggling_1"></div>
@@ -946,7 +946,7 @@ figcaption {
 </div>
 
 <br>
-<p>In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Since Petter Holme&rsquo;s implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used the average value. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices.</p>
+<p>In the figures below, I show the (normalized) size of the largest connected component (LCC) as a function of the number of removed nodes. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Since Petter Holme&rsquo;s implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the acumulated cost (i.e, the degree sum) of removing the vertices.</p>
 <figure>
     <img src="images/mambo.png" width="900px" height="563px" />
     <figcaption><b>Figure 2</b>: Mambo network dismantling.</figcaption>
@@ -963,7 +963,7 @@ figcaption {
     <img src="images/juanes.png" width="900px" height="563px" />
     <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
 </figure>
-<p>While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, even though the GND cost is still lower, both aproachs seems to work equally well.</p>
+<p>While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, the GND cost is still lower but both aproachs seems to work equally well.</p>
 <br>
 <p>Overall, these two approachs can also be useful as baselines. Costs curves from other approachs could be compared against these two and this comparison may present an additional analysis for further consideration between costs and effectiveness.</p>
 <br>
@@ -973,7 +973,7 @@ figcaption {
 <br>
 <p>Looking with more attention at these cocaine smuggling networks, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably described by power laws, we could try to simulate these networks using a free scale model.</p>
 <br>
-<p>For a first guess, we could try using the well-known <a href="https://barabasi.com/f/622.pdf" target="_blank" rel="noopener">Barabási–Albert model</a>, since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks would have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would visually differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.</p>
+<p>For a first guess, we could try using the well-known <a href="https://barabasi.com/f/622.pdf" target="_blank" rel="noopener">Barabási–Albert model</a>, since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks would have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.</p>
 <br>
 <p>After some searching, I found a version of the barabasi model called <a href="https://arxiv.org/abs/1810.10538" target="_blank" rel="noopener">dual Barabási–Albert model</a> (DBA), implemented in <a href="https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html" target="_blank" rel="noopener">NetworkX</a>. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree. Moreover, as the authors of the paper explain, &ldquo;the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions&rdquo;. Therefore, our ignorance regading the degree distributions of the empirical networks is not of huge concern.</p>
 <br>
@@ -985,7 +985,7 @@ figcaption {
 <br>
 <p>Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to a lot of other nodes which, in turn, have just one connection, either $m_1$ or $m_2$ have to be set equals to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.</p>
 <br>
-<p>Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 networks grown of same size as each smuggling network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good.</p>
+<p>Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are surprisingly good.</p>
 <br>
 <details class="spoiler "  id="spoiler-7">
   <summary>Click to show the density</summary>
@@ -1090,7 +1090,7 @@ figcaption {
 <span class="mf">5.6</span> <span class="c1"># Model </span>
 </code></pre></div></p>
 </details>
-<p>Obviously, just these few metrics and the visual aspect are not enough for concluding that this model is a good fit for the smuggling networks. Nonetheless, these metrics are pretty close. More data and network analysis are needed to support or refute this idea.</p>
+<p>Obviously, even though the metrics are pretty close, only six coefficients plus the visual aspect are not enough for concluding that this model is a good fit for smuggling networks. Besides, we must remember that we have only four networks of this type.  Nonetheless, if more data of this type is available, we could be able to support or refute this idea.</p>
 <br>
 <h2 id="whats-next">What&rsquo;s next?</h2>
 <br>
