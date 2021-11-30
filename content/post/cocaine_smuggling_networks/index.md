@@ -31,7 +31,7 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling on four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.
+Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling on four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain, and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
@@ -44,7 +44,7 @@ The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc
     <figcaption><b>Figure 1</b>: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.</figcaption>
 </figure>
 
-In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with high degree centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the invididuals are repleacable. These characteristics make dismantling criminal networks an arduous task.
+In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with a high degree of centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict, these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the individuals are replaceable. These characteristics make dismantling criminal networks an arduous task.
 
 <br>
 
@@ -52,7 +52,7 @@ Several approaches have been proposed for the purpose of dismantling networks. T
 
 <br>
 
-To perform the dismatling analysis, I adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. 
+To perform the dismantling analysis, I adapted Petter Holme's [implementation](https://github.com/pholme/gnd/blob/master/gnd.py). Thanks to him, the method proposed in the paper was converted from [C++](https://github.com/renxiaolong/Generalized-Network-Dismantling) to Python 2. I then converted it to Python 3 and applied it to the networks. 
 
 <br>
 
@@ -181,7 +181,7 @@ The following video demonstrates a simple dismantling simulation of the Juanes n
 
 <br>
 
-In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the ouput independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices. 
+In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the output independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices.
 
 [^1]: The GND method uses a cascading approach for dismantling, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with high degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
 
@@ -205,11 +205,11 @@ In the following figures, I show the (normalized) size of the largest connected 
     <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
 </figure>
 
-While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, although the degree-based dismantling outperforms the GND method, the cost is always higher. Interestingly, we have a slightly different scenario for the Juanes network (<b>Figure 4</b>). In this case, the GND cost is still lower, but both aproachs seem to perform equally well. 
+While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, although the degree-based dismantling outperforms the GND method, the cost is always higher. Interestingly, we have a slightly different scenario for the Juanes network (<b>Figure 4</b>). In this case, the GND cost is still lower, but both aproaches seem to perform equally well. 
 
 <br>
 
-Overall, these two approachs can also be useful as baselines. Costs curves from other approachs could be compared against these two and this comparison may present an additional analysis for further consideration between costs and effectiveness.
+Overall, these two aproaches can also be useful as baselines. Costs curves from other aproaches could be compared against these two and this comparison may present an additional analysis for further consideration between costs and effectiveness.
 
 <br>
 
@@ -225,11 +225,11 @@ Looking more closely at these cocaine smuggling networks, they seem to be based 
 
 <br>
 
-As a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.
+As a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with a high degree. However, if $m = 1$ the model networks have clustering coefficients equal to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.
 
 <br>
 
-After some searching, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regading the degree distributions of the empirical networks is not of great concern. 
+After some searching, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with a high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regarding the degree distributions of the empirical networks is not of great concern. 
 
 <br>
 
@@ -247,7 +247,7 @@ Of course, this is just one example with specifics parameters. We obviously have
 
 <br>
 
-Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these have the same size as the empirical smuggling networks. Also, in all calculations I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good. 
+Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these has the same size as the empirical smuggling networks. Also, in all calculations, I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good. 
 
 <br>
 
