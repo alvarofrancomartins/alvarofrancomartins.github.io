@@ -2,7 +2,7 @@
 const svgNetwork5 = d3.select('#teste')
 	              .append('svg')
 	               .attr("class", "content")
-	               .attr("viewBox", `-100 -100 ${widthNetwork + marginNetwork.left + marginNetwork.right + 350} ${heightNetwork + marginNetwork.top + marginNetwork.bottom + 220}`)
+	               .attr("viewBox", `0 10 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom + 0}`)
 	               .attr("preserveAspectRatio", "none")
 	               // .attr("transform", "translate(0,0) rotate(0)")
 
@@ -112,7 +112,7 @@ d3.json("data/teste.json")
       .distance(50);
 
   simulation5.force("charge")
-        .strength(-550)
+        .strength(-250)
         .distanceMin(10)
         .distanceMax(300);
 

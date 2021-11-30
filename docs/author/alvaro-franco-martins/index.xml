@@ -20,7 +20,6 @@
       <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
 &lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
 &lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
-&lt;p&gt;[POST IN PROGRESS]&lt;/p&gt;
 &lt;p&gt;Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling on four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.&lt;/p&gt;
 &lt;!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. --&gt;
 &lt;br&gt;
@@ -29,7 +28,7 @@
     &lt;img src=&#34;images/worldwide_cocaine_trafficking_flow.png&#34; width=&#34;1200px&#34; height=&#34;570px&#34; /&gt;
     &lt;figcaption&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.&lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;p&gt;In terms of network dismantling, a naive approach for attacking criminal networks is to target the high ranking individuals or the most connected people (highest degree centrality). But realistically this does not work. It turns out that the cost of targeting these individuals is substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of &lt;a href=&#34;https://doi.org/10.1371/journal.pone.0236476&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;redundancy&lt;/a&gt;, that is, how easily the invididuals are repleacable. These features make the efforts of dismantling criminal networks an arduous task.&lt;/p&gt;
+&lt;p&gt;In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (the ones with high degree centrality). But realistically this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of &lt;a href=&#34;https://doi.org/10.1371/journal.pone.0236476&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;redundancy&lt;/a&gt;, that is, how easily the invididuals are repleacable. These features make the efforts of dismantling criminal networks an arduous task.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. &lt;a href=&#34;https://www.nature.com/articles/s41598-018-31902-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Here&lt;/a&gt; you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four &lt;a href=&#34;https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cocaine Smuggling Networks&lt;/a&gt;, a dismantling method proposed in a PNAS paper (&lt;a href=&#34;https://doi.org/10.1073/pnas.1806108116&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Generalized Network Dismantling&lt;/a&gt;). The advantage of this method is that it takes into account the cost of attacking the vertices. The cost of removing a vertex is its degree centrality and the algorithm finds a set of nodes whose removal results in the fragmentation of the network at minimal overall cost.&lt;/p&gt;
 &lt;br&gt;
@@ -38,7 +37,7 @@
 &lt;p&gt;Ultimately, my main goals in this post are&lt;/p&gt;
 &lt;br&gt;
 &lt;ul&gt;
-&lt;li&gt;Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied.&lt;/li&gt;
+&lt;li&gt;Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the high degree vertices) is applied.&lt;/li&gt;
 &lt;li&gt;Suggest that cocaine smuggling networks may be modeled via an extension of the Barabási-Albert model.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;br&gt;
@@ -151,43 +150,45 @@
     &lt;img src=&#34;images/juanes.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
     &lt;figcaption&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Juanes network dismantling.&lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;p&gt;While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (&lt;b&gt;Figure 4&lt;/b&gt;), we have a slightly different scenario. In this case, the GND cost is lower but still seems to works equally well compared to the degree-based approach.&lt;/p&gt;
+&lt;p&gt;While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (&lt;b&gt;Figure 4&lt;/b&gt;), we have a slightly different scenario. In this case, even though the GND cost is still lower, both aproachs seems to work equally well.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Overall, these two approachs can also be useful as baselines. The degree-based dismantling is always going to have a greater associated cost than the GND method. Costs curves from another approachs could also be compared against these two and this comparison may present an addional analysis for further consideration between costs and effectiveness.&lt;/p&gt;
+&lt;p&gt;Overall, these two approachs can also be useful as baselines. Costs curves from other approachs could be compared against these two and this comparison may present an additional analysis for further consideration between costs and effectiveness.&lt;/p&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;network-modeling&#34;&gt;Network modeling&lt;/h1&gt;
 &lt;br&gt;
 &lt;p&gt;Network models represent useful frameworks in which we can study real-world complex networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See &lt;a href=&#34;https://arxiv.org/abs/cond-mat/0303516&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; an outdated but essential review of developments in this field.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Looking with more attention at these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative free scale model.&lt;/p&gt;
+&lt;p&gt;Looking with more attention at these cocaine smuggling networks, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably described by power laws, we could try to simulate these networks using a free scale model.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;In a first guess, we could try to use the well-known Barabási–Albert model, since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model would produce networks with clustering coefficient equals to zero. But the networks we have present nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would visually differ from the empirical networks. Click &lt;a href=&#34;images/barabasi.png&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to view an example of this model for three different values of $m$.&lt;/p&gt;
+&lt;p&gt;For a first guess, we could try using the well-known &lt;a href=&#34;https://barabasi.com/f/622.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Barabási–Albert model&lt;/a&gt;, since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model networks would have clustering coefficient equals to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would visually differ from the empirical networks. Click &lt;a href=&#34;images/barabasi.png&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to view an example of this model for three different values of $m$.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;After some searching, I found a version of the barabasi model called &lt;a href=&#34;https://arxiv.org/abs/1810.10538&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dual Barabási–Albert preferential attachment model&lt;/a&gt;, implemented in &lt;a href=&#34;https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NetworkX&lt;/a&gt;. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree.&lt;/p&gt;
+&lt;p&gt;After some searching, I found a version of the barabasi model called &lt;a href=&#34;https://arxiv.org/abs/1810.10538&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dual Barabási–Albert model&lt;/a&gt; (DBA), implemented in &lt;a href=&#34;https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NetworkX&lt;/a&gt;. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree. Moreover, as the authors of the paper explain, &amp;ldquo;the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions&amp;rdquo;. Therefore, our ignorance regading the degree distributions of the empirical networks is not of huge concern.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;The network below is an example of a random network generated by this model. You can see the visual similarity. This is something that I could further do more analysis on it, because I think there&amp;rsquo;s something interesting in it. Moreover, as they explain in the paper of the dual model, this model does not necessarily has a degree distribution of power law. So, it would not be a problem to try and model the smuggling networks using this model.&lt;/p&gt;
+&lt;p&gt;The network below is an example of a random network generated by this model. The visual similarity is surprising. Looking closely, we can see some of the connection patterns seen in the empirical networks.&lt;/p&gt;
 &lt;br&gt;
 &lt;div id=&#34;teste&#34;&gt;&lt;/div&gt;
 &lt;script type=&#34;text/javascript&#34; src=&#34;js/teste.js&#34;&gt; &lt;/script&gt;
-&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network ($n = 38$,  $m_1 = 1$ and $m_2 = 5$) generated using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network ($n = 38$, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$) generated using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
 &lt;br&gt;
-&lt;p&gt;I now present a comparison between the metrics for the empirical and modeled networks.&lt;/p&gt;
+&lt;p&gt;Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to a lot of other nodes which, in turn, have just one connection, either $m_1$ or $m_2$ have to be set equals to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Naturally, we can also examine if the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1000 artificial networks. For a fair comparison, each network was grown using the same nodes as their corresponding empirical network. In all calculations, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ were set fixed. However, as we can see below, the results are surprisingly good. Ultimately, I could vary these parameters and possibly get better results by tuning them.&lt;/p&gt;
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo &lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.130&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.130&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.123&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.156&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.156&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.071&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.073&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
@@ -195,16 +196,16 @@
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.090&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.090&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.160&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.108&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.108&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.173&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake &lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.082&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.082&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.067&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.067&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
@@ -213,16 +214,16 @@
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.207&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.207&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.268&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.240&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.240&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.180&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.180&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.364&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.151&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.151&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-10&#34;&gt;
@@ -230,16 +231,16 @@
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.481&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.500&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.500&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.420&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.425&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.425&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.373&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;0.424&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.424&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-11&#34;&gt;
@@ -247,16 +248,16 @@
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;2.479&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 realizations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.479&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.413&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;2.372&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.372&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.705&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;2.601&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.601&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;3.308&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;2.740&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.740&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-12&#34;&gt;
@@ -264,20 +265,19 @@
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;4.9&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;4.9&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;5.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;4.7&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;4.7&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;5.2&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;5.2&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;7.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
-&lt;span class=&#34;mf&#34;&gt;5.6&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Random (1000 iterations)&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;5.6&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 &lt;/details&gt;
-&lt;p&gt;Of course, this is not perfect. But it is close. The thing is, since the model has 2 parameters, if more data is available, we could test this hypothesis and even find the optimal $m_1$ and $m_2$ that best simulate real cocaine smuggling networks. If more data come and more cocaine smuggling networks present similar structures, these networks could surely be modeled by this dual extension.&lt;/p&gt;
-&lt;p&gt;Of course, more data analysis is needed. Indeed, more data needs to be gathered to confirm my claim and more analysis should be done to support or refute my claim.&lt;/p&gt;
+&lt;p&gt;Of course, the metrics does not match exactly but they are rather closer. Of course, just the metrics and the visual aspect are not enough for us to conclude that this a good model fit for the smuggling networks. More data and network analysis are needed to support or refute the suspicion. We would also need more data on these type of criminal networks. Nonetheless, this is my take on modeling these networks for now.&lt;/p&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s next?&lt;/h2&gt;
 &lt;br&gt;
