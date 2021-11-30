@@ -31,6 +31,8 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
+[POST IN PROGRESS]
+
 Criminal networks are a huge and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will be applying a method of network dismantling on four cocaine smuggling networks. These networks are a result of operations from 2006 to 2009, covering countries such as Brazil, Colombia, Mexico, Spain and Uruguay. Additionally, by the end of this post, I will suggest that these networks might be modeled using an extension of the Barabási-Albert model.
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
@@ -48,7 +50,7 @@ In terms of network dismantling, a naive approach for attacking criminal network
 
 <br>
 
-Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. [Here](https://www.nature.com/articles/s41598-018-31902-8) you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four [Cocaine Smuggling Networks](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0), a dismantling method proposed in a PNAS paper ([Generalized Network Dismantling](https://doi.org/10.1073/pnas.1806108116)). The advantage of this method is that it takes into account the cost of attacking the vertices. More specifically, the cost of removing a vertex is its degree centrality.
+Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. [Here](https://www.nature.com/articles/s41598-018-31902-8) you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four [Cocaine Smuggling Networks](https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0), a dismantling method proposed in a PNAS paper ([Generalized Network Dismantling](https://doi.org/10.1073/pnas.1806108116)). The advantage of this method is that it takes into account the cost of attacking the vertices. The cost of removing a vertex is its degree centrality and the algorithm finds a set of nodes whose removal results in the fragmentation of the network at minimal overall cost.
 
 <br>
 
@@ -185,35 +187,31 @@ In the figures below, I show the (normalized) size of the largest connected comp
 
 [^1]: The GND method uses a cascading approach for dismantling, which means that measurements are updated after each deletion. For this reason, the same procedure was applied for removing the highest degree vertices. The alternative approach, in which the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
 
-<div class="parent" style = "display:flex">
 <figure>
-<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="images/mambo.png">
-<figcaption><b>Figure 1</b>: Mambo network dismantling. </figcaption>
+    <img src="images/mambo.png" width="900px" height="563px" />
+    <figcaption><b>Figure 2</b>: Mambo network dismantling.</figcaption>
 </figure>
 
 <figure>
-<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="images/acero.png">
-<figcaption><b>Figure 2</b>: Acero network dismantling. </figcaption>
+    <img src="images/acero.png" width="900px" height="563px" />
+    <figcaption><b>Figure 3</b>: Acero network dismantling.</figcaption>
 </figure>
-</div>
+
+<figure>
+    <img src="images/jake.png" width="900px" height="563px" />
+    <figcaption><b>Figure 4</b>: Jake network dismantling.</figcaption>
+</figure>
+
+<figure>
+    <img src="images/juanes.png" width="900px" height="563px" />
+    <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
+</figure>
 
 While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, even though the degree-based dismantling outperforms the GND method, its cost is always higher. Interestingly, for the Juanes network (<b>Figure 4</b>), we have a slightly different scenario. In this case, the GND cost is lower but still seems to works equally well compared to the degree-based approach. 
 
-<div class="parent" style = "display:flex">
-<figure>
-<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="images/jake.png">
-<figcaption><b>Figure 3</b>: Jake network dismantling. </figcaption>
-</figure>
-
-<figure>
-<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="images/juanes.png">
-<figcaption><b>Figure 4</b>: Juanes network dismantling. </figcaption>
-</figure>
-</div>
-
 <br>
 
-Overall, these two approachs can also be useful as baselines. The degree-based approach is always going to have a greater associated cost than the GND method. The difference between the inset curves presents a direct indicative of the different approach's costs. Other approachs can be compared against these two.
+Overall, these two approachs can also be useful as baselines. The degree-based dismantling is always going to have a greater associated cost than the GND method. Costs curves from another approachs could also be compared against these two and this comparison may present an addional analysis for further consideration between costs and effectiveness.
 
 <br>
 
@@ -225,15 +223,15 @@ Network models represent useful frameworks in which we can study real-world comp
 
 <br>
 
-Looking with more attention to these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative free scale model.
+Looking with more attention at these cocaine smuggling networks, especially the Jake network, they seem to be built upon preferential attachment. Some nodes have a lot of connections with other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Even though I have not conclude that their distributions are reasonably well describe by power laws, we could try to simulate these networks using a generative free scale model.
 
 <br>
 
-In a first guess, we could try to use the well-known Barabási–Albert model, since it is capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ this would produce networks with clustering coefficient equals to zero, and we have networks with average clustering coefficient nonzero. We can try setting $m = 2$, but we will see that the graphs visually differ greatly from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.
+In a first guess, we could try to use the well-known Barabási–Albert model, since it is also capable of producing networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with high degree. However, if $m = 1$ the model would produce networks with clustering coefficient equals to zero. But the networks we have present nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would visually differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to view an example of this model for three different values of $m$.
 
 <br>
 
-Searching a little bit a found a version of the barabasi model called [dual Barabási–Albert preferential attachment model](https://arxiv.org/abs/1810.10538), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree.
+After some searching, I found a version of the barabasi model called [dual Barabási–Albert preferential attachment model](https://arxiv.org/abs/1810.10538), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$) that are preferentially attached to existing nodes with high degree.
 
 <br>
 
