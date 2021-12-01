@@ -31,7 +31,7 @@ projects: [criminal_networks]
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling on four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain, and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.
+Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling to four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain, and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
@@ -44,7 +44,7 @@ The United Nations Office on Drugs and Crime (UNODC) [defines](https://www.unodc
     <figcaption><b>Figure 1</b>: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.</figcaption>
 </figure>
 
-In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with a high degree of centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict, these positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the individuals are replaceable. These characteristics make dismantling criminal networks an arduous task.
+In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with a high degree of centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict, these central positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of [redundancy](https://doi.org/10.1371/journal.pone.0236476), that is, how easily the individuals are replaceable. These characteristics make dismantling criminal networks an arduous task.
 
 <br>
 
@@ -61,8 +61,7 @@ Ultimately, my main goals in this post are
 
 <br>
 
-
-- Present the GND method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the high degree vertices) is applied. 
+- Present the Generalized Network Dismantling (GND) method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied. 
 - Suggest that cocaine smuggling networks can be modeled via an extension of the Barabási-Albert model.
 
 <br>
@@ -181,9 +180,9 @@ The following video demonstrates a simple dismantling simulation of the Juanes n
 
 <br>
 
-In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the output independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents the standard deviation. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices.
+In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method[^1]. Since Petter Holme's implementation comes with a randomness to make the output independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents a standard deviation band. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices.
 
-[^1]: The GND method uses a cascading approach for dismantling, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with high degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
+[^1]: The GND method uses a cascading approach for dismantling a network, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with the highest degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as [simultaneous attack](https://www.nature.com/articles/srep37954).  
 
 <figure>
     <img src="images/mambo.png" width="900px" height="563px" />
@@ -209,7 +208,7 @@ While both methods are better than random node removal, the degree-based dismant
 
 <br>
 
-Overall, these two aproaches can also be useful as baselines. Costs curves from other aproaches could be compared against these two and this comparison may present an additional analysis for further consideration between costs and effectiveness.
+Overall, these two aproaches can also be useful as baselines. Costs curves from other aproaches could be compared against these two and this comparison may present an additional analysis for further consideration between cost and effectiveness.
 
 <br>
 
@@ -217,19 +216,19 @@ Overall, these two aproaches can also be useful as baselines. Costs curves from 
 
 <br>
 
-Network models represent useful frameworks in which we can study complex real-world networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://arxiv.org/abs/cond-mat/0303516) a dated but essential review of developments in this field.
+Network models represent useful frameworks in which we can study complex real-world networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See [here](https://arxiv.org/abs/cond-mat/0303516) a relatively old but essential review of developments in this field.
 
 <br>
 
-Looking more closely at these cocaine smuggling networks, they seem to be based on preferential attachment. Some nodes have many connections to other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of free scale networks. Although I have not concluded that their distributions are adequately described by power laws, we could try to simulate these networks with a free scale model.
+Looking more closely at these cocaine smuggling networks, they seem to be based on preferential attachment. Some nodes have many connections to other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of scale-free networks. Although I have not concluded that their distributions are adequately described by power laws, we could try to simulate these networks with a scale-free model.
 
 <br>
 
-As a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with a high degree. However, if $m = 1$ the model networks have clustering coefficients equal to zero. But the smuggling networks have nonzero average clustering coefficients. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.
+As a first guess, we could try using the well-known [Barabási–Albert model](https://barabasi.com/f/622.pdf), since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with a high degree. However, if $m = 1$ the model networks have clustering coefficients equal to zero, but in the smuggling networks this coefficient is nonzero. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.
 
 <br>
 
-After some searching, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with a high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regarding the degree distributions of the empirical networks is not of great concern. 
+After doing some research, I found a version of the barabasi model called [dual Barabási–Albert model](https://arxiv.org/abs/1810.10538) (DBA), implemented in [NetworkX](https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html). This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with a high degree. Moreover, as the authors of the paper explain, "the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions". Therefore, our ignorance regarding the degree distributions of the empirical networks is not of great concern. 
 
 <br>
 
@@ -243,11 +242,11 @@ The network below is an example of a random network generated by this model. The
 
 <br>
 
-Of course, this is just one example with specifics parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily. 
+Of course, this is just one example with specific parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily. 
 
 <br>
 
-Naturally, we can examine whether the model networks also reproduce similar metrics to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these has the same size as the empirical smuggling networks. Also, in all calculations, I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good. 
+Naturally, we can examine whether the model networks also produce similar properties to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these has the same size as the empirical smuggling networks. Also, in all calculations, I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good. 
 
 <br>
 
