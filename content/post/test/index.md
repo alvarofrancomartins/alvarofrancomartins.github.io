@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2021-12-07"
 featured: false
-draft: false
+draft: true
 tags: 
 - Criminal networks
 
