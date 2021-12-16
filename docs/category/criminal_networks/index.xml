@@ -5,12 +5,27 @@
     <link>https://alvarofrancomartins.com/category/criminal_networks/</link>
       <atom:link href="https://alvarofrancomartins.com/category/criminal_networks/index.xml" rel="self" type="application/rss+xml" />
     <description>criminal_networks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 30 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 07 Dec 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>criminal_networks</title>
       <link>https://alvarofrancomartins.com/category/criminal_networks/</link>
     </image>
+    
+    <item>
+      <title>Test</title>
+      <link>https://alvarofrancomartins.com/post/test/</link>
+      <pubDate>Tue, 07 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/test/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;h1 id=&#34;test&#34;&gt;Test&lt;/h1&gt;
+&lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_1.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Mambo network&lt;/b&gt;: 31 vertices and 58 edges.&lt;p/&gt;&lt;br&gt;</description>
+    </item>
     
     <item>
       <title>Dismantling and modeling cocaine trafficking networks</title>
@@ -65,7 +80,7 @@
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-0&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.123&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -75,7 +90,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-1&#34;&gt;
   &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.160&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -85,7 +100,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
   &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.268&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -95,7 +110,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-3&#34;&gt;
   &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.481&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -105,7 +120,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
   &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;2.413&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -115,7 +130,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-5&#34;&gt;
   &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;5.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
@@ -176,7 +191,7 @@
 &lt;br&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
   &lt;summary&gt;Click to show the density&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo &lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.130&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
@@ -193,7 +208,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
   &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.090&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
@@ -211,7 +226,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-9&#34;&gt;
   &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.207&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
@@ -228,7 +243,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-10&#34;&gt;
   &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
@@ -245,7 +260,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-11&#34;&gt;
   &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;2.479&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
@@ -262,7 +277,7 @@
 &lt;/details&gt;
 &lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-12&#34;&gt;
   &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
-  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
 
 &lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
 &lt;span class=&#34;mf&#34;&gt;4.9&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
