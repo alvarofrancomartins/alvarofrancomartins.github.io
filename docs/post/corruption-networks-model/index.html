@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en-us" >
 
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,9 +12,38 @@
   
 
   
-    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+
+
+
+
+
+
+
+
 
   
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
   
   
   
@@ -31,30 +61,10 @@
   
     
   
-  <meta name="description" content="Play with artificial networks that simulate real political corruption networks" />
+  <meta name="description" content="Interact with networks that simulate real corruption networks" />
 
   
   <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/corruption-networks-model/" />
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
 
   
   
@@ -69,12 +79,14 @@
   
 
   
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
   
   
   
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
 
     
     
@@ -206,22 +218,6 @@
       
 
       
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
       
     
@@ -246,22 +242,51 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
-  
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.0fc9565427c6d9dd10e3e90eb18c9be4.css" />
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
 
   
 
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
 
 
   
@@ -283,8 +308,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
 
   <link rel="canonical" href="https://alvarofrancomartins.com/post/corruption-networks-model/" />
 
@@ -299,6 +324,12 @@
     
   
   
+
+  
+  
+    
+    
+  
   <meta property="twitter:card" content="summary_large_image" />
   
     <meta property="twitter:site" content="@alvarofmartins" />
@@ -306,17 +337,17 @@
   
   <meta property="og:site_name" content="Alvaro Franco Martins" />
   <meta property="og:url" content="https://alvarofrancomartins.com/post/corruption-networks-model/" />
-  <meta property="og:title" content="The computational model of political corruption networks | Alvaro Franco Martins" />
-  <meta property="og:description" content="Play with artificial networks that simulate real political corruption networks" /><meta property="og:image" content="https://alvarofrancomartins.com/post/corruption-networks-model/featured.png" />
+  <meta property="og:title" content="Computational model of political corruption networks | Alvaro Franco Martins" />
+  <meta property="og:description" content="Interact with networks that simulate real corruption networks" /><meta property="og:image" content="https://alvarofrancomartins.com/post/corruption-networks-model/featured.png" />
     <meta property="twitter:image" content="https://alvarofrancomartins.com/post/corruption-networks-model/featured.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
         property="article:published_time"
-        content="2020-12-13T00:00:00&#43;00:00"
+        content="2022-01-01T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2020-12-13T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2022-01-01T00:00:00&#43;00:00">
   
 
   
@@ -342,14 +373,14 @@
     "@type": "WebPage",
     "@id": "https://alvarofrancomartins.com/post/corruption-networks-model/"
   },
-  "headline": "The computational model of political corruption networks",
+  "headline": "Computational model of political corruption networks",
   
   "image": [
     "https://alvarofrancomartins.com/post/corruption-networks-model/featured.png"
   ],
   
-  "datePublished": "2020-12-13T00:00:00Z",
-  "dateModified": "2020-12-13T00:00:00Z",
+  "datePublished": "2022-01-01T00:00:00Z",
+  "dateModified": "2022-01-01T00:00:00Z",
   
   "author": {
     "@type": "Person",
@@ -361,10 +392,10 @@
     "name": "Alvaro Franco Martins",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "Play with artificial networks that simulate real political corruption networks"
+  "description": "Interact with networks that simulate real corruption networks"
 }
 </script>
 
@@ -435,7 +466,7 @@ figcaption {
 
 </head>
 
-  <title>The computational model of political corruption networks | Alvaro Franco Martins</title>
+  <title>Computational model of political corruption networks | Alvaro Franco Martins</title>
 </head>
 
 
@@ -450,7 +481,7 @@ figcaption {
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js"></script>
 
   
 
@@ -701,22 +732,6 @@ figcaption {
 
   <div class="page-body">
     
-<div class="container-fluid docs">
-    <div class="row flex-xl-nowrap">
-      <div class="d-none d-xl-block col-xl-2 docs-toc">
-        <ul class="nav toc-top">
-          <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
-        </ul>
-        <nav id="TableOfContents">
-  <ul>
-    <li><a href="#the-model">The model</a></li>
-    <li><a href="#play">Play with the model</a></li>
-    <li><a href="#algorithm">The model algorithm in Python</a></li>
-  </ul>
-</nav>
-      </div>
-      <main class="col-12 col-md-0 col-xl-10 py-md-3 pl-md-5 docs-content" role="main">
-
         <article class="article">
             
 
@@ -744,10 +759,10 @@ figcaption {
 
 
 <div class="article-container pt-3">
-  <h1>The computational model of political corruption networks</h1>
+  <h1>Computational model of political corruption networks</h1>
 
   
-  <p class="page-subtitle">Play with artificial networks that simulate real political corruption networks</p>
+  <p class="page-subtitle">Interact with networks that simulate real corruption networks</p>
   
 
   
@@ -774,7 +789,7 @@ figcaption {
     
       
     
-    Dec 13, 2020
+    Jan 1, 2022
   </span>
   
 
@@ -809,7 +824,7 @@ figcaption {
 
 <div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 957px;">
   <div style="position: relative">
-    <img src="/post/corruption-networks-model/featured.png" alt="" class="featured-image">
+    <img src="/post/corruption-networks-model/featured.png" width="1200" height="957" alt="" class="featured-image">
     <span class="article-header-caption">Visualization of an artificial network generated by the corruption network model.</span>
   </div>
 </div>
@@ -850,7 +865,9 @@ figcaption {
     <figcaption>Visualization of an artificial network <br >generated by the corruption network model.</figcaption>
 </figure>
  -->
-<p>In this post, I will briefly describe our computational model of political corruption networks. I also present an interactive version of the model and show the code in Python. This model is extensively described and studied in our <a href="https://www.google.com" target="_blank" rel="noopener">publication</a> in Journal X. I also made a <a href="https://www.alvarofrancomartins.com/post/corruption-networks" target="_blank" rel="noopener">post</a> of our main findings on the political corruption networks of Brazil and Spain. If you just want to play with the model networks, skip to <a href="#play">here</a>.</p>
+<p>In <a href="https://www.google.com" target="_blank" rel="noopener">Universality of political corruption networks</a>, we have proposed a computational model that reproduces several properties of real political corruption networks. Using this model, our research has revealed that corruption networks operate near a critical recidivism rate below which the network is entirely fragmented and above which it is overly connected.</p>
+<br>
+<p>Here I will briefly describe the model and present an interactive version of it.  I also made a <a href="https://www.alvarofrancomartins.com/post/corruption-networks" target="_blank" rel="noopener">post</a> showing our main findings on the political corruption networks.</p>
 <h1 id="the-model">The model</h1>
 <p>In summary, we have proposed a model based on two of our main findings about political corruption networks. The first finding is that the <strong>number of people per scandal</strong> is reasonably well described by an exponential distribution with a characteristic number of $1/\lambda \approx 7$ people per scandal. This result was found in both Brazilian and Spanish datasets on corruption scandals.</p>
 <br>
@@ -861,7 +878,7 @@ figcaption {
 <li>$\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). $\in [0, 1]$.</li>
 <li>$\beta$: The regression coefficient. It controls when the repeat offenders starts to appear in the network. $\in [-\infty, 0)$.</li>
 </ul>
-<p>The networks in our model grows by the addition of &ldquo;scandals&rdquo; or <a href="https://en.wikipedia.org/wiki/Complete_graph" target="_blank" rel="noopener">complete graphs</a>. The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offenders $r(n)$ also grows and they start to connect different parts of the network. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. Therefore, depending on the value of $\alpha$, we get different network structures<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Moreover, since the model is stochastic, every network will be different.</p>
+<p>The networks in our model grows by the addition of &ldquo;scandals&rdquo; or <a href="https://en.wikipedia.org/wiki/Complete_graph" target="_blank" rel="noopener">complete graphs</a>. The complete graphs (sampled by the exponential distribution with $1/\lambda$) simulate the scandals in the same way that, in a scandal, all individuals involved are connected. As the number of vertices $n$ grows, the number of repeat offenders $r(n)$ also grows and they start to connect different parts of the network. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. Therefore, depending on the value of $\alpha$, we get different network structures<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Moreover, since the model is stochastic, every network will be different.  $P(s) \sim e^{-s/s_c}$</p>
 <br>
 <p>And that is basically it <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. If you want to see in detail how the model was written, skip to the <a href="#algorithm">algorithm</a>.</p>
 <h1 id="play">Play with the model</h1>
@@ -1099,17 +1116,25 @@ figcaption {
 <p>This interactive visualization was made using <a href="https://visjs.org/" target="_blank" rel="noopener">visjs</a>, a browser based visualization library. Below you can see a visual comparison between the Brazilian corruption network (Figure 1) and an artificial network generated using our model and the Brazilian recidivism rate (Figure 2).</p>
 <div class="parent" style = "display:flex">
 <figure>
-<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="brazil.png">
+<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="figs/brazil.png">
 <figcaption>Figure 1: The Brazilian political corruption network. </figcaption>
 </figure>
 <figure>
-<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="model.png">
+<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="figs/model.png">
 <figcaption >Figure 2: An artificial network generated using our model. </figcaption>
 </figure>
 </div>
+<figure>
+<img src="figs/mspain.png">
+<figcaption >ok</figcaption>
+</figure>
+<figure>
+<img src="figs/mbrazil.png">
+<figcaption>ok</figcaption>
+</figure>
 <h1 id="algorithm">The model algorithm in Python</h1>
 <p>First of all, we need the following packages.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>          <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>          <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">graph_tool.all</span> <span class="k">as</span> <span class="nn">gt</span>
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
@@ -1117,7 +1142,7 @@ figcaption {
 <br>
 <details class="spoiler "  id="spoiler-2">
   <summary>Click to view the full algorithm</summary>
-  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
     <span class="s2">&#34;&#34;&#34;
 </span><span class="s2">    Generate a corruption network based on our model.
 </span><span class="s2">    
@@ -1133,7 +1158,7 @@ figcaption {
 </span><span class="s2">           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
 </span><span class="s2">    proba : float
 </span><span class="s2">            Probability of selecting a repeated agent that was already involved in
-</span><span class="s2">            another scandal (default: 0.024091841863485983).
+</span><span class="s2">            another scandal (default: 0.024).
 </span><span class="s2">
 </span><span class="s2">    Returns
 </span><span class="s2">    -------
@@ -1186,9 +1211,9 @@ figcaption {
 </code></pre></div></p>
 </details>
 <p>This function returns a list of edge lists where each element correspond to a particular iteration step.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
 </code></pre></div><p>To create the network until step $t$ we need to concatenate these lists.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
     <span class="n">g</span>           <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">directed</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
     <span class="n">edge_list_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">edges_list</span><span class="p">[:</span><span class="n">t</span><span class="p">])</span>
     
@@ -1200,7 +1225,7 @@ figcaption {
     
     <span class="k">return</span> <span class="n">g</span>
 </code></pre></div><p>Now we can finally generate the network until $t$ steps (100 in this case).</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">final_network</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">edge_lists</span><span class="p">)</span>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">final_network</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">edge_lists</span><span class="p">)</span>
 <span class="n">final_network</span>
 </code></pre></div><blockquote>
 <p><em>&lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&gt;</em></p>
@@ -1266,13 +1291,13 @@ figcaption {
   <div class="media author-card content-widget-hr">
     
       
-      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu24fc0dde7e43204c2d264da5f3800e59_73232_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
+      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
     
 
     <div class="media-body">
       <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
       <h6 class="card-subtitle">Data Scientist</h6>
-      <p class="card-text">Physicist working on complex networks and data science.</p>
+      <p class="card-text">Physicist working on complex networks and data science. I have over 5 years of experience studying criminal networks.</p>
       <ul class="network-icon" aria-hidden="true">
   
     
@@ -1385,8 +1410,6 @@ figcaption {
     <h3>Related</h3>
     <ul>
       
-      <li><a href="/post/corruption-networks/">Unveiling the hidden patterns of political corruption networks</a></li>
-      
       <li><a href="/publication/brazilian-corruption-network/">The dynamical structure of political corruption networks</a></li>
       
     </ul>
@@ -1398,10 +1421,6 @@ figcaption {
 
             </div>
         </article>
-  
-      </main>
-    </div>
-  </div>
   
   </div>
 
@@ -1474,11 +1493,11 @@ figcaption {
       
 
     
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
 
+    
+    
+    
       
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
@@ -1533,9 +1552,6 @@ figcaption {
     
 
     
-    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
-
-    
     
       
       
@@ -1558,7 +1574,7 @@ figcaption {
       
     
     
-    <script src="/en/js/wowchemy.min.1e0d08e76174cf86fae2f45a189987fb.js"></script>
+    <script src="/en/js/wowchemy.min.d0e701359d3886f92c33eaa1b43f4fba.js"></script>
 
     
 
