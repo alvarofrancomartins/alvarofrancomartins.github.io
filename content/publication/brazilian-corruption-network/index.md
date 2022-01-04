@@ -7,7 +7,7 @@ authors:
 - Ervin K. Lenzi 
 - Matjaz Perc
 date: "2018-01-24T00:00:00Z"
-doi: "http://dx.doi.org/10.1093/comnet/cny002"
+doi: "10.1093/comnet/cny002"
 
 # Schedule page publish date (NOT publication's date).
 # publishDate: "2021-08-24T00:00:00Z"
@@ -34,7 +34,7 @@ featured: false
 # links:
 # - name: ""
 #   url: ""
-url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
+url_pdf: /uploads/cny002.pdf
 # url_code: ''
 # url_dataset: ''
 # url_poster: ''
@@ -47,8 +47,8 @@ url_pdf: http://complex.pfi.uem.br/paper/2018/cny002.pdf
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 
 image:
-  placement: 3
-  caption: "The Brazilian Corruption Network"
+  placement: 4
+  caption: "The Brazilian corruption network"
   focal_point: "Smart"
   preview_only: false
   alt_text: The Brazilian Corruption Network
