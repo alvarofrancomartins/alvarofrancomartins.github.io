@@ -9,7 +9,7 @@ projects: []
 # Date published
 date: "2022-01-01"
 
-draft: false
+draft: true
 
 featured: true
 
