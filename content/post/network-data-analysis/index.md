@@ -48,7 +48,6 @@ From proteins interactions to global airlines routes, networks are ubiquitous. T
 
 Considering these aspects, in this post I will present the article [Nine quick tips for analyzing network data](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007434), written by Vincent Miele _et al_. This paper points out several tips on how to better approach and analyze network data.  
 
-
 # When to use networks
 
 Donec egestas, sapien a cursus pretium, leo est ultrices ex, egestas aliquet metus elit nec magna. Donec hendrerit mi a leo maximus vehicula. Quisque justo purus, pellentesque sit amet augue vitae, molestie tempus orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer faucibus justo sit amet faucibus egestas. Fusce elementum elementum congue. Aenean finibus magna ultricies nibh varius, elementum ornare lacus dignissim.
