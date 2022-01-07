@@ -18,8 +18,10 @@ bio: Physicist working on complex networks and data science. I have over 5 years
 
 # Interests to show in About widget
 interests:
+- Data Science
 - Data Analysis
 - Deep Learning
+- Network Science
 - Machine Learning
 - Data Visualization
 
