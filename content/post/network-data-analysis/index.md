@@ -38,6 +38,8 @@ image:
   preview_only: false
 ---
 
+<!-- {{< include-html "content/post/network-data-analysis/ok.html" >}} -->
+
 From proteins interactions to global airlines routes, networks are ubiquitous. This type of structured data have shown to yield the [most interest](http://networksciencebook.com/chapter/1#forces-helped) framework in which we can study complex phenomena. In its most basic form, a network is composed of vertices and edges that represent some type of relationship between these vertices. But don't be fooled by its simplicity. Surprisingly [complex patterns](https://www.nature.com/articles/srep09450) can emerge from set of abstractions. 
 
 <!-- There's a myriad of data analysis one could apply on network data. In addition, particularly when we consider the diversity of information that we can deal using network analysis, the study of these networks become too broad. -->
