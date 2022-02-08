@@ -80,11 +80,7 @@ I'm a **physicist** working on **data science** and **complex networks**. I have
 
 <br>
 
-I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently pursuing a PhD. 
-
-<br>
-
-I work on the project “Network and data science applied to study corruption and organized crime”, related to the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. My primary goal is to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics
+I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently pursuing a PhD. I work on the project “Network and data science applied to study corruption and organized crime”, related to the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. My primary goal is to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.
 
 <br>
   
