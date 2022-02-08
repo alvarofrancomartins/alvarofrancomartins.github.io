@@ -28,7 +28,7 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: PhD Student 
+  - course: PhD fellow 
     institution: State University of Maringá
     year: 2021-2024
   - course: MSc in Physics
@@ -76,16 +76,16 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**. 
+I'm a **physicist** working on **data science** and **complex networks**. I have a particular interest in the application of statistical data analysis to uncover patterns in data sets related to **criminal activity** and **organized crime**.
 
 <br>
 
-I hold both a Bachelor's and a Master's degree in Physics from State University of Maringá. At the moment, I'm a **PhD fellow** on the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. 
+I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently pursuing a PhD. 
 
 <br>
 
-I have over 5 years of experience studying criminal networks. I'm currently working on the project "Network and data science applied on the study of corruption and organized crime." My primary goal is to extract meaningful patterns from these type of data, uncovering rules and mechanisms governing their structure and dynamics. 
+I work on the project “Network and data science applied to study corruption and organized crime”, related to the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. My primary goal is to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics
 
 <br>
   
-{{< icon name="download" pack="fas" >}} Download my _curriculum vitae_ ({{< staticref "uploads/alvaro_cv.pdf" "newtab" >}}eng{{< /staticref >}} / {{< staticref "uploads/alvaro_cv_pt.pdf" "newtab" >}}pt{{< /staticref >}}).
+{{< icon name="download" pack="fas" >}} Download my _curriculum vitae_ ({{< staticref "uploads/alvaro_cv_en.pdf" "newtab" >}}eng{{< /staticref >}} / {{< staticref "uploads/alvaro_cv_pt.pdf" "newtab" >}}pt{{< /staticref >}}).
