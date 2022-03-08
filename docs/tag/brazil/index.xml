@@ -23,11 +23,20 @@
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;br&gt;
-&lt;p&gt;In our latest paper, &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;Universality of political corruption networks&lt;/a&gt;, the findings of several empirical universalities in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and possibly coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
+&lt;p&gt;In our latest paper, &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;Universality of political corruption networks&lt;/a&gt;, the findings of several empirical universalities in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Motivated by these insights, we have used the recidivism rate (i.e, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce corruption networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. Corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
+&lt;p&gt;Motivated by these insights, we have used the recidivism rate (&lt;em&gt;i.e&lt;/em&gt;, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce corruption networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. Corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;In this post, I will describe the model, display an interactive demonstration and present the model code in Python.&lt;/p&gt;
+&lt;p&gt;In this post, I will&lt;/p&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe the model  &lt;a href=&#34;#model&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Display an interactive demonstration &lt;a href=&#34;#play&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Present the algorithm of the model in Python &lt;a href=&#34;#algorithm&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;model&#34;&gt;The model&lt;/h1&gt;
 &lt;br&gt;
@@ -302,7 +311,7 @@
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;itertools&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;combinations&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function which generate the network links according to our model is written as follows.&lt;/p&gt;
 &lt;br&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-5&#34;&gt;
   &lt;summary&gt;Click to view the code&lt;/summary&gt;
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;7.33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.09&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;11.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;proba&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
     &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
@@ -381,7 +390,7 @@
     
     &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_edge_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge_list_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# Since we have not yet dealt with self loops and parallel edges, we will remove them. &lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Self loops and parallel edges are not allowed. &lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_self_loops&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_parallel_edges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
     
@@ -395,11 +404,10 @@
 &lt;br&gt;
 &lt;h1 id=&#34;closing-thoughts&#34;&gt;Closing thoughts&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;The most important aspect of this model is that it highlights the importance of recidivists in criminal contexts. Recidivists are able to connect different parts of networks and function as brokers. In this sense, the recidivism rate plays an important role in the evolution, structure and dynamics of corruption networks. In other words, repeat offenders are the &amp;ldquo;glue&amp;rdquo; of criminal networks, sustaining organized crime across time and space.&lt;/p&gt;
+&lt;p&gt;The most important aspect of this model is that it highlights the importance of recidivists in criminal contexts. Recidivists are able to connect different parts of networks and function as brokers. In other words, they represent the backbone of criminal networks, sustaining organized crime across time and space. In this sense, the recidivism rate plays an important role in the evolution, structure and dynamics of corruption networks.&lt;/p&gt;
 &lt;br&gt;
 &lt;!-- After studying the political corruption networks of both Brazil and Spanish, we have concluded that several patterns and features only happen because of repeat offenders. The coalescence process, for instance, does not happen without repeat offenders; they are the nodes responsible for connecting different components of the network. The recidivism rate also controls whether the network is more or less densely connected. The Brazilian corruption network has a giant component with density equal 0.0689, almost three times the density of the Spanish largest connected component (0.0245). Furthermore, a higher recidivism rate can cause the network to be more compact. The giant component of the Brazilian corruption network has lower average path length (2.99) and lower diameter (7) than the Spanish largest component (5.11 and 11, respectively). --&gt;
 &lt;p&gt;From a practical perspective, our model may have important implications for law enforcement and intelligence activities. In a scenario where we are able to estimate the number of recidivists, we could consequently estimate very relevant features regarding the evolution and structure of the underlying network. Moreover, our model can even be used as a benchmark for related corruption network investigations, such as link prediction or efficiency in network dismantling.&lt;/p&gt;
-&lt;br&gt;
 &lt;!-- &lt;ul class=&#34;cta-group&#34;&gt;
   
   &lt;li&gt;
@@ -409,15 +417,15 @@
   
 &lt;/ul&gt;
  --&gt;
-&lt;p&gt;For now I think that&amp;rsquo;s about it. Please, do not hesitate to contact me in case you want to talk about my work.&lt;/p&gt;
+&lt;!-- For now I think that&#39;s about it. Please, do not hesitate to contact me in case you want to talk about my work.  --&gt;
 &lt;br&gt;
 &lt;p&gt;Main references:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;A.F.M, B. R. Cunha, Quentin S. H, S. Gonçalves, M. Perc &amp;amp; Ribeiro, H. V. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;&lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, B. R. Cunha, Quentin S. H, S. Gonçalves, M. Perc &amp;amp; Ribeiro, H. V. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;&lt;em&gt;Ribeiro, H. V., Alves, L. G. A., Martins, A. F., Lenzi, E. K. &amp;amp; Perc, M. &lt;strong&gt;The dynamical structure of political corruption networks.&lt;/strong&gt; J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;&lt;em&gt;Ribeiro, H. V., Alves, L. G. A., &lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Lenzi, E. K. &amp;amp; Perc, M. &lt;strong&gt;The dynamical structure of political corruption networks.&lt;/strong&gt; J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;

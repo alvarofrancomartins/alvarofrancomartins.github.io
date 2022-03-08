@@ -14,7 +14,7 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: Physicist working on complex networks and data science. I have over 5 years of experience studying criminal networks.
+bio: Physicist working on complex networks and data science. 
 
 # Interests to show in About widget
 interests:
