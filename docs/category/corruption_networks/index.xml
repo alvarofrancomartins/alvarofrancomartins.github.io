@@ -19,13 +19,13 @@
       <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
-    I am pleased to finally publish one of the most important results I obtained during my master&amp;rsquo;s degree. This work, however, would not have been possible without the help of my Ph.D. advisor, Prof. Dr. Haroldo Valentin Ribeiro. I also thank the other coauthors (Bruno R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves and Matjaž Perc) for their collaborations to this work.
+    I am pleased to finally publish one of the most important results I obtained during my master&amp;rsquo;s degree. This work, however, would not have been possible without the help of my Ph.D. advisor, Prof. Dr. Haroldo Valentin Ribeiro. I also thank the other coauthors (Bruno R. da Cunha, Matjaž Perc, Quentin S. Hanley and Sebastián Gonçalves) for their collaboration in this work.
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;br&gt;
-&lt;p&gt;In our latest paper, &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;Universality of political corruption networks&lt;/a&gt;, the findings of several empirical universalities in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
+&lt;p&gt;In our &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;latest paper&lt;/a&gt;, the findings of several universal characteristics of political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Motivated by these insights, we have used the recidivism rate (&lt;em&gt;i.e&lt;/em&gt;, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce corruption networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. Corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
+&lt;p&gt;Motivated by these insights, we have used the recidivism rate (&lt;em&gt;i.e&lt;/em&gt;, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce corruption networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. More specifically, corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;In this post, I will&lt;/p&gt;
 &lt;br&gt;
@@ -40,7 +40,7 @@
 &lt;br&gt;
 &lt;h1 id=&#34;model&#34;&gt;The model&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;We have proposed the model based on two of our main findings about political corruption networks. In particular, we have found that the size distribution of scandals is roughly approximated by an exponential distribution with a characteristic number of people around seven people for both countries. This result shows that political corruption runs in small groups that rarely exceed more than ten people (only 20% and 17% of corruption cases in Spain and Brazil, respectively). The surprising similarity in size distributions of scandals in both countries indicate a possible universal pattern related to political corruption processes.&lt;/p&gt;
+&lt;p&gt;We have proposed the model based on two of our main findings about political corruption networks. In particular, we have found that the size distribution of scandals is roughly approximated by an exponential distribution with a characteristic number of people around seven people. This result shows that political corruption runs in small groups that rarely exceed more than ten people (only 20% and 17% of corruption cases in Spain and Brazil, respectively). The surprising similarity in size distributions of scandals in both countries indicate a possible universal pattern related to political corruption processes.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;The second finding came from investigating the dynamics of repeat offenders. We have found that the number of recidivist agents is linearly associated with the number of people in the network over the entire network growth process. The recidivism rates (number of repeat offenders divided by the total number of offenders) are 9% for Spain and 14.2% for Brazil. Therefore, the number of recidivists ($r$) can be modeled by the following equation.&lt;/p&gt;
 &lt;p&gt;$$r(n) = \alpha n + \beta,$$&lt;/p&gt;
@@ -51,11 +51,11 @@
 &lt;/ul&gt;
 &lt;p&gt;The model works as follows. It first starts with an empty network that grows by including complete graphs representing political scandals at each iteration. The size of these complete graphs ($s$) is randomly drawn from an exponential distribution ($P$) to mimic the empirical behavior given by $P(s)\sim e^{-s/s_c}$, where $s_c$ represents the characteristic size of corruption scandals (empirically, $s_c\approx 7$ people). We consider that part of the agents added to the network at each iteration are recidivists. We assume the number of recidivists to increase linearly according with the equation of $r(n)$. We keep track of the number of recidivists during the network growth process, and when new recidivists emerge, we randomly select nodes already present in the network to become recidivists and make them belong to the next scandal (complete graph) added to the network.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;In addition, when selecting nodes for representing recidivist agents, we can select nodes that were already recidivists with a small probability $p$ or nodes that will become recidivists for the first time with probability $1-p$. This last procedure allows us to control the number of agents involved in more than two corruption scandals and reproduce the empirical behavior as about 2.5% of all agents of both Spanish and Brazilian networks fit this condition.&lt;/p&gt;
+&lt;p&gt;In addition, when selecting nodes for representing recidivist agents, we can select nodes that were already recidivists with a small probability $p$ or nodes that will become recidivists for the first time with probability $1-p$. This last procedure allows us to control the number of agents involved in more than two corruption scandals and reproduce the empirical behavior (about 2.5% of all agents of both Spanish and Brazilian networks fit this condition).&lt;/p&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;play&#34;&gt;Interact with the model simulations&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;The application below allows you to interact with the network&amp;rsquo;s simulations&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; and see how they evolve as you add new scandals. To play with it, first click in the &lt;strong&gt;Start new network&lt;/strong&gt; button. Then, add as many scandals as you want using the &lt;strong&gt;Add new scandal&lt;/strong&gt; button. Please note that, initially, only complete graphs will appear. After a while&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, however, the recidivists will show up and then connect different parts of the network. I also prepared a &lt;a href=&#34;https://www.youtube.com/watch?v=ysGfMRU0gQg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;video&lt;/a&gt; demonstration of one possible simulation.&lt;/p&gt;
+&lt;p&gt;The application below allows you to interact with the network&amp;rsquo;s simulations&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; and see how they evolve as you add new scandals. To play with it, first click in the &lt;strong&gt;Start new network&lt;/strong&gt; button and then add as many scandals as you want using the &lt;strong&gt;Add new scandal&lt;/strong&gt; button. Please note that, initially, only complete graphs will appear. After a while&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, however, the recidivists will show up and they will connect different parts of the network.&lt;/p&gt;
 &lt;br&gt;
 
 &lt;!DOCTYPE html&gt;
@@ -300,11 +300,11 @@
 &lt;figcaption &gt;Figure 2: The Brazilian corruption network. &lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;/div&gt;
-&lt;p&gt;For more comparisons (both visual and quantitative), take a look at my other &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks&#34;&gt;post&lt;/a&gt; where I show the results comparing the simulated and empirical (Brazilian and Spanish) corruption networks.&lt;/p&gt;
+&lt;p&gt;For more comparisons (both visual and quantitative) between the model and the empirical networks, see the &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;paper&lt;/a&gt; or take a look at my other &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks&#34;&gt;post&lt;/a&gt; where I have summarized our results.&lt;/p&gt;
 &lt;br&gt;
 &lt;h1 id=&#34;algorithm&#34;&gt;The algorithm&lt;/h1&gt;
 &lt;br&gt;
-&lt;p&gt;First, we need the following packages.&lt;/p&gt;
+&lt;p&gt;In order to run the model, we first need to import the following packages:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt;          &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;graph_tool.all&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gt&lt;/span&gt;
 
@@ -406,8 +406,7 @@
 &lt;br&gt;
 &lt;p&gt;The most important aspect of this model is that it highlights the importance of recidivists in criminal contexts. Recidivists are able to connect different parts of networks and function as brokers. In other words, they represent the backbone of criminal networks, sustaining organized crime across time and space. In this sense, the recidivism rate plays an important role in the evolution, structure and dynamics of corruption networks.&lt;/p&gt;
 &lt;br&gt;
-&lt;!-- After studying the political corruption networks of both Brazil and Spanish, we have concluded that several patterns and features only happen because of repeat offenders. The coalescence process, for instance, does not happen without repeat offenders; they are the nodes responsible for connecting different components of the network. The recidivism rate also controls whether the network is more or less densely connected. The Brazilian corruption network has a giant component with density equal 0.0689, almost three times the density of the Spanish largest connected component (0.0245). Furthermore, a higher recidivism rate can cause the network to be more compact. The giant component of the Brazilian corruption network has lower average path length (2.99) and lower diameter (7) than the Spanish largest component (5.11 and 11, respectively). --&gt;
-&lt;p&gt;From a practical perspective, our model may have important implications for law enforcement and intelligence activities. In a scenario where we are able to estimate the number of recidivists, we could consequently estimate very relevant features regarding the evolution and structure of the underlying network. Moreover, our model can even be used as a benchmark for related corruption network investigations, such as link prediction or efficiency in network dismantling.&lt;/p&gt;
+&lt;p&gt;From a practical perspective, our model may have important implications for law enforcement and intelligence activities. In a scenario where we are able to estimate the number of recidivists, we could therefore estimate very relevant features regarding the evolution and structure of the underlying network. Moreover, our model can even be used as a benchmark for related corruption network investigations, such as link prediction or efficiency in network dismantling.&lt;/p&gt;
 &lt;!-- &lt;ul class=&#34;cta-group&#34;&gt;
   
   &lt;li&gt;
@@ -422,7 +421,7 @@
 &lt;p&gt;Main references:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;&lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, B. R. Cunha, Quentin S. H, S. Gonçalves, M. Perc &amp;amp; Ribeiro, H. V. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;&lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;&lt;em&gt;Ribeiro, H. V., Alves, L. G. A., &lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Lenzi, E. K. &amp;amp; Perc, M. &lt;strong&gt;The dynamical structure of political corruption networks.&lt;/strong&gt; J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
@@ -442,6 +441,101 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Unveiling the hidden patterns of political corruption networks</title>
+      <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
+      <description>&lt;h1 id=&#34;our-main-results&#34;&gt;Our main results&lt;/h1&gt;
+&lt;p&gt;We have studied the corruption networks of Brazil and Spain. Here I present our main findings:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The countries have distributions of people per scandal with approximately the same characteristic number ($\approx$ 7 people). It seems, therefore, that people usually act in small groups when involved in corruption processes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig1.png&#34; width=&#34;800px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 1: Complementary cumulative distribution for the number of people per corruption scandals in Spain (left) and Brazil (right).&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;The networks display small-world properties (high clustering coefficient and low average path length). However, corruption agents have tried to increase their distance as these networks have evolved. This result indicates an agreement with the so-called &lt;a href=&#34;https://www.jstor.org/stable/2095954&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;theory of secret societies&lt;/a&gt;, in which the evolution of illegal networks is assumed to maximize concealment.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig2.png&#34; width=&#34;800px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 2: Spanish (left) and Brazilian (right) political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;The networks have degree distributions well described by exponential distributions. Moreover, their characteristic degrees have essentially the same evolving pattern.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig3.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 3: Degree distributions and the characteristic degree evolving behavior.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;The networks present modular structures and the number of modules grows linearly with the number of scandals.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig4.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 4: Number of modules versus number of scandals.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;The evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by repeat offenders (i.e, individuals that are involved in at least two scandals).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig5.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 5: The coalescence processes observed in both political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;The countries have number of repeat offenders that grows linearly with the total number of offenders. The recidivism rates (number of repeat offenders / total number of offenders) are 9% for Spain and 14,2% for Brazil, and stay the same throughout the entire network growth.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig6.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 6: The linear relationships between the number of repeat offenders and the total number of people.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;The repeat offenders are able to connect different parts of the network and function as brokers. In this sense, the recidivism rate plays an important role on the evolution, structure and dynamics of corruption networks. The difference in the network metrics (such as density and average path length) are then explained by the difference in the recidivism rates.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig7.png&#34; width=&#34;930px&#34; height=&#34;500px&#34; /&gt;
+    &lt;figcaption&gt;Figure 7: Spanish political corruption network with highlighted recidivists.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;We have proposed a model to grow networks that model corruption networks taking into account two simple elements presented above: the linear recidivism pattern and the distribution of people per scandal.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig8.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 8: The political corruption networks model behavior.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;Our model have not only produced visually strikingly similar networks to the empirical ones,&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig1.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generate artificial networks that are able to reproduce the empirical network properties. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;10&#34;&gt;
+&lt;li&gt;but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig2.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generate artificial networks that are able to reproduce the empirical network properties. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;11&#34;&gt;
+&lt;li&gt;but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig3.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generate artificial networks that are able to reproduce the empirical network properties. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;12&#34;&gt;
+&lt;li&gt;but it was capable of describing all the evolving patterns (3, 4 and 5) discussed above.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig4.png&#34; width=&#34;530px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generate artificial networks that are able to reproduce the empirical network properties. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;All our results are better described in our &lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;publication&lt;/a&gt; in the Journal X. Also, an interactive version of our model is available &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

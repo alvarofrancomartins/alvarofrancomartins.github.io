@@ -1,0 +1,1629 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Alvaro Franco Martins" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Interact with networks that simulate real corruption networks" />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/corruption-networks-model/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
+
+  <link rel="canonical" href="https://alvarofrancomartins.com/post/corruption-networks-model/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@alvarofmartins" />
+    <meta property="twitter:creator" content="@alvarofmartins" />
+  
+  <meta property="og:site_name" content="Alvaro Franco Martins" />
+  <meta property="og:url" content="https://alvarofrancomartins.com/post/corruption-networks-model/" />
+  <meta property="og:title" content="Computational model of political corruption networks | Alvaro Franco Martins" />
+  <meta property="og:description" content="Interact with networks that simulate real corruption networks" /><meta property="og:image" content="https://alvarofrancomartins.com/post/corruption-networks-model/featured.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/post/corruption-networks-model/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-01-02T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-01-02T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://alvarofrancomartins.com/post/corruption-networks-model/"
+  },
+  "headline": "Computational model of political corruption networks",
+  
+  "image": [
+    "https://alvarofrancomartins.com/post/corruption-networks-model/featured.png"
+  ],
+  
+  "datePublished": "2022-01-02T00:00:00Z",
+  "dateModified": "2022-01-02T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Alvaro Franco Martins"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alvaro Franco Martins",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Interact with networks that simulate real corruption networks"
+}
+</script>
+
+  
+
+  
+
+  
+
+  <head>
+   <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
+   .article-container {
+      max-width: 1250px;
+   }
+
+   #container-publications {
+      overflow: visible !important;
+   }
+
+   .see-all {
+      text-transform: none !important;
+   }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+
+figcaption {
+  font-size:  20px !important; 
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: #313131;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
+   </style>
+
+   <script src="/js/prism.js"></script>
+
+   <link rel="stylesheet" href="/css/prism.css" type="text/css"/> 
+
+</head>
+
+  <title>Computational model of political corruption networks | Alvaro Franco Martins</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="7147f3c8217ff551f455891882c4d951" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/experience"><span>Experience</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+        <article class="article">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Computational model of political corruption networks</h1>
+
+  
+  <p class="page-subtitle">Interact with networks that simulate real corruption networks</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      <a href="/author/alvaro-franco-martins/">Alvaro Franco Martins</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 2, 2022
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/corruption_networks/">corruption_networks</a>, <a href="/category/criminal_networks/">criminal_networks</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 957px;">
+  <div style="position: relative">
+    <img src="/post/corruption-networks-model/featured.png" width="1200" height="957" alt="" class="featured-image">
+    <span class="article-header-caption">A network simulation using the model of political corruption networks.</span>
+  </div>
+</div>
+
+
+            <div class="article-container">
+              <div class="article-style">
+                <div class="alert alert-note">
+  <div>
+    I am pleased to finally publish one of the most important results I obtained during my master&rsquo;s degree. This work, however, would not have been possible without the help of my Ph.D. advisor, Prof. Dr. Haroldo Valentin Ribeiro. I also thank the other coauthors (Bruno R. da Cunha, Matjaž Perc, Quentin S. Hanley and Sebastián Gonçalves) for their collaboration in this work.
+  </div>
+</div>
+<br>
+<p>In our <a href="/publication/brazilian-corruption-network">latest paper</a>, the findings of several universal characteristics of political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.</p>
+<br>
+<p>Motivated by these insights, we have used the recidivism rate (<em>i.e</em>, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce corruption networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. More specifically, corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.</p>
+<br>
+<p>In this post, I will</p>
+<br>
+<ul>
+<li>Describe the model  <a href="#model">
+  <i class="fas fa-fas fa-link  pr-1 fa-fw"></i></a></li>
+<li>Display an interactive demonstration <a href="#play">
+  <i class="fas fa-fas fa-link  pr-1 fa-fw"></i></a></li>
+<li>Present the algorithm of the model in Python <a href="#algorithm">
+  <i class="fas fa-fas fa-link  pr-1 fa-fw"></i></a></li>
+</ul>
+<br>
+<h1 id="model">The model</h1>
+<br>
+<p>We have proposed the model based on two of our main findings about political corruption networks. In particular, we have found that the size distribution of scandals is roughly approximated by an exponential distribution with a characteristic number of people around seven people. This result shows that political corruption runs in small groups that rarely exceed more than ten people (only 20% and 17% of corruption cases in Spain and Brazil, respectively). The surprising similarity in size distributions of scandals in both countries indicate a possible universal pattern related to political corruption processes.</p>
+<br>
+<p>The second finding came from investigating the dynamics of repeat offenders. We have found that the number of recidivist agents is linearly associated with the number of people in the network over the entire network growth process. The recidivism rates (number of repeat offenders divided by the total number of offenders) are 9% for Spain and 14.2% for Brazil. Therefore, the number of recidivists ($r$) can be modeled by the following equation.</p>
+<p>$$r(n) = \alpha n + \beta,$$</p>
+<p>where $n$ is the total number of people and the parameters are</p>
+<ul>
+<li>$\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). $\in [0, 1]$.</li>
+<li>$\beta$: The regression coefficient. It controls the minimal number of people necessary for the emergence of the first recidivist agents. $\in [-\infty, 0)$.</li>
+</ul>
+<p>The model works as follows. It first starts with an empty network that grows by including complete graphs representing political scandals at each iteration. The size of these complete graphs ($s$) is randomly drawn from an exponential distribution ($P$) to mimic the empirical behavior given by $P(s)\sim e^{-s/s_c}$, where $s_c$ represents the characteristic size of corruption scandals (empirically, $s_c\approx 7$ people). We consider that part of the agents added to the network at each iteration are recidivists. We assume the number of recidivists to increase linearly according with the equation of $r(n)$. We keep track of the number of recidivists during the network growth process, and when new recidivists emerge, we randomly select nodes already present in the network to become recidivists and make them belong to the next scandal (complete graph) added to the network.</p>
+<br>
+<p>In addition, when selecting nodes for representing recidivist agents, we can select nodes that were already recidivists with a small probability $p$ or nodes that will become recidivists for the first time with probability $1-p$. This last procedure allows us to control the number of agents involved in more than two corruption scandals and reproduce the empirical behavior (about 2.5% of all agents of both Spanish and Brazilian networks fit this condition).</p>
+<br>
+<h1 id="play">Interact with the model simulations</h1>
+<br>
+<p>The application below allows you to interact with the network&rsquo;s simulations<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> and see how they evolve as you add new scandals. To play with it, first click in the <strong>Start new network</strong> button and then add as many scandals as you want using the <strong>Add new scandal</strong> button. Please note that, initially, only complete graphs will appear. After a while<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>, however, the recidivists will show up and they will connect different parts of the network.</p>
+<br>
+
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>Network Corruption Model</title>
+
+    <style>
+      #mynetwork {
+        display: inline-block;
+        height: 620px;
+        width: 100%;
+        border: 1px solid #444444;
+        background-color: #222222;
+      }
+
+      .input-group {
+        width: 100%;
+        padding:  0px;
+
+      }
+
+      .my_input {
+        border: solid 1px #ccc;
+
+        padding-left: 20px;
+
+        border-radius: 5px;
+        margin-bottom: 5px;
+        }
+
+      .btn-primary{
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .btn-outline-primary{
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .row {
+        margin-left:2px;
+      }
+
+    </style>
+
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="input-group">
+      <label style="font-size:28px;padding-top:5px;">$\alpha$ &nbsp</label><input class = "my_input" type="number" name="recidivism_rate" min=0 max=1 step=0.001 value=0.142 id="recidivism_rate" oninput= "(!validity.rangeOverflow||(value=1)) && (!validity.rangeUnderflow||(value=0)) &&
+(!validity.stepMismatch||(value=parseInt(this.value)));"/>
+
+      <label style="font-size:28px;padding-top:5px;">&nbsp&nbsp $\beta$ &nbsp</label><input class = "my_input" type="number" name="beta_parameter" min=-100 max=-1 step=-1 value=-11 id="beta_parameter" oninput= "(!validity.rangeOverflow||(value=-1)) && 
+(!validity.stepMismatch||(value=parseInt(this.value)));" />
+
+      <div class="row">
+        <button id="startNewNetwork" class="btn btn-primary" onclick="startNewNetwork();addCompleteGraph();enableAddGraph();">Start new network</button>
+        <button id="add_new_scandal" class="btn btn-outline-primary" onclick="addCompleteGraph();" disabled>Add new scandal</button>
+      </div>
+
+    </div>
+
+    <div id="mynetwork"></div>
+
+    <script type="text/javascript">
+      var container = document.getElementById("mynetwork");
+
+      proba = 0.024;
+      lambda = 7.33;
+
+      const options = {
+        "autoResize": true,
+        "height": '100%',
+        "width": '100%',
+        "physics": {
+          "enabled": true,
+          "forceAtlas2Based": {
+            "theta": 0.9,
+            "gravitationalConstant": -100,
+            "centralGravity": 0.01,
+            "springConstant": 0.08,
+            "springLength": 100,
+            "damping": 0.7,
+            "avoidOverlap": 0
+          },
+          "maxVelocity": 50,
+          "minVelocity": 0.1,
+          "solver": 'forceAtlas2Based',
+          "stabilization": {
+            "enabled": false
+          },
+          "timestep": 0.2,
+          "adaptiveTimestep": true,
+        },
+        "edges": {
+          "smooth": false
+        },
+        "nodes": {
+          "shape": "dot",
+          "size": 10,
+        },
+        "interaction": {
+          "dragNodes": false,
+          "dragView": true
+        }
+      }
+
+      function startNewNetwork() {
+        a = parseFloat(document.getElementById("recidivism_rate").value);
+        b = parseFloat(document.getElementById("beta_parameter").value);
+
+        last_agent_index = 0;
+        total_repeated_agents = 0;
+
+        repeated_agent_names = [];
+        agent_names = [];
+
+        nodes = new vis.DataSet();
+        edges = new vis.DataSet();
+
+        data = {
+          nodes: nodes,
+          edges: edges,
+        };
+
+        return network = new vis.Network(container, data, options);
+      }
+
+      function expoSampling(scale) {
+        return Math.round(-scale * Math.log(1.0 - Math.random()));
+      }
+
+      function addCompleteGraph() {
+        // calculate the size of the complete graph to enter the network
+        var n_new_agents = expoSampling(lambda);
+
+        while (n_new_agents <= 1) {
+          var n_new_agents = expoSampling(lambda);
+        }
+
+        // get index from new nodes
+        var new_agent_names = [];
+        for (let n = last_agent_index; n < last_agent_index + n_new_agents; n++) {
+          new_agent_names.push(n);
+        }
+        last_agent_index += n_new_agents;
+
+        size_network = agent_names.length;
+
+        // apply model
+        var new_repeated_agents = Math.round(a * (size_network) + b - total_repeated_agents);
+
+        if (new_repeated_agents > 0) {
+
+          var minimo = Math.min(new_repeated_agents, new_agent_names.length);
+
+          for (let i = 0; i < minimo; i++) {
+
+            if ((Math.random() <= proba) && (repeated_agent_names.length > 0)) {
+
+              id_old = repeated_agent_names[Math.floor(Math.random() * repeated_agent_names.length)];
+
+            } else {
+
+              let difference = agent_names.filter(x => !repeated_agent_names.includes(x));
+
+              id_old = difference[Math.floor(Math.random() * difference.length)];
+
+              total_repeated_agents += 1;
+            }
+
+            new_agent_names[i] = id_old;
+            repeated_agent_names.push(id_old);
+          }
+        }
+
+        for (let i = 0; i < new_agent_names.length; i++) {
+          if (!agent_names.includes(new_agent_names[i])) {
+            agent_names.push(new_agent_names[i])
+          }
+        }
+
+        // add complete graph to the network
+        for (let n = 0; n < new_agent_names.length; n++) {
+          nodes.update({
+            id: new_agent_names[n]
+          })
+        }
+
+        for (let i = 0; i < new_agent_names.length; i++) {
+          for (let j = i + 1; j < new_agent_names.length; j++) {
+            let i_ = new_agent_names[i];
+            let j_ = new_agent_names[j];
+
+            if (i_ != j_) {
+              edges.update({
+                from: i_,
+                to: j_
+              });
+            }
+          }
+        }
+        network.fit({
+                    "minZoomLevel": 0.1,
+                    "maxZoomLevel": 0.35,
+                    });
+      }
+
+      // button dynamics
+      const numSeconds = 1
+      document.querySelector('#add_new_scandal').addEventListener('click', (e) => {
+        e.target.disabled = true
+        setTimeout(() => {
+          e.target.disabled = false
+        }, numSeconds * 500)
+      })
+
+      function enableAddGraph() {
+        document.getElementById("add_new_scandal").disabled = false;
+      }
+
+    </script>
+
+  </body>
+
+</html>
+<p>This interactive visualization was made using <a href="https://visjs.org/" target="_blank" rel="noopener">visjs</a>, a browser based visualization library. The figures below show a visual comparison between simulated and empirical networks. Figure 1 is a simulation of the Brazilian corruption network using its recidivism rate, and Figure 2 shows the empirical network.</p>
+<div class="parent" style = "display:flex">
+<figure>
+<img style = "width: 100%;display: inline-block;padding-left: 5px;" class="half-page-image" src="figs/model.png">
+<figcaption>Figure 1: A network simulation with $\alpha = 0.142$.</figcaption>
+</figure>
+<figure>
+<img style = "width: 100%;display: inline-block; padding-left: 5px;" class="half-page-image" src="figs/brazil.png">
+<figcaption >Figure 2: The Brazilian corruption network. </figcaption>
+</figure>
+</div>
+<p>For more comparisons (both visual and quantitative) between the model and the empirical networks, see the <a href="https://www.google.com" target="_blank" rel="noopener">paper</a> or take a look at my other <a href="/post/corruption-networks">post</a> where I have summarized our results.</p>
+<br>
+<h1 id="algorithm">The algorithm</h1>
+<br>
+<p>In order to run the model, we first need to import the following packages:</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">numpy</span>          <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">graph_tool.all</span> <span class="k">as</span> <span class="nn">gt</span>
+
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+</code></pre></div><p>The function which generate the network links according to our model is written as follows.</p>
+<br>
+<details class="spoiler "  id="spoiler-5">
+  <summary>Click to view the code</summary>
+  <p><div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">=</span> <span class="mf">7.33</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.09</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mf">11.5</span><span class="p">,</span> <span class="n">proba</span> <span class="o">=</span> <span class="mf">0.024</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    Generate a corruption network based on our model.
+</span><span class="s2">    
+</span><span class="s2">    Parameters
+</span><span class="s2">    ---------
+</span><span class="s2">
+</span><span class="s2">    tmax : int
+</span><span class="s2">           Number of iteration steps (default: 100).
+</span><span class="s2">    lambda_ : float
+</span><span class="s2">           Characteristic number of people per scandal (default: 7.33).
+</span><span class="s2">    a, b : float
+</span><span class="s2">           Parameters defining the number of repeated agents (nr) as a function
+</span><span class="s2">           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
+</span><span class="s2">    proba : float
+</span><span class="s2">            Probability of selecting a repeated agent that was already involved in
+</span><span class="s2">            another scandal (default: 0.024).
+</span><span class="s2">
+</span><span class="s2">    Returns
+</span><span class="s2">    -------
+</span><span class="s2">    links_list : list
+</span><span class="s2">                 A list of edge lists where each element correspond to
+</span><span class="s2">                 a particular iteration step.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    
+    <span class="n">t</span>                          <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">links</span>                      <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">links_list</span>                 <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">agent_names</span>                <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">last_agent_index</span>           <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">repeated_agent_names</span>       <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">total_repeated_agents</span>      <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">while</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="n">tmax</span><span class="p">:</span>
+        <span class="n">n_new_agents</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">lambda_</span><span class="p">)))</span>
+            
+        <span class="k">if</span> <span class="n">n_new_agents</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        
+            <span class="n">new_agent_names</span>     <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">last_agent_index</span><span class="p">,</span> <span class="n">last_agent_index</span> <span class="o">+</span> <span class="n">n_new_agents</span><span class="p">)]</span>
+            <span class="n">last_agent_index</span>   <span class="o">+=</span> <span class="n">n_new_agents</span>
+            
+            <span class="n">new_repeated_agents</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">((</span><span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">agent_names</span><span class="p">))</span> <span class="o">+</span> <span class="n">b</span> <span class="o">-</span> <span class="n">total_repeated_agents</span><span class="p">)))</span>
+            
+            <span class="k">if</span> <span class="n">new_repeated_agents</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">new_repeated_agents</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_agent_names</span><span class="p">))):</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">proba</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">repeated_agent_names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+                        <span class="c1">#select from repeated_agent_names</span>
+                        <span class="n">repeated_agent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">repeated_agent_names</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="c1">#select from agent_names</span>
+                        <span class="n">repeated_agent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">repeated_agent_names</span><span class="o">^</span><span class="n">agent_names</span><span class="p">))</span>
+                        <span class="n">total_repeated_agents</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                    <span class="n">new_agent_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">repeated_agent</span>
+                    <span class="n">repeated_agent_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">repeated_agent</span><span class="p">)</span>
+                    
+            <span class="k">for</span> <span class="n">agent_</span> <span class="ow">in</span> <span class="n">new_agent_names</span><span class="p">:</span>
+                <span class="n">agent_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">agent_</span><span class="p">)</span>
+            
+            <span class="n">new_links</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">combinations</span><span class="p">(</span><span class="n">new_agent_names</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            
+            <span class="n">links_list</span> <span class="o">+=</span> <span class="p">[</span><span class="n">new_links</span><span class="p">]</span>
+            <span class="n">t</span>          <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">links_list</span>
+</code></pre></div></p>
+</details>
+<p>This function returns a list of edge lists, where each element correspond to a particular iteration step.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">edge_lists</span> <span class="o">=</span> <span class="n">generate_net_links</span><span class="p">(</span><span class="n">tmax</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">0.142</span><span class="p">)</span> <span class="c1"># e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]</span>
+</code></pre></div><p>To create the network until step $t$ we need to concatenate these lists.</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">edges_list</span><span class="p">):</span>
+    <span class="n">g</span>           <span class="o">=</span> <span class="n">gt</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">directed</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">edge_list_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">edges_list</span><span class="p">[:</span><span class="n">t</span><span class="p">])</span>
+    
+    <span class="n">g</span><span class="o">.</span><span class="n">add_edge_list</span><span class="p">(</span><span class="n">edge_list_t</span><span class="p">,</span> <span class="n">hashed</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Self loops and parallel edges are not allowed. </span>
+    <span class="n">gt</span><span class="o">.</span><span class="n">remove_self_loops</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="n">gt</span><span class="o">.</span><span class="n">remove_parallel_edges</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">g</span>
+</code></pre></div><p>Now we can finally generate the network until $t$ steps (100 in this case).</p>
+<div class="highlight"><pre class="chroma"><code class="language-py" data-lang="py"><span class="n">final_network</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">edge_lists</span><span class="p">)</span>
+<span class="n">final_network</span>
+</code></pre></div><blockquote>
+<p><em>&lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&gt;</em></p>
+</blockquote>
+<br>
+<h1 id="closing-thoughts">Closing thoughts</h1>
+<br>
+<p>The most important aspect of this model is that it highlights the importance of recidivists in criminal contexts. Recidivists are able to connect different parts of networks and function as brokers. In other words, they represent the backbone of criminal networks, sustaining organized crime across time and space. In this sense, the recidivism rate plays an important role in the evolution, structure and dynamics of corruption networks.</p>
+<br>
+<p>From a practical perspective, our model may have important implications for law enforcement and intelligence activities. In a scenario where we are able to estimate the number of recidivists, we could therefore estimate very relevant features regarding the evolution and structure of the underlying network. Moreover, our model can even be used as a benchmark for related corruption network investigations, such as link prediction or efficiency in network dismantling.</p>
+<!-- <ul class="cta-group">
+  
+  <li>
+    <a href="/"  class="btn btn-primary px-3 py-3">Do something</a>
+  </li>
+  
+  
+</ul>
+ -->
+<!-- For now I think that's about it. Please, do not hesitate to contact me in case you want to talk about my work.  -->
+<br>
+<p>Main references:</p>
+<ol>
+<li>
+<p><a href="https://www.google.com" target="_blank" rel="noopener"><em><strong>Alvaro F. Martins</strong>, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. <strong>Universality of political corruption networks.</strong> Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).</em></a></p>
+</li>
+<li>
+<p><a href="/publication/brazilian-corruption-network"><em>Ribeiro, H. V., Alves, L. G. A., <strong>Alvaro F. Martins</strong>, Lenzi, E. K. &amp; Perc, M. <strong>The dynamical structure of political corruption networks.</strong> J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).</em></a></p>
+</li>
+</ol>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>I wrote a <a href="https://www.alvarofrancomartins.com/post/corruption-networks" target="_blank" rel="noopener">post</a> highlighting our main findings on political corruption networks.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>The default $\alpha = 0.142$ is the empirical recidivism rate found in the Brazilian corruption network. The recidivism rate found in the Spanish corruption network is $\alpha = 0.09$.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Keep in mind that, depending on the value of $\alpha$, you will have to add enough complete graphs for the repeat offenders appear and start to connect to the other nodes in the network. That is, if $\alpha \to 1$ then the repeat offenders will appear quickly. On the other hand, when $\alpha \to 0$ you will need to add more complete graphs.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+              </div>
+              
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/corruption-networks/">corruption networks</a>
+  
+  <a class="badge badge-light" href="/tag/corruption-scandal/">corruption scandal</a>
+  
+  <a class="badge badge-light" href="/tag/complex-systems/">complex systems</a>
+  
+  <a class="badge badge-light" href="/tag/criminal-network/">criminal network</a>
+  
+  <a class="badge badge-light" href="/tag/recidivism/">recidivism</a>
+  
+  <a class="badge badge-light" href="/tag/recidivist/">recidivist</a>
+  
+  <a class="badge badge-light" href="/tag/corruption/">corruption</a>
+  
+  <a class="badge badge-light" href="/tag/politics/">politics</a>
+  
+  <a class="badge badge-light" href="/tag/scandals/">scandals</a>
+  
+  <a class="badge badge-light" href="/tag/brazil/">Brazil</a>
+  
+  <a class="badge badge-light" href="/tag/spain/">Spain</a>
+  
+  <a class="badge badge-light" href="/tag/crime/">crime</a>
+  
+  <a class="badge badge-light" href="/tag/model/">model</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
+      <h6 class="card-subtitle">Data Scientist</h6>
+      <p class="card-text">Physicist working on complex networks and data science.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:alvarought@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/alvarofmartins" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com.br/citations?user=yB30J2MAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/alvarofrancomartins" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/alvarofrancomartins/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/corruption-networks/">Unveiling the hidden patterns of political corruption networks</a></li>
+      
+      <li><a href="/post/cocaine_smuggling_networks/">Dismantling and modeling cocaine trafficking networks</a></li>
+      
+      <li><a href="/publication/brazilian-corruption-network/">The dynamical structure of political corruption networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+            </div>
+        </article>
+  
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by" style="font-size:11px;">
+    
+    Published with
+    <a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy</a>. 
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.d0e701359d3886f92c33eaa1b43f4fba.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>
