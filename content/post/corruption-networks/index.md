@@ -8,7 +8,7 @@ date: "2022-04-15"
 
 draft: false
 
-featured: true
+featured: false
 
 authors:
 - admin
