@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v6.js"></script>
+
+<!-- Load Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+
+<!-- Create an element where the map will take place -->
+<div id="mapid"></div>
+
+<style>
+
+#mapid { height: 800px; }
+
+</style>
+
+<script type="text/javascript">
+const map = L
+  .map('mapid')
+  .setView([-23.5, -46.5], 10);   // center position + zoom
+
+L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    maxZoom: 80,
+    }).addTo(map);
+
+L.svg().addTo(map);
+
+// // Create data for circles:
+// const markers = [
+//   {long: 9.083, lat: 42.149}, // corsica
+//   {long: 7.26, lat: 43.71}, // nice
+//   {long: 2.349, lat: 48.864}, // Paris
+//   {long: -1.397, lat: 43.664}, // Hossegor
+//   {long: 3.075, lat: 50.640}, // Lille
+//   {long: -3.83, lat: 48}, // Morlaix
+// ];
+
+const markers = [{"LONGITUDE": -46.61916821, "LATITUDE": -23.62659841}, {"LONGITUDE": -46.58830102, "LATITUDE": -23.49132}, {"LONGITUDE": -46.47305463, "LATITUDE": -23.50657261}]
+
+d3.select("#mapid")
+  .select("svg")
+  .selectAll("myCircles")
+  .data(markers)
+  .join("circle")
+    .attr("cx", d => map.latLngToLayerPoint([d.LATITUDE, d.LONGITUDE]).x)
+    .attr("cy", d => map.latLngToLayerPoint([d.LATITUDE, d.LONGITUDE]).y)
+    .attr("r", 2)
+    .style("fill", "red")
+    .attr("stroke", "red")
+    .attr("stroke-width", 3)
+    .attr("fill-opacity", .4)
+
+// Function that update circle position if something change
+function update() {
+  d3.selectAll("circle")
+    .attr("cx", d => map.latLngToLayerPoint([d.LATITUDE, d.LONGITUDE]).x)
+    .attr("cy", d => map.latLngToLayerPoint([d.LATITUDE, d.LONGITUDE]).y)
+}
+
+// If the user change the map (zoom or drag), I update circle position:
+map.on("moveend", update)
+    </script>
+
+  </body>
+
+</html>
