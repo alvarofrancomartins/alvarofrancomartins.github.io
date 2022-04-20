@@ -52,7 +52,7 @@ Criminal networks are not simply social networks operating in criminal contexts.
 
 <br>
 
-In our recent paper [Universality of political corruption networks](https://www.google.com), we used publicly available data from Brazil and Spain to reveal the underlying patterns of political corruption networks. Our work has revealed fascinating statistical similarities in the growth of these networks. This work include many results I obtained during my master's degree and ongoing PhD. Here I summarize our main findings:
+In our recent paper [Universality of political corruption networks](https://arxiv.org/abs/2204.05097), we used publicly available data from Brazil and Spain to reveal the underlying patterns of political corruption networks. Our work has revealed fascinating statistical similarities in the growth of these networks. This work include many results I obtained during my master's degree and ongoing PhD. Here I summarize our main findings:
 
 <br>
 
