@@ -35,7 +35,7 @@
   &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js&#34;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;div class=&#34;heatmap&#34; id=&#34;map-canvas&#34; style=&#34;width: 1250px; height: 800px&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;heatmap&#34; id=&#34;map-canvas&#34; style=&#34;width: 1250px; height: 650px&#34;&gt;&lt;/div&gt;
   &lt;script src=&#34;js/heatmap.min.js&#34;&gt;&lt;/script&gt;
   &lt;script src=&#34;js/leaflet-heatmap.js&#34;&gt;&lt;/script&gt;
   &lt;script src=&#34;js/crimedata4.js&#34;&gt;&lt;/script&gt;
@@ -51,6 +51,7 @@
         var cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
           &#34;radius&#34;: 9,
+          // &#34;max&#34;: 0,
           &#34;blur&#34;: .70,
           &#34;opacity&#34;: 0.8,
           // &#34;minOpacity&#34;: .9,
@@ -92,9 +93,8 @@
         var heatmapLayer = new HeatmapOverlay(cfg);
 
         var map = new L.Map(&#39;map-canvas&#39;, {
-          center: new L.LatLng(-23.55262601, -46.5252741),
-          zoom: 12,
-          // maxZoom: 100,
+          center: new L.LatLng(-23.59, -46.52),
+          zoom: 11,
           layers: [baseLayer, heatmapLayer]
         });
 
