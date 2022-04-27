@@ -31,7 +31,7 @@ summary: Our results show that corruption networks share universal characteristi
 
 tags:
 - Corruption Networks
-- Organized crimes
+- Organized crime
 - Corruption
 - Criminal networks
 featured: false
