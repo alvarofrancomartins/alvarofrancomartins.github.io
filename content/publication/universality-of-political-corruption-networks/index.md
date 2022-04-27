@@ -8,8 +8,8 @@ authors:
 - Matjaž Perc
 - Haroldo V. Ribeiro
 
-date: "2022-04-15"
-# doi: "10.1093/comnet/cny002"
+date: "2022-04-27"
+doi: "10.1038/s41598-022-10909-2"
 
 # Schedule page publish date (NOT publication's date).
 # publishDate: "2021-08-24T00:00:00Z"
@@ -21,7 +21,7 @@ date: "2022-04-15"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
+publication: "Universality of political corruption networks"
 publication_short: ""
 
 abstract: Corruption crimes demand highly coordinated actions among criminal agents to succeed. But research dedicated to corruption networks is still in its infancy and indeed little is known about the properties of these networks. Here we present a comprehensive investigation of corruption networks related to political scandals in Spain and Brazil over nearly three decades. We show that corruption networks of both countries share universal structural and dynamical properties, including similar degree distributions, clustering and assortativity coefficients, modular structure, and a growth process that is marked by the coalescence of network components due to a few recidivist criminals. We propose a simple model that not only reproduces these empirical properties but reveals also that corruption networks operate near a critical recidivism rate below which the network is entirely fragmented and above which it is overly connected. Our research thus indicates that actions focused on decreasing corruption recidivism may substantially mitigate this type of organized crime.
@@ -31,6 +31,9 @@ summary: Our results show that corruption networks share universal characteristi
 
 tags:
 - Corruption Networks
+- Organized crimes
+- Corruption
+- Criminal networks
 featured: false
 
 # links:
