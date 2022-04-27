@@ -44,20 +44,37 @@
           &#39;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#39;,{
             attribution: &#39;Map data &amp;copy; &lt;a href=&#34;http://openstreetmap.org&#34;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&#34;http://creativecommons.org/licenses/by-sa/2.0/&#34;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&#34;http://cloudmade.com&#34;&gt;CloudMade&lt;/a&gt;&#39;,
             maxNativeZoom: 1000,
-            opacity: 0.8
+            opacity: 1
           }
         );
 
         var cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-          &#34;radius&#34;: 8,
-          &#34;blur&#34;: 1,
-          // &#34;minOpacity&#34;: .5,
-          // &#34;overlay&#34;: true,
-          // &#34;control&#34;: true,
+          &#34;radius&#34;: 9,
+          &#34;blur&#34;: .70,
+          &#34;opacity&#34;: 0.8,
+          // &#34;minOpacity&#34;: .9,
+          &#34;overlay&#34;: true,
+          &#34;control&#34;: true,
           // &#34;max_zoom&#34;: 100000,
           // &#34;minOpacity&#34;: 0.5,
-          &#39;gradient&#39; : {&#39;0&#39;:&#39;Navy&#39;, &#39;0.25&#39;:&#39;Blue&#39;,&#39;0.5&#39;:&#39;Green&#39;, &#39;0.75&#39;:&#39;Yellow&#39;,&#39;1&#39;: &#39;Red&#39;},
+          &#39;gradient&#39; : {0.0: &#39;#f0f921&#39;,
+                       0.0625: &#39;#f8df25&#39;,
+                       0.125: &#39;#fdc527&#39;,
+                       0.1875: &#39;#fdac33&#39;,
+                       0.25: &#39;#f89540&#39;,
+                       0.3125: &#39;#f0804e&#39;,
+                       0.375: &#39;#e66c5c&#39;,
+                       0.4375: &#39;#da5a6a&#39;,
+                       0.5: &#39;#cc4778&#39;,
+                       0.5625: &#39;#bc3587&#39;,
+                       0.625: &#39;#aa2395&#39;,
+                       0.6875: &#39;#9511a1&#39;,
+                       0.75: &#39;#7e03a8&#39;,
+                       0.8125: &#39;#6600a7&#39;,
+                       0.875: &#39;#4c02a1&#39;,
+                       0.9375: &#39;#310597&#39;,
+                       1.0: &#39;#0d0887&#39;},
           // scales the radius based on map zoom
           // &#34;scaleRadius&#34;: true,
           // if set to false the heatmap uses the global maximum for colorization

@@ -907,20 +907,37 @@ text-align: justify;
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
             maxNativeZoom: 1000,
-            opacity: 0.8
+            opacity: 1
           }
         );
 
         var cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-          "radius": 8,
-          "blur": 1,
-          // "minOpacity": .5,
-          // "overlay": true,
-          // "control": true,
+          "radius": 9,
+          "blur": .70,
+          "opacity": 0.8,
+          // "minOpacity": .9,
+          "overlay": true,
+          "control": true,
           // "max_zoom": 100000,
           // "minOpacity": 0.5,
-          'gradient' : {'0':'Navy', '0.25':'Blue','0.5':'Green', '0.75':'Yellow','1': 'Red'},
+          'gradient' : {0.0: '#f0f921',
+                       0.0625: '#f8df25',
+                       0.125: '#fdc527',
+                       0.1875: '#fdac33',
+                       0.25: '#f89540',
+                       0.3125: '#f0804e',
+                       0.375: '#e66c5c',
+                       0.4375: '#da5a6a',
+                       0.5: '#cc4778',
+                       0.5625: '#bc3587',
+                       0.625: '#aa2395',
+                       0.6875: '#9511a1',
+                       0.75: '#7e03a8',
+                       0.8125: '#6600a7',
+                       0.875: '#4c02a1',
+                       0.9375: '#310597',
+                       1.0: '#0d0887'},
           // scales the radius based on map zoom
           // "scaleRadius": true,
           // if set to false the heatmap uses the global maximum for colorization
