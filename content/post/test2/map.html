@@ -1,41 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Simple Leaflet Map with Heatmap </title>
-    <meta charset="utf-8" />
-    <link 
-        rel="stylesheet" 
-        href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"
-    />
+  <meta charset="utf-8" />
+  <!-- <link rel="stylesheet" href="assets/css/commons.css" /> -->
+  <!-- <link rel="stylesheet" href="assets/css/example-commons.css" /> -->
+  <!-- <link rel="stylesheet" href="assets/third-party/prism/prism.css" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 </head>
 <body>
-    <div id="map" style="width: 900px; height: 700px"></div>
+  <div class="heatmap" id="map-canvas" style="width: 1250px; height: 800px"></div>
+  <script src="js/heatmap.min.js"></script>
+  <script src="js/leaflet-heatmap.js"></script>
+  <script src="js/crimedata3.js"></script>
+  <script>
+        var baseLayer = L.tileLayer(
+          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            maxZoom: 1000
+          }
+        );
 
-    <script
-       src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js">
-    </script>
-    
-    <script
-       src="http://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js">
-    </script>
-  <script src="2013-earthquake.js"></script>
-    <script>
+        var cfg = {
+          // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+          "radius": 4,
+          "blur": 0.8,
+          "maxOpacity": .8,
+          "minOpacity": .2,
+          'gradient' : {0.1: 'blue', 0.65: 'lime', 1.0: 'red'},
+          // scales the radius based on map zoom
+          // "scaleRadius": true,
+          // if set to false the heatmap uses the global maximum for colorization
+          // if activated: uses the data maximum within the current map boundaries
+          //   (there will always be a red spot with useLocalExtremas true)
+          "useLocalExtrema": false,
+          // which field name in your data represents the latitude - default "lat"
+          latField: 'LONGITUDE',
+          // which field name in your data represents the longitude - default "lng"
+          lngField: 'LATITUDE',
+          // which field name in your data represents the data value - default "value"
+          // valueField: 'count'
+        };
 
-        var map = L.map('map').setView([-41.5546,174.146], 10);
-        mapLink = 
-            '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-        L.tileLayer(
-            'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; ' + mapLink + ' Contributors',
-            maxZoom: 30,
-        }).addTo(map);
-        
-        var heat = L.heatLayer(quakePoints,{
-            radius: 13,
-            blur: 15, 
-            maxZoom: 17,
-        }).addTo(map);
-    
-    </script>
+        var heatmapLayer = new HeatmapOverlay(cfg);
+
+        var map = new L.Map('map-canvas', {
+          center: new L.LatLng(-23.55262601, -46.5252741),
+          zoom: 12,
+          // maxZoom: 100,
+          layers: [baseLayer, heatmapLayer]
+        });
+
+        heatmapLayer.setData(crime);
+  </script>
 </body>
 </html>
