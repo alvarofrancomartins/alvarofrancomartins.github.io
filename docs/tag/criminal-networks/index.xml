@@ -43,17 +43,16 @@
   &lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js&#34;&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
-
   &lt;div class=&#34;heatmap&#34; id=&#34;map-canvas&#34; style=&#34;width: 1250px; height: 800px&#34;&gt;&lt;/div&gt;
   &lt;script src=&#34;js/heatmap.min.js&#34;&gt;&lt;/script&gt;
   &lt;script src=&#34;js/leaflet-heatmap.js&#34;&gt;&lt;/script&gt;
   &lt;script src=&#34;js/crimedata4.js&#34;&gt;&lt;/script&gt;
   &lt;script&gt;
         var baseLayer = L.tileLayer(
-        &#39;https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png&#39;,{
+          &#39;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&#39;,{
             attribution: &#39;Map data &amp;copy; &lt;a href=&#34;http://openstreetmap.org&#34;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&#34;http://creativecommons.org/licenses/by-sa/2.0/&#34;&gt;CC-BY-SA&lt;/a&gt;, Imagery © &lt;a href=&#34;http://cloudmade.com&#34;&gt;CloudMade&lt;/a&gt;&#39;,
             maxNativeZoom: 1000,
-            opacity: 1
+            opacity: 0.8
           }
         );
 
@@ -66,7 +65,7 @@
           // &#34;control&#34;: true,
           // &#34;max_zoom&#34;: 100000,
           // &#34;minOpacity&#34;: 0.5,
-          &#39;gradient&#39; : {&#39;0&#39;:&#39; Navy&#39;, &#39;0.25&#39;:&#39;Blue&#39;,&#39;0.5&#39;:&#39;Green&#39;, &#39;0.75&#39;:&#39;Yellow&#39;,&#39;1&#39;: &#39;Red&#39;},
+          &#39;gradient&#39; : {&#39;0&#39;:&#39;Navy&#39;, &#39;0.25&#39;:&#39;Blue&#39;,&#39;0.5&#39;:&#39;Green&#39;, &#39;0.75&#39;:&#39;Yellow&#39;,&#39;1&#39;: &#39;Red&#39;},
           // scales the radius based on map zoom
           // &#34;scaleRadius&#34;: true,
           // if set to false the heatmap uses the global maximum for colorization
