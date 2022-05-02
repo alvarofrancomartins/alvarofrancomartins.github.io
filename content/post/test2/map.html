@@ -13,62 +13,57 @@
   <div class="heatmap" id="map-canvas" style="width: 1250px; height: 650px"></div>
   <script src="js/heatmap.min.js"></script>
   <script src="js/leaflet-heatmap.js"></script>
-  <script src="js/crimedata4.js"></script>
+  <script src="js/crimedata5.js"></script>
   <script>
         var baseLayer = L.tileLayer(
           'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
             maxNativeZoom: 1000,
-            opacity: 1
+            opacity: .60
           }
         );
 
         var cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-          "radius": 9,
+          "radius": 4.0,
           // "max": 0,
-          "blur": .70,
-          "opacity": 0.8,
+          "blur": .5,
+          "opacity": 0.45,
           // "minOpacity": .9,
-          "overlay": true,
-          "control": true,
+          // "backgroundColor": "000000",
+          // "overlay": true,
+          // "control": true,
+          // "backgroundColor": '#606060',
           // "max_zoom": 100000,
           // "minOpacity": 0.5,
-          'gradient' : {0.0: '#f0f921',
-                       0.0625: '#f8df25',
-                       0.125: '#fdc527',
-                       0.1875: '#fdac33',
-                       0.25: '#f89540',
-                       0.3125: '#f0804e',
-                       0.375: '#e66c5c',
-                       0.4375: '#da5a6a',
-                       0.5: '#cc4778',
-                       0.5625: '#bc3587',
-                       0.625: '#aa2395',
-                       0.6875: '#9511a1',
-                       0.75: '#7e03a8',
-                       0.8125: '#6600a7',
-                       0.875: '#4c02a1',
-                       0.9375: '#310597',
-                       1.0: '#0d0887'},
+          // 'gradient' : {0.0: '#fcffa4',
+          //                0.1111111111111111: '#f7d13d',
+          //                0.2222222222222222: '#fb9b06',
+          //                0.3333333333333333: '#ed6925',
+          //                0.4444444444444444: '#cf4446',
+          //                0.5555555555555556: '#a52c60',
+          //                0.6666666666666666: '#781c6d',
+          //                0.7777777777777777: '#4a0c6b',
+          //                0.8888888888888888: '#1b0c41',
+          //                1.0: '#000004'},
           // scales the radius based on map zoom
           // "scaleRadius": true,
           // if set to false the heatmap uses the global maximum for colorization
           // if activated: uses the data maximum within the current map boundaries
           //   (there will always be a red spot with useLocalExtremas true)
-          "useLocalExtrema": true,
+            "useLocalExtrema": true,
           // which field name in your data represents the latitude - default "lat"
           latField: 'LONGITUDE',
           // which field name in your data represents the longitude - default "lng"
           lngField: 'LATITUDE',
           // which field name in your data represents the data value - default "value"
-          // valueField: 'count'
+          // valueField: 'value',
         };
 
         var heatmapLayer = new HeatmapOverlay(cfg);
 
         var map = new L.Map('map-canvas', {
-          center: new L.LatLng(-23.59, -46.52),
+          center: new L.LatLng(-23.59, -46.55),
           zoom: 11,
           layers: [baseLayer, heatmapLayer]
         });

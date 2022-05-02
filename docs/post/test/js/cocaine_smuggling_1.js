@@ -1,28 +1,209 @@
 const marginNetwork = { top: 0, right: 0, bottom: 0, left: 0};
-const widthNetwork  = 680 - marginNetwork.left - marginNetwork.right;
-const heightNetwork = 440 - marginNetwork.top  - marginNetwork.bottom;
+const widthNetwork  = 980 - marginNetwork.left - marginNetwork.right;
+const heightNetwork = 840 - marginNetwork.top  - marginNetwork.bottom;
+
+const zoom = d3.zoom();
+
+const x = 300;
+const y = 200;
+const scale = 1;
+const k = 0.3;
 
 //Create SVG element in chart id element
 const svgNetwork = d3.select('#cocaine_smuggling_1')
-	              .append('svg')
-	               .attr("class", "content")
-	               .attr("viewBox", `0 0 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom}`)
-	               .attr("preserveAspectRatio", "none")
+	             .append("svg")
+                .attr("width",  1200)
+                .attr("height", 700)
+                .call(zoom.transform, d3.zoomIdentity.translate(x, y).scale(scale))
+                .call(zoom.on('zoom', (event) => {
+                    svgNetwork.attr('transform', event.transform);
+                 }))
+              .append("g")
+              .attr('transform', `translate(${x}, ${y})scale(${k})`);
 
-var links_data = [{"source":"ABS","target":"ABS","count":8},{"source":"ABS","target":"ATS","count":1},{"source":"ABS","target":"CR","count":8},{"source":"ABS","target":"ENV","count":1},{"source":"ABS","target":"INT","count":16},{"source":"ABS","target":"ITS","count":9},{"source":"ABS","target":"PDG","count":1},{"source":"ABS","target":"PER","count":4},{"source":"ABS","target":"PRAC","count":3},{"source":"AC","target":"AC","count":1},{"source":"AC","target":"INT","count":9},{"source":"AC","target":"ITS","count":1},{"source":"ACDC","target":"ACDC","count":1},{"source":"ACDC","target":"CR","count":2},{"source":"ACDC","target":"ITS","count":13},{"source":"ACDC","target":"PER","count":4},{"source":"APL","target":"APL","count":8},{"source":"APL","target":"CR","count":3},{"source":"APL","target":"ENV","count":1},{"source":"APL","target":"INT","count":1},{"source":"APL","target":"ITS","count":29},{"source":"APL","target":"LA","count":1},{"source":"APL","target":"PEG","count":1},{"source":"APL","target":"PER","count":3},{"source":"AST","target":"AST","count":17},{"source":"AST","target":"COP","count":1},{"source":"AST","target":"DBT","count":2},{"source":"AST","target":"DEVOPS","count":1},{"source":"AST","target":"IGN","count":1},{"source":"AST","target":"INT","count":2},{"source":"AST","target":"ITS","count":32},{"source":"AST","target":"PDG","count":2},{"source":"AST","target":"PER","count":8},{"source":"ATS","target":"ABS","count":1},{"source":"ATS","target":"ATS","count":21},{"source":"ATS","target":"DBT","count":1},{"source":"ATS","target":"INT","count":3},{"source":"ATS","target":"PDG","count":1},{"source":"ATS","target":"PEG","count":1},{"source":"CAR","target":"APL","count":1},{"source":"CAR","target":"CAR","count":9},{"source":"CAR","target":"COP","count":1},{"source":"CAR","target":"INT","count":9},{"source":"CAR","target":"ITS","count":8},{"source":"IGN","target":"CR","count":4},{"source":"IGN","target":"IGN","count":13},{"source":"IGN","target":"INT","count":5},{"source":"IGN","target":"ITS","count":13},{"source":"IGN","target":"PER","count":4},{"source":"IGN","target":"PRAC","count":1},{"source":"LA","target":"AC","count":1},{"source":"LA","target":"INT","count":1},{"source":"LA","target":"ITS","count":37},{"source":"LA","target":"LA","count":18},{"source":"LA","target":"PER","count":2},{"source":"LOT","target":"LOT","count":18},{"source":"PDG","target":"ABS","count":1},{"source":"PDG","target":"AST","count":4},{"source":"PDG","target":"ATS","count":1},{"source":"PDG","target":"CAR","count":1},{"source":"PDG","target":"CR","count":8},{"source":"PDG","target":"ICS","count":1},{"source":"PDG","target":"IGN","count":3},{"source":"PDG","target":"INT","count":18},{"source":"PDG","target":"ITS","count":6},{"source":"PDG","target":"NRB","count":4},{"source":"PDG","target":"ONT","count":1},{"source":"PDG","target":"PDG","count":24},{"source":"PDG","target":"PER","count":1},{"source":"PEG","target":"CAR","count":1},{"source":"PEG","target":"ENV","count":1},{"source":"PEG","target":"INFRA","count":1},{"source":"PEG","target":"ITS","count":22},{"source":"PEG","target":"LA","count":1},{"source":"PEG","target":"PEG","count":51},{"source":"PEG","target":"PER","count":6},{"source":"RPT","target":"ABS","count":1},{"source":"RPT","target":"APL","count":1},{"source":"RPT","target":"IGN","count":1},{"source":"RPT","target":"INT","count":9},{"source":"RPT","target":"ITS","count":2},{"source":"RPT","target":"RPT","count":11},{"source":"RPT","target":"RTR","count":1},{"source":"RWWA","target":"INT","count":1},{"source":"RWWA","target":"ITS","count":1},{"source":"RWWA","target":"PER","count":1},{"source":"RWWA","target":"RWWA","count":1},{"source":"SCOR","target":"SCOR","count":5},{"source":"SPK","target":"INT","count":4},{"source":"SPK","target":"ITS","count":4},{"source":"SPK","target":"SPK","count":21},{"source":"TS","target":"CS","count":1},{"source":"TS","target":"TS","count":10}];
-var nodes_data = [{"name":"ABS","total":11}, {"name":"ATS","total":23}, {"name":"CR","total":25},{"name":"ENV","total":3},{"name":"INT","total":78},{"name":"ITS","total":177},{"name":"PDG","total":28},{"name":"PER","total":33},{"name":"PRAC","total":4},{"name":"AC","total":2},{"name":"ACDC","total":1},{"name":"APL","total":10},{"name":"LA","total":20},{"name":"PEG","total":53},{"name":"AST","total":21},{"name":"COP","total":2},{"name":"DBT","total":3},{"name":"DEVOPS","total":1},{"name":"IGN","total":18},{"name":"CAR","total":11},{"name":"LOT","total":18},{"name":"ICS","total":1},{"name":"NRB","total":4},{"name":"ONT","total":1},{"name":"INFRA","total":1},{"name":"RPT","total":11},{"name":"RTR","total":1},{"name":"RWWA","total":1},{"name":"SCOR","total":5},{"name":"SPK","total":21},{"name":"CS","total":1},{"name":"TS","total":10}];
+var links_data = [{"source": "23rd of September Communist League", "target": "Government (Diplomatic)", "count": 4},
+                    {"source": "23rd of September Communist League", "target": "Business", "count": 44},
+                    {"source": "23rd of September Communist League", "target": "Military", "count": 2},
+                    {"source": "23rd of September Communist League", "target": "Government (General)", "count": 8},
+                    {"source": "23rd of September Communist League", "target": "Police", "count": 24},
+                    {"source": "23rd of September Communist League", "target": "Journalists & Media", "count": 2},
+                    {"source": "23rd of September Communist League", "target": "Educational Institution", "count": 4},
+                    {"source": "Alpha-66 (Cuban counterrevolutionary)", "target": "Journalists & Media", "count": 2},
+                    {"source": "Anarchists", "target": "Government (General)", "count": 2},
+                    {"source": "Animal Liberation Front (ALF)", "target": "Business", "count": 4},
+                    {"source": "Animal Liberation Front (ALF)", "target": "Government (General)", "count": 2},
+                    {"source": "Anti-United States extremists", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "Basque Fatherland and Freedom (ETA)", "target": "Business", "count": 4},
+                    {"source": "Budget for the Popular Prep or Death", "target": "Educational Institution", "count": 2},
+                    {"source": "Commando Internacionalista Simon Bolivar", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "Contras", "target": "Airports & Aircraft", "count": 2},
+                    {"source": "Democratic Revolutionary Party", "target": "Government (General)", "count": 6},
+                    {"source": "Democratic Revolutionary Party", "target": "Private Citizens & Property", "count": 8},
+                    {"source": "Democratic Revolutionary Party", "target": "Transportation", "count": 10},
+                    {"source": "Earth Liberation Front (ELF)", "target": "Business", "count": 4},
+                    {"source": "Evangelical Christians", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Francisco Villa People's Front", "target": "Police", "count": 2},
+                    {"source": "Francisco Villa People's Front", "target": "Violent Political Party", "count": 2},
+                    {"source": "Fuerzas Armadas Revolucionarias del Pueblo (FARP)", "target": "Police", "count": 2},
+                    {"source": "Fuerzas Armadas Revolucionarias del Pueblo (FARP)", "target": "Business", "count": 4},
+                    {"source": "Gulf Cartel", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Gunmen", "target": "Police", "count": 2},
+                    {"source": "Gunmen", "target": "Business", "count": 2},
+                    {"source": "Gunmen", "target": "Private Citizens & Property", "count": 4},
+                    {"source": "Independent Peasants Union", "target": "Business", "count": 8},
+                    {"source": "Independent Peasants Union", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Indians", "target": "Violent Political Party", "count": 2},
+                    {"source": "Individuals Tending Toward Savagery", "target": "Educational Institution", "count": 2},
+                    {"source": "Individuals Tending Toward Savagery", "target": "Business", "count": 2},
+                    {"source": "Informal Feminist Commando for Anti-authoritarian Action", "target": "Religious Figures/Institutions", "count": 2},
+                    {"source": "Institutional Revolutionary Party (PRI)", "target": "Private Citizens & Property", "count": 26},
+                    {"source": "Institutional Revolutionary Party (PRI)", "target": "Government (General)", "count": 2},
+                    {"source": "Jalisco New Generation Cartel (CJNG)", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "Juarez Cartel (Carrillo-Fuentes / Mexico)", "target": "Police", "count": 2},
+                    {"source": "Justice Army for Defenseless Peoples", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Kidnapping gang", "target": "Police", "count": 2},
+                    {"source": "Knights Templar (Caballeros Templarios)", "target": "Business", "count": 2},
+                    {"source": "Mexican Students", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "Militant Peasants (NFI)", "target": "Police", "count": 4},
+                    {"source": "Militants of the National Action Party", "target": "Government (General)", "count": 2},
+                    {"source": "Mob", "target": "Government (General)", "count": 2},
+                    {"source": "Movement for Triqui Unification and Struggle", "target": "Government (General)", "count": 2},
+                    {"source": "Movement of the Revolutionary Left (MIR) (Chile)", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Narco-Terrorists", "target": "Business", "count": 2},
+                    {"source": "National Front for the Liberation of Cuba (FLNC)", "target": "Business", "count": 2},
+                    {"source": "National Front for the Liberation of Cuba (FLNC)", "target": "Government (General)", "count": 2},
+                    {"source": "National Front for the Liberation of Cuba (FLNC)", "target": "Maritime", "count": 2},
+                    {"source": "National Front for the Liberation of Cuba (FLNC)", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "National Independent Committee for Political Prisoners and Persecuted and Missing Persons", "target": "Government (Diplomatic)", "count": 4},
+                    {"source": "Pagan Sect of the Mountain", "target": "Transportation", "count": 18},
+                    {"source": "Paramilitaries", "target": "Private Citizens & Property", "count": 4},
+                    {"source": "People's Armed Revolutionary Branch", "target": "Business", "count": 2},
+                    {"source": "People's Liberation Army (Mexico)", "target": "Government (Diplomatic)", "count": 2},
+                    {"source": "People's National Liberation Movement", "target": "Government (General)", "count": 2},
+                    {"source": "Poor People's Party", "target": "Government (General)", "count": 2},
+                    {"source": "Poor People's Party", "target": "Business", "count": 2},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Military", "count": 20},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Police", "count": 10},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Business", "count": 4},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Journalists & Media", "count": 4},
+                    {"source": "Popular Revolutionary Army (Mexico)", "target": "Utilities", "count": 4},
+                    {"source": "Pumba and Tata Cartel", "target": "Business", "count": 2},
+                    {"source": "Revolutionary Student Front", "target": "Government (Diplomatic)", "count": 4},
+                    {"source": "Revolutionary Student Front", "target": "Business", "count": 2},
+                    {"source": "Revolutionary Worker Clandestine Union of the People Party (PROCUP)", "target": "Police", "count": 2},
+                    {"source": "Revolutionary Worker Clandestine Union of the People Party (PROCUP)", "target": "Business", "count": 4},
+                    {"source": "Rival peasant band", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Shining Path (SL)", "target": "Transportation", "count": 2},
+                    {"source": "Southern Sierra Peasant Organization", "target": "Government (General)", "count": 4},
+                    {"source": "State Council of Indian and Peasant Organization", "target": "Government (General)", "count": 2},
+                    {"source": "Strikers", "target": "Police", "count": 2},
+                    {"source": "Students", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Taxi Drivers", "target": "Police", "count": 2},
+                    {"source": "U/I Catholic Traditionalists", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Union of Peoples and Organizations of the State of Guerrero (UPOEG)", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Union of the People (UDP)", "target": "Government (General)", "count": 6},
+                    {"source": "Union of the People (UDP)", "target": "Business", "count": 32},
+                    {"source": "Union of the People (UDP)", "target": "Private Citizens & Property", "count": 2},
+                    {"source": "Union of the People (UDP)", "target": "Police", "count": 2},
+                    {"source": "United Popular Liberation Army of America", "target": "Business", "count": 2},
+                    {"source": "Villagers", "target": "Government (General)", "count": 2},
+                    {"source": "White Guard", "target": "Government (General)", "count": 2},
+                    {"source": "Zapatista National Liberation Army", "target": "Business", "count": 2},
+                    {"source": "Zapatista National Liberation Army", "target": "Private Citizens & Property", "count": 26},
+                    {"source": "Zapatista National Liberation Army", "target": "Military", "count": 2},
+                    {"source": "Zapatista National Liberation Army", "target": "Utilities", "count": 6},
+                    {"source": "Zapatista National Liberation Army", "target": "Government (General)", "count": 6},
+                    {"source": "Zapatista National Liberation Army", "target": "Journalists & Media", "count": 2},
+                    {"source": "Zapatista National Liberation Army", "target": "Police", "count": 2},
+                    {"source": "Zetas", "target": "Journalists & Media", "count": 4}];
+
+var nodes_data = [{"name": "23rd of September Communist League", "total": 44},
+                {"name": "Alpha-66 (Cuban counterrevolutionary)", "total": 1},
+                {"name": "Anarchists", "total": 1},
+                {"name": "Animal Liberation Front (ALF)", "total": 3},
+                {"name": "Anti-United States extremists", "total": 1},
+                {"name": "Basque Fatherland and Freedom (ETA)", "total": 2},
+                {"name": "Budget for the Popular Prep or Death", "total": 1},
+                {"name": "Commando Internacionalista Simon Bolivar", "total": 1},
+                {"name": "Contras", "total": 1},
+                {"name": "Democratic Revolutionary Party", "total": 12},
+                {"name": "Earth Liberation Front (ELF)", "total": 2},
+                {"name": "Evangelical Christians", "total": 1},
+                {"name": "Francisco Villa People's Front", "total": 2},
+                {"name": "Fuerzas Armadas Revolucionarias del Pueblo (FARP)", "total": 3},
+                {"name": "Gulf Cartel", "total": 1},
+                {"name": "Gunmen", "total": 4},
+                {"name": "Independent Peasants Union", "total": 5},
+                {"name": "Indians", "total": 1},
+                {"name": "Individuals Tending Toward Savagery", "total": 2},
+                {"name": "Informal Feminist Commando for Anti-authoritarian Action", "total": 1},
+                {"name": "Institutional Revolutionary Party (PRI)", "total": 14},
+                {"name": "Jalisco New Generation Cartel (CJNG)", "total": 1},
+                {"name": "Juarez Cartel (Carrillo-Fuentes / Mexico)", "total": 1},
+                {"name": "Justice Army for Defenseless Peoples", "total": 1},
+                {"name": "Kidnapping gang", "total": 1},
+                {"name": "Knights Templar (Caballeros Templarios)", "total": 1},
+                {"name": "Mexican Students", "total": 1},
+                {"name": "Militant Peasants (NFI)", "total": 2},
+                {"name": "Militants of the National Action Party", "total": 1},
+                {"name": "Mob", "total": 1},
+                {"name": "Movement for Triqui Unification and Struggle", "total": 1},
+                {"name": "Movement of the Revolutionary Left (MIR) (Chile)", "total": 1},
+                {"name": "Narco-Terrorists", "total": 1},
+                {"name": "National Front for the Liberation of Cuba (FLNC)", "total": 4},
+                {"name": "National Independent Committee for Political Prisoners and Persecuted and Missing Persons", "total": 2},
+                {"name": "Pagan Sect of the Mountain", "total": 9},
+                {"name": "Paramilitaries", "total": 2},
+                {"name": "People's Armed Revolutionary Branch", "total": 1},
+                {"name": "People's Liberation Army (Mexico)", "total": 1},
+                {"name": "People's National Liberation Movement", "total": 1},
+                {"name": "Poor People's Party", "total": 2},
+                {"name": "Popular Revolutionary Army (Mexico)", "total": 22},
+                {"name": "Pumba and Tata Cartel", "total": 1},
+                {"name": "Revolutionary Student Front", "total": 3},
+                {"name": "Revolutionary Worker Clandestine Union of the People Party (PROCUP)", "total": 3},
+                {"name": "Rival peasant band", "total": 1},
+                {"name": "Shining Path (SL)", "total": 1},
+                {"name": "Southern Sierra Peasant Organization", "total": 2},
+                {"name": "State Council of Indian and Peasant Organization", "total": 1},
+                {"name": "Strikers", "total": 1},
+                {"name": "Students", "total": 1},
+                {"name": "Taxi Drivers", "total": 1},
+                {"name": "U/I Catholic Traditionalists", "total": 1},
+                {"name": "Union of Peoples and Organizations of the State of Guerrero (UPOEG)", "total": 1},
+                {"name": "Union of the People (UDP)", "total": 21},
+                {"name": "United Popular Liberation Army of America", "total": 1},
+                {"name": "Villagers", "total": 1},
+                {"name": "White Guard", "total": 1},
+                {"name": "Zapatista National Liberation Army", "total": 23},
+                {"name": "Zetas", "total": 2},
+                {"name": "Airports & Aircraft", "total": 1},
+                {"name": "Business", "total": 65},
+                {"name": "Educational Institution", "total": 4},
+                {"name": "Government (Diplomatic)", "total": 12},
+                {"name": "Government (General)", "total": 27},
+                {"name": "Journalists & Media", "total": 7},
+                {"name": "Maritime", "total": 1},
+                {"name": "Military", "total": 12},
+                {"name": "Police", "total": 29},
+                {"name": "Private Citizens & Property", "total": 45},
+                {"name": "Religious Figures/Institutions", "total": 1},
+                {"name": "Transportation", "total": 15},
+                {"name": "Utilities", "total": 5},
+                {"name": "Violent Political Party", "total": 2}];
 
 var nodeSizeScale = d3.scaleLinear()
   .domain(d3.extent(nodes_data, d => d.total/2))
-  .range([30, 70]);
+  .range([20, 60]);
 
 var linkSizeScale = d3.scaleLinear()
   .domain(d3.extent(links_data, d => d.count))
-  .range([5, 30]);
+  .range([1, 15]);
 
 var linkColourScale = d3.scaleLinear()
   .domain(d3.extent(links_data, d => d.count))
-  .range(['blue', 'red']);
+  .range(['#377eb8','#e41a1c']);
 
 var radius = 15;
 var simulation = d3.forceSimulation()
@@ -35,7 +216,7 @@ var link_force =  d3.forceLink(links_data)
 var charge_force = d3.forceManyBody()
     .strength(-1500)
     .distanceMin(5)
-    .distanceMax(700);    
+    .distanceMax(1700);    
 
 var center_force = d3.forceCenter(widthNetwork / 2, heightNetwork / 2);  
 
@@ -45,23 +226,6 @@ simulation
     .force("link",link_force);
   
 simulation.on("tick", tickActions);
-
-svgNetwork.append("defs").selectAll("marker")
-	.data(["dominating"])
-	.enter().append("marker")
-	.attr('markerUnits', 'userSpaceOnUse')
-	.attr("id", function (d) {
-		return d;
-	})
-	.attr("viewBox", "0 -5 10 10")
-	.attr("refX", 0)
-	.attr("refY", 0)
-	.attr("markerWidth", 12)
-	.attr("markerHeight", 12)
-	.attr("orient", "auto-start-reverse")
-	.append("path")
-	.attr("d", "M0,-5L10,0L0,5")
-	.attr("fill", "red");
 
 // add encompassing group for the zoom 
 var g = svgNetwork.append("g")
@@ -74,12 +238,30 @@ var link = g.selectAll(".link")
     .append("path")
     .attr("class", "link")
     .style('stroke', d => {return linkColourScale(d.count);})
-    .attr('stroke-opacity', 0.5)
+    .attr('stroke-opacity', 1.0)
     .attr('stroke-width', d => {return linkSizeScale(d.count);})
-	  .attr("marker-end", function(d) {
+	.attr("marker-end", function(d) {
         if(JSON.stringify(d.target) !== JSON.stringify(d.source))
            return "url(#dominating)";
     });
+
+var marker = g.selectAll("marker")
+    .data(["dominating"])
+    .enter()
+    .append("marker")
+    .attr('markerUnits', 'userSpaceOnUse')
+    .attr("id", function (d) { return d;})
+    .attr("viewBox", "0 -5 10 10")
+    .attr("refX", 0)
+    .attr("refY", 0)
+    .attr("markerWidth", 12)
+    .attr("markerHeight", 12)
+    .attr("orient", "auto-start-reverse")
+    .style("pointer-events", "none")
+    .append("path")
+    .attr("d", "M0,-5L10,0L0,5")
+    .attr('fill-opacity', 1)
+    .attr("fill", "#d9595a");
 
 // draw circles for the nodes 
 var node = g.append("g")
@@ -88,12 +270,15 @@ var node = g.append("g")
         .data(nodes_data)
         .enter()
         .append("circle")
-        .attr("r", d => {return nodeSizeScale(d.total/2);})
-        .attr("fill", "#333")
-        .on("mouseover", mouseOver(.1))
-        .on("mouseout", mouseOut); 
+        .attr("r", d => {return nodeSizeScale(d.total/3);})
+        .attr("fill", "#7a7a7a")
+        .attr("stroke", "#000000")
+        .attr("stroke-width", "1.8px")
+        .style('fill-opacity', 1)
+        .attr("stroke-opacity", 1)
+        .on("mouseover", mouseOver(0))
+        .on("mouseout", mouseOut);
 
-// add text labels
 var text = g.append("g")
     .attr("class", "labels")
     .selectAll("text")
@@ -101,33 +286,33 @@ var text = g.append("g")
     .enter().append("text")
     .style("text-anchor","middle")
     .style("font-weight", "bold")
+    .style("font-size", 15)
+    .style("opacity", 0.5)
     .style("pointer-events", "none")
     .attr("dy", ".35em")
-    .text(function(d) { return d.name });
+    // .attr("stroke", "#000000")
+    // .attr("stroke-width", "1.5px")
+    .style("fill", "#000000")
+    .text(function(d) {return d.name});
 
-//add drag capabilities  
 var drag_handler = d3.drag()
   .on("start", drag_start)
-  .on("drag", drag_drag)
-  .on("end", drag_end); 
+  .on("drag",  drag_drag)
+  .on("end",   drag_end); 
 
 drag_handler(node);
 
-//add zoom capabilities
 var zoom_handler = d3.zoom()
     .on("zoom", zoom_actions);
 
 zoom_handler(svgNetwork);     
 
-//Drag functions 
-//d is the node 
 function drag_start(event, d) {
  if (!event.active) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
 }
 
-//make sure you can't drag the circle outside the box
 function drag_drag(event, d) {
   d.fx = event.x;
   d.fy = event.y;
@@ -139,7 +324,6 @@ function drag_end(event, d) {
   d.fy = null;
 }
 
-//Zoom functions 
 function zoom_actions(event, d){
     g.attr("transform", event.transform)
 }
@@ -166,12 +350,11 @@ function positionLink1(d) {
     return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
 }
 
-  // recalculate and back off the distance
 function positionLink2(d) {
 	    // length of current path
     var pl = this.getTotalLength(),
         // radius of circle plus marker head
-        r = nodeSizeScale(d.target.total/2)+ 12, //12 is the "size" of the marker Math.sqrt(12**2 + 12 **2)
+        r = nodeSizeScale(d.target.total/2) + 25, //12 is the "size" of the marker Math.sqrt(12**2 + 12 **2)
         // position close to where path intercepts circle	
         m = this.getPointAtLength(pl - r);          
 
@@ -182,41 +365,71 @@ function positionLink2(d) {
       return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + m.x + "," + m.y;
 }
 
-// build a dictionary of nodes that are linked
 var linkedByIndex = {};
 links_data.forEach(function(d) {
     linkedByIndex[d.source.index + "," + d.target.index] = 1;
 });
 
-// check the dictionary to see if nodes are linked
 function isConnected(a, b) {
     return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
 }
 
-// fade nodes on hover
+function isConnected2(a, b) {
+    return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index];
+}
+
 function mouseOver(opacity) {
     return function(event, d) {
-        // check all other nodes to see if they're connected
-        // to this one. if so, keep the opacity at 1, otherwise
-        // fade
         node.style("stroke-opacity", function(o) {
             thisOpacity = isConnected(d, o) ? 1 : opacity;
             return thisOpacity;
         });
+
         node.style("fill-opacity", function(o) {
             thisOpacity = isConnected(d, o) ? 1 : opacity;
             return thisOpacity;
         });
-        text.style("fill-opacity", function(o) {
-            thisOpacity = isConnected(d, o) ? 1 : opacity;
+
+        node.style("fill", function(o) {
+            thisOpacity = isConnected(d, o) ? '#6b6b6b' : '"#7a7a7a';
             return thisOpacity;
         });
-        // also style link accordingly
+
+        text.style("opacity", function(o) {
+
+            if (isConnected(d, o)) {
+
+                if (o.name === d.name) {
+                    return 1;
+                }
+                else {
+                    if (o.total < 5) {
+                        return 0;
+                    }
+                }
+            }
+            else {
+                return opacity;
+            }
+        });
+
+        text.style("font-size", function(o) {
+            thisOpacity = isConnected(d, o) ? 25 : 15;
+            return thisOpacity;
+        });
+
         link.style("stroke-opacity", function(o) {
             return o.source === d || o.target === d ? 1 : opacity;
         });
+
         link.style("stroke", function(o) {
             return o.source === d || o.target === d ? linkColourScale(o.count) : "#333";
+        });
+
+        link.attr("marker-end", function(o) {
+            if (o.source === d || o.target === d) {
+                return "url(#dominating)";
+            }
         });
     };
 }
@@ -224,7 +437,15 @@ function mouseOver(opacity) {
 function mouseOut() {
     node.style("stroke-opacity", 1);
     node.style("fill-opacity", 1);
-    text.style("fill-opacity", 1);
-    link.style("stroke-opacity", 0.5);
+
+    text.style("opacity", 0.5);
+    text.style("font-size", 15);
+    // text.text(function(d) {if (d.total > 3) {return d.name}});
+
+    node.style("fill", "#7a7a7a");
+    node.style('fill-opacity', 1);
+
+    link.attr("marker-end", "url(#dominating)");
+    link.style("stroke-opacity", 0.9);
     link.style("stroke", d => {return linkColourScale(d.count);});
 }

@@ -417,8 +417,10 @@
       max-width: 1250px;
    }
 
+ 
+
    #container-publications {
-      height:  220px !important;
+      overflow: visible !important;
    }
 
    .see-all {
@@ -437,16 +439,19 @@
     display: flex;
     flex-flow: column;
 }
+   .stream-item {
+      padding-top: 25px;
+   }
 
 figcaption {
-  font-size:  20px !important; 
+   
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   margin-top: 0.5rem !important; 
   margin-bottom: 0rem !important;
   margin-right:  0.5rem !important;
   line-height: 1.25;
-  color: #313131;
+  color: inherit;
   text-rendering: optimizeLegibility;
    
   overflow-wrap: break-word; 
@@ -457,6 +462,13 @@ figcaption {
   -ms-hyphens: manual;
   hyphens: manual; 
 }
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
 
    </style>
 
@@ -925,7 +937,7 @@ figcaption {
     <div class="media-body">
       <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
       <h6 class="card-subtitle">Data Scientist</h6>
-      <p class="card-text">Physicist working on complex networks and data science. I have over 5 years of experience studying criminal networks.</p>
+      <p class="card-text">Physicist working on complex networks and data science.</p>
       <ul class="network-icon" aria-hidden="true">
   
     
@@ -1039,6 +1051,8 @@ figcaption {
     <ul>
       
       <li><a href="/post/cocaine_smuggling_networks/">Dismantling and modeling cocaine trafficking networks</a></li>
+      
+      <li><a href="/publication/universality-of-political-corruption-networks/">Universality of political corruption networks</a></li>
       
     </ul>
   </div>
