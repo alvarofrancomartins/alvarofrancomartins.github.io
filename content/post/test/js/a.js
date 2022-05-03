@@ -1,22 +1,21 @@
-const marginNetwork = { top: 0, right: 0, bottom: 0, left: 0};
-const widthNetwork  = 980 - marginNetwork.left - marginNetwork.right;
-const heightNetwork = 840 - marginNetwork.top  - marginNetwork.bottom;
+const marginNetwork = {top: 0, right: 0, bottom: 0, left: 0};
+const widthNetwork  = 1200 - marginNetwork.left - marginNetwork.right;
+const heightNetwork = 700  - marginNetwork.top  - marginNetwork.bottom;
 
 const zoom = d3.zoom();
 
-const x = 300;
-const y = 200;
+const x = 200;
+const y = 100;
 const scale = 1;
-const k = 0.3;
+const k = 0.55;
 
-//Create SVG element in chart id element
 const svgNetwork = d3.select('#cocaine_smuggling_1')
-                 .append("svg")
-                .attr("width",  1200)
-                .attr("height", 700)
+	             .append("svg")
+                .attr("width",  widthNetwork)
+                .attr("height", heightNetwork)
                 .call(zoom.transform, d3.zoomIdentity.translate(x, y).scale(scale))
                 .call(zoom.on('zoom', (event) => {
-                    svgNetwork.attr('transform', event.transform);
+                    svgNetwork.attr('transform', event.transform)
                  }))
               .append("g")
               .attr('transform', `translate(${x}, ${y})scale(${k})`);
@@ -36,7 +35,6 @@ var links_data = [{"source": "23rd of September Communist League", "target": "Go
                     {"source": "Basque Fatherland and Freedom (ETA)", "target": "Business", "count": 4},
                     {"source": "Budget for the Popular Prep or Death", "target": "Educational Institution", "count": 2},
                     {"source": "Commando Internacionalista Simon Bolivar", "target": "Government (Diplomatic)", "count": 2},
-                    {"source": "Contras", "target": "Airports & Aircraft", "count": 2},
                     {"source": "Democratic Revolutionary Party", "target": "Government (General)", "count": 6},
                     {"source": "Democratic Revolutionary Party", "target": "Private Citizens & Property", "count": 8},
                     {"source": "Democratic Revolutionary Party", "target": "Transportation", "count": 10},
@@ -55,7 +53,6 @@ var links_data = [{"source": "23rd of September Communist League", "target": "Go
                     {"source": "Indians", "target": "Violent Political Party", "count": 2},
                     {"source": "Individuals Tending Toward Savagery", "target": "Educational Institution", "count": 2},
                     {"source": "Individuals Tending Toward Savagery", "target": "Business", "count": 2},
-                    {"source": "Informal Feminist Commando for Anti-authoritarian Action", "target": "Religious Figures/Institutions", "count": 2},
                     {"source": "Institutional Revolutionary Party (PRI)", "target": "Private Citizens & Property", "count": 26},
                     {"source": "Institutional Revolutionary Party (PRI)", "target": "Government (General)", "count": 2},
                     {"source": "Jalisco New Generation Cartel (CJNG)", "target": "Government (Diplomatic)", "count": 2},
@@ -126,7 +123,6 @@ var nodes_data = [{"name": "23rd of September Communist League", "total": 44},
                 {"name": "Basque Fatherland and Freedom (ETA)", "total": 2},
                 {"name": "Budget for the Popular Prep or Death", "total": 1},
                 {"name": "Commando Internacionalista Simon Bolivar", "total": 1},
-                {"name": "Contras", "total": 1},
                 {"name": "Democratic Revolutionary Party", "total": 12},
                 {"name": "Earth Liberation Front (ELF)", "total": 2},
                 {"name": "Evangelical Christians", "total": 1},
@@ -137,7 +133,6 @@ var nodes_data = [{"name": "23rd of September Communist League", "total": 44},
                 {"name": "Independent Peasants Union", "total": 5},
                 {"name": "Indians", "total": 1},
                 {"name": "Individuals Tending Toward Savagery", "total": 2},
-                {"name": "Informal Feminist Commando for Anti-authoritarian Action", "total": 1},
                 {"name": "Institutional Revolutionary Party (PRI)", "total": 14},
                 {"name": "Jalisco New Generation Cartel (CJNG)", "total": 1},
                 {"name": "Juarez Cartel (Carrillo-Fuentes / Mexico)", "total": 1},
@@ -178,7 +173,6 @@ var nodes_data = [{"name": "23rd of September Communist League", "total": 44},
                 {"name": "White Guard", "total": 1},
                 {"name": "Zapatista National Liberation Army", "total": 23},
                 {"name": "Zetas", "total": 2},
-                {"name": "Airports & Aircraft", "total": 1},
                 {"name": "Business", "total": 65},
                 {"name": "Educational Institution", "total": 4},
                 {"name": "Government (Diplomatic)", "total": 12},
@@ -188,35 +182,34 @@ var nodes_data = [{"name": "23rd of September Communist League", "total": 44},
                 {"name": "Military", "total": 12},
                 {"name": "Police", "total": 29},
                 {"name": "Private Citizens & Property", "total": 45},
-                {"name": "Religious Figures/Institutions", "total": 1},
                 {"name": "Transportation", "total": 15},
                 {"name": "Utilities", "total": 5},
                 {"name": "Violent Political Party", "total": 2}];
 
 var nodeSizeScale = d3.scaleLinear()
   .domain(d3.extent(nodes_data, d => d.total/2))
-  .range([20, 60]);
+  .range([10, 50]);
 
 var linkSizeScale = d3.scaleLinear()
   .domain(d3.extent(links_data, d => d.count))
-  .range([1, 15]);
+  .range([1, 6]);
 
 var linkColourScale = d3.scaleLinear()
   .domain(d3.extent(links_data, d => d.count))
   .range(['#377eb8','#e41a1c']);
 
-var radius = 15;
+var radius = 12;
 var simulation = d3.forceSimulation()
           .nodes(nodes_data);
-                              
+
 var link_force =  d3.forceLink(links_data)
           .id(function(d) {return d.name;})
-          .distance(50);
+          .distance(200);
 
 var charge_force = d3.forceManyBody()
-    .strength(-1500)
-    .distanceMin(5)
-    .distanceMax(1700);    
+    .strength(-1000)
+    .distanceMin(100)
+    .distanceMax(200);    
 
 var center_force = d3.forceCenter(widthNetwork / 2, heightNetwork / 2);  
 
@@ -240,7 +233,7 @@ var link = g.selectAll(".link")
     .style('stroke', d => {return linkColourScale(d.count);})
     .attr('stroke-opacity', 1.0)
     .attr('stroke-width', d => {return linkSizeScale(d.count);})
-    .attr("marker-end", function(d) {
+	.attr("marker-end", function(d) {
         if(JSON.stringify(d.target) !== JSON.stringify(d.source))
            return "url(#dominating)";
     });
@@ -286,7 +279,7 @@ var text = g.append("g")
     .enter().append("text")
     .style("text-anchor","middle")
     .style("font-weight", "bold")
-    .style("font-size", 15)
+    .style("font-size", 11)
     .style("opacity", 0.5)
     .style("pointer-events", "none")
     .attr("dy", ".35em")
@@ -331,12 +324,15 @@ function zoom_actions(event, d){
 function tickActions() {
     //update circle positions each tick of the simulation 
        node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+        .attr("transform", function(d) {
+          d.x = Math.max(radius, Math.min(widthNetwork -radius+ 100, d.x));
+          d.y = Math.max(radius, Math.min(heightNetwork -radius+100, d.y));
+          return "translate(" + d.x + "," + d.y + ")";
+        });
         
     //update link positions 
     link.attr("d", positionLink1);
-      link.filter(function(d){ return JSON.stringify(d.target) !== JSON.stringify(d.source); })
+	  link.filter(function(d){ return JSON.stringify(d.target) !== JSON.stringify(d.source); })
       .attr("d",positionLink2);
 
     text.attr("x", function(d) { return d.x; })
@@ -350,12 +346,13 @@ function positionLink1(d) {
     return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
 }
 
+
 function positionLink2(d) {
-        // length of current path
+	    // length of current path
     var pl = this.getTotalLength(),
         // radius of circle plus marker head
         r = nodeSizeScale(d.target.total/2) + 25, //12 is the "size" of the marker Math.sqrt(12**2 + 12 **2)
-        // position close to where path intercepts circle   
+        // position close to where path intercepts circle	
         m = this.getPointAtLength(pl - r);          
 
      var dx = m.x - d.source.x,
@@ -414,7 +411,7 @@ function mouseOver(opacity) {
         });
 
         text.style("font-size", function(o) {
-            thisOpacity = isConnected(d, o) ? 25 : 15;
+            thisOpacity = isConnected(d, o) ? 25 : 11;
             return thisOpacity;
         });
 

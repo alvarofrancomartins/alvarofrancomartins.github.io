@@ -11,7 +11,7 @@ const k = 0.3;
 
 //Create SVG element in chart id element
 const svgNetwork = d3.select('#cocaine_smuggling_1')
-                 .append("svg")
+	             .append("svg")
                 .attr("width",  1200)
                 .attr("height", 700)
                 .call(zoom.transform, d3.zoomIdentity.translate(x, y).scale(scale))
@@ -240,7 +240,7 @@ var link = g.selectAll(".link")
     .style('stroke', d => {return linkColourScale(d.count);})
     .attr('stroke-opacity', 1.0)
     .attr('stroke-width', d => {return linkSizeScale(d.count);})
-    .attr("marker-end", function(d) {
+	.attr("marker-end", function(d) {
         if(JSON.stringify(d.target) !== JSON.stringify(d.source))
            return "url(#dominating)";
     });
@@ -336,7 +336,7 @@ function tickActions() {
         
     //update link positions 
     link.attr("d", positionLink1);
-      link.filter(function(d){ return JSON.stringify(d.target) !== JSON.stringify(d.source); })
+	  link.filter(function(d){ return JSON.stringify(d.target) !== JSON.stringify(d.source); })
       .attr("d",positionLink2);
 
     text.attr("x", function(d) { return d.x; })
@@ -351,11 +351,11 @@ function positionLink1(d) {
 }
 
 function positionLink2(d) {
-        // length of current path
+	    // length of current path
     var pl = this.getTotalLength(),
         // radius of circle plus marker head
         r = nodeSizeScale(d.target.total/2) + 25, //12 is the "size" of the marker Math.sqrt(12**2 + 12 **2)
-        // position close to where path intercepts circle   
+        // position close to where path intercepts circle	
         m = this.getPointAtLength(pl - r);          
 
      var dx = m.x - d.source.x,
