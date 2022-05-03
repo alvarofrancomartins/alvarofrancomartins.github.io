@@ -4,7 +4,7 @@ subtitle: Interact with realistic simulations of corruption networks
 summary: Interact with realistic simulations of corruption networks
 projects: []
 
-date: "2022-5-3"
+date: "2022-05-03"
 
 draft: false
 

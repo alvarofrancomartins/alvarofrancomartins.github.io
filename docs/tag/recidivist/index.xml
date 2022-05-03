@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/recidivist/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/recidivist/index.xml" rel="self" type="application/rss+xml" />
     <description>recidivist</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 15 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>recidivist</title>
@@ -13,93 +13,9 @@
     </image>
     
     <item>
-      <title>Unveiling the hidden patterns of corruption networks</title>
-      <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
-      <pubDate>Fri, 15 Apr 2022 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
-      <description>&lt;p&gt;Political corruption is an inherent problem in our societies. Corrupt behavior is a multifaceted phenomenon responsible for a variety of socioeconomic limitations. In general, isolated agents engaged in criminal acts rarely pose a major threat to society. However, this scenario changes completely when we consider, for example, multiple corruption scandals.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Although the people involved in corruption obviously want to keep it in secrecy, they do not operate without leaving traces. A natural approach to consider this collective behavior can be taken from a combination of scientific fields, such as network science, complexity science, and data science.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Criminal networks are not simply social networks operating in criminal contexts. The interactions within these systems go beyond social norms and are often shaped by trade-offs between concealment and efficiency. Political corruption networks represent an additional layer of complexity. Frequently involving high ranking individuals, a great deal of polarization and many controversies, political corruption weakens democracy, damages political stability and spreads mistrust in the rule of law.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;In our recent paper &lt;a href=&#34;https://www.nature.com/articles/s41598-022-10909-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Universality of political corruption networks&lt;/a&gt;, we used publicly available data from Brazil and Spain to reveal the underlying patterns of political corruption networks. Our work has revealed fascinating statistical similarities in the growth of these networks. This work include many results I obtained during my master&amp;rsquo;s degree and ongoing PhD. Here I summarize our main findings:&lt;/p&gt;
-&lt;br&gt;
-&lt;ol&gt;
-&lt;li&gt;We have found that, in both countries, the size of corruption scandals is approximately exponentially distributed. These distributions have, on average, roughly 7 people per scandal. Therefore, people tend to act in small groups when they are involved in corruption processes.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig1.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 1: Complementary cumulative distribution of scandals sizes in (A) Spain and (B) Brazil.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;The networks consist of nodes representing people listed in the scandals and links indicating that two people were involved in the same corruption scandal. These networks share surprising features, such as high clustering coefficients, moderately high assortativity coefficients, and low average shortest path length.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig2.png&#34; width=&#34;800px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 2: (A) Spanish and (B) Brazilian political corruption networks.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;The networks&#39; degree distributions are well approximated by exponential distributions. Moreover, the characteristic degrees evolved to a similar plateau, roughly with the same average number of connections.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig3.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 3: Changes in the characteristic degree over the years for (A) Spanish and (B) Brazilian corruption networks. The insets show the cumulative distributions of the vertex degree (on a log-linear scale) for the last year of the networks.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;The networks present community structures where the number of modules is linearly associated with the total number of scandals.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/figa.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 4: (A) Spanish and (B) Brazilian number of modules versus number of scandals.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;5&#34;&gt;
-&lt;li&gt;The time evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by recidivists (&lt;em&gt;i.e.&lt;/em&gt;, individuals involved in at least two scandals).&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig5.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 5: Coalescence processes observed in both political corruption networks.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;6&#34;&gt;
-&lt;li&gt;The number of recidivists is linearly associated with the total number of people. The recidivism rates (number of repeat offenders / total number of offenders) are 9% in Spain and 14.2% in Brazil.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig6.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 7: Linear relationships between the number of repeat offenders and the total number of people.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;7&#34;&gt;
-&lt;li&gt;Recidivists are vertices that connect different parts of the network, functioning as brokers (they have the highest betweenness centrality values). In this sense, the recidivism rate plays an important role in the evolution, structure, and dynamics of corruption networks.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/fig7.png&#34; width=&#34;530px&#34; height=&#34;500px&#34; /&gt;
-    &lt;figcaption&gt;Figure 7: Spanish political corruption network showing recidivists nodes in red.&lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;8&#34;&gt;
-&lt;li&gt;We have proposed a &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/&#34;&gt;computational model&lt;/a&gt; to simulate corruption networks. The model takes into account two results: the recidivists linear pattern and the size distribution of scandals. We can see below that our model generate networks visually similar to the empirical corruption networks.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/sfig1.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 8: (A) Spanish and (B) Brazilian political corruption networks. Model simulations of the empirical networks using (C) Spanish and (D) Brazilian recidivism rates. &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;ol start=&#34;9&#34;&gt;
-&lt;li&gt;More importantly, we have verified that the model is capable of simulating networks with features very similar to those observed in the empirical data.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;figs/sfig5.png&#34; width=&#34;930px&#34; height=&#34;443px&#34; /&gt;
-    &lt;figcaption&gt;Figure 9: The model generates realistic networks that are able to reproduce the empirical network properties. The degree distributions of the model networks can be reasonably described by exponential degree distributions. Furthermore, the network simulations present a linear relationship between the number of modules and the number of complete graphs. &lt;/figcaption&gt;
-&lt;/figure&gt;
-&lt;p&gt;Overall, we have presented a comprehensive investigation of corruption networks related to political scandals in Spain and Brazil over nearly three decades. It is important to remember that these countries have a long history of political corruption and are known worldwide for having huge corruption scandals.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;Our results show that corruption networks share universal characteristics that are independent of social and cultural differences among countries. Ultimately, this work emphasizes the influence of recidivists on organized crime, indicating its susceptibility to interventions targeting these criminals.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;I believe that this work significantly improves the understanding of political corruption networks and organized crime. For more details, please do not hesitate to contact me. I would be happy to talk about my work.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Computational model of political corruption networks</title>
       <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
       <description>&lt;p&gt;In our &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;latest paper&lt;/a&gt;, the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
 &lt;br&gt;
@@ -505,6 +421,90 @@
 &lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;&lt;em&gt;Ribeiro, H. V., Alves, L. G. A., &lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Lenzi, E. K. &amp;amp; Perc, M. &lt;strong&gt;The dynamical structure of political corruption networks.&lt;/strong&gt; J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Unveiling the hidden patterns of corruption networks</title>
+      <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
+      <pubDate>Fri, 15 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
+      <description>&lt;p&gt;Political corruption is an inherent problem in our societies. Corrupt behavior is a multifaceted phenomenon responsible for a variety of socioeconomic limitations. In general, isolated agents engaged in criminal acts rarely pose a major threat to society. However, this scenario changes completely when we consider, for example, multiple corruption scandals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Although the people involved in corruption obviously want to keep it in secrecy, they do not operate without leaving traces. A natural approach to consider this collective behavior can be taken from a combination of scientific fields, such as network science, complexity science, and data science.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Criminal networks are not simply social networks operating in criminal contexts. The interactions within these systems go beyond social norms and are often shaped by trade-offs between concealment and efficiency. Political corruption networks represent an additional layer of complexity. Frequently involving high ranking individuals, a great deal of polarization and many controversies, political corruption weakens democracy, damages political stability and spreads mistrust in the rule of law.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In our recent paper &lt;a href=&#34;https://www.nature.com/articles/s41598-022-10909-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Universality of political corruption networks&lt;/a&gt;, we used publicly available data from Brazil and Spain to reveal the underlying patterns of political corruption networks. Our work has revealed fascinating statistical similarities in the growth of these networks. This work include many results I obtained during my master&amp;rsquo;s degree and ongoing PhD. Here I summarize our main findings:&lt;/p&gt;
+&lt;br&gt;
+&lt;ol&gt;
+&lt;li&gt;We have found that, in both countries, the size of corruption scandals is approximately exponentially distributed. These distributions have, on average, roughly 7 people per scandal. Therefore, people tend to act in small groups when they are involved in corruption processes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig1.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 1: Complementary cumulative distribution of scandals sizes in (A) Spain and (B) Brazil.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;The networks consist of nodes representing people listed in the scandals and links indicating that two people were involved in the same corruption scandal. These networks share surprising features, such as high clustering coefficients, moderately high assortativity coefficients, and low average shortest path length.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig2.png&#34; width=&#34;800px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 2: (A) Spanish and (B) Brazilian political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;The networks&#39; degree distributions are well approximated by exponential distributions. Moreover, the characteristic degrees evolved to a similar plateau, roughly with the same average number of connections.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig3.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 3: Changes in the characteristic degree over the years for (A) Spanish and (B) Brazilian corruption networks. The insets show the cumulative distributions of the vertex degree (on a log-linear scale) for the last year of the networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;The networks present community structures where the number of modules is linearly associated with the total number of scandals.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/figa.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 4: (A) Spanish and (B) Brazilian number of modules versus number of scandals.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;The time evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by recidivists (&lt;em&gt;i.e.&lt;/em&gt;, individuals involved in at least two scandals).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig5.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 5: Coalescence processes observed in both political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;The number of recidivists is linearly associated with the total number of people. The recidivism rates (number of repeat offenders / total number of offenders) are 9% in Spain and 14.2% in Brazil.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig6.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 7: Linear relationships between the number of repeat offenders and the total number of people.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Recidivists are vertices that connect different parts of the network, functioning as brokers (they have the highest betweenness centrality values). In this sense, the recidivism rate plays an important role in the evolution, structure, and dynamics of corruption networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig7.png&#34; width=&#34;530px&#34; height=&#34;500px&#34; /&gt;
+    &lt;figcaption&gt;Figure 7: Spanish political corruption network showing recidivists nodes in red.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;We have proposed a &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/&#34;&gt;computational model&lt;/a&gt; to simulate corruption networks. The model takes into account two results: the recidivists linear pattern and the size distribution of scandals. We can see below that our model generate networks visually similar to the empirical corruption networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig1.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 8: (A) Spanish and (B) Brazilian political corruption networks. Model simulations of the empirical networks using (C) Spanish and (D) Brazilian recidivism rates. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;More importantly, we have verified that the model is capable of simulating networks with features very similar to those observed in the empirical data.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig5.png&#34; width=&#34;930px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generates realistic networks that are able to reproduce the empirical network properties. The degree distributions of the model networks can be reasonably described by exponential degree distributions. Furthermore, the network simulations present a linear relationship between the number of modules and the number of complete graphs. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Overall, we have presented a comprehensive investigation of corruption networks related to political scandals in Spain and Brazil over nearly three decades. It is important to remember that these countries have a long history of political corruption and are known worldwide for having huge corruption scandals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Our results show that corruption networks share universal characteristics that are independent of social and cultural differences among countries. Ultimately, this work emphasizes the influence of recidivists on organized crime, indicating its susceptibility to interventions targeting these criminals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;I believe that this work significantly improves the understanding of political corruption networks and organized crime. For more details, please do not hesitate to contact me. I would be happy to talk about my work.&lt;/p&gt;
 </description>
     </item>
     
