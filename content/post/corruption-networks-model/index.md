@@ -45,7 +45,7 @@ image:
   preview_only: false
 ---
 
-In our [latest paper](/publication/brazilian-corruption-network), the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes. 
+In our [latest paper](/publication/universality-of-political-corruption-networks/), the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes. 
 
 <br>
 
