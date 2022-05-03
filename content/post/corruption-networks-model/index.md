@@ -112,7 +112,7 @@ This interactive visualization was made using [visjs](https://visjs.org/), a bro
 </figure>
 </div>
 
-For more comparisons (both visual and quantitative) between the model and the empirical networks, see the [paper](https://www.google.com) or take a look at my other [post](/post/corruption-networks) where I have summarized our results.
+For more comparisons (both visual and quantitative) between the model and the empirical networks, see the [paper](https://www.nature.com/articles/s41598-022-10909-2) or take a look at my other [post](/post/corruption-networks) where I have summarized our results.
 
 <br>
 
