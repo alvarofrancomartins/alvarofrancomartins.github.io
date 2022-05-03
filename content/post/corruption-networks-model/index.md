@@ -6,7 +6,7 @@ projects: []
 
 date: "2022-04-16"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -44,12 +44,6 @@ image:
   focal_point: "Smart"
   preview_only: false
 ---
-
-{{% callout note %}}
-I am pleased to finally publish one of the most important results I obtained during my master's degree. This work, however, would not have been possible without the help of my Ph.D. advisor, Prof. Dr. Haroldo Valentin Ribeiro. I also thank the other coauthors (Bruno R. da Cunha, Matjaž Perc, Quentin S. Hanley and Sebastián Gonçalves) for their collaboration in this paper.
-{{% /callout %}}
-
-<br>
 
 In our [latest paper](/publication/brazilian-corruption-network), the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes. 
 
@@ -261,6 +255,6 @@ From a practical perspective, our model may have important implications for law 
 
 Main references:
 
-1. [_**Alvaro F. Martins**, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. __Universality of political corruption networks.__ Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022)._](https://www.google.com)
+1. [_**Alvaro F. Martins**, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. __Universality of political corruption networks.__ Scientific Reports 7, 100-200, DOI: 10.1038/s41598-022-10909-2 (2022)._](/publication/universality-of-political-corruption-networks)
 
 2. [_Ribeiro, H. V., Alves, L. G. A., **Alvaro F. Martins**, Lenzi, E. K. & Perc, M. __The dynamical structure of political corruption networks.__ J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018)._](/publication/brazilian-corruption-network)

@@ -17,13 +17,7 @@
       <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
       <pubDate>Sat, 16 Apr 2022 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    I am pleased to finally publish one of the most important results I obtained during my master&amp;rsquo;s degree. This work, however, would not have been possible without the help of my Ph.D. advisor, Prof. Dr. Haroldo Valentin Ribeiro. I also thank the other coauthors (Bruno R. da Cunha, Matjaž Perc, Quentin S. Hanley and Sebastián Gonçalves) for their collaboration in this paper.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;br&gt;
-&lt;p&gt;In our &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;latest paper&lt;/a&gt;, the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
+      <description>&lt;p&gt;In our &lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;latest paper&lt;/a&gt;, the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Motivated by these insights, we have used the recidivism rate (&lt;em&gt;i.e&lt;/em&gt;, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. More specifically, corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
 &lt;br&gt;
@@ -311,7 +305,7 @@
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;itertools&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;combinations&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function which generate the network links according to our model is written as follows.&lt;/p&gt;
 &lt;br&gt;
-&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-5&#34;&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
   &lt;summary&gt;Click to view the code&lt;/summary&gt;
   &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;7.33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.09&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;11.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;proba&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
     &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
@@ -421,7 +415,7 @@
 &lt;p&gt;Main references:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.google.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;&lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1093/comnet/cny002s (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/universality-of-political-corruption-networks&#34;&gt;&lt;em&gt;&lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. &lt;strong&gt;Universality of political corruption networks.&lt;/strong&gt; Scientific Reports 7, 100-200, DOI: 10.1038/s41598-022-10909-2 (2022).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/publication/brazilian-corruption-network&#34;&gt;&lt;em&gt;Ribeiro, H. V., Alves, L. G. A., &lt;strong&gt;Alvaro F. Martins&lt;/strong&gt;, Lenzi, E. K. &amp;amp; Perc, M. &lt;strong&gt;The dynamical structure of political corruption networks.&lt;/strong&gt; J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018).&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;
