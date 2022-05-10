@@ -255,6 +255,6 @@ From a practical perspective, our model may have important implications for law 
 
 Main references:
 
-1. [_**Alvaro F. Martins**, Bruno. R. da Cunha, Quentin S. Hanley, Sebastián Gonçalves, Matjaž Perc, and Haroldo V. Ribeiro. __Universality of political corruption networks.__ Scientific Reports 7, 100-200, DOI: 10.1038/s41598-022-10909-2 (2022)._](/publication/universality-of-political-corruption-networks)
+1. [Martins, A. F., da Cunha, B. R., Hanley, Q. S., Gonçalves, S., Perc, M., & Ribeiro, H. V. (2022). **Universality of political corruption networks**. Scientific Reports, 12(1), 1-10.](https://doi.org/10.1038/s41598-022-10909-2)
 
-2. [_Ribeiro, H. V., Alves, L. G. A., **Alvaro F. Martins**, Lenzi, E. K. & Perc, M. __The dynamical structure of political corruption networks.__ J. Complex Networks 6, 989–1003, DOI: 10.1093/comnet/cny002s (2018)._](/publication/brazilian-corruption-network)
+2. [Ribeiro, H. V., Alves, L. G., Martins, A. F., Lenzi, E. K., & Perc, M. (2018). **The dynamical structure of political corruption networks**. Journal of Complex Networks, 6(6), 989-1003.](https://doi.org/10.1093/comnet/cny002)
