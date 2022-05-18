@@ -11,15 +11,10 @@ const k = 0.3;
 
 //Create SVG element in chart id element
 const svgNetwork = d3.select('#cocaine_smuggling_1')
-                 .append("svg")
-                .attr("width",  1200)
-                .attr("height", 700)
-                .call(zoom.transform, d3.zoomIdentity.translate(x, y).scale(scale))
-                .call(zoom.on('zoom', (event) => {
-                    svgNetwork.attr('transform', event.transform);
-                 }))
-              .append("g")
-              .attr('transform', `translate(${x}, ${y})scale(${k})`);
+                  .append('svg')
+                   .attr("class", "content")
+                   .attr("viewBox", `0 0 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom}`)
+                   .attr("preserveAspectRatio", "none")
 
 var links_data = [{"source": "23rd of September Communist League", "target": "Government (Diplomatic)", "count": 4},
                     {"source": "23rd of September Communist League", "target": "Business", "count": 44},
@@ -216,7 +211,7 @@ var link_force =  d3.forceLink(links_data)
 var charge_force = d3.forceManyBody()
     .strength(-1500)
     .distanceMin(5)
-    .distanceMax(1700);    
+    .distanceMax(700);    
 
 var center_force = d3.forceCenter(widthNetwork / 2, heightNetwork / 2);  
 

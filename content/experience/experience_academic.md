@@ -34,7 +34,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2019-03-01"
   date_end = "2021-03-01"
-  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/redes_corrupcao_politica.pdf) <br><br>I investigated the dynamical structure of political corruption networks through the lens of network science and data science. I was able to found surprising results, such as linearity in the evolution of community structures, patterns regarding the growth of recidivist criminals and a coalescence-like process present in the emergence of these networks. After unveiling these and many other statistical similarities between corruption networks, we proposed a model of artificial networks capable of simulating realistic political corruption networks. """
+  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/dinamica_redes_corrupcao.pdf) <br><br>I investigated the dynamical structure of political corruption networks through the lens of network science and data science. I was able to found surprising results, such as linearity in the evolution of community structures, patterns regarding the growth of recidivist criminals and a coalescence-like process present in the emergence of these networks. After unveiling these and many other statistical similarities between corruption networks, we proposed a model of artificial networks capable of simulating realistic political corruption networks. """
 
 [[experience]]
   title = "BSc in Physics"
