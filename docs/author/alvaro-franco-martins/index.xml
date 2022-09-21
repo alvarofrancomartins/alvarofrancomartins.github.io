@@ -5,12 +5,20 @@
     <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
       <atom:link href="https://alvarofrancomartins.com/author/alvaro-franco-martins/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 03 May 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 Sep 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
     </image>
+    
+    <item>
+      <title>Machine learning partners in criminal networks</title>
+      <link>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Computational model of political corruption networks</title>
