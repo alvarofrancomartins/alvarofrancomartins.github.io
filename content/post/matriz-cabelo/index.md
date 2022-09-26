@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: false
+draft: true
 tags: 
 - Rede cabelo
 
