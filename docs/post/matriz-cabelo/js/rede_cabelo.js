@@ -608,7 +608,7 @@ var linkSizeScale = d3.scaleLinear()
 
 var linkColourScale = d3.scaleSequential()
   .domain(d3.extent(links_data, d => d.count))
-  .interpolator(d3.interpolateReds);
+  .interpolator(d3.interpolateGreys);
 
 var radius = 10;
 var simulation = d3.forceSimulation()

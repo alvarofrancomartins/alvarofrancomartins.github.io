@@ -1,12 +1,12 @@
 ---
-title: Rede das interações entre as drogas 
-subtitle: Matriz Cabelo
-summary: Matriz Cabelo
+title: Rede das interações entre as drogas (cabelo)
+subtitle: Matriz cabelo
+summary: Matriz cabelo
 authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: true
+draft: false
 tags: 
 - Rede cabelo
 
@@ -18,9 +18,9 @@ categories:
 <!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
 <link rel="stylesheet" type="text/css" href="css/style.css">
 
-# Matriz Cabelo
+# Matriz cabelo
 
 <div id="rede_cabelo"></div>
 <script type="text/javascript" src="js/rede_cabelo.js"> </script>
 <br>
-<p style="text-align: center"><b>Rede cabelo</b>: 56 drogas and 523 ligações.<p/><br>
+<p style="text-align: center"><b>Rede cabelo</b>: 49 drogas and 407 ligações.<p/><br>

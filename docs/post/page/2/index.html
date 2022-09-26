@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en-us" >
 
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,9 +12,38 @@
   
 
   
-    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+
+
+
+
+
+
+
+
 
   
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
   
   
   
@@ -37,26 +67,6 @@
   <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/" />
 
   
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
   
   
     <meta name="theme-color" content="#1565c0" />
@@ -69,12 +79,14 @@
   
 
   
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
   
   
   
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
 
     
     
@@ -206,22 +218,6 @@
       
 
       
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
       
     
@@ -246,22 +242,51 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
-  
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.0fc9565427c6d9dd10e3e90eb18c9be4.css" />
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
 
   
 
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
 
 
   
@@ -301,6 +326,12 @@
     
   
   
+
+  
+  
+    
+    
+  
   <meta property="twitter:card" content="summary_large_image" />
   
     <meta property="twitter:site" content="@alvarofmartins" />
@@ -313,7 +344,7 @@
     <meta property="twitter:image" content="https://alvarofrancomartins.com/media/sharing.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2021-08-13T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2022-09-24T00:00:00&#43;00:00" />
     
   
 
@@ -325,21 +356,69 @@
 
   <head>
    <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
    .article-container {
       max-width: 1250px;
    }
 
-   #about {
-      background-image: url('/media/graph-draw.png');
-   }
+ 
 
    #container-publications {
-      height:  220px !important;
+      overflow: visible !important;
    }
 
    .see-all {
       text-transform: none !important;
    }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+   .stream-item {
+      padding-top: 25px;
+   }
+
+figcaption {
+   
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
+
    </style>
 
    <script src="/js/prism.js"></script>
@@ -363,7 +442,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js"></script>
 
   
 
@@ -600,23 +679,6 @@
 
       
       
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
-      
 
       
       
@@ -688,13 +750,13 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/post/model/" >A computational model for political corruption networks</a>
+      <a href="/post/cocaine_smuggling_networks/" >Dismantling and modeling cocaine trafficking networks</a>
     </div>
 
     
-    <a href="/post/model/"  class="summary-link">
+    <a href="/post/cocaine_smuggling_networks/"  class="summary-link">
       <div class="article-style">
-        NaN
+        Data insights on four cocaine smuggling networks
       </div>
     </a>
     
@@ -728,7 +790,7 @@
     
       
     
-    Dec 13, 2020
+    Nov 30, 2021
   </span>
   
 
@@ -747,7 +809,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/corruption_networks/">corruption_networks</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a></span>
   
 
 </div>
@@ -756,14 +818,197 @@
     </div>
 
     
+    <div class="btn-links">
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
 
   </div>
   <div class="ml-3">
     
     
     
-    <a href="/post/model/" >
-      <img src="/post/model/featured_hudaef1993b2e68e184b3a05b0204b7c98_1066221_150x0_resize_lanczos_3.png" alt="A computational model for political corruption networks" loading="lazy">
+    <a href="/post/cocaine_smuggling_networks/" >
+      <img src="/post/cocaine_smuggling_networks/featured_hu48b8dc46b554e0f8ef21206efcb3585c_142972_150x0_resize_lanczos_3.png" alt="Dismantling and modeling cocaine trafficking networks" loading="lazy">
+    </a>
+    
+  </div>
+</div>
+
+    
+  
+    
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<div class="media stream-item">
+  <div class="media-body">
+
+    <div class="section-subheading article-title mb-0 mt-0">
+      <a href="/post/cpi_covid/" >Visualizando a CPI da COVID</a>
+    </div>
+
+    
+    <a href="/post/cpi_covid/"  class="summary-link">
+      <div class="article-style">
+        Entenda melhor a rede dos supostos crimes praticados durante a pandemia da COVID-19
+      </div>
+    </a>
+    
+
+    <div class="stream-meta article-metadata">
+
+      
+
+      
+        
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      <a href="/author/alvaro-franco-martins/">Alvaro Franco Martins</a></span>, <span >
+      <a href="/author/diego-domingues-lopes/">Diego Domingues Lopes</a></span>, <span >
+      <a href="/author/andre-seiji-sunahara/">Andre Seiji Sunahara</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 8, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a>, <a href="/category/redes_criminosas/">redes_criminosas</a></span>
+  
+
+</div>
+
+      
+    </div>
+
+    
+    <div class="btn-links">
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+
+  </div>
+  <div class="ml-3">
+    
+    
+    
+    <a href="/post/cpi_covid/" >
+      <img src="/post/cpi_covid/featured_hudcd8ed0086cccbf35416bf1db5ef73ec_949383_150x0_resize_lanczos_3.png" alt="Visualizando a CPI da COVID" loading="lazy">
     </a>
     
   </div>
@@ -856,11 +1101,11 @@
       
 
     
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
 
+    
+    
+    
       
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
@@ -915,9 +1160,6 @@
     
 
     
-    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
-
-    
     
       
       
@@ -940,7 +1182,7 @@
       
     
     
-    <script src="/en/js/wowchemy.min.1e0d08e76174cf86fae2f45a189987fb.js"></script>
+    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
 
     
 

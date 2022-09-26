@@ -5,12 +5,57 @@
     <link>https://alvarofrancomartins.com/</link>
       <atom:link href="https://alvarofrancomartins.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 24 Sep 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/</link>
     </image>
+    
+    <item>
+      <title>Rede das interações entre as drogas (cabelo)</title>
+      <link>https://alvarofrancomartins.com/post/matriz-cabelo/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/matriz-cabelo/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;h1 id=&#34;matriz-cabelo&#34;&gt;Matriz cabelo&lt;/h1&gt;
+&lt;div id=&#34;rede_cabelo&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/rede_cabelo.js&#34;&gt; &lt;/script&gt;
+&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede cabelo&lt;/b&gt;: 49 drogas and 407 ligações.&lt;p/&gt;&lt;br&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rede das interações entre as drogas (sangue)</title>
+      <link>https://alvarofrancomartins.com/post/matriz-sangue/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/matriz-sangue/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;h1 id=&#34;matriz-sangue&#34;&gt;Matriz sangue&lt;/h1&gt;
+&lt;div id=&#34;rede_sangue&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/rede_sangue.js&#34;&gt; &lt;/script&gt;
+&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede sangue&lt;/b&gt;: 46 drogas and 407 ligações.&lt;p/&gt;&lt;br&gt;</description>
+    </item>
+    
+    <item>
+      <title>Rede das interações entre as drogas (urina)</title>
+      <link>https://alvarofrancomartins.com/post/matriz-urina/</link>
+      <pubDate>Sat, 24 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/matriz-urina/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;h1 id=&#34;matriz-urina&#34;&gt;Matriz urina&lt;/h1&gt;
+&lt;div id=&#34;rede_urina&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/rede_urina.js&#34;&gt; &lt;/script&gt;
+&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede urina&lt;/b&gt;: 59 drogas and 579 ligações.&lt;p/&gt;&lt;br&gt;</description>
+    </item>
     
     <item>
       <title>Machine learning partners in criminal networks</title>

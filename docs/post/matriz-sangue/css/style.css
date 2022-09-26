@@ -1,0 +1,13 @@
+.svg {
+    width:1000;
+    height:1000;
+}
+
+.link {
+  fill: none;
+}
+
+.labels {
+  font-family: Arial;
+  fill: white;
+}
