@@ -6,13 +6,12 @@ authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: false
+draft: true
 tags: 
 - Rede cabelo
 
 categories:
 - drogas
-
 ---
 
 <script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
