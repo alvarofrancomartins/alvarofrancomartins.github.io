@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: true
+draft: false
 tags: 
 - Rede sangue
 
@@ -23,4 +23,4 @@ categories:
 <div id="rede_sangue"></div>
 <script type="text/javascript" src="js/rede_sangue.js"> </script>
 <br>
-<p style="text-align: center"><b>Rede sangue</b>: 46 drogas and 407 ligações.<p/><br>
+<p style="text-align: center"><b>Rede sangue</b>: 49 drogas e 407 ligações.<p/><br>

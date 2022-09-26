@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: true
+draft: false
 tags: 
 - Rede urina
 
@@ -23,4 +23,4 @@ categories:
 <div id="rede_urina"></div>
 <script type="text/javascript" src="js/rede_urina.js"> </script>
 <br>
-<p style="text-align: center"><b>Rede urina</b>: 59 drogas and 579 ligações.<p/><br>
+<p style="text-align: center"><b>Rede urina</b>: 59 drogas e 579 ligações.<p/><br>

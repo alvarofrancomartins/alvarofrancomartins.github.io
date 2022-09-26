@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2022-09-24"
 featured: false
-draft: true
+draft: false
 tags: 
 - Rede cabelo
 
@@ -23,4 +23,4 @@ categories:
 <div id="rede_cabelo"></div>
 <script type="text/javascript" src="js/rede_cabelo.js"> </script>
 <br>
-<p style="text-align: center"><b>Rede cabelo</b>: 56 drogas and 523 ligações.<p/><br>
+<p style="text-align: center"><b>Rede cabelo</b>: 56 drogas e 523 ligações.<p/><br>
