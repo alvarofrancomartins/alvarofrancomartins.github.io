@@ -56,7 +56,7 @@ social:
   icon_pack: fas
   link: https://scholar.google.com.br/citations?user=yB30J2MAAAAJ
 - icon: fa-researchgate # Alternatively, use `google-scholar` icon from `ai` icon pack
-  icon_pack: fas
+  icon_pack: github
   link: https://www.researchgate.net/profile/Alvaro-Martins-2
 - icon: github
   icon_pack: fab
