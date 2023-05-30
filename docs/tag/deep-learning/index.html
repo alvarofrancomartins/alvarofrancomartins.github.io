@@ -1,5 +1,6 @@
 <!DOCTYPE html><html lang="en-us" >
 
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,8 +12,38 @@
   
 
   
+  
+
+
+
+
+
+
+
+
 
   
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
   
   
   
@@ -36,26 +67,6 @@
   <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/tag/deep-learning/" />
 
   
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
   
   
     <meta name="theme-color" content="#1565c0" />
@@ -68,12 +79,14 @@
   
 
   
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
   
   
   
     
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
 
     
     
@@ -90,14 +103,6 @@
     
       
     
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
-        
-      
     
 
     
@@ -109,22 +114,6 @@
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -253,22 +242,51 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
-  
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.0fc9565427c6d9dd10e3e90eb18c9be4.css" />
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
 
   
 
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
 
 
   
@@ -292,8 +310,8 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   
 
-  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_2.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_2.png" />
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
 
   <link rel="canonical" href="https://alvarofrancomartins.com/tag/deep-learning/" />
 
@@ -306,19 +324,27 @@
   
   
     
+  
+  
+
+  
+  
+    
     
   
+  <meta property="twitter:card" content="summary_large_image" />
   
-  <meta property="twitter:card" content="summary" />
+    <meta property="twitter:site" content="@alvarofmartins" />
+    <meta property="twitter:creator" content="@alvarofmartins" />
   
   <meta property="og:site_name" content="Alvaro Franco Martins" />
   <meta property="og:url" content="https://alvarofrancomartins.com/tag/deep-learning/" />
   <meta property="og:title" content="Deep Learning | Alvaro Franco Martins" />
-  <meta property="og:description" content="Data Scientist" /><meta property="og:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_2.png" />
-    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_512x512_fill_lanczos_center_2.png" /><meta property="og:locale" content="en-us" />
+  <meta property="og:description" content="Data Scientist" /><meta property="og:image" content="https://alvarofrancomartins.com/media/sharing.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/sharing.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2016-04-27T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2023-05-29T00:00:00&#43;00:00" />
     
   
 
@@ -328,11 +354,78 @@
 
   
 
-  
+  <head>
+   <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
+   .article-container {
+      max-width: 1250px;
+   }
+
+ 
+
+   #container-publications {
+      overflow: visible !important;
+   }
+
+   .see-all {
+      text-transform: none !important;
+   }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+   .stream-item {
+      padding-top: 25px;
+   }
+
+figcaption {
+   
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
 
 
 
+   </style>
 
+   <script src="/js/prism.js"></script>
+
+   <link rel="stylesheet" href="/css/prism.css" type="text/css"/> 
+
+</head>
 
   <title>Deep Learning | Alvaro Franco Martins</title>
 </head>
@@ -349,7 +442,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js"></script>
 
   
 
@@ -495,128 +588,10 @@
             
           
           
-            
-            
-            
-              
-            
-            
-          
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#posts"><span>Posts</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
-          
-          
-            
-            
-            
-              
-            
-            
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
-          
-          
-            
-            
-            
-              
-            
-            
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#talks"><span>Talks</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
-          
-          
-            
-            
-            
-              
-            
-            
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          <a class="nav-link " href="/post"><span>Posts</span></a>
         </li>
 
         
@@ -646,7 +621,7 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/courses/"><span>Courses</span></a>
+          <a class="nav-link " href="/experience"><span>Experience</span></a>
         </li>
 
         
@@ -673,17 +648,10 @@
             
           
           
-            
-            
-            
-              
-            
-            
-          
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
         </li>
 
         
@@ -700,13 +668,6 @@
       
       
         
-          
-          <li class="nav-item d-none d-lg-inline-flex">
-            <a class="nav-link" href="https://twitter.com/alvarofmartins" data-toggle="tooltip" data-placement="bottom" title="Follow me on Twitter" target="_blank" rel="noopener" aria-label="Follow me on Twitter">
-              <i class="fab fa-twitter" aria-hidden="true"></i>
-            </a>
-          </li>
-        
       
 
       
@@ -717,23 +678,6 @@
       
 
       
-      
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
       
 
       
@@ -807,13 +751,13 @@
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/project/internal-project/" >Internal Project</a>
+      <a href="/publication/deep-learning-criminal-networks/" >Deep learning criminal networks</a>
     </div>
 
     
-    <a href="/project/internal-project/"  class="summary-link">
+    <a href="/publication/deep-learning-criminal-networks/"  class="summary-link">
       <div class="article-style">
-        An example of using the in-built project page.
+        Deep learning methods are used to predict properties of criminal networks.
       </div>
     </a>
     
@@ -822,6 +766,18 @@
 
       
 
+      
+      <div>
+        
+
+  <span class="author-highlighted">
+      <a href="/author/alvaro-franco-martins/">Alvaro Franco Martins</a></span>, <span >
+      <a href="/author/bruno-r.-da-cunha/">Bruno R. da Cunha</a></span>, <span >
+      <a href="/author/quentin-s.-hanley/">Quentin S. Hanley</a></span>, <span >
+      <a href="/author/sebastian-goncalves/">Sebastian Goncalves</a></span>, <span >
+      <a href="/author/matjaz-perc/">Matjaz Perc</a></span>, <span >
+      <a href="/author/haroldo-v.-ribeiro/">Haroldo V. Ribeiro</a></span>
+      </div>
       
     </div>
 
@@ -837,43 +793,38 @@
 
 
   
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  <a class="btn btn-outline-primary btn-page-header btn-sm" href="/slides/example/" target="_blank">
-    Slides
-  </a>
-  
-
-
-
-
-
-  
-  
-  
     
   
-  
-  
-  
-  
-    
-  
-  <a class="btn btn-outline-primary btn-page-header btn-sm" href="https://twitter.com/georgecushen" target="_blank" rel="noopener">
-    <i class="fab fa-twitter mr-1"></i>
-    Follow
-  </a>
+
+
+
+<a class="btn btn-outline-primary btn-page-header btn-sm" href="/uploads/deep_learning_networks_arxiv.pdf" target="_blank" rel="noopener">
+  PDF
+</a>
+
+
+
+<a href="#" class="btn btn-outline-primary btn-page-header btn-sm js-cite-modal"
+        data-filename="/publication/deep-learning-criminal-networks/cite.bib">
+  Cite
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary btn-page-header btn-sm" href="https://doi.org/10.1016/j.chaos.2023.113579" target="_blank" rel="noopener">
+  DOI
+</a>
+
 
 
     </div>
@@ -884,8 +835,8 @@
     
     
     
-    <a href="/project/internal-project/" >
-      <img src="/project/internal-project/featured_hu3d03a01dcc18bc5be0e67db3d8d209a6_224363_150x0_resize_q75_lanczos.jpg" alt="Internal Project" loading="lazy">
+    <a href="/publication/deep-learning-criminal-networks/" >
+      <img src="/publication/deep-learning-criminal-networks/featured_huc239f53c6b4381f33d9b2ca292d1000d_358240_150x0_resize_lanczos_3.png" alt="Deep learning criminal networks" loading="lazy">
     </a>
     
   </div>
@@ -904,40 +855,37 @@
     
     <div class="container">
       <footer class="site-footer">
-
   
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-
-
-
-
 
   <p class="powered-by">
     
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by" style="font-size:11px;">
     
+    Published with
+    <a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy</a>. 
     
-      
-      
-      
-      
-      
-      
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
     
   </p>
 </footer>
-
     </div>
     
   </div>
@@ -971,11 +919,11 @@
       
 
     
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
 
+    
+    
+    
       
       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
@@ -987,17 +935,6 @@
 
       
 
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
-        
       
 
     
@@ -1041,9 +978,6 @@
     
 
     
-    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
-
-    
     
       
       
@@ -1066,10 +1000,11 @@
       
     
     
-    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
 
     
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
 
 
 
