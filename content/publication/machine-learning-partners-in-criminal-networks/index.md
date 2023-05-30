@@ -23,7 +23,7 @@ doi: "10.1038/s41598-022-20025-w"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Machine learning partners in criminal networks"
+publication: "Scientific Reports - Nature"
 publication_short: ""
 
 abstract: Recent research has shown that criminal networks have complex organizational structures, but whether this can be used to predict static and dynamic properties of criminal networks remains little explored. Here, by combining graph representation learning and machine learning methods, we show that structural properties of political corruption, police intelligence, and money laundering networks can be used to recover missing criminal partnerships, distinguish among different types of criminal and legal associations, as well as predict the total amount of money exchanged among criminal agents, all with outstanding accuracy. We also show that our approach can anticipate future criminal associations during the dynamic growth of corruption networks with significant accuracy. Thus, similar to evidence found at crime scenes, we conclude that structural patterns of criminal networks carry crucial information about illegal activities, which allows machine learning methods to predict missing information and even anticipate future criminal behavior.

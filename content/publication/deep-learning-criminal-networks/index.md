@@ -21,7 +21,7 @@ doi: "10.1016/j.chaos.2023.113579"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Deep learning criminal networks"
+publication: "Chaos, Solitons & Fractals | Elsevier"
 publication_short: ""
 
 abstract: Recent advances in deep learning methods have enabled researchers to develop and apply algorithms for the analysis and modeling of complex networks. These advances have sparked a surge of interest at the interface between network science and machine learning. Despite this, the use of machine learning methods to investigate criminal networks remains surprisingly scarce. Here, we explore the potential of graph convolutional networks to learn patterns among networked criminals and to predict various properties of criminal networks. Using empirical data from political corruption, criminal police intelligence, and criminal financial networks, we develop a series of deep learning models based on the GraphSAGE framework that are able to recover missing criminal partnerships, distinguish among types of associations, predict the amount of money exchanged among criminal agents, and even anticipate partnerships and recidivism of criminals during the growth dynamics of corruption networks, all with impressive accuracy. Our deep learning models significantly outperform previous shallow learning approaches and produce high-quality embeddings for node and edge properties. Moreover, these models inherit all the advantages of the GraphSAGE framework, including the generalization to unseen nodes and scaling up to large graph structures.
@@ -46,7 +46,7 @@ featured: false
 # links:
 # - name: ""
 #   url: ""
-url_pdf: /uploads/deep_learning_networks_arxiv.pdf
+url_pdf: /uploads/deep_learning_networks.pdf
 # url_code: ''
 # url_dataset: ''
 # url_poster: ''

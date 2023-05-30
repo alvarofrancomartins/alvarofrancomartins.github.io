@@ -19,7 +19,7 @@ doi: "10.1093/comnet/cny002"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
+publication: "Journal of Complex Networks | Oxford Academic"
 publication_short: ""
 
 abstract: Corruptive behaviour in politics limits economic growth, embezzles public funds, and promotes socio-economic inequality in modern democracies. We analyse well-documented political corruption scandals over the past 27 years, focusing on the dynamical structure of networks where two individuals are connected if they were involved in the same scandal. Our research reveals that corruption runs in small groups that rarely comprise more than eight people, in networks that have hubs and a modular structure that encompasses more than one corruption scandal. We observe abrupt changes in the size of the largest connected component and in the degree distribution, which are due to the coalescence of different modules when new scandals come to light or when governments change. We show further that the dynamical structure of political corruption networks can be used for successfully predicting partners in future scandals. We discuss the important role of network science in detecting and mitigating political corruption.

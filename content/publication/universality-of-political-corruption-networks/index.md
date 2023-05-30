@@ -21,7 +21,7 @@ doi: "10.1038/s41598-022-10909-2"
 publication_types: ["2"]
 
 # Publication name and optional abbreviated publication name.
-publication: "Universality of political corruption networks"
+publication: "Scientific Reports - Nature"
 publication_short: ""
 
 abstract: Corruption crimes demand highly coordinated actions among criminal agents to succeed. But research dedicated to corruption networks is still in its infancy and indeed little is known about the properties of these networks. Here we present a comprehensive investigation of corruption networks related to political scandals in Spain and Brazil over nearly three decades. We show that corruption networks of both countries share universal structural and dynamical properties, including similar degree distributions, clustering and assortativity coefficients, modular structure, and a growth process that is marked by the coalescence of network components due to a few recidivist criminals. We propose a simple model that not only reproduces these empirical properties but reveals also that corruption networks operate near a critical recidivism rate below which the network is entirely fragmented and above which it is overly connected. Our research thus indicates that actions focused on decreasing corruption recidivism may substantially mitigate this type of organized crime.
