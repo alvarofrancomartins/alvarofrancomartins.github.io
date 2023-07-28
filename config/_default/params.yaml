@@ -5,8 +5,7 @@
 
 # Appearance
 
-theme: minimal
-day_night: true
+theme_day: minimal
 font: my_font_set
 font_size: L
 
