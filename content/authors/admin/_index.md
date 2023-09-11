@@ -79,12 +79,12 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**. I have a particular interest in the application of statistical data analysis to uncover patterns in data sets related to **criminal activity** and **organized crime**.
+Hello there, welcome!
 
 <br>
 
-I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently pursuing a PhD. I work on the project “Network and data science applied to study corruption and organized crime”, related to the _Academic Cooperation Program (PROCAD) in Public Security and Forensic Sciences_. My primary goal is to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.
+I'm a **physicist** working on **data science** and **complex networks**. I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently finishing my PhD.
 
 <br>
   
-{{< icon name="download" pack="fas" >}} Download my _curriculum vitae_ ({{< staticref "uploads/alvaro_cv_en.pdf" "newtab" >}}eng{{< /staticref >}} / {{< staticref "uploads/alvaro_cv_pt.pdf" "newtab" >}}pt{{< /staticref >}}).
+{{< icon name="download" pack="fas" >}} Download my resume ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins_en.pdf" "newtab" >}}eng{{< /staticref >}}).
