@@ -30,7 +30,7 @@ education:
   courses:
   - course: PhD fellow 
     institution: State University of Maringá
-    year: 2021-2024
+    year: 2021-2023
   - course: MSc in Physics
     institution: State University of Maringá
     year: 2021
@@ -78,10 +78,6 @@ email: "alvarought@gmail.com"
 # Highlight the author in author lists? (true/false)
 highlight_name: true
 ---
-
-Hello there, welcome!
-
-<br>
 
 I'm a **physicist** working on **data science** and **complex networks**. I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently finishing my PhD.
 
