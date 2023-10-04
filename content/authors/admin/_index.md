@@ -83,4 +83,4 @@ I'm a **physicist** working on **data science** and **complex networks**. I hold
 
 <br>
   
-{{< icon name="download" pack="fas" >}} Download my resume ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins_en.pdf" "newtab" >}}eng{{< /staticref >}}).
+{{< icon name="download" pack="fas" >}} Download my resume ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}eng{{< /staticref >}}).
