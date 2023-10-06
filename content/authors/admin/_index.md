@@ -87,4 +87,4 @@ I'm currently finishing my PhD and actively seeking a data scientist position.
 
 <br>
 
-Download my resume {{< icon name="download" pack="fas" >}} ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}eng{{< /staticref >}}).
+Download my resume in {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}Portuguese{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}English{{< /staticref >}}.
