@@ -79,7 +79,11 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**. I'm currently finishing my PhD and actively seeking a data scientist position. 
+I'm a **physicist** working on **data science** and **complex networks**. 
+
+<br>
+
+I'm currently finishing my PhD and actively seeking a data scientist position. 
 
 <br>
 
