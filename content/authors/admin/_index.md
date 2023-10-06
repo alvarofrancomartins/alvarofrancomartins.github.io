@@ -79,8 +79,8 @@ email: "alvarought@gmail.com"
 highlight_name: true
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**. I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá, where I'm currently finishing my PhD.
+I'm a **physicist** working on **data science** and **complex networks**. I hold both a bachelor's (2018) and a master's degree (2021) in Physics from the State University of Maringá.
 
 <br>
-  
-{{< icon name="download" pack="fas" >}} Download my resume ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}eng{{< /staticref >}}).
+
+I'm currently finishing my PhD and actively seeking a Data Scientist position. Download my resume: {{< icon name="download" pack="fas" >}} ({{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}pt{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}eng{{< /staticref >}}).
