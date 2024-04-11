@@ -28,9 +28,9 @@ interests:
 # Education to show in About widget
 education:
   courses:
-  - course: PhD fellow 
+  - course: PhD in Physics 
     institution: State University of Maringá
-    year: 2021-2023
+    year: 2024
   - course: MSc in Physics
     institution: State University of Maringá
     year: 2021
@@ -77,14 +77,10 @@ email: "alvarought@gmail.com"
 
 # Highlight the author in author lists? (true/false)
 highlight_name: true
+
+# I'm a **physicist** working on **data science** and **complex networks**.
+
+# Download my resume in {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}Portuguese{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}English{{< /staticref >}}.
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**. 
-
-<br>
-
-I'm currently finishing my PhD and actively seeking a data scientist position. 
-
-<br>
-
-Download my resume in {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}Portuguese{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}English{{< /staticref >}}.
+I'm a **physicist** working on **data science** and **complex networks**.
