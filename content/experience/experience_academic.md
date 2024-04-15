@@ -43,7 +43,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2019-03-01"
   date_end = "2021-03-01"
-  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/dinamica_redes_corrupcao.pdf) <br><br>I investigated the dynamical structure of political corruption networks through the lens of network science and data science. I was able to found surprising results, such as linearity in the evolution of community structures, patterns regarding the growth of recidivist criminals and a coalescence-like process present in the emergence of these networks. After unveiling these and many other statistical similarities between corruption networks, we proposed a model of artificial networks capable of simulating realistic political corruption networks. """
+  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/dinamica_redes_corrupcao.pdf) <br><br>I investigated the dynamical structure of political corruption networks through the lens of network science and data science. I was able to found surprising results, such as linearity in the evolution of community structures, patterns regarding the growth of recidivist criminals and a coalescence-like process present in the emergence of these networks. Inspired by these and other statistical similarities between the networks, we proposed a model of corruption networks that was able to reproduce the empirical results. """
 
 [[experience]]
   title = "BSc in Physics"
@@ -52,5 +52,5 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2014-03-01"
   date_end = "2018-12-01"
-  description = """**Thesis**: [Time series analysis via complexity-entropy curves](https://alvarofrancomartins.com/uploads/analise_series_temporais.pdf) <br><br>I adopted a new parameter (embedding delay) to analyze time series from several sources. By generalizing the complexity-entropy curve approach, this analysis was useful to find periodic behaviors in noisy signals. """
+  description = """**Thesis**: [Time series analysis via complexity-entropy curves](https://alvarofrancomartins.com/uploads/analise_series_temporais.pdf) <br><br>I proposed a new parameter (embedding delay) to study time series from several sources. By generalizing the complexity-entropy curve approach, this analysis was useful to find periodic patterns in noisy signals. """
 +++
