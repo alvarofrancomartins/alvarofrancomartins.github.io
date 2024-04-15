@@ -83,4 +83,4 @@ highlight_name: true
 # Download my resume in {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}Portuguese{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}English{{< /staticref >}}.
 ---
 
-I'm a **physicist** with a background on **complex systems** and **data science**. I currently work as a **Data Scientist II** in the Corporate Security Modelling team at **Bradesco**.
+I'm a physicist with a background on complex systems and data science. I currently work as a Data Scientist II in the Corporate Security Modelling team at Bradesco.
