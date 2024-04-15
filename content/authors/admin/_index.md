@@ -14,7 +14,7 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: Physicist working on complex networks and data science. 
+bio: Physicist working on complex networks and data science. I work in the corporate security modelling team at Bradesco.
 
 # Interests to show in About widget
 interests:
