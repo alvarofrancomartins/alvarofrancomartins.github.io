@@ -6,12 +6,12 @@ title: Alvaro Franco Martins
 superuser: true
 
 # Role/position/tagline
-role: Data Scientist
+role: Data Scientist II
 
 # Organizations/Affiliations to show in About widget
 organizations:
-- name: State University of Maringá
-  url: http://www.uem.br/
+- name: Banco Bradesco
+  url: https://banco.bradesco/html/classic/index.shtm
 
 # Short bio (displayed in user profile at end of posts)
 bio: 
