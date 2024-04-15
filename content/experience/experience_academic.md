@@ -19,12 +19,21 @@ date_format = "Jan 2006"
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 
 [[experience]]
-  title = "PhD Student"
+  title = "Data Scientist II"
+  company = "Bradesco"
+  company_url = "https://banco.bradesco/html/classic/index.shtm"
+  location = "Curitiba, Paraná, Brasil"
+  date_start = "2024-04-03"
+  date_end = ""
+  description = """I work in the corporate security modelling team at Bradesco."""
+
+[[experience]]
+  title = "PhD in Physics"
   company = "ComplexLab - State University of Maringá"
   company_url = "http://complex.pfi.uem.br"
   location = "Maringá, Paraná, Brasil"
   date_start = "2021-04-01"
-  date_end = ""
+  date_end = "2024-03-22"
   description = """**Thesis**: [Network science and machine learning applied to criminal networks](https://alvarofrancomartins.com/uploads/tese_de_doutorado.pdf)<br><br> I worked on the project “Network and data science applied to study corruption and organized crime.” My primary goal was to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.<p>"""
 
 [[experience]]
