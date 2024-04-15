@@ -25,7 +25,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2021-04-01"
   date_end = ""
-  description = """**Thesis**: [Network Science and Machine Learning Applied to Criminal Networks](https://alvarofrancomartins.com/uploads/tese_de_doutorado.pdf)<br><br> I worked on the project “Network and data science applied to study corruption and organized crime.” My primary goal was to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.<p>"""
+  description = """**Thesis**: [Network science and machine learning applied to criminal networks](https://alvarofrancomartins.com/uploads/tese_de_doutorado.pdf)<br><br> I worked on the project “Network and data science applied to study corruption and organized crime.” My primary goal was to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.<p>"""
 
 [[experience]]
   title = "MSc in Physics"
