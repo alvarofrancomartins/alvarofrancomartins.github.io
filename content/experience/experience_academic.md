@@ -25,7 +25,7 @@ date_format = "Jan 2006"
   location = "Curitiba, Paraná, Brasil"
   date_start = "2024-04-03"
   date_end = ""
-  description = """I work in the corporate security modelling team at Bradesco."""
+  description = """I work in the Corporate Security Modelling team at **Bradesco**."""
 
 [[experience]]
   title = "PhD in Physics"
