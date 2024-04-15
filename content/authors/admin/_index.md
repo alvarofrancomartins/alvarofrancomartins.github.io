@@ -14,7 +14,7 @@ organizations:
   url: http://www.uem.br/
 
 # Short bio (displayed in user profile at end of posts)
-bio: Physicist working on complex networks and data science. I work in the corporate security modelling team at Bradesco.
+bio: Physicist working on complex networks and data science. 
 
 # Interests to show in About widget
 interests:
@@ -83,4 +83,4 @@ highlight_name: true
 # Download my resume in {{< staticref "uploads/Cientista_de_dados_Alvaro_Franco_Martins.pdf" "newtab" >}}Portuguese{{< /staticref >}} / {{< staticref "uploads/Data_Scientist_Alvaro_Franco_Martins.pdf" "newtab" >}}English{{< /staticref >}}.
 ---
 
-I'm a **physicist** working on **data science** and **complex networks**.
+I'm a **physicist** working on **data science** and **complex networks**. I work in the corporate security modelling team at **Bradesco**.
