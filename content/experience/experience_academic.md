@@ -20,7 +20,7 @@ date_format = "Jan 2006"
 
 [[experience]]
   title = "Data Scientist II"
-  company = "Bradesco"
+  company = "Banco Bradesco"
   company_url = "https://banco.bradesco/html/classic/index.shtm"
   location = "Curitiba, Paraná, Brasil"
   date_start = "2024-04-03"
