@@ -16,6 +16,45 @@ const svgNetwork = d3.select('#rede_cabelo')
                    .attr("viewBox", `0 0 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom}`)
                    .attr("preserveAspectRatio", "none")
 
+// Declare the variables outside the fetch block so they are accessible globally
+var nodes_data = [{'name': 'MDA', 'degree': 31, 'total': 31},
+ {'name': 'Nicotina', 'degree': 36, 'total': 36},
+ {'name': 'MDMA', 'degree': 29, 'total': 29},
+ {'name': 'THC', 'degree': 37, 'total': 37},
+ {'name': 'Canabinol', 'degree': 34, 'total': 34},
+ {'name': 'Cocaína', 'degree': 30, 'total': 30},
+ {'name': 'Ketamina', 'degree': 30, 'total': 30},
+ {'name': 'Canabidiol', 'degree': 26, 'total': 26},
+ {'name': '6-hidroxinorketamina (metabólito ketamina)',
+  'degree': 29,
+  'total': 29},
+ {'name': 'Cocaetileno', 'degree': 29, 'total': 29},
+ {'name': 'MDEA/MDDMA (isômeros)', 'degree': 23, 'total': 23},
+ {'name': 'Norcocaína', 'degree': 25, 'total': 25},
+ {'name': 'Metanfetamina', 'degree': 27, 'total': 27},
+ {'name': 'LSD', 'degree': 21, 'total': 21},
+ {'name': 'Deschloroketamine', 'degree': 20, 'total': 20},
+ {'name': 'Norketamina', 'degree': 20, 'total': 20},
+ {'name': 'DMT', 'degree': 19, 'total': 19},
+ {'name': 'bk-DMBDP (Dipentilona)', 'degree': 18, 'total': 18},
+ {'name': 'Benzoilecgonina', 'degree': 21, 'total': 21},
+ {'name': 'ADB-BINACA_ADB-BUTINACA', 'degree': 17, 'total': 17},
+ {'name': 'Metilona', 'degree': 19, 'total': 19},
+ {'name': '2-fluorodeschloroketamine (2-FDCK)', 'degree': 17, 'total': 17},
+ {'name': 'Pentilona/Dibutilona (isômeros)', 'degree': 10, 'total': 10},
+ {'name': 'AEME', 'degree': 17, 'total': 17},
+ {'name': '25B-NBOH', 'degree': 11, 'total': 11},
+ {'name': 'Anfetamina', 'degree': 16, 'total': 16},
+ {'name': 'Metilfenidato', 'degree': 13, 'total': 13},
+ {'name': 'MDMB-4en-PINACA', 'degree': 11, 'total': 11},
+ {'name': 'Femproporex', 'degree': 9, 'total': 9},
+ {'name': 'ADB-4en-PINACA', 'degree': 9, 'total': 9},
+ {'name': 'Psilocina', 'degree': 9, 'total': 9},
+ {'name': '4F-MDMB-BUTICA', 'degree': 7, 'total': 7},
+ {'name': '5F-BZO-POXIZID', 'degree': 7, 'total': 7},
+ {'name': 'Adamantyl-CHMINACA', 'degree': 7, 'total': 7},
+ {'name': 'ADB-HEXOXIZID (MDA-19)', 'degree': 7, 'total': 7},
+ {'name': 'ADB-HEXINACA', 'degree': 7, 'total': 7}];
 var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'MDA', 'target': 'MDMA', 'count': 401},
  {'source': 'MDA', 'target': 'THC', 'count': 326},
@@ -48,7 +87,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'MDA', 'target': 'ADB-4en-PINACA', 'count': 2},
  {'source': 'MDA', 'target': 'Psilocina', 'count': 2},
  {'source': 'MDA', 'target': 'MDMB-4en-PINACA', 'count': 2},
- {'source': 'MDA', 'target': '25C-NBOH', 'count': 1},
  {'source': 'Nicotina', 'target': 'MDMA', 'count': 358},
  {'source': 'Nicotina', 'target': 'THC', 'count': 315},
  {'source': 'Nicotina', 'target': 'Canabinol', 'count': 153},
@@ -89,7 +127,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'Nicotina', 'target': 'ADB-HEXOXIZID (MDA-19)', 'count': 1},
  {'source': 'Nicotina', 'target': 'ADB-HEXINACA', 'count': 1},
  {'source': 'Nicotina', 'target': '4F-MDMB-BUTICA', 'count': 1},
- {'source': 'Nicotina', 'target': '5F-EMB-PICA', 'count': 1},
  {'source': 'MDMA', 'target': 'THC', 'count': 202},
  {'source': 'MDMA', 'target': 'Canabinol', 'count': 103},
  {'source': 'MDMA', 'target': 'Ketamina', 'count': 103},
@@ -147,15 +184,12 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'THC', 'target': 'Metilfenidato', 'count': 2},
  {'source': 'THC', 'target': '25B-NBOH', 'count': 2},
  {'source': 'THC', 'target': 'Psilocina', 'count': 2},
- {'source': 'THC', 'target': '25E-NBOH', 'count': 2},
  {'source': 'THC', 'target': 'Femproporex', 'count': 1},
- {'source': 'THC', 'target': '25C-NBOH', 'count': 1},
  {'source': 'THC', 'target': '4F-MDMB-BUTICA', 'count': 1},
  {'source': 'THC', 'target': '5F-BZO-POXIZID', 'count': 1},
  {'source': 'THC', 'target': 'Adamantyl-CHMINACA', 'count': 1},
  {'source': 'THC', 'target': 'ADB-HEXOXIZID (MDA-19)', 'count': 1},
  {'source': 'THC', 'target': 'ADB-HEXINACA', 'count': 1},
- {'source': 'THC', 'target': '5F-EMB-PICA', 'count': 1},
  {'source': 'THC', 'target': 'MDMB-4en-PINACA', 'count': 1},
  {'source': 'Canabinol', 'target': 'Canabidiol', 'count': 96},
  {'source': 'Canabinol', 'target': 'Ketamina', 'count': 42},
@@ -184,7 +218,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
   'count': 3},
  {'source': 'Canabinol', 'target': '25B-NBOH', 'count': 2},
  {'source': 'Canabinol', 'target': 'Anfetamina', 'count': 1},
- {'source': 'Canabinol', 'target': '25E-NBOH', 'count': 1},
  {'source': 'Canabinol', 'target': 'Femproporex', 'count': 1},
  {'source': 'Canabinol', 'target': 'Psilocina', 'count': 1},
  {'source': 'Canabinol', 'target': '5F-BZO-POXIZID', 'count': 1},
@@ -221,7 +254,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'Cocaína', 'target': 'MDMB-4en-PINACA', 'count': 2},
  {'source': 'Cocaína', 'target': 'ADB-4en-PINACA', 'count': 1},
  {'source': 'Cocaína', 'target': 'Psilocina', 'count': 1},
- {'source': 'Cocaína', 'target': '5F-EMB-PICA', 'count': 1},
  {'source': 'Cocaína', 'target': '25B-NBOH', 'count': 1},
  {'source': 'Cocaína', 'target': 'Anfetamina', 'count': 1},
  {'source': 'Ketamina',
@@ -249,7 +281,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'Ketamina', 'target': 'bk-DMBDP (Dipentilona)', 'count': 2},
  {'source': 'Ketamina', 'target': '25B-NBOH', 'count': 1},
  {'source': 'Ketamina', 'target': 'Femproporex', 'count': 1},
- {'source': 'Ketamina', 'target': '25C-NBOH', 'count': 1},
  {'source': 'Ketamina', 'target': 'Metilfenidato', 'count': 1},
  {'source': 'Ketamina',
   'target': 'Pentilona/Dibutilona (isômeros)',
@@ -331,9 +362,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
   'target': 'Femproporex',
   'count': 1},
  {'source': '6-hidroxinorketamina (metabólito ketamina)',
-  'target': '25C-NBOH',
-  'count': 1},
- {'source': '6-hidroxinorketamina (metabólito ketamina)',
   'target': 'Pentilona/Dibutilona (isômeros)',
   'count': 1},
  {'source': '6-hidroxinorketamina (metabólito ketamina)',
@@ -360,7 +388,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
  {'source': 'Cocaetileno', 'target': 'Psilocina', 'count': 1},
  {'source': 'Cocaetileno', 'target': 'ADB-4en-PINACA', 'count': 1},
  {'source': 'Cocaetileno', 'target': 'Metilona', 'count': 1},
- {'source': 'Cocaetileno', 'target': '5F-EMB-PICA', 'count': 1},
  {'source': 'Cocaetileno', 'target': '25B-NBOH', 'count': 1},
  {'source': 'Cocaetileno', 'target': 'ADB-BINACA_ADB-BUTINACA', 'count': 1},
  {'source': 'Cocaetileno', 'target': 'Anfetamina', 'count': 1},
@@ -461,7 +488,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
   'target': 'ADB-BINACA_ADB-BUTINACA',
   'count': 1},
  {'source': 'Benzoilecgonina', 'target': 'Anfetamina', 'count': 1},
- {'source': 'ADB-BINACA_ADB-BUTINACA', 'target': '25C-NBOH', 'count': 1},
  {'source': 'ADB-BINACA_ADB-BUTINACA', 'target': 'Metilona', 'count': 1},
  {'source': '2-fluorodeschloroketamine (2-FDCK)',
   'target': 'AEME',
@@ -470,7 +496,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
   'target': 'Metilfenidato',
   'count': 1},
  {'source': 'MDMB-4en-PINACA', 'target': 'ADB-4en-PINACA', 'count': 2},
- {'source': 'MDMB-4en-PINACA', 'target': '5F-EMB-PICA', 'count': 1},
  {'source': '4F-MDMB-BUTICA', 'target': '5F-BZO-POXIZID', 'count': 1},
  {'source': '4F-MDMB-BUTICA', 'target': 'Adamantyl-CHMINACA', 'count': 1},
  {'source': '4F-MDMB-BUTICA', 'target': 'ADB-HEXOXIZID (MDA-19)', 'count': 1},
@@ -484,48 +509,6 @@ var links_data = [{'source': 'MDA', 'target': 'Nicotina', 'count': 555},
   'count': 1},
  {'source': 'ADB-HEXOXIZID (MDA-19)', 'target': 'ADB-HEXINACA', 'count': 1}];
 
-var nodes_data = [{'name': 'MDA', 'degree': 31, 'total': 31},
- {'name': 'Nicotina', 'degree': 36, 'total': 36},
- {'name': 'MDMA', 'degree': 29, 'total': 29},
- {'name': 'THC', 'degree': 37, 'total': 37},
- {'name': 'Canabinol', 'degree': 34, 'total': 34},
- {'name': 'Cocaína', 'degree': 30, 'total': 30},
- {'name': 'Ketamina', 'degree': 30, 'total': 30},
- {'name': 'Canabidiol', 'degree': 26, 'total': 26},
- {'name': '6-hidroxinorketamina (metabólito ketamina)',
-  'degree': 29,
-  'total': 29},
- {'name': 'Cocaetileno', 'degree': 29, 'total': 29},
- {'name': 'MDEA/MDDMA (isômeros)', 'degree': 23, 'total': 23},
- {'name': 'Norcocaína', 'degree': 25, 'total': 25},
- {'name': 'Metanfetamina', 'degree': 27, 'total': 27},
- {'name': 'LSD', 'degree': 21, 'total': 21},
- {'name': 'Deschloroketamine', 'degree': 20, 'total': 20},
- {'name': 'Norketamina', 'degree': 20, 'total': 20},
- {'name': 'DMT', 'degree': 19, 'total': 19},
- {'name': 'bk-DMBDP (Dipentilona)', 'degree': 18, 'total': 18},
- {'name': 'Benzoilecgonina', 'degree': 21, 'total': 21},
- {'name': 'ADB-BINACA_ADB-BUTINACA', 'degree': 17, 'total': 17},
- {'name': 'Metilona', 'degree': 19, 'total': 19},
- {'name': '2-fluorodeschloroketamine (2-FDCK)', 'degree': 17, 'total': 17},
- {'name': 'Pentilona/Dibutilona (isômeros)', 'degree': 10, 'total': 10},
- {'name': 'AEME', 'degree': 17, 'total': 17},
- {'name': '25B-NBOH', 'degree': 11, 'total': 11},
- {'name': 'Anfetamina', 'degree': 16, 'total': 16},
- {'name': 'Metilfenidato', 'degree': 13, 'total': 13},
- {'name': 'MDMB-4en-PINACA', 'degree': 11, 'total': 11},
- {'name': 'Femproporex', 'degree': 9, 'total': 9},
- {'name': 'ADB-4en-PINACA', 'degree': 9, 'total': 9},
- {'name': 'Psilocina', 'degree': 9, 'total': 9},
- {'name': '25E-NBOH', 'degree': 2, 'total': 2},
- {'name': '25C-NBOH', 'degree': 5, 'total': 5},
- {'name': '4F-MDMB-BUTICA', 'degree': 7, 'total': 7},
- {'name': '5F-BZO-POXIZID', 'degree': 7, 'total': 7},
- {'name': 'Adamantyl-CHMINACA', 'degree': 7, 'total': 7},
- {'name': 'ADB-HEXOXIZID (MDA-19)', 'degree': 7, 'total': 7},
- {'name': 'ADB-HEXINACA', 'degree': 7, 'total': 7},
- {'name': '5F-EMB-PICA', 'degree': 5, 'total': 5}];
-
 var nodeSizeScale = d3.scaleLinear()
   .domain(d3.extent(nodes_data, d => d.total))
   .range([1, 50]);
@@ -536,7 +519,7 @@ var linkSizeScale = d3.scaleLinear()
 
 var linkColourScale = d3.scaleSequential()
   .domain(d3.extent(links_data, d => d.count))
-  .interpolator(d3.interpolateReds);
+  .interpolator(d3.interpolateGreys);
 
 var radius = 10;
 var simulation = d3.forceSimulation()
@@ -570,9 +553,9 @@ var link = g.selectAll(".link")
     .enter()
     .append("path")
     .attr("class", "link")
-    .style('stroke', d => {return linkColourScale(d.degree);})
-    .style("stroke-opacity", d => {return 1 - 1/d.count;})
-    .attr('stroke-width', d => {return linkSizeScale(d.degree);})
+    .style('stroke', d => {return linkColourScale(d.count);})
+    .style("stroke-opacity", 1)
+    .attr('stroke-width', d => {return linkSizeScale(d.count);})
     // .attr("marker-end", function(d) {
     //     if(JSON.stringify(d.target) !== JSON.stringify(d.source))
     //        return "url(#dominating)";
@@ -603,9 +586,9 @@ var node = g.append("g")
         .data(nodes_data)
         .enter()
         .append("circle")
-        .attr("r", d => {return nodeSizeScale(d.total/1.3);})
+        .attr("r", d => {return nodeSizeScale(d.total);})
         .attr("fill", "#8f8f8f")
-        // .attr("stroke", "#000000")
+        .attr("stroke", "#000000")
         .attr("stroke-width", "1.8px")
         .style('fill-opacity', 1)
         .attr("stroke-opacity", 1)
