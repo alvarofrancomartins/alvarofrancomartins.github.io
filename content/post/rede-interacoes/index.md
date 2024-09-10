@@ -20,7 +20,7 @@ categories:
 
 # Interações
 
-<div id="rede_cabelo"></div>
-<script type="text/javascript" src="js/rede_cabelo.js"> </script>
+<div id="rede_interacoes"></div>
+<script type="text/javascript" src="js/rede_interacoes.js"> </script>
 <br>
 <p style="text-align: center"><b>Rede Interações</b>: 39 drogas e 355 ligações.<p/><br>

@@ -10,7 +10,7 @@ const scale = 1;
 const k = 0.3;
 
 //Create SVG element in chart id element
-const svgNetwork = d3.select('#rede_cabelo')
+const svgNetwork = d3.select('#rede_interacoes')
                   .append('svg')
                    .attr("class", "content")
                    .attr("viewBox", `0 0 ${widthNetwork + marginNetwork.left + marginNetwork.right} ${heightNetwork + marginNetwork.top + marginNetwork.bottom}`)
