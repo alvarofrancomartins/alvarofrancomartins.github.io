@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Deep learning | Alvaro Franco Martins</title>
-    <link>https://alvarofrancomartins.com/tag/deep-learning/</link>
-      <atom:link href="https://alvarofrancomartins.com/tag/deep-learning/index.xml" rel="self" type="application/rss+xml" />
-    <description>Deep learning</description>
+    <title>deep_learning | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/category/deep_learning/</link>
+      <atom:link href="https://alvarofrancomartins.com/category/deep_learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>deep_learning</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 20 Sep 2024 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
-      <title>Deep learning</title>
-      <link>https://alvarofrancomartins.com/tag/deep-learning/</link>
+      <title>deep_learning</title>
+      <link>https://alvarofrancomartins.com/category/deep_learning/</link>
     </image>
     
     <item>
@@ -62,14 +62,6 @@
 &lt;p&gt;I think first off, size isn’t everything. A big scandal doesn’t automatically equal a huge network. It could be these smaller, tighter groups that are even more effective at being corrupt. And we can’t forget those recidivists, man—they&amp;rsquo;re like the VIPs of corruption, right? And maybe most importantly, this whole thing shows us how powerful these tools are—network science, data visualization—they can help us untangle problems that seem impossible. Makes you think, something that starts with, what, seven people can snowball so fast, creating these whole networks of corruption that are way more resilient than you’d expect. But by understanding them, by actually seeing them, we can start to fight back more effectively. And that’s what this deep dive is all about, right? Absolutely—knowledge is power, even when it comes to something like corruption.&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Deep learning criminal networks</title>
-      <link>https://alvarofrancomartins.com/publication/deep-learning-criminal-networks/</link>
-      <pubDate>Mon, 29 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/publication/deep-learning-criminal-networks/</guid>
-      <description></description>
     </item>
     
   </channel>
