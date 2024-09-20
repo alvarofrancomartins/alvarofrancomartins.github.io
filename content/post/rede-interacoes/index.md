@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2024-09-09"
 featured: false
-draft: false
+draft: true
 tags: 
 - Rede interações
 
