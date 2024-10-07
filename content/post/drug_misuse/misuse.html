@@ -113,7 +113,7 @@
         .attr("text-anchor", "start")
         .style("font-size", "22px")
         .style("font-weight", "bold")
-        .text("Diz ter tomado");
+        .text("Relatou");
 
       svg.append("text")
         .attr("x", width - 200)
@@ -121,7 +121,7 @@
         .attr("text-anchor", "start")
         .style("font-size", "22px")
         .style("font-weight", "bold")
-        .text("Realmente tomou");
+        .text("Detectou");
 
       // Load the data based on the selected file
       d3.json("data/" + dataFile, function(error, graph) {
