@@ -97,7 +97,7 @@
       .attr(&#34;text-anchor&#34;, &#34;start&#34;)
       .style(&#34;font-size&#34;, &#34;22px&#34;)
       .style(&#34;font-weight&#34;, &#34;bold&#34;)
-      .text(&#34;Diz ter tomado&#34;);
+      .text(&#34;Relatou&#34;);
 
     // Add text above the target nodes
     svg.append(&#34;text&#34;)
@@ -106,7 +106,7 @@
       .attr(&#34;text-anchor&#34;, &#34;start&#34;)
       .style(&#34;font-size&#34;, &#34;22px&#34;)
       .style(&#34;font-weight&#34;, &#34;bold&#34;)
-      .text(&#34;Realmente tomou&#34;);
+      .text(&#34;Detectou&#34;);
 
     // Sankey diagram properties
     var sankey = d3.sankey()
