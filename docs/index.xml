@@ -97,7 +97,7 @@
       .attr(&#34;text-anchor&#34;, &#34;start&#34;)
       .style(&#34;font-size&#34;, &#34;22px&#34;)
       .style(&#34;font-weight&#34;, &#34;bold&#34;)
-      .text(&#34;Relatou&#34;);
+      .text(&#34;Relatado&#34;);
 
     // Add text above the target nodes
     svg.append(&#34;text&#34;)
@@ -106,7 +106,7 @@
       .attr(&#34;text-anchor&#34;, &#34;start&#34;)
       .style(&#34;font-size&#34;, &#34;22px&#34;)
       .style(&#34;font-weight&#34;, &#34;bold&#34;)
-      .text(&#34;Detectou&#34;);
+      .text(&#34;Detectado&#34;);
 
     // Sankey diagram properties
     var sankey = d3.sankey()
@@ -128,20 +128,20 @@
 
       // Re-add the text labels after clearing
       svg.append(&#34;text&#34;)
-        .attr(&#34;x&#34;, 50)
+        .attr(&#34;x&#34;, 0)
         .attr(&#34;y&#34;, -20)
         .attr(&#34;text-anchor&#34;, &#34;start&#34;)
         .style(&#34;font-size&#34;, &#34;22px&#34;)
         .style(&#34;font-weight&#34;, &#34;bold&#34;)
-        .text(&#34;Relatou&#34;);
+        .text(&#34;Relatado&#34;);
 
       svg.append(&#34;text&#34;)
-        .attr(&#34;x&#34;, width - 200)
+        .attr(&#34;x&#34;, width - 100)
         .attr(&#34;y&#34;, -20)
         .attr(&#34;text-anchor&#34;, &#34;start&#34;)
         .style(&#34;font-size&#34;, &#34;22px&#34;)
         .style(&#34;font-weight&#34;, &#34;bold&#34;)
-        .text(&#34;Detectou&#34;);
+        .text(&#34;Detectado&#34;);
 
       // Load the data based on the selected file
       d3.json(&#34;data/&#34; + dataFile, function(error, graph) {
