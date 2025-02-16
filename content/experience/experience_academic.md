@@ -26,7 +26,7 @@ date_format = "Jan 2006"
   date_start = "2024-04-03"
   date_end = ""
   description = """I work in the Corporate Security Modelling team at **Bradesco**. My role involves developing and monitoring machine learning models to detect and prevent fraud.
-  
+  <br>
   I'm also responsible for statistical analyses and hypothesis testing, as well as data manipulation to generate effective solutions and valuable insights. My primary goal is to significantly reduce fraud-related losses."""
 
 [[experience]]
