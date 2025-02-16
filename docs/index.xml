@@ -65,6 +65,21 @@
     </item>
     
     <item>
+      <title>Rede das interações entre as drogas (aline)</title>
+      <link>https://alvarofrancomartins.com/post/matriz-aline/</link>
+      <pubDate>Wed, 04 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/matriz-aline/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;h1 id=&#34;matriz-aline&#34;&gt;Matriz aline&lt;/h1&gt;
+&lt;div id=&#34;rede_aline&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/rede_aline.js&#34;&gt; &lt;/script&gt;
+&lt;br&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Rede aline&lt;/b&gt;: 59 drogas e 579 ligações.&lt;p/&gt;&lt;br&gt;</description>
+    </item>
+    
+    <item>
       <title>Deep learning criminal networks</title>
       <link>https://alvarofrancomartins.com/publication/deep-learning-criminal-networks/</link>
       <pubDate>Mon, 29 May 2023 00:00:00 +0000</pubDate>

@@ -25,7 +25,9 @@ date_format = "Jan 2006"
   location = "Curitiba, Paraná, Brasil"
   date_start = "2024-04-03"
   date_end = ""
-  description = """I work in the Corporate Security Modelling team at **Bradesco**."""
+  description = """I work in the Corporate Security Modelling team at **Bradesco**. My role involves developing and monitoring machine learning models to detect and prevent fraud.
+  
+  I'm also responsible for statistical analyses and hypothesis testing, as well as data manipulation to generate effective solutions and valuable insights. My primary goal is to significantly reduce fraud-related losses."""
 
 [[experience]]
   title = "PhD in Physics"
@@ -34,7 +36,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2021-04-01"
   date_end = "2024-03-22"
-  description = """**Thesis**: [Network science and machine learning applied to criminal networks](https://alvarofrancomartins.com/uploads/tese_de_doutorado.pdf)<br><br> I worked on the project “Network and data science applied to study corruption and organized crime.” My primary goal was to extract meaningful patterns from data on criminal activities, uncovering rules and mechanisms that govern their structure and dynamics.<p>"""
+  description = """**Thesis**: [Network science and machine learning applied to criminal networks](https://alvarofrancomartins.com/uploads/tese_de_doutorado.pdf)<br><br> I conducted research on network and data science applied to corruption and organized crime, focusing on extracting meaningful patterns from criminal activity data. My work aimed to uncover underlying structures, rules, and mechanisms shaping these networks, contributing to a deeper understanding of their dynamics.<p>"""
 
 [[experience]]
   title = "MSc in Physics"
@@ -43,7 +45,7 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2019-03-01"
   date_end = "2021-03-01"
-  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/dinamica_redes_corrupcao.pdf) <br><br>I investigated the dynamical structure of political corruption networks through the lens of network science and data science. I was able to found surprising results, such as linearity in the evolution of community structures, patterns regarding the growth of recidivist criminals and a coalescence-like process present in the emergence of these networks. Inspired by these and other statistical similarities between the networks, we proposed a model of corruption networks that was able to reproduce the empirical results. """
+  description = """**Thesis**: [The dynamics of political corruption networks](https://alvarofrancomartins.com/uploads/dinamica_redes_corrupcao.pdf) <br><br>I explored the structural evolution of political corruption networks using network science and data science. My research revealed unexpected patterns, including linearity in community structure evolution, trends in the growth of repeat offenders, and a coalescence-like process in network formation. Based on these statistical similarities, we developed a corruption network model capable of replicating empirical findings. """
 
 [[experience]]
   title = "BSc in Physics"
@@ -52,5 +54,5 @@ date_format = "Jan 2006"
   location = "Maringá, Paraná, Brasil"
   date_start = "2014-03-01"
   date_end = "2018-12-01"
-  description = """**Thesis**: [Time series analysis via complexity-entropy curves](https://alvarofrancomartins.com/uploads/analise_series_temporais.pdf) <br><br>I proposed a novel parameter (embedding delay) to study time series from several sources. By generalizing the complexity-entropy curve approach, this analysis was useful to find periodic patterns in noisy signals. """
+  description = """**Thesis**: [Time series analysis via complexity-entropy curves](https://alvarofrancomartins.com/uploads/analise_series_temporais.pdf) <br><br>I introduced a novel parameter, embedding delay, to analyze time series from various sources. By extending the complexity-entropy curve approach, this method proved effective in detecting periodic patterns within noisy signals. """
 +++
