@@ -4,11 +4,11 @@ subtitle: "Um guia visual e intuitivo para descomplicar métricas de classifica�
 summary: "Aprenda as principais métricas de classificação por meio de simulações interativas."
 projects: []
 
-date: "2025-03-23"
+date: "2025-03-24"
 
-draft: false
+draft: true
 
-featured: false
+featured: true
 
 authors:
 - admin
