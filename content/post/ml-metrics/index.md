@@ -374,7 +374,7 @@ Outro efeito interessante pode ser observado com a seguinte configuração: defi
 </div>
 <div style="flex: 1;">
 
-{{< figure src="img/output.gif" width="100%" >}}
+{{< youtube JCMaZmj5tks >}}
 
 </div>
 </div>
