@@ -6,7 +6,7 @@ projects: []
 
 date: "2025-03-24"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -376,7 +376,7 @@ Outro efeito interessante pode ser observado com a seguinte configuração: defi
 </div>
 <div style="flex: 1;">
 
-{{< youtube JCMaZmj5tks >}}
+{{< youtube Mvm8sIyaBoU >}}
 
 </div>
 </div>
