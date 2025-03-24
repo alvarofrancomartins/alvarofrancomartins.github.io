@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Educação | Alvaro Franco Martins</title>
-    <link>https://alvarofrancomartins.com/category/educacao/</link>
-      <atom:link href="https://alvarofrancomartins.com/category/educacao/index.xml" rel="self" type="application/rss+xml" />
-    <description>Educação</description>
+    <title>DataViz | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/dataviz/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/dataviz/index.xml" rel="self" type="application/rss+xml" />
+    <description>DataViz</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
-      <title>Educação</title>
-      <link>https://alvarofrancomartins.com/category/educacao/</link>
+      <title>DataViz</title>
+      <link>https://alvarofrancomartins.com/tag/dataviz/</link>
     </image>
     
     <item>

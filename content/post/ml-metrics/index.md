@@ -6,7 +6,7 @@ projects: []
 
 date: "2025-03-23"
 
-draft: true
+draft: false
 
 featured: false
 
@@ -14,18 +14,20 @@ authors:
 - admin
 
 tags:
-- machine learning
-- data science
-- visualização
-- métricas
-- classificação
-- curvas ROC
+- Machine Learning
+- Data Science
+- Métricas
+- Classificação
+- Curvas ROC
+- DataViz
+- Data Visualization
+
 
 categories:
-- data science
-- machine learning
-- estatística
-- educação
+- Data Science
+- Machine Learning
+- Estatística
+- Educação
 
 # toc: true
 
@@ -65,7 +67,7 @@ No diagrama apresentado, utilizamos uma representação visual simplificada para
 </div>
 </div>
 
-Para entender as métricas de classificação, podemos visualizar o que um modelo está fazendo. Considere que nosso modelo (por exemplo, que determina se a pessoa possui ou não determinada doença) é representado por um círculo azul no centro desse retângulo. Tudo o que está dentro deste círculo o modelo prevê que é positivo. Portanto, tudo que está fora dele é previsto como negativo.
+Para entender as métricas de classificação, podemos visualizar o que um modelo está fazendo. Considere que nosso modelo (por exemplo, que determina se a pessoa possui ou não determinada doença) é representado por um círculo azul no centro desse retângulo. O círculo, na verdade, é a fronteira de decisão do modelo. Tudo o que está dentro deste círculo o modelo prevê que é positivo. Portanto, tudo que está fora dele é previsto como negativo.
 
 <div style="display: flex; align-items: center; margin-top: 30px;">
 <div style="flex: 1; padding-right: 20px;">
@@ -140,7 +142,7 @@ $$\text{Sensibilidade} = \frac{TP}{TP + FN}$$
 
 <br>
 
-A **sensibilidade** indica quanto do lado direito foi coberto pelo círculo — ou seja, a proporção entre a parte azul dentro do círculo (TP) e todo o lado direito (TP + FN).
+A **sensibilidade** indica quanto do lado direito foi coberto pelo círculo — ou seja, a proporção entre a parte azul dentro do círculo (TP) e todo o lado direito (TP + FN). O foco da sensibilidade é não deixar passar casos positivos.
 
 </div>
 <div style="flex: 1;">
@@ -166,7 +168,7 @@ $$\text{FNR} = \frac{FN}{TP + FN} = 1 - \text{Sensibilidade}$$
 
 <br>
 
-É a proporção entre o que o círculo não cobriu do lado direito (FN) em relação ao lado direito inteiro (TP + FN).
+É a proporção entre o que o círculo não cobriu do lado direito (FN) em relação ao lado direito inteiro (TP + FN). 
 
 </div>
 <div style="flex: 1;">
@@ -242,7 +244,7 @@ $$\text{Precisão} = \frac{TP}{TP + FP}$$
 
 <br>
 
-Considerando a região interna do círculo (tudo o que o modelo classificou como positivo), a **precisão** representa a proporção da área à direita (TP) em relação à área total do círculo (TP + FP). Essa métrica também é conhecida como PPV (Positive predicted value).
+Considerando a região interna do círculo (tudo o que o modelo classificou como positivo), a **precisão** representa a proporção da área à direita (TP) em relação à área total do círculo (TP + FP). O foco da precisão é não dar falsos alarmes.
 
 
 </div>
@@ -282,7 +284,7 @@ Para realmente compreender esses conceitos, nada melhor que ver como eles se com
 
 ## Métricas de classificação
 
-A simulação abaixo ilustra interativamente os conceitos fundamentais de métricas de classificação. Pontos são uniformemente e aleatoriamente gerados, separados entre as classes positiva (direita) e negativa (esquerda). Você pode alterar o tamanho do cículo, bem como movê-lo e assim observar como se comportam as métricas discutidas acima.
+A simulação abaixo ilustra interativamente os conceitos fundamentais de métricas de classificação. Pontos são uniformemente e aleatoriamente gerados, separados igualmente entre as classes positiva (direita) e negativa (esquerda). Você pode alterar o tamanho do cículo, bem como movê-lo e assim observar como se comportam as métricas discutidas acima.
 
 <br>
 
@@ -326,23 +328,23 @@ Quando plotamos a curva ROC para este modelo, obtemos uma reta diagonal do tipo 
 
 <br>
 
-Isso seria equivalente a um modelo que faz previsões aleatórias, como jogar uma moeda para decidir entre positivo e negativo. Ou seja, um modelo sem poder preditivo. Agora vamos passar para um modelo um pouco melhor.
+Isso seria equivalente a um modelo que faz previsões aleatórias, como jogar uma moeda para decidir entre positivo e negativo. Ou seja, um modelo sem poder preditivo. 
 
 <br>
 
 ## Um modelo melhor que o baseline
 
-Um bom modelo de classificação consegue obter uma sensibilidade alta sem produzir muitos falsos positivos. Utilizando a mesma simulação, uma possibilidade seria um círculo (modelo) que cresce com início inteiramente no lado direito (captando mais positivos inicialmente). 
-
-<br>
-
-Após certa medida, no entanto, ele começa a captar parte do lado esquerdo, gerando falsos positivos. Quando plotamos a curva ROC nesse caso, obtemos uma curva que se arqueia para o canto superior esquerdo do gráfico[^5]. Aumente o tamanho do círculo na visualização abaixo e observe o que acontece.
-
-[^5]: Quanto mais próxima a curva ROC estiver do canto superior esquerdo, melhor é o desempenho do modelo. Para quantificar o desempenho, calculamos a área sob a curva (AUC), que representa a performance geral do modelo: AUC = 1,0: modelo perfeito. AUC = 0,5: modelo aleatório (sem poder preditivo). AUC < 0,5: pior que aleatório (inverta suas previsões).
+Um bom modelo de classificação consegue obter uma sensibilidade alta sem produzir muitos falsos positivos. Utilizando a mesma simulação, uma possibilidade seria um círculo que cresce com início inteiramente no lado direito (captando mais positivos inicialmente). Aumente o tamanho do círculo na visualização abaixo e observe o que acontece.
 
 <br>
 
 {{< include-html "content/post/ml-metrics/classification-metrics-simulation-roc2.html" >}}
+
+<br>
+
+Como observamos, após certa medida, o círculo começa a captar parte do lado esquerdo, gerando falsos positivos. Quando plotamos a curva ROC nesse caso, obtemos uma curva que se arqueia para o canto superior esquerdo do gráfico[^5]. 
+
+[^5]: Quanto mais próxima a curva ROC estiver do canto superior esquerdo, melhor é o desempenho do modelo. Para quantificar o desempenho, calculamos a área sob a curva (AUC), que representa a performance geral do modelo: AUC = 1,0: modelo perfeito. AUC = 0,5: modelo aleatório (sem poder preditivo). AUC < 0,5: pior que aleatório (inverta suas previsões).
 
 <br>
 
@@ -352,7 +354,7 @@ Vale a pena destacar que a curva ROC pode ser enganosa para conjuntos de dados m
 
 ## Dados Desbalanceados
 
-Quando os dados são altamente desbalanceados (por exemplo, fraude bancária onde menos de 0,1% das transações são fraudulentas), a curva ROC pode mascarar problemas de desempenho. Na curva ROC, os falsos positivos são medidos em relação ao número total de negativos (FPR = FP/N). Com muitos exemplos negativos, cada falso positivo tem um impacto mínimo na taxa de falsos positivos. Isso pode fazer com que um modelo pareça melhor do que realmente é. Para dados desbalanceados, considere usar a curva **Precisão-Recall (PR)**.
+Quando os dados são altamente desbalanceados (por exemplo, fraude bancária onde menos de 0,1% das transações são fraudulentas), a curva ROC pode mascarar problemas de desempenho. Na curva ROC, os falsos positivos são medidos em relação ao número total de negativos (FPR = FP/N). Com muitos exemplos negativos, cada falso positivo tem um impacto pequeno na taxa de falsos positivos. Isso pode fazer com que um modelo pareça melhor do que realmente é. Para dados desbalanceados, considere usar a curva **Precisão-Recall (PR)**.
 
 <br>
 
@@ -379,4 +381,4 @@ Outro efeito interessante pode ser observado com a seguinte configuração: defi
 </div>
 </div>
 
-Em geral, com precisão e recall estamos mais focados na classe minoritária (positiva, nesse caso), o que torna essas métricas mais informativas para dados desbalanceados. Um falso positivo não tem muito peso na curva ROC se temos muitos exemplos negativos. Porém, o mesmo falso positivo terá um impacto significativo na curva PR porque FP está no denominador da precisão.
+Em geral, com precisão e recall estamos mais focados na classe minoritária (positiva, nesse caso), o que torna essas métricas mais informativas para dados desbalanceados. Um falso positivo não tem muito peso na curva ROC se temos muitos exemplos negativos. Porém, o mesmo falso positivo terá um impacto maior na curva PR porque FP está no denominador da precisão.

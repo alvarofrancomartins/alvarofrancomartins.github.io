@@ -820,7 +820,7 @@ text-align: justify;
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/data-science/">data science</a>, <a href="/category/machine-learning/">machine learning</a>, <a href="/category/estatistica/">estatística</a>, <a href="/category/educacao/">educação</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/data-science/">Data Science</a>, <a href="/category/machine-learning/">Machine Learning</a>, <a href="/category/estatistica/">Estatística</a>, <a href="/category/educacao/">Educação</a></span>
   
 
 </div>
@@ -889,7 +889,7 @@ text-align: justify;
   </div></figure>
 </div>
 </div>
-<p>Para entender as métricas de classificação, podemos visualizar o que um modelo está fazendo. Considere que nosso modelo (por exemplo, que determina se a pessoa possui ou não determinada doença) é representado por um círculo azul no centro desse retângulo. Tudo o que está dentro deste círculo o modelo prevê que é positivo. Portanto, tudo que está fora dele é previsto como negativo.</p>
+<p>Para entender as métricas de classificação, podemos visualizar o que um modelo está fazendo. Considere que nosso modelo (por exemplo, que determina se a pessoa possui ou não determinada doença) é representado por um círculo azul no centro desse retângulo. O círculo, na verdade, é a fronteira de decisão do modelo. Tudo o que está dentro deste círculo o modelo prevê que é positivo. Portanto, tudo que está fora dele é previsto como negativo.</p>
 <div style="display: flex; align-items: center; margin-top: 30px;">
 <div style="flex: 1; padding-right: 20px;">
 <br>
@@ -1368,7 +1368,7 @@ text-align: justify;
 $$\text{Sensibilidade} = \frac{TP}{TP + FN}$$
 </div>
 <br>
-<p>A <strong>sensibilidade</strong> indica quanto do lado direito foi coberto pelo círculo — ou seja, a proporção entre a parte azul dentro do círculo (TP) e todo o lado direito (TP + FN).</p>
+<p>A <strong>sensibilidade</strong> indica quanto do lado direito foi coberto pelo círculo — ou seja, a proporção entre a parte azul dentro do círculo (TP) e todo o lado direito (TP + FN). O foco da sensibilidade é não deixar passar casos positivos.</p>
 </div>
 <div style="flex: 1;">
 
@@ -1524,7 +1524,7 @@ $$\text{FPR} = \frac{FP}{TN + FP} = 1 - \text{Especificidade}$$
 $$\text{Precisão} = \frac{TP}{TP + FP}$$
 </div>
 <br>
-<p>Considerando a região interna do círculo (tudo o que o modelo classificou como positivo), a <strong>precisão</strong> representa a proporção da área à direita (TP) em relação à área total do círculo (TP + FP). Essa métrica também é conhecida como PPV (Positive predicted value).</p>
+<p>Considerando a região interna do círculo (tudo o que o modelo classificou como positivo), a <strong>precisão</strong> representa a proporção da área à direita (TP) em relação à área total do círculo (TP + FP). O foco da precisão é não dar falsos alarmes.</p>
 </div>
 <div style="flex: 1;">
 
@@ -1595,7 +1595,7 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 <h1 id="simulações-interativas">Simulações interativas</h1>
 <p>Para realmente compreender esses conceitos, nada melhor que ver como eles se comportam em tempo real.</p>
 <h2 id="métricas-de-classificação">Métricas de classificação</h2>
-<p>A simulação abaixo ilustra interativamente os conceitos fundamentais de métricas de classificação. Pontos são uniformemente e aleatoriamente gerados, separados entre as classes positiva (direita) e negativa (esquerda). Você pode alterar o tamanho do cículo, bem como movê-lo e assim observar como se comportam as métricas discutidas acima.</p>
+<p>A simulação abaixo ilustra interativamente os conceitos fundamentais de métricas de classificação. Pontos são uniformemente e aleatoriamente gerados, separados igualmente entre as classes positiva (direita) e negativa (esquerda). Você pode alterar o tamanho do cículo, bem como movê-lo e assim observar como se comportam as métricas discutidas acima.</p>
 <br>
 
 <!DOCTYPE html>
@@ -3621,12 +3621,10 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 </body>
 </html>
 <br>
-<p>Isso seria equivalente a um modelo que faz previsões aleatórias, como jogar uma moeda para decidir entre positivo e negativo. Ou seja, um modelo sem poder preditivo. Agora vamos passar para um modelo um pouco melhor.</p>
+<p>Isso seria equivalente a um modelo que faz previsões aleatórias, como jogar uma moeda para decidir entre positivo e negativo. Ou seja, um modelo sem poder preditivo.</p>
 <br>
 <h2 id="um-modelo-melhor-que-o-baseline">Um modelo melhor que o baseline</h2>
-<p>Um bom modelo de classificação consegue obter uma sensibilidade alta sem produzir muitos falsos positivos. Utilizando a mesma simulação, uma possibilidade seria um círculo (modelo) que cresce com início inteiramente no lado direito (captando mais positivos inicialmente).</p>
-<br>
-<p>Após certa medida, no entanto, ele começa a captar parte do lado esquerdo, gerando falsos positivos. Quando plotamos a curva ROC nesse caso, obtemos uma curva que se arqueia para o canto superior esquerdo do gráfico<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>. Aumente o tamanho do círculo na visualização abaixo e observe o que acontece.</p>
+<p>Um bom modelo de classificação consegue obter uma sensibilidade alta sem produzir muitos falsos positivos. Utilizando a mesma simulação, uma possibilidade seria um círculo que cresce com início inteiramente no lado direito (captando mais positivos inicialmente). Aumente o tamanho do círculo na visualização abaixo e observe o que acontece.</p>
 <br>
 
 <!DOCTYPE html>
@@ -4585,10 +4583,12 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 </body>
 </html>
 <br>
+<p>Como observamos, após certa medida, o círculo começa a captar parte do lado esquerdo, gerando falsos positivos. Quando plotamos a curva ROC nesse caso, obtemos uma curva que se arqueia para o canto superior esquerdo do gráfico<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>.</p>
+<br>
 <p>Vale a pena destacar que a curva ROC pode ser enganosa para conjuntos de dados muito desbalanceados. Como um último exemplo, vamos observar o que acontece com a curva nesse cenário.</p>
 <br>
 <h2 id="dados-desbalanceados">Dados Desbalanceados</h2>
-<p>Quando os dados são altamente desbalanceados (por exemplo, fraude bancária onde menos de 0,1% das transações são fraudulentas), a curva ROC pode mascarar problemas de desempenho. Na curva ROC, os falsos positivos são medidos em relação ao número total de negativos (FPR = FP/N). Com muitos exemplos negativos, cada falso positivo tem um impacto mínimo na taxa de falsos positivos. Isso pode fazer com que um modelo pareça melhor do que realmente é. Para dados desbalanceados, considere usar a curva <strong>Precisão-Recall (PR)</strong>.</p>
+<p>Quando os dados são altamente desbalanceados (por exemplo, fraude bancária onde menos de 0,1% das transações são fraudulentas), a curva ROC pode mascarar problemas de desempenho. Na curva ROC, os falsos positivos são medidos em relação ao número total de negativos (FPR = FP/N). Com muitos exemplos negativos, cada falso positivo tem um impacto pequeno na taxa de falsos positivos. Isso pode fazer com que um modelo pareça melhor do que realmente é. Para dados desbalanceados, considere usar a curva <strong>Precisão-Recall (PR)</strong>.</p>
 <br>
 <p>A simulação abaixo mostra na prática a diferença entre as curvas ROC e PR. É possível alterar tanto o tamanho do círculo quanto a porcentagem da classe positiva no conjunto de dados. Varie primeiramente o tamanho do círculo e veja as duas curvas surgindo.</p>
 <br>
@@ -5534,7 +5534,7 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 
 </div>
 </div>
-<p>Em geral, com precisão e recall estamos mais focados na classe minoritária (positiva, nesse caso), o que torna essas métricas mais informativas para dados desbalanceados. Um falso positivo não tem muito peso na curva ROC se temos muitos exemplos negativos. Porém, o mesmo falso positivo terá um impacto significativo na curva PR porque FP está no denominador da precisão.</p>
+<p>Em geral, com precisão e recall estamos mais focados na classe minoritária (positiva, nesse caso), o que torna essas métricas mais informativas para dados desbalanceados. Um falso positivo não tem muito peso na curva ROC se temos muitos exemplos negativos. Porém, o mesmo falso positivo terá um impacto maior na curva PR porque FP está no denominador da precisão.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -5566,17 +5566,19 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tag/machine-learning/">machine learning</a>
+  <a class="badge badge-light" href="/tag/machine-learning/">Machine Learning</a>
   
   <a class="badge badge-light" href="/tag/data-science/">Data science</a>
   
-  <a class="badge badge-light" href="/tag/visualizacao/">visualização</a>
+  <a class="badge badge-light" href="/tag/metricas/">Métricas</a>
   
-  <a class="badge badge-light" href="/tag/metricas/">métricas</a>
+  <a class="badge badge-light" href="/tag/classificacao/">Classificação</a>
   
-  <a class="badge badge-light" href="/tag/classificacao/">classificação</a>
+  <a class="badge badge-light" href="/tag/curvas-roc/">Curvas ROC</a>
   
-  <a class="badge badge-light" href="/tag/curvas-roc/">curvas ROC</a>
+  <a class="badge badge-light" href="/tag/dataviz/">DataViz</a>
+  
+  <a class="badge badge-light" href="/tag/data-visualization/">Data Visualization</a>
   
 </div>
 
