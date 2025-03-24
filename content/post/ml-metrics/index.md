@@ -6,7 +6,7 @@ projects: []
 
 date: "2025-03-24"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -268,7 +268,7 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 
 <br>
 
-A **acurácia** representa a proporção da área coberta pelo circulo à direita (TP) mais a área não coberta pelo círculo à esquerda (TN) em relação à área total.
+A **acurácia** representa a proporção da área coberta pelo círculo à direita (TP) mais a área não coberta pelo círculo à esquerda (TN) em relação à área total.
 
 </div>
 <div style="flex: 1;">
