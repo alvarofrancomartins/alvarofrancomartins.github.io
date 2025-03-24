@@ -1,7 +1,7 @@
 ---
 title: "Sensibilidade, especificidade e curvas ROC: Um guia visual para não se confundir mais!"
 subtitle: "Um guia visual e intuitivo para descomplicar métricas de classificação"
-summary: "Aprenda de forma prática e visual como entender e aplicar as principais métricas de classificação usando simulações interativas."
+summary: "Aprenda de forma visual as principais métricas de classificação por meio de simulações interativas."
 projects: []
 
 date: "2025-03-23"
