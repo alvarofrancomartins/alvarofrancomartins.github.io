@@ -53,7 +53,7 @@ url_pdf: /uploads/s41598-025-98218-2.pdf
 
 image:
   placement: 4
-  caption: "Gender plots"
+  caption: 
   focal_point: "Smart"
   preview_only: false
   alt_text: 
