@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de buracos em Rodovias - Brasil</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+         
+        #map {
+            height: 100vh;  
+            width: 100%;
+        }
+         
+        .legend {
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            line-height: 18px;
+            color: #555;
+        }
+        .legend i {
+            width: 18px;
+            height: 18px;
+            float: left;
+            margin-right: 8px;
+            opacity: 0.9;
+            border-radius: 50%;  
+        }
+         
+        .message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border: 1px solid #f5c6cb;
+            border-radius: 8px;
+            z-index: 10000;  
+            display: none;  
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div id="map"></div>
+
+    <div id="messageBox" class="message-box">
+        A verificar o estado do mapa...
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    <script>
+        
+        let mapInstanceCurrentScript;
+        let markersLayerGroup; 
+
+        
+        function showMessage(message, isError = false) {
+            const messageBox = document.getElementById('messageBox');
+            if (!messageBox) return;
+            messageBox.textContent = message;
+            messageBox.style.backgroundColor = isError ? '#f8d7da' : '#d4edda';
+            messageBox.style.color = isError ? '#721c24' : '#155724';
+            messageBox.style.borderColor = isError ? '#f5c6cb' : '#c3e6cb';
+            messageBox.style.display = 'block';
+            setTimeout(() => {
+                if (messageBox) messageBox.style.display = 'none';
+            }, 8000); 
+        }
+
+        
+        function addTileLayer(mapInstance) {
+            if (!mapInstance) {
+                console.error("Tentativa de adicionar tile layer a um mapa não inicializado.");
+                return;
+            }
+            
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd', 
+                maxZoom: 20 
+            }).addTo(mapInstance);
+        }
+        
+        
+        function addLegend(mapInstance) {
+            if (!mapInstance || typeof L.control !== 'function') return;
+            const existingLegend = document.querySelector('.info.legend');
+            if (existingLegend) {
+                existingLegend.remove();
+            }
+            const legend = L.control({position: 'bottomright'});
+            legend.onAdd = function () { 
+                const div = L.DomUtil.create('div', 'info legend');
+                const grades = [
+                    {level: "Alta", color: "#b30000"},
+                    {level: "Média", color: "#ff0000"},
+                    {level: "Baixa", color: "#ff6666"}
+                ];
+                let labels = ['<strong>Criticidade</strong>'];
+                for (let i = 0; i < grades.length; i++) {
+                    labels.push(
+                        '<i style="background:' + grades[i].color + '"></i> ' +
+                        grades[i].level
+                    );
+                }
+                div.innerHTML = labels.join('<br>');
+                return div;
+            };
+            legend.addTo(mapInstance);
+        }
+
+        
+        async function initializeAndLoadMapData() {
+            const mapElement = document.getElementById('map');
+            if (!mapElement) {
+                showMessage("Erro crítico: Container do mapa '#map' não encontrado.", true);
+                console.error("Map container #map not found!");
+                return;
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 500)); 
+
+            if (mapElement._leaflet_id) {
+                console.warn("O container '#map' já foi inicializado ou manipulado pelo Leaflet (provavelmente pelo tema Wowchemy).");
+                showMessage("O mapa desta página parece ser controlado pelo tema. Para evitar conflitos, este script de mapa de buracos não será executado. Considere desabilitar a funcionalidade de mapa do tema se desejar usar este mapa personalizado.", false);
+                return; 
+            } else {
+                try {
+                    console.log("Container '#map' não parece ter sido inicializado pelo tema. Tentando inicializar um novo mapa Leaflet...");
+                    mapInstanceCurrentScript = L.map('map', {}); 
+                    addTileLayer(mapInstanceCurrentScript);  
+                    console.log("Novo mapa Leaflet inicializado com sucesso por este script.");
+                } catch (e) {
+                    console.error("Erro ao inicializar um novo mapa Leaflet:", e);
+                    showMessage(`Erro ao inicializar o mapa: ${e.message}. Verifique o console.`, true);
+                    return; 
+                }
+            }
+
+            if (!mapInstanceCurrentScript) {
+                showMessage("Falha crítica: Instância do mapa não está disponível para este script.", true);
+                console.error("A variável 'mapInstanceCurrentScript' não foi definida após as tentativas de inicialização.");
+                return;
+            }
+            
+            if (markersLayerGroup) {
+                markersLayerGroup.clearLayers();
+            } else {
+                markersLayerGroup = L.layerGroup().addTo(mapInstanceCurrentScript);
+            }
+
+            showMessage("A carregar dados dos buracos...", false);
+            try {
+                const response = await fetch('dados_buracos2.csv'); 
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar o arquivo CSV: ${response.status} ${response.statusText}. Verifique o caminho: dados_buracos2.csv`);
+                }
+                const csvData = await response.text();
+                showMessage("Arquivo CSV carregado. A processar dados...", false);
+
+                const linhas = csvData.trim().split('\n');
+                if (linhas.length < 2) {
+                    showMessage("Arquivo CSV vazio ou com apenas cabeçalho.", true);
+                    if (mapInstanceCurrentScript.setView) mapInstanceCurrentScript.setView([-14.2350, -51.9253], 4);
+                    return;
+                }
+
+                const cabecalho = linhas[0].split(';');
+                const dados = [];
+                const idxLatitude = cabecalho.indexOf('Latitude');
+                const idxLongitude = cabecalho.indexOf('Longitude');
+                const idxAlta = cabecalho.indexOf('Alta');
+                const idxMedia = cabecalho.indexOf('Média');
+                const idxBaixa = cabecalho.indexOf('Baixa');
+                const idxUF = cabecalho.indexOf('UF');
+                const idxRodovia = cabecalho.indexOf('Rodovia');
+                const idxSentido = cabecalho.indexOf('Sentido');
+
+                if (idxLatitude === -1 || idxLongitude === -1 || idxAlta === -1 || idxMedia === -1 || idxBaixa === -1) {
+                    showMessage("Cabeçalho do CSV inválido. Verifique as colunas: Latitude, Longitude, Alta, Média, Baixa.", true);
+                    if (mapInstanceCurrentScript.setView) mapInstanceCurrentScript.setView([-14.2350, -51.9253], 4);
+                    return;
+                }
+
+                for (let i = 1; i < linhas.length; i++) {
+                    const valores = linhas[i].split(';');
+                    if (valores.length === cabecalho.length) {
+                        const ponto = {
+                            Latitude: valores[idxLatitude],
+                            Longitude: valores[idxLongitude],
+                            Alta: valores[idxAlta],
+                            Média: valores[idxMedia],
+                            Baixa: valores[idxBaixa],
+                            UF: valores[idxUF],
+                            Rodovia: valores[idxRodovia],
+                            Sentido: valores[idxSentido]
+                        };
+                        dados.push(ponto);
+                    }
+                }
+
+                let pontosAdicionados = 0;
+                const mapBounds = L.latLngBounds();
+                const tempMarkers = []; 
+
+                dados.forEach(ponto => {
+                    try {
+                        const lat = parseFloat(String(ponto.Latitude).replace(',', '.'));
+                        const lon = parseFloat(String(ponto.Longitude).replace(',', '.'));
+
+                        if (isNaN(lat) || isNaN(lon)) {
+                            console.warn("Coordenadas inválidas para o ponto:", ponto);
+                            return; 
+                        }
+
+                        let criticidade = 'Não definida';
+                        let cor = 'gray';
+
+                        if (ponto.Alta && ponto.Alta.toUpperCase() === 'X') {
+                            criticidade = 'Alta';
+                            cor = '#b30000';
+                        } else if (ponto.Média && ponto.Média.toUpperCase() === 'X') {
+                            criticidade = 'Média';
+                            cor = '#ff0000';
+                        } else if (ponto.Baixa && ponto.Baixa.toUpperCase() === 'X') {
+                            criticidade = 'Baixa';
+                            cor = '#ff6666';
+                        }
+                        
+                        if (criticidade !== 'Não definida') {
+                            const circle = L.circle([lat, lon], {
+                                color: cor,
+                                fillColor: cor,
+                                fillOpacity: 0.6, 
+                                radius: 350, 
+                                weight: 1 
+                            }); 
+
+                            const popupContent = `
+                                <b>UF:</b> ${ponto.UF || 'N/A'}<br>
+                                <b>Rodovia:</b> ${ponto.Rodovia || 'N/A'}<br>
+                                <b>Sentido:</b> ${ponto.Sentido || 'N/A'}<br>
+                                <b>Criticidade:</b> ${criticidade}<br>
+                                <b>Latitude:</b> ${lat.toFixed(6)}<br>
+                                <b>Longitude:</b> ${lon.toFixed(6)}
+                            `;
+                            circle.bindPopup(popupContent);
+                            
+                            tempMarkers.push(circle); 
+                            mapBounds.extend([lat, lon]);
+                            pontosAdicionados++;
+                        }
+                    } catch (error) {
+                        console.error("Erro ao processar o ponto:", ponto, error);
+                    }
+                });
+                
+                if (tempMarkers.length > 0) {
+                    markersLayerGroup.addLayer(L.layerGroup(tempMarkers));
+                }
+
+                if (pontosAdicionados === 0) {
+                    showMessage("Nenhum ponto de buraco (com criticidade definida) encontrado no arquivo CSV para adicionar ao mapa.", false);
+                    if (mapInstanceCurrentScript.setView && !mapBounds.isValid()) mapInstanceCurrentScript.setView([-14.2350, -51.9253], 4);
+                } else {
+                    showMessage(`${pontosAdicionados} pontos de buraco carregados e adicionados ao mapa.`, false);
+                    if (mapBounds.isValid()) {
+                        if (mapInstanceCurrentScript.fitBounds) {
+                            mapInstanceCurrentScript.fitBounds(mapBounds, { padding: [30, 30] }); 
+                        }
+                    } else {
+                        if (mapInstanceCurrentScript.setView) mapInstanceCurrentScript.setView([-14.2350, -51.9253], 4);
+                    }
+                }
+                addLegend(mapInstanceCurrentScript);
+
+            } catch (error) {
+                console.error('Erro ao carregar ou processar o CSV:', error);
+                showMessage(`Erro ao carregar dados dos buracos: ${error.message}. Verifique o console.`, true);
+                if (mapInstanceCurrentScript && mapInstanceCurrentScript.setView) mapInstanceCurrentScript.setView([-14.2350, -51.9253], 4);
+            }
+        }
+
+        function resizeMap() {
+            const currentMapElement = document.getElementById('map');
+            if (currentMapElement) {
+                currentMapElement.style.height = window.innerHeight + 'px';
+                currentMapElement.style.width = '100%';
+            }
+            if (mapInstanceCurrentScript && typeof mapInstanceCurrentScript.invalidateSize === 'function') {
+                mapInstanceCurrentScript.invalidateSize();
+            }
+        }
+        window.addEventListener('resize', resizeMap);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            resizeMap(); 
+            initializeAndLoadMapData(); 
+        });
+
+    </script>
+
+</body>
+</html>

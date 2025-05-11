@@ -5,12 +5,20 @@
     <link>https://alvarofrancomartins.com/</link>
       <atom:link href="https://alvarofrancomartins.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 23 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 11 May 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/</link>
     </image>
+    
+    <item>
+      <title>Visualização Interativa: Buracos em Rodovias do Brasil</title>
+      <link>https://alvarofrancomartins.com/post/buracos-rodovias-pr/</link>
+      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/buracos-rodovias-pr/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Structural roles and gender disparities in corruption networks</title>
