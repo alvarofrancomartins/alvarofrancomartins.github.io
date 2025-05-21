@@ -1,10 +1,5 @@
+# netlify.toml
 [build]
-  command = "hugo --gc --minify"
-  publish = "public"
-  functions = "netlify/functions"
-
-[build.environment]
-  HUGO_VERSION = "0.125.4"
-  NODE_VERSION = "18"
-  GO_VERSION = "1.21"
-  WC_POST_CSS = "true"
+  command = "hugo --gc --minify" # Comando para construir o seu site Hugo
+  publish = "public"             # Pasta onde o Hugo gera o site construído
+  functions = "netlify/functions"  # Onde o Netlify encontra as suas funções
