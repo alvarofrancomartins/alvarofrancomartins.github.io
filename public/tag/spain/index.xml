@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spain | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/spain/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/spain/index.xml" rel="self" type="application/rss+xml" />
+    <description>Spain</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Spain</title>
+      <link>https://alvarofrancomartins.com/tag/spain/</link>
+    </image>
+    
+    <item>
+      <title>Machine learning partners in criminal networks</title>
+      <link>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Computational model of political corruption networks</title>
+      <link>https://alvarofrancomartins.com/post/corruption-networks-model/</link>
+      <pubDate>Tue, 03 May 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks-model/</guid>
+      <description>&lt;p&gt;In our &lt;a href=&#34;https://alvarofrancomartins.com/publication/universality-of-political-corruption-networks/&#34;&gt;latest paper&lt;/a&gt;, the findings of universal characteristics in political corruption networks allowed us to propose a model to simulate the growth of corruption networks. Among other results, our research revealed the prominent role of recidivist agents on corruption networks. For instance, we discover that recidivists act as bridges among minor corrupt groups and coordinate peripheral criminals to perform more extensive and often much more harmful corruption processes.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Motivated by these insights, we have used the recidivism rate (&lt;em&gt;i.e&lt;/em&gt;, the fraction of corrupt agents recurring in the criminal activity), as the main parameter of the model. The simulations not only produce networks with features very similar to those observed in the empirical data, but also indicates that corruption networks operate around a critical recidivism rate. More specifically, corruption networks simulated below this critical recidivism rate are completely fragmented, while networks generated above this critical value become overly connected.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In this post, I will&lt;/p&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe the model  &lt;a href=&#34;#model&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Display an interactive demonstration &lt;a href=&#34;#play&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Present the algorithm of the model in Python &lt;a href=&#34;#algorithm&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;model&#34;&gt;The model&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;We have proposed the model based on two of our main findings about political corruption networks. In particular, we have found that the size distribution of scandals is roughly approximated by an exponential distribution with a characteristic number of people around seven people. This result shows that political corruption runs in small groups that rarely exceed more than ten people (only 20% and 17% of corruption cases in Spain and Brazil, respectively). The surprising similarity in the size distribution of scandals in both countries suggests a universal pattern related to political corruption processes.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The second finding came from investigating the dynamics of repeat offenders. We have found that the number of recidivist agents is linearly associated with the number of people in the network over the entire network growth process. The recidivism rates (number of repeat offenders divided by the total number of offenders) are 9% for Spain and 14.2% for Brazil. Therefore, the number of recidivists ($r$) can be modeled by the following equation.&lt;/p&gt;
+&lt;p&gt;$$r(n) = \alpha n + \beta,$$&lt;/p&gt;
+&lt;p&gt;where $n$ is the total number of people and the parameters are&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\alpha$: The recidivism rate (number of repeat offenders / total number of offenders). $\in [0, 1]$.&lt;/li&gt;
+&lt;li&gt;$\beta$: The regression coefficient. It controls the minimal number of people necessary for the emergence of the first recidivist agents. $\in [-\infty, 0)$.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The model works as follows. It first starts with an empty network that grows by including complete graphs representing political scandals at each iteration. The size of these complete graphs ($s$) is randomly drawn from an exponential distribution ($P$) to mimic the empirical behavior given by $P(s)\sim e^{-s/s_c}$, where $s_c$ represents the characteristic size of corruption scandals (empirically, $s_c\approx 7$ people). We consider that part of the agents added to the network at each iteration are recidivists. We assume the number of recidivists to increase linearly according with the equation of $r(n)$. We keep track of the number of recidivists during the network growth process, and when new recidivists emerge, we randomly select nodes already present in the network to become recidivists and make them belong to the next scandal (complete graph) added to the network.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In addition, when selecting nodes for representing recidivist agents, we can select nodes that were already recidivists with a small probability $p$ or nodes that will become recidivists for the first time with probability $1-p$. This last procedure allows us to control the number of agents involved in more than two corruption scandals and reproduce the empirical behavior (about 2.5% of all agents of both Spanish and Brazilian networks fit this condition).&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;play&#34;&gt;Interact with the model simulations&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;The application below allows you to interact with the network&amp;rsquo;s simulations and see how they evolve as you add new scandals. To play with it, first click in the &lt;strong&gt;Start new network&lt;/strong&gt; button and then add as many scandals as you want using the &lt;strong&gt;Add new scandal&lt;/strong&gt; button. Please note that, initially, only complete graphs will appear. After a while, however, the recidivists will show up and they will connect different parts of the network.&lt;/p&gt;
+&lt;br&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&#34;en&#34;&gt;
+
+  &lt;head&gt;
+    &lt;title&gt;Network Corruption Model&lt;/title&gt;
+
+    &lt;style&gt;
+      #mynetwork {
+        display: inline-block;
+        height: 620px;
+        width: 100%;
+        border: 1px solid #444444;
+        background-color: #222222;
+      }
+
+      .input-group {
+        width: 100%;
+        padding:  0px;
+
+      }
+
+      .my_input {
+        border: solid 1px #ccc;
+
+        padding-left: 20px;
+
+        border-radius: 5px;
+        margin-bottom: 5px;
+        }
+
+      .btn-primary{
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .btn-outline-primary{
+        font-size: 20px;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .row {
+        margin-left:2px;
+      }
+
+    &lt;/style&gt;
+
+    &lt;script type=&#34;text/javascript&#34; src=&#34;https://unpkg.com/vis-network/standalone/umd/vis-network.min.js&#34;&gt;&lt;/script&gt;
+    &lt;script src=&#34;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&#34;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;div class=&#34;input-group&#34;&gt;
+      &lt;label style=&#34;font-size:28px;padding-top:5px;&#34;&gt;$\alpha$ &amp;nbsp&lt;/label&gt;&lt;input class = &#34;my_input&#34; type=&#34;number&#34; name=&#34;recidivism_rate&#34; min=0 max=1 step=0.001 value=0.142 id=&#34;recidivism_rate&#34; oninput= &#34;(!validity.rangeOverflow||(value=1)) &amp;&amp; (!validity.rangeUnderflow||(value=0)) &amp;&amp;
+(!validity.stepMismatch||(value=parseInt(this.value)));&#34;/&gt;
+
+      &lt;label style=&#34;font-size:28px;padding-top:5px;&#34;&gt;&amp;nbsp&amp;nbsp $\beta$ &amp;nbsp&lt;/label&gt;&lt;input class = &#34;my_input&#34; type=&#34;number&#34; name=&#34;beta_parameter&#34; min=-100 max=-1 step=-1 value=-11 id=&#34;beta_parameter&#34; oninput= &#34;(!validity.rangeOverflow||(value=-1)) &amp;&amp; 
+(!validity.stepMismatch||(value=parseInt(this.value)));&#34; /&gt;
+
+      &lt;div class=&#34;row&#34;&gt;
+        &lt;button id=&#34;startNewNetwork&#34; class=&#34;btn btn-primary&#34; onclick=&#34;startNewNetwork();addCompleteGraph();enableAddGraph();&#34;&gt;Start new network&lt;/button&gt;
+        &lt;button id=&#34;add_new_scandal&#34; class=&#34;btn btn-outline-primary&#34; onclick=&#34;addCompleteGraph();&#34; disabled&gt;Add new scandal&lt;/button&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+
+    &lt;div id=&#34;mynetwork&#34;&gt;&lt;/div&gt;
+
+    &lt;script type=&#34;text/javascript&#34;&gt;
+      var container = document.getElementById(&#34;mynetwork&#34;);
+
+      proba = 0.024;
+      lambda = 7.33;
+
+      const options = {
+        &#34;autoResize&#34;: true,
+        &#34;height&#34;: &#39;100%&#39;,
+        &#34;width&#34;: &#39;100%&#39;,
+        &#34;physics&#34;: {
+          &#34;enabled&#34;: true,
+          &#34;forceAtlas2Based&#34;: {
+            &#34;theta&#34;: 0.9,
+            &#34;gravitationalConstant&#34;: -100,
+            &#34;centralGravity&#34;: 0.01,
+            &#34;springConstant&#34;: 0.08,
+            &#34;springLength&#34;: 100,
+            &#34;damping&#34;: 0.7,
+            &#34;avoidOverlap&#34;: 0
+          },
+          &#34;maxVelocity&#34;: 50,
+          &#34;minVelocity&#34;: 0.1,
+          &#34;solver&#34;: &#39;forceAtlas2Based&#39;,
+          &#34;stabilization&#34;: {
+            &#34;enabled&#34;: false
+          },
+          &#34;timestep&#34;: 0.2,
+          &#34;adaptiveTimestep&#34;: true,
+        },
+        &#34;edges&#34;: {
+          &#34;smooth&#34;: false
+        },
+        &#34;nodes&#34;: {
+          &#34;shape&#34;: &#34;dot&#34;,
+          &#34;size&#34;: 10,
+        },
+        &#34;interaction&#34;: {
+          &#34;dragNodes&#34;: false,
+          &#34;dragView&#34;: true
+        }
+      }
+
+      function startNewNetwork() {
+        a = parseFloat(document.getElementById(&#34;recidivism_rate&#34;).value);
+        b = parseFloat(document.getElementById(&#34;beta_parameter&#34;).value);
+
+        last_agent_index = 0;
+        total_repeated_agents = 0;
+
+        repeated_agent_names = [];
+        agent_names = [];
+
+        nodes = new vis.DataSet();
+        edges = new vis.DataSet();
+
+        data = {
+          nodes: nodes,
+          edges: edges,
+        };
+
+        return network = new vis.Network(container, data, options);
+      }
+
+      function expoSampling(scale) {
+        return Math.round(-scale * Math.log(1.0 - Math.random()));
+      }
+
+      function addCompleteGraph() {
+        // calculate the size of the complete graph to enter the network
+        var n_new_agents = expoSampling(lambda);
+
+        while (n_new_agents &lt;= 1) {
+          var n_new_agents = expoSampling(lambda);
+        }
+
+        // get index from new nodes
+        var new_agent_names = [];
+        for (let n = last_agent_index; n &lt; last_agent_index + n_new_agents; n++) {
+          new_agent_names.push(n);
+        }
+        last_agent_index += n_new_agents;
+
+        size_network = agent_names.length;
+
+        // apply model
+        var new_repeated_agents = Math.round(a * (size_network) + b - total_repeated_agents);
+
+        if (new_repeated_agents &gt; 0) {
+
+          var minimo = Math.min(new_repeated_agents, new_agent_names.length);
+
+          for (let i = 0; i &lt; minimo; i++) {
+
+            if ((Math.random() &lt;= proba) &amp;&amp; (repeated_agent_names.length &gt; 0)) {
+
+              id_old = repeated_agent_names[Math.floor(Math.random() * repeated_agent_names.length)];
+
+            } else {
+
+              let difference = agent_names.filter(x =&gt; !repeated_agent_names.includes(x));
+
+              id_old = difference[Math.floor(Math.random() * difference.length)];
+
+              total_repeated_agents += 1;
+            }
+
+            new_agent_names[i] = id_old;
+            repeated_agent_names.push(id_old);
+          }
+        }
+
+        for (let i = 0; i &lt; new_agent_names.length; i++) {
+          if (!agent_names.includes(new_agent_names[i])) {
+            agent_names.push(new_agent_names[i])
+          }
+        }
+
+        // add complete graph to the network
+        for (let n = 0; n &lt; new_agent_names.length; n++) {
+          nodes.update({
+            id: new_agent_names[n]
+          })
+        }
+
+        for (let i = 0; i &lt; new_agent_names.length; i++) {
+          for (let j = i + 1; j &lt; new_agent_names.length; j++) {
+            let i_ = new_agent_names[i];
+            let j_ = new_agent_names[j];
+
+            if (i_ != j_) {
+              edges.update({
+                from: i_,
+                to: j_
+              });
+            }
+          }
+        }
+        network.fit({
+                    &#34;minZoomLevel&#34;: 0.1,
+                    &#34;maxZoomLevel&#34;: 0.35,
+                    });
+      }
+
+      // button dynamics
+      const numSeconds = 1
+      document.querySelector(&#39;#add_new_scandal&#39;).addEventListener(&#39;click&#39;, (e) =&gt; {
+        e.target.disabled = true
+        setTimeout(() =&gt; {
+          e.target.disabled = false
+        }, numSeconds * 500)
+      })
+
+      function enableAddGraph() {
+        document.getElementById(&#34;add_new_scandal&#34;).disabled = false;
+      }
+
+    &lt;/script&gt;
+
+  &lt;/body&gt;
+
+&lt;/html&gt;
+&lt;p&gt;This interactive visualization was made using &lt;a href=&#34;https://visjs.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;visjs&lt;/a&gt;, a browser based visualization library. The figures below show a visual comparison between simulated and empirical networks. Figure 1 is a simulation of the Brazilian corruption network using its recidivism rate, and Figure 2 shows the empirical network.&lt;/p&gt;
+&lt;div class=&#34;parent&#34; style = &#34;display:flex&#34;&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block;padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;figs/model.png&#34;&gt;
+&lt;figcaption&gt;Figure 1: A network simulation with $\alpha = 0.142$.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+&lt;img style = &#34;width: 100%;display: inline-block; padding-left: 5px;&#34; class=&#34;half-page-image&#34; src=&#34;figs/brazil.png&#34;&gt;
+&lt;figcaption &gt;Figure 2: The Brazilian corruption network. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/div&gt;
+&lt;p&gt;For more comparisons (both visual and quantitative) between the model and the empirical networks, see the &lt;a href=&#34;https://www.nature.com/articles/s41598-022-10909-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;paper&lt;/a&gt; or take a look at my other &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks&#34;&gt;post&lt;/a&gt; where I have summarized our results.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;algorithm&#34;&gt;The algorithm&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;In order to run the model, we first need to import the following packages:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt;          &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;graph_tool.all&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;gt&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;itertools&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;combinations&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The function which generate the network links according to our model is written as follows.&lt;/p&gt;
+&lt;br&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
+  &lt;summary&gt;Click to view the code&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lambda_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;7.33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.09&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;11.5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;proba&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.024&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    Generate a corruption network based on our model.
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    Parameters
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    ---------
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    tmax : int
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;           Number of iteration steps (default: 100).
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    lambda_ : float
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;           Characteristic number of people per scandal (default: 7.33).
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    a, b : float
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;           Parameters defining the number of repeated agents (nr) as a function
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;           of total number of agents (n): nr = a*n + b (default: 0.09, -11.5).
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    proba : float
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            Probability of selecting a repeated agent that was already involved in
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;            another scandal (default: 0.024).
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    Returns
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    -------
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    links_list : list
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                 A list of edge lists where each element correspond to
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;                 a particular iteration step.
+&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+    
+    &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;                          &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;links&lt;/span&gt;                      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;links_list&lt;/span&gt;                 &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;agent_names&lt;/span&gt;                &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;last_agent_index&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;repeated_agent_names&lt;/span&gt;       &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;total_repeated_agents&lt;/span&gt;      &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+    
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;n_new_agents&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;exponential&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lambda_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
+            
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_new_agents&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        
+            &lt;span class=&#34;n&#34;&gt;new_agent_names&lt;/span&gt;     &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;last_agent_index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;last_agent_index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_new_agents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;last_agent_index&lt;/span&gt;   &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_new_agents&lt;/span&gt;
+            
+            &lt;span class=&#34;n&#34;&gt;new_repeated_agents&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;round&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;total_repeated_agents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
+            
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_repeated_agents&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;min&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_repeated_agents&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))):&lt;/span&gt;
+
+                    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;uniform&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;proba&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repeated_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+                        &lt;span class=&#34;c1&#34;&gt;#select from repeated_agent_names&lt;/span&gt;
+                        &lt;span class=&#34;n&#34;&gt;repeated_agent&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;choice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repeated_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+                    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                        &lt;span class=&#34;c1&#34;&gt;#select from agent_names&lt;/span&gt;
+                        &lt;span class=&#34;n&#34;&gt;repeated_agent&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;choice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repeated_agent_names&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;^&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+                        &lt;span class=&#34;n&#34;&gt;total_repeated_agents&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+
+                    &lt;span class=&#34;n&#34;&gt;new_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;repeated_agent&lt;/span&gt;
+                    &lt;span class=&#34;n&#34;&gt;repeated_agent_names&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;repeated_agent&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+                    
+            &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;agent_&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;new_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;agent_names&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;agent_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+            
+            &lt;span class=&#34;n&#34;&gt;new_links&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;combinations&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_agent_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+            
+            &lt;span class=&#34;n&#34;&gt;links_list&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;          &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;links_list&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;p&gt;This function returns a list of edge lists, where each element correspond to a particular iteration step.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;generate_net_links&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tmax&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.142&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# e.g, [[(0, 1), (0, 3), ... (5, 6)], [(7, 8), (7, 9) ... (14, 15)], ... ]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To create the network until step $t$ we need to concatenate these lists.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edges_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;           &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Graph&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;directed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;edge_list_t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;concatenate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edges_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
+    
+    &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_edge_list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge_list_t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashed&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# Self loops and parallel edges are not allowed. &lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_self_loops&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;gt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;remove_parallel_edges&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we can generate the network until $t$ steps (100 in this case).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;final_network&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;network&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edge_lists&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;final_network&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;&amp;lt;Graph object, undirected, with 767 vertices and 4805 edges, at 0x7f2789007d60&amp;gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;closing-thoughts&#34;&gt;Closing thoughts&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;The most important aspect of this model is that it highlights the relevance of recidivists in criminal contexts. Recidivists are able to connect different parts of networks and function as brokers. In other words, they represent the backbone of criminal networks, sustaining organized crime across time and space. In this sense, the recidivism rate plays an important role in the evolution, structure and dynamics of corruption networks.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;From a practical perspective, our model may have important implications for law enforcement and intelligence activities. In a scenario where we are able to estimate the number of recidivists, we could therefore approximate relevant features regarding the evolution and structure of the underlying network. Moreover, our model can even be used as a benchmark for related corruption network investigations, such as link prediction or efficiency in network dismantling.&lt;/p&gt;
+&lt;!-- &lt;ul class=&#34;cta-group&#34;&gt;
+  
+  &lt;li&gt;
+    &lt;a href=&#34;https://alvarofrancomartins.com/&#34;  class=&#34;btn btn-primary px-3 py-3&#34;&gt;Do something&lt;/a&gt;
+  &lt;/li&gt;
+  
+  
+&lt;/ul&gt;
+ --&gt;
+&lt;!-- For now I think that&#39;s about it. Please, do not hesitate to contact me in case you want to talk about my work.  --&gt;
+&lt;br&gt;
+&lt;p&gt;Main references:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1038/s41598-022-10909-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Martins, A. F., da Cunha, B. R., Hanley, Q. S., Gonçalves, S., Perc, M., &amp;amp; Ribeiro, H. V. (2022). &lt;strong&gt;Universality of political corruption networks&lt;/strong&gt;. Scientific Reports, 12(1), 1-10.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1093/comnet/cny002&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Ribeiro, H. V., Alves, L. G., Martins, A. F., Lenzi, E. K., &amp;amp; Perc, M. (2018). &lt;strong&gt;The dynamical structure of political corruption networks&lt;/strong&gt;. Journal of Complex Networks, 6(6), 989-1003.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Unveiling the hidden patterns of corruption networks</title>
+      <link>https://alvarofrancomartins.com/post/corruption-networks/</link>
+      <pubDate>Fri, 15 Apr 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/corruption-networks/</guid>
+      <description>&lt;p&gt;Political corruption is an inherent problem in our societies. Corrupt behavior is a multifaceted phenomenon responsible for a variety of socioeconomic limitations. In general, isolated agents engaged in criminal acts rarely pose a major threat to society. However, this scenario changes completely when we consider, for example, multiple corruption scandals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Although the people involved in corruption obviously want to keep it in secrecy, they do not operate without leaving traces. A natural approach to consider this collective behavior can be taken from a combination of scientific fields, such as network science, complexity science, and data science.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Criminal networks are not simply social networks operating in criminal contexts. The interactions within these systems go beyond social norms and are often shaped by trade-offs between concealment and efficiency. Political corruption networks represent an additional layer of complexity. Frequently involving high ranking individuals, a great deal of polarization and many controversies, political corruption weakens democracy, damages political stability and spreads mistrust in the rule of law.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In our recent paper &lt;a href=&#34;https://www.nature.com/articles/s41598-022-10909-2&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Universality of political corruption networks&lt;/a&gt;, we used publicly available data from Brazil and Spain to reveal the underlying patterns of political corruption networks. Our work has revealed fascinating statistical similarities in the growth of these networks. This work include many results I obtained during my master&amp;rsquo;s degree and ongoing PhD. Here I summarize our main findings:&lt;/p&gt;
+&lt;br&gt;
+&lt;ol&gt;
+&lt;li&gt;We have found that, in both countries, the size of corruption scandals is approximately exponentially distributed. These distributions have, on average, roughly 7 people per scandal. Therefore, people tend to act in small groups when they are involved in corruption processes.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig1.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 1: Complementary cumulative distribution of scandals sizes in (A) Spain and (B) Brazil.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;The networks consist of nodes representing people listed in the scandals and links indicating that two people were involved in the same corruption scandal. These networks share surprising features, such as high clustering coefficients, moderately high assortativity coefficients, and low average shortest path length.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig2.png&#34; width=&#34;800px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 2: (A) Spanish and (B) Brazilian political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;The networks&#39; degree distributions are well approximated by exponential distributions. Moreover, the characteristic degrees evolved to a similar plateau, roughly with the same average number of connections.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig3.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 3: Changes in the characteristic degree over the years for (A) Spanish and (B) Brazilian corruption networks. The insets show the cumulative distributions of the vertex degree (on a log-linear scale) for the last year of the networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;The networks present community structures where the number of modules is linearly associated with the total number of scandals.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/figa.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 4: (A) Spanish and (B) Brazilian number of modules versus number of scandals.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;5&#34;&gt;
+&lt;li&gt;The time evolution of the networks are characterized by abrupt changes in the size of the largest connected component, which is due to the coalescence (or connection) of different network components. This process is caused by recidivists (&lt;em&gt;i.e.&lt;/em&gt;, individuals involved in at least two scandals).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig5.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 5: Coalescence processes observed in both political corruption networks.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;The number of recidivists is linearly associated with the total number of people. The recidivism rates (number of repeat offenders / total number of offenders) are 9% in Spain and 14.2% in Brazil.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig6.png&#34; width=&#34;730px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 7: Linear relationships between the number of repeat offenders and the total number of people.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Recidivists are vertices that connect different parts of the network, functioning as brokers (they have the highest betweenness centrality values). In this sense, the recidivism rate plays an important role in the evolution, structure, and dynamics of corruption networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/fig7.png&#34; width=&#34;530px&#34; height=&#34;500px&#34; /&gt;
+    &lt;figcaption&gt;Figure 7: Spanish political corruption network showing recidivists nodes in red.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;8&#34;&gt;
+&lt;li&gt;We have proposed a &lt;a href=&#34;https://alvarofrancomartins.com/post/corruption-networks-model/&#34;&gt;computational model&lt;/a&gt; to simulate corruption networks. The model takes into account two results: the recidivists linear pattern and the size distribution of scandals. We can see below that our model generate networks visually similar to the empirical corruption networks.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig1.png&#34; width=&#34;830px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 8: (A) Spanish and (B) Brazilian political corruption networks. Model simulations of the empirical networks using (C) Spanish and (D) Brazilian recidivism rates. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ol start=&#34;9&#34;&gt;
+&lt;li&gt;More importantly, we have verified that the model is capable of simulating networks with features very similar to those observed in the empirical data.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;figs/sfig5.png&#34; width=&#34;930px&#34; height=&#34;443px&#34; /&gt;
+    &lt;figcaption&gt;Figure 9: The model generates realistic networks that are able to reproduce the empirical network properties. The degree distributions of the model networks can be reasonably described by exponential degree distributions. Furthermore, the network simulations present a linear relationship between the number of modules and the number of complete graphs. &lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;Overall, we have presented a comprehensive investigation of corruption networks related to political scandals in Spain and Brazil over nearly three decades. It is important to remember that these countries have a long history of political corruption and are known worldwide for having huge corruption scandals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Our results show that corruption networks share universal characteristics that are independent of social and cultural differences among countries. Ultimately, this work emphasizes the influence of recidivists on organized crime, indicating its susceptibility to interventions targeting these criminals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;I believe that this work significantly improves the understanding of political corruption networks and organized crime. For more details, please do not hesitate to contact me. I would be happy to talk about my work.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dismantling and modeling cocaine trafficking networks</title>
+      <link>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</link>
+      <pubDate>Tue, 30 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/cocaine_smuggling_networks/</guid>
+      <description>&lt;script type=&#34;text/javascript&#34; src=&#34;https://d3js.org/d3.v6.min.js&#34;&gt;&lt;/script&gt;
+&lt;!-- &lt;script type=&#34;text/javascript&#34; src=&#34;js/formatter.js&#34;&gt; &lt;/script&gt; --&gt;
+&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
+&lt;p&gt;Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling to four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain, and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.&lt;/p&gt;
+&lt;!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. --&gt;
+&lt;br&gt;
+&lt;p&gt;The United Nations Office on Drugs and Crime (UNODC) &lt;a href=&#34;https://www.unodc.org/unodc/en/drug-trafficking/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;defines&lt;/a&gt; drug trafficking as &amp;ldquo;a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws&amp;rdquo;. A 2021 &lt;a href=&#34;https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;report&lt;/a&gt; indicates that the amount of cocaine seized globally reached record levels in 2019, with the majority of cocaine continuing to be seized in the Americas. Despite immense and increasing efforts to interrupt these activities, counterdrug interdictions appear to be &lt;a href=&#34;https://doi.org/10.1073/pnas.1812459116&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;making the situation worse&lt;/a&gt;. Drug trafficking networks are &lt;a href=&#34;https://doi.org/10.1080/17440572.2013.787927&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;flexible, fluid structures&lt;/a&gt; and can respond instantly to attacks. For example, it has been suggested that &lt;a href=&#34;https://doi.org/10.1038/srep04238&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;some&lt;/a&gt; networks can become even more efficient after targeted attacks.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/worldwide_cocaine_trafficking_flow.png&#34; width=&#34;1200px&#34; height=&#34;570px&#34; /&gt;
+    &lt;figcaption&gt;&lt;b&gt;Figure 1&lt;/b&gt;: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with a high degree of centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict, these central positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of &lt;a href=&#34;https://doi.org/10.1371/journal.pone.0236476&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;redundancy&lt;/a&gt;, that is, how easily the individuals are replaceable. These characteristics make dismantling criminal networks an arduous task.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. &lt;a href=&#34;https://www.nature.com/articles/s41598-018-31902-8&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Here&lt;/a&gt; you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four &lt;a href=&#34;https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cocaine Smuggling Networks&lt;/a&gt;, a dismantling method proposed in a PNAS paper (&lt;a href=&#34;https://doi.org/10.1073/pnas.1806108116&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Generalized Network Dismantling&lt;/a&gt;). The advantage of this method is that it takes into account the cost of attacking the vertices. The cost of removing a vertex is its degree centrality and the algorithm finds a set of nodes whose removal results in the fragmentation of the network at minimal overall cost.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;To perform the dismantling analysis, I adapted Petter Holme&amp;rsquo;s &lt;a href=&#34;https://github.com/pholme/gnd/blob/master/gnd.py&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;implementation&lt;/a&gt;. Thanks to him, the method proposed in the paper was converted from &lt;a href=&#34;https://github.com/renxiaolong/Generalized-Network-Dismantling&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;C++&lt;/a&gt; to Python 2. I then converted it to Python 3 and applied it to the networks.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ultimately, my main goals in this post are&lt;/p&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;Present the Generalized Network Dismantling (GND) method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied.&lt;/li&gt;
+&lt;li&gt;Suggest that cocaine smuggling networks can be modeled via an extension of the Barabási-Albert model.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;cocaine-trafficking-groups&#34;&gt;Cocaine trafficking groups&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;The &lt;a href=&#34;https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dataset&lt;/a&gt; contains information collected during police investigations of four groups involved in cocaine trafficking. These groups form networks in which the vertices represent the individuals and the links indicate their communications. The networks are shown below, with the size of each node proportional to its degree.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_1.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Mambo network&lt;/b&gt;: 31 vertices and 58 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;ACERO&lt;/strong&gt;: This investigation started in 2007 and involved a smaller family-based group. The group was composed mainly of members of a same family and was led by a female. They distributed cocaine in Madrid (Spain) that was provided to them by other groups based in a northwest region of the country, one of the most active areas in the provision of cocaine from the countries of origin. The group also had their own procedures to launder money.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_2&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_2.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Acero network&lt;/b&gt;: 25 vertices and 37 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JAKE&lt;/strong&gt;: In 2008, the group investigated was operating as a wholesale supplier and retail distributor of cocaine and heroin in a large distribution zone located in Madrid (Spain), where gypsy clans traditionally carry out similar activities. The group was in charge of acquiring, manipulating and selling the drugs in the gypsy quarter.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_3&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_3.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Jake network&lt;/b&gt;: 38 vertices and 50 edges.&lt;p/&gt;&lt;br&gt;
+&lt;p&gt;Operation &lt;strong&gt;JUANES&lt;/strong&gt;: In 2009, the police investigation detected a group involved in the smuggling of cocaine from Mexico to be distributed in Madrid (Spain). In this case, the group operated in close cooperation with another organization that was laundering the illegal income from drug distribution from this and other groups. The cocaine traffickers earned an estimated EUR 60 million.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_4&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_4.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Juanes network&lt;/b&gt;: 51 vertices and 93 edges.&lt;p/&gt;&lt;br &gt;
+&lt;p&gt;In terms of network metrics, these networks exhibit low &lt;a href=&#34;https://bookdown.org/omarlizardo/_main/2-9-density.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;density&lt;/a&gt; (i.e, they are sparse), negative &lt;a href=&#34;https://en.wikipedia.org/wiki/Assortativity&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;assortativity&lt;/a&gt; (which means that high degree nodes have a slight tendency to connect to low degree nodes), and relatively low &lt;a href=&#34;https://en.wikipedia.org/wiki/Clustering_coefficient&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;average clustering&lt;/a&gt;. Since these networks are relatively small in size, an analysis of the &lt;a href=&#34;https://en.wikipedia.org/wiki/Degree_distribution&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;degree distribution&lt;/a&gt; would not be so informative. However, a brief preliminary calculation using &lt;a href=&#34;https://pypi.org/project/powerlaw/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Powerlaw&lt;/a&gt;’s Python package showed that power law distributions were in better agreement compared to the exponential distributions. The community structure analysis was also not very helpful. Although I used &lt;a href=&#34;https://www.mapequation.org/infomap/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Infomap&lt;/a&gt; to color the nodes according to each module, I was unable to find community structures using the &lt;a href=&#34;https://graph-tool.skewed.de/static/doc/demos/inference/inference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bayesian SBM&lt;/a&gt;. Below are some of the main metrics I calculated for these networks.&lt;/p&gt;
+&lt;br&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-0&#34;&gt;
+  &lt;summary&gt;Click to show the density&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.123&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.071&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.073&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-1&#34;&gt;
+  &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.160&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.173&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake &lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-2&#34;&gt;
+  &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.268&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.364&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-3&#34;&gt;
+  &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.481&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.420&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.373&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
+  &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.413&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.705&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;3.308&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-5&#34;&gt;
+  &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;5.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;7.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;network-dismantling&#34;&gt;Network dismantling&lt;/h1&gt;
+&lt;p&gt;The following video demonstrates a simple dismantling simulation of the Juanes network. For a better visualization, I have applied the basic approach based on degree. The purpose of this video is to show the network changing while the high degree nodes are being removed.&lt;/p&gt;
+&lt;br&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/pUi6Qi8tzhA&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+&lt;br&gt;
+&lt;p&gt;In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Since Petter Holme&amp;rsquo;s implementation comes with a randomness to make the output independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents a standard deviation band. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/mambo.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;&lt;b&gt;Figure 2&lt;/b&gt;: Mambo network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/acero.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;&lt;b&gt;Figure 3&lt;/b&gt;: Acero network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/jake.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;&lt;b&gt;Figure 4&lt;/b&gt;: Jake network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/juanes.png&#34; width=&#34;900px&#34; height=&#34;563px&#34; /&gt;
+    &lt;figcaption&gt;&lt;b&gt;Figure 5&lt;/b&gt;: Juanes network dismantling.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, although the degree-based dismantling outperforms the GND method, the cost is always higher. Interestingly, we have a slightly different scenario for the Juanes network (&lt;b&gt;Figure 4&lt;/b&gt;). In this case, the GND cost is still lower, but both aproaches seem to perform equally well.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Overall, these two aproaches can also be useful as baselines. Costs curves from other aproaches could be compared against these two and this comparison may present an additional analysis for further consideration between cost and effectiveness.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;network-modeling&#34;&gt;Network modeling&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;Network models represent useful frameworks in which we can study complex real-world networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See &lt;a href=&#34;https://arxiv.org/abs/cond-mat/0303516&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt; a relatively old but essential review of developments in this field.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Looking more closely at these cocaine smuggling networks, they seem to be based on preferential attachment. Some nodes have many connections to other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of scale-free networks. Although I have not concluded that their distributions are adequately described by power laws, we could try to simulate these networks with a scale-free model.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;As a first guess, we could try using the well-known &lt;a href=&#34;https://barabasi.com/f/622.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Barabási–Albert model&lt;/a&gt;, since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with a high degree. However, if $m = 1$ the model networks have clustering coefficients equal to zero, but in the smuggling networks this coefficient is nonzero. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click &lt;a href=&#34;images/barabasi.png&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; to see an example of this model for three different values of $m$.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;After doing some research, I found a version of the barabasi model called &lt;a href=&#34;https://arxiv.org/abs/1810.10538&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dual Barabási–Albert model&lt;/a&gt; (DBA), implemented in &lt;a href=&#34;https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;NetworkX&lt;/a&gt;. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with a high degree. Moreover, as the authors of the paper explain, &amp;ldquo;the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions&amp;rdquo;. Therefore, our ignorance regarding the degree distributions of the empirical networks is not of great concern.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The network below is an example of a random network generated by this model. The visual similarity is surprising. If we look closely, we can see some of the connection patterns seen in the empirical networks.&lt;/p&gt;
+&lt;br&gt;
+&lt;div id=&#34;teste&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/teste.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Random network&lt;/b&gt;: A random network ($n = 38$, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$) generated using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.&lt;p/&gt;&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;Of course, this is just one example with specific parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Naturally, we can examine whether the model networks also produce similar properties to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these has the same size as the empirical smuggling networks. Also, in all calculations, I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good.&lt;/p&gt;
+&lt;br&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-7&#34;&gt;
+  &lt;summary&gt;Click to show the density&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_density&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.125&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo &lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.130&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.123&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.156&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.071&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.073&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-8&#34;&gt;
+  &lt;summary&gt;Click to show the assortativity&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_assortativity&lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.088&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.090&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.160&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.108&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.173&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake &lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.082&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.081&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;0.067&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-9&#34;&gt;
+  &lt;summary&gt;Click to show average clustering&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_clustering&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.442&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.207&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.268&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.240&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.110&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.180&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.364&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.151&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-10&#34;&gt;
+  &lt;summary&gt;Click to show network efficiency&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.481&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.500&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.420&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.425&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;0.373&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;0.424&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-11&#34;&gt;
+  &lt;summary&gt;Click to show average shortest path&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_average_shortest_path&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;2.473&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.479&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;2.413&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.372&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;2.705&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.601&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;3.308&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;2.740&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-12&#34;&gt;
+  &lt;summary&gt;Click to show the pseudo network diameter&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span class=&#34;n&#34;&gt;smuggling_networks_global_efficiency&lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Mambo&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;4.9&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;5.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Acero&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;4.7&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;4.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Jake&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;5.2&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+
+&lt;span class=&#34;mf&#34;&gt;7.0&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Juanes&lt;/span&gt;
+&lt;span class=&#34;mf&#34;&gt;5.6&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# Model &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;p&gt;Obviously, even though the metrics are quite close, matching only six coefficients and a visual aspect is not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;whats-next&#34;&gt;What&amp;rsquo;s next?&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;I also performed a link prediction analysis using &lt;a href=&#34;https://snap.stanford.edu/node2vec/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Node2Vec&lt;/a&gt; and a &lt;a href=&#34;https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Random Forest Classifier&lt;/a&gt;. Since there is no information about the evolution of these networks over time, I tried to recreate a graph that might have existed at a previous point in time. To do this, I removed some links that would not completely affect the structure of the graphs. This gave me two snapshots of the networks and allowed me to test the link prediction. In the end, I got an AUC score greater than $0.7$ for all networks. I have not completed this analysis yet, so I may post the details in the future.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The GND method uses a cascading approach for dismantling a network, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with the highest degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as &lt;a href=&#34;https://www.nature.com/articles/srep37954&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;simultaneous attack&lt;/a&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

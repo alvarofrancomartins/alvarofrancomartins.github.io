@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualização Interativa das Métricas de Classificação</title>
+  <style>
+    .simulation_container {
+      max-width: 600px;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+    }
+    
+    .visualization {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      margin: 20px auto;
+      border: 2px solid #000;
+      background-color: #ffffff;
+    }
+    
+    .divider {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background-color: #000;
+    }
+    
+    .circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 65%;
+      height: 65%;
+      border: 3px solid blue;
+      border-radius: 50%;
+      background-color: rgba(0, 0, 255, 0.08);
+      z-index: 1;
+    }
+    
+    .dot {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin: -3.5px 0 0 -3.5px;
+    }
+    
+    .negative {
+      background-color: red;
+    }
+    
+    .positive {
+      background-color: blue;
+    }
+    
+    .label {
+      position: absolute;
+      font-size: 32px;
+      font-weight: bold;
+      z-index: 3;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);
+      color: #000;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px dashed rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .label:hover {
+      transform: scale(1.1);
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 1);
+      border: 2px dashed rgba(0, 0, 0, 0.7);
+    }
+    
+    /* Posicionamento correto baseado nas posições fornecidas */
+    .tn-label {
+      top: 7%;
+      left: 10%;
+      color: #000;
+    }
+    
+    .fn-label {
+      top: 7%;
+      right: 10%;
+      color: #000;
+    }
+    
+    .fp-label {
+      bottom: 42%;
+      left: 30%;
+      color: #000;
+    }
+    
+    .tp-label {
+      bottom: 42%;
+      right: 30%;
+      color: #000;
+    }
+    
+    .side-label {
+      position: absolute;
+      font-size: 24px;
+      font-weight: bold;
+      bottom: -40px;
+      text-align: center;
+      width: 45%;
+    }
+    
+    .negative-label {
+      left: 0;
+      color: #ff0000;
+    }
+    
+    .positive-label {
+      right: 0;
+      color: blue;
+    }
+    
+    .info-box {
+      position: absolute;
+      top: 95%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 1);
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 7px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      display: none;
+    }
+    
+    .info-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    
+    .info-description {
+      font-size: 16px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+      white-space: pre-line;
+    }
+    
+    .close-btn {
+      background-color: #4a5568;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+    
+    .close-btn:hover {
+      background-color: #2d3748;
+    }
+    
+    .instructions {
+      text-align: center;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #555;
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 6px solid #4a5568;
+      font-size: 18px;
+    }
+    
+    /* Responsividade para telas menores */
+    @media (max-width: 600px) {
+      .visualization {
+        width: 100%;
+        height: 90vw;
+        max-height: 500px;
+      }
+      
+      .label {
+        font-size: 18px;
+      }
+      
+      .side-label {
+        font-size: 18px;
+      }
+    }
+
+    table {
+      font-size: 1rem !important;
+      width: 100%;
+    }
+    table td, table th {
+      padding: 18px;
+      font-size: 1rem !important;
+}
+
+  </style>
+</head>
+<body>
+  <div class="simulation_container">    
+    <div class="visualization" id="classification-viz">
+      <div class="divider"></div>
+      <div class="circle"></div>
+      
+      <!-- Rótulos clicáveis -->
+      <div class="label tn-label" data-type="tn">TN</div>
+      <div class="label fn-label" data-type="fn">FN</div>
+      <div class="label fp-label" data-type="fp">FP</div>
+      <div class="label tp-label" data-type="tp">TP</div>
+      
+      <!-- Rótulos laterais -->
+      <div class="side-label negative-label">Negativos</div>
+      <div class="side-label positive-label">Positivos</div>
+      
+      <!-- Caixa de informações -->
+      <div class="info-box" id="info-box">
+        <div class="info-title" id="info-title"></div>
+        <div class="info-description" id="info-description"></div>
+        <button class="close-btn" id="close-btn">Fechar</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const visualization = document.getElementById('classification-viz');
+      const infoBox = document.getElementById('info-box');
+      const infoTitle = document.getElementById('info-title');
+      const infoDescription = document.getElementById('info-description');
+      const closeBtn = document.getElementById('close-btn');
+      const circle = document.querySelector('.circle');
+      
+      // Dados para cada quadrante - definições precisas
+      const quadrantInfo = {
+        tn: {
+          title: 'TN - Verdadeiro Negativo',
+          description: 'O modelo classificou como NEGATIVO, e realmente era NEGATIVO.\n\nEstes são os pontos vermelhos (negativos) que estão FORA do círculo (classificados como negativos pelo modelo).'
+        },
+        fn: {
+          title: 'FN - Falso Negativo',
+          description: 'O modelo classificou como NEGATIVO, mas na verdade era POSITIVO.\n\nEstes são os pontos azuis (positivos) que estão FORA do círculo (classificados como negativos pelo modelo).'
+        },
+        fp: {
+          title: 'FP - Falso Positivo',
+          description: 'O modelo classificou como POSITIVO, mas na verdade era NEGATIVO.\n\nEstes são os pontos vermelhos (negativos) que estão DENTRO do círculo (classificados como positivos pelo modelo).'
+        },
+        tp: {
+          title: 'TP - Verdadeiro Positivo',
+          description: 'O modelo classificou como POSITIVO, e realmente era POSITIVO.\n\nEstes são os pontos azuis (positivos) que estão DENTRO do círculo (classificados como positivos pelo modelo).'
+        }
+      };
+      
+      // Obter as dimensões do círculo e área de visualização
+      function getCircleProperties() {
+        const rect = circle.getBoundingClientRect();
+        const vizRect = visualization.getBoundingClientRect();
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const radius = rect.width / 2;
+        
+        return { centerX, centerY, radius, vizWidth: vizRect.width, vizHeight: vizRect.height };
+      }
+      
+      // Verificar se um ponto está dentro do círculo
+      function isInsideCircle(x, y) {
+        const rect = circle.getBoundingClientRect();
+        const vizRect = visualization.getBoundingClientRect();
+        
+        const circleX = rect.left + rect.width / 2 - vizRect.left;
+        const circleY = rect.top + rect.height / 2 - vizRect.top;
+        const radius = rect.width / 2;
+        
+        const dx = x - circleX;
+        const dy = y - circleY;
+        return dx * dx + dy * dy <= radius * radius;
+      }
+      
+      // Gerar pontos aleatórios
+      function generateDots() {
+        // Limpar pontos existentes
+        const existingDots = document.querySelectorAll('.dot');
+        existingDots.forEach(dot => dot.remove());
+        
+        const { vizWidth, vizHeight } = getCircleProperties();
+        const midX = vizWidth / 2;
+        
+        // Gerar novos pontos
+        for (let i = 0; i < 500; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          
+          // Metade dos pontos são negativos (esquerda), metade positivos (direita)
+          const isPositive = i >= 250;
+          dot.classList.add(isPositive ? 'positive' : 'negative');
+          
+          // Posicionar os pontos respeitando a divisão central
+          let x, y;
+          
+          if (isPositive) {
+            // Pontos positivos (lado direito)
+            x = Math.random() * (vizWidth / 2 - 10) + midX + 5;  // 5px de margem da linha central
+          } else {
+            // Pontos negativos (lado esquerdo)
+            x = Math.random() * (vizWidth / 2 - 10) + 5;         // 5px de margem da borda
+          }
+          
+          y = Math.random() * (vizHeight - 10) + 5;    // 5px de margem da borda superior e inferior
+          
+          // Melhor distribuição para TN, FP, FN, TP
+          const insideCircle = isInsideCircle(x, y);
+          
+          // Queremos uma distribuição de pontos que seja consistente com a visualização
+          // Se for FP (negativo dentro do círculo) ou FN (positivo fora do círculo)
+          // reduzimos a probabilidade para ter mais TP e TN
+          if ((!isPositive && insideCircle) || (isPositive && !insideCircle)) {
+            if (Math.random() > 0.6) {
+              // Tentar novamente para obter mais TP e TN
+              i--;
+              continue;
+            }
+          }
+          
+          dot.style.left = x + 'px';
+          dot.style.top = y + 'px';
+          
+          visualization.appendChild(dot);
+        }
+      }
+      
+      // Mostrar informações quando um rótulo é clicado
+      const labels = document.querySelectorAll('.label');
+      labels.forEach(label => {
+        label.addEventListener('click', function() {
+          const type = this.getAttribute('data-type');
+          const info = quadrantInfo[type];
+          
+          infoTitle.textContent = info.title;
+          infoDescription.textContent = info.description;
+          
+          infoBox.style.display = 'block';
+          
+          // Destacar o rótulo clicado
+          labels.forEach(l => l.style.backgroundColor = '');
+          this.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+        });
+      });
+      
+      // Fechar a caixa de informações
+      closeBtn.addEventListener('click', function() {
+        infoBox.style.display = 'none';
+        
+        // Remover destaque de todos os rótulos
+        labels.forEach(l => l.style.backgroundColor = '');
+      });
+      
+      // Fechar a caixa quando clicar fora dela
+      visualization.addEventListener('click', function(e) {
+        if (e.target === visualization || e.target === document.querySelector('.circle') || e.target === document.querySelector('.divider')) {
+          infoBox.style.display = 'none';
+          
+          // Remover destaque de todos os rótulos
+          labels.forEach(l => l.style.backgroundColor = '');
+        }
+      });
+      
+      // Inicializar a visualização
+      window.addEventListener('resize', generateDots);
+      generateDots();
+    });
+  </script>
+</body>
+</html>

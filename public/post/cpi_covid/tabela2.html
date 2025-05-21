@@ -1,0 +1,7025 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput2 {
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  display: block;
+  /*margin-right: auto;*/
+  /*margin-left: 25%; */
+  margin-bottom: 12px;
+  margin-left: 2.5%;
+}
+
+#myTable2 {
+  border-collapse: collapse;
+  width:  95%;
+  max-height: 470px;
+  overflow-x:auto;
+  font-size: 18px;
+}
+
+#myTable2 th, #myTable2 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#myTable2 th, #myTable2 td {
+  text-align: left;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+</style>
+</head>
+<body>
+
+<input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Buscar nome..." title="Digite um nome">
+
+<table id="myTable2" style="margin: 10px auto;">
+  <tr class="header2">
+    <th style="width:300px; background-color: #f5f5f5; color: black;">Pessoa 1</th>
+    <th style="width:300px; background-color: #f5f5f5; color: black;">Pessoa 2</th>
+    <th style="width:600px; background-color: #f5f5f5; color: black;">Supostos crimes compartilhados</th>
+  </tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Ricardo Barros</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Emanuela Medrades</td>
+            <td>Uso de Documento Falso, Falsidade Ideológica, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Marcelo Bento Pires</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Alex Lial Marinho</td>
+            <td>Regina Célia Oliveira</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Uso de Documento Falso, Falsidade Ideológica, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Marcos Tolentino</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Danilo Trento</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Túlio Silveira</td>
+            <td>Uso de Documento Falso, Falsidade Ideológica, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação, Crimes de Responsabilidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Danilo Trento</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade, Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Alex Lial Marinho</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Regina Célia Oliveira</td>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Alex Lial Marinho</td>
+            <td>Marcelo Bento Pires</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Marcelo Bento Pires</td>
+            <td>Fábio Wajngarten</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Ricardo Barros</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Marcelo Bento Pires</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação, Crime Contra Humanidade, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Danilo Trento</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Marcos Tolentino</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade, Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Bento Pires</td>
+            <td>Regina Célia Oliveira</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Regina Célia Oliveira</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Roberto Dias</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Fraude Processual, Falsidade Ideológica, Formação de Organização Criminosa, Uso de Documento Falso, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Regina Célia Oliveira</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação, Crime Contra Humanidade, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Bento Pires</td>
+            <td>Alex Lial Marinho</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação, Crimes de Responsabilidade</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Túlio Silveira</td>
+            <td>Uso de Documento Falso, Falsidade Ideológica, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Ricardo Barros</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Alex Lial Marinho</td>
+            <td>Ricardo Barros</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Bento Pires</td>
+            <td>Ricardo Barros</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Danilo Trento</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Regina Célia Oliveira</td>
+            <td>Fábio Wajngarten</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Marcos Tolentino</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Paola Werneck</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Fábio Wajngarten</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Túlio Silveira</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Carla Guerra</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Emanuela Medrades</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação, Crime Contra Humanidade, Emprego Irregular de Verbas Públicas, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Fábio Wajngarten</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Wilson Lima</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Ricardo Barros</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Cristiano Carvalho</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Eduardo Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Regina Célia Oliveira</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Fraude em Contrato, Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Fernando Oikawa</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Eduardo Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Wilson Lima</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Emanuela Medrades</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Fernando Parrillo</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade, Omissão de Notificação de Doença, Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Rodrigo Esper</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Regina Célia Oliveira</td>
+            <td>Alex Lial Marinho</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcelo Queiroga</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Wagner Rosário</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fábio Wajngarten</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Marcelo Queiroga</td>
+            <td>Prevaricação, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Raimundo Nonato Brasil</td>
+            <td>Marcos Tolentino</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Ricardo Barros</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcos Tolentino</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Alex Lial Marinho</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Flávio Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Luiz Paulo Dominghetti</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Emanuela Medrades</td>
+            <td>Fraude Processual, Falsidade Ideológica, Formação de Organização Criminosa, Uso de Documento Falso, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Mayra Pinheiro</td>
+            <td>Prevaricação, Crime Contra Humanidade, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Eduardo Pazuello</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Eduardo Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Danilo Trento</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Jair Bolsonaro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Eduardo Pazuello</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>Fernando Parrillo</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Marconny Nunes Ribeiro</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Carla Guerra</td>
+            <td>Rodrigo Esper</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Marcelo Blanco</td>
+            <td>José Odilon Torres</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Emanuela Medrades</td>
+            <td>Danilo Trento</td>
+            <td>Improbidade Administrativa, Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Carlos Wizard</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Mayra Pinheiro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Marcos Tolentino</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Bia Kicis</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>João Paulo F. Barros</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Filipe Martins</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Mayra Pinheiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Alex Lial Marinho</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>José Ricardo Santana</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Cristiano Carvalho</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Carla Guerra</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Emanuela Medrades</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>José Alves Filho</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Regina Célia Oliveira</td>
+            <td>Ricardo Barros</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Paola Werneck</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rodrigo Esper</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Eduardo Pazuello</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Osmar Terra</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Alex Lial Marinho</td>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Carlos Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Braga Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Roberto Jefferson</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Luciano Dias</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Marcelo Bento Pires</td>
+            <td>Thiago Fernandes da Costa</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Roberto Dias</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luciano Hang</td>
+            <td>Eduardo Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Arthur Weintraub</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Regina Célia Oliveira</td>
+            <td>Marcelo Bento Pires</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Mayra Pinheiro</td>
+            <td>Jair Bolsonaro</td>
+            <td>Prevaricação, Crime Contra Humanidade, Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>José Alves Filho</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Alberto de Sá</td>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Braga Netto</td>
+            <td>Ernesto Araújo</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Daniel Garrido Baena</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Marcelo Blanco</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Wagner Rosário</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Emanuela Medrades</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Dias</td>
+            <td>Túlio Silveira</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Alex Lial Marinho</td>
+            <td>Fábio Wajngarten</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Leandro Ruschel</td>
+            <td>Bernardo Kuster</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Onyx Lorenzoni</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Hélio Angotti Netto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Paulo Eneas</td>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Carlos Wizard</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Daniel Garrido Baena</td>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Túlio Silveira</td>
+            <td>João Paulo F. Barros</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>Richards Pozzer</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Parrillo</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Fernanda de Oliveira Igarashi</td>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Falsidade Ideológica</td>
+</tr>
+<tr>
+            <td>José Odilon Torres</td>
+            <td>Rafael Francisco Carmo Alves</td>
+            <td>Corrupção Ativa</td>
+</tr>
+<tr>
+            <td>Pedro Benedito Batista Junior</td>
+            <td>Fernando Oikawa</td>
+            <td>Perigo Para a vida ou Saúde de Outrem, Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Luciano Hang</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Otávio Fakhoury</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Elcio Franco</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carla Zambelli</td>
+            <td>Richards Pozzer</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Luis Carlos Heinze</td>
+            <td>Jair Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Marcelo Bento Pires</td>
+            <td>Advocacia Administrativa</td>
+</tr>
+<tr>
+            <td>Ricardo Barros</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Flávio Bolsonaro</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Parrillo</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Tercio Arnaud Tomaz</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Goidanich</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Ricardo Barros</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Roberto Jefferson</td>
+            <td>Carla Zambelli</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Roberto Goidanich</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Ernesto Araújo</td>
+            <td>Elcio Franco</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Andreia da Silva Lima</td>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Teresa Cristina Reis de Sá</td>
+            <td>Carlos Alberto de Sá</td>
+            <td>Corrupção Ativa, Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Luciano Dias</td>
+            <td>Arthur Weintraub</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Cadegiani</td>
+            <td>Fernando Parrillo</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Oswaldo Eustáquio</td>
+            <td>Ernesto Araújo</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Filipe Martins</td>
+            <td>Leandro Ruschel</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Nise Yamaguchi</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>José Ricardo Santana</td>
+            <td>Roberto Dias</td>
+            <td>Formação de Organização Criminosa</td>
+</tr>
+<tr>
+            <td>Bernardo Kuster</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Fernando Oikawa</td>
+            <td>Onyx Lorenzoni</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Hélio Angotti Netto</td>
+            <td>Paulo Eneas</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Pazuello</td>
+            <td>Marcellus José Barroso Campêlo</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Carlos Jordy</td>
+            <td>Allan dos Santos</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Nise Yamaguchi</td>
+            <td>Marcelo Queiroga</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Osmar Terra</td>
+            <td>Bia Kicis</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Jair Bolsonaro</td>
+            <td>Fábio Wajngarten</td>
+            <td>Prevaricação</td>
+</tr>
+<tr>
+            <td>Otávio Fakhoury</td>
+            <td>Carlos Jordy</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Elcio Franco</td>
+            <td>Mauro Luiz de Brito Ribeiro</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Heitor Freire de Abreu</td>
+            <td>Osmar Terra</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Flávio Adsuara Cadegiani</td>
+            <td>Jair Bolsonaro</td>
+            <td>Crime Contra Humanidade</td>
+</tr>
+<tr>
+            <td>Paolo Zanotto</td>
+            <td>Heitor Freire de Abreu</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+<tr>
+            <td>Francisco Emerson Maximiano</td>
+            <td>Andreia da Silva Lima</td>
+            <td>Improbidade Administrativa</td>
+</tr>
+<tr>
+            <td>Carlos Bolsonaro</td>
+            <td>Flávio Bolsonaro</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Allan dos Santos</td>
+            <td>Oswaldo Eustáquio</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Eduardo Bolsonaro</td>
+            <td>Luis Carlos Heinze</td>
+            <td>Incitação ao crime</td>
+</tr>
+<tr>
+            <td>Carlos Wizard</td>
+            <td>Paolo Zanotto</td>
+            <td>Epidemia com Resultado em Morte</td>
+</tr>
+</table>
+
+<script>
+function myFunction2() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput2");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable2");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+</body>
+</html>

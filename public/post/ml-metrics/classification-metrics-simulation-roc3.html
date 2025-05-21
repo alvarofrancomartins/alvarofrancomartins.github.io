@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        
+        .dual_simulation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* You can adjust this min-height to increase simulation height */
+            min-height: 600px;
+        }
+        
+        .dual_dataset-info {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .dual_flex-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 3%;
+        }
+        
+        .dual_side {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dual_slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .dual_slider-container label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #333;
+            margin-bottom: 1px;
+        }
+        
+        .dual_range-slider {
+            flex: 1;
+            position: relative;
+        }
+        
+        .dual_range-slider-track {
+            height: 8px;
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .dual_range-slider-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            border-radius: 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transition: width 0.1s ease;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            z-index: 10;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            background: #3b82f6;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        input[type="range"]::-moz-range-thumb:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+        }
+        
+        .dual_value-display {
+            min-width: 60px;
+            text-align: center;
+            font-weight: bold;
+            color: #3b82f6;
+            background-color: #f0f4ff;
+            padding: 4px 8px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            margin-left: 10px;
+        }
+        
+        .dual_canvas-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+            border: 1px solid #ddd;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        .dual_curves-area {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .dual_curve-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 40%;
+            border: 1px solid #ddd;
+            background-color: white;
+        }
+
+        #dual_canvas, #dual_rocCanvas, #dual_prCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .dual_quadrant-label {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 17px;
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 1);
+            padding: 1px 5px;
+            border-radius: 10px;
+            z-index: 10;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dual_curve-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .dual_instructions {
+            background-color: #e9f5ff;
+            border: 1px solid #b8daff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .dual_axis-container {
+            display: flex;
+            align-items: stretch;
+            position: relative;
+            margin-bottom: 5px;
+        }
+        
+        .dual_y-axis-label {
+            width: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 5px;
+            text-align: center;
+        }
+        
+        .dual_y-axis-label span {
+            transform: rotate(-90deg);
+            white-space: nowrap;
+            display: block;
+            width: 40px;
+            font-size: 18px;
+            position: absolute;
+            left: -10px;
+        }
+        
+        .dual_graph-container {
+            flex-grow: 1;
+            position: relative;
+        }
+        
+        .dual_tick-label {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .dual_flex-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dual_simulation-container">
+        <div class="dual_flex-container">
+            <!-- Left Side - Visualization -->
+            <div class="dual_side">
+                <!-- Slider for Positive Class Ratio -->
+                <div class="dual_slider-container">
+                    <label for="dual_positiveRatio">Classe positiva:</label>
+                    <div class="dual_range-slider">
+                        <div class="dual_range-slider-track">
+                            <div class="dual_range-slider-fill" id="dual_positiveRatioFill"></div>
+                        </div>
+                        <input type="range" id="dual_positiveRatio" min="1" max="50" value="1" step="1">
+                    </div>
+                    <div class="dual_value-display" id="dual_positiveRatioValue">1%</div>
+                </div>
+                
+                <!-- Visualization Area -->
+                <div class="dual_canvas-container">
+                    <canvas id="dual_canvas"></canvas>
+                    <div id="dual_quadrant0" class="dual_quadrant-label">False<br>Positives</div>
+                    <div id="dual_quadrant1" class="dual_quadrant-label">True<br>Positives</div>
+                    <div id="dual_quadrant2" class="dual_quadrant-label">True<br>Negatives</div>
+                    <div id="dual_quadrant3" class="dual_quadrant-label">False<br>Negatives</div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; width: 100%; font-weight: bold; margin-top: 5px;">
+                    <span id="dual_negativeLabel">Negatives (99%)</span>
+                    <span id="dual_positiveLabel">Positives (1%)</span>
+                </div>
+            </div>
+            
+            <!-- Right side - ROC and PR Curves -->
+            <div class="dual_side">
+                <!-- Slider for Circle Size -->
+                <div class="dual_slider-container">
+                    <label for="dual_circleSize">Tamanho do círculo</label>
+                    <div class="dual_range-slider">
+                        <div class="dual_range-slider-track">
+                            <div class="dual_range-slider-fill" id="dual_circleSizeFill"></div>
+                        </div>
+                        <input type="range" id="dual_circleSize" min="0" max="100" value="0" step="1">
+                    </div>
+                    <div class="dual_value-display" id="dual_circleSizeValue">0</div>
+                </div>
+                
+                <!-- Curves Area -->
+                <div class="dual_curves-area">
+                    <!-- ROC Curve -->
+                    <div>
+                        <div class="dual_curve-title">ROC Curve</div>
+                        <div class="dual_axis-container">
+                            <div class="dual_y-axis-label">
+                                <span>TPR</span>
+                            </div>
+                            <div class="dual_graph-container">
+                                <div class="dual_curve-container">
+                                    <canvas id="dual_rocCanvas"></canvas>
+                                    <!-- Fixed tick labels positioned over canvas -->
+                                    <div class="dual_tick-label" style="left: -30px; top: 0;">1.0</div>
+                                    <div class="dual_tick-label" style="bottom: -30px; left: 0;">0.0</div>
+                                    <div class="dual_tick-label" style="bottom: -30px; right: 0;">1.0</div>
+                                </div>
+                                
+                                <!-- X-axis label -->
+                                <div style="text-align: center; font-weight: bold; margin: 20px 0 10px 0;">
+                                    FPR
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PR Curve -->
+                    <div>
+                        <div class="dual_curve-title">Precision-Recall Curve</div>
+                        <div class="dual_axis-container">
+                            <div class="dual_y-axis-label">
+                                <span>Precision</span>
+                            </div>
+                            <div class="dual_graph-container">
+                                <div class="dual_curve-container">
+                                    <canvas id="dual_prCanvas"></canvas>
+                                    <!-- Fixed tick labels positioned over canvas -->
+                                    <div class="dual_tick-label" style="left: -30px; top: 0;">1.0</div>
+                                    <div class="dual_tick-label" style="bottom: -30px; left: 0;">0.0</div>
+                                    <div class="dual_tick-label" style="bottom: -30px; right: 0;">1.0</div>
+                                </div>
+                                
+                                <!-- X-axis label -->
+                                <div style="text-align: center; font-weight: bold; margin: 20px 0 10px 0;">
+                                    Recall
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <script>
+        // Wait for all resources to load
+        window.addEventListener('load', function() {
+            // Initialize simulation
+            dual_init();
+        });
+        
+        function dual_init() {
+            // DOM Elements
+            const dual_canvas = document.getElementById('dual_canvas');
+            const dual_ctx = dual_canvas.getContext('2d');
+            const dual_rocCanvas = document.getElementById('dual_rocCanvas');
+            const dual_rocCtx = dual_rocCanvas.getContext('2d');
+            const dual_prCanvas = document.getElementById('dual_prCanvas');
+            const dual_prCtx = dual_prCanvas.getContext('2d');
+            const dual_circleSizeSlider = document.getElementById('dual_circleSize');
+            const dual_circleSizeFill = document.getElementById('dual_circleSizeFill');
+            const dual_circleSizeValue = document.getElementById('dual_circleSizeValue');
+            const dual_positiveRatioSlider = document.getElementById('dual_positiveRatio');
+            const dual_positiveRatioFill = document.getElementById('dual_positiveRatioFill');
+            const dual_positiveRatioValue = document.getElementById('dual_positiveRatioValue');
+            const dual_positiveLabel = document.getElementById('dual_positiveLabel');
+            const dual_negativeLabel = document.getElementById('dual_negativeLabel');
+        
+            // Quadrant labels
+            const dual_quadrantLabels = [
+                document.getElementById('dual_quadrant0'),
+                document.getElementById('dual_quadrant1'),
+                document.getElementById('dual_quadrant2'),
+                document.getElementById('dual_quadrant3')
+            ];
+            
+            // Variables
+            let dual_truePositives = 0;
+            let dual_falsePositives = 0;
+            let dual_trueNegatives = 0;
+            let dual_falseNegatives = 0;
+            let dual_totalPoints = 0;
+            let dual_points = [];
+            let dual_rocPoints = [];
+            let dual_prPoints = [];
+            let dual_currentSize = 0; // Track current circle size
+            let dual_positiveClassRatio = 0.01; // Starting point: 1%
+            
+            // Set extra space above y=1 for visibility (expressed as a fraction of canvas height)
+            const dual_extraSpace = 0.05; // 5% extra space above y=1.0
+            
+            // Circle properties - fixed center at 0.65, 0.5
+            let dual_circleRadius;
+            let dual_centerX;
+            let dual_centerY;
+            let dual_circleCenter = { x: 0.65, y: 0.5 }; // Fixed position
+            let dual_circleSizePercent = 0; // Percentage of min dimension
+            
+            // Update positive ratio slider fill and label
+            function dual_updatePositiveRatioSlider() {
+                const percent = (dual_positiveRatioSlider.value - dual_positiveRatioSlider.min) / 
+                                (dual_positiveRatioSlider.max - dual_positiveRatioSlider.min) * 100;
+                dual_positiveRatioFill.style.width = percent + '%';
+                
+                // Update the display value
+                const ratioValue = parseInt(dual_positiveRatioSlider.value);
+                dual_positiveRatioValue.textContent = ratioValue + '%';
+                
+                // Convert to decimal
+                dual_positiveClassRatio = ratioValue / 100;
+                
+                // Update dataset info text and labels
+                dual_positiveLabel.textContent = `Positives (${ratioValue}%)`;
+                dual_negativeLabel.textContent = `Negatives (${100-ratioValue}%)`;
+            }
+            
+            // Update circle size slider fill and value
+            function dual_updateCircleSizeSlider() {
+                const percent = (dual_circleSizeSlider.value - dual_circleSizeSlider.min) / 
+                               (dual_circleSizeSlider.max - dual_circleSizeSlider.min) * 100;
+                dual_circleSizeFill.style.width = percent;
+                dual_circleSizeValue.textContent = dual_circleSizeSlider.value;
+            }
+            
+            // Initial slider fill updates
+            dual_updateCircleSizeSlider();
+            dual_updatePositiveRatioSlider();
+            
+            // Setup slider events
+            function dual_setupSliderEvents() {
+                // Circle size slider
+                dual_circleSizeSlider.addEventListener('input', function() {
+                    // Store previous and current size for curve updating
+                    const prevSize = dual_circleSizePercent;
+                    dual_circleSizePercent = parseInt(this.value);
+                    dual_currentSize = dual_circleSizePercent;
+                    
+                    dual_updateCircleSizeSlider();
+                    dual_calculateDimensions();
+                    dual_redrawCanvas();
+                    dual_recalculateMetrics();
+                    dual_updateQuadrantLabels();
+                    
+                    // Update curve points based on whether size increased or decreased
+                    if (dual_circleSizePercent > prevSize) {
+                        dual_addCurvePoints();
+                    } else if (dual_circleSizePercent < prevSize) {
+                        dual_removeCurvePointsAboveSize(dual_circleSizePercent);
+                    }
+                    
+                    dual_drawROCCurve();
+                    dual_drawPRCurve();
+                });
+                
+                // Positive class ratio slider
+                dual_positiveRatioSlider.addEventListener('input', function() {
+                    dual_updatePositiveRatioSlider();
+                    
+                    // Clear previous points and regenerate with new ratio
+                    dual_generatePoints(10000);
+                    
+                    // Reset curves for the new distribution
+                    dual_rocPoints = [];
+                    dual_prPoints = [];
+                    dual_addCurvePoints();
+                    
+                    // Redraw everything
+                    dual_redrawCanvas();
+                    dual_drawROCCurve();
+                    dual_drawPRCurve();
+                    dual_updateQuadrantLabels();
+                });
+            }
+            
+            // Resize canvas to fit container
+            function dual_resizeCanvas() {
+                const container = dual_canvas.parentElement;
+                dual_canvas.width = container.clientWidth;
+                dual_canvas.height = container.clientHeight;
+                
+                const rocContainer = dual_rocCanvas.parentElement;
+                dual_rocCanvas.width = rocContainer.clientWidth;
+                dual_rocCanvas.height = rocContainer.clientHeight;
+                
+                const prContainer = dual_prCanvas.parentElement;
+                dual_prCanvas.width = prContainer.clientWidth;
+                dual_prCanvas.height = prContainer.clientHeight;
+                
+                dual_calculateDimensions();
+                dual_redrawCanvas();
+                dual_drawROCCurve();
+                dual_drawPRCurve();
+                dual_updateQuadrantLabels();
+            }
+            
+            // Calculate circle dimensions based on canvas size and current settings
+            function dual_calculateDimensions() {
+                // Fixed center position (no dragging)
+                dual_centerX = dual_canvas.width * dual_circleCenter.x;
+                dual_centerY = dual_canvas.height * dual_circleCenter.y;
+                const minDimension = Math.min(dual_canvas.width, dual_canvas.height);
+                dual_circleRadius = minDimension * (dual_circleSizePercent / 100);
+            }
+            
+            // Generate points with adjustable positive class ratio
+            function dual_generatePoints(count) {
+                dual_points = [];
+                
+                // Calculate number of points for each class
+                const positiveCount = Math.round(count * dual_positiveClassRatio);
+                const negativeCount = count - positiveCount;
+                
+                // Generate negative points (left side)
+                for (let i = 0; i < negativeCount; i++) {
+                    dual_points.push({
+                        x: Math.random() * (dual_canvas.width / 2 - 5),
+                        y: Math.random() * dual_canvas.height
+                    });
+                }
+                
+                // Generate positive points (right side)
+                for (let i = 0; i < positiveCount; i++) {
+                    dual_points.push({
+                        x: (dual_canvas.width / 2 + 5) + Math.random() * (dual_canvas.width / 2 - 10),
+                        y: Math.random() * dual_canvas.height
+                    });
+                }
+                
+                dual_recalculateMetrics();
+            }
+            
+            // Update the class metrics based on the points
+            function dual_recalculateMetrics() {
+                // Reset counts
+                dual_truePositives = 0;
+                dual_falsePositives = 0;
+                dual_trueNegatives = 0;
+                dual_falseNegatives = 0;
+                
+                // Recalculate counts for each point
+                dual_points.forEach(point => {
+                    const isRight = point.x >= dual_canvas.width / 2;
+                    const isPredictedPositive = dual_isInsideCircle(point.x, point.y);
+                    
+                    if (isRight && isPredictedPositive) dual_truePositives++;
+                    else if (!isRight && isPredictedPositive) dual_falsePositives++;
+                    else if (!isRight && !isPredictedPositive) dual_trueNegatives++;
+                    else if (isRight && !isPredictedPositive) dual_falseNegatives++;
+                });
+                
+                dual_totalPoints = dual_points.length;
+            }
+            
+            // Draw all points
+            function dual_drawPoints() {
+                dual_points.forEach(point => {
+                    const isRight = point.x >= dual_canvas.width / 2;
+                    
+                    // Choose color based on actual class (left/right side)
+                    if (isRight) {
+                        dual_ctx.fillStyle = 'blue'; // Actual Positive (right side)
+                    } else {
+                        dual_ctx.fillStyle = 'red'; // Actual Negative (left side)
+                    }
+                    
+                    dual_ctx.beginPath();
+                    dual_ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
+                    dual_ctx.fill();
+                });
+            }
+            
+            // Redraw canvas with all points and current circle position
+            function dual_redrawCanvas() {
+                dual_ctx.clearRect(0, 0, dual_canvas.width, dual_canvas.height);
+                
+                // Draw points
+                dual_drawPoints();
+                
+                // Draw dividing line
+                dual_ctx.beginPath();
+                dual_ctx.moveTo(dual_canvas.width / 2, 0);
+                dual_ctx.lineTo(dual_canvas.width / 2, dual_canvas.height);
+                dual_ctx.strokeStyle = 'black';
+                dual_ctx.lineWidth = 2;
+                dual_ctx.stroke();
+                
+                // Draw circle
+                dual_ctx.beginPath();
+                dual_ctx.arc(dual_centerX, dual_centerY, dual_circleRadius, 0, Math.PI * 2);
+                dual_ctx.fillStyle = 'rgba(0, 0, 255, 0.15)';
+                dual_ctx.fill();
+                dual_ctx.strokeStyle = 'black';
+                dual_ctx.lineWidth = 3;
+                dual_ctx.stroke();
+                
+                // Draw border
+                dual_ctx.strokeStyle = '#ddd';
+                dual_ctx.lineWidth = 1;
+                dual_ctx.strokeRect(0, 0, dual_canvas.width, dual_canvas.height);
+            }
+            
+            // Draw the ROC curve with corrected y-coordinate calculation
+            function dual_drawROCCurve() {
+                dual_rocCtx.clearRect(0, 0, dual_rocCanvas.width, dual_rocCanvas.height);
+                
+                // Calculate the actual data area height (reduced to make room for the extra space)
+                const dataAreaHeight = dual_rocCanvas.height / (1 + dual_extraSpace);
+                
+                // Draw axes
+                dual_rocCtx.beginPath();
+                // Y-axis (left)
+                dual_rocCtx.moveTo(0, dual_rocCanvas.height);
+                dual_rocCtx.lineTo(0, 0);
+                // X-axis (bottom)
+                dual_rocCtx.moveTo(0, dual_rocCanvas.height);
+                dual_rocCtx.lineTo(dual_rocCanvas.width, dual_rocCanvas.height);
+                dual_rocCtx.stroke();
+
+                // Draw reference line (random classifier)
+                dual_rocCtx.beginPath();
+                dual_rocCtx.moveTo(0, dual_rocCanvas.height); // (0,0) in canvas coordinates
+                dual_rocCtx.lineTo(dual_rocCanvas.width, dual_rocCanvas.height - dataAreaHeight); // (1,1) in canvas coordinates
+                dual_rocCtx.strokeStyle = 'gray';
+                dual_rocCtx.lineWidth = 1;
+                dual_rocCtx.setLineDash([5, 5]);
+                dual_rocCtx.stroke();
+                dual_rocCtx.setLineDash([]);
+                
+                // Draw ROC curve points if we have any
+                if (dual_rocPoints.length > 0) {
+                    // Only draw line if there are multiple points
+                    if (dual_rocPoints.length > 1) {
+                        // Draw the curve connecting the points
+                        dual_rocCtx.beginPath();
+                        dual_rocCtx.moveTo(0, dual_rocCanvas.height); // Start at origin (0,0)
+                        
+                        // Sort points to ensure proper curve
+                        const sortedPoints = [...dual_rocPoints].sort((a, b) => a.fpr - b.fpr);
+                        
+                        sortedPoints.forEach(point => {
+                            const x = point.fpr * dual_rocCanvas.width;
+                            // Corrected y-coordinate calculation
+                            const y = dual_rocCanvas.height - (point.tpr * dataAreaHeight);
+                            dual_rocCtx.lineTo(x, y);
+                        });
+                        
+                        dual_rocCtx.strokeStyle = 'grey';
+                        dual_rocCtx.lineWidth = 2;
+                        dual_rocCtx.stroke();
+                        
+                        // Draw points
+                        sortedPoints.forEach(point => {
+                            const x = point.fpr * dual_rocCanvas.width;
+                            // Corrected y-coordinate calculation
+                            const y = dual_rocCanvas.height - (point.tpr * dataAreaHeight);
+                            
+                            dual_rocCtx.beginPath();
+                            dual_rocCtx.arc(x, y, 3, 0, Math.PI * 2);
+                            dual_rocCtx.fillStyle = 'grey';
+                            dual_rocCtx.fill();
+                        });
+                    }
+                    
+                    // Draw current operating point
+                    const tpr = dual_truePositives / (dual_truePositives + dual_falseNegatives) || 0;
+                    const fpr = dual_falsePositives / (dual_falsePositives + dual_trueNegatives) || 0;
+                    
+                    const currentX = fpr * dual_rocCanvas.width;
+                    // Corrected y-coordinate calculation
+                    const currentY = dual_rocCanvas.height - (tpr * dataAreaHeight);
+                    
+                    dual_rocCtx.beginPath();
+                    dual_rocCtx.arc(currentX, currentY, 6, 0, Math.PI * 2);
+                    dual_rocCtx.fillStyle = 'red';
+                    dual_rocCtx.fill();
+                    dual_rocCtx.strokeStyle = 'black';
+                    dual_rocCtx.lineWidth = 1;
+                    dual_rocCtx.stroke();
+                }
+            }
+            
+            // Draw the PR curve with corrected y-coordinate calculation
+            function dual_drawPRCurve() {
+                dual_prCtx.clearRect(0, 0, dual_prCanvas.width, dual_prCanvas.height);
+                
+                // Calculate the actual data area height (reduced to make room for the extra space)
+                const dataAreaHeight = dual_prCanvas.height / (1 + dual_extraSpace);
+                
+                // Draw axes
+                dual_prCtx.beginPath();
+                // Y-axis (left)
+                dual_prCtx.moveTo(0, dual_prCanvas.height);
+                dual_prCtx.lineTo(0, 0);
+                // X-axis (bottom)
+                dual_prCtx.moveTo(0, dual_prCanvas.height);
+                dual_prCtx.lineTo(dual_prCanvas.width, dual_prCanvas.height);
+                dual_prCtx.stroke();
+                
+                // Baseline removed as requested
+                
+                // Draw PR curve points if we have any
+                if (dual_prPoints.length > 0) {
+                    // Only draw line if there are multiple points
+                    if (dual_prPoints.length > 1) {
+                        // Draw the curve connecting the points
+                        dual_prCtx.beginPath();
+                        
+                        // Sort points to ensure proper curve - for PR curve, we sort by recall (x-axis)
+                        const sortedPoints = [...dual_prPoints].sort((a, b) => a.recall - b.recall);
+                        
+                        // Start point - unlike ROC, PR curves don't start at origin
+                        const firstPoint = sortedPoints[0];
+                        const firstX = firstPoint.recall * dual_prCanvas.width;
+                        // Corrected y-coordinate calculation
+                        const firstY = dual_prCanvas.height - (firstPoint.precision * dataAreaHeight);
+                        dual_prCtx.moveTo(firstX, firstY);
+                        
+                        // Connect the rest of the points
+                        for (let i = 1; i < sortedPoints.length; i++) {
+                            const point = sortedPoints[i];
+                            const x = point.recall * dual_prCanvas.width;
+                            // Corrected y-coordinate calculation
+                            const y = dual_prCanvas.height - (point.precision * dataAreaHeight);
+                            dual_prCtx.lineTo(x, y);
+                        }
+                        
+                        dual_prCtx.strokeStyle = 'grey';
+                        dual_prCtx.lineWidth = 2;
+                        dual_prCtx.stroke();
+                        
+                        // Draw points
+                        sortedPoints.forEach(point => {
+                            const x = point.recall * dual_prCanvas.width;
+                            // Corrected y-coordinate calculation
+                            const y = dual_prCanvas.height - (point.precision * dataAreaHeight);
+                            
+                            dual_prCtx.beginPath();
+                            dual_prCtx.arc(x, y, 3, 0, Math.PI * 2);
+                            dual_prCtx.fillStyle = 'grey';
+                            dual_prCtx.fill();
+                        });
+                    }
+                    
+                    // Draw current operating point
+                    const precision = dual_truePositives / (dual_truePositives + dual_falsePositives) || 0;
+                    const recall = dual_truePositives / (dual_truePositives + dual_falseNegatives) || 0;
+                    
+                    const currentX = recall * dual_prCanvas.width;
+                    // Corrected y-coordinate calculation
+                    const currentY = dual_prCanvas.height - (precision * dataAreaHeight);
+                    
+                    dual_prCtx.beginPath();
+                    dual_prCtx.arc(currentX, currentY, 6, 0, Math.PI * 2);
+                    dual_prCtx.fillStyle = 'red';
+                    dual_prCtx.fill();
+                    dual_prCtx.strokeStyle = 'black';
+                    dual_prCtx.lineWidth = 1;
+                    dual_prCtx.stroke();
+                }
+            }
+            
+            // Add new curve points for current size
+            function dual_addCurvePoints() {
+                const tpr = dual_truePositives / (dual_truePositives + dual_falseNegatives) || 0;
+                const fpr = dual_falsePositives / (dual_falsePositives + dual_trueNegatives) || 0;
+                const precision = dual_truePositives / (dual_truePositives + dual_falsePositives) || 0;
+                const recall = tpr; // Recall is the same as TPR
+                
+                // Check if we already have points with the exact same size
+                const existingRocPoint = dual_rocPoints.find(p => p.size === dual_circleSizePercent);
+                const existingPrPoint = dual_prPoints.find(p => p.size === dual_circleSizePercent);
+                
+                // Update ROC point
+                if (existingRocPoint) {
+                    existingRocPoint.tpr = tpr;
+                    existingRocPoint.fpr = fpr;
+                } else {
+                    dual_rocPoints.push({
+                        tpr,
+                        fpr,
+                        size: dual_circleSizePercent
+                    });
+                }
+                
+                // Update PR point
+                if (existingPrPoint) {
+                    existingPrPoint.precision = precision;
+                    existingPrPoint.recall = recall;
+                } else {
+                    dual_prPoints.push({
+                        precision,
+                        recall,
+                        size: dual_circleSizePercent
+                    });
+                }
+                
+                // Sort points by size
+                dual_rocPoints.sort((a, b) => a.size - b.size);
+                dual_prPoints.sort((a, b) => a.size - b.size);
+            }
+            
+            // Remove curve points above a certain size
+            function dual_removeCurvePointsAboveSize(size) {
+                dual_rocPoints = dual_rocPoints.filter(point => point.size <= size);
+                dual_prPoints = dual_prPoints.filter(point => point.size <= size);
+            }
+            
+            // Update quadrant labels dynamically based on circle position
+            function dual_updateQuadrantLabels() {
+                // Get vertical dividing line position
+                const midX = dual_canvas.width / 2;
+                
+                // Check if circle overlaps with left or right half
+                const leftEdge = dual_centerX - dual_circleRadius;
+                const rightEdge = dual_centerX + dual_circleRadius;
+                const topEdge = dual_centerY - dual_circleRadius;
+                const bottomEdge = dual_centerY + dual_circleRadius;
+                const overlapsLeft = leftEdge < midX;
+                const overlapsRight = rightEdge > midX;
+                
+                // Padding to ensure labels stay within canvas
+                const padding = 20;
+                const labelWidth = 70;
+                const labelHeight = 40;
+                
+                // 1. False Positives (inside circle, left side)
+                if (overlapsLeft && dual_falsePositives > 0) {
+                    const fpX = Math.max(padding, Math.min(midX - labelWidth - padding, dual_centerX - dual_circleRadius / 2));
+                    const fpY = dual_centerY;
+                    dual_quadrantLabels[0].style.display = 'block';
+                    dual_quadrantLabels[0].style.left = fpX + 'px';
+                    dual_quadrantLabels[0].style.top = fpY + 'px';
+                } else {
+                    dual_quadrantLabels[0].style.display = 'none';
+                }
+                
+                // 2. True Positives (inside circle, right side)
+                if (overlapsRight && dual_truePositives > 0) {
+                    const tpX = Math.min(dual_canvas.width - labelWidth - padding, Math.max(midX + padding, dual_centerX + dual_circleRadius / 3));
+                    const tpY = dual_centerY;
+                    dual_quadrantLabels[1].style.display = 'block';
+                    dual_quadrantLabels[1].style.left = tpX + 'px';
+                    dual_quadrantLabels[1].style.top = tpY + 'px';
+                } else {
+                    dual_quadrantLabels[1].style.display = 'none';
+                }
+                
+                // 3. True Negatives (outside circle, left side)
+                // Only show if there's sufficient space between the circle and the edge
+                const safeDistanceFromCircle = 5; // Minimum distance needed
+                const distanceLeftEdge = leftEdge;
+                
+                if (dual_trueNegatives > 0 && distanceLeftEdge > safeDistanceFromCircle) {
+                    const tnX = padding;
+                    const tnY = padding;
+                    dual_quadrantLabels[2].style.display = 'block';
+                    dual_quadrantLabels[2].style.left = tnX + 'px';
+                    dual_quadrantLabels[2].style.top = tnY + 'px';
+                } else {
+                    // Hide when circle gets too close
+                    dual_quadrantLabels[2].style.display = 'none';
+                }
+                
+                // 4. False Negatives (outside circle, right side)
+                // Only show if there's sufficient space between the circle and right edge
+                const distanceRightEdge = dual_canvas.width - rightEdge;
+                
+                if (dual_falseNegatives > 0 && distanceRightEdge > safeDistanceFromCircle) {
+                    const fnX = dual_canvas.width - labelWidth - padding;
+                    const fnY = padding;
+                    dual_quadrantLabels[3].style.display = 'block';
+                    dual_quadrantLabels[3].style.left = fnX + 'px';
+                    dual_quadrantLabels[3].style.top = fnY + 'px';
+                } else {
+                    // Hide when circle gets too close
+                    dual_quadrantLabels[3].style.display = 'none';
+                }
+            }
+            
+            // Check if a point is inside the circle
+            function dual_isInsideCircle(x, y) {
+                const dx = x - dual_centerX;
+                const dy = y - dual_centerY;
+                return (dx * dx + dy * dy) <= (dual_circleRadius * dual_circleRadius);
+            }
+            
+            // Initialize the first curve points for the starting size
+            function dual_initCurvePoints() {
+                dual_rocPoints = [];
+                dual_prPoints = [];
+                dual_addCurvePoints();
+            }
+            
+            // Set canvas dimensions
+            dual_resizeCanvas();
+            
+            // Setup slider events
+            dual_setupSliderEvents();
+            
+            // Generate points with imbalanced distribution
+            dual_generatePoints(10000);
+            
+            // Initial calculations and rendering
+            dual_calculateDimensions();
+            dual_recalculateMetrics();
+            dual_redrawCanvas();
+            dual_updateQuadrantLabels();
+            
+            // Initialize the curve points for current size
+            dual_initCurvePoints();
+            
+            // Draw curves
+            dual_drawROCCurve();
+            dual_drawPRCurve();
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                dual_resizeCanvas();
+                dual_redrawCanvas();
+                dual_drawROCCurve();
+                dual_drawPRCurve();
+                dual_updateQuadrantLabels();
+            });
+        }
+    </script>
+</body>
+</html>

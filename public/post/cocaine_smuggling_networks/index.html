@@ -1,0 +1,1524 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Alvaro Franco Martins" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Data insights on four cocaine smuggling networks" />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@alvarofmartins" />
+    <meta property="twitter:creator" content="@alvarofmartins" />
+  
+  <meta property="og:site_name" content="Alvaro Franco Martins" />
+  <meta property="og:url" content="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/" />
+  <meta property="og:title" content="Dismantling and modeling cocaine trafficking networks | Alvaro Franco Martins" />
+  <meta property="og:description" content="Data insights on four cocaine smuggling networks" /><meta property="og:image" content="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/featured.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/post/cocaine_smuggling_networks/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-11-30T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-11-30T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://alvarofrancomartins.com/post/cocaine_smuggling_networks/"
+  },
+  "headline": "Dismantling and modeling cocaine trafficking networks",
+  
+  "image": [
+    "https://alvarofrancomartins.com/post/cocaine_smuggling_networks/featured.png"
+  ],
+  
+  "datePublished": "2021-11-30T00:00:00Z",
+  "dateModified": "2021-11-30T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Alvaro Franco Martins"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alvaro Franco Martins",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "Data insights on four cocaine smuggling networks"
+}
+</script>
+
+  
+
+  
+
+  
+
+  <head>
+   <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
+   .article-container {
+      max-width: 1250px;
+   }
+
+ 
+
+   #container-publications {
+      overflow: visible !important;
+   }
+
+   .see-all {
+      text-transform: none !important;
+   }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+   .stream-item {
+      padding-top: 25px;
+   }
+
+figcaption {
+   
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
+
+   </style>
+
+   <script src="/js/prism.js"></script>
+
+   <link rel="stylesheet" href="/css/prism.css" type="text/css"/> 
+
+</head>
+
+  <title>Dismantling and modeling cocaine trafficking networks | Alvaro Franco Martins</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="11fc5430ea3ecbf7e7ff57f1e3dc6281" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.da42964e270e05a6063fbca894d7ccff.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/experience"><span>Experience</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+        <article class="article">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Dismantling and modeling cocaine trafficking networks</h1>
+
+  
+  <p class="page-subtitle">Data insights on four cocaine smuggling networks</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      <a href="/author/alvaro-franco-martins/">Alvaro Franco Martins</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 30, 2021
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+<div class="btn-links mb-3">
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+  
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 1000px; max-height: 599px;">
+  <div style="position: relative">
+    <img src="/post/cocaine_smuggling_networks/featured.png" width="1000" height="599" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+            <div class="article-container">
+              <div class="article-style">
+                <script type="text/javascript" src="https://d3js.org/d3.v6.min.js"></script>
+<!-- <script type="text/javascript" src="js/formatter.js"> </script> -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<p>Criminal networks are a major and ubiquitous problem in modern societies. However, effective and general approaches to interrupt their functioning are still an open problem. In this post, I will apply a method of network dismantling to four cocaine smuggling networks. These networks are the result of operations from 2006 to 2009 and include countries such as Brazil, Colombia, Mexico, Spain, and Uruguay. Additionally, by the end of this post, I will suggest that these networks can be modeled using an extension of the Barabási-Albert model.</p>
+<!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
+<br>
+<p>The United Nations Office on Drugs and Crime (UNODC) <a href="https://www.unodc.org/unodc/en/drug-trafficking/index.html" target="_blank" rel="noopener">defines</a> drug trafficking as &ldquo;a global illicit trade involving the cultivation, manufacture, distribution and sale of substances which are subject to drug prohibition laws&rdquo;. A 2021 <a href="https://www.unodc.org/documents/data-and-analysis/cocaine/Cocaine_Insights_2021.pdf" target="_blank" rel="noopener">report</a> indicates that the amount of cocaine seized globally reached record levels in 2019, with the majority of cocaine continuing to be seized in the Americas. Despite immense and increasing efforts to interrupt these activities, counterdrug interdictions appear to be <a href="https://doi.org/10.1073/pnas.1812459116" target="_blank" rel="noopener">making the situation worse</a>. Drug trafficking networks are <a href="https://doi.org/10.1080/17440572.2013.787927" target="_blank" rel="noopener">flexible, fluid structures</a> and can respond instantly to attacks. For example, it has been suggested that <a href="https://doi.org/10.1038/srep04238" target="_blank" rel="noopener">some</a> networks can become even more efficient after targeted attacks.</p>
+<figure>
+    <img src="images/worldwide_cocaine_trafficking_flow.png" width="1200px" height="570px" />
+    <figcaption><b>Figure 1</b>: Main cocaine trafficking flows, 2015–2019. Source: UNODC, World Drug Report 2021.</figcaption>
+</figure>
+<p>In terms of network dismantling, a naive approach for attacking criminal networks is to target the most connected people (those with a high degree of centrality). But realistically, this does not work. It turns out that the cost of targeting these individuals can be substantially greater than attacking other criminals in the network. Moreover, in times of conflict, these central positions are often replaceable by other criminals. The resilience of a criminal network also depends on its level of <a href="https://doi.org/10.1371/journal.pone.0236476" target="_blank" rel="noopener">redundancy</a>, that is, how easily the individuals are replaceable. These characteristics make dismantling criminal networks an arduous task.</p>
+<br>
+<p>Several approaches have been proposed for the purpose of dismantling networks. These approaches are divided into either link or node removal. <a href="https://www.nature.com/articles/s41598-018-31902-8" target="_blank" rel="noopener">Here</a> you can see a comparative analysis of the main methods currently used in scientific research. In particular, I will be applying, on four <a href="https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0" target="_blank" rel="noopener">Cocaine Smuggling Networks</a>, a dismantling method proposed in a PNAS paper (<a href="https://doi.org/10.1073/pnas.1806108116" target="_blank" rel="noopener">Generalized Network Dismantling</a>). The advantage of this method is that it takes into account the cost of attacking the vertices. The cost of removing a vertex is its degree centrality and the algorithm finds a set of nodes whose removal results in the fragmentation of the network at minimal overall cost.</p>
+<br>
+<p>To perform the dismantling analysis, I adapted Petter Holme&rsquo;s <a href="https://github.com/pholme/gnd/blob/master/gnd.py" target="_blank" rel="noopener">implementation</a>. Thanks to him, the method proposed in the paper was converted from <a href="https://github.com/renxiaolong/Generalized-Network-Dismantling" target="_blank" rel="noopener">C++</a> to Python 2. I then converted it to Python 3 and applied it to the networks.</p>
+<br>
+<p>Ultimately, my main goals in this post are</p>
+<br>
+<ul>
+<li>Present the Generalized Network Dismantling (GND) method by examining its effectiveness and comparing the costs when the simplest dismantling approach (removing the highest degree vertices) is applied.</li>
+<li>Suggest that cocaine smuggling networks can be modeled via an extension of the Barabási-Albert model.</li>
+</ul>
+<br>
+<h1 id="cocaine-trafficking-groups">Cocaine trafficking groups</h1>
+<br>
+<p>The <a href="https://sites.google.com/site/ucinetsoftware/datasets/covert-networks/cocaine-smuggling?authuser=0" target="_blank" rel="noopener">dataset</a> contains information collected during police investigations of four groups involved in cocaine trafficking. These groups form networks in which the vertices represent the individuals and the links indicate their communications. The networks are shown below, with the size of each node proportional to its degree.</p>
+<br>
+<p>Operation <strong>MAMBO</strong>: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.</p>
+<div id="cocaine_smuggling_1"></div>
+<script type="text/javascript" src="js/cocaine_smuggling_1.js"> </script>
+<p style="text-align: center"><b>Mambo network</b>: 31 vertices and 58 edges.<p/><br>
+<p>Operation <strong>ACERO</strong>: This investigation started in 2007 and involved a smaller family-based group. The group was composed mainly of members of a same family and was led by a female. They distributed cocaine in Madrid (Spain) that was provided to them by other groups based in a northwest region of the country, one of the most active areas in the provision of cocaine from the countries of origin. The group also had their own procedures to launder money.</p>
+<div id="cocaine_smuggling_2"></div>
+<script type="text/javascript" src="js/cocaine_smuggling_2.js"> </script>
+<p style="text-align: center"><b>Acero network</b>: 25 vertices and 37 edges.<p/><br>
+<p>Operation <strong>JAKE</strong>: In 2008, the group investigated was operating as a wholesale supplier and retail distributor of cocaine and heroin in a large distribution zone located in Madrid (Spain), where gypsy clans traditionally carry out similar activities. The group was in charge of acquiring, manipulating and selling the drugs in the gypsy quarter.</p>
+<div id="cocaine_smuggling_3"></div>
+<script type="text/javascript" src="js/cocaine_smuggling_3.js"> </script>
+<p style="text-align: center"><b>Jake network</b>: 38 vertices and 50 edges.<p/><br>
+<p>Operation <strong>JUANES</strong>: In 2009, the police investigation detected a group involved in the smuggling of cocaine from Mexico to be distributed in Madrid (Spain). In this case, the group operated in close cooperation with another organization that was laundering the illegal income from drug distribution from this and other groups. The cocaine traffickers earned an estimated EUR 60 million.</p>
+<div id="cocaine_smuggling_4"></div>
+<script type="text/javascript" src="js/cocaine_smuggling_4.js"> </script>
+<p style="text-align: center"><b>Juanes network</b>: 51 vertices and 93 edges.<p/><br >
+<p>In terms of network metrics, these networks exhibit low <a href="https://bookdown.org/omarlizardo/_main/2-9-density.html" target="_blank" rel="noopener">density</a> (i.e, they are sparse), negative <a href="https://en.wikipedia.org/wiki/Assortativity" target="_blank" rel="noopener">assortativity</a> (which means that high degree nodes have a slight tendency to connect to low degree nodes), and relatively low <a href="https://en.wikipedia.org/wiki/Clustering_coefficient" target="_blank" rel="noopener">average clustering</a>. Since these networks are relatively small in size, an analysis of the <a href="https://en.wikipedia.org/wiki/Degree_distribution" target="_blank" rel="noopener">degree distribution</a> would not be so informative. However, a brief preliminary calculation using <a href="https://pypi.org/project/powerlaw/" target="_blank" rel="noopener">Powerlaw</a>’s Python package showed that power law distributions were in better agreement compared to the exponential distributions. The community structure analysis was also not very helpful. Although I used <a href="https://www.mapequation.org/infomap/" target="_blank" rel="noopener">Infomap</a> to color the nodes according to each module, I was unable to find community structures using the <a href="https://graph-tool.skewed.de/static/doc/demos/inference/inference.html" target="_blank" rel="noopener">Bayesian SBM</a>. Below are some of the main metrics I calculated for these networks.</p>
+<br>
+<details class="spoiler "  id="spoiler-0">
+  <summary>Click to show the density</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
+
+<span class="mf">0.125</span> <span class="c1"># Mambo</span>
+<span class="mf">0.123</span> <span class="c1"># Acero</span>
+<span class="mf">0.071</span> <span class="c1"># Jake</span>
+<span class="mf">0.073</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-1">
+  <summary>Click to show the assortativity</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
+
+<span class="o">-</span><span class="mf">0.088</span> <span class="c1"># Mambo</span>
+<span class="o">-</span><span class="mf">0.160</span> <span class="c1"># Acero</span>
+<span class="o">-</span><span class="mf">0.173</span> <span class="c1"># Jake </span>
+<span class="o">-</span><span class="mf">0.081</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-2">
+  <summary>Click to show average clustering</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
+
+<span class="mf">0.442</span> <span class="c1"># Mambo</span>
+<span class="mf">0.268</span> <span class="c1"># Acero</span>
+<span class="mf">0.110</span> <span class="c1"># Jake</span>
+<span class="mf">0.364</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-3">
+  <summary>Click to show network efficiency</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+
+<span class="mf">0.473</span> <span class="c1"># Mambo</span>
+<span class="mf">0.481</span> <span class="c1"># Acero</span>
+<span class="mf">0.420</span> <span class="c1"># Jake</span>
+<span class="mf">0.373</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-4">
+  <summary>Click to show average shortest path</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
+
+<span class="mf">2.473</span> <span class="c1"># Mambo</span>
+<span class="mf">2.413</span> <span class="c1"># Acero</span>
+<span class="mf">2.705</span> <span class="c1"># Jake</span>
+<span class="mf">3.308</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-5">
+  <summary>Click to show the pseudo network diameter</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+
+<span class="mf">4.0</span> <span class="c1"># Mambo</span>
+<span class="mf">5.0</span> <span class="c1"># Acero</span>
+<span class="mf">4.0</span> <span class="c1"># Jake</span>
+<span class="mf">7.0</span> <span class="c1"># Juanes</span>
+</code></pre></div></p>
+</details>
+<br>
+<h1 id="network-dismantling">Network dismantling</h1>
+<p>The following video demonstrates a simple dismantling simulation of the Juanes network. For a better visualization, I have applied the basic approach based on degree. The purpose of this video is to show the network changing while the high degree nodes are being removed.</p>
+<br>
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube.com/embed/pUi6Qi8tzhA" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
+</div>
+
+<br>
+<p>In the following figures, I show the (normalized) size of the largest connected component (LCC) as a function of the number of nodes removed. In each figure, pale pink represents the degree-based approach and pale blue represents the GND method<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Since Petter Holme&rsquo;s implementation comes with a randomness to make the output independent of the labeling of nodes, I have used average values. Moreover, in order to have a baseline, the black line shows the average of a random node removal approach and the shaded region represents a standard deviation band. The insets present the cumulative cost (i.e, the sum of the degrees) of removing the vertices.</p>
+<figure>
+    <img src="images/mambo.png" width="900px" height="563px" />
+    <figcaption><b>Figure 2</b>: Mambo network dismantling.</figcaption>
+</figure>
+<figure>
+    <img src="images/acero.png" width="900px" height="563px" />
+    <figcaption><b>Figure 3</b>: Acero network dismantling.</figcaption>
+</figure>
+<figure>
+    <img src="images/jake.png" width="900px" height="563px" />
+    <figcaption><b>Figure 4</b>: Jake network dismantling.</figcaption>
+</figure>
+<figure>
+    <img src="images/juanes.png" width="900px" height="563px" />
+    <figcaption><b>Figure 5</b>: Juanes network dismantling.</figcaption>
+</figure>
+<p>While both methods are better than random node removal, the degree-based dismantling seems to work better. However, this comes at a greater cost. As we can see, although the degree-based dismantling outperforms the GND method, the cost is always higher. Interestingly, we have a slightly different scenario for the Juanes network (<b>Figure 4</b>). In this case, the GND cost is still lower, but both aproaches seem to perform equally well.</p>
+<br>
+<p>Overall, these two aproaches can also be useful as baselines. Costs curves from other aproaches could be compared against these two and this comparison may present an additional analysis for further consideration between cost and effectiveness.</p>
+<br>
+<h1 id="network-modeling">Network modeling</h1>
+<br>
+<p>Network models represent useful frameworks in which we can study complex real-world networks. Some random graph models and their extensions have been capable of reproducing the evolution and function of real systems and some of their main features. See <a href="https://arxiv.org/abs/cond-mat/0303516" target="_blank" rel="noopener">here</a> a relatively old but essential review of developments in this field.</p>
+<br>
+<p>Looking more closely at these cocaine smuggling networks, they seem to be based on preferential attachment. Some nodes have many connections to other nodes which, in turn, are not very well connected. This is an indication of preferential attachment, a core property of scale-free networks. Although I have not concluded that their distributions are adequately described by power laws, we could try to simulate these networks with a scale-free model.</p>
+<br>
+<p>As a first guess, we could try using the well-known <a href="https://barabasi.com/f/622.pdf" target="_blank" rel="noopener">Barabási–Albert model</a>, since it is also able to generate networks with negative assortativity, low average clustering and low density. In this model, a network of size $n$ is grown by attaching new nodes each with $m$ edges that are preferentially attached to existing nodes with a high degree. However, if $m = 1$ the model networks have clustering coefficients equal to zero, but in the smuggling networks this coefficient is nonzero. We can try setting $m = 2$, but the graphs would (at least visually) clearly differ from the empirical networks. Click <a href="images/barabasi.png" target="_blank">here</a> to see an example of this model for three different values of $m$.</p>
+<br>
+<p>After doing some research, I found a version of the barabasi model called <a href="https://arxiv.org/abs/1810.10538" target="_blank" rel="noopener">dual Barabási–Albert model</a> (DBA), implemented in <a href="https://networkx.org/documentation/stable/reference/generated/networkx.generators.random_graphs.dual_barabasi_albert_graph.html" target="_blank" rel="noopener">NetworkX</a>. This model has two parameters that control the attachment probabilities of new nodes, described as follows. A graph of $n$ nodes is grown by attaching new nodes each with either $m_1$ edges (with probability $p$) or $m_2$ edges (with probability $1-p$), which are preferentially attached to existing nodes with a high degree. Moreover, as the authors of the paper explain, &ldquo;the DBA model is not guaranteed to (and will likely not) yield power-law degree distributions&rdquo;. Therefore, our ignorance regarding the degree distributions of the empirical networks is not of great concern.</p>
+<br>
+<p>The network below is an example of a random network generated by this model. The visual similarity is surprising. If we look closely, we can see some of the connection patterns seen in the empirical networks.</p>
+<br>
+<div id="teste"></div>
+<script type="text/javascript" src="js/teste.js"> </script>
+<p style="text-align: center"><b>Random network</b>: A random network ($n = 38$, $m_1 = 1$, $m_2 = 5$ and $p = 0.7$) generated using the dual Barabási–Albert preferential attachment model. The resulting graph has 65 edges.<p/><br>
+<br>
+<p>Of course, this is just one example with specific parameters. We obviously have a lot of room for parameter tuning here. However, in order to obtain the similar pattern of a high degree node connecting to many other nodes that themselves have just one connection, either $m_1$ or $m_2$ must be set equal to 1. The other parameters ($m_2$ and $p$) were chosen arbitrarily.</p>
+<br>
+<p>Naturally, we can examine whether the model networks also produce similar properties to those calculated for the empirical ones. The following values are averages, for every metric, of 1,000 networks grown using the model. Each one of these has the same size as the empirical smuggling networks. Also, in all calculations, I have set $m_1 = 1$, $m_2 = 5$ and $p = 0.7$ fixed. Ultimately, I could vary these parameters and possibly get better results by tuning them. However, as we can see below, the results are already pretty good.</p>
+<br>
+<details class="spoiler "  id="spoiler-7">
+  <summary>Click to show the density</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_density</span>
+
+<span class="mf">0.125</span> <span class="c1"># Mambo </span>
+<span class="mf">0.130</span> <span class="c1"># Model</span>
+
+<span class="mf">0.123</span> <span class="c1"># Acero</span>
+<span class="mf">0.156</span> <span class="c1"># Model</span>
+
+<span class="mf">0.071</span> <span class="c1"># Jake</span>
+<span class="mf">0.110</span> <span class="c1"># Model</span>
+
+<span class="mf">0.073</span> <span class="c1"># Juanes</span>
+<span class="mf">0.081</span> <span class="c1"># Model</span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-8">
+  <summary>Click to show the assortativity</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_assortativity</span>
+
+<span class="o">-</span><span class="mf">0.088</span> <span class="c1"># Mambo</span>
+<span class="o">-</span><span class="mf">0.090</span> <span class="c1"># Model </span>
+
+<span class="o">-</span><span class="mf">0.160</span> <span class="c1"># Acero</span>
+<span class="o">-</span><span class="mf">0.108</span> <span class="c1"># Model </span>
+
+<span class="o">-</span><span class="mf">0.173</span> <span class="c1"># Jake </span>
+<span class="o">-</span><span class="mf">0.082</span> <span class="c1"># Model </span>
+
+<span class="o">-</span><span class="mf">0.081</span> <span class="c1"># Juanes</span>
+<span class="o">-</span><span class="mf">0.067</span> <span class="c1"># Model </span>
+
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-9">
+  <summary>Click to show average clustering</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_clustering</span>
+
+<span class="mf">0.442</span> <span class="c1"># Mambo</span>
+<span class="mf">0.207</span> <span class="c1"># Model </span>
+
+<span class="mf">0.268</span> <span class="c1"># Acero</span>
+<span class="mf">0.240</span> <span class="c1"># Model </span>
+
+<span class="mf">0.110</span> <span class="c1"># Jake</span>
+<span class="mf">0.180</span> <span class="c1"># Model </span>
+
+<span class="mf">0.364</span> <span class="c1"># Juanes</span>
+<span class="mf">0.151</span> <span class="c1"># Model </span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-10">
+  <summary>Click to show network efficiency</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+
+<span class="mf">0.473</span> <span class="c1"># Mambo</span>
+<span class="mf">0.473</span> <span class="c1"># Model </span>
+
+<span class="mf">0.481</span> <span class="c1"># Acero</span>
+<span class="mf">0.500</span> <span class="c1"># Model </span>
+
+<span class="mf">0.420</span> <span class="c1"># Jake</span>
+<span class="mf">0.425</span> <span class="c1"># Model </span>
+
+<span class="mf">0.373</span> <span class="c1"># Juanes</span>
+<span class="mf">0.424</span> <span class="c1"># Model </span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-11">
+  <summary>Click to show average shortest path</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_average_shortest_path</span>
+
+<span class="mf">2.473</span> <span class="c1"># Mambo</span>
+<span class="mf">2.479</span> <span class="c1"># Model </span>
+
+<span class="mf">2.413</span> <span class="c1"># Acero</span>
+<span class="mf">2.372</span> <span class="c1"># Model </span>
+
+<span class="mf">2.705</span> <span class="c1"># Jake</span>
+<span class="mf">2.601</span> <span class="c1"># Model </span>
+
+<span class="mf">3.308</span> <span class="c1"># Juanes</span>
+<span class="mf">2.740</span> <span class="c1"># Model </span>
+</code></pre></div></p>
+</details>
+<details class="spoiler "  id="spoiler-12">
+  <summary>Click to show the pseudo network diameter</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">smuggling_networks_global_efficiency</span>
+
+<span class="mf">4.0</span> <span class="c1"># Mambo</span>
+<span class="mf">4.9</span> <span class="c1"># Model </span>
+
+<span class="mf">5.0</span> <span class="c1"># Acero</span>
+<span class="mf">4.7</span> <span class="c1"># Model </span>
+
+<span class="mf">4.0</span> <span class="c1"># Jake</span>
+<span class="mf">5.2</span> <span class="c1"># Model </span>
+
+<span class="mf">7.0</span> <span class="c1"># Juanes</span>
+<span class="mf">5.6</span> <span class="c1"># Model </span>
+</code></pre></div></p>
+</details>
+<p>Obviously, even though the metrics are quite close, matching only six coefficients and a visual aspect is not enough to conclude that this model is an appropriate fit for smuggling networks. Also, we must remember that we only have four networks of this type. When more data of this type are available, we may be able to better support or refute this idea.</p>
+<br>
+<h2 id="whats-next">What&rsquo;s next?</h2>
+<br>
+<p>I also performed a link prediction analysis using <a href="https://snap.stanford.edu/node2vec/" target="_blank" rel="noopener">Node2Vec</a> and a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html" target="_blank" rel="noopener">Random Forest Classifier</a>. Since there is no information about the evolution of these networks over time, I tried to recreate a graph that might have existed at a previous point in time. To do this, I removed some links that would not completely affect the structure of the graphs. This gave me two snapshots of the networks and allowed me to test the link prediction. In the end, I got an AUC score greater than $0.7$ for all networks. I have not completed this analysis yet, so I may post the details in the future.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>The GND method uses a cascading approach for dismantling a network, meaning that measurements are updated after each deletion. For this reason, the same procedure was applied for the removal of the nodes with the highest degrees. The alternative approach, where the nodes to be removed are obtained only once, is known as <a href="https://www.nature.com/articles/srep37954" target="_blank" rel="noopener">simultaneous attack</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+              </div>
+              
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/spain/">Spain</a>
+  
+  <a class="badge badge-light" href="/tag/cocaine/">Cocaine</a>
+  
+  <a class="badge badge-light" href="/tag/organized-crime/">Organized crime</a>
+  
+  <a class="badge badge-light" href="/tag/criminal-networks/">Criminal networks</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:alvarought@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/alvarofmartins" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com.br/citations?user=yB30J2MAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/Alvaro-Martins-2" target="_blank" rel="noopener">
+        <i class="fab fa-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/alvarofrancomartins" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/alvarofrancomartins/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/corruption-networks-model/">Computational model of political corruption networks</a></li>
+      
+      <li><a href="/post/corruption-networks/">Unveiling the hidden patterns of corruption networks</a></li>
+      
+      <li><a href="/publication/deep-learning-criminal-networks/">Deep learning criminal networks</a></li>
+      
+      <li><a href="/publication/machine-learning-partners-in-criminal-networks/">Machine learning partners in criminal networks</a></li>
+      
+      <li><a href="/publication/universality-of-political-corruption-networks/">Universality of political corruption networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+            </div>
+        </article>
+  
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by" style="font-size:11px;">
+    
+    Published with
+    <a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy</a>. 
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

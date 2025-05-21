@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ervin K. Lenzi | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/author/ervin-k.-lenzi/</link>
+      <atom:link href="https://alvarofrancomartins.com/author/ervin-k.-lenzi/index.xml" rel="self" type="application/rss+xml" />
+    <description>Ervin K. Lenzi</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Ervin K. Lenzi</title>
+      <link>https://alvarofrancomartins.com/author/ervin-k.-lenzi/</link>
+    </image>
+    
+    <item>
+      <title>Machine learning partners in criminal networks</title>
+      <link>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</link>
+      <pubDate>Wed, 21 Sep 2022 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/publication/machine-learning-partners-in-criminal-networks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>The dynamical structure of political corruption networks</title>
+      <link>https://alvarofrancomartins.com/publication/brazilian-corruption-network/</link>
+      <pubDate>Wed, 24 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/publication/brazilian-corruption-network/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

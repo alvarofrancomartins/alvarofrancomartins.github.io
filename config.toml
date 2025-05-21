@@ -1,7 +1,5 @@
+# config.toml
 baseURL = "https://alvarofrancomartins.com/"
 languageCode = "en-us"
 title = "Alvaro Franco Martins"
-publishDir = "docs"
-
-
-pygmentsUseClassic = false
+publishDir = "public"  # ← Altere de "docs" para "public"
