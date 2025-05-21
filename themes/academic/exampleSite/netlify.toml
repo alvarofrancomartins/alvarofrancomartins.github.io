@@ -1,12 +1,46 @@
 [build]
-  command = "hugo --gc --minify"
+  command = "hugo mod get -u && hugo --gc --minify --cleanDestinationDir"
   publish = "public"
   functions = "netlify/functions"
 
 [build.environment]
-  HUGO_VERSION = "0.125.4"  # Versão EXTENDED (obrigatória para temas modernos)
+  HUGO_VERSION = "0.125.4"  # Versão EXTENDED obrigatória
   NODE_VERSION = "18"
-  GO_VERSION = "1.21"        # Necessário para módulos Go do Hugo
-
-[context.production.environment]
+  GO_VERSION = "1.21"
+  WC_POST_CSS = "true"       # Variável exigida pelo Wowchemy
   HUGO_ENV = "production"
+
+[context.production]
+  [context.production.environment]
+    HUGO_ENABLEGITINFO = "true"
+
+# Configurações de segurança do Hugo
+[context.production.environment.HUGO_SECURITY]
+  ENABLEINLINESHORTCODES = "true"
+  
+  [context.production.environment.HUGO_SECURITY_FUNCS]
+    GETENV = '^HUGO_,^CI$,^WC_'
+
+  [context.production.environment.HUGO_SECURITY_EXEC]
+    ALLOW = '^(dart-)?sass(-embedded)?$,^go$,^npx$,^postcss$'
+
+# Headers de segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+[[headers]]
+  for = "/index.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+[[headers]]
+  for = "/index.xml"
+  [headers.values]
+    Content-Type = "application/rss+xml"

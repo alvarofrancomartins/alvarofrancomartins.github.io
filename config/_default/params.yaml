@@ -150,3 +150,5 @@ cms:
 icon:
   pack:
     ai: false
+sharer:
+  enable: true

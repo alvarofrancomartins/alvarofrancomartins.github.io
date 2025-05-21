@@ -3,3 +3,18 @@ baseURL = "https://alvarofrancomartins.com/"
 languageCode = "en-us"
 title = "Alvaro Franco Martins"
 publishDir = "public"  # ← Altere de "docs" para "public"
+
+[security]
+enableInlineShortcodes = true  # Permite shortcodes inline (pode ser necessário)
+  
+[security.funcs]
+getenv = ['^HUGO_', '^CI$', '^WC_', '^POST_']
+
+[security.exec]
+allow = ['^dart-sass-embedded$', '^go$', '^npx$', '^postcss$']
+
+[module]
+proxy = "direct"
+[module.hugoVersion]
+extended = true
+min = "0.125.4"
