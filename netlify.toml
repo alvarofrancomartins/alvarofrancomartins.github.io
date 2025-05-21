@@ -1,7 +1,7 @@
 # netlify.toml
 [build]
   command = "hugo --gc --minify" # Comando de build do Hugo
-  publish = "public"             # Pasta onde o Hugo gera o site
+  publish = "docs"             # Pasta onde o Hugo gera o site
   functions = "netlify/functions"  # Onde o Netlify encontra as suas funções
 
 [build.environment]
