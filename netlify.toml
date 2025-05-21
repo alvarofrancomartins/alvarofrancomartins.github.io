@@ -1,5 +1,5 @@
 [build]
-  command = "hugo --gc --minify"
+  command = "hugo --gc --minify" # Mantendo o comando simplificado
   publish = "public"
   functions = "netlify/functions"
 
@@ -16,7 +16,7 @@
 [context.branch-deploy]
   command = "hugo --gc --minify -b $DEPLOY_PRIME_URL"
 
-[[plugins]]
-  package = "netlify-plugin-hugo-cache-resources"
-  [plugins.inputs]
-    debug = true
+# [[plugins]] # Comentado para teste
+#   package = "netlify-plugin-hugo-cache-resources"
+#   [plugins.inputs]
+#     debug = true
