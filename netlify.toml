@@ -1,5 +1,5 @@
 [build]
-  command = "hugo mod get -u && hugo --gc --minify --cleanDestinationDir"
+  command = "hugo --gc --minify"
   publish = "public"
   functions = "netlify/functions"
 
@@ -8,30 +8,3 @@
   NODE_VERSION = "18"
   GO_VERSION = "1.21"
   WC_POST_CSS = "true"
-
-[context.production]
-  [context.production.environment]
-    HUGO_ENV = "production"
-    HUGO_SECURITY_ENABLEINLINESHORTCODES = "true"
-    HUGO_SECURITY_FUNCS_GETENV = '["^HUGO_", "^CI$", "^WC_"]'
-    HUGO_SECURITY_EXEC_ALLOW = '["^(dart-)?sass(-embedded)?$", "^go$", "^npx$", "^postcss$"]'
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Permissions-Policy = "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-
-[[headers]]
-  for = "/index.webmanifest"
-  [headers.values]
-    Content-Type = "application/manifest+json"
-
-[[headers]]
-  for = "/index.xml"
-  [headers.values]
-    Content-Type = "application/rss+xml"

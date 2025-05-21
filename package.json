@@ -12,11 +12,17 @@
     "webidl-conversions": "^3.0.1",
     "whatwg-url": "^5.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss-cli": "^11.0.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npx postcss assets/css/wowchemy.css -o assets/css/wowchemy.min.css"
   },
   "keywords": [],
   "author": "",
   "license": "ISC"
+
+
 }
