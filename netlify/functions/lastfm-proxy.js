@@ -1,24 +1,22 @@
 // netlify/functions/lastfm-proxy.js
-const fetch = require('node-fetch'); // Para fazer requisições HTTP
+const fetch = require('node-fetch'); 
 
 exports.handler = async function(event, context) {
-    // A sua API Key da Last.fm será lida das variáveis de ambiente do Netlify
-    const LASTFM_API_KEY = process.env.REACT_APP_LASTFM_API_KEY; // Nome da variável de ambiente
+    // Nome da variável de ambiente no Netlify (será configurada na UI do Netlify)
+    const LASTFM_API_KEY_FROM_ENV = process.env.LASTFM_API_KEY_SECRET; 
 
-    if (!LASTFM_API_KEY) {
-        console.error("API Key da Last.fm não configurada nas variáveis de ambiente.");
+    if (!LASTFM_API_KEY_FROM_ENV) {
+        console.error("ERRO FATAL: API Key da Last.fm (LASTFM_API_KEY_SECRET) não está configurada nas variáveis de ambiente do Netlify!");
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Configuração do servidor incompleta." }),
+            body: JSON.stringify({ error: "Erro de configuração do servidor: Chave da API em falta." }),
         };
     }
 
-    // Parâmetros esperados da query string da chamada do frontend
     const method = event.queryStringParameters.method;
     const artist = event.queryStringParameters.artist;
-    const limit = event.queryStringParameters.limit || '3'; // Limite padrão se não especificado
+    const limit = event.queryStringParameters.limit || '3';
 
-    // Validação básica dos parâmetros
     if (!method) {
         return { statusCode: 400, body: JSON.stringify({ error: "Parâmetro 'method' é obrigatório." }) };
     }
@@ -26,8 +24,7 @@ exports.handler = async function(event, context) {
          return { statusCode: 400, body: JSON.stringify({ error: "Parâmetro 'artist' é obrigatório para este método." }) };
     }
 
-
-    let apiUrl = `https://ws.audioscrobbler.com/2.0/?method=${method}&api_key=${LASTFM_API_KEY}&format=json&autocorrect=1`;
+    let apiUrl = `https://ws.audioscrobbler.com/2.0/?method=${method}&api_key=${LASTFM_API_KEY_FROM_ENV}&format=json&autocorrect=1`;
 
     if (artist) {
         apiUrl += `&artist=${encodeURIComponent(artist)}`;
@@ -36,35 +33,37 @@ exports.handler = async function(event, context) {
         apiUrl += `&limit=${limit}`;
     }
 
-    // console.log("Proxy chamando URL:", apiUrl); // Para depuração
+    console.log(`[lastfm-proxy] Chamando: ${method} para artista: ${artist || 'N/A'}`);
 
     try {
         const lastfmResponse = await fetch(apiUrl);
-        const data = await lastfmResponse.json();
+        const responseText = await lastfmResponse.text(); // Lê como texto primeiro para depuração
+
+        let data;
+        try {
+            data = JSON.parse(responseText); // Tenta parsear como JSON
+        } catch (parseError) {
+            console.error("[lastfm-proxy] Erro ao parsear JSON da Last.fm:", parseError);
+            console.error("[lastfm-proxy] Texto recebido da Last.fm:", responseText);
+            return { statusCode: 502, body: JSON.stringify({ error: "Resposta inválida da API da Last.fm."}) };
+        }
 
         if (!lastfmResponse.ok) {
-            // Tenta repassar a mensagem de erro da Last.fm se disponível
-            const errorMsg = data.message || `Erro da API Last.fm: Status ${lastfmResponse.status}`;
-            console.error("Erro da API Last.fm:", errorMsg, data);
-            return {
-                statusCode: lastfmResponse.status,
-                body: JSON.stringify({ error: errorMsg, details: data }),
-            };
+            const errorMsg = data.message || `Erro da API Last.fm (Status: ${lastfmResponse.status})`;
+            console.error("[lastfm-proxy] Erro da API Last.fm:", errorMsg, data);
+            return { statusCode: lastfmResponse.status, body: JSON.stringify({ error: errorMsg, details: data }) };
         }
 
         return {
             statusCode: 200,
-            headers: { 
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*", // Permite chamadas de qualquer origem (ajuste se necessário)
-            },
+            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
             body: JSON.stringify(data),
         };
     } catch (error) {
-        console.error("Erro na função proxy ao chamar Last.fm:", error);
+        console.error("[lastfm-proxy] Erro geral na função:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: "Erro interno ao contactar o serviço da Last.fm.", details: error.message }),
+            body: JSON.stringify({ error: "Erro interno no proxy ao contactar a Last.fm.", details: error.message }),
         };
     }
 };
