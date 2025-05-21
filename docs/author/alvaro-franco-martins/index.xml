@@ -5,12 +5,530 @@
     <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
       <atom:link href="https://alvarofrancomartins.com/author/alvaro-franco-martins/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 23 Apr 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 May 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
     </image>
+    
+    <item>
+      <title>Explorador Interativo de Artistas Similares</title>
+      <link>https://alvarofrancomartins.com/post/sankey/</link>
+      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/sankey/</guid>
+      <description>&lt;div id=&#34;artistas-app-container&#34; class=&#34;artistas-app-wrapper&#34;&gt;
+    &lt;header class=&#34;artistas-app-header&#34;&gt;
+        &lt;h2&gt;Artistas Similares&lt;/h2&gt;
+        &lt;p&gt;Descubra conexões musicais em até 3 níveis de similaridade.&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;div class=&#34;artistas-app-search-container&#34;&gt;
+        &lt;input type=&#34;text&#34; id=&#34;artist-input-app&#34; placeholder=&#34;Digite o nome de um artista&#34; value=&#34;Radiohead&#34;&gt;
+        &lt;button id=&#34;search-button-app&#34;&gt;Buscar&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;artistas-app-playlist-button-container&#34;&gt;
+        &lt;button id=&#34;generate-diagram-playlist-btn-app&#34; disabled&gt;✨ Gerar Playlist&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div id=&#34;search-feedback-message-app&#34; class=&#34;artistas-app-feedback&#34;&gt;&lt;/div&gt; 
+&lt;/div&gt;
+&lt;div id=&#34;sankey-chart-container-app&#34; class=&#34;artistas-app-sankey-container&#34; style=&#34;display: none;&#34;&gt;
+    &lt;div id=&#34;sankey-chart-app&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;playlist-modal-overlay-app&#34; class=&#34;artistas-app-modal-overlay&#34;&gt;
+    &lt;div class=&#34;artistas-app-modal-content&#34;&gt;
+        &lt;button id=&#34;modal-close-btn-app&#34; class=&#34;artistas-app-modal-close-button&#34;&gt;&amp;times;&lt;/button&gt;
+        &lt;h2 id=&#34;playlist-modal-title-app&#34;&gt;🎶 Sankey Playlist&lt;/h2&gt; 
+        &lt;div id=&#34;playlist-modal-body-app&#34;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;footer class=&#34;artistas-app-footer&#34;&gt;
+    &lt;p&gt;Dados fornecidos pela &lt;a href=&#34;https://www.last.fm&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;Last.fm&lt;/a&gt;.&lt;/p&gt;
+&lt;/footer&gt;
+&lt;style&gt;
+/* Para evitar conflitos, todas as classes têm o prefixo &#34;artistas-app-&#34; */
+/* Você pode mover este CSS para o arquivo CSS principal do seu tema Hugo se preferir */
+.artistas-app-wrapper {
+    font-family: &#39;Inter&#39;, sans-serif;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 40px; /* Espaço após a aplicação */
+}
+.artistas-app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.artistas-app-header h2 {
+    color: #c53030;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.artistas-app-header p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #6b7280;
+}
+.artistas-app-search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.artistas-app-search-container input[type=&#34;text&#34;] {
+    padding: 10px 15px;
+    width: clamp(280px, 70%, 350px); /* Largura responsiva */
+    border: 1px solid #d1d5db;
+    border-radius: 8px 0 0 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.artistas-app-search-container input[type=&#34;text&#34;]:focus {
+    outline: none;
+    border-color: #c53030;
+    box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.15);
+}
+.artistas-app-search-container button {
+    padding: 10px 20px;
+    background-color: #c53030;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.artistas-app-search-container button:hover {
+    background-color: #a02828;
+}
+.artistas-app-playlist-button-container {
+    text-align: center;
+    margin: 12px 0;
+}
+.artistas-app-playlist-button-container button {
+    background-color: #2563eb;
+    color: white;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.artistas-app-playlist-button-container button:hover {
+    background-color: #1d4ed8;
+}
+.artistas-app-playlist-button-container button:disabled {
+    background-color: #9ca3af;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.artistas-app-feedback {
+    text-align: center;
+    margin: 8px 0;
+    min-height: 18px;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+.artistas-app-feedback.error {
+    color: #c53030;
+    font-weight: 500;
+}
+.artistas-app-sankey-container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 5px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+.artistas-app-sankey-container svg {
+    display: block;
+    width: 100%;
+    min-height: 600px; /* Altura mínima para o gráfico */
+}
+.sankey-node-group { cursor: pointer; }
+.sankey-node rect {
+    fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1);
+    stroke-width: 0.5px; transition: all 0.2s ease;
+}
+.sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
+.sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
+.sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; }
+.sankey-node-label {
+    pointer-events: none; font-size: 13px; /* Ajustado */
+    font-weight: 500; fill: #1f2937; transition: all 0.2s ease;
+}
+.sankey-node-group:hover .sankey-node-label { font-size: 14px; font-weight: 700; fill: #000000; }
+.artistas-app-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); display: flex;
+    justify-content: center; align-items: center; z-index: 2000; /* Alto z-index */
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.artistas-app-modal-overlay.active { opacity: 1; visibility: visible; }
+.artistas-app-modal-content {
+    background-color: white; padding: 20px 25px; border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 90%;
+    max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative;
+}
+.artistas-app-modal-content h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; color: #c53030; }
+.artistas-app-modal-content ul { list-style: decimal; padding-left: 20px; }
+.artistas-app-modal-content li { margin-bottom: 8px; font-size: 0.9rem; }
+.artistas-app-modal-content li a { color: #2563eb; text-decoration: none; font-weight: 500; }
+.artistas-app-modal-content li a:hover { text-decoration: underline; }
+.artistas-app-modal-close-button {
+    position: absolute; top: 10px; right: 15px; background: none; border: none;
+    font-size: 1.7rem; cursor: pointer; color: #9ca3af; padding: 0; line-height: 1;
+}
+.artistas-app-modal-close-button:hover { color: #6b7280; }
+.artistas-app-modal-loading-spinner {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; min-height: 120px;
+}
+.artistas-app-modal-loading-spinner p { margin-bottom: 12px; font-size: 0.95rem; color: #4b5563; }
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1); width: 32px; height: 32px;
+    border-radius: 50%; border-left-color: #c53030; animation: spin 1s ease infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.artistas-app-footer { text-align: center; padding: 10px 0; font-size: 0.8rem; color: #6b7280; margin-top: 15px; }
+.artistas-app-footer a { color: #c53030; text-decoration: none; }
+.artistas-app-footer a:hover { text-decoration: underline; }
+&lt;/style&gt;
+&lt;script&gt;
+(function() { // IIFE para encapsular o escopo
+    // Verifica se os elementos da aplicação existem nesta página
+    const artistInputApp = document.getElementById(&#39;artist-input-app&#39;);
+    if (!artistInputApp) {
+        // console.log(&#34;Aplicação Artistas Similares não ativa nesta página.&#34;);
+        return; // Sai se os elementos não forem encontrados
+    }
+
+    const searchButtonApp = document.getElementById(&#39;search-button-app&#39;);
+    const generateDiagramPlaylistBtnApp = document.getElementById(&#39;generate-diagram-playlist-btn-app&#39;);
+    const searchFeedbackMessageApp = document.getElementById(&#39;search-feedback-message-app&#39;); 
+    const sankeyChartContainerApp = document.getElementById(&#39;sankey-chart-container-app&#39;);
+    const sankeyChartDivApp = document.getElementById(&#39;sankey-chart-app&#39;);
+
+    const playlistModalOverlayApp = document.getElementById(&#39;playlist-modal-overlay-app&#39;);
+    const playlistModalTitleApp = document.getElementById(&#39;playlist-modal-title-app&#39;);
+    const playlistModalBodyApp = document.getElementById(&#39;playlist-modal-body-app&#39;);
+    const modalCloseBtnApp = document.getElementById(&#39;modal-close-btn-app&#39;);
+
+    // A API_KEY da Last.fm NÃO é definida aqui. As chamadas usam o proxy Netlify.
+    const MAX_DEPTH_APP = 3; 
+    const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3; 
+
+    let currentGraphNodesApp = []; 
+    let cachedPlaylistDataApp = null; 
+    let cachedDiagramSignatureApp = null; 
+
+    const marginApp = {top: 40, right: 160, bottom: 40, left: 160}; 
+    const nodeWidthApp = 30; 
+    const nodePaddingVerticalApp = 35; 
+
+    function initializePageApp() {
+        searchButtonApp.addEventListener(&#39;click&#39;, handleSearchApp);
+        artistInputApp.addEventListener(&#39;keypress&#39;, (event) =&gt; {
+            if (event.key === &#39;Enter&#39;) handleSearchApp();
+        });
+        generateDiagramPlaylistBtnApp.addEventListener(&#39;click&#39;, handleGenerateDiagramPlaylistApp);
+        modalCloseBtnApp.addEventListener(&#39;click&#39;, () =&gt; playlistModalOverlayApp.classList.remove(&#39;active&#39;));
+        playlistModalOverlayApp.addEventListener(&#39;click&#39;, (event) =&gt; {
+            if (event.target === playlistModalOverlayApp) {
+                playlistModalOverlayApp.classList.remove(&#39;active&#39;);
+            }
+        });
+        handleSearchApp(); 
+    }
+
+    function showLoadingApp(message = &#34;Procurando...&#34;) {
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = &#39;artistas-app-feedback&#39;; 
+        sankeyChartContainerApp.style.display = &#39;none&#39;;
+        generateDiagramPlaylistBtnApp.disabled = true; 
+        searchButtonApp.disabled = true; 
+        artistInputApp.disabled = true;
+    }
+
+    function hideLoadingApp() {
+        searchButtonApp.disabled = false; 
+        artistInputApp.disabled = false;
+    }
+
+    function showErrorApp(message) {
+        console.error(&#34;Erro (Artistas App):&#34;, message); 
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = &#39;artistas-app-feedback error&#39;; 
+        sankeyChartContainerApp.style.display = &#39;none&#39;;
+        generateDiagramPlaylistBtnApp.disabled = true;
+        hideLoadingApp(); 
+    }
+
+    async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
+        let proxyUrl = `/.netlify/functions/lastfm-proxy?method=${method}`;
+        if (artistName) {
+            proxyUrl += `&amp;artist=${encodeURIComponent(artistName)}`;
+        }
+        if (method === &#39;artist.getsimilar&#39; || method === &#39;artist.gettoptracks&#39;) {
+            proxyUrl += `&amp;limit=${limit}`;
+        }
+        try {
+            const response = await fetch(proxyUrl);
+            const data = await response.json();
+            if (!response.ok) {
+                const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
+                throw new Error(errorMsg);
+            }
+            if (data.error &amp;&amp; typeof data.error === &#39;string&#39;) throw new Error(data.error);
+            if (data.error &amp;&amp; data.error.message) throw new Error(data.error.message);
+            return data;
+        } catch (error) {
+            console.error(`Erro na função callNetlifyProxy para ${method} (${artistName || &#39;&#39;}):`, error);
+            throw error;
+        }
+    }
+
+    async function fetchArtistInfoAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy(&#39;artist.getinfo&#39;, artistName);
+            if (!data.artist) throw new Error (`Informações do artista &#34;${artistName}&#34; não encontradas (via proxy).`);
+            return data.artist;
+        } catch (error) { throw error; }
+    }
+
+    async function fetchSimilarArtistsAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy(&#39;artist.getsimilar&#39;, artistName, SIMILAR_ARTISTS_LIMIT_PER_CALL_APP);
+            return (data.similarartists &amp;&amp; Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
+        } catch (error) { console.warn(`Falha ao buscar similares para &#34;${artistName}&#34; via proxy: ${error.message}`); return []; }
+    }
+
+    async function fetchArtistTopTrackAPIApp(artistName) {
+         try {
+            const data = await callNetlifyProxy(&#39;artist.gettoptracks&#39;, artistName, 1);
+            if (!data.toptracks || !data.toptracks.track || data.toptracks.track.length === 0) {
+                console.warn(`Nenhuma top track encontrada para &#34;${artistName}&#34; via proxy.`); return null;
+            }
+            return data.toptracks.track[0]; 
+        } catch (error) { console.warn(`Erro ao buscar top track para &#34;${artistName}&#34; via proxy: ${error.message}`); return null; }
+    }
+
+    function generateDiagramSignatureApp(nodes) {
+        if (!nodes || nodes.length === 0) return null;
+        return nodes.map(n =&gt; n.name).sort().join(&#39;||&#39;);
+    }
+
+    async function generateSankeyDataApp(initialArtistName, maxDepth) {
+        const rawLinks = []; 
+        const fetchedArtists = new Set(); 
+        const allNodesData = new Map(); 
+        let initialArtistData;
+        try {
+            initialArtistData = await fetchArtistInfoAPIApp(initialArtistName);
+            allNodesData.set(initialArtistData.name, { name: initialArtistData.name, url: initialArtistData.url });
+        } catch (error) { throw error; }
+        let currentLevelArtists = [initialArtistData.name]; 
+        for (let depth = 0; depth &lt; maxDepth; depth++) {
+            if (currentLevelArtists.length === 0) break; 
+            const nextLevelArtistsSet = new Set(); 
+            const fetchPromises = currentLevelArtists.map(async (sourceArtist) =&gt; {
+                const normalizedSourceArtist = sourceArtist.toLowerCase();
+                if (fetchedArtists.has(normalizedSourceArtist)) return; 
+                fetchedArtists.add(normalizedSourceArtist);
+                const similarArtists = await fetchSimilarArtistsAPIApp(sourceArtist);
+                similarArtists.forEach(targetArtistInfo =&gt; {
+                    if (targetArtistInfo &amp;&amp; targetArtistInfo.name &amp;&amp; targetArtistInfo.match &amp;&amp; targetArtistInfo.url) {
+                        const targetArtistName = targetArtistInfo.name;
+                        if (!allNodesData.has(sourceArtist)) { 
+                             allNodesData.set(sourceArtist, { name: sourceArtist, url: `https://www.last.fm/music/${encodeURIComponent(sourceArtist.replace(/\s+/g, &#39;+&#39;))}` });
+                        }
+                        allNodesData.set(targetArtistName, { name: targetArtistName, url: targetArtistInfo.url });
+                        const normalizedTargetArtist = targetArtistName.toLowerCase();
+                        if (fetchedArtists.has(normalizedTargetArtist) || sourceArtist === targetArtistName) return; 
+                        const weight = parseFloat(targetArtistInfo.match) * 100;
+                        if (weight &gt; 0.01) { 
+                            rawLinks.push({ source: sourceArtist, target: targetArtistName, value: Math.max(0.01, weight) }); 
+                            if (depth &lt; maxDepth - 1) nextLevelArtistsSet.add(targetArtistName);
+                        }
+                    }
+                });
+            });
+            try { await Promise.all(fetchPromises); } catch (error) { if (currentLevelArtists.includes(initialArtistData.name)) throw error; }
+            currentLevelArtists = Array.from(nextLevelArtistsSet); 
+        }
+        const nodes = Array.from(allNodesData.values()); 
+        const links = rawLinks.filter(link =&gt; allNodesData.has(link.source) &amp;&amp; allNodesData.has(link.target));
+        return { nodes, links, initialArtistName: initialArtistData.name }; 
+    }
+
+    function displayPlaylistInModalApp(playlistData) {
+        playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`; 
+        let playlistHtml = &#34;&lt;ul&gt;&#34;;
+        playlistData.tracks.forEach(track =&gt; {
+            playlistHtml += `&lt;li&gt;&lt;a href=&#34;${track.trackUrl}&#34; target=&#34;_blank&#34;&gt;${track.trackName}&lt;/a&gt; - ${track.artistName}&lt;/li&gt;`;
+        });
+        playlistHtml += &#34;&lt;/ul&gt;&#34;;
+        playlistModalBodyApp.innerHTML = playlistHtml;
+        playlistModalOverlayApp.classList.add(&#39;active&#39;);
+        generateDiagramPlaylistBtnApp.disabled = false; 
+    }
+
+    function drawSankeyD3App(sankeyData) {
+        searchFeedbackMessageApp.textContent = &#39;&#39;; 
+        const { nodes, links, initialArtistName } = sankeyData;
+        currentGraphNodesApp = []; 
+
+        if (!nodes || nodes.length === 0) {
+            showErrorApp(`Nenhum dado encontrado para &#34;${initialArtistName}&#34;.`);
+            generateDiagramPlaylistBtnApp.disabled = true; return; 
+        }
+        if (nodes.length === 1 &amp;&amp; (!links || links.length === 0)) {
+            sankeyChartDivApp.innerHTML = &#39;&#39;; 
+            const singleNode = nodes[0];
+            currentGraphNodesApp = [singleNode]; 
+            const svgSingle = d3.select(sankeyChartDivApp).append(&#34;svg&#34;)
+                .attr(&#34;width&#34;, &#34;100%&#34;).attr(&#34;height&#34;, 120)
+              .append(&#34;g&#34;).attr(&#34;transform&#34;, `translate(20, 30)`);
+            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, 20)
+                .attr(&#34;class&#34;, &#34;sankey-node-label&#34;).style(&#34;font-size&#34;, &#34;16px&#34;).text(`Artista: `)
+              .append(&#34;a&#34;).attr(&#34;xlink:href&#34;, singleNode.url).attr(&#34;target&#34;, &#34;_blank&#34;)
+                .style(&#34;fill&#34;, &#34;#c53030&#34;).style(&#34;text-decoration&#34;, &#34;underline&#34;).text(singleNode.name);
+            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, 45).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
+                .text(&#34;(Nenhum artista similar direto encontrado na Last.fm)&#34;);
+            sankeyChartContainerApp.style.display = &#39;block&#39;;
+            generateDiagramPlaylistBtnApp.disabled = false; 
+            hideLoadingApp(); return;
+        }
+        if ((!links || links.length === 0) &amp;&amp; nodes.length &gt; 1) {
+             showErrorApp(`Nenhum artista similar encontrado para &#34;${initialArtistName}&#34; para gerar o diagrama.`);
+             generateDiagramPlaylistBtnApp.disabled = true; return;
+        }
+
+        const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
+        const dynamicHeight = Math.max(700, nodes.length * 45 + links.length * 15); 
+        const width = containerWidth - marginApp.left - marginApp.right;
+        const height = dynamicHeight - marginApp.top - marginApp.bottom;
+
+        const svg = d3.select(sankeyChartDivApp).append(&#34;svg&#34;)
+            .attr(&#34;width&#34;, containerWidth).attr(&#34;height&#34;, dynamicHeight)
+          .append(&#34;g&#34;).attr(&#34;transform&#34;, `translate(${marginApp.left},${marginApp.top})`);
+
+        const sankey = d3.sankey()
+            .nodeId(d =&gt; d.name).nodeAlign(d3.sankeyLeft).nodeWidth(nodeWidthApp)
+            .nodePadding(nodePaddingVerticalApp).extent([[0, 5], [width, height - 5]]).iterations(32); 
+
+        let graph;
+        try { graph = sankey({ nodes: JSON.parse(JSON.stringify(nodes)), links: JSON.parse(JSON.stringify(links)) }); 
+        } catch (error) { showErrorApp(`Erro no layout do Sankey: ${error.message}.`); generateDiagramPlaylistBtnApp.disabled = true; return; }
+
+        if (!graph || !graph.nodes || !graph.links || graph.nodes.length === 0) { 
+             showErrorApp(&#39;Falha ao gerar o gráfico Sankey com os dados processados.&#39;);
+             generateDiagramPlaylistBtnApp.disabled = true; return; 
+        }
+
+        currentGraphNodesApp = graph.nodes; 
+        generateDiagramPlaylistBtnApp.disabled = false; 
+        const simpleColors = [&#34;#66c2a5&#34;, &#34;#fc8d62&#34;, &#34;#8da0cb&#34;, &#34;#e78ac3&#34;, &#34;#a6d854&#34;, &#34;#ffd92f&#34;, &#34;#e5c494&#34;, &#34;#b3b3b3&#34;];
+        let maxNodeDepth = 0;
+        graph.nodes.forEach(node =&gt; { if (typeof node.depth !== &#39;number&#39; || isNaN(node.depth)) node.depth = 0; if (node.depth &gt; maxNodeDepth) maxNodeDepth = node.depth; });
+        const nodeColorFunc = (node) =&gt; { if (typeof node.depth !== &#39;number&#39; || isNaN(node.depth)) return &#34;#cccccc&#34;; return simpleColors[node.depth % simpleColors.length]; };
+        const defs = svg.append(&#34;defs&#34;);
+        graph.links.forEach((link, i) =&gt; {
+            const gradientID = `linkGradient-${i}`;
+            const gradient = defs.append(&#34;linearGradient&#34;).attr(&#34;id&#34;, gradientID)
+                .attr(&#34;gradientUnits&#34;, &#34;userSpaceOnUse&#34;).attr(&#34;x1&#34;, link.source.x1).attr(&#34;x2&#34;, link.target.x0); 
+            const sourceColor = nodeColorFunc(link.source); const targetColor = nodeColorFunc(link.target);
+            gradient.append(&#34;stop&#34;).attr(&#34;offset&#34;, &#34;5%&#34;).attr(&#34;stop-color&#34;, sourceColor); 
+            gradient.append(&#34;stop&#34;).attr(&#34;offset&#34;, &#34;95%&#34;).attr(&#34;stop-color&#34;, targetColor); 
+        });
+        const linkGroups = svg.append(&#34;g&#34;).attr(&#34;fill&#34;, &#34;none&#34;).selectAll(&#34;g.sankey-link-group&#34;)
+            .data(graph.links).join(&#34;g&#34;).attr(&#34;class&#34;, &#34;sankey-link-group&#34;);
+        linkGroups.append(&#34;path&#34;).attr(&#34;class&#34;, &#34;sankey-link&#34;).attr(&#34;d&#34;, d3.sankeyLinkHorizontal())
+            .attr(&#34;stroke&#34;, (d, i) =&gt; `url(#${`linkGradient-${i}`.replace(/\s/g, &#39;-&#39;)})`)
+            .attr(&#34;stroke-width&#34;, d =&gt; Math.max(1, d.width));
+        linkGroups.append(&#34;title&#34;).text(d =&gt; `${d.source.name} → ${d.target.name}\nSimilaridade: ${d.value.toFixed(2)}%`);
+        const nodeLinkGroups = svg.append(&#34;g&#34;).selectAll(&#34;a.sankey-node-link&#34;).data(graph.nodes)
+            .join(&#34;a&#34;).attr(&#34;class&#34;, &#34;sankey-node-link&#34;).attr(&#34;xlink:href&#34;, d =&gt; d.url).attr(&#34;target&#34;, &#34;_blank&#34;)
+            .append(&#34;g&#34;).attr(&#34;class&#34;, &#34;sankey-node-group&#34;).attr(&#34;transform&#34;, d =&gt; `translate(${d.x0},${d.y0})`);
+        nodeLinkGroups.append(&#34;rect&#34;).attr(&#34;class&#34;, &#34;sankey-node&#34;)
+            .attr(&#34;height&#34;, d =&gt; Math.max(0.5, d.y1 - d.y0)).attr(&#34;width&#34;, d =&gt; d.x1 - d.x0).attr(&#34;fill&#34;, d =&gt; nodeColorFunc(d));
+        nodeLinkGroups.append(&#34;text&#34;).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
+            .each(function(d) { 
+                const isInitialArtist = d.name === initialArtistName; const text = d3.select(this);
+                if (isInitialArtist &amp;&amp; (d.y1 - d.y0) &gt; 20) { text.attr(&#34;x&#34;, (d.x1 - d.x0) / 2).attr(&#34;y&#34;, (d.y1 - d.y0) / 2).attr(&#34;text-anchor&#34;, &#34;middle&#34;);
+                } else if (d.x0 &lt; width * 0.15 &amp;&amp; (d.y1 - d.y0) &gt; 15 ) { text.attr(&#34;x&#34;, (d.x1 - d.x0) + 6).attr(&#34;y&#34;, (d.y1 - d.y0) / 2).attr(&#34;text-anchor&#34;, &#34;start&#34;);
+                } else { text.attr(&#34;x&#34;, (d.x1 - d.x0) / 2).attr(&#34;y&#34;, -12).attr(&#34;text-anchor&#34;, &#34;middle&#34;); }
+            }).attr(&#34;dy&#34;, &#34;0.35em&#34;).text(d =&gt; d.name).style(&#34;display&#34;, d =&gt; (d.y1 - d.y0) &gt; 10 ? &#34;inline&#34; : &#34;none&#34;); 
+        const customTooltip = d3.select(&#34;body&#34;).append(&#34;div&#34;).attr(&#34;class&#34;, &#34;tooltip&#34;);
+        linkGroups.on(&#34;mouseover&#34;, function(event, d) { 
+            customTooltip.transition().duration(200).style(&#34;opacity&#34;, .95);
+            customTooltip.html(`&lt;strong&gt;${d.source.name}&lt;/strong&gt; → &lt;strong&gt;${d.target.name}&lt;/strong&gt;&lt;br/&gt;Similaridade: ${d.value.toFixed(2)}%`)
+                .style(&#34;left&#34;, (event.pageX + 10) + &#34;px&#34;).style(&#34;top&#34;, (event.pageY - 28) + &#34;px&#34;);
+        }).on(&#34;mouseout&#34;, function() { customTooltip.transition().duration(500).style(&#34;opacity&#34;, 0); });
+        sankeyChartContainerApp.style.display = &#39;block&#39;;
+        hideLoadingApp(); 
+    }
+
+    async function handleGenerateDiagramPlaylistApp() {
+        if (!currentGraphNodesApp || currentGraphNodesApp.length === 0) {
+            showErrorApp(&#34;Nenhum artista no diagrama para gerar playlist.&#34;); return;
+        }
+        const currentDiagramSignature = generateDiagramSignatureApp(currentGraphNodesApp);
+        if (cachedPlaylistDataApp &amp;&amp; cachedDiagramSignatureApp === currentDiagramSignature) {
+            displayPlaylistInModalApp(cachedPlaylistDataApp); return;
+        }
+        playlistModalTitleApp.textContent = `🎶 Gerando Playlist...`; 
+        playlistModalBodyApp.innerHTML = &#39;&lt;div class=&#34;artistas-app-modal-loading-spinner&#34;&gt;&lt;p&gt;Procurando as músicas mais famosas...&lt;/p&gt;&lt;div class=&#34;spinner&#34;&gt;&lt;/div&gt;&lt;/div&gt;&#39;; 
+        playlistModalOverlayApp.classList.add(&#39;active&#39;);
+        generateDiagramPlaylistBtnApp.disabled = true;
+        const trackPromises = currentGraphNodesApp.map(node =&gt; fetchArtistTopTrackAPIApp(node.name));
+        try {
+            const topTracksResponses = await Promise.all(trackPromises);
+            const validTracks = topTracksResponses.filter(track =&gt; track !== null);
+            if (validTracks.length === 0) throw new Error(&#34;Não foi possível encontrar as músicas mais famosas para os artistas do diagrama.&#34;);
+            const tracksForPlaylist = validTracks.map(track =&gt; ({ artistName: track.artist.name, trackName: track.name, trackUrl: track.url }));
+            const playlistData = { playlistName: &#34;Sankey Playlist&#34;, tracks: tracksForPlaylist };
+            cachedPlaylistDataApp = playlistData; 
+            cachedDiagramSignatureApp = currentDiagramSignature;
+            displayPlaylistInModalApp(playlistData); 
+        } catch (error) {
+            console.error(&#34;Erro ao gerar playlist do diagrama:&#34;, error);
+            playlistModalTitleApp.textContent = &#34;Erro ao Gerar a Playlist&#34;; 
+            playlistModalBodyApp.innerHTML = `&lt;p style=&#34;color: #c53030;&#34;&gt;${error.message}&lt;/p&gt;`;
+        } finally { generateDiagramPlaylistBtnApp.disabled = false; }
+    }
+
+    async function handleSearchApp() {
+        if (!artistInputApp) return;
+        const artistNameFromInput = artistInputApp.value.trim(); 
+        if (!artistNameFromInput) { showErrorApp(&#39;Por favor, digite o nome de um artista.&#39;); return; }
+        showLoadingApp(`Procurando por &#34;${artistNameFromInput}&#34;...`);
+        if(sankeyChartDivApp) sankeyChartDivApp.innerHTML = &#39;&#39;; 
+        currentGraphNodesApp = []; 
+        if(generateDiagramPlaylistBtnApp) generateDiagramPlaylistBtnApp.disabled = true;
+        cachedPlaylistDataApp = null; cachedDiagramSignatureApp = null;
+        try {
+            const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP);
+            if (sankeyData &amp;&amp; sankeyData.nodes &amp;&amp; sankeyData.nodes.length &gt; 0) {
+                drawSankeyD3App(sankeyData); 
+            } else { showErrorApp(`Nenhuma informação encontrada para &#34;${artistNameFromInput}&#34;.`); }
+        } catch (error) { showErrorApp(error.message || `Ocorreu um erro ao buscar dados para &#34;${artistNameFromInput}&#34;.`); } 
+    }
+
+    // Verifica se os elementos da aplicação existem antes de inicializar
+    if (document.getElementById(&#39;artist-input-app&#39;)) {
+        initializePageApp();
+    }
+
+})(); // Fim da IIFE
+&lt;/script&gt;&lt;blockquote&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
     
     <item>
       <title>Structural roles and gender disparities in corruption networks</title>
@@ -4737,6 +5255,18 @@ $$\text{Acurácia} = \frac{TP + TN}{TP + TN + FP + FN}$$
 &lt;/ol&gt;
 &lt;/section&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Test</title>
+      <link>https://alvarofrancomartins.com/post/test33/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/test33/</guid>
+      <description>&lt;h1 id=&#34;test&#34;&gt;Test&lt;/h1&gt;
+&lt;p&gt;Operation &lt;strong&gt;MAMBO&lt;/strong&gt;: The investigation started in 2006 and involved Colombian citizens that were introducing 50 kg of cocaine to be adulterated and distributed in Madrid (Spain). Ultimately, the group was involved in smuggling cocaine from Colombia through Brazil and Uruguay to be distributed in Spain. This is a typical Spanish middle cocaine group acting as wholesale supplier between a South American importer group and retailers in Madrid.&lt;/p&gt;
+&lt;div id=&#34;cocaine_smuggling_1&#34;&gt;&lt;/div&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;js/cocaine_smuggling_1.js&#34;&gt; &lt;/script&gt;
+&lt;p style=&#34;text-align: center&#34;&gt;&lt;b&gt;Mambo network&lt;/b&gt;: 31 vertices and 58 edges.&lt;p/&gt;&lt;br&gt;</description>
     </item>
     
     <item>

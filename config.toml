@@ -2,4 +2,4 @@
 baseURL = "https://alvarofrancomartins.com/"
 languageCode = "en-us"
 title = "Alvaro Franco Martins"
-publishDir = "public"  # ← Altere de "docs" para "public"
+publishDir = "docs"  # ← Altere de "docs" para "public"
