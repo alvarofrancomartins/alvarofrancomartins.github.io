@@ -1,0 +1,1662 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Alvaro Franco Martins" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Artistas Similares Descubra conexões musicais em até 3 níveis de similaridade.
+ Buscar  ✨ Gerar Playlist      &times; 🎶 Sankey Playlist    Dados fornecidos pela Last." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/sankey/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://alvarofrancomartins.com/post/sankey/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@alvarofmartins" />
+    <meta property="twitter:creator" content="@alvarofmartins" />
+  
+  <meta property="og:site_name" content="Alvaro Franco Martins" />
+  <meta property="og:url" content="https://alvarofrancomartins.com/post/sankey/" />
+  <meta property="og:title" content="Explorador Interativo de Artistas Similares | Alvaro Franco Martins" />
+  <meta property="og:description" content="Artistas Similares Descubra conexões musicais em até 3 níveis de similaridade.
+ Buscar  ✨ Gerar Playlist      &times; 🎶 Sankey Playlist    Dados fornecidos pela Last." /><meta property="og:image" content="https://alvarofrancomartins.com/media/sharing.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/sharing.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2025-05-21T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2025-05-21T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://alvarofrancomartins.com/post/sankey/"
+  },
+  "headline": "Explorador Interativo de Artistas Similares",
+  
+  "datePublished": "2025-05-21T00:00:00Z",
+  "dateModified": "2025-05-21T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Alvaro Franco Martins"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alvaro Franco Martins",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "Artistas Similares Descubra conexões musicais em até 3 níveis de similaridade.\n Buscar  ✨ Gerar Playlist      \u0026times; 🎶 Sankey Playlist    Dados fornecidos pela Last."
+}
+</script>
+
+  
+
+  
+
+  
+
+  <head>
+   <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
+   .article-container {
+      max-width: 1250px;
+   }
+
+ 
+
+   #container-publications {
+      overflow: visible !important;
+   }
+
+   .see-all {
+      text-transform: none !important;
+   }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+   .stream-item {
+      padding-top: 25px;
+   }
+
+figcaption {
+   
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
+
+   </style>
+
+   <script src="/js/prism.js"></script>
+
+   <link rel="stylesheet" href="/css/prism.css" type="text/css"/> 
+
+</head>
+
+  <title>Explorador Interativo de Artistas Similares | Alvaro Franco Martins</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="a5c1431637bfb5958da1d428623430c1" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.da42964e270e05a6063fbca894d7ccff.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/experience"><span>Experience</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+        <article class="article">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Explorador Interativo de Artistas Similares</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    May 21, 2025
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+            <div class="article-container">
+              <div class="article-style">
+                <div id="artistas-app-container" class="artistas-app-wrapper">
+    <header class="artistas-app-header">
+        <h2>Artistas Similares</h2>
+        <p>Descubra conexões musicais em até 3 níveis de similaridade.</p>
+    </header>
+    <div class="artistas-app-search-container">
+        <input type="text" id="artist-input-app" placeholder="Digite o nome de um artista" value="Radiohead">
+        <button id="search-button-app">Buscar</button>
+    </div>
+    <div class="artistas-app-playlist-button-container">
+        <button id="generate-diagram-playlist-btn-app" disabled>✨ Gerar Playlist</button>
+    </div>
+    <div id="search-feedback-message-app" class="artistas-app-feedback"></div> 
+</div>
+<div id="sankey-chart-container-app" class="artistas-app-sankey-container" style="display: none;">
+    <div id="sankey-chart-app"></div>
+</div>
+<div id="playlist-modal-overlay-app" class="artistas-app-modal-overlay">
+    <div class="artistas-app-modal-content">
+        <button id="modal-close-btn-app" class="artistas-app-modal-close-button">&times;</button>
+        <h2 id="playlist-modal-title-app">🎶 Sankey Playlist</h2> 
+        <div id="playlist-modal-body-app"></div>
+    </div>
+</div>
+<footer class="artistas-app-footer">
+    <p>Dados fornecidos pela <a href="https://www.last.fm" target="_blank" rel="noopener noreferrer">Last.fm</a>.</p>
+</footer>
+<style>
+/* Para evitar conflitos, todas as classes têm o prefixo "artistas-app-" */
+/* Você pode mover este CSS para o arquivo CSS principal do seu tema Hugo se preferir */
+.artistas-app-wrapper {
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 40px; /* Espaço após a aplicação */
+}
+.artistas-app-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.artistas-app-header h2 {
+    color: #c53030;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 1.8rem;
+}
+.artistas-app-header p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    color: #6b7280;
+}
+.artistas-app-search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+.artistas-app-search-container input[type="text"] {
+    padding: 10px 15px;
+    width: clamp(280px, 70%, 350px); /* Largura responsiva */
+    border: 1px solid #d1d5db;
+    border-radius: 8px 0 0 8px;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.artistas-app-search-container input[type="text"]:focus {
+    outline: none;
+    border-color: #c53030;
+    box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.15);
+}
+.artistas-app-search-container button {
+    padding: 10px 20px;
+    background-color: #c53030;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+.artistas-app-search-container button:hover {
+    background-color: #a02828;
+}
+.artistas-app-playlist-button-container {
+    text-align: center;
+    margin: 12px 0;
+}
+.artistas-app-playlist-button-container button {
+    background-color: #2563eb;
+    color: white;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.artistas-app-playlist-button-container button:hover {
+    background-color: #1d4ed8;
+}
+.artistas-app-playlist-button-container button:disabled {
+    background-color: #9ca3af;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.artistas-app-feedback {
+    text-align: center;
+    margin: 8px 0;
+    min-height: 18px;
+    font-size: 0.9rem;
+    color: #4b5563;
+}
+.artistas-app-feedback.error {
+    color: #c53030;
+    font-weight: 500;
+}
+.artistas-app-sankey-container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 5px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+.artistas-app-sankey-container svg {
+    display: block;
+    width: 100%;
+    min-height: 600px; /* Altura mínima para o gráfico */
+}
+.sankey-node-group { cursor: pointer; }
+.sankey-node rect {
+    fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1);
+    stroke-width: 0.5px; transition: all 0.2s ease;
+}
+.sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
+.sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
+.sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; }
+.sankey-node-label {
+    pointer-events: none; font-size: 13px; /* Ajustado */
+    font-weight: 500; fill: #1f2937; transition: all 0.2s ease;
+}
+.sankey-node-group:hover .sankey-node-label { font-size: 14px; font-weight: 700; fill: #000000; }
+.artistas-app-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); display: flex;
+    justify-content: center; align-items: center; z-index: 2000; /* Alto z-index */
+    opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.artistas-app-modal-overlay.active { opacity: 1; visibility: visible; }
+.artistas-app-modal-content {
+    background-color: white; padding: 20px 25px; border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 90%;
+    max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative;
+}
+.artistas-app-modal-content h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; color: #c53030; }
+.artistas-app-modal-content ul { list-style: decimal; padding-left: 20px; }
+.artistas-app-modal-content li { margin-bottom: 8px; font-size: 0.9rem; }
+.artistas-app-modal-content li a { color: #2563eb; text-decoration: none; font-weight: 500; }
+.artistas-app-modal-content li a:hover { text-decoration: underline; }
+.artistas-app-modal-close-button {
+    position: absolute; top: 10px; right: 15px; background: none; border: none;
+    font-size: 1.7rem; cursor: pointer; color: #9ca3af; padding: 0; line-height: 1;
+}
+.artistas-app-modal-close-button:hover { color: #6b7280; }
+.artistas-app-modal-loading-spinner {
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; min-height: 120px;
+}
+.artistas-app-modal-loading-spinner p { margin-bottom: 12px; font-size: 0.95rem; color: #4b5563; }
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1); width: 32px; height: 32px;
+    border-radius: 50%; border-left-color: #c53030; animation: spin 1s ease infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.artistas-app-footer { text-align: center; padding: 10px 0; font-size: 0.8rem; color: #6b7280; margin-top: 15px; }
+.artistas-app-footer a { color: #c53030; text-decoration: none; }
+.artistas-app-footer a:hover { text-decoration: underline; }
+</style>
+<script>
+(function() { // IIFE para encapsular o escopo
+    // Verifica se os elementos da aplicação existem nesta página
+    const artistInputApp = document.getElementById('artist-input-app');
+    if (!artistInputApp) {
+        // console.log("Aplicação Artistas Similares não ativa nesta página.");
+        return; // Sai se os elementos não forem encontrados
+    }
+
+    const searchButtonApp = document.getElementById('search-button-app');
+    const generateDiagramPlaylistBtnApp = document.getElementById('generate-diagram-playlist-btn-app');
+    const searchFeedbackMessageApp = document.getElementById('search-feedback-message-app'); 
+    const sankeyChartContainerApp = document.getElementById('sankey-chart-container-app');
+    const sankeyChartDivApp = document.getElementById('sankey-chart-app');
+
+    const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
+    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
+    const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
+    const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
+
+    // A API_KEY da Last.fm NÃO é definida aqui. As chamadas usam o proxy Netlify.
+    const MAX_DEPTH_APP = 3; 
+    const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3; 
+
+    let currentGraphNodesApp = []; 
+    let cachedPlaylistDataApp = null; 
+    let cachedDiagramSignatureApp = null; 
+
+    const marginApp = {top: 40, right: 160, bottom: 40, left: 160}; 
+    const nodeWidthApp = 30; 
+    const nodePaddingVerticalApp = 35; 
+
+    function initializePageApp() {
+        searchButtonApp.addEventListener('click', handleSearchApp);
+        artistInputApp.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') handleSearchApp();
+        });
+        generateDiagramPlaylistBtnApp.addEventListener('click', handleGenerateDiagramPlaylistApp);
+        modalCloseBtnApp.addEventListener('click', () => playlistModalOverlayApp.classList.remove('active'));
+        playlistModalOverlayApp.addEventListener('click', (event) => {
+            if (event.target === playlistModalOverlayApp) {
+                playlistModalOverlayApp.classList.remove('active');
+            }
+        });
+        handleSearchApp(); 
+    }
+
+    function showLoadingApp(message = "Procurando...") {
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = 'artistas-app-feedback'; 
+        sankeyChartContainerApp.style.display = 'none';
+        generateDiagramPlaylistBtnApp.disabled = true; 
+        searchButtonApp.disabled = true; 
+        artistInputApp.disabled = true;
+    }
+
+    function hideLoadingApp() {
+        searchButtonApp.disabled = false; 
+        artistInputApp.disabled = false;
+    }
+
+    function showErrorApp(message) {
+        console.error("Erro (Artistas App):", message); 
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = 'artistas-app-feedback error'; 
+        sankeyChartContainerApp.style.display = 'none';
+        generateDiagramPlaylistBtnApp.disabled = true;
+        hideLoadingApp(); 
+    }
+
+    async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
+        let proxyUrl = `/.netlify/functions/lastfm-proxy?method=${method}`;
+        if (artistName) {
+            proxyUrl += `&artist=${encodeURIComponent(artistName)}`;
+        }
+        if (method === 'artist.getsimilar' || method === 'artist.gettoptracks') {
+            proxyUrl += `&limit=${limit}`;
+        }
+        try {
+            const response = await fetch(proxyUrl);
+            const data = await response.json();
+            if (!response.ok) {
+                const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
+                throw new Error(errorMsg);
+            }
+            if (data.error && typeof data.error === 'string') throw new Error(data.error);
+            if (data.error && data.error.message) throw new Error(data.error.message);
+            return data;
+        } catch (error) {
+            console.error(`Erro na função callNetlifyProxy para ${method} (${artistName || ''}):`, error);
+            throw error;
+        }
+    }
+
+    async function fetchArtistInfoAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy('artist.getinfo', artistName);
+            if (!data.artist) throw new Error (`Informações do artista "${artistName}" não encontradas (via proxy).`);
+            return data.artist;
+        } catch (error) { throw error; }
+    }
+
+    async function fetchSimilarArtistsAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy('artist.getsimilar', artistName, SIMILAR_ARTISTS_LIMIT_PER_CALL_APP);
+            return (data.similarartists && Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
+        } catch (error) { console.warn(`Falha ao buscar similares para "${artistName}" via proxy: ${error.message}`); return []; }
+    }
+
+    async function fetchArtistTopTrackAPIApp(artistName) {
+         try {
+            const data = await callNetlifyProxy('artist.gettoptracks', artistName, 1);
+            if (!data.toptracks || !data.toptracks.track || data.toptracks.track.length === 0) {
+                console.warn(`Nenhuma top track encontrada para "${artistName}" via proxy.`); return null;
+            }
+            return data.toptracks.track[0]; 
+        } catch (error) { console.warn(`Erro ao buscar top track para "${artistName}" via proxy: ${error.message}`); return null; }
+    }
+
+    function generateDiagramSignatureApp(nodes) {
+        if (!nodes || nodes.length === 0) return null;
+        return nodes.map(n => n.name).sort().join('||');
+    }
+
+    async function generateSankeyDataApp(initialArtistName, maxDepth) {
+        const rawLinks = []; 
+        const fetchedArtists = new Set(); 
+        const allNodesData = new Map(); 
+        let initialArtistData;
+        try {
+            initialArtistData = await fetchArtistInfoAPIApp(initialArtistName);
+            allNodesData.set(initialArtistData.name, { name: initialArtistData.name, url: initialArtistData.url });
+        } catch (error) { throw error; }
+        let currentLevelArtists = [initialArtistData.name]; 
+        for (let depth = 0; depth < maxDepth; depth++) {
+            if (currentLevelArtists.length === 0) break; 
+            const nextLevelArtistsSet = new Set(); 
+            const fetchPromises = currentLevelArtists.map(async (sourceArtist) => {
+                const normalizedSourceArtist = sourceArtist.toLowerCase();
+                if (fetchedArtists.has(normalizedSourceArtist)) return; 
+                fetchedArtists.add(normalizedSourceArtist);
+                const similarArtists = await fetchSimilarArtistsAPIApp(sourceArtist);
+                similarArtists.forEach(targetArtistInfo => {
+                    if (targetArtistInfo && targetArtistInfo.name && targetArtistInfo.match && targetArtistInfo.url) {
+                        const targetArtistName = targetArtistInfo.name;
+                        if (!allNodesData.has(sourceArtist)) { 
+                             allNodesData.set(sourceArtist, { name: sourceArtist, url: `https://www.last.fm/music/${encodeURIComponent(sourceArtist.replace(/\s+/g, '+'))}` });
+                        }
+                        allNodesData.set(targetArtistName, { name: targetArtistName, url: targetArtistInfo.url });
+                        const normalizedTargetArtist = targetArtistName.toLowerCase();
+                        if (fetchedArtists.has(normalizedTargetArtist) || sourceArtist === targetArtistName) return; 
+                        const weight = parseFloat(targetArtistInfo.match) * 100;
+                        if (weight > 0.01) { 
+                            rawLinks.push({ source: sourceArtist, target: targetArtistName, value: Math.max(0.01, weight) }); 
+                            if (depth < maxDepth - 1) nextLevelArtistsSet.add(targetArtistName);
+                        }
+                    }
+                });
+            });
+            try { await Promise.all(fetchPromises); } catch (error) { if (currentLevelArtists.includes(initialArtistData.name)) throw error; }
+            currentLevelArtists = Array.from(nextLevelArtistsSet); 
+        }
+        const nodes = Array.from(allNodesData.values()); 
+        const links = rawLinks.filter(link => allNodesData.has(link.source) && allNodesData.has(link.target));
+        return { nodes, links, initialArtistName: initialArtistData.name }; 
+    }
+
+    function displayPlaylistInModalApp(playlistData) {
+        playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`; 
+        let playlistHtml = "<ul>";
+        playlistData.tracks.forEach(track => {
+            playlistHtml += `<li><a href="${track.trackUrl}" target="_blank">${track.trackName}</a> - ${track.artistName}</li>`;
+        });
+        playlistHtml += "</ul>";
+        playlistModalBodyApp.innerHTML = playlistHtml;
+        playlistModalOverlayApp.classList.add('active');
+        generateDiagramPlaylistBtnApp.disabled = false; 
+    }
+
+    function drawSankeyD3App(sankeyData) {
+        searchFeedbackMessageApp.textContent = ''; 
+        const { nodes, links, initialArtistName } = sankeyData;
+        currentGraphNodesApp = []; 
+
+        if (!nodes || nodes.length === 0) {
+            showErrorApp(`Nenhum dado encontrado para "${initialArtistName}".`);
+            generateDiagramPlaylistBtnApp.disabled = true; return; 
+        }
+        if (nodes.length === 1 && (!links || links.length === 0)) {
+            sankeyChartDivApp.innerHTML = ''; 
+            const singleNode = nodes[0];
+            currentGraphNodesApp = [singleNode]; 
+            const svgSingle = d3.select(sankeyChartDivApp).append("svg")
+                .attr("width", "100%").attr("height", 120)
+              .append("g").attr("transform", `translate(20, 30)`);
+            svgSingle.append("text").attr("x", 0).attr("y", 20)
+                .attr("class", "sankey-node-label").style("font-size", "16px").text(`Artista: `)
+              .append("a").attr("xlink:href", singleNode.url).attr("target", "_blank")
+                .style("fill", "#c53030").style("text-decoration", "underline").text(singleNode.name);
+            svgSingle.append("text").attr("x", 0).attr("y", 45).attr("class", "sankey-node-label")
+                .text("(Nenhum artista similar direto encontrado na Last.fm)");
+            sankeyChartContainerApp.style.display = 'block';
+            generateDiagramPlaylistBtnApp.disabled = false; 
+            hideLoadingApp(); return;
+        }
+        if ((!links || links.length === 0) && nodes.length > 1) {
+             showErrorApp(`Nenhum artista similar encontrado para "${initialArtistName}" para gerar o diagrama.`);
+             generateDiagramPlaylistBtnApp.disabled = true; return;
+        }
+
+        const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
+        const dynamicHeight = Math.max(700, nodes.length * 45 + links.length * 15); 
+        const width = containerWidth - marginApp.left - marginApp.right;
+        const height = dynamicHeight - marginApp.top - marginApp.bottom;
+
+        const svg = d3.select(sankeyChartDivApp).append("svg")
+            .attr("width", containerWidth).attr("height", dynamicHeight)
+          .append("g").attr("transform", `translate(${marginApp.left},${marginApp.top})`);
+
+        const sankey = d3.sankey()
+            .nodeId(d => d.name).nodeAlign(d3.sankeyLeft).nodeWidth(nodeWidthApp)
+            .nodePadding(nodePaddingVerticalApp).extent([[0, 5], [width, height - 5]]).iterations(32); 
+
+        let graph;
+        try { graph = sankey({ nodes: JSON.parse(JSON.stringify(nodes)), links: JSON.parse(JSON.stringify(links)) }); 
+        } catch (error) { showErrorApp(`Erro no layout do Sankey: ${error.message}.`); generateDiagramPlaylistBtnApp.disabled = true; return; }
+
+        if (!graph || !graph.nodes || !graph.links || graph.nodes.length === 0) { 
+             showErrorApp('Falha ao gerar o gráfico Sankey com os dados processados.');
+             generateDiagramPlaylistBtnApp.disabled = true; return; 
+        }
+
+        currentGraphNodesApp = graph.nodes; 
+        generateDiagramPlaylistBtnApp.disabled = false; 
+        const simpleColors = ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"];
+        let maxNodeDepth = 0;
+        graph.nodes.forEach(node => { if (typeof node.depth !== 'number' || isNaN(node.depth)) node.depth = 0; if (node.depth > maxNodeDepth) maxNodeDepth = node.depth; });
+        const nodeColorFunc = (node) => { if (typeof node.depth !== 'number' || isNaN(node.depth)) return "#cccccc"; return simpleColors[node.depth % simpleColors.length]; };
+        const defs = svg.append("defs");
+        graph.links.forEach((link, i) => {
+            const gradientID = `linkGradient-${i}`;
+            const gradient = defs.append("linearGradient").attr("id", gradientID)
+                .attr("gradientUnits", "userSpaceOnUse").attr("x1", link.source.x1).attr("x2", link.target.x0); 
+            const sourceColor = nodeColorFunc(link.source); const targetColor = nodeColorFunc(link.target);
+            gradient.append("stop").attr("offset", "5%").attr("stop-color", sourceColor); 
+            gradient.append("stop").attr("offset", "95%").attr("stop-color", targetColor); 
+        });
+        const linkGroups = svg.append("g").attr("fill", "none").selectAll("g.sankey-link-group")
+            .data(graph.links).join("g").attr("class", "sankey-link-group");
+        linkGroups.append("path").attr("class", "sankey-link").attr("d", d3.sankeyLinkHorizontal())
+            .attr("stroke", (d, i) => `url(#${`linkGradient-${i}`.replace(/\s/g, '-')})`)
+            .attr("stroke-width", d => Math.max(1, d.width));
+        linkGroups.append("title").text(d => `${d.source.name} → ${d.target.name}\nSimilaridade: ${d.value.toFixed(2)}%`);
+        const nodeLinkGroups = svg.append("g").selectAll("a.sankey-node-link").data(graph.nodes)
+            .join("a").attr("class", "sankey-node-link").attr("xlink:href", d => d.url).attr("target", "_blank")
+            .append("g").attr("class", "sankey-node-group").attr("transform", d => `translate(${d.x0},${d.y0})`);
+        nodeLinkGroups.append("rect").attr("class", "sankey-node")
+            .attr("height", d => Math.max(0.5, d.y1 - d.y0)).attr("width", d => d.x1 - d.x0).attr("fill", d => nodeColorFunc(d));
+        nodeLinkGroups.append("text").attr("class", "sankey-node-label")
+            .each(function(d) { 
+                const isInitialArtist = d.name === initialArtistName; const text = d3.select(this);
+                if (isInitialArtist && (d.y1 - d.y0) > 20) { text.attr("x", (d.x1 - d.x0) / 2).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "middle");
+                } else if (d.x0 < width * 0.15 && (d.y1 - d.y0) > 15 ) { text.attr("x", (d.x1 - d.x0) + 6).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "start");
+                } else { text.attr("x", (d.x1 - d.x0) / 2).attr("y", -12).attr("text-anchor", "middle"); }
+            }).attr("dy", "0.35em").text(d => d.name).style("display", d => (d.y1 - d.y0) > 10 ? "inline" : "none"); 
+        const customTooltip = d3.select("body").append("div").attr("class", "tooltip");
+        linkGroups.on("mouseover", function(event, d) { 
+            customTooltip.transition().duration(200).style("opacity", .95);
+            customTooltip.html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Similaridade: ${d.value.toFixed(2)}%`)
+                .style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 28) + "px");
+        }).on("mouseout", function() { customTooltip.transition().duration(500).style("opacity", 0); });
+        sankeyChartContainerApp.style.display = 'block';
+        hideLoadingApp(); 
+    }
+
+    async function handleGenerateDiagramPlaylistApp() {
+        if (!currentGraphNodesApp || currentGraphNodesApp.length === 0) {
+            showErrorApp("Nenhum artista no diagrama para gerar playlist."); return;
+        }
+        const currentDiagramSignature = generateDiagramSignatureApp(currentGraphNodesApp);
+        if (cachedPlaylistDataApp && cachedDiagramSignatureApp === currentDiagramSignature) {
+            displayPlaylistInModalApp(cachedPlaylistDataApp); return;
+        }
+        playlistModalTitleApp.textContent = `🎶 Gerando Playlist...`; 
+        playlistModalBodyApp.innerHTML = '<div class="artistas-app-modal-loading-spinner"><p>Procurando as músicas mais famosas...</p><div class="spinner"></div></div>'; 
+        playlistModalOverlayApp.classList.add('active');
+        generateDiagramPlaylistBtnApp.disabled = true;
+        const trackPromises = currentGraphNodesApp.map(node => fetchArtistTopTrackAPIApp(node.name));
+        try {
+            const topTracksResponses = await Promise.all(trackPromises);
+            const validTracks = topTracksResponses.filter(track => track !== null);
+            if (validTracks.length === 0) throw new Error("Não foi possível encontrar as músicas mais famosas para os artistas do diagrama.");
+            const tracksForPlaylist = validTracks.map(track => ({ artistName: track.artist.name, trackName: track.name, trackUrl: track.url }));
+            const playlistData = { playlistName: "Sankey Playlist", tracks: tracksForPlaylist };
+            cachedPlaylistDataApp = playlistData; 
+            cachedDiagramSignatureApp = currentDiagramSignature;
+            displayPlaylistInModalApp(playlistData); 
+        } catch (error) {
+            console.error("Erro ao gerar playlist do diagrama:", error);
+            playlistModalTitleApp.textContent = "Erro ao Gerar a Playlist"; 
+            playlistModalBodyApp.innerHTML = `<p style="color: #c53030;">${error.message}</p>`;
+        } finally { generateDiagramPlaylistBtnApp.disabled = false; }
+    }
+
+    async function handleSearchApp() {
+        if (!artistInputApp) return;
+        const artistNameFromInput = artistInputApp.value.trim(); 
+        if (!artistNameFromInput) { showErrorApp('Por favor, digite o nome de um artista.'); return; }
+        showLoadingApp(`Procurando por "${artistNameFromInput}"...`);
+        if(sankeyChartDivApp) sankeyChartDivApp.innerHTML = ''; 
+        currentGraphNodesApp = []; 
+        if(generateDiagramPlaylistBtnApp) generateDiagramPlaylistBtnApp.disabled = true;
+        cachedPlaylistDataApp = null; cachedDiagramSignatureApp = null;
+        try {
+            const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP);
+            if (sankeyData && sankeyData.nodes && sankeyData.nodes.length > 0) {
+                drawSankeyD3App(sankeyData); 
+            } else { showErrorApp(`Nenhuma informação encontrada para "${artistNameFromInput}".`); }
+        } catch (error) { showErrorApp(error.message || `Ocorreu um erro ao buscar dados para "${artistNameFromInput}".`); } 
+    }
+
+    // Verifica se os elementos da aplicação existem antes de inicializar
+    if (document.getElementById('artist-input-app')) {
+        initializePageApp();
+    }
+
+})(); // Fim da IIFE
+</script><blockquote>
+</blockquote>
+
+              </div>
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:alvarought@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/alvarofmartins" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com.br/citations?user=yB30J2MAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/Alvaro-Martins-2" target="_blank" rel="noopener">
+        <i class="fab fa-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/alvarofrancomartins" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/alvarofrancomartins/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+            </div>
+        </article>
+  
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by" style="font-size:11px;">
+    
+    Published with
+    <a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy</a>. 
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>
