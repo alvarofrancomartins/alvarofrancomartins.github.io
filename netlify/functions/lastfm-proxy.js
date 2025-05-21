@@ -1,6 +1,6 @@
 // netlify/functions/lastfm-proxy.js (VERSÃO DE TESTE SIMPLES)
 exports.handler = async function(event, context) {
-    console.log("Função lastfm-proxy (versão de teste) chamada!");
+    console.log("Função lastfm-proxy (versão de teste simples) chamada!");
     const method = event.queryStringParameters.method || "nenhum método";
     const artist = event.queryStringParameters.artist || "nenhum artista";
 
