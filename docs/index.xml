@@ -168,7 +168,7 @@
     
     async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
         // SUBSTITUA &#39;SEU_NOME_DE_PROJETO_AQUI.netlify.app&#39; PELO NOME REAL DO SEU SITE NO NETLIFY
-        const netlifyFunctionBaseUrl = &#34;https://alvarofrancomartins-artistas.netlify.app/.netlify/functions/lastfm-proxy&#34;; // Exemplo, substitua!
+        const netlifyFunctionBaseUrl = &#34;https://afmartins.netlify.app/.netlify/functions/lastfm-proxy&#34;; // Exemplo, substitua!
         
         let proxyUrl = `${netlifyFunctionBaseUrl}?method=${method}`;
         if (artistName) proxyUrl += `&amp;artist=${encodeURIComponent(artistName)}`;
