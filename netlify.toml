@@ -3,6 +3,3 @@
   command = "hugo --gc --minify" # Comando de build do Hugo
   publish = "docs"             # Pasta onde o Hugo gera o site
   functions = "netlify/functions"  # Onde o Netlify encontra as suas funções
-
-[build.environment]
-  NODE_VERSION = "18"            # Especifica uma versão LTS estável do Node.js para as funções
