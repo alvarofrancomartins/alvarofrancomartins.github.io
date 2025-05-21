@@ -1,12 +1,12 @@
 ---
-title: "Explorador Interativo de Artistas Similares"
+title: "aasdasda"
 date: 2025-05-21 # Atualize a data
 # Adicione outras meta-informações do seu post aqui
 # Se o seu tema Hugo remove tags <style> ou <script> do conteúdo,
 # você precisará de mover o CSS e JS para os locais apropriados do seu tema.
 
-subtitle: "Um guia visual e intuitivo para descomplicar métricas de classificação"
-summary: "Aprenda as principais métricas de classificação por meio de simulações interativas."
+subtitle: "asdasdasd"
+summary: "asdasda."
 projects: []
 
 draft: false

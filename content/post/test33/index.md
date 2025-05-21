@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2025-01-01"
 featured: false
-draft: false
+draft: true
 
 projects: [criminal_networks]
 ---
