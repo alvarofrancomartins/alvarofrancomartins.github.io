@@ -13,11 +13,13 @@
     </image>
     
     <item>
-      <title>Explorador Interativo de Artistas Similares TESTE</title>
+      <title>Explorador Interativo de Artistas Similares</title>
       <link>https://alvarofrancomartins.com/post/sankey/</link>
       <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/sankey/</guid>
       <description>&lt;h1 id=&#34;teste&#34;&gt;Teste&lt;/h1&gt;
+
+&lt;!DOCTYPE html&gt;
 &lt;div id=&#34;artistas-app-container&#34; class=&#34;artistas-app-wrapper&#34;&gt;
     &lt;header class=&#34;artistas-app-header&#34;&gt;
         &lt;h2&gt;Artistas Similares&lt;/h2&gt;
@@ -32,9 +34,11 @@
     &lt;/div&gt;
     &lt;div id=&#34;search-feedback-message-app&#34; class=&#34;artistas-app-feedback&#34;&gt;&lt;/div&gt; 
 &lt;/div&gt;
+
 &lt;div id=&#34;sankey-chart-container-app&#34; class=&#34;artistas-app-sankey-container&#34; style=&#34;display: none;&#34;&gt;
     &lt;div id=&#34;sankey-chart-app&#34;&gt;&lt;/div&gt;
 &lt;/div&gt;
+
 &lt;div id=&#34;playlist-modal-overlay-app&#34; class=&#34;artistas-app-modal-overlay&#34;&gt;
     &lt;div class=&#34;artistas-app-modal-content&#34;&gt;
         &lt;button id=&#34;modal-close-btn-app&#34; class=&#34;artistas-app-modal-close-button&#34;&gt;&amp;times;&lt;/button&gt;
@@ -42,11 +46,19 @@
         &lt;div id=&#34;playlist-modal-body-app&#34;&gt;&lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;
+
 &lt;footer class=&#34;artistas-app-footer&#34;&gt;
     &lt;p&gt;Dados fornecidos pela &lt;a href=&#34;https://www.last.fm&#34; target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34;&gt;Last.fm&lt;/a&gt;.&lt;/p&gt;
 &lt;/footer&gt;
+
 &lt;style&gt;
-.artistas-app-wrapper { font-family: &#39;Inter&#39;, sans-serif; line-height: 1.6; color: #374151; margin-bottom: 40px; }
+/* Para evitar conflitos, todas as classes têm o prefixo &#34;artistas-app-&#34; */
+.artistas-app-wrapper {
+    font-family: &#39;Inter&#39;, sans-serif; /* Certifique-se que a fonte Inter está carregada na sua página Hugo principal */
+    line-height: 1.6;
+    color: #374151;
+    margin-bottom: 40px; 
+}
 .artistas-app-header { text-align: center; margin-bottom: 20px; }
 .artistas-app-header h2 { color: #c53030; margin-top: 0; margin-bottom: 5px; font-weight: 700; font-size: 1.8rem; }
 .artistas-app-header p { margin-bottom: 0; font-size: 1rem; color: #6b7280; }
@@ -88,17 +100,24 @@
 .artistas-app-footer a { color: #c53030; text-decoration: none; }
 .artistas-app-footer a:hover { text-decoration: underline; }
 &lt;/style&gt;
+
+&lt;script src=&#34;https://d3js.org/d3.v7.min.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js&#34;&gt;&lt;/script&gt;
 &lt;script&gt;
-(function() { 
+(function() { // IIFE para encapsular o escopo
+    // Verifica se os elementos da aplicação existem nesta página
     const artistInputApp = document.getElementById(&#39;artist-input-app&#39;);
-    if (!artistInputApp) { return; }
+    if (!artistInputApp) {
+        // console.log(&#34;Aplicação Artistas Similares não ativa nesta página.&#34;);
+        return; // Sai se os elementos não forem encontrados
+    }
 
     const searchButtonApp = document.getElementById(&#39;search-button-app&#39;);
     const generateDiagramPlaylistBtnApp = document.getElementById(&#39;generate-diagram-playlist-btn-app&#39;);
     const searchFeedbackMessageApp = document.getElementById(&#39;search-feedback-message-app&#39;); 
     const sankeyChartContainerApp = document.getElementById(&#39;sankey-chart-container-app&#39;);
     const sankeyChartDivApp = document.getElementById(&#39;sankey-chart-app&#39;);
-
+    
     const playlistModalOverlayApp = document.getElementById(&#39;playlist-modal-overlay-app&#39;);
     const playlistModalTitleApp = document.getElementById(&#39;playlist-modal-title-app&#39;);
     const playlistModalBodyApp = document.getElementById(&#39;playlist-modal-body-app&#39;);
@@ -146,21 +165,30 @@
         generateDiagramPlaylistBtnApp.disabled = true;
         hideLoadingApp(); 
     }
-
+    
     async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
-        let proxyUrl = `/.netlify/functions/lastfm-proxy?method=${method}`;
+        // SUBSTITUA &#39;SEU_NOME_DE_PROJETO_AQUI.netlify.app&#39; PELO NOME REAL DO SEU SITE NO NETLIFY
+        const netlifyFunctionBaseUrl = &#34;https://alvarofrancomartins-artistas.netlify.app/.netlify/functions/lastfm-proxy&#34;; // Exemplo, substitua!
+        
+        let proxyUrl = `${netlifyFunctionBaseUrl}?method=${method}`;
         if (artistName) proxyUrl += `&amp;artist=${encodeURIComponent(artistName)}`;
         if (method === &#39;artist.getsimilar&#39; || method === &#39;artist.gettoptracks&#39;) proxyUrl += `&amp;limit=${limit}`;
         try {
             const response = await fetch(proxyUrl);
-            const data = await response.json(); 
-            if (!response.ok) {
-                const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
-                throw new Error(errorMsg);
+            const contentType = response.headers.get(&#34;content-type&#34;);
+            if (contentType &amp;&amp; contentType.indexOf(&#34;application/json&#34;) !== -1) {
+                const data = await response.json(); 
+                if (!response.ok) {
+                    const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
+                    throw new Error(errorMsg);
+                }
+                if (data.error &amp;&amp; typeof data.error === &#39;string&#39; &amp;&amp; data.message) throw new Error(data.message);
+                if (data.error &amp;&amp; data.error.message) throw new Error(data.error.message);
+                return data;
+            } else {
+                const textResponse = await response.text();
+                throw new Error(`Resposta inesperada do servidor proxy (não JSON). Status: ${response.status}. Resposta: ${textResponse.substring(0,100)}...`);
             }
-            if (data.error &amp;&amp; typeof data.error === &#39;string&#39;) throw new Error(data.error);
-            if (data.error &amp;&amp; data.error.message) throw new Error(data.error.message);
-            return data;
         } catch (error) { console.error(`Erro na callNetlifyProxy para ${method} (${artistName || &#39;&#39;}):`, error); throw error; }
     }
 
@@ -178,7 +206,7 @@
             return (data.similarartists &amp;&amp; Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
         } catch (error) { console.warn(`Falha ao buscar similares para &#34;${artistName}&#34; via proxy: ${error.message}`); return []; }
     }
-
+    
     async function fetchArtistTopTrackAPIApp(artistName) {
          try {
             const data = await callNetlifyProxy(&#39;artist.gettoptracks&#39;, artistName, 1);
@@ -234,7 +262,7 @@
         const links = rawLinks.filter(link =&gt; allNodesData.has(link.source) &amp;&amp; allNodesData.has(link.target));
         return { nodes, links, initialArtistName: initialArtistData.name }; 
     }
-
+    
     function displayPlaylistInModalApp(playlistData) {
         playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`; 
         let playlistHtml = &#34;&lt;ul&gt;&#34;;
@@ -269,7 +297,7 @@
              showErrorApp(`Nenhum artista similar encontrado para &#34;${initialArtistName}&#34; para gerar o diagrama.`);
              generateDiagramPlaylistBtnApp.disabled = true; return;
         }
-
+        
         const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
         const dynamicHeight = Math.max(700, nodes.length * 45 + links.length * 15); 
         const width = containerWidth - marginApp.left - marginApp.right;
@@ -354,7 +382,7 @@
             } else { showErrorApp(`Nenhuma informação encontrada para &#34;${artistNameFromInput}&#34;.`); }
         } catch (error) { showErrorApp(error.message || `Ocorreu um erro ao buscar dados para &#34;${artistNameFromInput}&#34;.`); } 
     }
-
+    
     if (document.getElementById(&#39;artist-input-app&#39;)) {
         initializePageApp();
     }
