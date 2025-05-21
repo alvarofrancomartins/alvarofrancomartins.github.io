@@ -4,27 +4,18 @@
   functions = "netlify/functions"
 
 [build.environment]
-  HUGO_VERSION = "0.125.4"  # Versão EXTENDED obrigatória
+  HUGO_VERSION = "0.125.4"
   NODE_VERSION = "18"
   GO_VERSION = "1.21"
-  WC_POST_CSS = "true"       # Variável exigida pelo Wowchemy
-  HUGO_ENV = "production"
+  WC_POST_CSS = "true"
 
 [context.production]
   [context.production.environment]
-    HUGO_ENABLEGITINFO = "true"
+    HUGO_ENV = "production"
+    HUGO_SECURITY_ENABLEINLINESHORTCODES = "true"
+    HUGO_SECURITY_FUNCS_GETENV = '["^HUGO_", "^CI$", "^WC_"]'
+    HUGO_SECURITY_EXEC_ALLOW = '["^(dart-)?sass(-embedded)?$", "^go$", "^npx$", "^postcss$"]'
 
-# Configurações de segurança do Hugo
-[context.production.environment.HUGO_SECURITY]
-  ENABLEINLINESHORTCODES = "true"
-  
-  [context.production.environment.HUGO_SECURITY_FUNCS]
-    GETENV = '^HUGO_,^CI$,^WC_'
-
-  [context.production.environment.HUGO_SECURITY_EXEC]
-    ALLOW = '^(dart-)?sass(-embedded)?$,^go$,^npx$,^postcss$'
-
-# Headers de segurança
 [[headers]]
   for = "/*"
   [headers.values]
