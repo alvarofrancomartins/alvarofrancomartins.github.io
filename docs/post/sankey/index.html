@@ -856,38 +856,58 @@ text-align: justify;
 </footer>
 
 <style>
-/* Para evitar conflitos, todas as classes têm o prefixo "artistas-app-" */
 .artistas-app-wrapper {
-    font-family: 'Inter', sans-serif; /* Certifique-se que a fonte Inter está carregada na sua página Hugo principal */
+    font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: #374151;
-    margin-bottom: 40px; 
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 20px;
 }
-.artistas-app-header { text-align: center; margin-bottom: 20px; }
-.artistas-app-header h2 { color: #c53030; margin-top: 0; margin-bottom: 5px; font-weight: 700; font-size: 1.8rem; }
-.artistas-app-header p { margin-bottom: 0; font-size: 1rem; color: #6b7280; }
+
+.artistas-app-header { 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+
+.artistas-app-header h2 { 
+    color: #c53030; 
+    margin-top: 0; 
+    margin-bottom: 5px; 
+    font-weight: 700; 
+    font-size: 1.8rem; 
+}
+
+.artistas-app-header p { 
+    margin-bottom: 0; 
+    font-size: 1rem; 
+    color: #6b7280; 
+}
 
 .artistas-app-search-container { 
     display: flex; 
     justify-content: center; 
-    align-items: stretch; /* Para alinhar altura dos botões e input */
+    align-items: stretch;
     margin-bottom: 15px; 
-    gap: 8px; /* Espaço entre os elementos */
+    gap: 8px;
 }
+
 .artistas-app-search-container input[type="text"] { 
     padding: 10px 15px; 
-    width: clamp(220px, 50%, 300px); /* Ajustada largura do input */
+    width: clamp(250px, 60%, 400px);
     border: 1px solid #d1d5db; 
     border-radius: 8px; 
     font-size: 0.95rem; 
     box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
 }
+
 .artistas-app-search-container input[type="text"]:focus { 
     outline: none; 
     border-color: #c53030; 
     box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.15); 
     z-index: 1; 
 }
+
 .artistas-app-search-container button#search-button-app { 
     padding: 10px 20px; 
     background-color: #c53030; 
@@ -899,11 +919,12 @@ text-align: justify;
     font-weight: 600; 
     white-space: nowrap; 
 }
+
 .artistas-app-search-container button#search-button-app:hover { 
     background-color: #a02828; 
 }
 
-button.artistas-app-playlist-button { /* Estilo para o botão de playlist, agora no mesmo container */
+button.artistas-app-playlist-button { 
     background-color: #2563eb;
     color: white;
     padding: 10px 18px; 
@@ -916,55 +937,205 @@ button.artistas-app-playlist-button { /* Estilo para o botão de playlist, agora
     transition: background-color 0.2s ease, opacity 0.2s ease;
     box-shadow: 0 1px 2px rgba(0,0,0,0.07);
 }
+
 button.artistas-app-playlist-button:hover {
     background-color: #1d4ed8;
 }
+
 button.artistas-app-playlist-button:disabled {
     background-color: #9ca3af;
     opacity: 0.7;
     cursor: not-allowed;
 }
 
+.artistas-app-feedback { 
+    text-align: center; 
+    margin: 8px 0; 
+    min-height: 18px; 
+    font-size: 0.9rem; 
+    color: #4b5563; 
+}
+
+.artistas-app-feedback.error { 
+    color: #c53030; 
+    font-weight: 500; 
+}
+
 .artistas-app-sankey-container { 
+    width: 100%;
+    margin: 20px 0;
+    padding: 10px 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+    overflow: visible;
+}
+
+.artistas-app-sankey-container svg {
+    width: 100%;
+    min-height: 600px;
+    overflow: visible;
+}
+
+.sankey-node-group { 
+    cursor: pointer; 
+}
+
+.sankey-node rect { 
+    fill-opacity: 1; 
+    shape-rendering: crispEdges; 
+    stroke: rgba(0,0,0,0.1); 
+    stroke-width: 0.5px; 
+    transition: all 0.2s ease; 
+}
+
+.sankey-node-group:hover .sankey-node { 
+    stroke-width: 1.5px; 
+    stroke: rgba(0,0,0,0.3); 
+    fill-opacity: 0.85; 
+}
+
+.sankey-link { 
+    fill: none; 
+    stroke-opacity: 0.55; 
+    transition: stroke-opacity 0.2s ease; 
+}
+
+.sankey-node-label { 
+    pointer-events: none; 
+    font-size: 14px; 
+    font-weight: 500; 
+    fill: #1f2937; 
+    transition: all 0.2s ease; 
+}
+
+.sankey-node-group:hover .sankey-node-label { 
+    font-size: 15px; 
+    font-weight: 700; 
+    fill: #000000; 
+}
+
+.artistas-app-modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
     width: 100%; 
-    max-width: 100%;
-    margin: 5px 0; /* Reduzir margens laterais */
-    padding: 20px 10px; /* Reduzir padding horizontal */
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 2000; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease; 
 }
 
-#artistas-app-container {
-    max-width: 100%;
-    padding: 0 15px; /* Evitar que conteúdo encoste nas bordas */
+.artistas-app-modal-overlay.active { 
+    opacity: 1; 
+    visibility: visible; 
 }
 
-.artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 0.9rem; color: #4b5563; }
-.artistas-app-feedback.error { color: #c53030; font-weight: 500; }
-.artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; overflow-x: auto; }
-.artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; /* Aumentada altura mínima para profundidade 4 */ }
-.sankey-node-group { cursor: pointer; }
-.sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
-.sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
-.sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
-/* .sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; } */ 
-.sankey-node-label { pointer-events: none; font-size: 14px; font-weight: 500; fill: #1f2937; transition: all 0.2s ease; }
-.sankey-node-group:hover .sankey-node-label { font-size: 16px; font-weight: 700; fill: #000000; }
-.artistas-app-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
-.artistas-app-modal-overlay.active { opacity: 1; visibility: visible; }
-.artistas-app-modal-content { background-color: white; padding: 20px 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; }
-.artistas-app-modal-content h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; color: #c53030; }
-.artistas-app-modal-content ul { list-style: decimal; padding-left: 20px; }
-.artistas-app-modal-content li { margin-bottom: 8px; font-size: 0.9rem; }
-.artistas-app-modal-content li a { color: #2563eb; text-decoration: none; font-weight: 500; }
-.artistas-app-modal-content li a:hover { text-decoration: underline; }
-.artistas-app-modal-close-button { position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.7rem; cursor: pointer; color: #9ca3af; padding: 0; line-height: 1; }
-.artistas-app-modal-close-button:hover { color: #6b7280; }
-.artistas-app-modal-loading-spinner { display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 120px; }
-.artistas-app-modal-loading-spinner p { margin-bottom: 12px; font-size: 0.95rem; color: #4b5563; }
-.spinner { border: 4px solid rgba(0, 0, 0, 0.1); width: 32px; height: 32px; border-radius: 50%; border-left-color: #c53030; animation: spin 1s ease infinite; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.artistas-app-footer { text-align: center; padding: 10px 0; font-size: 0.8rem; color: #6b7280; margin-top: 15px; }
-.artistas-app-footer a { color: #c53030; text-decoration: none; }
-.artistas-app-footer a:hover { text-decoration: underline; }
+.artistas-app-modal-content { 
+    background-color: white; 
+    padding: 20px 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+    width: 90%; 
+    max-width: 650px; 
+    max-height: 80vh; 
+    overflow-y: auto; 
+    position: relative; 
+}
+
+.artistas-app-modal-content h2 { 
+    margin-top: 0; 
+    margin-bottom: 15px; 
+    font-size: 1.4rem; 
+    color: #c53030; 
+}
+
+.artistas-app-modal-content ul { 
+    list-style: decimal; 
+    padding-left: 20px; 
+}
+
+.artistas-app-modal-content li { 
+    margin-bottom: 8px; 
+    font-size: 0.9rem; 
+}
+
+.artistas-app-modal-content li a { 
+    color: #2563eb; 
+    text-decoration: none; 
+    font-weight: 500; 
+}
+
+.artistas-app-modal-content li a:hover { 
+    text-decoration: underline; 
+}
+
+.artistas-app-modal-close-button { 
+    position: absolute; 
+    top: 10px; 
+    right: 15px; 
+    background: none; 
+    border: none; 
+    font-size: 1.7rem; 
+    cursor: pointer; 
+    color: #9ca3af; 
+    padding: 0; 
+    line-height: 1; 
+}
+
+.artistas-app-modal-close-button:hover { 
+    color: #6b7280; 
+}
+
+.artistas-app-modal-loading-spinner { 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 120px; 
+}
+
+.artistas-app-modal-loading-spinner p { 
+    margin-bottom: 12px; 
+    font-size: 0.95rem; 
+    color: #4b5563; 
+}
+
+.spinner { 
+    border: 4px solid rgba(0, 0, 0, 0.1); 
+    width: 32px; 
+    height: 32px; 
+    border-radius: 50%; 
+    border-left-color: #c53030; 
+    animation: spin 1s ease infinite; 
+}
+
+@keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+}
+
+.artistas-app-footer { 
+    text-align: center; 
+    padding: 10px 0; 
+    font-size: 0.8rem; 
+    color: #6b7280; 
+    margin-top: 15px; 
+}
+
+.artistas-app-footer a { 
+    color: #c53030; 
+    text-decoration: none; 
+}
+
+.artistas-app-footer a:hover { 
+    text-decoration: underline; 
+}
 </style>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -972,14 +1143,11 @@ button.artistas-app-playlist-button:disabled {
 <script>
 (function() { 
     const artistInputApp = document.getElementById('artist-input-app');
-    if (!artistInputApp) { return; }
-
     const searchButtonApp = document.getElementById('search-button-app');
     const generateDiagramPlaylistBtnApp = document.getElementById('generate-diagram-playlist-btn-app');
     const searchFeedbackMessageApp = document.getElementById('search-feedback-message-app'); 
     const sankeyChartContainerApp = document.getElementById('sankey-chart-container-app');
     const sankeyChartDivApp = document.getElementById('sankey-chart-app');
-    
     const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
     const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
     const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
@@ -987,14 +1155,12 @@ button.artistas-app-playlist-button:disabled {
 
     const MAX_DEPTH_APP = 4; 
     const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3; 
-
     let currentGraphNodesApp = []; 
     let cachedPlaylistDataApp = null; 
     let cachedDiagramSignatureApp = null; 
-
-    const marginApp = {top: 40, right: 200, bottom: 40, left: 200}; 
-    const nodeWidthApp = 25; 
-    const nodePaddingVerticalApp = 50; 
+    const marginApp = {top: 40, right: 20, bottom: 40, left: 20}; 
+    const nodeWidthApp = 20; 
+    const nodePaddingVerticalApp = 35; 
 
     function initializePageApp() {
         searchButtonApp.addEventListener('click', handleSearchApp);
@@ -1030,7 +1196,6 @@ button.artistas-app-playlist-button:disabled {
     
     async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
         const netlifyFunctionBaseUrl = "https://afmartins.netlify.app/.netlify/functions/lastfm-proxy";
-        
         let proxyUrl = `${netlifyFunctionBaseUrl}?method=${method}`;
         if (artistName) proxyUrl += `&artist=${encodeURIComponent(artistName)}`;
         if (method === 'artist.getsimilar' || method === 'artist.gettoptracks') proxyUrl += `&limit=${limit}`;
@@ -1039,24 +1204,20 @@ button.artistas-app-playlist-button:disabled {
             const contentType = response.headers.get("content-type");
             if (contentType && contentType.indexOf("application/json") !== -1) {
                 const data = await response.json(); 
-                if (!response.ok) {
-                    const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
-                    throw new Error(errorMsg);
-                }
-                if (data.error && typeof data.error === 'string' && data.message) throw new Error(data.message);
-                if (data.error && data.error.message) throw new Error(data.error.message);
+                if (!response.ok) throw new Error(data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`);
+                if (data.error && data.message) throw new Error(data.message);
                 return data;
             } else {
                 const textResponse = await response.text();
-                throw new Error(`Resposta inesperada do servidor proxy (não JSON). Status: ${response.status}. Resposta: ${textResponse.substring(0,100)}...`);
+                throw new Error(`Resposta inesperada do servidor proxy. Status: ${response.status}. Resposta: ${textResponse.substring(0,100)}...`);
             }
-        } catch (error) { console.error(`Erro na callNetlifyProxy para ${method} (${artistName || ''}):`, error); throw error; }
+        } catch (error) { throw error; }
     }
 
     async function fetchArtistInfoAPIApp(artistName) {
         try {
             const data = await callNetlifyProxy('artist.getinfo', artistName);
-            if (!data.artist) throw new Error (`Informações do artista "${artistName}" não encontradas (via proxy).`);
+            if (!data.artist) throw new Error (`Informações do artista "${artistName}" não encontradas.`);
             return data.artist;
         } catch (error) { throw error; }
     }
@@ -1065,17 +1226,15 @@ button.artistas-app-playlist-button:disabled {
         try {
             const data = await callNetlifyProxy('artist.getsimilar', artistName, SIMILAR_ARTISTS_LIMIT_PER_CALL_APP);
             return (data.similarartists && Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
-        } catch (error) { console.warn(`Falha ao buscar similares para "${artistName}" via proxy: ${error.message}`); return []; }
+        } catch (error) { return []; }
     }
     
     async function fetchArtistTopTrackAPIApp(artistName) {
          try {
             const data = await callNetlifyProxy('artist.gettoptracks', artistName, 1);
-            if (!data.toptracks || !data.toptracks.track || data.toptracks.track.length === 0) {
-                console.warn(`Nenhuma top track encontrada para "${artistName}" via proxy.`); return null;
-            }
+            if (!data.toptracks?.track?.length) return null;
             return data.toptracks.track[0]; 
-        } catch (error) { console.warn(`Erro ao buscar top track para "${artistName}" via proxy: ${error.message}`); return null; }
+        } catch (error) { return null; }
     }
 
     function generateDiagramSignatureApp(nodes) {
@@ -1084,7 +1243,9 @@ button.artistas-app-playlist-button:disabled {
     }
 
     async function generateSankeyDataApp(initialArtistName, maxDepth) { 
-        const rawLinks = []; const fetchedArtists = new Set(); const allNodesData = new Map(); 
+        const rawLinks = []; 
+        const fetchedArtists = new Set(); 
+        const allNodesData = new Map(); 
         let initialArtistData;
         try {
             initialArtistData = await fetchArtistInfoAPIApp(initialArtistName);
@@ -1100,11 +1261,9 @@ button.artistas-app-playlist-button:disabled {
                 fetchedArtists.add(normalizedSourceArtist);
                 const similarArtists = await fetchSimilarArtistsAPIApp(sourceArtist);
                 similarArtists.forEach(targetArtistInfo => {
-                    if (targetArtistInfo && targetArtistInfo.name && targetArtistInfo.match && targetArtistInfo.url) {
+                    if (targetArtistInfo?.name && targetArtistInfo?.match && targetArtistInfo?.url) {
                         const targetArtistName = targetArtistInfo.name;
-                        if (!allNodesData.has(sourceArtist)) { 
-                             allNodesData.set(sourceArtist, { name: sourceArtist, url: `https://www.last.fm/music/${encodeURIComponent(sourceArtist.replace(/\s+/g, '+'))}` });
-                        }
+                        allNodesData.set(sourceArtist, { name: sourceArtist, url: `https://www.last.fm/music/${encodeURIComponent(sourceArtist.replace(/\s+/g, '+'))}` });
                         allNodesData.set(targetArtistName, { name: targetArtistName, url: targetArtistInfo.url });
                         const normalizedTargetArtist = targetArtistName.toLowerCase();
                         if (fetchedArtists.has(normalizedTargetArtist) || sourceArtist === targetArtistName) return; 
@@ -1145,112 +1304,145 @@ button.artistas-app-playlist-button:disabled {
             showErrorApp(`Nenhum dado encontrado para "${initialArtistName}".`);
             generateDiagramPlaylistBtnApp.disabled = true; return; 
         }
-        if (nodes.length === 1 && (!links || links.length === 0)) {
-            sankeyChartDivApp.innerHTML = ''; 
-            const singleNode = nodes[0]; currentGraphNodesApp = [singleNode]; 
-            const svgSingle = d3.select(sankeyChartDivApp).append("svg").attr("width", "100%").attr("height", 120).append("g").attr("transform", `translate(20, 30)`);
-            svgSingle.append("text").attr("x", 0).attr("y", 20).attr("class", "sankey-node-label").style("font-size", "16px").text(`Artista: `)
-              .append("a").attr("xlink:href", singleNode.url).attr("target", "_blank").style("fill", "#c53030").style("text-decoration", "underline").text(singleNode.name);
-            svgSingle.append("text").attr("x", 0).attr("y", 45).attr("class", "sankey-node-label").text("(Nenhum artista similar direto encontrado na Last.fm)");
-            sankeyChartContainerApp.style.display = 'block'; generateDiagramPlaylistBtnApp.disabled = false; hideLoadingApp(); return;
-        }
-        if ((!links || links.length === 0) && nodes.length > 1) {
-             showErrorApp(`Nenhum artista similar encontrado para "${initialArtistName}" para gerar o diagrama.`);
-             generateDiagramPlaylistBtnApp.disabled = true; return;
-        }
-        
-        const containerWidth = sankeyChartDivApp.clientWidth - marginApp.left - marginApp.right;
-        const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20); 
+
+        sankeyChartDivApp.innerHTML = '';
+        const containerWidth = sankeyChartDivApp.clientWidth;
+        const dynamicHeight = Math.max(600, nodes.length * 40 + links.length * 15);
         const width = containerWidth - marginApp.left - marginApp.right;
         const height = dynamicHeight - marginApp.top - marginApp.bottom;
-        const svg = d3.select(sankeyChartDivApp).append("svg").attr("width", containerWidth).attr("height", dynamicHeight).append("g").attr("transform", `translate(${marginApp.left},${marginApp.top})`);
-        const sankey = d3.sankey().nodeId(d => d.name).nodeAlign(d3.sankeyJustify).nodeWidth(nodeWidthApp).nodePadding(nodePaddingVerticalApp).extent([[0, 5], [width + marginApp.right, height - 5]]).iterations(32); 
+
+        const sankey = d3.sankey()
+            .nodeId(d => d.name)
+            .nodeAlign(d3.sankeyLeft)
+            .nodeWidth(nodeWidthApp)
+            .nodePadding(nodePaddingVerticalApp)
+            .extent([[0, 5], [width, height - 5]]);
+
         let graph;
-        try { graph = sankey({ nodes: JSON.parse(JSON.stringify(nodes)), links: JSON.parse(JSON.stringify(links)) }); 
-        } catch (error) { showErrorApp(`Erro no layout do Sankey: ${error.message}.`); generateDiagramPlaylistBtnApp.disabled = true; return; }
-        if (!graph || !graph.nodes || !graph.links || graph.nodes.length === 0) { showErrorApp('Falha ao gerar o gráfico Sankey com os dados processados.'); generateDiagramPlaylistBtnApp.disabled = true; return; }
-        currentGraphNodesApp = graph.nodes; generateDiagramPlaylistBtnApp.disabled = false; 
-        const simpleColors = ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"];
-        let maxNodeDepth = 0;
-        graph.nodes.forEach(node => { if (typeof node.depth !== 'number' || isNaN(node.depth)) node.depth = 0; if (node.depth > maxNodeDepth) maxNodeDepth = node.depth; });
-        const nodeColorFunc = (node) => { if (typeof node.depth !== 'number' || isNaN(node.depth)) return "#cccccc"; return simpleColors[node.depth % simpleColors.length]; };
+        try { 
+            graph = sankey({ 
+                nodes: JSON.parse(JSON.stringify(nodes)), 
+                links: JSON.parse(JSON.stringify(links)) 
+            }); 
+        } catch (error) { showErrorApp(`Erro no layout do Sankey: ${error.message}.`); return; }
+
+        if (!graph?.nodes?.length) { showErrorApp('Falha ao gerar o gráfico Sankey.'); return; }
+        currentGraphNodesApp = graph.nodes; 
+        generateDiagramPlaylistBtnApp.disabled = false; 
+
+        const svg = d3.select(sankeyChartDivApp)
+            .append("svg")
+            .attr("width", containerWidth)
+            .attr("height", dynamicHeight)
+            .append("g")
+            .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
+
         const defs = svg.append("defs");
         graph.links.forEach((link, i) => {
             const gradientID = `linkGradient-${i}`;
-            const gradient = defs.append("linearGradient").attr("id", gradientID).attr("gradientUnits", "userSpaceOnUse").attr("x1", link.source.x1).attr("x2", link.target.x0); 
-            const sourceColor = nodeColorFunc(link.source); const targetColor = nodeColorFunc(link.target);
-            gradient.append("stop").attr("offset", "0%").attr("stop-color", sourceColor); // Alterado para 0%
-            gradient.append("stop").attr("offset", "100%").attr("stop-color", targetColor); // Alterado para 100%
+            const gradient = defs.append("linearGradient")
+                .attr("id", gradientID)
+                .attr("gradientUnits", "userSpaceOnUse")
+                .attr("x1", link.source.x1)
+                .attr("x2", link.target.x0);
+            const sourceColor = '#c53030';
+            const targetColor = '#2563eb';
+            gradient.append("stop").attr("offset", "0%").attr("stop-color", sourceColor);
+            gradient.append("stop").attr("offset", "100%").attr("stop-color", targetColor);
         });
-        const linkGroups = svg.append("g").attr("fill", "none").selectAll("g.sankey-link-group").data(graph.links).join("g").attr("class", "sankey-link-group");
-        linkGroups.append("path").attr("class", "sankey-link").attr("d", d3.sankeyLinkHorizontal()).attr("stroke", (d, i) => `url(#${`linkGradient-${i}`.replace(/\s/g, '-')})`).attr("stroke-width", d => Math.max(1, d.width));
-        
-        // Removido o linkGroups.append("title") para não mostrar tooltip nos links
-        
-        const nodeLinkGroups = svg.append("g").selectAll("a.sankey-node-link").data(graph.nodes).join("a").attr("class", "sankey-node-link").attr("xlink:href", d => d.url).attr("target", "_blank").append("g").attr("class", "sankey-node-group").attr("transform", d => `translate(${d.x0},${d.y0})`);
-        nodeLinkGroups.append("rect").attr("class", "sankey-node").attr("height", d => Math.max(0.5, d.y1 - d.y0)).attr("width", d => d.x1 - d.x0).attr("fill", d => nodeColorFunc(d));
-        nodeLinkGroups.append("text").attr("class", "sankey-node-label")
-            .each(function(d) { 
-                const isInitialArtist = d.name === initialArtistName; const text = d3.select(this);
-                if (isInitialArtist && (d.y1 - d.y0) > 20) { text.attr("x", (d.x1 - d.x0) / 2).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "middle");
-                } else if (d.x0 < width * 0.15 && (d.y1 - d.y0) > 15 ) { text.attr("x", (d.x1 - d.x0) + 6).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "start");
-                } else { text.attr("x", (d.x1 - d.x0) / 2).attr("y", -12).attr("text-anchor", "middle"); } 
-            }).attr("dy", "0.35em").text(d => d.name).style("display", d => (d.y1 - d.y0) > 10 ? "inline" : "none"); 
-        
-        // Removido o customTooltip e os handlers de mouseover/mouseout dos linkGroups
-            
+
+        svg.append("g")
+            .attr("fill", "none")
+            .selectAll(".sankey-link")
+            .data(graph.links)
+            .join("path")
+            .attr("class", "sankey-link")
+            .attr("d", d3.sankeyLinkHorizontal())
+            .attr("stroke", (d, i) => `url(#linkGradient-${i})`)
+            .attr("stroke-width", d => Math.max(1, d.width));
+
+        const node = svg.append("g")
+            .selectAll(".sankey-node")
+            .data(graph.nodes)
+            .join("g")
+            .attr("class", "sankey-node-group")
+            .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+        node.append("rect")
+            .attr("class", "sankey-node")
+            .attr("height", d => Math.max(0.5, d.y1 - d.y0))
+            .attr("width", d => d.x1 - d.x0)
+            .attr("fill", "#c53030");
+
+        node.append("text")
+            .attr("class", "sankey-node-label")
+            .attr("x", d => (d.x1 - d.x0) / 2)
+            .attr("y", d => (d.y1 - d.y0) / 2)
+            .attr("text-anchor", "middle")
+            .attr("dy", "0.35em")
+            .text(d => d.name)
+            .style("display", d => (d.y1 - d.y0) > 10 ? "inline" : "none");
+
         sankeyChartContainerApp.style.display = 'block';
         hideLoadingApp(); 
     }
 
     async function handleGenerateDiagramPlaylistApp() {
-        if (!currentGraphNodesApp || currentGraphNodesApp.length === 0) { showErrorApp("Nenhum artista no diagrama para gerar playlist."); return; }
+        if (!currentGraphNodesApp.length) { showErrorApp("Nenhum artista no diagrama."); return; }
         const currentDiagramSignature = generateDiagramSignatureApp(currentGraphNodesApp);
-        if (cachedPlaylistDataApp && cachedDiagramSignatureApp === currentDiagramSignature) { displayPlaylistInModalApp(cachedPlaylistDataApp); return; }
-        playlistModalTitleApp.textContent = `🎶 Gerando Playlist...`; 
-        playlistModalBodyApp.innerHTML = '<div class="artistas-app-modal-loading-spinner"><p>Procurando as músicas mais famosas...</p><div class="spinner"></div></div>'; 
+        if (cachedPlaylistDataApp && cachedDiagramSignatureApp === currentDiagramSignature) { 
+            displayPlaylistInModalApp(cachedPlaylistDataApp); 
+            return; 
+        }
+        
+        playlistModalBodyApp.innerHTML = '<div class="artistas-app-modal-loading-spinner"><p>Procurando músicas...</p><div class="spinner"></div></div>'; 
         playlistModalOverlayApp.classList.add('active');
         generateDiagramPlaylistBtnApp.disabled = true;
-        const trackPromises = currentGraphNodesApp.map(node => fetchArtistTopTrackAPIApp(node.name));
+
         try {
+            const trackPromises = currentGraphNodesApp.map(node => fetchArtistTopTrackAPIApp(node.name));
             const topTracksResponses = await Promise.all(trackPromises);
             const validTracks = topTracksResponses.filter(track => track !== null);
-            if (validTracks.length === 0) throw new Error("Não foi possível encontrar as músicas mais famosas para os artistas do diagrama.");
-            const tracksForPlaylist = validTracks.map(track => ({ artistName: track.artist.name, trackName: track.name, trackUrl: track.url }));
-            const playlistData = { playlistName: "Sankey Playlist", tracks: tracksForPlaylist };
-            cachedPlaylistDataApp = playlistData; cachedDiagramSignatureApp = currentDiagramSignature;
+            if (validTracks.length === 0) throw new Error("Nenhuma música encontrada.");
+            
+            const playlistData = { 
+                playlistName: "Sankey Playlist", 
+                tracks: validTracks.map(track => ({
+                    artistName: track.artist.name,
+                    trackName: track.name,
+                    trackUrl: track.url
+                }))
+            };
+            
+            cachedPlaylistDataApp = playlistData; 
+            cachedDiagramSignatureApp = currentDiagramSignature;
             displayPlaylistInModalApp(playlistData); 
         } catch (error) {
-            console.error("Erro ao gerar playlist do diagrama:", error);
-            playlistModalTitleApp.textContent = "Erro ao Gerar a Playlist"; 
             playlistModalBodyApp.innerHTML = `<p style="color: #c53030;">${error.message}</p>`;
-        } finally { generateDiagramPlaylistBtnApp.disabled = false; }
+        } finally { 
+            generateDiagramPlaylistBtnApp.disabled = false; 
+        }
     }
 
     async function handleSearchApp() {
-        if (!artistInputApp) return;
         const artistNameFromInput = artistInputApp.value.trim(); 
-        if (!artistNameFromInput) { showErrorApp('Por favor, digite o nome de um artista.'); return; }
-        showLoadingApp(`Procurando por "${artistNameFromInput}"...`);
-        if(sankeyChartDivApp) sankeyChartDivApp.innerHTML = ''; 
+        if (!artistNameFromInput) { showErrorApp('Digite um nome de artista.'); return; }
+        showLoadingApp(`Procurando "${artistNameFromInput}"...`);
+        sankeyChartDivApp.innerHTML = ''; 
         currentGraphNodesApp = []; 
-        if(generateDiagramPlaylistBtnApp) generateDiagramPlaylistBtnApp.disabled = true;
-        cachedPlaylistDataApp = null; cachedDiagramSignatureApp = null;
+        generateDiagramPlaylistBtnApp.disabled = true;
+        cachedPlaylistDataApp = null; 
+        cachedDiagramSignatureApp = null;
+        
         try {
             const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP); 
-            if (sankeyData && sankeyData.nodes && sankeyData.nodes.length > 0) {
-                drawSankeyD3App(sankeyData); 
-            } else { showErrorApp(`Nenhuma informação encontrada para "${artistNameFromInput}".`); }
-        } catch (error) { showErrorApp(error.message || `Ocorreu um erro ao buscar dados para "${artistNameFromInput}".`); } 
-    }
-    
-    if (document.getElementById('artist-input-app')) {
-        initializePageApp();
+            drawSankeyD3App(sankeyData); 
+        } catch (error) { showErrorApp(error.message || `Erro ao buscar "${artistNameFromInput}".`); } 
     }
 
+    if (document.getElementById('artist-input-app')) initializePageApp();
 })(); 
 </script>
-
 
               </div>
               
