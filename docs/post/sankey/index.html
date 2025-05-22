@@ -869,44 +869,42 @@ text-align: justify;
     display: flex; 
     justify-content: center; 
     align-items: stretch; /* Para alinhar altura dos botões e input */
-    margin-bottom: 15px; /* Aumentada a margem inferior para separar do feedback */
-    gap: 5px; /* Espaço entre os elementos */
+    margin-bottom: 15px; 
+    gap: 8px; /* Espaço entre os elementos */
 }
 .artistas-app-search-container input[type="text"] { 
     padding: 10px 15px; 
-    width: clamp(250px, 60%, 320px); 
+    width: clamp(220px, 50%, 300px); /* Ajustada largura do input */
     border: 1px solid #d1d5db; 
-    border-radius: 8px; /* Raio em todos os cantos */
+    border-radius: 8px; 
     font-size: 0.95rem; 
     box-shadow: 0 1px 2px rgba(0,0,0,0.05); 
-    margin-right: -1px; /* Para sobrepor a borda com o botão buscar, se não houver gap */
 }
 .artistas-app-search-container input[type="text"]:focus { 
     outline: none; 
     border-color: #c53030; 
     box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.15); 
-    z-index: 1; /* Para trazer à frente no foco */
+    z-index: 1; 
 }
 .artistas-app-search-container button#search-button-app { 
     padding: 10px 20px; 
     background-color: #c53030; 
     color: white; 
     border: none; 
-    border-radius: 8px; /* Raio em todos os cantos */
+    border-radius: 8px; 
     cursor: pointer; 
     font-size: 0.95rem; 
     font-weight: 600; 
-    white-space: nowrap; /* Evita que o texto quebre */
+    white-space: nowrap; 
 }
 .artistas-app-search-container button#search-button-app:hover { 
     background-color: #a02828; 
 }
 
-/* Estilo para o novo botão de playlist ao lado da busca */
-button.artistas-app-playlist-button {
+button.artistas-app-playlist-button { /* Estilo para o botão de playlist, agora no mesmo container */
     background-color: #2563eb;
     color: white;
-    padding: 10px 18px; /* Ajustado padding */
+    padding: 10px 18px; 
     border: none;
     border-radius: 8px;
     font-size: 0.9rem;
@@ -925,17 +923,15 @@ button.artistas-app-playlist-button:disabled {
     cursor: not-allowed;
 }
 
-/* Removido .artistas-app-playlist-button-container pois o botão foi movido */
-
 .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 0.9rem; color: #4b5563; }
 .artistas-app-feedback.error { color: #c53030; font-weight: 500; }
 .artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; overflow-x: auto; }
-.artistas-app-sankey-container svg { display: block; width: 100%; min-height: 750px; /* Aumentada altura mínima */ }
+.artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; /* Aumentada altura mínima para profundidade 4 */ }
 .sankey-node-group { cursor: pointer; }
 .sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
 .sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
 .sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
-.sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; }
+/* .sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; } */ /* Removido hover específico do link se não houver tooltip */
 .sankey-node-label { pointer-events: none; font-size: 14px; font-weight: 500; fill: #1f2937; transition: all 0.2s ease; }
 .sankey-node-group:hover .sankey-node-label { font-size: 16px; font-weight: 700; fill: #000000; }
 .artistas-app-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -982,9 +978,9 @@ button.artistas-app-playlist-button:disabled {
     let cachedPlaylistDataApp = null; 
     let cachedDiagramSignatureApp = null; 
 
-    const marginApp = {top: 40, right: 180, bottom: 40, left: 180}; // Margens laterais aumentadas
-    const nodeWidthApp = 25; // Pode ajustar se necessário, menor para mais nós caberem
-    const nodePaddingVerticalApp = 45; // Aumentado para mais espaço vertical entre nós na mesma coluna
+    const marginApp = {top: 40, right: 200, bottom: 40, left: 200}; // Margens laterais aumentadas para mais espaço
+    const nodeWidthApp = 25; 
+    const nodePaddingVerticalApp = 50; // Aumentado para mais espaço vertical entre nós na mesma coluna, o que pode ajudar a espalhar horizontalmente
 
     function initializePageApp() {
         searchButtonApp.addEventListener('click', handleSearchApp);
@@ -1073,7 +1069,7 @@ button.artistas-app-playlist-button:disabled {
         return nodes.map(n => n.name).sort().join('||');
     }
 
-    async function generateSankeyDataApp(initialArtistName, maxDepth) { // maxDepth é agora usado
+    async function generateSankeyDataApp(initialArtistName, maxDepth) { 
         const rawLinks = []; const fetchedArtists = new Set(); const allNodesData = new Map(); 
         let initialArtistData;
         try {
@@ -1081,7 +1077,7 @@ button.artistas-app-playlist-button:disabled {
             allNodesData.set(initialArtistData.name, { name: initialArtistData.name, url: initialArtistData.url });
         } catch (error) { throw error; }
         let currentLevelArtists = [initialArtistData.name]; 
-        for (let depth = 0; depth < maxDepth; depth++) { // Loop usa maxDepth
+        for (let depth = 0; depth < maxDepth; depth++) { 
             if (currentLevelArtists.length === 0) break; 
             const nextLevelArtistsSet = new Set(); 
             const fetchPromises = currentLevelArtists.map(async (sourceArtist) => {
@@ -1150,7 +1146,7 @@ button.artistas-app-playlist-button:disabled {
         }
         
         const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
-        const dynamicHeight = Math.max(750, nodes.length * 50 + links.length * 18); // Altura dinâmica ajustada
+        const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20); // Altura dinâmica ajustada
         const width = containerWidth - marginApp.left - marginApp.right;
         const height = dynamicHeight - marginApp.top - marginApp.bottom;
         const svg = d3.select(sankeyChartDivApp).append("svg").attr("width", containerWidth).attr("height", dynamicHeight).append("g").attr("transform", `translate(${marginApp.left},${marginApp.top})`);
@@ -1173,7 +1169,9 @@ button.artistas-app-playlist-button:disabled {
         });
         const linkGroups = svg.append("g").attr("fill", "none").selectAll("g.sankey-link-group").data(graph.links).join("g").attr("class", "sankey-link-group");
         linkGroups.append("path").attr("class", "sankey-link").attr("d", d3.sankeyLinkHorizontal()).attr("stroke", (d, i) => `url(#${`linkGradient-${i}`.replace(/\s/g, '-')})`).attr("stroke-width", d => Math.max(1, d.width));
-        linkGroups.append("title").text(d => `${d.source.name} → ${d.target.name}\nSimilaridade: ${d.value.toFixed(2)}%`);
+        
+        // Removido o linkGroups.append("title") para não mostrar tooltip nos links
+        
         const nodeLinkGroups = svg.append("g").selectAll("a.sankey-node-link").data(graph.nodes).join("a").attr("class", "sankey-node-link").attr("xlink:href", d => d.url).attr("target", "_blank").append("g").attr("class", "sankey-node-group").attr("transform", d => `translate(${d.x0},${d.y0})`);
         nodeLinkGroups.append("rect").attr("class", "sankey-node").attr("height", d => Math.max(0.5, d.y1 - d.y0)).attr("width", d => d.x1 - d.x0).attr("fill", d => nodeColorFunc(d));
         nodeLinkGroups.append("text").attr("class", "sankey-node-label")
@@ -1181,14 +1179,11 @@ button.artistas-app-playlist-button:disabled {
                 const isInitialArtist = d.name === initialArtistName; const text = d3.select(this);
                 if (isInitialArtist && (d.y1 - d.y0) > 20) { text.attr("x", (d.x1 - d.x0) / 2).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "middle");
                 } else if (d.x0 < width * 0.15 && (d.y1 - d.y0) > 15 ) { text.attr("x", (d.x1 - d.x0) + 6).attr("y", (d.y1 - d.y0) / 2).attr("text-anchor", "start");
-                } else { text.attr("x", (d.x1 - d.x0) / 2).attr("y", -12).attr("text-anchor", "middle"); } // Rótulo acima
+                } else { text.attr("x", (d.x1 - d.x0) / 2).attr("y", -12).attr("text-anchor", "middle"); } 
             }).attr("dy", "0.35em").text(d => d.name).style("display", d => (d.y1 - d.y0) > 10 ? "inline" : "none"); 
-        const customTooltip = d3.select("body").append("div").attr("class", "tooltip");
-        linkGroups.on("mouseover", function(event, d) { 
-            customTooltip.transition().duration(200).style("opacity", .95);
-            customTooltip.html(`<strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br/>Similaridade: ${d.value.toFixed(2)}%`)
-                .style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 28) + "px");
-        }).on("mouseout", function() { customTooltip.transition().duration(500).style("opacity", 0); });
+        
+        // Removido o customTooltip e os handlers de mouseover/mouseout dos linkGroups
+            
         sankeyChartContainerApp.style.display = 'block';
         hideLoadingApp(); 
     }
@@ -1227,7 +1222,7 @@ button.artistas-app-playlist-button:disabled {
         if(generateDiagramPlaylistBtnApp) generateDiagramPlaylistBtnApp.disabled = true;
         cachedPlaylistDataApp = null; cachedDiagramSignatureApp = null;
         try {
-            const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP); // Usa MAX_DEPTH_APP
+            const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP); 
             if (sankeyData && sankeyData.nodes && sankeyData.nodes.length > 0) {
                 drawSankeyD3App(sankeyData); 
             } else { showErrorApp(`Nenhuma informação encontrada para "${artistNameFromInput}".`); }
