@@ -829,11 +829,13 @@ text-align: justify;
 <div id="artistas-app-container" class="artistas-app-wrapper">
     <header class="artistas-app-header">
         <h2>Artistas Similares</h2>
-        <p>Descubra conexões musicais em até 4 níveis de similaridade.</p> </header>
+        <p>Descubra conexões musicais em até 4 níveis de similaridade.</p> 
+    </header>
     <div class="artistas-app-search-container">
         <input type="text" id="artist-input-app" placeholder="Digite o nome de um artista" value="Radiohead">
         <button id="search-button-app">Buscar</button>
-        <button id="generate-diagram-playlist-btn-app" class="artistas-app-playlist-button" disabled>✨ Gerar Playlist</button> </div>
+        <button id="generate-diagram-playlist-btn-app" class="artistas-app-playlist-button" disabled>✨ Gerar Playlist</button> 
+    </div>
     <div id="search-feedback-message-app" class="artistas-app-feedback"></div> 
 </div>
 
@@ -931,7 +933,7 @@ button.artistas-app-playlist-button:disabled {
 .sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
 .sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
 .sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
-/* .sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; } */ /* Removido hover específico do link se não houver tooltip */
+/* .sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; } */ 
 .sankey-node-label { pointer-events: none; font-size: 14px; font-weight: 500; fill: #1f2937; transition: all 0.2s ease; }
 .sankey-node-group:hover .sankey-node-label { font-size: 16px; font-weight: 700; fill: #000000; }
 .artistas-app-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
@@ -971,16 +973,16 @@ button.artistas-app-playlist-button:disabled {
     const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
     const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
 
-    const MAX_DEPTH_APP = 4; // Alterado para profundidade 4
+    const MAX_DEPTH_APP = 4; 
     const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3; 
 
     let currentGraphNodesApp = []; 
     let cachedPlaylistDataApp = null; 
     let cachedDiagramSignatureApp = null; 
 
-    const marginApp = {top: 40, right: 200, bottom: 40, left: 200}; // Margens laterais aumentadas para mais espaço
+    const marginApp = {top: 40, right: 200, bottom: 40, left: 200}; 
     const nodeWidthApp = 25; 
-    const nodePaddingVerticalApp = 50; // Aumentado para mais espaço vertical entre nós na mesma coluna, o que pode ajudar a espalhar horizontalmente
+    const nodePaddingVerticalApp = 50; 
 
     function initializePageApp() {
         searchButtonApp.addEventListener('click', handleSearchApp);
@@ -1146,7 +1148,7 @@ button.artistas-app-playlist-button:disabled {
         }
         
         const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
-        const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20); // Altura dinâmica ajustada
+        const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20); 
         const width = containerWidth - marginApp.left - marginApp.right;
         const height = dynamicHeight - marginApp.top - marginApp.bottom;
         const svg = d3.select(sankeyChartDivApp).append("svg").attr("width", containerWidth).attr("height", dynamicHeight).append("g").attr("transform", `translate(${marginApp.left},${marginApp.top})`);
@@ -1165,7 +1167,8 @@ button.artistas-app-playlist-button:disabled {
             const gradientID = `linkGradient-${i}`;
             const gradient = defs.append("linearGradient").attr("id", gradientID).attr("gradientUnits", "userSpaceOnUse").attr("x1", link.source.x1).attr("x2", link.target.x0); 
             const sourceColor = nodeColorFunc(link.source); const targetColor = nodeColorFunc(link.target);
-            gradient.append("stop").attr("offset", "5%").attr("stop-color", sourceColor); gradient.append("stop").attr("offset", "95%").attr("stop-color", targetColor); 
+            gradient.append("stop").attr("offset", "0%").attr("stop-color", sourceColor); // Alterado para 0%
+            gradient.append("stop").attr("offset", "100%").attr("stop-color", targetColor); // Alterado para 100%
         });
         const linkGroups = svg.append("g").attr("fill", "none").selectAll("g.sankey-link-group").data(graph.links).join("g").attr("class", "sankey-link-group");
         linkGroups.append("path").attr("class", "sankey-link").attr("d", d3.sankeyLinkHorizontal()).attr("stroke", (d, i) => `url(#${`linkGradient-${i}`.replace(/\s/g, '-')})`).attr("stroke-width", d => Math.max(1, d.width));
