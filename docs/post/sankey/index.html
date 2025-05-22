@@ -925,6 +925,18 @@ button.artistas-app-playlist-button:disabled {
     cursor: not-allowed;
 }
 
+.artistas-app-sankey-container { 
+    width: 100%; 
+    max-width: 100%;
+    margin: 5px 0; /* Reduzir margens laterais */
+    padding: 20px 10px; /* Reduzir padding horizontal */
+}
+
+#artistas-app-container {
+    max-width: 100%;
+    padding: 0 15px; /* Evitar que conteúdo encoste nas bordas */
+}
+
 .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 0.9rem; color: #4b5563; }
 .artistas-app-feedback.error { color: #c53030; font-weight: 500; }
 .artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; overflow-x: auto; }
@@ -1147,12 +1159,12 @@ button.artistas-app-playlist-button:disabled {
              generateDiagramPlaylistBtnApp.disabled = true; return;
         }
         
-        const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); 
+        const containerWidth = sankeyChartDivApp.clientWidth - marginApp.left - marginApp.right;
         const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20); 
         const width = containerWidth - marginApp.left - marginApp.right;
         const height = dynamicHeight - marginApp.top - marginApp.bottom;
         const svg = d3.select(sankeyChartDivApp).append("svg").attr("width", containerWidth).attr("height", dynamicHeight).append("g").attr("transform", `translate(${marginApp.left},${marginApp.top})`);
-        const sankey = d3.sankey().nodeId(d => d.name).nodeAlign(d3.sankeyLeft).nodeWidth(nodeWidthApp).nodePadding(nodePaddingVerticalApp).extent([[0, 5], [width, height - 5]]).iterations(32); 
+        const sankey = d3.sankey().nodeId(d => d.name).nodeAlign(d3.sankeyJustify).nodeWidth(nodeWidthApp).nodePadding(nodePaddingVerticalApp).extent([[0, 5], [width + marginApp.right, height - 5]]).iterations(32); 
         let graph;
         try { graph = sankey({ nodes: JSON.parse(JSON.stringify(nodes)), links: JSON.parse(JSON.stringify(links)) }); 
         } catch (error) { showErrorApp(`Erro no layout do Sankey: ${error.message}.`); generateDiagramPlaylistBtnApp.disabled = true; return; }
