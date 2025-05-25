@@ -570,16 +570,16 @@ a.sankey-node-wrapper:hover .sankey-node-label {
     function drawSankeyD3App(sankeyDataToDraw) {
         searchFeedbackMessageApp.textContent = &#39;&#39;;
         // Ensure sankeyDataToDraw and its properties are defined before destructuring
-        const nodes = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.nodes ? sankeyDataToDraw.nodes : [];
-        const links = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.links ? sankeyDataToDraw.links : [];
+        const nodesInput = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.nodes ? sankeyDataToDraw.nodes : [];
+        const linksInput = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.links ? sankeyDataToDraw.links : [];
         const initialArtistName = sankeyDataToDraw ? sankeyDataToDraw.initialArtistName : &#34;Artista Desconhecido&#34;;
         const isLayeredSubset = sankeyDataToDraw ? sankeyDataToDraw.isLayeredSubset : false;
         const visibleLayerDepth = sankeyDataToDraw ? sankeyDataToDraw.visibleLayerDepth : 0;
         
         if (isMobileView &amp;&amp; isLayeredSubset &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes) {
             currentGraphNodesApp = fullSankeyDataApp.nodes.filter(n =&gt; n.explicitDepth &lt;= visibleLayerDepth);
-        } else if (nodes) {
-            currentGraphNodesApp = [...nodes]; // Use a copy for currentGraphNodesApp
+        } else if (nodesInput) {
+            currentGraphNodesApp = [...nodesInput]; 
         } else {
             currentGraphNodesApp = [];
         }
@@ -587,7 +587,7 @@ a.sankey-node-wrapper:hover .sankey-node-label {
         const isCurrentlyMobile = window.innerWidth &lt;= 768;
         sankeyChartDivApp.innerHTML = &#39;&#39;; 
 
-        if (!nodes || nodes.length === 0) {
+        if (!nodesInput || nodesInput.length === 0) {
             if (isLayeredSubset &amp;&amp; visibleLayerDepth === 0 &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.initialArtistName) {
                  showErrorApp(`Nenhum dado encontrado para &#34;${fullSankeyDataApp.initialArtistName}&#34;.`);
             } else if (!isLayeredSubset &amp;&amp; initialArtistName) { 
@@ -601,11 +601,10 @@ a.sankey-node-wrapper:hover .sankey-node-label {
         }
         
         const trulyVisibleNodes = (isCurrentlyMobile &amp;&amp; isLayeredSubset)
-            ? nodes.filter(n =&gt; n &amp;&amp; n.explicitDepth === visibleLayerDepth) // Added n &amp;&amp;
-            : nodes.filter(n =&gt; n); // Filter out null/undefined from nodes array
+            ? nodesInput.filter(n =&gt; n &amp;&amp; n.explicitDepth === visibleLayerDepth) 
+            : nodesInput.filter(n =&gt; n); 
 
-        if (trulyVisibleNodes.length === 0 &amp;&amp; !(isCurrentlyMobile &amp;&amp; isLayeredSubset &amp;&amp; links &amp;&amp; links.length &gt; 0) ) {
-             // If no truly visible nodes, and not in a layered view with only links to dummy nodes.
+        if (trulyVisibleNodes.length === 0 &amp;&amp; !(isCurrentlyMobile &amp;&amp; isLayeredSubset &amp;&amp; linksInput &amp;&amp; linksInput.length &gt; 0) ) {
              if (isCurrentlyMobile &amp;&amp; isLayeredSubset) {
                 showErrorApp(`Nenhum artista no nível ${visibleLayerDepth}.`);
              } else {
@@ -616,8 +615,7 @@ a.sankey-node-wrapper:hover .sankey-node-label {
             return;
         }
 
-
-        if (trulyVisibleNodes.length === 1 &amp;&amp; (!links || links.length === 0 || !links.some(l =&gt; {
+        if (trulyVisibleNodes.length === 1 &amp;&amp; (!linksInput || linksInput.length === 0 || !linksInput.some(l =&gt; {
             const sourceName = typeof l.source === &#39;object&#39; ? l.source.name : l.source;
             const targetName = typeof l.target === &#39;object&#39; ? l.target.name : l.target;
             return trulyVisibleNodes.some(n =&gt; n.name === sourceName) || trulyVisibleNodes.some(n =&gt; n.name === targetName);
@@ -650,7 +648,7 @@ a.sankey-node-wrapper:hover .sankey-node-label {
         const marginApp = { top: isCurrentlyMobile ? 20 : BASE_MARGIN_APP.top, right: isCurrentlyMobile ? 15 : BASE_MARGIN_APP.right, bottom: isCurrentlyMobile ? 20 : BASE_MARGIN_APP.bottom, left: isCurrentlyMobile ? 15 : BASE_MARGIN_APP.left };
         const nodeWidthApp = isCurrentlyMobile ? 20 : BASE_NODE_WIDTH_APP;
         
-        let numNodesForHeightCalc = trulyVisibleNodes.length &gt; 0 ? trulyVisibleNodes.length : (nodes.length &gt; 0 ? 1 : 0); // Base height on visible or at least 1 if any nodes exist for layout
+        let numNodesForHeightCalc = trulyVisibleNodes.length &gt; 0 ? trulyVisibleNodes.length : (nodesInput.length &gt; 0 ? 1 : 0); 
         const nodePaddingVerticalApp = isCurrentlyMobile ? (numNodesForHeightCalc &gt; 10 ? 20 : 30) : BASE_NODE_PADDING_VERTICAL_APP; 
         
         const containerClientWidth = sankeyChartDivApp.clientWidth || (isCurrentlyMobile ? 320 : 1200);
@@ -662,7 +660,7 @@ a.sankey-node-wrapper:hover .sankey-node-label {
 
         const dynamicHeight = Math.max(baseMinHeight, 
                                 (numNodesForHeightCalc * heightPerVisibleNode) + 
-                                (links.length * heightPerLink) + 
+                                (linksInput.length * heightPerLink) + 
                                 marginApp.top + marginApp.bottom);
 
         const width = calculatedContainerWidth - marginApp.left - marginApp.right;
@@ -681,24 +679,34 @@ a.sankey-node-wrapper:hover .sankey-node-label {
             .iterations(32);
 
         let graph;
-        let nodesCopy, linksCopy; // To log them in catch block
+        let nodesCopy, linksCopy;
 
         try {
-            // Rigorous filtering and copying before passing to D3 Sankey
             nodesCopy = JSON.parse(JSON.stringify(
-                nodes.filter(n =&gt; n &amp;&amp; typeof n.name === &#39;string&#39; &amp;&amp; typeof n.explicitDepth === &#39;number&#39;)
+                nodesInput.filter(n =&gt; n &amp;&amp; typeof n.name === &#39;string&#39; &amp;&amp; typeof n.explicitDepth === &#39;number&#39;)
             ));
             const nodeNamesInCopy = new Set(nodesCopy.map(n =&gt; n.name));
 
+            // Ensure link.source and link.target are string IDs before filtering and passing to D3
             linksCopy = JSON.parse(JSON.stringify(
-                links.filter(l =&gt; {
+                linksInput.map(l =&gt; ({
+                    source: (typeof l.source === &#39;object&#39; &amp;&amp; l.source !== null) ? l.source.name : l.source,
+                    target: (typeof l.target === &#39;object&#39; &amp;&amp; l.target !== null) ? l.target.name : l.target,
+                    value: l.value
+                    // Note: any other custom properties on links would be lost here unless explicitly copied.
+                    // For D3 Sankey, source, target, value are the main ones.
+                })).filter(l =&gt; {
                     if (!l || typeof l.value !== &#39;number&#39; || l.value &lt;= 0) return false;
-                    const sourceName = typeof l.source === &#39;object&#39; &amp;&amp; l.source !== null ? l.source.name : l.source;
-                    const targetName = typeof l.target === &#39;object&#39; &amp;&amp; l.target !== null ? l.target.name : l.target;
-                    if (typeof sourceName !== &#39;string&#39; || typeof targetName !== &#39;string&#39;) return false;
-                    return nodeNamesInCopy.has(sourceName) &amp;&amp; nodeNamesInCopy.has(targetName);
+                    // After mapping, l.source and l.target should be strings (IDs)
+                    if (typeof l.source !== &#39;string&#39; || typeof l.target !== &#39;string&#39;) {
+                        // This case should ideally not be hit if mapping was successful and original data was string or {name: string}
+                        console.warn(&#34;Filtered out link due to non-string source/target after mapping:&#34;, l);
+                        return false;
+                    }
+                    return nodeNamesInCopy.has(l.source) &amp;&amp; nodeNamesInCopy.has(l.target);
                 })
             ));
+
 
             if (nodesCopy.length === 0 &amp;&amp; linksCopy.length &gt; 0) {
                 console.error(&#34;Sankey Error: Attempting to process links without corresponding nodes.&#34;, &#34;Filtered Nodes:&#34;, nodesCopy, &#34;Filtered Links:&#34;, linksCopy);
@@ -706,25 +714,22 @@ a.sankey-node-wrapper:hover .sankey-node-label {
                 generateDiagramPlaylistBtnApp.disabled = true;
                 return;
             }
-             // If after all filtering, there are no nodes to draw, exit gracefully.
             if (nodesCopy.length === 0) {
-                if (isLayeredSubset) { // Specific message for empty layers
+                if (isLayeredSubset) { 
                      showErrorApp(`Nenhum artista ou conexão para exibir no nível ${visibleLayerDepth}.`);
-                } else { // General message for empty full diagram
+                } else { 
                      showErrorApp(&#34;Nenhum dado para construir o diagrama.&#34;);
                 }
                 generateDiagramPlaylistBtnApp.disabled = true;
                 if(isCurrentlyMobile) updateMobileNavButtonStates();
                 return;
             }
-
-
             graph = sankey({ nodes: nodesCopy, links: linksCopy });
 
         } catch (error) {
             console.error(&#34;Raw error from D3 Sankey:&#34;, error);
             console.error(&#34;Data passed to D3 Sankey function (after filtering and copying):&#34;, { nodes: nodesCopy, links: linksCopy });
-            console.error(&#34;Original data for this view:&#34;, { nodes: sankeyDataToDraw.nodes, links: sankeyDataToDraw.links });
+            console.error(&#34;Original data for this view:&#34;, { nodes: nodesInput, links: linksInput });
             showErrorApp(`Erro no layout do Sankey: ${error.message}. Verifique o console para detalhes.`);
             generateDiagramPlaylistBtnApp.disabled = true; return;
         }
@@ -733,7 +738,6 @@ a.sankey-node-wrapper:hover .sankey-node-label {
             showErrorApp(&#39;Falha ao gerar o gráfico Sankey com os dados processados.&#39;);
             generateDiagramPlaylistBtnApp.disabled = true; return;
         }
-        // Check if sankey calculation itself emptied the nodes/links, which can happen with certain data
         if (graph.nodes.length === 0 &amp;&amp; nodesCopy.length &gt; 0) {
             showErrorApp(&#39;Layout Sankey resultou em nenhum nó processado, verifique os dados.&#39;);
             generateDiagramPlaylistBtnApp.disabled = true; return;
