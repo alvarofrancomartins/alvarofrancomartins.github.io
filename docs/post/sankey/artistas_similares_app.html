@@ -145,7 +145,7 @@ button.artistas-app-playlist-button:disabled {
 
     // Playlist Modal Elements
     const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
-    const playlistModalTitleApp = document = document.getElementById('playlist-modal-title-app');
+    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
     const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
     const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
 
@@ -157,10 +157,11 @@ button.artistas-app-playlist-button:disabled {
     let currentGraphNodesApp = []; // Stores nodes currently displayed in the diagram
     let cachedPlaylistDataApp = null; // Caches generated playlist to avoid re-fetching
     let cachedDiagramSignatureApp = null; // Signature of the current diagram to validate cache
+    let currentSankeyDataApp = null; // Stores the current Sankey data for redraws
 
     // --- D3 Sankey Diagram Configuration ---
-    // MODIFICATION 1: Reduce left and right margins to provide more horizontal space
-    const marginApp = {top: 40, right: 100, bottom: 40, left: 100}; // Margins for the SVG
+    // MODIFICATION: Reduced left and right margins to provide more horizontal space
+    const marginApp = {top: 40, right: 20, bottom: 40, left: 20}; // Margins for the SVG
     const nodeWidthApp = 25; // Width of the Sankey nodes
     const nodePaddingVerticalApp = 50; // Vertical padding between nodes in the same column
 
@@ -177,6 +178,14 @@ button.artistas-app-playlist-button:disabled {
         playlistModalOverlayApp.addEventListener('click', (event) => {
             if (event.target === playlistModalOverlayApp) playlistModalOverlayApp.classList.remove('active');
         });
+
+        // MODIFICATION: Add responsive redraw on window resize
+        window.addEventListener('resize', () => {
+            if (currentSankeyDataApp) {
+                drawSankeyD3App(currentSankeyDataApp);
+            }
+        });
+
         handleSearchApp(); // Perform an initial search (e.g., for "Radiohead" if pre-filled)
     }
 
@@ -428,6 +437,7 @@ button.artistas-app-playlist-button:disabled {
         searchFeedbackMessageApp.textContent = ''; // Clear any previous messages
         const { nodes, links, initialArtistName } = sankeyData;
         currentGraphNodesApp = []; // Reset current graph nodes
+        currentSankeyDataApp = sankeyData; // Store the data for responsive redraws
 
         // Handle cases with no data or only a single node
         if (!nodes || nodes.length === 0) {
@@ -468,7 +478,7 @@ button.artistas-app-playlist-button:disabled {
 
         // --- Sankey Diagram Setup ---
         // MODIFICATION: Removed Math.max(900, ...) to allow full horizontal utilization
-        const containerWidth = sankeyChartDivApp.clientWidth; 
+        const containerWidth = sankeyChartDivApp.clientWidth;
         // Dynamic height based on number of nodes and links to prevent squashing
         const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20);
         const width = containerWidth - marginApp.left - marginApp.right;
@@ -481,8 +491,7 @@ button.artistas-app-playlist-button:disabled {
           .append("g")
             .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
 
-        // MODIFICATION: Change nodeAlign to a custom function to prevent nodes with no outgoing links
-        // from being pushed to the last column. This aligns nodes based purely on their explicitDepth.
+        // MODIFICATION: Reverted nodeAlign to use explicitDepth as per the original fix
         const sankey = d3.sankey()
             .nodeId(d => d.name) // Accessor for node ID (artist name)
             .nodeAlign(function(node) {
