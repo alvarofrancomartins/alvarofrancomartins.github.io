@@ -1406,10 +1406,21 @@ button.artistas-app-playlist-button:disabled {
             return simpleColors[depth % simpleColors.length];
         };
 
-        // Create gradients for visible links
+        // Create simplified links for mobile view
         const defs = svg.append("defs");
         if (visibleLinks.length > 0) {
-            visibleLinks.forEach((link, i) => {
+            // Filter links to prioritize current level connections
+            const prioritizedLinks = visibleLinks.filter(link => {
+                const sourceNode = nodes.find(n => n.name === link.source.name);
+                const targetNode = nodes.find(n => n.name === link.target.name);
+                return sourceNode && targetNode && 
+                       (sourceNode.explicitDepth === targetLevel || targetNode.explicitDepth === targetLevel);
+            });
+
+            // Use prioritized links or fall back to all visible links
+            const linksToShow = prioritizedLinks.length > 0 ? prioritizedLinks : visibleLinks.slice(0, 6);
+
+            linksToShow.forEach((link, i) => {
                 const gradientID = `linkGradient-mobile-${targetLevel}-${i}`;
                 const gradient = defs.append("linearGradient")
                     .attr("id", gradientID)
@@ -1423,28 +1434,46 @@ button.artistas-app-playlist-button:disabled {
                 gradient.append("stop").attr("offset", "100%").attr("stop-color", targetColor);
             });
 
-            // Draw visible links
+            // Draw simplified links with better mobile rendering
             const linkGroups = svg.append("g")
                 .attr("fill", "none")
               .selectAll("g.sankey-link-group")
-              .data(visibleLinks)
+              .data(linksToShow)
               .join("g")
                 .attr("class", "sankey-link-group");
 
             linkGroups.append("path")
                 .attr("class", "sankey-link")
-                .attr("d", d3.sankeyLinkHorizontal())
+                .attr("d", link => {
+                    // Create simplified horizontal connections for mobile
+                    const sourceX = link.source.x1 || 0;
+                    const sourceY = ((link.source.y0 || 0) + (link.source.y1 || 0)) / 2;
+                    const targetX = link.target.x0 || 0;
+                    const targetY = ((link.target.y0 || 0) + (link.target.y1 || 0)) / 2;
+                    
+                    // Calculate control points for smooth curve
+                    const controlPointOffset = Math.abs(targetX - sourceX) * 0.4;
+                    const controlPoint1X = sourceX + controlPointOffset;
+                    const controlPoint2X = targetX - controlPointOffset;
+                    
+                    return `M${sourceX},${sourceY} C${controlPoint1X},${sourceY} ${controlPoint2X},${targetY} ${targetX},${targetY}`;
+                })
                 .attr("stroke", (d, i) => `url(#linkGradient-mobile-${targetLevel}-${i})`)
-                .attr("stroke-width", d => Math.max(1, d.width || 2))
+                .attr("stroke-width", d => {
+                    const sourceNode = nodes.find(n => n.name === d.source.name);
+                    const targetNode = nodes.find(n => n.name === d.target.name);
+                    const isCurrentLevel = sourceNode && targetNode && 
+                                         (sourceNode.explicitDepth === targetLevel || targetNode.explicitDepth === targetLevel);
+                    return isCurrentLevel ? Math.max(2, Math.min(8, d.width || 4)) : Math.max(1, Math.min(4, d.width || 2));
+                })
                 .attr("stroke-opacity", d => {
                     const sourceNode = nodes.find(n => n.name === d.source.name);
                     const targetNode = nodes.find(n => n.name === d.target.name);
-                    if (sourceNode && targetNode) {
-                        const isCurrentLevel = sourceNode.explicitDepth === targetLevel || targetNode.explicitDepth === targetLevel;
-                        return isCurrentLevel ? 0.8 : 0.4;
-                    }
-                    return 0.6;
-                });
+                    const isCurrentLevel = sourceNode && targetNode && 
+                                         (sourceNode.explicitDepth === targetLevel || targetNode.explicitDepth === targetLevel);
+                    return isCurrentLevel ? 0.85 : 0.35;
+                })
+                .style("stroke-linecap", "round");
         }
 
         // Draw visible nodes
