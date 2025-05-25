@@ -1318,15 +1318,10 @@ button.artistas-app-playlist-button:disabled {
           .append("g")
             .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
 
-        // MODIFICATION: Reverted nodeAlign to use explicitDepth as per the original fix
+        // MODIFICATION: Changed nodeAlign to d3.sankeyJustify as requested
         const sankey = d3.sankey()
             .nodeId(d => d.name) // Accessor for node ID (artist name)
-            .nodeAlign(function(node) {
-                // Use the 'explicitDepth' property assigned during graph generation
-                // to align nodes to columns. This ensures nodes stay in their
-                // natural depth position, even if they have no outgoing links.
-                return node.explicitDepth;
-            })
+            .nodeAlign(d3.sankeyJustify) // Optimized node alignment for full spread
             .nodeWidth(nodeWidthApp)
             .nodePadding(nodePaddingVerticalApp)
             .extent([[0, 5], [width, height - 5]]) // Diagram bounds [[x0, y0], [x1, y1]]
