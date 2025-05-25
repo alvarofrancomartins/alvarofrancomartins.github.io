@@ -75,6 +75,10 @@
 .artistas-app-search-container button#search-button-app:hover {
     background-color: #a02828;
 }
+.sankey-chart-app {
+    width: 100%;
+    overflow: visible; /* Prevents unintended cropping */
+}
 
 button.artistas-app-playlist-button { /* Estilo para o botão de playlist, agora no mesmo container */
     background-color: #2563eb;
@@ -100,7 +104,7 @@ button.artistas-app-playlist-button:disabled {
 
 .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 0.9rem; color: #4b5563; }
 .artistas-app-feedback.error { color: #c53030; font-weight: 500; }
-.artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; overflow-x: auto; }
+.artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 10px; box-sizing: border-box; overflow-x: auto; }
 .artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; /* Aumentada altura mínima para profundidade 4 */ }
 .sankey-node-group { cursor: pointer; }
 .sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
@@ -126,6 +130,8 @@ button.artistas-app-playlist-button:disabled {
 .artistas-app-footer { text-align: center; padding: 10px 0; font-size: 0.8rem; color: #6b7280; margin-top: 15px; }
 .artistas-app-footer a { color: #c53030; text-decoration: none; }
 .artistas-app-footer a:hover { text-decoration: underline; }
+/* Add this to the existing styles */
+
 </style>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -160,7 +166,7 @@ button.artistas-app-playlist-button:disabled {
 
     // --- D3 Sankey Diagram Configuration ---
     // MODIFICATION 1: Reduce left and right margins to provide more horizontal space
-    const marginApp = {top: 40, right: 100, bottom: 40, left: 100}; // Margins for the SVG
+    const marginApp = {top: 20, right: 20, bottom: 20, left: 20};
     const nodeWidthApp = 25; // Width of the Sankey nodes
     const nodePaddingVerticalApp = 50; // Vertical padding between nodes in the same column
 
@@ -467,7 +473,7 @@ button.artistas-app-playlist-button:disabled {
         }
 
         // --- Sankey Diagram Setup ---
-        const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); // Ensure minimum width or use container width
+        const containerWidth = sankeyChartDivApp.clientWidth;
         // Dynamic height based on number of nodes and links to prevent squashing
         const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20);
         const width = containerWidth - marginApp.left - marginApp.right;
