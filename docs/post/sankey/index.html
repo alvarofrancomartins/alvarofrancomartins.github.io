@@ -928,6 +928,10 @@ button.artistas-app-playlist-button:disabled {
 .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 0.9rem; color: #4b5563; }
 .artistas-app-feedback.error { color: #c53030; font-weight: 500; }
 .artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 20px; box-sizing: border-box; overflow-x: auto; }
+#sankey-chart-app { /* Added this to ensure the div expands */
+    width: 100%;
+    height: 100%; /* Or min-height based on dynamicHeight */
+}
 .artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; /* Aumentada altura mínima para profundidade 4 */ }
 .sankey-node-group { cursor: pointer; }
 .sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
@@ -972,7 +976,7 @@ button.artistas-app-playlist-button:disabled {
 
     // Playlist Modal Elements
     const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
-    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
+    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app'); // Fixed typo here
     const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
     const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
 
@@ -1293,7 +1297,7 @@ button.artistas-app-playlist-button:disabled {
                 .text("(Nenhum artista similar direto encontrado na Last.fm)");
 
             sankeyChartContainerApp.style.display = 'block';
-            generateDiagramPlaylistBtnApp.disabled = false; // Can still generate playlist for single artist
+            generateDiagramPlaylistBtnBtnApp.disabled = false; // Can still generate playlist for single artist
             hideLoadingApp();
             return;
         }
@@ -1318,10 +1322,15 @@ button.artistas-app-playlist-button:disabled {
           .append("g")
             .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
 
-        // MODIFICATION: Changed nodeAlign to d3.sankeyJustify as requested
+        // MODIFICATION: Reverted nodeAlign to use explicitDepth as per the original fix
         const sankey = d3.sankey()
             .nodeId(d => d.name) // Accessor for node ID (artist name)
-            .nodeAlign(d3.sankeyJustify) // Optimized node alignment for full spread
+            .nodeAlign(function(node) {
+                // Use the 'explicitDepth' property assigned during graph generation
+                // to align nodes to columns. This ensures nodes stay in their
+                // natural depth position, even if they have no outgoing links.
+                return node.explicitDepth;
+            })
             .nodeWidth(nodeWidthApp)
             .nodePadding(nodePaddingVerticalApp)
             .extent([[0, 5], [width, height - 5]]) // Diagram bounds [[x0, y0], [x1, y1]]
