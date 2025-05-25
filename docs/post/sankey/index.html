@@ -972,7 +972,7 @@ button.artistas-app-playlist-button:disabled {
 
     // Playlist Modal Elements
     const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
-    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
+    const playlistModalTitleApp = document = document.getElementById('playlist-modal-title-app');
     const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
     const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
 
@@ -1294,7 +1294,8 @@ button.artistas-app-playlist-button:disabled {
         }
 
         // --- Sankey Diagram Setup ---
-        const containerWidth = Math.max(900, sankeyChartDivApp.clientWidth); // Ensure minimum width or use container width
+        // MODIFICATION: Removed Math.max(900, ...) to allow full horizontal utilization
+        const containerWidth = sankeyChartDivApp.clientWidth; 
         // Dynamic height based on number of nodes and links to prevent squashing
         const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20);
         const width = containerWidth - marginApp.left - marginApp.right;
