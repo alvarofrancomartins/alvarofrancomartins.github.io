@@ -1303,126 +1303,217 @@ button.artistas-app-playlist-button:disabled {
         
         const { nodes, links, initialArtistName } = sankeyData;
         
-        // Validate input data
-        if (!nodes || !Array.isArray(nodes) || !links || !Array.isArray(links)) {
-            showErrorApp('Dados inválidos para visualização mobile.');
+        // Validate basic data structure
+        if (!nodes || !Array.isArray(nodes) || nodes.length === 0) {
+            showErrorApp(`Nenhum dado encontrado para o nível ${targetLevel}.`);
             return;
         }
         
-        // Filter nodes for current level and adjacent levels with safe array operations
-        const currentLevelNodes = nodes.filter(node => node && node.explicitDepth === targetLevel) || [];
-        
-        // Safely get adjacent level samples with null checks
-        const prevLevelNodes = nodes.filter(n => n && n.explicitDepth === targetLevel - 1) || [];
-        const nextLevelNodes = nodes.filter(n => n && n.explicitDepth === targetLevel + 1) || [];
-        
-        const prevLevelSample = prevLevelNodes.length > 0 ? prevLevelNodes.slice(0, 2) : [];
-        const nextLevelSample = nextLevelNodes.length > 0 ? nextLevelNodes.slice(0, 3) : [];
-        
-        // Handle case where current level has no nodes
-        if (currentLevelNodes.length === 0) {
-            showErrorApp(`Nenhum artista encontrado no nível ${targetLevel}.`);
+        if (!links || !Array.isArray(links)) {
+            showErrorApp(`Dados de links inválidos para o nível ${targetLevel}.`);
             return;
         }
+
+        // Use the complete dataset for D3 Sankey layout calculation
+        // This ensures D3 has all the data it needs for proper layout computation
+        searchFeedbackMessageApp.textContent = '';
+        currentGraphNodesApp = nodes; // Store all nodes for playlist
+
+        // Mobile-optimized dimensions
+        const containerWidth = Math.min(800, sankeyChartDivApp.clientWidth || 400);
+        const dynamicHeight = Math.max(500, nodes.length * 40 + links.length * 10);
+        const width = containerWidth - marginApp.left - marginApp.right;
+        const height = dynamicHeight - marginApp.top - marginApp.bottom;
+
+        sankeyChartDivApp.innerHTML = '';
+        const svg = d3.select(sankeyChartDivApp).append("svg")
+            .attr("width", containerWidth)
+            .attr("height", dynamicHeight)
+          .append("g")
+            .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
+
+        // Create Sankey layout with complete data
+        const sankey = d3.sankey()
+            .nodeId(d => d.name)
+            .nodeAlign(function(node) {
+                return node.explicitDepth !== undefined ? node.explicitDepth : 0;
+            })
+            .nodeWidth(nodeWidthApp)
+            .nodePadding(25) // Tighter for mobile
+            .extent([[0, 5], [width, height - 5]])
+            .iterations(32);
+
+        let graph;
+        try {
+            // Create clean data copies without JSON operations that might cause issues
+            const cleanNodes = nodes.map(node => ({
+                name: String(node.name || ''),
+                url: String(node.url || ''),
+                explicitDepth: Number(node.explicitDepth) || 0
+            })).filter(node => node.name.length > 0);
+            
+            const cleanLinks = links.map(link => ({
+                source: String(link.source || ''),
+                target: String(link.target || ''),
+                value: Number(link.value) || 0.01
+            })).filter(link => link.source.length > 0 && link.target.length > 0 && link.value > 0);
+            
+            // Apply Sankey layout to complete, clean data
+            graph = sankey({
+                nodes: cleanNodes,
+                links: cleanLinks
+            });
+            
+        } catch (error) {
+            console.error('Erro no layout do Sankey:', error);
+            showErrorApp(`Falha no cálculo do layout (Nível ${targetLevel}): ${error.message}`);
+            return;
+        }
+
+        // Validate the computed graph
+        if (!graph || !graph.nodes || !Array.isArray(graph.nodes) || graph.nodes.length === 0) {
+            showErrorApp('Layout do Sankey não gerou nós válidos.');
+            return;
+        }
+
+        // Now filter for mobile display AFTER layout computation
+        const currentLevelNodes = graph.nodes.filter(node => {
+            const originalNode = nodes.find(n => n.name === node.name);
+            return originalNode && originalNode.explicitDepth === targetLevel;
+        });
         
-        // Combine all visible nodes
-        const visibleNodes = [...currentLevelNodes, ...prevLevelSample, ...nextLevelSample];
+        const adjacentNodes = graph.nodes.filter(node => {
+            const originalNode = nodes.find(n => n.name === node.name);
+            return originalNode && (
+                originalNode.explicitDepth === targetLevel - 1 || 
+                originalNode.explicitDepth === targetLevel + 1
+            );
+        }).slice(0, 4); // Limit adjacent nodes for clarity
+        
+        const visibleNodes = [...currentLevelNodes, ...adjacentNodes];
         const visibleNodeNames = new Set(visibleNodes.map(n => n.name));
         
-        // Filter links to only include those between visible nodes
-        const validLinks = links.filter(link => {
-            if (!link || !link.source || !link.target) return false;
-            
-            const sourceNode = nodes.find(n => n && n.name === link.source);
-            const targetNode = nodes.find(n => n && n.name === link.target);
-            
-            if (!sourceNode || !targetNode) return false;
-            
-            // Include links where both source and target are visible
-            if (visibleNodeNames.has(link.source) && visibleNodeNames.has(link.target)) {
-                // Prioritize links involving current level
-                const sourceInCurrentLevel = sourceNode.explicitDepth === targetLevel;
-                const targetInCurrentLevel = targetNode.explicitDepth === targetLevel;
-                return sourceInCurrentLevel || targetInCurrentLevel;
-            }
-            
-            return false;
-        }) || [];
+        // Filter links to connect visible nodes
+        const visibleLinks = (graph.links || []).filter(link => {
+            return visibleNodeNames.has(link.source.name) && visibleNodeNames.has(link.target.name);
+        });
 
-        // Add placeholder nodes for partial connections (to indicate continuity)
-        const additionalNodes = [];
-        const additionalLinks = [];
-        
-        // Only add continuity connections if not at the boundary levels
-        if (targetLevel > 0 || targetLevel < maxAvailableLevelApp) {
-            // Find connections that go beyond visible nodes for continuity indication
-            const continuityConnections = links.filter(link => {
-                if (!link || !link.source || !link.target) return false;
-                
-                const sourceNode = nodes.find(n => n && n.name === link.source);
-                const targetNode = nodes.find(n => n && n.name === link.target);
-                
-                if (!sourceNode || !targetNode) return false;
-                
-                // Show connections from current level to hidden next level
-                if (sourceNode.explicitDepth === targetLevel && 
-                    targetNode.explicitDepth === targetLevel + 1 && 
-                    visibleNodeNames.has(link.source) && 
-                    !visibleNodeNames.has(link.target)) {
-                    return true;
-                }
-                
-                // Show connections from hidden previous level to current level
-                if (sourceNode.explicitDepth === targetLevel - 1 && 
-                    targetNode.explicitDepth === targetLevel && 
-                    !visibleNodeNames.has(link.source) && 
-                    visibleNodeNames.has(link.target)) {
-                    return true;
-                }
-                
-                return false;
-            }).slice(0, 3) || []; // Limit continuity connections and handle undefined
-            
-            // Add nodes for continuity connections
-            continuityConnections.forEach(link => {
-                if (!link) return;
-                
-                const sourceNode = nodes.find(n => n && n.name === link.source);
-                const targetNode = nodes.find(n => n && n.name === link.target);
-                
-                if (sourceNode && !visibleNodeNames.has(sourceNode.name)) {
-                    additionalNodes.push(sourceNode);
-                    visibleNodeNames.add(sourceNode.name);
-                }
-                
-                if (targetNode && !visibleNodeNames.has(targetNode.name)) {
-                    additionalNodes.push(targetNode);
-                    visibleNodeNames.add(targetNode.name);
-                }
-                
-                additionalLinks.push(link);
-            });
-        }
-
-        // Ensure all nodes referenced in links exist in the final nodes array
-        const finalNodes = [...visibleNodes, ...additionalNodes];
-        const finalLinks = [...validLinks, ...additionalLinks];
-        
-        // Final validation: remove any links that reference non-existent nodes
-        const finalNodeNames = new Set(finalNodes.map(n => n && n.name).filter(Boolean));
-        const validatedLinks = finalLinks.filter(link => 
-            link && link.source && link.target &&
-            finalNodeNames.has(link.source) && finalNodeNames.has(link.target)
-        );
-
-        // Create mobile-optimized layout data
-        const mobileData = {
-            nodes: finalNodes,
-            links: validatedLinks,
-            initialArtistName
+        // Color scheme
+        const simpleColors = ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f", "#e5c494", "#b3b3b3"];
+        const nodeColorFunc = (node) => {
+            const originalNode = nodes.find(n => n.name === node.name);
+            const depth = originalNode ? originalNode.explicitDepth : 0;
+            return simpleColors[depth % simpleColors.length];
         };
 
-        drawMobileSankeyApp(mobileData, targetLevel);
+        // Create gradients for visible links
+        const defs = svg.append("defs");
+        if (visibleLinks.length > 0) {
+            visibleLinks.forEach((link, i) => {
+                const gradientID = `linkGradient-mobile-${targetLevel}-${i}`;
+                const gradient = defs.append("linearGradient")
+                    .attr("id", gradientID)
+                    .attr("gradientUnits", "userSpaceOnUse")
+                    .attr("x1", link.source.x1 || 0)
+                    .attr("x2", link.target.x0 || 0);
+
+                const sourceColor = nodeColorFunc(link.source);
+                const targetColor = nodeColorFunc(link.target);
+                gradient.append("stop").attr("offset", "0%").attr("stop-color", sourceColor);
+                gradient.append("stop").attr("offset", "100%").attr("stop-color", targetColor);
+            });
+
+            // Draw visible links
+            const linkGroups = svg.append("g")
+                .attr("fill", "none")
+              .selectAll("g.sankey-link-group")
+              .data(visibleLinks)
+              .join("g")
+                .attr("class", "sankey-link-group");
+
+            linkGroups.append("path")
+                .attr("class", "sankey-link")
+                .attr("d", d3.sankeyLinkHorizontal())
+                .attr("stroke", (d, i) => `url(#linkGradient-mobile-${targetLevel}-${i})`)
+                .attr("stroke-width", d => Math.max(1, d.width || 2))
+                .attr("stroke-opacity", d => {
+                    const sourceNode = nodes.find(n => n.name === d.source.name);
+                    const targetNode = nodes.find(n => n.name === d.target.name);
+                    if (sourceNode && targetNode) {
+                        const isCurrentLevel = sourceNode.explicitDepth === targetLevel || targetNode.explicitDepth === targetLevel;
+                        return isCurrentLevel ? 0.8 : 0.4;
+                    }
+                    return 0.6;
+                });
+        }
+
+        // Draw visible nodes
+        const nodeLinkGroups = svg.append("g")
+          .selectAll("a.sankey-node-link")
+          .data(visibleNodes)
+          .join("a")
+            .attr("class", "sankey-node-link")
+            .attr("xlink:href", d => d.url || '#')
+            .attr("target", "_blank")
+          .append("g")
+            .attr("class", "sankey-node-group")
+            .attr("transform", d => `translate(${d.x0 || 0},${d.y0 || 0})`);
+
+        nodeLinkGroups.append("rect")
+            .attr("class", "sankey-node")
+            .attr("height", d => Math.max(4, (d.y1 || 0) - (d.y0 || 0)))
+            .attr("width", d => Math.max(nodeWidthApp, (d.x1 || 0) - (d.x0 || 0)))
+            .attr("fill", d => nodeColorFunc(d))
+            .attr("fill-opacity", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? 1 : 0.7;
+            })
+            .attr("stroke", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? "#333" : "#999";
+            })
+            .attr("stroke-width", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? 2 : 1;
+            });
+
+        // Add node labels
+        nodeLinkGroups.append("text")
+            .attr("class", "sankey-node-label")
+            .attr("x", d => Math.max(nodeWidthApp, (d.x1 || 0) - (d.x0 || 0)) / 2)
+            .attr("y", d => {
+                const nodeHeight = Math.max(4, (d.y1 || 0) - (d.y0 || 0));
+                return nodeHeight > 15 ? nodeHeight / 2 : -10;
+            })
+            .attr("text-anchor", "middle")
+            .attr("dy", "0.35em")
+            .text(d => d.name || '')
+            .style("font-size", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? "14px" : "12px";
+            })
+            .style("font-weight", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? "700" : "500";
+            })
+            .style("fill", d => {
+                const originalNode = nodes.find(n => n.name === d.name);
+                return originalNode && originalNode.explicitDepth === targetLevel ? "#1f2937" : "#6b7280";
+            });
+
+        // Add level indicator
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", -15)
+            .attr("text-anchor", "middle")
+            .style("font-size", "14px")
+            .style("font-weight", "600")
+            .style("fill", "#c53030")
+            .text(`Nível ${targetLevel} - ${currentLevelNodes.length} artista${currentLevelNodes.length !== 1 ? 's' : ''}`);
+
+        sankeyChartContainerApp.style.display = 'block';
+        generateDiagramPlaylistBtnApp.disabled = false;
+        hideLoadingApp();
     }
 
     function drawMobileSankeyApp(sankeyData, currentLevel) {
