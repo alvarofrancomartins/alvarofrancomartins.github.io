@@ -440,9 +440,35 @@ button.artistas-app-playlist-button:disabled {
     function showAllLevelsApp() {
         if (!fullSankeyDataApp || !isMobileViewApp) return;
         
-        drawSankeyD3App(fullSankeyDataApp);
-        currentMobileLevelApp = 0;
-        updateMobileNavigationStateApp();
+        // Temporarily disable mobile view to render full diagram
+        const originalMobileView = isMobileViewApp;
+        isMobileViewApp = false;
+        
+        try {
+            // Draw the complete diagram using desktop rendering
+            drawSankeyD3App(fullSankeyDataApp);
+            
+            // Reset mobile navigation state
+            currentMobileLevelApp = 0;
+            updateMobileNavigationStateApp();
+            
+            // Hide mobile navigation temporarily to show full diagram
+            mobileNavigationApp.style.display = 'none';
+            
+            // Add a temporary message indicating full view
+            searchFeedbackMessageApp.textContent = 'Visualização completa - use os controles mobile para navegar por níveis';
+            searchFeedbackMessageApp.className = 'artistas-app-feedback';
+            
+        } catch (error) {
+            console.error('Erro ao mostrar diagrama completo:', error);
+            showErrorApp('Erro ao exibir o diagrama completo.');
+        } finally {
+            // Restore mobile view state
+            isMobileViewApp = originalMobileView;
+            if (isMobileViewApp) {
+                mobileNavigationApp.style.display = 'block';
+            }
+        }
     }
 
     function drawMobileLevelViewApp(sankeyData, targetLevel) {
@@ -450,12 +476,27 @@ button.artistas-app-playlist-button:disabled {
         
         const { nodes, links, initialArtistName } = sankeyData;
         
-        // Filter nodes for current level and adjacent levels
-        const currentLevelNodes = nodes.filter(node => node.explicitDepth === targetLevel);
+        // Validate input data
+        if (!nodes || !Array.isArray(nodes) || !links || !Array.isArray(links)) {
+            showErrorApp('Dados inválidos para visualização mobile.');
+            return;
+        }
         
-        // Add representative adjacent nodes for context
-        const prevLevelSample = nodes.filter(n => n.explicitDepth === targetLevel - 1).slice(0, 2);
-        const nextLevelSample = nodes.filter(n => n.explicitDepth === targetLevel + 1).slice(0, 3);
+        // Filter nodes for current level and adjacent levels with safe array operations
+        const currentLevelNodes = nodes.filter(node => node && node.explicitDepth === targetLevel) || [];
+        
+        // Safely get adjacent level samples with null checks
+        const prevLevelNodes = nodes.filter(n => n && n.explicitDepth === targetLevel - 1) || [];
+        const nextLevelNodes = nodes.filter(n => n && n.explicitDepth === targetLevel + 1) || [];
+        
+        const prevLevelSample = prevLevelNodes.length > 0 ? prevLevelNodes.slice(0, 2) : [];
+        const nextLevelSample = nextLevelNodes.length > 0 ? nextLevelNodes.slice(0, 3) : [];
+        
+        // Handle case where current level has no nodes
+        if (currentLevelNodes.length === 0) {
+            showErrorApp(`Nenhum artista encontrado no nível ${targetLevel}.`);
+            return;
+        }
         
         // Combine all visible nodes
         const visibleNodes = [...currentLevelNodes, ...prevLevelSample, ...nextLevelSample];
@@ -463,8 +504,10 @@ button.artistas-app-playlist-button:disabled {
         
         // Filter links to only include those between visible nodes
         const validLinks = links.filter(link => {
-            const sourceNode = nodes.find(n => n.name === link.source);
-            const targetNode = nodes.find(n => n.name === link.target);
+            if (!link || !link.source || !link.target) return false;
+            
+            const sourceNode = nodes.find(n => n && n.name === link.source);
+            const targetNode = nodes.find(n => n && n.name === link.target);
             
             if (!sourceNode || !targetNode) return false;
             
@@ -477,63 +520,71 @@ button.artistas-app-playlist-button:disabled {
             }
             
             return false;
-        });
+        }) || [];
 
         // Add placeholder nodes for partial connections (to indicate continuity)
         const additionalNodes = [];
         const additionalLinks = [];
         
-        // Find connections that go beyond visible nodes for continuity indication
-        const continuityConnections = links.filter(link => {
-            const sourceNode = nodes.find(n => n.name === link.source);
-            const targetNode = nodes.find(n => n.name === link.target);
+        // Only add continuity connections if not at the boundary levels
+        if (targetLevel > 0 || targetLevel < maxAvailableLevelApp) {
+            // Find connections that go beyond visible nodes for continuity indication
+            const continuityConnections = links.filter(link => {
+                if (!link || !link.source || !link.target) return false;
+                
+                const sourceNode = nodes.find(n => n && n.name === link.source);
+                const targetNode = nodes.find(n => n && n.name === link.target);
+                
+                if (!sourceNode || !targetNode) return false;
+                
+                // Show connections from current level to hidden next level
+                if (sourceNode.explicitDepth === targetLevel && 
+                    targetNode.explicitDepth === targetLevel + 1 && 
+                    visibleNodeNames.has(link.source) && 
+                    !visibleNodeNames.has(link.target)) {
+                    return true;
+                }
+                
+                // Show connections from hidden previous level to current level
+                if (sourceNode.explicitDepth === targetLevel - 1 && 
+                    targetNode.explicitDepth === targetLevel && 
+                    !visibleNodeNames.has(link.source) && 
+                    visibleNodeNames.has(link.target)) {
+                    return true;
+                }
+                
+                return false;
+            }).slice(0, 3) || []; // Limit continuity connections and handle undefined
             
-            if (!sourceNode || !targetNode) return false;
-            
-            // Show connections from current level to hidden next level
-            if (sourceNode.explicitDepth === targetLevel && 
-                targetNode.explicitDepth === targetLevel + 1 && 
-                visibleNodeNames.has(link.source) && 
-                !visibleNodeNames.has(link.target)) {
-                return true;
-            }
-            
-            // Show connections from hidden previous level to current level
-            if (sourceNode.explicitDepth === targetLevel - 1 && 
-                targetNode.explicitDepth === targetLevel && 
-                !visibleNodeNames.has(link.source) && 
-                visibleNodeNames.has(link.target)) {
-                return true;
-            }
-            
-            return false;
-        }).slice(0, 3); // Limit continuity connections
-        
-        // Add nodes for continuity connections
-        continuityConnections.forEach(link => {
-            const sourceNode = nodes.find(n => n.name === link.source);
-            const targetNode = nodes.find(n => n.name === link.target);
-            
-            if (sourceNode && !visibleNodeNames.has(sourceNode.name)) {
-                additionalNodes.push(sourceNode);
-                visibleNodeNames.add(sourceNode.name);
-            }
-            
-            if (targetNode && !visibleNodeNames.has(targetNode.name)) {
-                additionalNodes.push(targetNode);
-                visibleNodeNames.add(targetNode.name);
-            }
-            
-            additionalLinks.push(link);
-        });
+            // Add nodes for continuity connections
+            continuityConnections.forEach(link => {
+                if (!link) return;
+                
+                const sourceNode = nodes.find(n => n && n.name === link.source);
+                const targetNode = nodes.find(n => n && n.name === link.target);
+                
+                if (sourceNode && !visibleNodeNames.has(sourceNode.name)) {
+                    additionalNodes.push(sourceNode);
+                    visibleNodeNames.add(sourceNode.name);
+                }
+                
+                if (targetNode && !visibleNodeNames.has(targetNode.name)) {
+                    additionalNodes.push(targetNode);
+                    visibleNodeNames.add(targetNode.name);
+                }
+                
+                additionalLinks.push(link);
+            });
+        }
 
         // Ensure all nodes referenced in links exist in the final nodes array
         const finalNodes = [...visibleNodes, ...additionalNodes];
         const finalLinks = [...validLinks, ...additionalLinks];
         
         // Final validation: remove any links that reference non-existent nodes
-        const finalNodeNames = new Set(finalNodes.map(n => n.name));
+        const finalNodeNames = new Set(finalNodes.map(n => n && n.name).filter(Boolean));
         const validatedLinks = finalLinks.filter(link => 
+            link && link.source && link.target &&
             finalNodeNames.has(link.source) && finalNodeNames.has(link.target)
         );
 
