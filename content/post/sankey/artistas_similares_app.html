@@ -452,55 +452,95 @@ button.artistas-app-playlist-button:disabled {
         
         // Filter nodes for current level and adjacent levels
         const currentLevelNodes = nodes.filter(node => node.explicitDepth === targetLevel);
-        const adjacentNodes = nodes.filter(node => 
-            node.explicitDepth === targetLevel - 1 || 
-            node.explicitDepth === targetLevel + 1
-        );
         
-        // Combine current level with some adjacent nodes for context
-        const visibleNodes = [...currentLevelNodes];
-        
-        // Add a few representative adjacent nodes for context
+        // Add representative adjacent nodes for context
         const prevLevelSample = nodes.filter(n => n.explicitDepth === targetLevel - 1).slice(0, 2);
         const nextLevelSample = nodes.filter(n => n.explicitDepth === targetLevel + 1).slice(0, 3);
-        visibleNodes.push(...prevLevelSample, ...nextLevelSample);
         
-        // Filter links to show connections to/from current level
+        // Combine all visible nodes
+        const visibleNodes = [...currentLevelNodes, ...prevLevelSample, ...nextLevelSample];
         const visibleNodeNames = new Set(visibleNodes.map(n => n.name));
-        const visibleLinks = links.filter(link => {
-            const sourceInLevel = nodes.find(n => n.name === link.source && n.explicitDepth === targetLevel);
-            const targetInLevel = nodes.find(n => n.name === link.target && n.explicitDepth === targetLevel);
-            const sourceVisible = visibleNodeNames.has(link.source);
-            const targetVisible = visibleNodeNames.has(link.target);
-            
-            // Show links that connect to or from current level
-            return (sourceInLevel || targetInLevel) && sourceVisible && targetVisible;
-        });
-
-        // Show partial links for continuity indication
-        const partialLinks = links.filter(link => {
+        
+        // Filter links to only include those between visible nodes
+        const validLinks = links.filter(link => {
             const sourceNode = nodes.find(n => n.name === link.source);
             const targetNode = nodes.find(n => n.name === link.target);
             
             if (!sourceNode || !targetNode) return false;
             
-            // Show partial links from current level to hidden next level
-            if (sourceNode.explicitDepth === targetLevel && targetNode.explicitDepth === targetLevel + 1) {
-                return !visibleNodeNames.has(link.target);
-            }
-            
-            // Show partial links from hidden previous level to current level
-            if (sourceNode.explicitDepth === targetLevel - 1 && targetNode.explicitDepth === targetLevel) {
-                return !visibleNodeNames.has(link.source);
+            // Include links where both source and target are visible
+            if (visibleNodeNames.has(link.source) && visibleNodeNames.has(link.target)) {
+                // Prioritize links involving current level
+                const sourceInCurrentLevel = sourceNode.explicitDepth === targetLevel;
+                const targetInCurrentLevel = targetNode.explicitDepth === targetLevel;
+                return sourceInCurrentLevel || targetInCurrentLevel;
             }
             
             return false;
         });
 
+        // Add placeholder nodes for partial connections (to indicate continuity)
+        const additionalNodes = [];
+        const additionalLinks = [];
+        
+        // Find connections that go beyond visible nodes for continuity indication
+        const continuityConnections = links.filter(link => {
+            const sourceNode = nodes.find(n => n.name === link.source);
+            const targetNode = nodes.find(n => n.name === link.target);
+            
+            if (!sourceNode || !targetNode) return false;
+            
+            // Show connections from current level to hidden next level
+            if (sourceNode.explicitDepth === targetLevel && 
+                targetNode.explicitDepth === targetLevel + 1 && 
+                visibleNodeNames.has(link.source) && 
+                !visibleNodeNames.has(link.target)) {
+                return true;
+            }
+            
+            // Show connections from hidden previous level to current level
+            if (sourceNode.explicitDepth === targetLevel - 1 && 
+                targetNode.explicitDepth === targetLevel && 
+                !visibleNodeNames.has(link.source) && 
+                visibleNodeNames.has(link.target)) {
+                return true;
+            }
+            
+            return false;
+        }).slice(0, 3); // Limit continuity connections
+        
+        // Add nodes for continuity connections
+        continuityConnections.forEach(link => {
+            const sourceNode = nodes.find(n => n.name === link.source);
+            const targetNode = nodes.find(n => n.name === link.target);
+            
+            if (sourceNode && !visibleNodeNames.has(sourceNode.name)) {
+                additionalNodes.push(sourceNode);
+                visibleNodeNames.add(sourceNode.name);
+            }
+            
+            if (targetNode && !visibleNodeNames.has(targetNode.name)) {
+                additionalNodes.push(targetNode);
+                visibleNodeNames.add(targetNode.name);
+            }
+            
+            additionalLinks.push(link);
+        });
+
+        // Ensure all nodes referenced in links exist in the final nodes array
+        const finalNodes = [...visibleNodes, ...additionalNodes];
+        const finalLinks = [...validLinks, ...additionalLinks];
+        
+        // Final validation: remove any links that reference non-existent nodes
+        const finalNodeNames = new Set(finalNodes.map(n => n.name));
+        const validatedLinks = finalLinks.filter(link => 
+            finalNodeNames.has(link.source) && finalNodeNames.has(link.target)
+        );
+
         // Create mobile-optimized layout data
         const mobileData = {
-            nodes: visibleNodes,
-            links: [...visibleLinks, ...partialLinks.slice(0, 5)], // Limit partial links
+            nodes: finalNodes,
+            links: validatedLinks,
             initialArtistName
         };
 
