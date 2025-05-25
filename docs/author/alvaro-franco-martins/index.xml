@@ -31,13 +31,6 @@
         &lt;button id=&#34;generate-diagram-playlist-btn-app&#34; class=&#34;artistas-app-playlist-button&#34; disabled&gt;✨ Gerar Playlist&lt;/button&gt;
     &lt;/div&gt;
     &lt;div id=&#34;search-feedback-message-app&#34; class=&#34;artistas-app-feedback&#34;&gt;&lt;/div&gt;
-
-    &lt;div id=&#34;artistas-app-mobile-nav-controls&#34; class=&#34;artistas-app-mobile-nav&#34;&gt;
-        &lt;button id=&#34;mobile-nav-prev-level-btn&#34; class=&#34;artistas-app-nav-button&#34;&gt;Nível Anterior&lt;/button&gt;
-        &lt;button id=&#34;mobile-nav-next-level-btn&#34; class=&#34;artistas-app-nav-button&#34;&gt;Próximo Nível&lt;/button&gt;
-        &lt;button id=&#34;mobile-nav-toggle-view-btn&#34; class=&#34;artistas-app-nav-button&#34;&gt;Mostrar Tudo&lt;/button&gt;
-        &lt;button id=&#34;mobile-nav-reset-view-btn&#34; class=&#34;artistas-app-nav-button&#34;&gt;Resetar Nível&lt;/button&gt;
-    &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;div id=&#34;sankey-chart-container-app&#34; class=&#34;artistas-app-sankey-container&#34; style=&#34;display: none;&#34;&gt;
@@ -59,7 +52,7 @@
 &lt;style&gt;
 /* Para evitar conflitos, todas as classes têm o prefixo &#34;artistas-app-&#34; */
 .artistas-app-wrapper {
-    font-family: &#39;Inter&#39;, sans-serif;
+    font-family: &#39;Inter&#39;, sans-serif; /* Certifique-se que a fonte Inter está carregada na sua página Hugo principal */
     line-height: 1.6;
     color: #374151;
     margin-bottom: 40px;
@@ -71,13 +64,13 @@
 .artistas-app-search-container {
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    align-items: stretch; /* Para alinhar altura dos botões e input */
     margin-bottom: 15px;
-    gap: 8px;
+    gap: 8px; /* Espaço entre os elementos */
 }
 .artistas-app-search-container input[type=&#34;text&#34;] {
     padding: 10px 15px;
-    width: clamp(220px, 50%, 300px);
+    width: clamp(220px, 50%, 300px); /* Ajustada largura do input */
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 1rem;
@@ -104,7 +97,7 @@
     background-color: #a02828;
 }
 
-button.artistas-app-playlist-button {
+button.artistas-app-playlist-button { /* Estilo para o botão de playlist, agora no mesmo container */
     background-color: #2563eb;
     color: white;
     padding: 10px 18px;
@@ -126,85 +119,22 @@ button.artistas-app-playlist-button:disabled {
     cursor: not-allowed;
 }
 
+.sankey-chart-app {
+    width: 100%;
+    overflow: visible; /* Prevents unintended cropping */
+}
+
 .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 18px; font-size: 1rem; color: #4b5563; }
 .artistas-app-feedback.error { color: #c53030; font-weight: 500; }
-.artistas-app-sankey-container {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 5px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-    padding: 5px;
-    box-sizing: border-box;
-    overflow-x: auto; /* Allows horizontal scroll if content overflows */
-}
-.artistas-app-sankey-container svg {
-    display: block;
-}
+.artistas-app-sankey-container { width: 100%; max-width: 100%; margin-top: 5px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 5px; box-sizing: border-box; overflow-x: auto; }
+.artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; /* Aumentada altura mínima para profundidade 4 */ }
 .sankey-node-group { cursor: pointer; }
-.sankey-node rect {
-    fill-opacity: 1;
-    shape-rendering: crispEdges;
-    stroke: rgba(0,0,0,0.1);
-    stroke-width: 0.5px;
-    transition: fill-opacity 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease;
-}
-.sankey-node-group:hover .sankey-node rect,
-a.sankey-node-wrapper:hover .sankey-node rect { /* Keep desktop hover */
-    stroke-width: 1.5px;
-    stroke: rgba(0,0,0,0.3);
-    fill-opacity: 0.85;
-}
-
-.sankey-link {
-    fill: none;
-    stroke-opacity: 0.55;
-    transition: stroke-opacity 0.3s ease, stroke-width 0.3s ease;
-}
-
-.sankey-node-label {
-    pointer-events: none;
-    font-size: 12px; /* Default for desktop */
-    font-weight: 500;
-    fill: #1f2937;
-    transition: opacity 0.3s ease, font-size 0.3s ease, fill 0.3s ease;
-}
-.sankey-node-group:hover .sankey-node-label, /* Keep desktop hover */
-a.sankey-node-wrapper:hover .sankey-node-label {
-    font-size: 13px;
-    font-weight: 700;
-    fill: #000000;
-}
-
-/* Estilos para os botões de navegação mobile */
-.artistas-app-mobile-nav {
-    display: none; /* Oculto por padrão */
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-.artistas-app-nav-button {
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    background-color: #4a5568;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-.artistas-app-nav-button:hover {
-    background-color: #2d3748;
-}
-.artistas-app-nav-button:disabled {
-    background-color: #a0aec0;
-    cursor: not-allowed;
-}
-
-
+.sankey-node rect { fill-opacity: 1; shape-rendering: crispEdges; stroke: rgba(0,0,0,0.1); stroke-width: 0.5px; transition: all 0.2s ease; }
+.sankey-node-group:hover .sankey-node { stroke-width: 1.5px; stroke: rgba(0,0,0,0.3); fill-opacity: 0.85; }
+.sankey-link { fill: none; stroke-opacity: 0.55; transition: stroke-opacity 0.2s ease; }
+/* .sankey-link-group:hover .sankey-link { stroke-opacity: 0.8; } */
+.sankey-node-label { pointer-events: none; font-size: 20px; font-weight: 500; fill: #1f2937; transition: all 0.2s ease; }
+.sankey-node-group:hover .sankey-node-label { font-size: 20px; font-weight: 700; fill: #000000; }
 .artistas-app-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
 .artistas-app-modal-overlay.active { opacity: 1; visibility: visible; }
 .artistas-app-modal-content { background-color: white; padding: 20px 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; }
@@ -222,67 +152,16 @@ a.sankey-node-wrapper:hover .sankey-node-label {
 .artistas-app-footer { text-align: center; padding: 10px 0; font-size: 0.8rem; color: #6b7280; margin-top: 15px; }
 .artistas-app-footer a { color: #c53030; text-decoration: none; }
 .artistas-app-footer a:hover { text-decoration: underline; }
-
-/* --- Mobile Specific Styles --- */
-@media (max-width: 768px) {
-    .artistas-app-header h2 { font-size: 1.5rem; }
-    .artistas-app-header p { font-size: 0.9rem; }
-
-    .artistas-app-search-container {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .artistas-app-search-container input[type=&#34;text&#34;],
-    .artistas-app-search-container button#search-button-app,
-    .artistas-app-search-container button.artistas-app-playlist-button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    .artistas-app-search-container button#search-button-app,
-    .artistas-app-search-container button.artistas-app-playlist-button {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
-    .artistas-app-search-container input[type=&#34;text&#34;] { font-size: 0.95rem; }
-
-    .artistas-app-sankey-container {
-        padding: 5px;
-    }
-    .sankey-node-label {
-        font-size: 10px !important; /* Smaller labels on mobile */
-        font-weight: normal !important;
-    }
-    .sankey-node-group:hover .sankey-node-label,
-    a.sankey-node-wrapper:hover .sankey-node-label {
-      font-size: 10px !important;
-      font-weight: normal !important;
-    }
-    
-    .artistas-app-mobile-nav { /* Mostrar controles de navegação em mobile */
-        display: flex;
-    }
-
-    .artistas-app-modal-content { padding: 15px; }
-    .artistas-app-modal-content h2 { font-size: 1.2rem; }
-    .artistas-app-modal-content li { font-size: 0.85rem; }
-}
-
-@media (max-width: 480px) {
-    .artistas-app-header h2 { font-size: 1.3rem; }
-    .artistas-app-header p { font-size: 0.85rem; }
-    .sankey-node-label { font-size: 9px !important; } /* Even smaller for very small screens */
-    .artistas-app-nav-button { font-size: 0.8rem; padding: 6px 10px; }
-}
-
 &lt;/style&gt;
 
 &lt;script src=&#34;https://d3js.org/d3.v7.min.js&#34;&gt;&lt;/script&gt;
 &lt;script src=&#34;https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js&#34;&gt;&lt;/script&gt;
 &lt;script&gt;
 (function() {
-    // DOM Elements
+    // Get references to DOM elements
     const artistInputApp = document.getElementById(&#39;artist-input-app&#39;);
-    if (!artistInputApp) { return; } // Early exit
+    // Early exit if the main input isn&#39;t found (e.g., if script is loaded on a page without the app)
+    if (!artistInputApp) { return; }
 
     const searchButtonApp = document.getElementById(&#39;search-button-app&#39;);
     const generateDiagramPlaylistBtnApp = document.getElementById(&#39;generate-diagram-playlist-btn-app&#39;);
@@ -290,554 +169,518 @@ a.sankey-node-wrapper:hover .sankey-node-label {
     const sankeyChartContainerApp = document.getElementById(&#39;sankey-chart-container-app&#39;);
     const sankeyChartDivApp = document.getElementById(&#39;sankey-chart-app&#39;);
 
+    // Playlist Modal Elements
     const playlistModalOverlayApp = document.getElementById(&#39;playlist-modal-overlay-app&#39;);
     const playlistModalTitleApp = document.getElementById(&#39;playlist-modal-title-app&#39;);
     const playlistModalBodyApp = document.getElementById(&#39;playlist-modal-body-app&#39;);
     const modalCloseBtnApp = document.getElementById(&#39;modal-close-btn-app&#39;);
 
-    // Mobile Navigation DOM Elements
-    const mobileNavControlsApp = document.getElementById(&#39;artistas-app-mobile-nav-controls&#39;);
-    const mobileNavPrevLevelBtnApp = document.getElementById(&#39;mobile-nav-prev-level-btn&#39;);
-    const mobileNavNextLevelBtnApp = document.getElementById(&#39;mobile-nav-next-level-btn&#39;);
-    const mobileNavToggleViewBtnApp = document.getElementById(&#39;mobile-nav-toggle-view-btn&#39;);
-    const mobileNavResetViewBtnApp = document.getElementById(&#39;mobile-nav-reset-view-btn&#39;);
-
-    // Configuration
-    const MAX_DEPTH_APP = 4; 
-    const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3;
-    const BASE_MARGIN_APP = {top: 40, right: 40, bottom: 40, left: 40}; 
-    const BASE_NODE_WIDTH_APP = 25; 
-    const BASE_NODE_PADDING_VERTICAL_APP = 50; 
+    // Configuration constants
+    const MAX_DEPTH_APP = 4; // Max levels of similarity to explore
+    const SIMILAR_ARTISTS_LIMIT_PER_CALL_APP = 3; // How many similar artists to fetch per API call
 
     // State variables
-    let currentGraphNodesApp = []; 
-    let cachedPlaylistDataApp = null;
-    let cachedDiagramSignatureApp = null;
-    let focusedNodeNameApp = null; 
-    let isMobileView = window.innerWidth &lt;= 768; 
+    let currentGraphNodesApp = []; // Stores nodes currently displayed in the diagram
+    let cachedPlaylistDataApp = null; // Caches generated playlist to avoid re-fetching
+    let cachedDiagramSignatureApp = null; // Signature of the current diagram to validate cache
 
-    let fullSankeyDataApp = null; 
-    let currentMobileDisplayLevelApp = 0; 
-    let showingFullDiagramMobileApp = false; 
+    // --- D3 Sankey Diagram Configuration ---
+    // MODIFICATION 1: Reduce left and right margins to provide more horizontal space
+    const marginApp = {top: 40, right: 40, bottom: 40, left: 40}; // Margins for the SVG
+    const nodeWidthApp = 25; // Width of the Sankey nodes
+    const nodePaddingVerticalApp = 50; // Vertical padding between nodes in the same column
 
     /**
      * Initializes the application by setting up event listeners.
+     * It also triggers an initial search if an artist name is pre-filled.
      */
     function initializePageApp() {
         searchButtonApp.addEventListener(&#39;click&#39;, handleSearchApp);
         artistInputApp.addEventListener(&#39;keypress&#39;, (event) =&gt; { if (event.key === &#39;Enter&#39;) handleSearchApp(); });
         generateDiagramPlaylistBtnApp.addEventListener(&#39;click&#39;, handleGenerateDiagramPlaylistApp);
         modalCloseBtnApp.addEventListener(&#39;click&#39;, () =&gt; playlistModalOverlayApp.classList.remove(&#39;active&#39;));
+        // Close modal if user clicks outside the content area
         playlistModalOverlayApp.addEventListener(&#39;click&#39;, (event) =&gt; {
             if (event.target === playlistModalOverlayApp) playlistModalOverlayApp.classList.remove(&#39;active&#39;);
         });
+        handleSearchApp(); // Perform an initial search (e.g., for &#34;Radiohead&#34; if pre-filled)
+    }
 
-        // Mobile Navigation Event Listeners
-        mobileNavPrevLevelBtnApp.addEventListener(&#39;click&#39;, () =&gt; {
-            if (currentMobileDisplayLevelApp &gt; 0 &amp;&amp; !showingFullDiagramMobileApp) {
-                currentMobileDisplayLevelApp--;
-                updateMobileDiagramView();
-            }
-        });
-        mobileNavNextLevelBtnApp.addEventListener(&#39;click&#39;, () =&gt; {
-            if (currentMobileDisplayLevelApp &lt; MAX_DEPTH_APP - 1 &amp;&amp; !showingFullDiagramMobileApp) {
-                const hasNextLevelNodes = fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes &amp;&amp; fullSankeyDataApp.nodes.some(n =&gt; n.explicitDepth === currentMobileDisplayLevelApp + 1);
-                if (hasNextLevelNodes) {
-                    currentMobileDisplayLevelApp++;
-                    updateMobileDiagramView();
-                } else {
-                    mobileNavNextLevelBtnApp.disabled = true;
+    /**
+     * Displays a loading message and disables UI elements during data fetching.
+     * @param {string} message - The message to display.
+     */
+    function showLoadingApp(message = &#34;Procurando...&#34;) {
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = &#39;artistas-app-feedback&#39;; // Reset class
+        sankeyChartContainerApp.style.display = &#39;none&#39;; // Hide diagram container
+        generateDiagramPlaylistBtnApp.disabled = true;
+        searchButtonApp.disabled = true;
+        artistInputApp.disabled = true;
+    }
+
+    /**
+     * Hides the loading state by re-enabling UI elements.
+     */
+    function hideLoadingApp() {
+        searchButtonApp.disabled = false;
+        artistInputApp.disabled = false;
+        // Playlist button is enabled separately when diagram is ready
+    }
+
+    /**
+     * Displays an error message to the user.
+     * @param {string} message - The error message.
+     */
+    function showErrorApp(message) {
+        console.error(&#34;Erro (Artistas App):&#34;, message);
+        searchFeedbackMessageApp.textContent = message;
+        searchFeedbackMessageApp.className = &#39;artistas-app-feedback error&#39;; // Add error class for styling
+        sankeyChartContainerApp.style.display = &#39;none&#39;;
+        generateDiagramPlaylistBtnApp.disabled = true;
+        hideLoadingApp(); // Re-enable search inputs
+    }
+
+    /**
+     * Calls a Netlify serverless function which acts as a proxy to the Last.fm API.
+     * This is used to hide the API key and manage requests.
+     * @param {string} method - The Last.fm API method (e.g., &#39;artist.getinfo&#39;, &#39;artist.getsimilar&#39;).
+     * @param {string|null} artistName - The name of the artist for the query.
+     * @param {number} limit - The number of results to limit for certain methods.
+     * @returns {Promise&lt;object&gt;} - A promise that resolves with the JSON data from the API.
+     * @throws {Error} - If the API call fails or returns an error.
+     */
+    async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) {
+        const netlifyFunctionBaseUrl = &#34;https://afmartins.netlify.app/.netlify/functions/lastfm-proxy&#34;;
+
+        let proxyUrl = `${netlifyFunctionBaseUrl}?method=${method}`;
+        if (artistName) proxyUrl += `&amp;artist=${encodeURIComponent(artistName)}`;
+        if (method === &#39;artist.getsimilar&#39; || method === &#39;artist.gettoptracks&#39;) proxyUrl += `&amp;limit=${limit}`;
+
+        try {
+            const response = await fetch(proxyUrl);
+            const contentType = response.headers.get(&#34;content-type&#34;);
+
+            if (contentType &amp;&amp; contentType.indexOf(&#34;application/json&#34;) !== -1) {
+                const data = await response.json();
+                if (!response.ok) { // Check for HTTP errors (4xx, 5xx)
+                    const errorMsg = data.error || data.details || `Erro ao chamar o proxy (Status: ${response.status})`;
+                    throw new Error(errorMsg);
                 }
+                // Check for Last.fm specific errors embedded in the JSON response
+                if (data.error &amp;&amp; typeof data.error === &#39;string&#39; &amp;&amp; data.message) throw new Error(data.message); // Last.fm error format 1
+                if (data.error &amp;&amp; data.error.message) throw new Error(data.error.message); // Last.fm error format 2
+                return data;
+            } else {
+                // Handle non-JSON responses (e.g., HTML error pages from proxy)
+                const textResponse = await response.text();
+                throw new Error(`Resposta inesperada do servidor proxy (não JSON). Status: ${response.status}. Resposta: ${textResponse.substring(0,100)}...`);
             }
-        });
-        mobileNavToggleViewBtnApp.addEventListener(&#39;click&#39;, () =&gt; {
-            showingFullDiagramMobileApp = !showingFullDiagramMobileApp;
-            updateMobileDiagramView();
-        });
-        mobileNavResetViewBtnApp.addEventListener(&#39;click&#39;, () =&gt; {
-            currentMobileDisplayLevelApp = 0;
-            showingFullDiagramMobileApp = false;
-            updateMobileDiagramView();
-        });
-
-        window.addEventListener(&#39;resize&#39;, () =&gt; {
-            const previouslyMobile = isMobileView;
-            isMobileView = window.innerWidth &lt;= 768;
-            if (previouslyMobile !== isMobileView) {
-                if (fullSankeyDataApp) { 
-                    if (isMobileView) {
-                        currentMobileDisplayLevelApp = 0;
-                        showingFullDiagramMobileApp = false;
-                        mobileNavControlsApp.style.display = &#39;flex&#39;;
-                        updateMobileDiagramView();
-                    } else {
-                        mobileNavControlsApp.style.display = &#39;none&#39;;
-                        drawSankeyD3App(fullSankeyDataApp);
-                    }
-                } else {
-                     mobileNavControlsApp.style.display = isMobileView ? &#39;flex&#39; : &#39;none&#39;;
-                }
-            }
-        });
-        mobileNavControlsApp.style.display = isMobileView ? &#39;flex&#39; : &#39;none&#39;; 
-
-        if (artistInputApp.value.trim()) {
-            handleSearchApp();
+        } catch (error) {
+            console.error(`Erro na callNetlifyProxy para ${method} (${artistName || &#39;&#39;}):`, error);
+            throw error; // Re-throw to be caught by calling function
         }
     }
 
-    // --- UI Feedback Functions ---
-    function showLoadingApp(message = &#34;Procurando...&#34;) { searchFeedbackMessageApp.textContent=message;searchFeedbackMessageApp.className=&#39;artistas-app-feedback&#39;;sankeyChartContainerApp.style.display=&#39;none&#39;;generateDiagramPlaylistBtnApp.disabled=true;searchButtonApp.disabled=true;artistInputApp.disabled=true;if(isMobileView)mobileNavControlsApp.style.display=&#39;none&#39;; }
-    function hideLoadingApp() { searchButtonApp.disabled=false;artistInputApp.disabled=false; }
-    function showErrorApp(message) { console.error(&#34;Artistas App Error:&#34;,message);searchFeedbackMessageApp.textContent=message;searchFeedbackMessageApp.className=&#39;artistas-app-feedback error&#39;;sankeyChartContainerApp.style.display=&#39;none&#39;;generateDiagramPlaylistBtnApp.disabled=true;if(isMobileView)mobileNavControlsApp.style.display=&#39;none&#39;;hideLoadingApp(); }
+    /**
+     * Fetches detailed information for a specific artist.
+     * @param {string} artistName - The name of the artist.
+     * @returns {Promise&lt;object&gt;} - Artist data object.
+     */
+    async function fetchArtistInfoAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy(&#39;artist.getinfo&#39;, artistName);
+            if (!data.artist) throw new Error (`Informações do artista &#34;${artistName}&#34; não encontradas (via proxy).`);
+            return data.artist;
+        } catch (error) {
+            throw error;
+        }
+    }
 
-    // --- API Call Functions ---
-    async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT_PER_CALL_APP) { const u=&#34;https://afmartins.netlify.app/.netlify/functions/lastfm-proxy&#34;;let p=`${u}?method=${method}`;if(artistName)p+=`&amp;artist=${encodeURIComponent(artistName)}`;if(method===&#39;artist.getsimilar&#39;||method===&#39;artist.gettoptracks&#39;)p+=`&amp;limit=${limit}`;try{const r=await fetch(p);const ct=r.headers.get(&#34;content-type&#34;);if(ct&amp;&amp;ct.includes(&#34;application/json&#34;)){const d=await r.json();if(!r.ok)throw new Error(d.error||d.details||`Proxy Error (Status: ${r.status})`);if(d.error&amp;&amp;d.message)throw new Error(d.message);return d}else{const txt=await r.text();throw new Error(`Proxy non-JSON response. Status: ${r.status}. Body: ${txt.substring(0,100)}`)}}catch(e){console.error(`callNetlifyProxy Error for ${method} (${artistName||&#39;&#39;}):`,e);throw e}}
-    async function fetchArtistInfoAPIApp(artistName) { return callNetlifyProxy(&#39;artist.getinfo&#39;,artistName).then(d=&gt;{if(!d.artist)throw new Error(`Artist &#34;${artistName}&#34; not found.`);return d.artist;});}
-    async function fetchSimilarArtistsAPIApp(artistName) { try{const d=await callNetlifyProxy(&#39;artist.getsimilar&#39;,artistName,SIMILAR_ARTISTS_LIMIT_PER_CALL_APP);return d.similarartists&amp;&amp;Array.isArray(d.similarartists.artist)?d.similarartists.artist:[];}catch(e){console.warn(`Failed to fetch similar for &#34;${artistName}&#34;: ${e.message}`);return[];}}
-    async function fetchArtistTopTrackAPIApp(artistName) { try{const d=await callNetlifyProxy(&#39;artist.gettoptracks&#39;,artistName,1);return d.toptracks&amp;&amp;d.toptracks.track&amp;&amp;d.toptracks.track.length&gt;0?d.toptracks.track[0]:null;}catch(e){console.warn(`Failed to fetch top track for &#34;${artistName}&#34;: ${e.message}`);return null;}}
+    /**
+     * Fetches artists similar to a given artist.
+     * @param {string} artistName - The name of the artist.
+     * @returns {Promise&lt;Array&lt;object&gt;&gt;} - An array of similar artist objects.
+     */
+    async function fetchSimilarArtistsAPIApp(artistName) {
+        try {
+            const data = await callNetlifyProxy(&#39;artist.getsimilar&#39;, artistName, SIMILAR_ARTISTS_LIMIT_PER_CALL_APP);
+            return (data.similarartists &amp;&amp; Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
+        } catch (error) {
+            // Log a warning but don&#39;t let it break the entire diagram generation if one artist fails
+            console.warn(`Falha ao buscar similares para &#34;${artistName}&#34; via proxy: ${error.message}`);
+            return []; // Return empty array on failure
+        }
+    }
 
-    // --- Data Processing and Signature ---
-    function generateDiagramSignatureApp(nodes) { return nodes&amp;&amp;nodes.length&gt;0?nodes.map(n=&gt;n.name).sort().join(&#39;||&#39;):null;}
-    async function generateSankeyDataApp(initialArtistName, maxDepth) { 
-        const rawLinks = [];
-        const fetchedArtists = new Set(); 
-        const allNodesData = new Map(); 
+    /**
+     * Fetches the top track for a given artist.
+     * @param {string} artistName - The name of the artist.
+     * @returns {Promise&lt;object|null&gt;} - The top track object or null if not found.
+     */
+    async function fetchArtistTopTrackAPIApp(artistName) {
+         try {
+            const data = await callNetlifyProxy(&#39;artist.gettoptracks&#39;, artistName, 1); // Fetch only 1 top track
+            if (!data.toptracks || !data.toptracks.track || data.toptracks.track.length === 0) {
+                console.warn(`Nenhuma top track encontrada para &#34;${artistName}&#34; via proxy.`);
+                return null;
+            }
+            return data.toptracks.track[0]; // Return the first track
+        } catch (error) {
+            console.warn(`Erro ao buscar top track para &#34;${artistName}&#34; via proxy: ${error.message}`);
+            return null;
+        }
+    }
+
+    /**
+     * Generates a unique signature for a set of diagram nodes.
+     * Used to check if the playlist cache is still valid for the current diagram.
+     * @param {Array&lt;object&gt;} nodes - Array of node objects from the diagram.
+     * @returns {string|null} - A sorted string of node names or null.
+     */
+    function generateDiagramSignatureApp(nodes) {
+        if (!nodes || nodes.length === 0) return null;
+        return nodes.map(n =&gt; n.name).sort().join(&#39;||&#39;); // Simple signature: sorted names joined
+    }
+
+    /**
+     * Recursively fetches similar artists up to a max depth and prepares data for the Sankey diagram.
+     * This function now explicitly tracks and assigns an &#39;explicitDepth&#39; to each node
+     * based on its level in the BFS traversal from the initial artist.
+     * @param {string} initialArtistName - The starting artist for the similarity search.
+     * @param {number} maxDepth - The maximum depth of similarity links to explore.
+     * @returns {Promise&lt;object&gt;} - An object containing nodes, links, and the initial artist name.
+     */
+    async function generateSankeyDataApp(initialArtistName, maxDepth) {
+        const rawLinks = []; // Stores link objects {source, target, value}
+        const fetchedArtists = new Set(); // Keeps track of artists already processed to avoid redundant API calls and cycles
+        const allNodesData = new Map(); // Stores node data {name, url, explicitDepth} keyed by artist name
 
         let initialArtistData;
         try {
+            // Fetch info for the initial artist to ensure it&#39;s valid and get its URL
             initialArtistData = await fetchArtistInfoAPIApp(initialArtistName);
+            // Assign initial explicit depth
             allNodesData.set(initialArtistData.name, { name: initialArtistData.name, url: initialArtistData.url, explicitDepth: 0 });
         } catch (error) {
-            throw error; 
+            // If the initial artist can&#39;t be fetched, throw error to stop processing
+            throw error;
         }
 
-        const queue = [{ artistName: initialArtistData.name, currentDepth: 0 }];
-        fetchedArtists.add(initialArtistData.name.toLowerCase());
+        // Use a queue for a Breadth-First Search (BFS) to correctly assign explicit depths
+        const queue = [{ artistName: initialArtistData.name, depth: 0 }];
+        fetchedArtists.add(initialArtistData.name.toLowerCase()); // Mark initial artist as fetched
 
         let head = 0;
         while (head &lt; queue.length) {
-            const { artistName: currentArtist, currentDepth } = queue[head++];
+            const { artistName: currentArtist, depth: currentDepth } = queue[head++];
 
-            if (currentDepth &gt;= maxDepth -1) continue; 
+            if (currentDepth &gt;= maxDepth) continue; // Stop exploring if max depth reached
 
             const similarArtists = await fetchSimilarArtistsAPIApp(currentArtist);
 
             similarArtists.forEach(targetArtistInfo =&gt; {
+                // Ensure the similar artist data is valid
                 if (targetArtistInfo &amp;&amp; targetArtistInfo.name &amp;&amp; targetArtistInfo.match &amp;&amp; targetArtistInfo.url) {
                     const targetArtistName = targetArtistInfo.name;
-                    const normalizedTargetName = targetArtistName.toLowerCase();
-                    let targetNodeDetails = allNodesData.get(targetArtistName);
+                    const normalizedTargetArtist = targetArtistName.toLowerCase();
 
-                    if (!targetNodeDetails) {
-                        targetNodeDetails = { name: targetArtistName, url: targetArtistInfo.url, explicitDepth: currentDepth + 1 };
-                        allNodesData.set(targetArtistName, targetNodeDetails);
-                    } else {
-                        if (targetNodeDetails.explicitDepth &gt; currentDepth + 1) {
-                            targetNodeDetails.explicitDepth = currentDepth + 1;
-                        }
-                    }
-                    
-                    if (!fetchedArtists.has(normalizedTargetName) &amp;&amp; targetNodeDetails.explicitDepth &lt; maxDepth) {
-                        fetchedArtists.add(normalizedTargetName);
-                        queue.push({ artistName: targetArtistName, currentDepth: targetNodeDetails.explicitDepth });
+                    // Only process if not already fetched at an earlier or equal depth
+                    if (!fetchedArtists.has(normalizedTargetArtist)) {
+                        fetchedArtists.add(normalizedTargetArtist);
+                        // Assign explicit depth to the new node
+                        allNodesData.set(targetArtistName, { name: targetArtistName, url: targetArtistInfo.url, explicitDepth: currentDepth + 1 });
+                        queue.push({ artistName: targetArtistName, depth: currentDepth + 1 });
                     }
 
-                    const weight = parseFloat(targetArtistInfo.match) * 100;
-                    if (weight &gt; 0.01) {
-                        const sourceNodeFromMap = allNodesData.get(currentArtist); 
-                        if (sourceNodeFromMap &amp;&amp; targetNodeDetails.explicitDepth &gt; sourceNodeFromMap.explicitDepth) {
-                             rawLinks.push({ source: currentArtist, target: targetArtistName, value: Math.max(0.01, weight) });
+                    // Add link if similarity is above threshold AND it doesn&#39;t create a circular reference
+                    // by ensuring the target node&#39;s explicitDepth is greater than the source node&#39;s.
+                    const weight = parseFloat(targetArtistInfo.match) * 100; // &#39;match&#39; is similarity score (0-1)
+                    if (weight &gt; 0.01) { // Only include links with a minimal similarity
+                        const sourceNode = allNodesData.get(currentArtist);
+                        const targetNode = allNodesData.get(targetArtistName);
+
+                        // Prevent circular links: only add if target depth is greater than source depth
+                        if (sourceNode &amp;&amp; targetNode &amp;&amp; targetNode.explicitDepth &gt; sourceNode.explicitDepth) {
+                            rawLinks.push({ source: currentArtist, target: targetArtistName, value: Math.max(0.01, weight) }); // Sankey value
                         }
                     }
                 }
             });
         }
+
+        const nodes = Array.from(allNodesData.values()); // Convert Map to array of node objects
+        // Filter out any links where source or target might have been removed or failed to add
+        const links = rawLinks.filter(link =&gt; allNodesData.has(link.source) &amp;&amp; allNodesData.has(link.target));
+
+        // Ensure all nodes involved in links actually exist in `nodes` and have an explicitDepth.
+        // This is a safeguard for any edge cases where a node might be linked but not fully processed.
+        links.forEach(link =&gt; {
+            if (!allNodesData.has(link.source)) {
+                allNodesData.set(link.source, { name: link.source, url: `https://www.last.fm/music/${encodeURIComponent(link.source.replace(/\s+/g, &#39;+&#39;))}`, explicitDepth: 0 }); // Fallback depth
+            }
+            if (!allNodesData.has(link.target)) {
+                allNodesData.set(link.target, { name: link.target, url: `https://www.last.fm/music/${encodeURIComponent(link.target.replace(/\s+/g, &#39;+&#39;))}`, explicitDepth: 0 }); // Fallback depth
+            }
+        });
+        // Re-filter nodes to ensure consistency after potential fallback additions
         const finalNodes = Array.from(allNodesData.values());
-        const finalLinks = rawLinks.filter(link =&gt; {
-            const sourceNode = allNodesData.get(link.source);
-            const targetNode = allNodesData.get(link.target);
-            return sourceNode &amp;&amp; targetNode &amp;&amp; targetNode.explicitDepth &gt; sourceNode.explicitDepth;
-        });
-        return { nodes: finalNodes, links: finalLinks, initialArtistName: initialArtistData.name };
+
+
+        return { nodes: finalNodes, links, initialArtistName: initialArtistData.name };
     }
 
-    // --- Mobile View Data Subsetting ---
-    function getSubsetSankeyDataForMobileLayeredView(targetLevel) {
-        if (!fullSankeyDataApp || !fullSankeyDataApp.nodes) {
-            return { nodes: [], links: [], initialArtistName: fullSankeyDataApp?.initialArtistName || &#34;&#34;, isLayeredSubset: true, visibleLayerDepth: targetLevel };
-        }
-
-        const visibleNodesMap = new Map(); 
-        const linkingNodesMap = new Map(); 
-        const subsetLinks = [];
-
-        fullSankeyDataApp.nodes.forEach(node =&gt; {
-            if (node.explicitDepth === targetLevel) {
-                visibleNodesMap.set(node.name, {...node}); // Store a copy
-            }
+    /**
+     * Displays the generated playlist in a modal window.
+     * @param {object} playlistData - Object containing playlistName and an array of tracks.
+     */
+    function displayPlaylistInModalApp(playlistData) {
+        playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`;
+        let playlistHtml = &#34;&lt;ul&gt;&#34;;
+        playlistData.tracks.forEach(track =&gt; {
+            playlistHtml += `&lt;li&gt;&lt;a href=&#34;${track.trackUrl}&#34; target=&#34;_blank&#34;&gt;${track.trackName}&lt;/a&gt; - ${track.artistName}&lt;/li&gt;`;
         });
-
-        fullSankeyDataApp.links.forEach(linkObj =&gt; {
-            const link = {...linkObj}; // Work with a copy
-            const sourceName = typeof link.source === &#39;object&#39; ? link.source.name : link.source;
-            const targetName = typeof link.target === &#39;object&#39; ? link.target.name : link.target;
-
-            const sourceNodeData = fullSankeyDataApp.nodes.find(n =&gt; n.name === sourceName);
-            const targetNodeData = fullSankeyDataApp.nodes.find(n =&gt; n.name === targetName);
-
-            if (!sourceNodeData || !targetNodeData) return; 
-
-            const sourceDepth = sourceNodeData.explicitDepth;
-            const targetDepth = targetNodeData.explicitDepth;
-
-            if (sourceDepth === targetLevel - 1 &amp;&amp; targetDepth === targetLevel) {
-                if (visibleNodesMap.has(targetNodeData.name)) { 
-                    if (!linkingNodesMap.has(sourceNodeData.name)) {
-                        linkingNodesMap.set(sourceNodeData.name, {...sourceNodeData});
-                    }
-                    subsetLinks.push(link);
-                }
-            }
-            else if (sourceDepth === targetLevel &amp;&amp; targetDepth === targetLevel + 1) {
-                if (visibleNodesMap.has(sourceNodeData.name)) { 
-                    if (!linkingNodesMap.has(targetNodeData.name)) {
-                        linkingNodesMap.set(targetNodeData.name, {...targetNodeData});
-                    }
-                    subsetLinks.push(link);
-                }
-            }
-        });
-        
-        const finalSubsetNodes = [...visibleNodesMap.values(), ...linkingNodesMap.values()];
-        const finalNodeNamesInSubset = new Set(finalSubsetNodes.map(n =&gt; n.name));
-
-        const trulyFinalLinks = subsetLinks.filter(link =&gt; {
-             const sourceName = typeof link.source === &#39;object&#39; ? link.source.name : link.source;
-             const targetName = typeof link.target === &#39;object&#39; ? link.target.name : link.target;
-             return finalNodeNamesInSubset.has(sourceName) &amp;&amp; finalNodeNamesInSubset.has(targetName);
-        });
-
-        return {
-            nodes: finalSubsetNodes,
-            links: trulyFinalLinks,
-            initialArtistName: fullSankeyDataApp.initialArtistName,
-            isLayeredSubset: true,
-            visibleLayerDepth: targetLevel
-        };
+        playlistHtml += &#34;&lt;/ul&gt;&#34;;
+        playlistModalBodyApp.innerHTML = playlistHtml;
+        playlistModalOverlayApp.classList.add(&#39;active&#39;); // Show the modal
+        generateDiagramPlaylistBtnApp.disabled = false; // Re-enable button
     }
 
-    // --- Mobile Navigation and View Update ---
-    function updateMobileNavButtonStates() {
-        if (!isMobileView || !fullSankeyDataApp || !fullSankeyDataApp.nodes || !fullSankeyDataApp.nodes.length) {
-            mobileNavControlsApp.style.display = &#39;none&#39;;
-            return;
+    /**
+     * Draws the Sankey diagram using D3.js.
+     * @param {object} sankeyData - Data object containing nodes and links.
+     */
+    function drawSankeyD3App(sankeyData) {
+        searchFeedbackMessageApp.textContent = &#39;&#39;; // Clear any previous messages
+        const { nodes, links, initialArtistName } = sankeyData;
+        currentGraphNodesApp = []; // Reset current graph nodes
+
+        // Handle cases with no data or only a single node
+        if (!nodes || nodes.length === 0) {
+            showErrorApp(`Nenhum dado encontrado para &#34;${initialArtistName}&#34;.`);
+            generateDiagramPlaylistBtnApp.disabled = true; return;
         }
-        mobileNavControlsApp.style.display = &#39;flex&#39;;
-
-        mobileNavPrevLevelBtnApp.disabled = showingFullDiagramMobileApp || currentMobileDisplayLevelApp === 0;
-        
-        const maxAchievedDepth = Math.max(...fullSankeyDataApp.nodes.map(n =&gt; n.explicitDepth), 0);
-        const hasNextLevelNodes = fullSankeyDataApp.nodes.some(n =&gt; n.explicitDepth === currentMobileDisplayLevelApp + 1);
-        mobileNavNextLevelBtnApp.disabled = showingFullDiagramMobileApp || !hasNextLevelNodes || currentMobileDisplayLevelApp &gt;= maxAchievedDepth;
-
-        mobileNavResetViewBtnApp.disabled = showingFullDiagramMobileApp || currentMobileDisplayLevelApp === 0;
-        mobileNavToggleViewBtnApp.textContent = showingFullDiagramMobileApp ? &#34;Ver em Camadas&#34; : &#34;Mostrar Tudo&#34;;
-    }
-
-    function updateMobileDiagramView() {
-        if (!isMobileView || !fullSankeyDataApp) {
-            if(isMobileView &amp;&amp; fullSankeyDataApp) updateMobileNavButtonStates();
-            return;
-        }
-
-        const currentSVG = sankeyChartDivApp.querySelector(&#34;svg&#34;);
-        if (currentSVG &amp;&amp; focusedNodeNameApp) {
-            resetNodeLinkStyles(d3.select(currentSVG).select(&#34;g&#34;), true);
-        }
-
-        let dataToDraw;
-        if (showingFullDiagramMobileApp) {
-            dataToDraw = {...fullSankeyDataApp, isLayeredSubset: false}; 
-        } else {
-            dataToDraw = getSubsetSankeyDataForMobileLayeredView(currentMobileDisplayLevelApp);
-        }
-        drawSankeyD3App(dataToDraw); 
-        updateMobileNavButtonStates();
-    }
-
-    // --- D3 Drawing Function ---
-    function drawSankeyD3App(sankeyDataToDraw) {
-        searchFeedbackMessageApp.textContent = &#39;&#39;;
-        // Ensure sankeyDataToDraw and its properties are defined before destructuring
-        const nodesInput = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.nodes ? sankeyDataToDraw.nodes : [];
-        const linksInput = sankeyDataToDraw &amp;&amp; sankeyDataToDraw.links ? sankeyDataToDraw.links : [];
-        const initialArtistName = sankeyDataToDraw ? sankeyDataToDraw.initialArtistName : &#34;Artista Desconhecido&#34;;
-        const isLayeredSubset = sankeyDataToDraw ? sankeyDataToDraw.isLayeredSubset : false;
-        const visibleLayerDepth = sankeyDataToDraw ? sankeyDataToDraw.visibleLayerDepth : 0;
-        
-        if (isMobileView &amp;&amp; isLayeredSubset &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes) {
-            currentGraphNodesApp = fullSankeyDataApp.nodes.filter(n =&gt; n.explicitDepth &lt;= visibleLayerDepth);
-        } else if (nodesInput) {
-            currentGraphNodesApp = [...nodesInput]; 
-        } else {
-            currentGraphNodesApp = [];
-        }
-
-        const isCurrentlyMobile = window.innerWidth &lt;= 768;
-        sankeyChartDivApp.innerHTML = &#39;&#39;; 
-
-        if (!nodesInput || nodesInput.length === 0) {
-            if (isLayeredSubset &amp;&amp; visibleLayerDepth === 0 &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.initialArtistName) {
-                 showErrorApp(`Nenhum dado encontrado para &#34;${fullSankeyDataApp.initialArtistName}&#34;.`);
-            } else if (!isLayeredSubset &amp;&amp; initialArtistName) { 
-                 showErrorApp(`Nenhum dado encontrado para &#34;${initialArtistName}&#34;.`);
-            } else {
-                showErrorApp(&#34;Nenhum dado para exibir.&#34;);
-            }
-            generateDiagramPlaylistBtnApp.disabled = true;
-            if(isCurrentlyMobile) updateMobileNavButtonStates();
-            return;
-        }
-        
-        const trulyVisibleNodes = (isCurrentlyMobile &amp;&amp; isLayeredSubset)
-            ? nodesInput.filter(n =&gt; n &amp;&amp; n.explicitDepth === visibleLayerDepth) 
-            : nodesInput.filter(n =&gt; n); 
-
-        if (trulyVisibleNodes.length === 0 &amp;&amp; !(isCurrentlyMobile &amp;&amp; isLayeredSubset &amp;&amp; linksInput &amp;&amp; linksInput.length &gt; 0) ) {
-             if (isCurrentlyMobile &amp;&amp; isLayeredSubset) {
-                showErrorApp(`Nenhum artista no nível ${visibleLayerDepth}.`);
-             } else {
-                showErrorApp(&#34;Nenhum artista visível para exibir.&#34;);
-             }
-            generateDiagramPlaylistBtnApp.disabled = true;
-            if(isCurrentlyMobile) updateMobileNavButtonStates();
-            return;
-        }
-
-        if (trulyVisibleNodes.length === 1 &amp;&amp; (!linksInput || linksInput.length === 0 || !linksInput.some(l =&gt; {
-            const sourceName = typeof l.source === &#39;object&#39; ? l.source.name : l.source;
-            const targetName = typeof l.target === &#39;object&#39; ? l.target.name : l.target;
-            return trulyVisibleNodes.some(n =&gt; n.name === sourceName) || trulyVisibleNodes.some(n =&gt; n.name === targetName);
-        }))) {
-            const singleNodeToDisplay = trulyVisibleNodes[0];
+        // Special display for a single artist with no similar links found
+        if (nodes.length === 1 &amp;&amp; (!links || links.length === 0)) {
+            sankeyChartDivApp.innerHTML = &#39;&#39;; // Clear previous diagram
+            const singleNode = nodes[0]; currentGraphNodesApp = [singleNode]; // Store for playlist
             const svgSingle = d3.select(sankeyChartDivApp).append(&#34;svg&#34;)
-                .attr(&#34;width&#34;, &#34;100%&#34;).attr(&#34;height&#34;, isCurrentlyMobile ? 100 : 120).append(&#34;g&#34;) 
-                .attr(&#34;transform&#34;, `translate(${isCurrentlyMobile ? 15 : 20}, ${isCurrentlyMobile ? 30 : 30})`);
-            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, 20).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
-                .style(&#34;font-size&#34;, isCurrentlyMobile ? &#34;14px&#34; : &#34;16px&#34;).text(`Artista: `)
-              .append(&#34;a&#34;).attr(&#34;xlink:href&#34;, singleNodeToDisplay.url).attr(&#34;target&#34;, &#34;_blank&#34;)
-                .style(&#34;fill&#34;, &#34;#c53030&#34;).style(&#34;text-decoration&#34;, &#34;underline&#34;).text(singleNodeToDisplay.name);
-            
-            let detailText = &#34;(Nenhum artista similar conectado encontrado)&#34;;
-            if (isLayeredSubset &amp;&amp; visibleLayerDepth &lt; MAX_DEPTH_APP - 1 &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.links &amp;&amp; 
-                fullSankeyDataApp.links.some(fl =&gt; (fl.source.name || fl.source) === singleNodeToDisplay.name)) {
-                detailText = &#34;(Use &#39;Próximo Nível&#39; para ver conexões)&#34;;
-            }
+                .attr(&#34;width&#34;, &#34;100%&#34;)
+                .attr(&#34;height&#34;, 120)
+                .append(&#34;g&#34;)
+                .attr(&#34;transform&#34;, `translate(20, 30)`);
 
-            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, isCurrentlyMobile ? 45 : 50).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
-                .style(&#34;font-size&#34;, isCurrentlyMobile ? &#34;12px&#34; : &#34;12px&#34;)
-                .text(detailText);
+            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, 20).attr(&#34;class&#34;, &#34;sankey-node-label&#34;).style(&#34;font-size&#34;, &#34;16px&#34;)
+                .text(`Artista: `)
+              .append(&#34;a&#34;) // Make artist name a link
+                .attr(&#34;xlink:href&#34;, singleNode.url)
+                .attr(&#34;target&#34;, &#34;_blank&#34;)
+                .style(&#34;fill&#34;, &#34;#c53030&#34;) // Style link
+                .style(&#34;text-decoration&#34;, &#34;underline&#34;)
+                .text(singleNode.name);
+            svgSingle.append(&#34;text&#34;).attr(&#34;x&#34;, 0).attr(&#34;y&#34;, 45).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
+                .text(&#34;(Nenhum artista similar direto encontrado na Last.fm)&#34;);
+
             sankeyChartContainerApp.style.display = &#39;block&#39;;
-            generateDiagramPlaylistBtnApp.disabled = !(currentGraphNodesApp &amp;&amp; currentGraphNodesApp.length &gt; 0);
+            generateDiagramPlaylistBtnApp.disabled = false; // Can still generate playlist for single artist
             hideLoadingApp();
-            if(isCurrentlyMobile) updateMobileNavButtonStates();
             return;
         }
-        
-        const marginApp = { top: isCurrentlyMobile ? 20 : BASE_MARGIN_APP.top, right: isCurrentlyMobile ? 15 : BASE_MARGIN_APP.right, bottom: isCurrentlyMobile ? 20 : BASE_MARGIN_APP.bottom, left: isCurrentlyMobile ? 15 : BASE_MARGIN_APP.left };
-        const nodeWidthApp = isCurrentlyMobile ? 20 : BASE_NODE_WIDTH_APP;
-        
-        let numNodesForHeightCalc = trulyVisibleNodes.length &gt; 0 ? trulyVisibleNodes.length : (nodesInput.length &gt; 0 ? 1 : 0); 
-        const nodePaddingVerticalApp = isCurrentlyMobile ? (numNodesForHeightCalc &gt; 10 ? 20 : 30) : BASE_NODE_PADDING_VERTICAL_APP; 
-        
-        const containerClientWidth = sankeyChartDivApp.clientWidth || (isCurrentlyMobile ? 320 : 1200);
-        const calculatedContainerWidth = Math.max(isCurrentlyMobile ? 300 : 1000, containerClientWidth);
-        
-        const baseMinHeight = isCurrentlyMobile ? 250 : 700; 
-        const heightPerVisibleNode = isCurrentlyMobile ? 40 : 30; 
-        const heightPerLink = isCurrentlyMobile ? (isLayeredSubset ? 2 : 5) : 10; 
+        // If there are nodes but no links (e.g., initial artist + others but no connections made)
+        if ((!links || links.length === 0) &amp;&amp; nodes.length &gt; 1) {
+             showErrorApp(`Nenhum artista similar encontrado para &#34;${initialArtistName}&#34; para gerar o diagrama.`);
+             generateDiagramPlaylistBtnApp.disabled = true; return;
+        }
 
-        const dynamicHeight = Math.max(baseMinHeight, 
-                                (numNodesForHeightCalc * heightPerVisibleNode) + 
-                                (linksInput.length * heightPerLink) + 
-                                marginApp.top + marginApp.bottom);
-
-        const width = calculatedContainerWidth - marginApp.left - marginApp.right;
+        // --- Sankey Diagram Setup ---
+        const containerWidth = Math.max(1200, sankeyChartDivApp.clientWidth); // Ensure minimum width or use container width
+        // Dynamic height based on number of nodes and links to prevent squashing
+        const dynamicHeight = Math.max(800, nodes.length * 50 + links.length * 20);
+        const width = containerWidth - marginApp.left - marginApp.right;
         const height = dynamicHeight - marginApp.top - marginApp.bottom;
 
+        sankeyChartDivApp.innerHTML = &#39;&#39;; // MODIFICATION: Clear previous diagram before drawing new one
         const svg = d3.select(sankeyChartDivApp).append(&#34;svg&#34;)
-            .attr(&#34;width&#34;, calculatedContainerWidth).attr(&#34;height&#34;, dynamicHeight)
-          .append(&#34;g&#34;).attr(&#34;transform&#34;, `translate(${marginApp.left},${marginApp.top})`);
+            .attr(&#34;width&#34;, containerWidth)
+            .attr(&#34;height&#34;, dynamicHeight)
+          .append(&#34;g&#34;)
+            .attr(&#34;transform&#34;, `translate(${marginApp.left},${marginApp.top})`);
 
+        // MODIFICATION: Change nodeAlign to a custom function to prevent nodes with no outgoing links
+        // from being pushed to the last column. This aligns nodes based purely on their explicitDepth.
         const sankey = d3.sankey()
-            .nodeId(d =&gt; d.name)
-            .nodeAlign(n =&gt; n.explicitDepth) 
+            .nodeId(d =&gt; d.name) // Accessor for node ID (artist name)
+            .nodeAlign(function(node) {
+                // Use the &#39;explicitDepth&#39; property assigned during graph generation
+                // to align nodes to columns. This ensures nodes stay in their
+                // natural depth position, even if they have no outgoing links.
+                return node.explicitDepth;
+            })
             .nodeWidth(nodeWidthApp)
             .nodePadding(nodePaddingVerticalApp)
-            .extent([[0, 5], [width, height - 5]])
-            .iterations(32);
+            .extent([[0, 5], [width, height - 5]]) // Diagram bounds [[x0, y0], [x1, y1]]
+            .iterations(32); // Number of layout iterations
 
         let graph;
-        let nodesCopy, linksCopy;
-
         try {
-            nodesCopy = JSON.parse(JSON.stringify(
-                nodesInput.filter(n =&gt; n &amp;&amp; typeof n.name === &#39;string&#39; &amp;&amp; typeof n.explicitDepth === &#39;number&#39;)
-            ));
-            const nodeNamesInCopy = new Set(nodesCopy.map(n =&gt; n.name));
-
-            // Ensure link.source and link.target are string IDs before filtering and passing to D3
-            linksCopy = JSON.parse(JSON.stringify(
-                linksInput.map(l =&gt; ({
-                    source: (typeof l.source === &#39;object&#39; &amp;&amp; l.source !== null) ? l.source.name : l.source,
-                    target: (typeof l.target === &#39;object&#39; &amp;&amp; l.target !== null) ? l.target.name : l.target,
-                    value: l.value
-                    // Note: any other custom properties on links would be lost here unless explicitly copied.
-                    // For D3 Sankey, source, target, value are the main ones.
-                })).filter(l =&gt; {
-                    if (!l || typeof l.value !== &#39;number&#39; || l.value &lt;= 0) return false;
-                    // After mapping, l.source and l.target should be strings (IDs)
-                    if (typeof l.source !== &#39;string&#39; || typeof l.target !== &#39;string&#39;) {
-                        // This case should ideally not be hit if mapping was successful and original data was string or {name: string}
-                        console.warn(&#34;Filtered out link due to non-string source/target after mapping:&#34;, l);
-                        return false;
-                    }
-                    return nodeNamesInCopy.has(l.source) &amp;&amp; nodeNamesInCopy.has(l.target);
-                })
-            ));
-
-
-            if (nodesCopy.length === 0 &amp;&amp; linksCopy.length &gt; 0) {
-                console.error(&#34;Sankey Error: Attempting to process links without corresponding nodes.&#34;, &#34;Filtered Nodes:&#34;, nodesCopy, &#34;Filtered Links:&#34;, linksCopy);
-                showErrorApp(&#34;Erro de dados: Links sem nós correspondentes para o layout.&#34;);
-                generateDiagramPlaylistBtnApp.disabled = true;
-                return;
-            }
-            if (nodesCopy.length === 0) {
-                if (isLayeredSubset) { 
-                     showErrorApp(`Nenhum artista ou conexão para exibir no nível ${visibleLayerDepth}.`);
-                } else { 
-                     showErrorApp(&#34;Nenhum dado para construir o diagrama.&#34;);
-                }
-                generateDiagramPlaylistBtnApp.disabled = true;
-                if(isCurrentlyMobile) updateMobileNavButtonStates();
-                return;
-            }
-            graph = sankey({ nodes: nodesCopy, links: linksCopy });
-
+            // Compute the Sankey layout. D3 modifies the nodes and links objects in place.
+            // It will also add its own &#39;depth&#39; property, but our nodeAlign uses &#39;explicitDepth&#39;.
+            graph = sankey({
+                nodes: JSON.parse(JSON.stringify(nodes)), // Deep copy to avoid modifying original data
+                links: JSON.parse(JSON.stringify(links))
+            });
         } catch (error) {
-            console.error(&#34;Raw error from D3 Sankey:&#34;, error);
-            console.error(&#34;Data passed to D3 Sankey function (after filtering and copying):&#34;, { nodes: nodesCopy, links: linksCopy });
-            console.error(&#34;Original data for this view:&#34;, { nodes: nodesInput, links: linksInput });
-            showErrorApp(`Erro no layout do Sankey: ${error.message}. Verifique o console para detalhes.`);
+            showErrorApp(`Erro no layout do Sankey: ${error.message}.`);
             generateDiagramPlaylistBtnApp.disabled = true; return;
         }
 
-        if (!graph || !graph.nodes || !graph.links) { 
+        if (!graph || !graph.nodes || !graph.links || graph.nodes.length === 0) {
             showErrorApp(&#39;Falha ao gerar o gráfico Sankey com os dados processados.&#39;);
             generateDiagramPlaylistBtnApp.disabled = true; return;
         }
-        if (graph.nodes.length === 0 &amp;&amp; nodesCopy.length &gt; 0) {
-            showErrorApp(&#39;Layout Sankey resultou em nenhum nó processado, verifique os dados.&#39;);
-            generateDiagramPlaylistBtnApp.disabled = true; return;
-        }
-        
-        generateDiagramPlaylistBtnApp.disabled = !(currentGraphNodesApp &amp;&amp; currentGraphNodesApp.length &gt; 0);
 
+        currentGraphNodesApp = graph.nodes; // Store processed nodes for playlist generation
+        generateDiagramPlaylistBtnApp.disabled = false; // Enable playlist button
+
+        // --- Color Scheme &amp; Gradients for Links ---
         const simpleColors = [&#34;#66c2a5&#34;, &#34;#fc8d62&#34;, &#34;#8da0cb&#34;, &#34;#e78ac3&#34;, &#34;#a6d854&#34;, &#34;#ffd92f&#34;, &#34;#e5c494&#34;, &#34;#b3b3b3&#34;];
-        const nodeColorFunc = (node) =&gt; simpleColors[(typeof node.explicitDepth === &#39;number&#39; ? node.explicitDepth : node.depth || 0) % simpleColors.length] || &#34;#cccccc&#34;;
-        
-        const defs = svg.append(&#34;defs&#34;);
-        graph.links.forEach((link, i) =&gt; { const gID=`linkGradient-${i}`;const gr=defs.append(&#34;linearGradient&#34;).attr(&#34;id&#34;,gID).attr(&#34;gradientUnits&#34;,&#34;userSpaceOnUse&#34;).attr(&#34;x1&#34;,link.source.x1).attr(&#34;x2&#34;,link.target.x0);gr.append(&#34;stop&#34;).attr(&#34;offset&#34;,&#34;0%&#34;).attr(&#34;stop-color&#34;,nodeColorFunc(link.source));gr.append(&#34;stop&#34;).attr(&#34;offset&#34;,&#34;100%&#34;).attr(&#34;stop-color&#34;,nodeColorFunc(link.target));});
-        
-        svg.append(&#34;g&#34;).attr(&#34;fill&#34;, &#34;none&#34;)
-          .selectAll(&#34;g.sankey-link-group&#34;).data(graph.links).join(&#34;g&#34;).attr(&#34;class&#34;, &#34;sankey-link-group&#34;)
-          .append(&#34;path&#34;).attr(&#34;class&#34;, &#34;sankey-link&#34;)
-            .attr(&#34;d&#34;, d3.sankeyLinkHorizontal())
-            .attr(&#34;stroke&#34;, (d,i)=&gt;`url(#linkGradient-${i})`)
-            .attr(&#34;stroke-width&#34;,d=&gt;Math.max(1,d.width));
+        let maxNodeDepth = 0;
+        // MODIFICATION: Ensure node.explicitDepth is used for color if available
+        graph.nodes.forEach(node =&gt; {
+            const depthToUse = typeof node.explicitDepth === &#39;number&#39; ? node.explicitDepth : node.depth;
+            if (typeof depthToUse !== &#39;number&#39; || isNaN(depthToUse)) node.depth = 0; // Fallback to 0 if neither is valid
+            if (depthToUse &gt; maxNodeDepth) maxNodeDepth = depthToUse;
+        });
+        // Color nodes based on their explicit depth (or D3&#39;s depth as fallback)
+        const nodeColorFunc = (node) =&gt; {
+            const depthToUse = typeof node.explicitDepth === &#39;number&#39; ? node.explicitDepth : node.depth;
+            if (typeof depthToUse !== &#39;number&#39; || isNaN(depthToUse)) return &#34;#cccccc&#34;; // Fallback color
+            return simpleColors[depthToUse % simpleColors.length];
+        };
 
-        const nodeLinkWrappers = svg.append(&#34;g&#34;).selectAll(&#34;a.sankey-node-wrapper&#34;).data(graph.nodes).join(&#34;a&#34;)
-            .attr(&#34;class&#34;, &#34;sankey-node-wrapper&#34;).attr(&#34;xlink:href&#34;, d =&gt; d.url).attr(&#34;target&#34;, &#34;_blank&#34;)
-            .on(&#34;click&#34;, function(event, d) {
-                if (window.innerWidth &lt;= 768) { 
-                    if (isLayeredSubset &amp;&amp; d.explicitDepth !== visibleLayerDepth) {
-                        event.preventDefault(); 
-                        return;
-                    }
-                    event.preventDefault(); 
-                    handleMobileNodeClick(event, d, graph, svg);
+        const defs = svg.append(&#34;defs&#34;); // Container for SVG definitions (like gradients)
+        // Create a gradient for each link
+        graph.links.forEach((link, i) =&gt; {
+            const gradientID = `linkGradient-${i}`; // Unique ID for each gradient
+            const gradient = defs.append(&#34;linearGradient&#34;)
+                .attr(&#34;id&#34;, gradientID)
+                .attr(&#34;gradientUnits&#34;, &#34;userSpaceOnUse&#34;) // Gradient coordinates relative to the link path
+                .attr(&#34;x1&#34;, link.source.x1) // Start gradient at the end of the source node
+                .attr(&#34;x2&#34;, link.target.x0); // End gradient at the start of the target node
+
+            const sourceColor = nodeColorFunc(link.source);
+            const targetColor = nodeColorFunc(link.target);
+            gradient.append(&#34;stop&#34;).attr(&#34;offset&#34;, &#34;0%&#34;).attr(&#34;stop-color&#34;, sourceColor);
+            gradient.append(&#34;stop&#34;).attr(&#34;offset&#34;, &#34;100%&#34;).attr(&#34;stop-color&#34;, targetColor);
+        });
+
+        // --- Draw Links ---
+        const linkGroups = svg.append(&#34;g&#34;)
+            .attr(&#34;fill&#34;, &#34;none&#34;) // Links are typically strokes, not fills
+          .selectAll(&#34;g.sankey-link-group&#34;)
+          .data(graph.links)
+          .join(&#34;g&#34;)
+            .attr(&#34;class&#34;, &#34;sankey-link-group&#34;);
+
+        linkGroups.append(&#34;path&#34;)
+            .attr(&#34;class&#34;, &#34;sankey-link&#34;)
+            .attr(&#34;d&#34;, d3.sankeyLinkHorizontal()) // Path generator for Sankey links
+            .attr(&#34;stroke&#34;, (d, i) =&gt; `url(#${`linkGradient-${i}`.replace(/\s/g, &#39;-&#39;)})`) // Apply gradient
+            .attr(&#34;stroke-width&#34;, d =&gt; Math.max(1, d.width)); // Stroke width based on link value
+
+        // --- Draw Nodes ---
+        const nodeLinkGroups = svg.append(&#34;g&#34;) // Group for nodes, wrapped in links
+          .selectAll(&#34;a.sankey-node-link&#34;)
+          .data(graph.nodes)
+          .join(&#34;a&#34;) // Each node is a link to the artist&#39;s Last.fm page
+            .attr(&#34;class&#34;, &#34;sankey-node-link&#34;)
+            .attr(&#34;xlink:href&#34;, d =&gt; d.url)
+            .attr(&#34;target&#34;, &#34;_blank&#34;) // Open in new tab
+          .append(&#34;g&#34;) // Group for rect and text within the link
+            .attr(&#34;class&#34;, &#34;sankey-node-group&#34;)
+            .attr(&#34;transform&#34;, d =&gt; `translate(${d.x0},${d.y0})`); // Position node group
+
+        nodeLinkGroups.append(&#34;rect&#34;) // The visual node rectangle
+            .attr(&#34;class&#34;, &#34;sankey-node&#34;)
+            .attr(&#34;height&#34;, d =&gt; Math.max(0.5, d.y1 - d.y0)) // Node height
+            .attr(&#34;width&#34;, d =&gt; d.x1 - d.x0) // Node width (calculated by Sankey layout)
+            .attr(&#34;fill&#34;, d =&gt; nodeColorFunc(d)); // Color by depth
+
+        // --- Add Node Labels ---
+        nodeLinkGroups.append(&#34;text&#34;)
+            .attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
+            .each(function(d) { // `each` allows using `this` to refer to the text element
+                const isInitialArtist = d.name === initialArtistName;
+                const text = d3.select(this);
+                const nodeWidth = d.x1 - d.x0;
+                const nodeHeight = d.y1 - d.y0;
+
+                // MODIFICATION: Adjusted label positioning logic
+                if (isInitialArtist &amp;&amp; nodeHeight &gt; 20) { // Centered for initial artist if tall enough
+                     text.attr(&#34;x&#34;, nodeWidth / 2).attr(&#34;y&#34;, nodeHeight / 2).attr(&#34;text-anchor&#34;, &#34;middle&#34;);
+                } else if (d.x0 &lt; width * 0.15 &amp;&amp; nodeHeight &gt; 15 ) { // Text to the right for nodes on the far left
+                    text.attr(&#34;x&#34;, nodeWidth + 6).attr(&#34;y&#34;, nodeHeight / 2).attr(&#34;text-anchor&#34;, &#34;start&#34;);
+                } else if (d.x1 &gt; width * 0.85 &amp;&amp; nodeHeight &gt; 15) { // Text to the left for nodes on the far right
+                    text.attr(&#34;x&#34;, -6).attr(&#34;y&#34;, nodeHeight / 2).attr(&#34;text-anchor&#34;, &#34;end&#34;);
                 }
-            });
-            
-        const nodeGroups = nodeLinkWrappers.append(&#34;g&#34;).attr(&#34;class&#34;, &#34;sankey-node-group&#34;)
-            .attr(&#34;transform&#34;, d =&gt; `translate(${d.x0},${d.y0})`);
-
-        nodeGroups.append(&#34;rect&#34;).attr(&#34;class&#34;, &#34;sankey-node&#34;)
-            .attr(&#34;height&#34;, d =&gt; Math.max(0.5, d.y1 - d.y0))
-            .attr(&#34;width&#34;, d =&gt; d.x1 - d.x0)
-            .attr(&#34;fill&#34;, d =&gt; nodeColorFunc(d))
-            .style(&#34;display&#34;, d =&gt; (isCurrentlyMobile &amp;&amp; isLayeredSubset &amp;&amp; d.explicitDepth !== visibleLayerDepth) ? &#34;none&#34; : null);
-
-        nodeGroups.append(&#34;text&#34;).attr(&#34;class&#34;, &#34;sankey-node-label&#34;)
-            .each(function(d) {
-                if (isCurrentlyMobile &amp;&amp; isLayeredSubset &amp;&amp; d.explicitDepth !== visibleLayerDepth) {
-                    d3.select(this).style(&#34;display&#34;, &#34;none&#34;); 
-                    return;
+                else { // Default: above node, or centered if very thin
+                    text.attr(&#34;x&#34;, nodeWidth / 2).attr(&#34;y&#34;, nodeHeight &lt; 12 ? nodeHeight / 2 : -12).attr(&#34;text-anchor&#34;, &#34;middle&#34;);
                 }
-                const txt=d3.select(this);const nW=d.x1-d.x0;const nH=d.y1-d.y0;const isInit=(d.name===initialArtistName &amp;&amp; d.explicitDepth === 0); 
-                const lblOff=isCurrentlyMobile?-6:-12;const sideLblOff=isCurrentlyMobile?4:6;
-                const minHForSide=isCurrentlyMobile?10:15;const minHForCenter=isCurrentlyMobile?12:20;
-
-                if(isInit &amp;&amp; nH &gt; minHForCenter){txt.attr(&#34;x&#34;,nW/2).attr(&#34;y&#34;,nH/2).attr(&#34;text-anchor&#34;,&#34;middle&#34;);}
-                else if(d.x0 &lt; width * (isCurrentlyMobile ? 0.20 : 0.15) &amp;&amp; nH &gt; minHForSide){txt.attr(&#34;x&#34;,nW + sideLblOff).attr(&#34;y&#34;,nH/2).attr(&#34;text-anchor&#34;,&#34;start&#34;);}
-                else if(d.x1 &gt; width * (isCurrentlyMobile ? 0.80 : 0.85) &amp;&amp; nH &gt; minHForSide){txt.attr(&#34;x&#34;,-sideLblOff).attr(&#34;y&#34;,nH/2).attr(&#34;text-anchor&#34;,&#34;end&#34;);}
-                else{txt.attr(&#34;x&#34;,nW/2).attr(&#34;y&#34;,nH&lt;(isCurrentlyMobile?10:12)?nH/2:lblOff).attr(&#34;text-anchor&#34;,&#34;middle&#34;);}
-                
-                if ((d.y1 - d.y0) &lt;= (isCurrentlyMobile ? 6 : 10)) d3.select(this).style(&#34;display&#34;, &#34;none&#34;); 
             })
-            .attr(&#34;dy&#34;, &#34;0.35em&#34;).text(d =&gt; d.name);
+            .attr(&#34;dy&#34;, &#34;0.35em&#34;) // Vertical alignment adjustment
+            .text(d =&gt; d.name)
+            .style(&#34;display&#34;, d =&gt; (d.y1 - d.y0) &gt; 10 ? &#34;inline&#34; : &#34;none&#34;); // Hide label if node is too short
 
-        sankeyChartContainerApp.style.display = &#39;block&#39;;
+        sankeyChartContainerApp.style.display = &#39;block&#39;; // Show the diagram container
         hideLoadingApp();
-        if(isCurrentlyMobile) updateMobileNavButtonStates();
     }
 
-    // --- Playlist and Search Handlers ---
-    function displayPlaylistInModalApp(playlistData) { playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`;let p=&#34;&lt;ul&gt;&#34;;playlistData.tracks.forEach(t=&gt;{p+=`&lt;li&gt;&lt;a href=&#34;${t.trackUrl}&#34; target=&#34;_blank&#34;&gt;${t.trackName}&lt;/a&gt; - ${t.artistName}&lt;/li&gt;`});p+=&#34;&lt;/ul&gt;&#34;;playlistModalBodyApp.innerHTML=p;playlistModalOverlayApp.classList.add(&#39;active&#39;);generateDiagramPlaylistBtnApp.disabled=false;}
-    function resetNodeLinkStyles(svgGroup, isMobileInteraction) { if(!svgGroup||!isMobileInteraction||focusedNodeNameApp===null)return;svgGroup.selectAll(&#34;.sankey-link&#34;).transition().duration(200).style(&#34;stroke-opacity&#34;,0.55).style(&#34;stroke-width&#34;,d=&gt;Math.max(1,d.width));svgGroup.selectAll(&#34;.sankey-node-group rect&#34;).transition().duration(200).style(&#34;fill-opacity&#34;,1);svgGroup.selectAll(&#34;.sankey-node-group text.sankey-node-label&#34;).transition().duration(200).style(&#34;opacity&#34;,1).style(&#34;font-weight&#34;,&#34;500&#34;);focusedNodeNameApp=null;}
-    function handleMobileNodeClick(event, clickedNode, graphData, svgGroup) { const jcn=clickedNode.name;if(focusedNodeNameApp===jcn){window.open(clickedNode.url,&#39;_blank&#39;);return}focusedNodeNameApp=jcn;svgGroup.selectAll(&#34;.sankey-link&#34;).transition().duration(250).style(&#34;stroke-opacity&#34;,l=&gt;(l.source.name===clickedNode.name||l.target.name===clickedNode.name)?0.7:0.05).style(&#34;stroke-width&#34;,l=&gt;{const bw=Math.max(1,l.width);return(l.source.name===clickedNode.name||l.target.name===clickedNode.name)?Math.max(2,bw*1.2):bw});svgGroup.selectAll(&#34;.sankey-node-group&#34;).each(function(nd){const iC=nd.name===clickedNode.name;const iCo=graphData.links.some(l=&gt;(l.source.name===clickedNode.name&amp;&amp;l.target.name===nd.name)||(l.target.name===clickedNode.name&amp;&amp;l.source.name===nd.name));const iR=iC||iCo;d3.select(this).select(&#34;rect&#34;).transition().duration(250).style(&#34;fill-opacity&#34;,iR?1:0.2);d3.select(this).select(&#34;text.sankey-node-label&#34;).transition().duration(250).style(&#34;opacity&#34;,iR?1:0.3).style(&#34;font-weight&#34;,iC?&#34;bold&#34;:&#34;normal&#34;)});}
-    
+    /**
+     * Handles the generation of a playlist from the artists in the current Sankey diagram.
+     * Fetches the top track for each artist and displays them in a modal.
+     */
     async function handleGenerateDiagramPlaylistApp() {
-        let nodesForPlaylist = [];
-        if (isMobileView &amp;&amp; !showingFullDiagramMobileApp &amp;&amp; fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes) {
-            nodesForPlaylist = fullSankeyDataApp.nodes.filter(n =&gt; n.explicitDepth &lt;= currentMobileDisplayLevelApp);
-        } else if (fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes) { 
-            nodesForPlaylist = fullSankeyDataApp.nodes;
-        } else {
-            nodesForPlaylist = currentGraphNodesApp; 
+        if (!currentGraphNodesApp || currentGraphNodesApp.length === 0) {
+            showErrorApp(&#34;Nenhum artista no diagrama para gerar playlist.&#34;);
+            return;
         }
 
-        if (!nodesForPlaylist || nodesForPlaylist.length === 0) {
-            showErrorApp(&#34;Nenhum artista no diagrama para gerar playlist.&#34;); return;
-        }
-        const currentDiagramSignature = generateDiagramSignatureApp(nodesForPlaylist);
+        // Check cache first
+        const currentDiagramSignature = generateDiagramSignatureApp(currentGraphNodesApp);
         if (cachedPlaylistDataApp &amp;&amp; cachedDiagramSignatureApp === currentDiagramSignature) {
-            displayPlaylistInModalApp(cachedPlaylistDataApp); return;
+            displayPlaylistInModalApp(cachedPlaylistDataApp);
+            return;
         }
-        playlistModalTitleApp.textContent = &#34;🎶 Gerando Playlist...&#34;;
-        playlistModalBodyApp.innerHTML = &#39;&lt;div class=&#34;artistas-app-modal-loading-spinner&#34;&gt;&lt;p&gt;Buscando as músicas mais famosas...&lt;/p&gt;&lt;div class=&#34;spinner&#34;&gt;&lt;/div&gt;&lt;/div&gt;&#39;;
-        playlistModalOverlayApp.classList.add(&#39;active&#39;);
-        generateDiagramPlaylistBtnApp.disabled = true;
 
-        const trackPromises = nodesForPlaylist.map(node =&gt; fetchArtistTopTrackAPIApp(node.name));
+        // Show loading state in modal
+        playlistModalTitleApp.textContent = `🎶 Gerando Playlist...`;
+        playlistModalBodyApp.innerHTML = &#39;&lt;div class=&#34;artistas-app-modal-loading-spinner&#34;&gt;&lt;p&gt;Procurando as músicas mais famosas...&lt;/p&gt;&lt;div class=&#34;spinner&#34;&gt;&lt;/div&gt;&lt;/div&gt;&#39;;
+        playlistModalOverlayApp.classList.add(&#39;active&#39;);
+        generateDiagramPlaylistBtnApp.disabled = true; // Disable button while fetching
+
+        // Fetch top track for each artist in the diagram
+        const trackPromises = currentGraphNodesApp.map(node =&gt; fetchArtistTopTrackAPIApp(node.name));
+
         try {
             const topTracksResponses = await Promise.all(trackPromises);
-            const validTracks = topTracksResponses.filter(track =&gt; track !== null);
-            if (validTracks.length === 0) throw new Error(&#34;Não foi possível encontrar as músicas mais famosas para os artistas do diagrama.&#34;);
-            const tracksForPlaylist = validTracks.map(track =&gt; ({ artistName: track.artist.name, trackName: track.name, trackUrl: track.url }));
-            const playlistData = { playlistName: &#34;Sankey Playlist&#34;, tracks: tracksForPlaylist };
+            const validTracks = topTracksResponses.filter(track =&gt; track !== null); // Filter out nulls (failed fetches)
+
+            if (validTracks.length === 0) {
+                throw new Error(&#34;Não foi possível encontrar as músicas mais famosas para os artistas do diagrama.&#34;);
+            }
+
+            // Prepare playlist data
+            const tracksForPlaylist = validTracks.map(track =&gt; ({
+                artistName: track.artist.name,
+                trackName: track.name,
+                trackUrl: track.url
+            }));
+            const playlistData = {
+                playlistName: &#34;Sankey Playlist&#34;,
+                tracks: tracksForPlaylist
+            };
+
+            // Cache and display
             cachedPlaylistDataApp = playlistData;
             cachedDiagramSignatureApp = currentDiagramSignature;
             displayPlaylistInModalApp(playlistData);
@@ -846,62 +689,52 @@ a.sankey-node-wrapper:hover .sankey-node-label {
             playlistModalTitleApp.textContent = &#34;Erro ao Gerar a Playlist&#34;;
             playlistModalBodyApp.innerHTML = `&lt;p style=&#34;color: #c53030;&#34;&gt;${error.message}&lt;/p&gt;`;
         } finally {
-            generateDiagramPlaylistBtnApp.disabled = false;
+            generateDiagramPlaylistBtnApp.disabled = false; // Re-enable button
         }
     }
 
+    /**
+     * Handles the main search functionality when the user clicks &#34;Buscar&#34; or presses Enter.
+     * Fetches Sankey data for the entered artist and triggers diagram drawing.
+     */
     async function handleSearchApp() {
-        if (!artistInputApp) return;
+        if (!artistInputApp) return; // Should not happen if initialized correctly
         const artistNameFromInput = artistInputApp.value.trim();
         if (!artistNameFromInput) {
-            showErrorApp(&#39;Por favor, digite o nome de um artista.&#39;); return;
+            showErrorApp(&#39;Por favor, digite o nome de um artista.&#39;);
+            return;
         }
 
         showLoadingApp(`Procurando por &#34;${artistNameFromInput}&#34;...`);
-        
-        const currentSVG = sankeyChartDivApp.querySelector(&#34;svg&#34;);
-        if (currentSVG &amp;&amp; focusedNodeNameApp) {
-             resetNodeLinkStyles(d3.select(currentSVG).select(&#34;g&#34;), window.innerWidth &lt;= 768);
-        }
-
-        sankeyChartDivApp.innerHTML = &#39;&#39;;
-        currentGraphNodesApp = [];
-        generateDiagramPlaylistBtnApp.disabled = true;
-        cachedPlaylistDataApp = null;
+        if(sankeyChartDivApp) sankeyChartDivApp.innerHTML = &#39;&#39;; // Clear previous diagram
+        currentGraphNodesApp = []; // Reset state
+        if(generateDiagramPlaylistBtnApp) generateDiagramPlaylistBtnApp.disabled = true;
+        cachedPlaylistDataApp = null; // Clear cache
         cachedDiagramSignatureApp = null;
-        fullSankeyDataApp = null;
 
         try {
-            const newSankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP);
-            fullSankeyDataApp = newSankeyData;
-
-            if (fullSankeyDataApp &amp;&amp; fullSankeyDataApp.nodes &amp;&amp; fullSankeyDataApp.nodes.length &gt; 0) {
-                if (isMobileView) {
-                    currentMobileDisplayLevelApp = 0; 
-                    showingFullDiagramMobileApp = false;
-                    mobileNavControlsApp.style.display = &#39;flex&#39;;
-                    updateMobileDiagramView(); 
-                } else {
-                    mobileNavControlsApp.style.display = &#39;none&#39;;
-                    drawSankeyD3App(fullSankeyDataApp); 
-                }
+            const sankeyData = await generateSankeyDataApp(artistNameFromInput, MAX_DEPTH_APP);
+            if (sankeyData &amp;&amp; sankeyData.nodes &amp;&amp; sankeyData.nodes.length &gt; 0) {
+                drawSankeyD3App(sankeyData);
             } else {
+                // This case should ideally be caught by generateSankeyDataApp throwing an error
+                // if initialArtistData fails, or by drawSankeyD3App if nodes array is empty after processing.
                 showErrorApp(`Nenhuma informação encontrada para &#34;${artistNameFromInput}&#34;.`);
-                 if(isMobileView) mobileNavControlsApp.style.display = &#39;none&#39;;
             }
         } catch (error) {
+            // Catch errors from generateSankeyDataApp (e.g., initial artist not found)
             showErrorApp(error.message || `Ocorreu um erro ao buscar dados para &#34;${artistNameFromInput}&#34;.`);
-            if(isMobileView) mobileNavControlsApp.style.display = &#39;none&#39;;
         }
     }
 
     // --- App Initialization ---
+    // Ensure the script runs only if the main container element exists on the page
     if (document.getElementById(&#39;artist-input-app&#39;)) {
         initializePageApp();
     }
+
 })();
 &lt;/script&gt;
-
 </description>
     </item>
     
