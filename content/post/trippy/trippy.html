@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trippy Cosmic Pulse Visualizer - Autoload & Fullscreen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #000000; /* Pure black background */
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Center content vertically */
+            min-height: 100vh;
+            padding: 10px; /* Reduced padding */
+            box-sizing: border-box;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        #playerContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px; 
+            padding: 15px 20px;
+            background-color: #110f1a; 
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(120, 80, 200, 0.2); 
+            margin-bottom: 15px; /* Adjusted margin */
+            border: 1px solid #302050;
+            z-index: 10; 
+        }
+        
+        #songInfoDisplay {
+            font-size: 14px;
+            color: #aaa;
+            min-height: 20px;
+            text-align: center;
+        }
+
+        #audioPlayer {
+            width: 100%;
+            max-width: 380px; /* Slightly smaller player */
+            border-radius: 6px;
+        }
+        #audioPlayer::-webkit-media-controls-panel {
+            background-color: #1a1026;
+            border-radius: 6px;
+            border: 1px solid #403060;
+        }
+        #audioPlayer::-webkit-media-controls-play-button,
+        #audioPlayer::-webkit-media-controls-mute-button,
+        #audioPlayer::-webkit-media-controls-timeline,
+        #audioPlayer::-webkit-media-controls-current-time-display,
+        #audioPlayer::-webkit-media-controls-time-remaining-display,
+        #audioPlayer::-webkit-media-controls-volume-slider {
+             filter: invert(1) hue-rotate(240deg) brightness(0.7) contrast(1.5);
+        }
+
+        #fullscreenBtn {
+            padding: 8px 15px;
+            background-color: #2a1a3a;
+            color: #c0a0ff;
+            border: 1px solid #c0a0ff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        #fullscreenBtn:hover {
+            background-color: #c0a0ff;
+            color: #110f1a;
+        }
+
+        #visualizerCanvas {
+            border: 1px solid #201030; 
+            background-color: black;
+            border-radius: 8px; 
+            box-shadow: 0 0 30px rgba(80, 50, 150, 0.4); 
+            max-width: 98vw; 
+            max-height: 90vh; /* Increased default max height */
+            display: block; /* Important for proper sizing */
+        }
+
+        .message-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #e0d0ff;
+            font-size: 18px;
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(10, 5, 20, 0.75);
+            border-radius: 8px;
+            border: 1px solid #504070;
+            z-index: 5; 
+        }
+    </style>
+</head>
+<body>
+    <div id="playerContainer">
+        <div id="songInfoDisplay">Loading song.mp3...</div>
+        <audio id="audioPlayer" controls></audio>
+        <button id="fullscreenBtn">Fullscreen</button>
+    </div>
+
+    <canvas id="visualizerCanvas"></canvas>
+    <div id="canvasMessage" class="message-overlay" style="display: none;"></div>
+
+    <script>
+        // --- Global Variables ---
+        let audioContext;
+        let analyser;
+        let sourceNode;
+        let dataArray; 
+        let canvas, ctx;
+        let audioPlayer;
+        let songInfoDisplay; 
+        let fullscreenBtn;
+        let animationFrameId;
+        let canvasMessageDiv;
+
+        let particles = [];
+        const PARTICLE_BASE_LIFE = 220; // Even longer life for more trails
+        const MAX_PARTICLES = 550;    // More particles for intensity
+
+        let audioMetrics = {
+            overallVolume: 0,
+            bass: 0,
+            mid: 0,
+            treble: 0
+        };
+        
+        let globalHueOffset = 0; // For global color shifting
+
+        // --- Particle Class ---
+        class Particle {
+            constructor(x, y, radius, colorH, speed, direction, life) {
+                this.x = x;
+                this.y = y;
+                this.initialRadius = radius; // Store initial radius for pulsing
+                this.radius = radius;
+                this.colorH = colorH; 
+                this.speed = speed;
+                this.initialSpeed = speed; // Store initial speed
+                this.direction = direction; 
+                this.vx = Math.cos(direction) * speed;
+                this.vy = Math.sin(direction) * speed;
+                this.life = life;
+                this.initialLife = life;
+                this.opacity = 1;
+                this.saturation = 100;
+                this.lightness = 60; 
+                this.angularVelocity = (Math.random() - 0.5) * 0.02; // Slow, random rotation
+                this.hueShiftSpeed = (Math.random() - 0.5) * 2; // How fast its own hue shifts
+            }
+
+            update() {
+                this.life--;
+                this.opacity = Math.max(0, (this.life / this.initialLife) * 2.0); // Brighter overall, fades sharply
+                this.opacity = Math.min(1, this.opacity); 
+
+                this.direction += this.angularVelocity * (audioMetrics.treble + 0.1); // Treble influences spin
+                this.vx = Math.cos(this.direction) * this.speed;
+                this.vy = Math.sin(this.direction) * this.speed;
+
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                this.speed *= 0.995; // Slower decay for very wide travel
+                this.speed = Math.max(0.1, this.speed); // Prevent speed from becoming zero
+
+                this.colorH = (this.colorH + this.hueShiftSpeed * (audioMetrics.mid + 0.2)) % 360; // Shift hue over time, influenced by mid
+                
+                // Pulsing radius based on bass and its own life
+                const lifeRatio = this.life / this.initialLife;
+                this.radius = this.initialRadius * (0.3 + 0.7 * lifeRatio) * (1 + audioMetrics.bass * 0.5 * Math.sin(this.life * 0.1));
+                this.radius = Math.max(0.8, this.radius);
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                
+                let particleLightness = 50 + audioMetrics.overallVolume * 25; // More dynamic lightness
+                particleLightness = Math.min(85, particleLightness); // Cap lightness
+
+                const finalHue = (this.colorH + globalHueOffset) % 360;
+
+                ctx.fillStyle = `hsla(${finalHue}, ${this.saturation}%, ${particleLightness}%, ${this.opacity})`;
+                ctx.shadowColor = `hsla(${finalHue}, ${this.saturation}%, ${particleLightness}%, 0.5)`; // Slightly less intense shadow
+                ctx.shadowBlur = this.radius * 0.8 + 10; // Larger, softer glow
+                ctx.fill();
+            }
+
+            isDead() {
+                return this.life <= 0 || this.opacity <= 0 || this.radius < 0.5;
+            }
+        }
+
+        // --- Initialization and Event Handlers ---
+        function init() {
+            audioPlayer = document.getElementById('audioPlayer');
+            canvas = document.getElementById('visualizerCanvas');
+            ctx = canvas.getContext('2d');
+            songInfoDisplay = document.getElementById('songInfoDisplay');
+            fullscreenBtn = document.getElementById('fullscreenBtn');
+            canvasMessageDiv = document.getElementById('canvasMessage');
+
+            resizeCanvas(); 
+            window.addEventListener('resize', resizeCanvas);
+            document.addEventListener('fullscreenchange', handleFullscreenChange);
+            
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            loadDefaultSong();
+
+            audioPlayer.onplay = () => {
+                if (audioContext && audioContext.state === 'suspended') {
+                    audioContext.resume().catch(e => console.error("AudioContext resume error:", e));
+                }
+                if (!animationFrameId && analyser && dataArray) {
+                    draw();
+                }
+                songInfoDisplay.textContent = "Playing: song.mp3";
+            };
+            audioPlayer.onpause = () => {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                drawInitialCanvasState("Paused. Press play to resume.");
+                if (audioPlayer.src.endsWith("song.mp3")) { 
+                    songInfoDisplay.textContent = "Paused: song.mp3";
+                }
+            };
+            audioPlayer.onended = () => {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                particles = []; 
+                drawInitialCanvasState("Playback ended. Reload to play again.");
+                 if (audioPlayer.src.endsWith("song.mp3")) {
+                    songInfoDisplay.textContent = "Finished: song.mp3";
+                }
+            };
+             audioPlayer.onerror = (e) => {
+                console.error("Audio player error:", e);
+                const errorMessage = "Error loading song.mp3. Make sure it's in the same directory.";
+                songInfoDisplay.textContent = errorMessage;
+                showCanvasMessage(errorMessage, true);
+                drawInitialCanvasState(errorMessage);
+            };
+            
+            drawInitialCanvasState("Attempting to load song.mp3...");
+        }
+
+        function resizeCanvas() {
+            if (document.fullscreenElement === canvas || document.webkitFullscreenElement === canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            } else {
+                const playerContainerHeight = document.getElementById('playerContainer').offsetHeight;
+                const availableHeight = window.innerHeight - playerContainerHeight - 40; 
+
+                canvas.width = Math.min(window.innerWidth * 0.95, 1200);
+                canvas.height = Math.min(availableHeight * 0.95, 800); 
+                canvas.height = Math.max(300, canvas.height); 
+            }
+            
+            if (!animationFrameId && (!audioPlayer || !audioPlayer.src || audioPlayer.paused)) {
+                 drawInitialCanvasState(songInfoDisplay.textContent || "Attempting to load song.mp3...");
+            }
+        }
+        
+        function toggleFullscreen() {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                if (canvas.requestFullscreen) {
+                    canvas.requestFullscreen();
+                } else if (canvas.webkitRequestFullscreen) { 
+                    canvas.webkitRequestFullscreen();
+                }
+                fullscreenBtn.textContent = "Exit Fullscreen";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { 
+                    document.webkitExitFullscreen();
+                }
+                fullscreenBtn.textContent = "Fullscreen";
+            }
+        }
+
+        function handleFullscreenChange() {
+            resizeCanvas(); 
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                fullscreenBtn.textContent = "Fullscreen";
+            } else {
+                fullscreenBtn.textContent = "Exit Fullscreen";
+            }
+        }
+
+
+        function drawInitialCanvasState(message = "Loading audio...") {
+            if (!ctx) return;
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.font = `bold ${Math.min(20, canvas.width / 35)}px Inter`;
+            ctx.fillStyle = "rgba(180, 160, 255, 0.7)"; 
+            ctx.textAlign = "center";
+            ctx.fillText(message, canvas.width / 2, canvas.height / 2);
+        }
+        
+        function showCanvasMessage(message, isError = false) {
+            canvasMessageDiv.textContent = message;
+            canvasMessageDiv.style.color = isError ? '#ff6b6b' : '#e0d0ff';
+            canvasMessageDiv.style.backgroundColor = isError ? 'rgba(100,0,0,0.7)' : 'rgba(10,5,20,0.75)';
+            canvasMessageDiv.style.display = 'block';
+        }
+
+        function hideCanvasMessage() {
+            canvasMessageDiv.style.display = 'none';
+        }
+
+        async function loadDefaultSong() {
+            hideCanvasMessage();
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            particles = []; 
+
+            audioPlayer.src = 'song.mp3'; 
+
+            if (!audioContext) {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    const errorMsg = "Error: Web Audio API is not supported.";
+                    showCanvasMessage(errorMsg, true);
+                    drawInitialCanvasState(errorMsg);
+                    songInfoDisplay.textContent = errorMsg;
+                    return;
+                }
+            }
+            if (audioContext.state === 'suspended') {
+                console.log("AudioContext is suspended. Waiting for user interaction.");
+            }
+
+            if (!analyser) {
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 1024; 
+                analyser.smoothingTimeConstant = 0.5; // Even more responsive for trippy effects
+                const bufferLength = analyser.frequencyBinCount; 
+                dataArray = new Uint8Array(bufferLength);
+            }
+
+            if (sourceNode) {
+                sourceNode.disconnect();
+            }
+            sourceNode = audioContext.createMediaElementSource(audioPlayer);
+            sourceNode.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            try {
+                await audioPlayer.play(); 
+                songInfoDisplay.textContent = "Playing: song.mp3";
+            } catch (error) {
+                console.warn("Autoplay was prevented or an error occurred:", error);
+                if (error.name === 'NotAllowedError') {
+                    const playMsg = "Autoplay blocked. Click play to start.";
+                    songInfoDisplay.textContent = playMsg;
+                    drawInitialCanvasState(playMsg);
+                } else {
+                    const errorMsg = `Error playing song.mp3: ${error.message}.`;
+                    songInfoDisplay.textContent = errorMsg;
+                    showCanvasMessage(errorMsg, true);
+                    drawInitialCanvasState(errorMsg);
+                }
+            }
+        }
+
+        function updateAudioMetrics() {
+            if (!analyser || !dataArray) return;
+            analyser.getByteFrequencyData(dataArray);
+
+            const bufferLength = analyser.frequencyBinCount; 
+            let bassSum = 0, midSum = 0, trebleSum = 0, overallSum = 0;
+            const bassEndIndex = Math.floor(bufferLength * 0.12); // Focus bass on lower frequencies
+            const midEndIndex = Math.floor(bufferLength * 0.55);  
+            const trebleStartIndex = Math.floor(bufferLength * 0.65); // More distinct treble band
+
+            for (let i = 0; i < bufferLength; i++) {
+                const value = dataArray[i];
+                overallSum += value;
+                if (i < bassEndIndex) {
+                    bassSum += value;
+                } else if (i >= bassEndIndex && i < midEndIndex) { // Ensure mid is distinct
+                    midSum += value;
+                } else if (i >= trebleStartIndex) { // Ensure treble is distinct
+                    trebleSum += value;
+                }
+            }
+
+            audioMetrics.overallVolume = (overallSum / bufferLength) / 255; 
+            audioMetrics.bass = (bassSum / (bassEndIndex || 1)) / 255;
+            audioMetrics.mid = (midSum / ((midEndIndex - bassEndIndex) || 1)) / 255;
+            audioMetrics.treble = (trebleSum / ((bufferLength - trebleStartIndex) || 1)) / 255;
+        }
+        
+        function emitParticles() {
+            if (particles.length > MAX_PARTICLES) return;
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const numToEmit = Math.floor(audioMetrics.overallVolume * 30 + audioMetrics.bass * 20 + audioMetrics.treble * 10); 
+
+            for (let i = 0; i < numToEmit; i++) {
+                const baseSpeed = 2.5 + audioMetrics.overallVolume * 6.0 + audioMetrics.treble * 2.0; 
+                const speedVariance = audioMetrics.treble * 4.0; 
+                const speed = baseSpeed + (Math.random() - 0.5) * speedVariance;
+                const direction = Math.random() * Math.PI * 2; 
+                let radius = 3 + audioMetrics.bass * 22 + Math.random() * 7; 
+                radius = Math.max(1.5, radius); 
+                
+                // Initial hue more spread out and reactive
+                let hue = (180 + audioMetrics.mid * 150 + (audioMetrics.bass - 0.5) * 90 - (audioMetrics.treble - 0.5) * 70) % 360;
+                if (hue < 0) hue += 360;
+
+
+                let life = PARTICLE_BASE_LIFE * (0.75 + audioMetrics.overallVolume * 0.5); 
+                if (audioMetrics.treble > 0.6 && Math.random() < 0.35) { 
+                    hue = (30 + Math.random() * 60) % 360; // Intense, bright sparkles
+                    radius *= 0.45; 
+                    life *= 0.30; 
+                }
+                particles.push(new Particle(centerX, centerY, radius, hue, speed, direction, life));
+            }
+        }
+
+        function draw() {
+            animationFrameId = requestAnimationFrame(draw);
+
+            if (!analyser || !dataArray || !ctx) return;
+            updateAudioMetrics(); 
+            
+            globalHueOffset = (globalHueOffset + 0.2 * (audioMetrics.overallVolume + 0.1)) % 360; // Slow global hue shift
+
+            // Very low alpha for extreme trails, creating afterimage effects
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.shadowColor = 'transparent'; // Reset shadow for the frame
+            ctx.shadowBlur = 0;
+
+            hideCanvasMessage(); 
+            emitParticles();
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                if (particles[i].isDead()) {
+                    particles.splice(i, 1); 
+                } else {
+                    particles[i].draw(ctx);
+                }
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
