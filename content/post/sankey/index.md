@@ -35,7 +35,7 @@ Cansado das listas superficiais de artistas similares? Esta ferramenta vai fundo
 
 <br>
 
-Cada nome no diagrama é um convite para explorar mais: clique e acesse diretamente a página do artista no Last.fm, abrindo-a em uma nova aba. Descubra a linhagem musical e encontre sua próxima obsessão.
+Cada nome no diagrama é um convite para explorar mais: clique e acesse diretamente a página do artista no Last.fm, abrindo-a em uma nova aba.
 
 <br>
 
