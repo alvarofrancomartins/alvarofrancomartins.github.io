@@ -13,7 +13,9 @@ tags:
 - Música
 - Redes de Artistas
 - Last.fm
-- Música Eclética
+- Descobrir novos artistas
+- Descobrir
+- Descobrir novas músicas
 categories:
 - Música
 - Ferramentas
