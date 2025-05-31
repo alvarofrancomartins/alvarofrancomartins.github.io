@@ -2,7 +2,7 @@
 title: "Mapeie sua próxima descoberta musical"
 date: 2025-05-31
 subtitle: "Mergulhe fundo nas conexões musicais, nível após nível."
-summary: "Descubra artistas de artistas, visualize redes complexas de forma simples e expanda seus horizontes musicais a partir de um nome conhecido."
+summary: "Mergulhe fundo nas conexões musicais, nível após nível."
 draft: false
 featured: false
 authors:
