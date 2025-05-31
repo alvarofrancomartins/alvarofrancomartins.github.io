@@ -17,11 +17,11 @@ categories:
 - Música
 - Ferramentas
 # toc: true
-# image:
-#   placement: 3
-#   caption: ""
-#   focal_point: "center"
-#   preview_only: false
+image:
+  placement: 3
+  caption: ""
+  focal_point: "center"
+  preview_only: false
 ---
 
 Limitar sua busca por nova música aos artistas similares de uma única escolha é apenas arranhar a superfície. Imagine poder enxergar a teia completa de conexões, uma verdadeira linhagem musical que se desdobra a partir do seu ponto de partida.
