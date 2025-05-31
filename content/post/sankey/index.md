@@ -27,7 +27,7 @@ image:
   preview_only: false
 ---
 
-Cansado das listas superficiais de artistas similares? Esta ferramenta vai fundo, revelando artistas de artistas de artistas... até quatro níveis de distância do seu ponto de partida.
+Cansado das listas superficiais de artistas similares? Esta ferramenta vai fundo, revelando artistas de artistas de artistas... até quatro níveis de distância do seu artista favorito.
 
 <br>
 
