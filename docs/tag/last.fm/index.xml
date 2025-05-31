@@ -28,7 +28,7 @@
 &lt;div id=&#34;artistas-app-container&#34; class=&#34;artistas-app-wrapper&#34;&gt;
     &lt;header class=&#34;artistas-app-header&#34;&gt;
         &lt;h2&gt;Artistas Similares&lt;/h2&gt;
-        &lt;p&gt;Descubra conexões musicais em até 4 níveis de similaridade.&lt;/p&gt;
+        &lt;p&gt;Pesquise seu artista favorito abaixo. Descubra conexões musicais em até 4 níveis de similaridade.&lt;/p&gt;
     &lt;/header&gt;
     &lt;div class=&#34;artistas-app-search-container&#34;&gt;
         &lt;input type=&#34;text&#34; id=&#34;artist-input-app&#34; placeholder=&#34;Digite o nome de um artista&#34; value=&#34;Radiohead&#34;&gt;
