@@ -1,8 +1,8 @@
 ---
 title: "Mapeie Sua Próxima Descoberta Musical"
 date: 2025-05-31
-subtitle: "Explore redes de artistas similares em vez de listas limitadas."
-summary: "Descubra música de uma nova maneira, visualizando a linhagem de conexões entre artistas e suas similaridades em múltiplos níveis. Clique em cada artista para visitar sua página no Last.fm."
+subtitle: "Mergulhe fundo nas conexões musicais, nível após nível."
+summary: "Descubra artistas de artistas, visualize redes complexas de forma simples e expanda seus horizontes musicais a partir de um nome conhecido."
 draft: false
 featured: false
 authors:
@@ -13,6 +13,7 @@ tags:
 - Música
 - Redes de Artistas
 - Last.fm
+- Música Eclética
 categories:
 - Música
 - Ferramentas
@@ -24,16 +25,10 @@ image:
   preview_only: false
 ---
 
-Limitar sua busca por nova música aos artistas similares de uma única escolha é apenas arranhar a superfície. Imagine poder enxergar a teia completa de conexões, uma verdadeira linhagem musical que se desdobra a partir do seu ponto de partida.
+Cansado das listas superficiais de artistas similares? Esta ferramenta vai fundo, revelando artistas de artistas de artistas... até quatro níveis de distância do seu ponto de partida.
 
-<br>
+É uma forma de visualizar uma vasta rede de conexões musicais de maneira condensada, perfeita para quem tem gostos ecléticos e busca expandir seus horizontes sonoros. A partir de um artista que você já curte, descubra caminhos surpreendentes para novos talentos e quebre suas barreiras musicais.
 
-Esta ferramenta transforma a descoberta musical. Em vez de uma lista estática, você visualiza como as influências e semelhanças fluem entre artistas, e entre os artistas similares a eles, em até quatro níveis de profundidade. Cada artista é representado unicamente, garantindo uma exploração clara de um vasto panorama musical. Para conhecer mais sobre um talento específico, basta clicar no seu nome no diagrama para ser direcionado à sua página no Last.fm, abrindo-a em uma nova aba.
-
-<br>
-
-Navegue por esta rede de talentos e deixe que as conexões revelem sons surpreendentes.
-
-<br>
+Cada nome no diagrama é um convite para explorar mais: clique e acesse diretamente a página do artista no Last.fm, abrindo-a em uma nova aba. Descubra a linhagem musical e encontre sua próxima obsessão.
 
 {{< include-html "content/post/sankey/artistas_similares_app.html" >}}
