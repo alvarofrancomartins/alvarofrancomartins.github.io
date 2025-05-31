@@ -744,14 +744,6 @@ button.artistas-app-playlist-button:disabled {
     </item>
     
     <item>
-      <title>Visualização Interativa: Buracos em Rodovias do Brasil</title>
-      <link>https://alvarofrancomartins.com/post/buracos-rodovias/</link>
-      <pubDate>Sun, 11 May 2025 00:00:00 +0000</pubDate>
-      <guid>https://alvarofrancomartins.com/post/buracos-rodovias/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Sensibilidade, especificidade e curvas ROC: Um guia visual para não se confundir mais!</title>
       <link>https://alvarofrancomartins.com/post/ml-metrics/</link>
       <pubDate>Mon, 24 Mar 2025 00:00:00 +0000</pubDate>
