@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/</link>
       <atom:link href="https://alvarofrancomartins.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 21 May 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Alvaro Franco Martins</title>
@@ -13,11 +13,13 @@
     </image>
     
     <item>
-      <title>aasdasda</title>
+      <title>Mapeie Sua Próxima Descoberta Musical</title>
       <link>https://alvarofrancomartins.com/post/sankey/</link>
-      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 31 May 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/sankey/</guid>
-      <description>&lt;h1 id=&#34;teste&#34;&gt;Teste&lt;/h1&gt;
+      <description>&lt;p&gt;Limitar sua busca por nova música aos artistas similares de uma única escolha é apenas arranhar a superfície. Imagine poder enxergar a teia completa de conexões, uma verdadeira linhagem musical que se desdobra a partir do seu ponto de partida.&lt;/p&gt;
+&lt;p&gt;Esta ferramenta transforma a descoberta musical. Em vez de uma lista estática, você visualiza como as influências e semelhanças fluem entre artistas, e entre os artistas similares a eles, em até quatro níveis de profundidade. Cada artista é representado unicamente, garantindo uma exploração clara de um vasto panorama musical.&lt;/p&gt;
+&lt;p&gt;Navegue por esta rede de talentos e deixe que as conexões revelem sons surpreendentes.&lt;/p&gt;
 
 &lt;!DOCTYPE html&gt;
 &lt;div id=&#34;artistas-app-container&#34; class=&#34;artistas-app-wrapper&#34;&gt;
