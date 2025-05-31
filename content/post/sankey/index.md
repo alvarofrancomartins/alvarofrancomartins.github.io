@@ -26,8 +26,14 @@ categories:
 
 Limitar sua busca por nova música aos artistas similares de uma única escolha é apenas arranhar a superfície. Imagine poder enxergar a teia completa de conexões, uma verdadeira linhagem musical que se desdobra a partir do seu ponto de partida.
 
+<br>
+
 Esta ferramenta transforma a descoberta musical. Em vez de uma lista estática, você visualiza como as influências e semelhanças fluem entre artistas, e entre os artistas similares a eles, em até quatro níveis de profundidade. Cada artista é representado unicamente, garantindo uma exploração clara de um vasto panorama musical. Para conhecer mais sobre um talento específico, basta clicar no seu nome no diagrama para ser direcionado à sua página no Last.fm, abrindo-a em uma nova aba.
 
+<br>
+
 Navegue por esta rede de talentos e deixe que as conexões revelem sons surpreendentes.
+
+<br>
 
 {{< include-html "content/post/sankey/artistas_similares_app.html" >}}
