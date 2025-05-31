@@ -18,7 +18,6 @@ tags:
 - Descobrir novas músicas
 categories:
 - Música
-- Ferramentas
 # toc: true
 image:
   placement: 3
