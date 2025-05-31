@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Visualização Interativa | Alvaro Franco Martins</title>
-    <link>https://alvarofrancomartins.com/tag/visualizacao-interativa/</link>
-      <atom:link href="https://alvarofrancomartins.com/tag/visualizacao-interativa/index.xml" rel="self" type="application/rss+xml" />
-    <description>Visualização Interativa</description>
+    <title>Last.fm | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/last.fm/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/last.fm/index.xml" rel="self" type="application/rss+xml" />
+    <description>Last.fm</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 31 May 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
-      <title>Visualização Interativa</title>
-      <link>https://alvarofrancomartins.com/tag/visualizacao-interativa/</link>
+      <title>Last.fm</title>
+      <link>https://alvarofrancomartins.com/tag/last.fm/</link>
     </image>
     
     <item>
