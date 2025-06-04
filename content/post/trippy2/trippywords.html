@@ -3,480 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trippy Particle Text Reveal - Improved Readability</title>
+    <title>Trippy Particle System - Strong Gravity Pull</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; 
         }
-        #particleCanvas {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-        #controlsPanel {
-            position: relative;
-            z-index: 10;
-            background-color: rgba(20, 20, 20, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            transition: opacity 0.5s ease-out;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-        }
-        #controlsPanel.hidden {
-            opacity: 0;
-            pointer-events: none;
+        canvas {
+            display: block; 
         }
         textarea {
-            width: 300px;
-            height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #fff;
-            font-size: 16px;
-            resize: none;
-        }
-        button {
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: none;
-            background-color: #00bcd4; /* Cyan */
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0097a7; /* Darker Cyan */
+            resize: none; 
         }
         #showControlsButton {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 5;
-            display: none; /* Initially hidden */
-            opacity: 0.8;
-        }
-        #showControlsButton.visible {
-            display: block;
-        }
-        #resizeMessage {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.85);
+            padding: 8px 16px;
+            background-color: rgba(75, 85, 99, 0.7); 
             color: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-            z-index: 100;
-            font-size: 18px;
-            border: 1px solid #00bcd4;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 20; 
+            display: none; 
+            transition: opacity 0.3s ease-in-out;
+        }
+        #showControlsButton:hover {
+            background-color: rgba(55, 65, 81, 0.8); 
         }
     </style>
 </head>
-<body>
-    <canvas id="particleCanvas"></canvas>
-    <div id="controlsPanel">
-        <textarea id="textInput" placeholder="Enter your text here... (Use Enter for new lines)">Clearer
-Text!</textarea>
-        <button id="startButton">Start Reveal</button>
+<body class="bg-gray-900 text-white">
+
+    <canvas id="particleCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+
+    <div id="controls" class="absolute top-4 left-4 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out">
+        <div>
+            <label for="textInput" class="block text-sm font-medium text-gray-300">Text to Reveal (use Enter for new lines):</label>
+            <textarea id="textInput" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400">STRONG
+GRAVITY</textarea>
+        </div>
+        <hr class="my-4 border-gray-600">
+        <div>
+            <button id="startButton" class="mt-3 w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Start Reveal
+            </button>
+        </div>
+        <div id="messageContainer" class="mt-2 text-xs"></div>
     </div>
+
     <button id="showControlsButton">Show Controls</button>
-    <div id="resizeMessage">
-        Window resized during reveal. <br>Please show controls and restart to regenerate the text mask.
-    </div>
 
     <script>
-        // --- Global Variables & Constants ---
+        // --- DOM Elements ---
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-        const textInput = document.getElementById('textInput');
-        const startButton = document.getElementById('startButton');
-        const controlsPanel = document.getElementById('controlsPanel');
-        const showControlsButton = document.getElementById('showControlsButton');
-        const resizeMessage = document.getElementById('resizeMessage');
+        const controlsPanel = document.getElementById('controls');
+        const showControlsBtn = document.getElementById('showControlsButton');
+        const textInputElement = document.getElementById('textInput'); 
 
-        let textCanvas, textCtx; // Off-screen canvas for text mask
+        // --- Particle System Configuration ---
         let particles = [];
-        let animationFrameId;
-        let burstIntervalId;
-        let currentText = '';
-        let isRevealing = false;
-        let maskData = null; // To store getImageData of the text mask
-        let stuckParticlesCount = 0; // Counter for stuck particles
+        const focalLength = 300; 
+        const emitterZPosition = focalLength * 1.2; 
+        const particlesPerBurst = 450; 
+        const particleBurstSpeed = 15; 
+        const particleForwardSpeedMin = 4.5; 
+        const particleForwardSpeedRandom = 2.5; 
+        const SUB_FRAME_STEPS = 5; 
+        // MODIFICATION: Gravity strength adjusted
+        const GRAVITY_STRENGTH = 0.7; 
 
-        const PARTICLES_PER_BURST = 450; 
-        const BURST_BPM = 1000;
-        const BURST_INTERVAL_MS = 60000 / BURST_BPM;
-        const TRAIL_ALPHA = 0.28;
-        
-        const HUE_SHIFT_SPEED_MIN = 0.5;
-        const HUE_SHIFT_SPEED_MAX = 2.5;
-        
-        const PARTICLE_VZ_MIN = 2.5; 
-        const PARTICLE_VZ_MAX = 5.0;
-        const PARTICLE_VX_VY_RANGE = 2; 
+        const FIXED_BPM = 1000; 
+        let beatIntervalTime = (60 / FIXED_BPM) * 1000;
+        let beatIntervalId = null; 
+        let animationFrameId = null;
 
-        const BASE_PARTICLE_SIZE_MIN = 1; 
-        const BASE_PARTICLE_SIZE_MAX = 3; 
+        let emitterPosition = { x: 0, y: 0, z: emitterZPosition };
 
-        const MIN_SIZE_AT_FAR_FACTOR = 0.1; 
-        const MAX_SIZE_AT_NEAR_FACTOR = 1.0;
+        // --- Text Reveal Configuration ---
+        let userText = "STRONG\nGRAVITY"; 
+        const textHitMaskCanvas = document.createElement('canvas'); 
+        const textHitMaskCtx = textHitMaskCanvas.getContext('2d', { willReadFrequently: true });
+        let textImageData = null; 
+        let textFontSize = 180;   
+        let textFont = "bold " + textFontSize + "px Inter, sans-serif"; 
+        const textPlaneZ = focalLength / 3; 
+        const LINE_HEIGHT_MULTIPLIER = 1.2; 
+        const LETTER_SPACING_AMOUNT = 7; 
+        const gravityTargetWorld = { x: 0, y: 0, z: textPlaneZ };
 
-        const STICK_GRID_SIZE = 11; 
-        const STICK_GRID_OFFSET = Math.floor(STICK_GRID_SIZE / 2);
-        // MODIFIED FOR READABILITY: Stuck particles are much smaller
-        const STICK_SIZE_REDUCTION = 0.4; 
-        
-        const MAX_Z_DISTANCE = 200; 
-        const TARGET_Z = 0; 
 
-        const TEXT_PADDING_FACTOR = 0.90; 
-        const MIN_FONT_SIZE = 10;
+        // --- Core Functions ---
+        function updateTextMask() {
+            userText = textInputElement.value.toUpperCase() || "TYPE\nHERE"; 
+            const lines = userText.split('\n');
 
-        const MAX_STUCK_PARTICLES_THRESHOLD = 15000; 
+            let currentFontSize = 180; 
+            let textBlockWidth, textBlockHeight;
+            const availableWidth = canvas.width * 0.9;
+            const availableHeight = canvas.height * 0.9;
 
-        // --- Particle Class ---
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.z = MAX_Z_DISTANCE * (0.5 + Math.random() * 0.3); 
-
-                this.vx = (Math.random() - 0.5) * PARTICLE_VX_VY_RANGE;
-                this.vy = (Math.random() - 0.5) * PARTICLE_VX_VY_RANGE;
-                this.vz = -(PARTICLE_VZ_MIN + Math.random() * (PARTICLE_VZ_MAX - PARTICLE_VZ_MIN));
-
-                this.baseSize = BASE_PARTICLE_SIZE_MIN + Math.random() * (BASE_PARTICLE_SIZE_MAX - BASE_PARTICLE_SIZE_MIN);
-                this.currentSize = this.baseSize;
-
-                this.initialHue = Math.random() * 360;
-                this.currentHue = this.initialHue;
-                this.hueShiftSpeed = HUE_SHIFT_SPEED_MIN + Math.random() * (HUE_SHIFT_SPEED_MAX - HUE_SHIFT_SPEED_MIN);
-                if (Math.random() < 0.5) this.hueShiftSpeed *= -1;
-
-                this.stuck = false;
-                this.stuckX = 0;
-                this.stuckY = 0;
-                this.stuckZ = 0; 
-                this.alpha = 1;
-            }
-
-            update() {
-                if (this.stuck) {
-                    this.currentSize = this.baseSize; 
-                    return;
-                }
-
-                const prevZ = this.z;
-                this.x += this.vx;
-                this.y += this.vy;
-                this.z += this.vz;
-
-                this.currentHue = (this.currentHue + this.hueShiftSpeed) % 360;
-                if (this.currentHue < 0) this.currentHue += 360;
-
-                const Z_RANGE = MAX_Z_DISTANCE - TARGET_Z;
-                let scaleFactor = 0;
-                if (Z_RANGE > 0) {
-                     scaleFactor = (MAX_Z_DISTANCE - this.z) / Z_RANGE;
-                } else { 
-                     scaleFactor = this.z <= TARGET_Z ? 1 : 0;
-                }
-                scaleFactor = Math.max(0, Math.min(1, scaleFactor)); 
-
-                this.currentSize = (this.baseSize * MIN_SIZE_AT_FAR_FACTOR) + 
-                                   (this.baseSize * MAX_SIZE_AT_NEAR_FACTOR - this.baseSize * MIN_SIZE_AT_FAR_FACTOR) * scaleFactor;
-
-                if ((this.vz < 0 && this.z <= TARGET_Z && prevZ > TARGET_Z) || 
-                    (this.vz > 0 && this.z >= TARGET_Z && prevZ < TARGET_Z) ||
-                    (this.vz === 0 && this.z === TARGET_Z) 
-                ) {
-                    let t = 0;
-                    if (prevZ !== this.z) { 
-                         t = (TARGET_Z - prevZ) / (this.z - prevZ);
-                    } else if (this.z === TARGET_Z) {
-                         t = 1; 
+            do {
+                textFont = `bold ${currentFontSize}px Inter, sans-serif`;
+                textHitMaskCtx.font = textFont; 
+                textBlockWidth = 0;
+                lines.forEach(line => {
+                    let currentLineWidth = 0;
+                    for (let k = 0; k < line.length; k++) {
+                        currentLineWidth += textHitMaskCtx.measureText(line[k]).width;
+                        if (k < line.length - 1) {
+                            currentLineWidth += LETTER_SPACING_AMOUNT; 
+                        }
                     }
-                    
-                    const intersectX = this.x - this.vx + (this.vx * t); 
-                    const intersectY = this.y - this.vy + (this.vy * t); 
-                    
-                    if (this.checkAndStick(intersectX, intersectY)) {
-                        this.stuck = true;
-                        this.stuckX = intersectX;
-                        this.stuckY = intersectY;
-                        this.stuckZ = TARGET_Z; 
+                    if (currentLineWidth > textBlockWidth) textBlockWidth = currentLineWidth;
+                });
+                textBlockHeight = lines.length * (currentFontSize * LINE_HEIGHT_MULTIPLIER);
+                if (textBlockWidth <= availableWidth && textBlockHeight <= availableHeight) break;
+                currentFontSize -= 2;
+            } while (currentFontSize > 10);
+            textFontSize = currentFontSize; 
+            textFont = `bold ${textFontSize}px Inter, sans-serif`;
 
-                        this.vx = this.vy = this.vz = 0;
-                        this.hueShiftSpeed = 0; 
-                        this.baseSize *= STICK_SIZE_REDUCTION; 
-                        this.currentSize = this.baseSize; 
-                        stuckParticlesCount++; 
-                        return; 
+            textHitMaskCanvas.width = canvas.width;
+            textHitMaskCanvas.height = canvas.height;
+            textHitMaskCtx.font = textFont;
+            textHitMaskCtx.textBaseline = 'middle'; 
+            textHitMaskCtx.fillStyle = 'white'; 
+            textHitMaskCtx.clearRect(0, 0, textHitMaskCanvas.width, textHitMaskCanvas.height); 
+
+            const lineHeight = textFontSize * LINE_HEIGHT_MULTIPLIER;
+            const totalTextHeight = lines.length * lineHeight;
+            let startY = (textHitMaskCanvas.height - totalTextHeight) / 2 + (lineHeight / 2); 
+
+            lines.forEach((line, i) => {
+                const currentLineY = startY + (i * lineHeight);
+                let currentLineWidth = 0;
+                for (let k = 0; k < line.length; k++) {
+                    currentLineWidth += textHitMaskCtx.measureText(line[k]).width;
+                    if (k < line.length - 1) {
+                        currentLineWidth += LETTER_SPACING_AMOUNT;
                     }
                 }
+                
+                let currentX = (textHitMaskCanvas.width - currentLineWidth) / 2; 
 
-                if (this.z < TARGET_Z - 50 || this.z > MAX_Z_DISTANCE + 50 || 
-                    this.x < -this.currentSize || this.x > canvas.width + this.currentSize ||
-                    this.y < -this.currentSize || this.y > canvas.height + this.currentSize) {
-                    this.alpha = 0; 
+                for (let k = 0; k < line.length; k++) {
+                    const char = line[k];
+                    textHitMaskCtx.fillText(char, currentX, currentLineY);
+                    currentX += textHitMaskCtx.measureText(char).width + LETTER_SPACING_AMOUNT;
                 }
+            });
+
+            try {
+                textImageData = textHitMaskCtx.getImageData(0, 0, textHitMaskCanvas.width, textHitMaskCanvas.height);
+            } catch (e) {
+                console.error("Error getting image data:", e);
+                showMessage("Error creating text mask. Try again.", "error");
+                textImageData = null; 
             }
+            particles = []; 
+        }
 
-            checkAndStick(checkX, checkY) {
-                if (!maskData || !textCanvas) return false;
+        function updateEmitterPosition() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const randomScreenX = Math.random() * canvas.width;
+            const randomScreenY = Math.random() * canvas.height;
+            emitterPosition.x = (randomScreenX - centerX) * (emitterZPosition / focalLength);
+            emitterPosition.y = (randomScreenY - centerY) * (emitterZPosition / focalLength);
+        }
 
-                const canvasWidth = textCanvas.width;
-                const canvasHeight = textCanvas.height;
+        function createParticle() {
+            particles.push({
+                x: emitterPosition.x, y: emitterPosition.y, z: emitterPosition.z,
+                vx: (Math.random() - 0.5) * particleBurstSpeed,
+                vy: (Math.random() - 0.5) * particleBurstSpeed,
+                vz: -(Math.random() * particleForwardSpeedRandom + particleForwardSpeedMin),
+                baseSize: Math.random() * 1.2 + 0.8, 
+                hue: Math.random() * 360,
+                hueShiftSpeed: (Math.random() - 0.5) * 2,
+                saturation: 100, lightness: 65, 
+                stuck: false, 
+            });
+        }
 
-                for (let r = -STICK_GRID_OFFSET; r <= STICK_GRID_OFFSET; r++) {
-                    for (let c = -STICK_GRID_OFFSET; c <= STICK_GRID_OFFSET; c++) {
-                        const sampleX = Math.round(checkX + c);
-                        const sampleY = Math.round(checkY + r);
+        function spawnBurstAndMoveEmitter() {
+            updateEmitterPosition(); 
+            for (let i = 0; i < particlesPerBurst; i++) createParticle();
+        }
 
-                        if (sampleX >= 0 && sampleX < canvasWidth && sampleY >= 0 && sampleY < canvasHeight) {
-                            const pixelIndex = (sampleY * canvasWidth + sampleX) * 4;
-                            if (maskData.data[pixelIndex + 3] > 0) { 
-                                return true; 
+        function updateAndDrawParticles() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.32)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+
+                if (p.stuck) {
+                    const scale = focalLength / p.z; 
+                    const screenX = centerX + p.x * scale;
+                    const screenY = centerY + p.y * scale;
+                    let screenSize = p.baseSize * scale; 
+                    if (screenSize < 0.05) screenSize = 0.05; 
+                    ctx.beginPath();
+                    ctx.arc(screenX, screenY, screenSize, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsl(${p.hue}, ${p.saturation}%, ${p.lightness}%)`;
+                    ctx.fill();
+                    continue; 
+                }
+
+                const x_old = p.x; 
+                const y_old = p.y; 
+                const z_old = p.z; 
+
+                const dirX = gravityTargetWorld.x - p.x;
+                const dirY = gravityTargetWorld.y - p.y;
+                const dirZ = gravityTargetWorld.z - p.z;
+                const distSq = dirX * dirX + dirY * dirY + dirZ * dirZ; 
+                
+                if (distSq > 0.001) { 
+                    const dist = Math.sqrt(distSq);
+                    const normX = dirX / dist;
+                    const normY = dirY / dist;
+                    const normZ = dirZ / dist;
+                    let effectiveGravity = GRAVITY_STRENGTH;
+                    const distanceFactor = (dist / focalLength + 0.5); 
+                    const zDistanceFactor = ((p.z - textPlaneZ) / focalLength + 0.5);
+
+                    if (p.z > textPlaneZ) { 
+                         p.vz += normZ * effectiveGravity * Math.max(0.1, zDistanceFactor); 
+                    } else { 
+                         p.vz += normZ * effectiveGravity * 0.05; 
+                    }
+                    p.vx += normX * effectiveGravity * distanceFactor; 
+                    p.vy += normY * effectiveGravity * distanceFactor;
+                }
+                
+                const next_x = p.x + p.vx;
+                const next_y = p.y + p.vy;
+                const next_z = p.z + p.vz;
+
+                p.hue = (p.hue + p.hueShiftSpeed) % 360;
+                if (p.hue < 0) p.hue += 360;
+                
+                let didStickThisFrame = false;
+
+                if (textImageData && !p.stuck) {
+                    if (z_old > textPlaneZ && next_z < textPlaneZ + (Math.abs(p.vz) || particleForwardSpeedMin)) { 
+                        for (let step = 1; step <= SUB_FRAME_STEPS; step++) { 
+                            const t_sub = step / SUB_FRAME_STEPS; 
+                            const current_sub_x = x_old + t_sub * (next_x - x_old);
+                            const current_sub_y = y_old + t_sub * (next_y - y_old);
+                            const current_sub_z = z_old + t_sub * (next_z - z_old);
+
+                            if (current_sub_z <= textPlaneZ) {
+                                const scaleAtSubZ = focalLength / current_sub_z;
+                                if (current_sub_z <= 0) continue; 
+
+                                const screenX_sub_coll = centerX + current_sub_x * scaleAtSubZ;
+                                const screenY_sub_coll = centerY + current_sub_y * scaleAtSubZ;
+
+                                const checkRadius = 5; // Adjusted collision check radius
+                                let hit = false;
+                                for (let dx = -checkRadius; dx <= checkRadius; dx++) {
+                                    for (let dy = -checkRadius; dy <= checkRadius; dy++) {
+                                        const sx_check = Math.round(screenX_sub_coll + dx);
+                                        const sy_check = Math.round(screenY_sub_coll + dy);
+
+                                        if (sx_check >= 0 && sx_check < textHitMaskCanvas.width && 
+                                            sy_check >= 0 && sy_check < textHitMaskCanvas.height) {
+                                            const pixelIndex = (sy_check * textHitMaskCanvas.width + sx_check) * 4;
+                                            if (textImageData.data[pixelIndex + 3] > 0) { 
+                                                hit = true; break; 
+                                            }
+                                        }
+                                    }
+                                    if (hit) break;
+                                }
+
+                                if (hit) { 
+                                    p.stuck = true;
+                                    p.baseSize *= 0.25; 
+                                    p.x = current_sub_x; 
+                                    p.y = current_sub_y;
+                                    p.z = current_sub_z; 
+                                    p.vx = p.vy = p.vz = 0; 
+                                    p.hueShiftSpeed = 0;    
+                                    didStickThisFrame = true;
+                                    break; 
+                                }
+                            }
+                            if (current_sub_z < textPlaneZ - 10) { 
+                                break;
                             }
                         }
                     }
                 }
-                return false; 
-            }
-
-            draw() {
-                if (this.alpha <= 0) return;
-
-                let drawX = this.stuck ? this.stuckX : this.x;
-                let drawY = this.stuck ? this.stuckY : this.y;
                 
+                if (didStickThisFrame) {
+                    continue; 
+                }
+
+                p.x = next_x;
+                p.y = next_y;
+                p.z = next_z;
+
+                if (p.z < 1) { 
+                    particles.splice(i, 1);
+                    continue;
+                }
+                
+                const currentScreenScale = focalLength / p.z;
+                const currentScreenX = centerX + p.x * currentScreenScale;
+                const currentScreenY = centerY + p.y * currentScreenScale;
+                let currentScreenSize = p.baseSize * currentScreenScale;
+                if (currentScreenSize < 0.1) currentScreenSize = 0.1; 
+
+                if (currentScreenX + currentScreenSize < 0 || currentScreenX - currentScreenSize > canvas.width ||
+                    currentScreenY + currentScreenSize < 0 || currentScreenY - currentScreenSize > canvas.height) {
+                    if (p.z > 5) { 
+                        particles.splice(i, 1);
+                        continue;
+                    }
+                }
                 ctx.beginPath();
-                ctx.arc(drawX, drawY, Math.max(0.1, this.currentSize), 0, Math.PI * 2);
-                // MODIFIED FOR READABILITY: Non-stuck particles are more transparent
-                ctx.fillStyle = `hsla(${this.currentHue}, 100%, 60%, ${this.stuck ? 1 : 0.65})`; 
+                ctx.arc(currentScreenX, currentScreenY, currentScreenSize, 0, Math.PI * 2);
+                let flyingLightness = p.lightness - 15;
+                if (flyingLightness < 0) flyingLightness = 0;
+                ctx.fillStyle = `hsl(${p.hue}, ${p.saturation}%, ${flyingLightness}%)`;
                 ctx.fill();
             }
         }
 
-        // --- Text Mask Generation ---
-        function getOptimalFontSizeAndDimensions(text, maxWidth, maxHeight, offscreenCtx) {
-            const lines = text.split('\n');
-            let fontSize = 150; 
-            let bestFit = { fontSize: MIN_FONT_SIZE, width: 0, height: 0, lines: lines, lineHeight: 0 };
-
-            while (fontSize >= MIN_FONT_SIZE) {
-                offscreenCtx.font = `bold ${fontSize}px Arial`;
-                let currentMaxLineWidth = 0;
-                lines.forEach(line => {
-                    currentMaxLineWidth = Math.max(currentMaxLineWidth, offscreenCtx.measureText(line).width);
-                });
-                
-                const metrics = offscreenCtx.measureText('M'); 
-                const currentLineHeight = fontSize * 1.2; 
-                const totalTextHeight = lines.length * currentLineHeight - (lines.length > 0 ? currentLineHeight * 0.2 : 0) ; 
-
-                if (currentMaxLineWidth <= maxWidth && totalTextHeight <= maxHeight) {
-                    bestFit = { fontSize, width: currentMaxLineWidth, height: totalTextHeight, lines, lineHeight: currentLineHeight };
-                    break; 
-                }
-                fontSize -= 2;
-            }
-             if (fontSize < MIN_FONT_SIZE) { 
-                offscreenCtx.font = `bold ${MIN_FONT_SIZE}px Arial`;
-                let currentMaxLineWidth = 0;
-                lines.forEach(line => {
-                    currentMaxLineWidth = Math.max(currentMaxLineWidth, offscreenCtx.measureText(line).width);
-                });
-                const currentLineHeight = MIN_FONT_SIZE * 1.2;
-                const totalTextHeight = lines.length * currentLineHeight - (lines.length > 0 ? currentLineHeight * 0.2 : 0);
-                bestFit = { fontSize: MIN_FONT_SIZE, width: currentMaxLineWidth, height: totalTextHeight, lines, lineHeight: currentLineHeight };
-            }
-            return bestFit;
-        }
-        
-        function createTextMask(text) {
-            if (!textCanvas) {
-                textCanvas = document.createElement('canvas');
-                textCtx = textCanvas.getContext('2d');
-            }
-            textCanvas.width = canvas.width;
-            textCanvas.height = canvas.height;
-            textCtx.clearRect(0, 0, textCanvas.width, textCanvas.height);
-
-            if (!text.trim()) {
-                maskData = null; 
-                return;
-            }
-            
-            const paddedWidth = canvas.width * TEXT_PADDING_FACTOR;
-            const paddedHeight = canvas.height * TEXT_PADDING_FACTOR;
-
-            const fontInfo = getOptimalFontSizeAndDimensions(text, paddedWidth, paddedHeight, textCtx);
-            
-            textCtx.font = `bold ${fontInfo.fontSize}px Arial`;
-            textCtx.fillStyle = 'white'; 
-            textCtx.textAlign = 'center';
-
-            const startY = (canvas.height - fontInfo.height) / 2;
-
-            fontInfo.lines.forEach((line, index) => {
-                textCtx.fillText(line, canvas.width / 2, startY + index * fontInfo.lineHeight + fontInfo.fontSize * 0.8); 
-            });
-            
-            try {
-                maskData = textCtx.getImageData(0, 0, textCanvas.width, textCanvas.height);
-            } catch (e) {
-                console.error("Error getting image data:", e);
-                maskData = null;
-            }
-        }
-
-
-        // --- Animation Loop & Particle Emission ---
-        function emitParticleBurst() {
-            if (!isRevealing || stuckParticlesCount >= MAX_STUCK_PARTICLES_THRESHOLD) {
-                if (stuckParticlesCount >= MAX_STUCK_PARTICLES_THRESHOLD && burstIntervalId) {
-                    clearInterval(burstIntervalId); 
-                    burstIntervalId = null; 
-                }
-                return;
-            }
-            for (let i = 0; i < PARTICLES_PER_BURST; i++) {
-                particles.push(new Particle());
-            }
-        }
-
         function animate() {
-            animationFrameId = requestAnimationFrame(animate);
-
-            ctx.fillStyle = `rgba(0, 0, 0, ${TRAIL_ALPHA})`;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.update();
-                if (p.alpha <= 0 && !p.stuck) { 
-                    particles.splice(i, 1);
-                } else {
-                    p.draw();
-                }
-            }
+            updateAndDrawParticles();
+            animationFrameId = requestAnimationFrame(animate); 
         }
 
-        // --- UI & Event Handlers ---
         function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            if (textCanvas) { 
-                 textCanvas.width = canvas.width;
-                 textCanvas.height = canvas.height;
-            }
         }
 
-        function startReveal() {
-            currentText = textInput.value;
-            if (!currentText.trim()) {
-                textInput.placeholder = "Please enter some text!";
-                setTimeout(() => { textInput.placeholder = "Enter your text here... (Use Enter for new lines)"; }, 2000);
+        function showMessage(text, type = 'info') {
+            const messageContainer = document.getElementById('messageContainer');
+            messageContainer.textContent = text;
+            messageContainer.className = `mt-2 text-xs ${type === 'error' ? 'text-red-400' : 'text-gray-400'}`;
+            setTimeout(() => {
+                if (messageContainer.textContent === text) messageContainer.textContent = '';
+            }, 3500);
+        }
+
+        function startParticleSystem() {
+            updateTextMask(); 
+            if (!textImageData) { 
+                showMessage("Text mask creation failed. Please try again.", "error");
+                if (controlsPanel.style.display === 'none') showControls();
                 return;
             }
-
-            isRevealing = true;
-            stuckParticlesCount = 0; 
-            controlsPanel.classList.add('hidden');
-            showControlsButton.classList.add('visible');
-            resizeMessage.style.display = 'none'; 
-
-            setupCanvas(); 
-            createTextMask(currentText);
-            
-            particles = []; 
-            if (animationFrameId) cancelAnimationFrame(animationFrameId);
-            if (burstIntervalId) { 
-                clearInterval(burstIntervalId);
-                burstIntervalId = null;
-            }
-
-            animate();
-            emitParticleBurst(); 
-            burstIntervalId = setInterval(emitParticleBurst, BURST_INTERVAL_MS);
+            if (beatIntervalId) clearInterval(beatIntervalId); 
+            showMessage(`Starting STRONG GRAVITY REVEAL!`, 'info');
+            beatIntervalId = setInterval(spawnBurstAndMoveEmitter, beatIntervalTime);
+            if (!animationFrameId) animate(); 
+            controlsPanel.style.opacity = '0';
+            setTimeout(() => { 
+                controlsPanel.style.display = 'none';
+                showControlsBtn.style.display = 'block'; 
+                setTimeout(() => showControlsBtn.style.opacity = '1', 50); 
+            }, 500); 
         }
 
-        function stopRevealAndShowControls() {
-            isRevealing = false;
-            controlsPanel.classList.remove('hidden');
-            showControlsButton.classList.remove('visible');
-            resizeMessage.style.display = 'none';
-
-            if (burstIntervalId) {
-                clearInterval(burstIntervalId);
-                burstIntervalId = null;
-            }
+        function showControls() {
+            controlsPanel.style.display = 'block';
+            setTimeout(() => controlsPanel.style.opacity = '1', 50); 
+            showControlsBtn.style.opacity = '0';
+            setTimeout(() => showControlsBtn.style.display = 'none', 300); 
         }
 
-        function handleResize() {
-            const oldWidth = canvas.width;
-            const oldHeight = canvas.height;
-            setupCanvas(); 
-
-            if (isRevealing) {
-                if (canvas.width !== oldWidth || canvas.height !== oldHeight) {
-                    resizeMessage.style.display = 'block';
-                    if (burstIntervalId) {
-                        clearInterval(burstIntervalId);
-                        burstIntervalId = null;
-                    }
-                    if (animationFrameId) {
-                        cancelAnimationFrame(animationFrameId);
-                        animationFrameId = null;
-                    }
-                    ctx.fillStyle = 'black';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                }
-            } else {
-                if (currentText.trim()) {
-                    createTextMask(currentText);
-                }
-                ctx.fillStyle = 'black';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-        }
-
-        // --- Initialization ---
-        window.addEventListener('load', () => {
+        window.addEventListener('resize', () => {
             setupCanvas();
-            currentText = textInput.value; 
+            if (controlsPanel.style.display === 'none') {
+                 showMessage("Resized. Click 'Show Controls' & 'Start Reveal' to update.", 'info');
+            } else {
+                updateTextMask();
+                 showMessage("Resized. Text mask updated.", 'info');
+            }
+        }); 
 
-            startButton.addEventListener('click', startReveal);
-            showControlsButton.addEventListener('click', stopRevealAndShowControls);
-            
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(handleResize, 250); 
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+            textInputElement.value = userText; 
+            document.getElementById('startButton').addEventListener('click', startParticleSystem);
+            showControlsBtn.addEventListener('click', showControls);
+            setupCanvas(); 
         });
 
     </script>
