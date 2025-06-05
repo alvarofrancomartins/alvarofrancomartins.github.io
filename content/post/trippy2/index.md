@@ -3,7 +3,7 @@ title: "TRIPPY WORDS"
 date: 2025-06-04
 subtitle: "TRIPPY WORDS"
 summary: "TRIPPY WORDS"
-draft: false
+draft: true
 featured: false
 authors:
 - admin
