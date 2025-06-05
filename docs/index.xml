@@ -61,17 +61,17 @@
 
     &lt;canvas id=&#34;particleCanvas&#34; class=&#34;absolute top-0 left-0 w-full h-full&#34;&gt;&lt;/canvas&gt;
 
-    &lt;!-- MODIFICATION: Changed positioning classes to center the controls panel --&gt;
-    &lt;div id=&#34;controls&#34; class=&#34;absolute top-4 left-1/2 transform -translate-x-1/2 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out&#34;&gt;
+    &lt;!-- MODIFICATION: Changed positioning classes to center the controls panel in the middle --&gt;
+    &lt;div id=&#34;controls&#34; class=&#34;absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out&#34;&gt;
         &lt;div&gt;
-            &lt;label for=&#34;textInput&#34; class=&#34;block text-sm font-medium text-gray-300&#34;&gt;Text to Reveal (use Enter for new lines):&lt;/label&gt;
+            &lt;label for=&#34;textInput&#34; class=&#34;block text-sm font-medium text-gray-300&#34;&gt;&lt;/label&gt;
             &lt;textarea id=&#34;textInput&#34; rows=&#34;3&#34; class=&#34;mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400&#34;&gt;STRONG
 GRAVITY&lt;/textarea&gt;
         &lt;/div&gt;
         &lt;hr class=&#34;my-4 border-gray-600&#34;&gt;
         &lt;div&gt;
             &lt;button id=&#34;startButton&#34; class=&#34;mt-3 w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500&#34;&gt;
-                Start Reveal
+                TRIPPY IT
             &lt;/button&gt;
         &lt;/div&gt;
         &lt;div id=&#34;messageContainer&#34; class=&#34;mt-2 text-xs&#34;&gt;&lt;/div&gt;
