@@ -61,7 +61,8 @@
 
     &lt;canvas id=&#34;particleCanvas&#34; class=&#34;absolute top-0 left-0 w-full h-full&#34;&gt;&lt;/canvas&gt;
 
-    &lt;div id=&#34;controls&#34; class=&#34;absolute top-4 left-4 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out&#34;&gt;
+    &lt;!-- MODIFICATION: Changed positioning classes to center the controls panel --&gt;
+    &lt;div id=&#34;controls&#34; class=&#34;absolute top-4 left-1/2 transform -translate-x-1/2 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out&#34;&gt;
         &lt;div&gt;
             &lt;label for=&#34;textInput&#34; class=&#34;block text-sm font-medium text-gray-300&#34;&gt;Text to Reveal (use Enter for new lines):&lt;/label&gt;
             &lt;textarea id=&#34;textInput&#34; rows=&#34;3&#34; class=&#34;mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400&#34;&gt;STRONG
@@ -95,7 +96,6 @@ GRAVITY&lt;/textarea&gt;
         const particleForwardSpeedMin = 4.5; 
         const particleForwardSpeedRandom = 2.5; 
         const SUB_FRAME_STEPS = 5; 
-        // MODIFICATION: Gravity strength adjusted
         const GRAVITY_STRENGTH = 0.7; 
 
         const FIXED_BPM = 1000; 
@@ -291,7 +291,7 @@ GRAVITY&lt;/textarea&gt;
                                 const screenX_sub_coll = centerX + current_sub_x * scaleAtSubZ;
                                 const screenY_sub_coll = centerY + current_sub_y * scaleAtSubZ;
 
-                                const checkRadius = 5; // Adjusted collision check radius
+                                const checkRadius = 5; 
                                 let hit = false;
                                 for (let dx = -checkRadius; dx &lt;= checkRadius; dx++) {
                                     for (let dy = -checkRadius; dy &lt;= checkRadius; dy++) {

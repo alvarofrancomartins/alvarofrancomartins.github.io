@@ -867,7 +867,8 @@ text-align: justify;
 
     <canvas id="particleCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
 
-    <div id="controls" class="absolute top-4 left-4 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out">
+    <!-- MODIFICATION: Changed positioning classes to center the controls panel -->
+    <div id="controls" class="absolute top-4 left-1/2 transform -translate-x-1/2 p-4 bg-gray-800 bg-opacity-85 rounded-lg shadow-xl z-10 max-w-xs transition-opacity duration-500 ease-in-out">
         <div>
             <label for="textInput" class="block text-sm font-medium text-gray-300">Text to Reveal (use Enter for new lines):</label>
             <textarea id="textInput" rows="3" class="mt-1 block w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-white placeholder-gray-400">STRONG
@@ -901,7 +902,6 @@ GRAVITY</textarea>
         const particleForwardSpeedMin = 4.5; 
         const particleForwardSpeedRandom = 2.5; 
         const SUB_FRAME_STEPS = 5; 
-        // MODIFICATION: Gravity strength adjusted
         const GRAVITY_STRENGTH = 0.7; 
 
         const FIXED_BPM = 1000; 
@@ -1097,7 +1097,7 @@ GRAVITY</textarea>
                                 const screenX_sub_coll = centerX + current_sub_x * scaleAtSubZ;
                                 const screenY_sub_coll = centerY + current_sub_y * scaleAtSubZ;
 
-                                const checkRadius = 5; // Adjusted collision check radius
+                                const checkRadius = 5; 
                                 let hit = false;
                                 for (let dx = -checkRadius; dx <= checkRadius; dx++) {
                                     for (let dy = -checkRadius; dy <= checkRadius; dy++) {
