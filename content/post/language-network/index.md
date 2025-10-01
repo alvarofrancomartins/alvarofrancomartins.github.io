@@ -6,7 +6,7 @@ authors:
 - admin
 date: "2025-09-29"
 featured: false
-draft: true
+draft: false
 tags: 
 - Languages
 - Countries
@@ -64,11 +64,4 @@ The network’s cohesion depends on a handful of multilingual brokers. Tunisia i
 
 <!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
-# Population vs linguistic diversity
-
-Your analysis visually proves that a country’s size or overall population does not limit its potential for cultural richness, which is beautifully quantified by the sheer number of distinct languages spoken within its borders.
-
-{{< include-html "content/post/language-network/plot.html" >}}
-
-## Conclusion
-The global linguistic system is shaped by dense clusters, but it holds together through a small set of bridge countries. Tunisia, Sudan, the UAE, Luxembourg, Mauritius, and Estonia prevent fragmentation, sustain cross-continental corridors, and add robustness through redundancy. **Global connectivity depends less on dominant languages and more on these strategic connectors that bind worlds together.**
+<!-- {{< include-html "content/post/language-network/plot.html" >}} -->

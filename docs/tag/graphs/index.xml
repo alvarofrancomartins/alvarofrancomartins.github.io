@@ -494,9 +494,7 @@
 &lt;h2 id=&#34;structural-insights&#34;&gt;Structural Insights&lt;/h2&gt;
 &lt;p&gt;The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: &lt;strong&gt;strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. --&gt;
-&lt;h1 id=&#34;population-vs-linguistic-diversity&#34;&gt;Population vs linguistic diversity&lt;/h1&gt;
-&lt;p&gt;Your analysis visually proves that a country’s size or overall population does not limit its potential for cultural richness, which is beautifully quantified by the sheer number of distinct languages spoken within its borders.&lt;/p&gt;
-
+&lt;!-- 
 &lt;!DOCTYPE html&gt;
 &lt;meta charset=&#34;utf-8&#34;&gt;
 &lt;head&gt;
@@ -606,10 +604,7 @@
   &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-
-&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
-&lt;p&gt;The global linguistic system is shaped by dense clusters, but it holds together through a small set of bridge countries. Tunisia, Sudan, the UAE, Luxembourg, Mauritius, and Estonia prevent fragmentation, sustain cross-continental corridors, and add robustness through redundancy. &lt;strong&gt;Global connectivity depends less on dominant languages and more on these strategic connectors that bind worlds together.&lt;/strong&gt;&lt;/p&gt;
-</description>
+ --&gt;</description>
     </item>
     
   </channel>
