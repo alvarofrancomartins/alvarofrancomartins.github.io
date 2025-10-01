@@ -30,7 +30,7 @@ projects: [language]
 
 ## Foundation: Unicode and Language Data
 
-Unicode is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages and scripts. 
+[Unicode](https://home.unicode.org/) is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages and scripts. 
 
 <br>
 

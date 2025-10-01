@@ -18,7 +18,7 @@
       <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/language-network/</guid>
       <description>&lt;h2 id=&#34;foundation-unicode-and-language-data&#34;&gt;Foundation: Unicode and Language Data&lt;/h2&gt;
-&lt;p&gt;Unicode is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages and scripts.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://home.unicode.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Unicode&lt;/a&gt; is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages and scripts.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;For this project, the key data was captured from the Unicode Consortium’s &lt;a href=&#34;https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Territory-Language&lt;/a&gt;. This dataset captures the percentage of literate, functional populations using each language in each country, providing not only technical compatibility but also a sociolinguistic view of global language use.&lt;/p&gt;
 &lt;h2 id=&#34;methodology-building-the-network&#34;&gt;Methodology: Building the Network&lt;/h2&gt;
