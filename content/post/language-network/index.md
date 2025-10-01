@@ -1,7 +1,7 @@
 ---
 title: Where Languages Meet Worlds
-subtitle: Language Network
-summary:  Language Network
+subtitle: Multilingual Brokers Unite the World's Languages
+summary:  How a few key countries (brokers) act as vital hinges
 authors:
 - admin
 date: "2025-09-29"
