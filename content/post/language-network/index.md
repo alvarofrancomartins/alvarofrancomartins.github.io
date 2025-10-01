@@ -32,6 +32,8 @@ projects: [language]
 
 Unicode is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages and scripts. 
 
+<br>
+
 For this project, the key data was captured from the Unicode Consortium’s [Territory-Language](https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html). This dataset captures the percentage of literate, functional populations using each language in each country, providing not only technical compatibility but also a sociolinguistic view of global language use.
 
 ## Methodology: Building the Network
