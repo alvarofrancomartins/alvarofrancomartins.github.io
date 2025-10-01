@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Bubble Plot - Population vs Languages</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    .bubblePlot-body { font-family: "Segoe UI", Roboto, sans-serif; background:#fafafa; margin:0; padding:20px; }
+    .bubblePlot-svg { width:100%; height:100vh; }
+    .bubblePlot-title { font-size:70px; font-weight:700; text-anchor:middle; }
+    .bubblePlot-axis-label { font-size:45px; font-weight:700; }
+    .bubblePlot-tick text { font-size:30px; }
+    .bubblePlot-tooltip {
+      position:absolute; background:white; border:1px solid #ccc; padding:10px 12px; border-radius:6px;
+      font-size:20px; pointer-events:none; box-shadow:0 2px 6px rgba(0,0,0,.2);
+    }
+  </style>
+</head>
+<body class="bubblePlot-body">
+  <svg class="bubblePlot-svg"></svg>
+  <script>
+    // ---- Layout ----
+    const M = {top: 0, right: 80, bottom: 0, left: 140};
+    const W = window.innerWidth - M.left*6.0 - M.right;
+    const H = window.innerHeight * 1.1 - M.top - M.bottom; // taller plot
+
+    const bubbleSvg = d3.select(".bubblePlot-svg")
+      .attr("viewBox", [0, 0, W + M.left + M.right, H + M.top + M.bottom]);
+
+    const bubbleG = bubbleSvg.append("g").attr("transform", `translate(${M.left},${M.top})`);
+
+    const tooltipG = d3.select("body").append("div").attr("class", "bubblePlot-tooltip").style("opacity", 0);
+
+    d3.csv("df_full.csv").then(raw => {
+      // ---- Aggregate to one row per Territory ----
+      const byTerritory = d3.rollup(
+        raw,
+        rows => {
+          const popRow = rows.find(r => r.population && String(r.population).trim() !== "");
+          const pop = popRow ? +popRow.population : NaN;
+          return { Territory: rows[0].Territory, population: pop, num_languages: rows.length };
+        },
+        r => r.Territory
+      );
+
+      const data = Array.from(byTerritory.values()).filter(d => !isNaN(d.population) && d.population > 0);
+
+      // ---- Scales ----
+      const x = d3.scaleLog()
+        .domain([d3.min(data, d => d.population) * 0.8, d3.max(data, d => d.population) * 1.2])
+        .range([0, W]);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.num_languages) * 1.1])
+        .range([H, 0]);
+
+      const r = d3.scaleSqrt()
+        .domain(d3.extent(data, d => d.population))
+        .range([6, 70]);
+
+      const color = d3.scaleSequential(d3.interpolateViridis)
+        .domain(d3.extent(data, d => d.num_languages));
+
+      // ---- Axes ----
+      const xAxis = d3.axisBottom(x).ticks(12, "~s");
+      const yAxis = d3.axisLeft(y).ticks(12);
+
+      const gx = bubbleG.append("g").attr("class", "bubblePlot-tick").attr("transform", `translate(0,${H})`).call(xAxis);
+      const gy = bubbleG.append("g").attr("class", "bubblePlot-tick").call(yAxis);
+
+      // Labels & title
+      bubbleG.append("text").attr("class", "bubblePlot-title").attr("x", W/2).attr("y", -50)
+        .text("Population vs Linguistic Diversity");
+
+      bubbleG.append("text").attr("class", "bubblePlot-axis-label")
+        .attr("x", W/2).attr("y", H + 90).attr("text-anchor", "middle")
+        .text("Population (log scale)");
+
+      bubbleG.append("text").attr("class", "bubblePlot-axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -H/2).attr("y", -110).attr("text-anchor", "middle")
+        .text("Number of Languages");
+
+      // ---- Points ----
+      bubbleG.append("g")
+        .selectAll("circle").data(data).join("circle")
+        .attr("cx", d => x(d.population))
+        .attr("cy", d => y(d.num_languages))
+        .attr("r", d => r(d.population))
+        .attr("fill", d => color(d.num_languages))
+        .attr("stroke", "#333").attr("stroke-width", 1).attr("opacity", 0.8)
+        .on("mouseover", (event, d) => {
+          tooltipG.transition().duration(150).style("opacity", 1);
+          tooltipG.html(
+            `<strong>${d.Territory}</strong><br>
+             Population: ${d3.format(",")(d.population)}<br>
+             Languages: ${d.num_languages}`
+          )
+          .style("left", (event.pageX + 12) + "px")
+          .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mousemove", (event) => {
+          tooltipG.style("left", (event.pageX + 12) + "px")
+                 .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", () => tooltipG.transition().duration(150).style("opacity", 0));
+    });
+  </script>
+</body>
+</html>

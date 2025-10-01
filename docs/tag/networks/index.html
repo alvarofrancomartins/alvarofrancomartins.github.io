@@ -250,6 +250,45 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
   
@@ -305,7 +344,7 @@
     <meta property="twitter:image" content="https://alvarofrancomartins.com/media/sharing.png" /><meta property="og:locale" content="en-us" />
   
     
-      <meta property="og:updated_time" content="2021-11-23T00:00:00&#43;00:00" />
+      <meta property="og:updated_time" content="2025-09-29T00:00:00&#43;00:00" />
     
   
 
@@ -327,8 +366,10 @@
       max-width: 1250px;
    }
 
+ 
+
    #container-publications {
-      height:  220px !important;
+      overflow: visible !important;
    }
 
    .see-all {
@@ -347,16 +388,19 @@
     display: flex;
     flex-flow: column;
 }
+   .stream-item {
+      padding-top: 25px;
+   }
 
 figcaption {
-  font-size:  20px !important; 
+   
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   margin-top: 0.5rem !important; 
   margin-bottom: 0rem !important;
   margin-right:  0.5rem !important;
   line-height: 1.25;
-  color: #313131;
+  color: inherit;
   text-rendering: optimizeLegibility;
    
   overflow-wrap: break-word; 
@@ -367,6 +411,13 @@ figcaption {
   -ms-hyphens: manual;
   hyphens: manual; 
 }
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
 
    </style>
 
@@ -391,7 +442,7 @@ figcaption {
   
   
   
-  <script src="/js/wowchemy-init.min.2da3b1fa37e894630bf6de39b1b694b3.js"></script>
+  <script src="/js/wowchemy-init.min.da42964e270e05a6063fbca894d7ccff.js"></script>
 
   
 
@@ -698,13 +749,13 @@ figcaption {
   <div class="media-body">
 
     <div class="section-subheading article-title mb-0 mt-0">
-      <a href="/post/cocaine_smuggling_networks/" >Dismantling and modeling cocaine trafficking networks</a>
+      <a href="/post/language-network/" >Where Languages Meet Worlds</a>
     </div>
 
     
-    <a href="/post/cocaine_smuggling_networks/"  class="summary-link">
+    <a href="/post/language-network/"  class="summary-link">
       <div class="article-style">
-        Insights about four cocaine smuggling networks
+        Language Network
       </div>
     </a>
     
@@ -738,7 +789,7 @@ figcaption {
     
       
     
-    Nov 23, 2021
+    Sep 29, 2025
   </span>
   
 
@@ -757,7 +808,7 @@ figcaption {
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/criminal_networks/">criminal_networks</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/languages/">Languages</a></span>
   
 
 </div>
@@ -808,8 +859,8 @@ figcaption {
     
     
     
-    <a href="/post/cocaine_smuggling_networks/" >
-      <img src="/post/cocaine_smuggling_networks/featured_hu48b8dc46b554e0f8ef21206efcb3585c_142972_150x0_resize_lanczos_3.png" alt="Dismantling and modeling cocaine trafficking networks" loading="lazy">
+    <a href="/post/language-network/" >
+      <img src="/post/language-network/featured_huc42d243631ba8d37b9294adafdef264e_4667794_150x0_resize_lanczos_3.png" alt="Where Languages Meet Worlds" loading="lazy">
     </a>
     
   </div>

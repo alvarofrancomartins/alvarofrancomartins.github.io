@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Languages | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/category/languages/</link>
+      <atom:link href="https://alvarofrancomartins.com/category/languages/index.xml" rel="self" type="application/rss+xml" />
+    <description>Languages</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 29 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Languages</title>
+      <link>https://alvarofrancomartins.com/category/languages/</link>
+    </image>
+    
+    <item>
+      <title>Where Languages Meet Worlds</title>
+      <link>https://alvarofrancomartins.com/post/language-network/</link>
+      <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/language-network/</guid>
+      <description>&lt;h2 id=&#34;foundation-unicode-and-language-data&#34;&gt;Foundation: Unicode and Language Data&lt;/h2&gt;
+&lt;p&gt;This project builds on the Unicode Consortium’s ecosystem of open standards, which underpins the internationalization of digital systems worldwide. Unicode ensures that billions of devices and platforms can handle text, numbers, and formats across hundreds of languages and scripts.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;To extend this foundation, I relied on &lt;a href=&#34;https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Territory-Language&lt;/a&gt; data from CLDR and Ethnologue, supplemented by census and World Bank figures. This dataset captures the percentage of literate, functional populations using each language in each country, providing not only technical compatibility but also a sociolinguistic view of global language use.&lt;/p&gt;
+&lt;h2 id=&#34;methodology-building-the-network&#34;&gt;Methodology: Building the Network&lt;/h2&gt;
+&lt;p&gt;Using this dataset, a country–country network was constructed:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Nodes:&lt;/strong&gt; Countries with populations above 200,000.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Edges:&lt;/strong&gt; A link exists if two countries share a language spoken by at least 50% of their population.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Filtering:&lt;/strong&gt; Smaller components were removed, focusing on the largest connected component.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The resulting network includes &lt;strong&gt;89 countries&lt;/strong&gt; and &lt;strong&gt;1338 connections&lt;/strong&gt;. The most connected nodes were &lt;strong&gt;Sudan (62), UAE (62), Luxembourg (60), Mauritius (59), and Estonia (47).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;network-wrapper&#34;&gt;
+  &lt;div class=&#34;container&#34;&gt;
+      &lt;div class=&#34;graph-container&#34;&gt;
+          &lt;div id=&#34;network-graph&#34;&gt;&lt;/div&gt;
+          &lt;div class=&#34;loading&#34;&gt;Loading network data...&lt;/div&gt;
+          
+          &lt;div class=&#34;zoom-controls&#34;&gt;
+              &lt;button class=&#34;zoom-btn&#34; id=&#34;zoom-in&#34;&gt;+&lt;/button&gt;
+              &lt;button class=&#34;zoom-btn&#34; id=&#34;zoom-out&#34;&gt;-&lt;/button&gt;
+              &lt;button class=&#34;zoom-btn&#34; id=&#34;fit-to-screen&#34;&gt;Fit&lt;/button&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  /* Scoped styles so Hugo defaults remain untouched */
+  .network-wrapper {
+      margin: 2rem 0;
+  }
+
+  .network-wrapper .container {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      font-family: &#39;Segoe UI&#39;, Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+  }
+
+  .network-wrapper .graph-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+  }
+
+  .network-wrapper #network-graph {
+      width: 100%;
+      height: 100%;
+  }
+
+  .network-wrapper .tooltip {
+      position: absolute;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      pointer-events: none;
+      font-size: 18px;
+      color: #fff; 
+      opacity: 0;
+      max-width: 300px;
+  }
+
+  .network-wrapper .tooltip h3 {
+      margin: 0 0 8px 0;
+      color: #4cc9f0;
+      font-size: 16px;
+  }
+
+  .network-wrapper .tooltip p {
+      margin: 4px 0;
+  }
+
+  .network-wrapper .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      color: #4cc9f0;
+  }
+
+  .network-wrapper .node-label {
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+      pointer-events: none;
+      user-select: none;
+      transition: all 0.3s;
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 1px;
+      paint-order: stroke;
+  }
+
+  .network-wrapper .zoom-controls {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .network-wrapper .zoom-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .network-wrapper .zoom-btn:hover {
+      background: rgba(76, 201, 240, 0.3);
+  }
+
+  .network-wrapper .legend {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+  }
+&lt;/style&gt;
+
+&lt;script src=&#34;https://d3js.org/d3.v7.min.js&#34;&gt;&lt;/script&gt;
+&lt;script&gt;
+  // Configuration with your specified defaults
+    const container = document.querySelector(&#34;.graph-container&#34;);
+
+    const config = {
+        width: container.clientWidth,
+        height: container.clientHeight,
+        chargeStrength: -287,
+        linkDistance: 145,
+        nodeSize: 2.3,
+        gravityStrength: 0.05
+    };
+  // Create SVG and tooltip
+  const svg = d3.select(&#34;#network-graph&#34;)
+      .append(&#34;svg&#34;)
+      .attr(&#34;width&#34;, config.width)
+      .attr(&#34;height&#34;, config.height);
+
+  const g = svg.append(&#34;g&#34;);
+  const tooltip = d3.select(&#34;.network-wrapper&#34;).append(&#34;div&#34;)
+      .attr(&#34;class&#34;, &#34;tooltip&#34;);
+
+  // Zoom behavior
+  const zoom = d3.zoom()
+      .scaleExtent([0.1, 4])
+      .on(&#34;zoom&#34;, (event) =&gt; {
+          g.attr(&#34;transform&#34;, event.transform);
+      });
+
+  svg.call(zoom);
+
+  // Color scale for nodes based on betweenness
+  const getNodeColor = (d) =&gt; {
+      if (d.betweenness === 0) return &#34;#DBE2EF&#34;;      // Low betweenness - Light blue
+      else if (d.betweenness &lt;= 0.1) return &#34;#3F72AF&#34;; // Medium betweenness - Teal
+      else return &#34;#112D4E&#34;;                          // High betweenness - Coral
+  };
+
+  // Load and visualize the graph
+  d3.json(&#34;country_country_network.json&#34;).then(function(graphData) {
+      setTimeout(() =&gt; {
+            fitToScreen();
+        }, 1500);
+      d3.select(&#34;.loading&#34;).remove();
+      // Initialize the graph
+      updateGraph(graphData);
+      // Set up controls
+      setupControls(graphData);
+  }).catch(function(error) {
+      console.error(&#34;Error loading graph data:&#34;, error);
+      d3.select(&#34;.loading&#34;).text(&#34;Error loading data. Please check the console.&#34;);
+  });
+
+  function updateGraph(graphData) {
+      // Clear previous graph
+      g.selectAll(&#34;*&#34;).remove();
+
+      // Create links
+      const links = graphData.links.map(d =&gt; Object.create(d));
+      
+      // Create nodes
+      const nodes = graphData.nodes.map(d =&gt; Object.create(d));
+
+      // Create simulation with boundary constraints
+      const simulation = d3.forceSimulation(nodes)
+          .force(&#34;link&#34;, d3.forceLink(links).id(d =&gt; d.id).distance(config.linkDistance))
+          .force(&#34;charge&#34;, d3.forceManyBody().strength(config.chargeStrength))
+          .force(&#34;center&#34;, d3.forceCenter(config.width / 2, config.height / 2))
+          .force(&#34;x&#34;, d3.forceX(config.width / 2).strength(config.gravityStrength))
+          .force(&#34;y&#34;, d3.forceY(config.height / 2).strength(config.gravityStrength))
+          .force(&#34;collision&#34;, d3.forceCollide().radius(d =&gt; {
+              if (d.betweenness === 0) return 8 + 8; // radius + padding
+              const minBetweenness = 0.0001;
+              const maxBetweenness = 0.12217142691280622;
+              const normalized = Math.log1p(d.betweenness) / Math.log1p(maxBetweenness);
+              const minRadius = 8;
+              const maxRadius = 35;
+              return (minRadius + (normalized * (maxRadius - minRadius))) + 8;
+          }))
+      // Add boundary force to keep nodes within view
+      simulation.force(&#34;boundary&#34;, function() {
+          nodes.forEach(node =&gt; {
+              const radius = Math.sqrt(node.degree) * config.nodeSize;
+              node.x = Math.max(radius, Math.min(config.width - radius, node.x));
+              node.y = Math.max(radius, Math.min(config.height - radius, node.y));
+          });
+      });
+
+      // Create links
+      const link = g.append(&#34;g&#34;)
+          .attr(&#34;class&#34;, &#34;links&#34;)
+          .selectAll(&#34;line&#34;)
+          .data(links)
+          .enter().append(&#34;line&#34;)
+          .attr(&#34;stroke-width&#34;, 1)
+          .attr(&#34;stroke&#34;, &#34;rgba(255, 255, 255, 0.4)&#34;)
+          .attr(&#34;stroke-opacity&#34;, 0.7)
+          .attr(&#34;class&#34;, &#34;link&#34;);
+
+      // Create nodes
+      const node = g.append(&#34;g&#34;)
+          .attr(&#34;class&#34;, &#34;nodes&#34;)
+          .selectAll(&#34;circle&#34;)
+          .data(nodes)
+          .enter().append(&#34;circle&#34;)
+          .attr(&#34;r&#34;, d =&gt; {
+              if (d.betweenness === 0) return 8;
+              const minBetweenness = 0.0001;
+              const maxBetweenness = 0.12217142691280622;
+              const normalized = Math.log1p(d.betweenness) / Math.log1p(maxBetweenness);
+              const minRadius = 18;
+              const maxRadius = 35;
+              return minRadius + (normalized * (maxRadius - minRadius));
+          })
+          .attr(&#34;fill&#34;, d =&gt; getNodeColor(d))
+          .attr(&#34;stroke&#34;, &#34;#ffffff&#34;)
+          .attr(&#34;stroke-width&#34;, 1.5)
+          .attr(&#34;class&#34;, &#34;node&#34;)
+          .call(d3.drag()
+              .on(&#34;start&#34;, dragstarted)
+              .on(&#34;drag&#34;, dragged)
+              .on(&#34;end&#34;, dragended))
+          .on(&#34;mouseover&#34;, function(event, d) {
+              highlightNeighbors(d);
+              showTooltip(event, d);
+          })
+          .on(&#34;mouseout&#34;, function() {
+              unhighlightAll();
+              hideTooltip();
+          });
+
+      // Create labels and store their default attributes
+      const label = g.append(&#34;g&#34;)
+          .attr(&#34;class&#34;, &#34;labels&#34;)
+          .selectAll(&#34;text&#34;)
+          .data(nodes)
+          .enter().append(&#34;text&#34;)
+          .attr(&#34;class&#34;, &#34;node-label&#34;)
+          .text(d =&gt; d.id)
+          .attr(&#34;text-anchor&#34;, &#34;middle&#34;)
+          .attr(&#34;dy&#34;, -3)
+          .attr(&#34;fill&#34;, &#34;#ffffff&#34;)
+          .attr(&#34;stroke&#34;, &#34;#000000&#34;)
+          .attr(&#34;stroke-width&#34;, &#34;1px&#34;)
+          .attr(&#34;paint-order&#34;, &#34;stroke&#34;)
+          .attr(&#34;font-size&#34;, &#34;18px&#34;)
+          .each(function(d) {
+              const el = d3.select(this);
+              d._default = {
+                  opacity: el.style(&#34;opacity&#34;),
+                  fontWeight: el.style(&#34;font-weight&#34;),
+                  textAnchor: el.attr(&#34;text-anchor&#34;),
+                  dy: el.attr(&#34;dy&#34;),
+                  fill: el.attr(&#34;fill&#34;),
+                  stroke: el.attr(&#34;stroke&#34;),
+                  strokeWidth: el.attr(&#34;stroke-width&#34;),
+                  paintOrder: el.attr(&#34;paint-order&#34;),
+                  fontSize: el.attr(&#34;font-size&#34;)
+              };
+          });
+
+      function highlightNeighbors(selectedNode) {
+          let connectedNodes = new Set([selectedNode.id]);
+          let connectedLinks = new Set();
+
+          links.forEach(link =&gt; {
+              if (link.source.id === selectedNode.id) {
+                  connectedNodes.add(link.target.id);
+                  connectedLinks.add(link);
+              } else if (link.target.id === selectedNode.id) {
+                  connectedNodes.add(link.source.id);
+                  connectedLinks.add(link);
+              }
+          });
+
+          node.style(&#34;opacity&#34;, d =&gt; connectedNodes.has(d.id) ? 1 : 0.2);
+          link.style(&#34;opacity&#34;, d =&gt; {
+              const isConnected = connectedLinks.has(d) || 
+                                (connectedNodes.has(d.source.id) &amp;&amp; connectedNodes.has(d.target.id));
+              return isConnected ? 0.9 : 0.1;
+          });
+          label.style(&#34;opacity&#34;, d =&gt; connectedNodes.has(d.id) ? 1 : 0.2);
+
+          node.filter(d =&gt; connectedNodes.has(d.id))
+              .style(&#34;stroke-width&#34;, 2.5)
+              .style(&#34;filter&#34;, &#34;drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))&#34;);
+
+          link.filter(d =&gt; connectedLinks.has(d) || 
+                        (connectedNodes.has(d.source.id) &amp;&amp; connectedNodes.has(d.target.id)))
+              .style(&#34;stroke-width&#34;, 1)
+              .style(&#34;stroke&#34;, &#34;rgba(255, 255, 255, 0.8)&#34;);
+
+          label.filter(d =&gt; connectedNodes.has(d.id))
+              .style(&#34;font-weight&#34;, &#34;bold&#34;)
+              .style(&#34;font-size&#34;, &#34;18px&#34;);
+      }
+
+      function unhighlightAll() {
+          node.style(&#34;opacity&#34;, 1)
+              .style(&#34;stroke-width&#34;, 1.5)
+              .style(&#34;filter&#34;, &#34;none&#34;);
+
+          link.style(&#34;opacity&#34;, 0.7)
+              .style(&#34;stroke-width&#34;, 1)
+              .style(&#34;stroke&#34;, &#34;rgba(255, 255, 255, 0.4)&#34;);
+
+          label.each(function(d) {
+              const el = d3.select(this);
+              const def = d._default;
+
+              el.style(&#34;opacity&#34;, def.opacity)
+              .style(&#34;font-weight&#34;, def.fontWeight)
+              .attr(&#34;text-anchor&#34;, def.textAnchor)
+              .attr(&#34;dy&#34;, def.dy)
+              .attr(&#34;fill&#34;, def.fill)
+              .attr(&#34;stroke&#34;, def.stroke)
+              .attr(&#34;stroke-width&#34;, def.strokeWidth)
+              .attr(&#34;paint-order&#34;, def.paintOrder)
+              .attr(&#34;font-size&#34;, def.fontSize);
+          });
+      }
+
+      simulation.on(&#34;tick&#34;, () =&gt; {
+          link.attr(&#34;x1&#34;, d =&gt; d.source.x)
+              .attr(&#34;y1&#34;, d =&gt; d.source.y)
+              .attr(&#34;x2&#34;, d =&gt; d.target.x)
+              .attr(&#34;y2&#34;, d =&gt; d.target.y);
+
+          node.attr(&#34;cx&#34;, d =&gt; d.x)
+              .attr(&#34;cy&#34;, d =&gt; d.y);
+
+          label.attr(&#34;x&#34;, d =&gt; d.x)
+              .attr(&#34;y&#34;, d =&gt; d.y);
+      });
+
+      function dragstarted(event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+      }
+      function dragged(event, d) {
+          d.fx = event.x;
+          d.fy = event.y;
+      }
+      function dragended(event, d) {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+      }
+
+      function showTooltip(event, d) {
+          const countryName = d.name;
+          tooltip.html(`
+              &lt;h3&gt;${countryName}&lt;/h3&gt;
+              &lt;p&gt;&lt;strong&gt;Languages:&lt;/strong&gt; ${d.languages}&lt;/p&gt;
+          `)
+          .style(&#34;left&#34;, (event.pageX + 10) + &#34;px&#34;)
+          .style(&#34;top&#34;, (event.pageY - 10) + &#34;px&#34;)
+          .style(&#34;opacity&#34;, 1);
+      }
+      function hideTooltip() {
+          tooltip.style(&#34;opacity&#34;, 0);
+      }
+
+      window.currentSimulation = simulation;
+      window.currentNodes = nodes;
+      window.currentLinks = links;
+      window.highlightNeighbors = highlightNeighbors;
+      window.unhighlightAll = unhighlightAll;
+  }
+
+  function fitToScreen() {
+      const bounds = g.node().getBBox();
+      const fullWidth = config.width;
+      const fullHeight = config.height;
+      const width = bounds.width;
+      const height = bounds.height;
+      
+      const midX = bounds.x + width / 2;
+      const midY = bounds.y + height / 2;
+      
+      if (width === 0 || height === 0) return;
+      
+      const scale = 0.95 / Math.max(width / fullWidth, height / fullHeight);
+      const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+      
+      svg.transition()
+          .duration(750)
+          .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+  }
+
+  function setupControls() {
+      d3.select(&#34;#fit-to-screen&#34;).on(&#34;click&#34;, fitToScreen);
+      d3.select(&#34;#zoom-in&#34;).on(&#34;click&#34;, () =&gt; svg.transition().call(zoom.scaleBy, 1.3));
+      d3.select(&#34;#zoom-out&#34;).on(&#34;click&#34;, () =&gt; svg.transition().call(zoom.scaleBy, 0.7));
+
+      window.addEventListener(&#34;resize&#34;, function() {
+          config.width = container.clientWidth;
+          config.height = container.clientHeight;
+          
+          svg.attr(&#34;width&#34;, config.width)
+             .attr(&#34;height&#34;, config.height);
+          
+          if (window.currentSimulation) {
+              window.currentSimulation.force(&#34;center&#34;)
+                  .x(config.width / 2)
+                  .y(config.height / 2);
+              window.currentSimulation.force(&#34;x&#34;)
+                  .x(config.width / 2);
+              window.currentSimulation.force(&#34;y&#34;)
+                  .y(config.height / 2);
+              window.currentSimulation.alpha(0.3).restart();
+          }
+          
+          setTimeout(fitToScreen, 100);
+      });
+
+  }
+&lt;/script&gt;
+
+&lt;h2 id=&#34;macro-structure-of-the-network&#34;&gt;Macro-Structure of the Network&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Arabic Cluster:&lt;/strong&gt; Dense community across North Africa and the Middle East, tied together by Arabic.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Francophone Cluster:&lt;/strong&gt; Extends from Europe into Africa and overseas territories, linking France, Luxembourg, Cameroon, Gabon, Congo, and Mauritius.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Anglophone Cluster:&lt;/strong&gt; The most globally dispersed, spanning Europe, Africa, Asia, and the Americas.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Broker Nodes:&lt;/strong&gt; Countries such as Tunisia, Sudan, and the UAE serve as bridges, linking these clusters into one global system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;key-bridges-and-connectors&#34;&gt;Key Bridges and Connectors&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Tunisia – Connects French and Arabic worlds:&lt;/strong&gt; The sole bridge between Arabic and Francophone blocs, a keystone broker whose removal would fragment the system. Over half of Tunisians are fluent in French alongside Arabic.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sudan &amp;amp; UAE – Connect Arabic and English worlds:&lt;/strong&gt; Sudan ties the Arabic cluster to the Anglophone bloc, while the UAE adds stability and outward corridors.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Luxembourg &amp;amp; Mauritius – Connect English and French worlds:&lt;/strong&gt; Luxembourg unites Romance and Germanic Europe while projecting outward to Africa; Mauritius strengthens Francophone–Anglophone ties from the Indian Ocean.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Estonia – Connects English and Russian worlds:&lt;/strong&gt; Prevents the Russian-speaking bloc from isolation, reflecting its balance between eastern history and western integration.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;structural-insights&#34;&gt;Structural Insights&lt;/h2&gt;
+&lt;p&gt;The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: &lt;strong&gt;strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. --&gt;
+&lt;h1 id=&#34;population-vs-linguistic-diversity&#34;&gt;Population vs linguistic diversity&lt;/h1&gt;
+&lt;p&gt;Your analysis visually proves that a country’s size or overall population does not limit its potential for cultural richness, which is beautifully quantified by the sheer number of distinct languages spoken within its borders.&lt;/p&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;meta charset=&#34;utf-8&#34;&gt;
+&lt;head&gt;
+  &lt;title&gt;Bubble Plot - Population vs Languages&lt;/title&gt;
+  &lt;script src=&#34;https://d3js.org/d3.v7.min.js&#34;&gt;&lt;/script&gt;
+  &lt;style&gt;
+    .bubblePlot-body { font-family: &#34;Segoe UI&#34;, Roboto, sans-serif; background:#fafafa; margin:0; padding:20px; }
+    .bubblePlot-svg { width:100%; height:100vh; }
+    .bubblePlot-title { font-size:70px; font-weight:700; text-anchor:middle; }
+    .bubblePlot-axis-label { font-size:45px; font-weight:700; }
+    .bubblePlot-tick text { font-size:30px; }
+    .bubblePlot-tooltip {
+      position:absolute; background:white; border:1px solid #ccc; padding:10px 12px; border-radius:6px;
+      font-size:20px; pointer-events:none; box-shadow:0 2px 6px rgba(0,0,0,.2);
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class=&#34;bubblePlot-body&#34;&gt;
+  &lt;svg class=&#34;bubblePlot-svg&#34;&gt;&lt;/svg&gt;
+  &lt;script&gt;
+    // ---- Layout ----
+    const M = {top: 0, right: 80, bottom: 0, left: 140};
+    const W = window.innerWidth - M.left*6.0 - M.right;
+    const H = window.innerHeight * 1.1 - M.top - M.bottom; // taller plot
+
+    const bubbleSvg = d3.select(&#34;.bubblePlot-svg&#34;)
+      .attr(&#34;viewBox&#34;, [0, 0, W + M.left + M.right, H + M.top + M.bottom]);
+
+    const bubbleG = bubbleSvg.append(&#34;g&#34;).attr(&#34;transform&#34;, `translate(${M.left},${M.top})`);
+
+    const tooltipG = d3.select(&#34;body&#34;).append(&#34;div&#34;).attr(&#34;class&#34;, &#34;bubblePlot-tooltip&#34;).style(&#34;opacity&#34;, 0);
+
+    d3.csv(&#34;df_full.csv&#34;).then(raw =&gt; {
+      // ---- Aggregate to one row per Territory ----
+      const byTerritory = d3.rollup(
+        raw,
+        rows =&gt; {
+          const popRow = rows.find(r =&gt; r.population &amp;&amp; String(r.population).trim() !== &#34;&#34;);
+          const pop = popRow ? +popRow.population : NaN;
+          return { Territory: rows[0].Territory, population: pop, num_languages: rows.length };
+        },
+        r =&gt; r.Territory
+      );
+
+      const data = Array.from(byTerritory.values()).filter(d =&gt; !isNaN(d.population) &amp;&amp; d.population &gt; 0);
+
+      // ---- Scales ----
+      const x = d3.scaleLog()
+        .domain([d3.min(data, d =&gt; d.population) * 0.8, d3.max(data, d =&gt; d.population) * 1.2])
+        .range([0, W]);
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d =&gt; d.num_languages) * 1.1])
+        .range([H, 0]);
+
+      const r = d3.scaleSqrt()
+        .domain(d3.extent(data, d =&gt; d.population))
+        .range([6, 70]);
+
+      const color = d3.scaleSequential(d3.interpolateViridis)
+        .domain(d3.extent(data, d =&gt; d.num_languages));
+
+      // ---- Axes ----
+      const xAxis = d3.axisBottom(x).ticks(12, &#34;~s&#34;);
+      const yAxis = d3.axisLeft(y).ticks(12);
+
+      const gx = bubbleG.append(&#34;g&#34;).attr(&#34;class&#34;, &#34;bubblePlot-tick&#34;).attr(&#34;transform&#34;, `translate(0,${H})`).call(xAxis);
+      const gy = bubbleG.append(&#34;g&#34;).attr(&#34;class&#34;, &#34;bubblePlot-tick&#34;).call(yAxis);
+
+      // Labels &amp; title
+      bubbleG.append(&#34;text&#34;).attr(&#34;class&#34;, &#34;bubblePlot-title&#34;).attr(&#34;x&#34;, W/2).attr(&#34;y&#34;, -50)
+        .text(&#34;Population vs Linguistic Diversity&#34;);
+
+      bubbleG.append(&#34;text&#34;).attr(&#34;class&#34;, &#34;bubblePlot-axis-label&#34;)
+        .attr(&#34;x&#34;, W/2).attr(&#34;y&#34;, H + 90).attr(&#34;text-anchor&#34;, &#34;middle&#34;)
+        .text(&#34;Population (log scale)&#34;);
+
+      bubbleG.append(&#34;text&#34;).attr(&#34;class&#34;, &#34;bubblePlot-axis-label&#34;)
+        .attr(&#34;transform&#34;, &#34;rotate(-90)&#34;)
+        .attr(&#34;x&#34;, -H/2).attr(&#34;y&#34;, -110).attr(&#34;text-anchor&#34;, &#34;middle&#34;)
+        .text(&#34;Number of Languages&#34;);
+
+      // ---- Points ----
+      bubbleG.append(&#34;g&#34;)
+        .selectAll(&#34;circle&#34;).data(data).join(&#34;circle&#34;)
+        .attr(&#34;cx&#34;, d =&gt; x(d.population))
+        .attr(&#34;cy&#34;, d =&gt; y(d.num_languages))
+        .attr(&#34;r&#34;, d =&gt; r(d.population))
+        .attr(&#34;fill&#34;, d =&gt; color(d.num_languages))
+        .attr(&#34;stroke&#34;, &#34;#333&#34;).attr(&#34;stroke-width&#34;, 1).attr(&#34;opacity&#34;, 0.8)
+        .on(&#34;mouseover&#34;, (event, d) =&gt; {
+          tooltipG.transition().duration(150).style(&#34;opacity&#34;, 1);
+          tooltipG.html(
+            `&lt;strong&gt;${d.Territory}&lt;/strong&gt;&lt;br&gt;
+             Population: ${d3.format(&#34;,&#34;)(d.population)}&lt;br&gt;
+             Languages: ${d.num_languages}`
+          )
+          .style(&#34;left&#34;, (event.pageX + 12) + &#34;px&#34;)
+          .style(&#34;top&#34;, (event.pageY - 28) + &#34;px&#34;);
+        })
+        .on(&#34;mousemove&#34;, (event) =&gt; {
+          tooltipG.style(&#34;left&#34;, (event.pageX + 12) + &#34;px&#34;)
+                 .style(&#34;top&#34;, (event.pageY - 28) + &#34;px&#34;);
+        })
+        .on(&#34;mouseout&#34;, () =&gt; tooltipG.transition().duration(150).style(&#34;opacity&#34;, 0));
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;The global linguistic system is shaped by dense clusters, but it holds together through a small set of bridge countries. Tunisia, Sudan, the UAE, Luxembourg, Mauritius, and Estonia prevent fragmentation, sustain cross-continental corridors, and add robustness through redundancy. &lt;strong&gt;Global connectivity depends less on dominant languages and more on these strategic connectors that bind worlds together.&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

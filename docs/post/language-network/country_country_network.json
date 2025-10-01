@@ -1,0 +1,7649 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "index": 60,
+      "degree": 19,
+      "id": "JO",
+      "name": "Jordan",
+      "languages": [
+        "Arabic",
+        "Levantine Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 67,
+      "degree": 19,
+      "id": "LB",
+      "name": "Lebanon",
+      "languages": [
+        "Arabic",
+        "Levantine Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 109,
+      "degree": 19,
+      "id": "SY",
+      "name": "Syria",
+      "languages": [
+        "Arabic",
+        "Levantine Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 32,
+      "degree": 19,
+      "id": "DZ",
+      "name": "Algeria",
+      "languages": [
+        "Algerian Arabic",
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 8,
+      "degree": 19,
+      "id": "BH",
+      "name": "Bahrain",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 62,
+      "degree": 19,
+      "id": "KM",
+      "name": "Comoros",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 35,
+      "degree": 19,
+      "id": "EG",
+      "name": "Egypt",
+      "languages": [
+        "Arabic",
+        "Egyptian Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 56,
+      "degree": 19,
+      "id": "IQ",
+      "name": "Iraq",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 65,
+      "degree": 19,
+      "id": "KW",
+      "name": "Kuwait",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 71,
+      "degree": 19,
+      "id": "LY",
+      "name": "Libya",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 76,
+      "degree": 19,
+      "id": "MR",
+      "name": "Mauritania",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 72,
+      "degree": 19,
+      "id": "MA",
+      "name": "Morocco",
+      "languages": [
+        "Arabic",
+        "Moroccan Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 88,
+      "degree": 19,
+      "id": "OM",
+      "name": "Oman",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 97,
+      "degree": 19,
+      "id": "QA",
+      "name": "Qatar",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 101,
+      "degree": 19,
+      "id": "SA",
+      "name": "Saudi Arabia",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 103,
+      "degree": 62,
+      "id": "SD",
+      "name": "Sudan",
+      "languages": [
+        "Arabic",
+        "English",
+        "Sudanese Arabic"
+      ],
+      "betweenness": 0.12217142691280622
+    },
+    {
+      "index": 112,
+      "degree": 35,
+      "id": "TN",
+      "name": "Tunisia",
+      "languages": [
+        "Arabic",
+        "French",
+        "Tunisian Arabic"
+      ],
+      "betweenness": 0.07098281667247189
+    },
+    {
+      "index": 0,
+      "degree": 62,
+      "id": "AE",
+      "name": "United Arab Emirates",
+      "languages": [
+        "Arabic",
+        "English"
+      ],
+      "betweenness": 0.12217142691280622
+    },
+    {
+      "index": 36,
+      "degree": 19,
+      "id": "EH",
+      "name": "Western Sahara",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 121,
+      "degree": 19,
+      "id": "YE",
+      "name": "Yemen",
+      "languages": [
+        "Arabic"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 4,
+      "degree": 45,
+      "id": "AT",
+      "name": "Austria",
+      "languages": [
+        "Bavarian",
+        "English",
+        "German"
+      ],
+      "betweenness": 0.004291477998374551
+    },
+    {
+      "index": 28,
+      "degree": 45,
+      "id": "DE",
+      "name": "Germany",
+      "languages": [
+        "English",
+        "German"
+      ],
+      "betweenness": 0.004291477998374551
+    },
+    {
+      "index": 70,
+      "degree": 60,
+      "id": "LU",
+      "name": "Luxembourg",
+      "languages": [
+        "English",
+        "French",
+        "German",
+        "Luxembourgish"
+      ],
+      "betweenness": 0.10305642633228843
+    },
+    {
+      "index": 86,
+      "degree": 46,
+      "id": "NL",
+      "name": "Netherlands",
+      "languages": [
+        "Dutch",
+        "English",
+        "German"
+      ],
+      "betweenness": 0.015655114362010916
+    },
+    {
+      "index": 19,
+      "degree": 4,
+      "id": "CH",
+      "name": "Switzerland",
+      "languages": [
+        "German",
+        "Swiss German"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 27,
+      "degree": 44,
+      "id": "CY",
+      "name": "Cyprus",
+      "languages": [
+        "English",
+        "Greek"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 47,
+      "degree": 44,
+      "id": "GR",
+      "name": "Greece",
+      "languages": [
+        "English",
+        "Greek"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 5,
+      "degree": 44,
+      "id": "AU",
+      "name": "Australia",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 13,
+      "degree": 44,
+      "id": "BS",
+      "name": "Bahamas",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 6,
+      "degree": 44,
+      "id": "BB",
+      "name": "Barbados",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 7,
+      "degree": 45,
+      "id": "BE",
+      "name": "Belgium",
+      "languages": [
+        "Dutch",
+        "English"
+      ],
+      "betweenness": 0.011102403343782655
+    },
+    {
+      "index": 15,
+      "degree": 44,
+      "id": "BZ",
+      "name": "Belize",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 14,
+      "degree": 44,
+      "id": "BW",
+      "name": "Botswana",
+      "languages": [
+        "English",
+        "Tswana"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 16,
+      "degree": 44,
+      "id": "CA",
+      "name": "Canada",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 30,
+      "degree": 44,
+      "id": "DK",
+      "name": "Denmark",
+      "languages": [
+        "Danish",
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 37,
+      "degree": 44,
+      "id": "ER",
+      "name": "Eritrea",
+      "languages": [
+        "English",
+        "Tigrinya"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 34,
+      "degree": 47,
+      "id": "EE",
+      "name": "Estonia",
+      "languages": [
+        "English",
+        "Estonian",
+        "Russian"
+      ],
+      "betweenness": 0.06661442006269593
+    },
+    {
+      "index": 110,
+      "degree": 44,
+      "id": "SZ",
+      "name": "Eswatini",
+      "languages": [
+        "English",
+        "Swati"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 40,
+      "degree": 44,
+      "id": "FJ",
+      "name": "Fiji",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 39,
+      "degree": 44,
+      "id": "FI",
+      "name": "Finland",
+      "languages": [
+        "English",
+        "Finnish"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 50,
+      "degree": 44,
+      "id": "GY",
+      "name": "Guyana",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 51,
+      "degree": 46,
+      "id": "HK",
+      "name": "Hong Kong SAR China",
+      "languages": [
+        "Cantonese",
+        "Chinese (Traditional)",
+        "English"
+      ],
+      "betweenness": 0.04493207941483804
+    },
+    {
+      "index": 54,
+      "degree": 44,
+      "id": "IE",
+      "name": "Ireland",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 55,
+      "degree": 44,
+      "id": "IL",
+      "name": "Israel",
+      "languages": [
+        "English",
+        "Hebrew"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 59,
+      "degree": 44,
+      "id": "JM",
+      "name": "Jamaica",
+      "languages": [
+        "English",
+        "Jamaican Creole English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 68,
+      "degree": 44,
+      "id": "LR",
+      "name": "Liberia",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 80,
+      "degree": 44,
+      "id": "MW",
+      "name": "Malawi",
+      "languages": [
+        "English",
+        "Nyanja"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 79,
+      "degree": 44,
+      "id": "MV",
+      "name": "Maldives",
+      "languages": [
+        "Divehi",
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 77,
+      "degree": 45,
+      "id": "MT",
+      "name": "Malta",
+      "languages": [
+        "English",
+        "Italian",
+        "Maltese"
+      ],
+      "betweenness": 0.022727272727272728
+    },
+    {
+      "index": 78,
+      "degree": 59,
+      "id": "MU",
+      "name": "Mauritius",
+      "languages": [
+        "English",
+        "French",
+        "Morisyen"
+      ],
+      "betweenness": 0.09424851967955421
+    },
+    {
+      "index": 87,
+      "degree": 44,
+      "id": "NZ",
+      "name": "New Zealand",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 84,
+      "degree": 44,
+      "id": "NG",
+      "name": "Nigeria",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 94,
+      "degree": 44,
+      "id": "PK",
+      "name": "Pakistan",
+      "languages": [
+        "English",
+        "Punjabi (Arabic)",
+        "Urdu"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 92,
+      "degree": 44,
+      "id": "PG",
+      "name": "Papua New Guinea",
+      "languages": [
+        "English",
+        "Tok Pisin"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 93,
+      "degree": 44,
+      "id": "PH",
+      "name": "Philippines",
+      "languages": [
+        "English",
+        "Filipino"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 105,
+      "degree": 45,
+      "id": "SG",
+      "name": "Singapore",
+      "languages": [
+        "Chinese",
+        "English"
+      ],
+      "betweenness": 0.022727272727272728
+    },
+    {
+      "index": 106,
+      "degree": 45,
+      "id": "SI",
+      "name": "Slovenia",
+      "languages": [
+        "Croatian",
+        "English",
+        "Slovenian"
+      ],
+      "betweenness": 0.022727272727272728
+    },
+    {
+      "index": 102,
+      "degree": 44,
+      "id": "SB",
+      "name": "Solomon Islands",
+      "languages": [
+        "English",
+        "Pijin"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 104,
+      "degree": 44,
+      "id": "SE",
+      "name": "Sweden",
+      "languages": [
+        "English",
+        "Swedish"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 115,
+      "degree": 47,
+      "id": "TZ",
+      "name": "Tanzania",
+      "languages": [
+        "English",
+        "Swahili"
+      ],
+      "betweenness": 0.03790491118077324
+    },
+    {
+      "index": 113,
+      "degree": 44,
+      "id": "TT",
+      "name": "Trinidad & Tobago",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 43,
+      "degree": 44,
+      "id": "GB",
+      "name": "United Kingdom",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 117,
+      "degree": 44,
+      "id": "US",
+      "name": "United States",
+      "languages": [
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 120,
+      "degree": 44,
+      "id": "VU",
+      "name": "Vanuatu",
+      "languages": [
+        "Bislama",
+        "English"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 9,
+      "degree": 16,
+      "id": "BI",
+      "name": "Burundi",
+      "languages": [
+        "French",
+        "Rundi"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 21,
+      "degree": 16,
+      "id": "CM",
+      "name": "Cameroon",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 18,
+      "degree": 16,
+      "id": "CG",
+      "name": "Congo - Brazzaville",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 17,
+      "degree": 19,
+      "id": "CD",
+      "name": "Congo - Kinshasa",
+      "languages": [
+        "French",
+        "Swahili"
+      ],
+      "betweenness": 0.012086381051898295
+    },
+    {
+      "index": 29,
+      "degree": 16,
+      "id": "DJ",
+      "name": "Djibouti",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 41,
+      "degree": 16,
+      "id": "FR",
+      "name": "France",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 44,
+      "degree": 16,
+      "id": "GF",
+      "name": "French Guiana",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 91,
+      "degree": 16,
+      "id": "PF",
+      "name": "French Polynesia",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 42,
+      "degree": 16,
+      "id": "GA",
+      "name": "Gabon",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 45,
+      "degree": 16,
+      "id": "GP",
+      "name": "Guadeloupe",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 75,
+      "degree": 16,
+      "id": "MQ",
+      "name": "Martinique",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 122,
+      "degree": 16,
+      "id": "YT",
+      "name": "Mayotte",
+      "languages": [
+        "Comorian",
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 83,
+      "degree": 16,
+      "id": "NC",
+      "name": "New Caledonia",
+      "languages": [
+        "French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 98,
+      "degree": 16,
+      "id": "RE",
+      "name": "Réunion",
+      "languages": [
+        "French",
+        "Réunion Creole French"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 53,
+      "degree": 1,
+      "id": "HR",
+      "name": "Croatia",
+      "languages": [
+        "Croatian"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 58,
+      "degree": 1,
+      "id": "IT",
+      "name": "Italy",
+      "languages": [
+        "Italian"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 107,
+      "degree": 2,
+      "id": "SR",
+      "name": "Suriname",
+      "languages": [
+        "Dutch",
+        "Sranan Tongo"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 66,
+      "degree": 3,
+      "id": "KZ",
+      "name": "Kazakhstan",
+      "languages": [
+        "Kazakh",
+        "Russian"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 69,
+      "degree": 3,
+      "id": "LT",
+      "name": "Lithuania",
+      "languages": [
+        "Lithuanian",
+        "Russian"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 100,
+      "degree": 3,
+      "id": "RU",
+      "name": "Russia",
+      "languages": [
+        "Russian"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 61,
+      "degree": 3,
+      "id": "KE",
+      "name": "Kenya",
+      "languages": [
+        "Swahili"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 116,
+      "degree": 3,
+      "id": "UG",
+      "name": "Uganda",
+      "languages": [
+        "Swahili"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 74,
+      "degree": 2,
+      "id": "MO",
+      "name": "Macao SAR China",
+      "languages": [
+        "Cantonese",
+        "Chinese (Traditional)"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 22,
+      "degree": 1,
+      "id": "CN",
+      "name": "China",
+      "languages": [
+        "Chinese"
+      ],
+      "betweenness": 0.0
+    },
+    {
+      "index": 114,
+      "degree": 2,
+      "id": "TW",
+      "name": "Taiwan",
+      "languages": [
+        "Chinese (Traditional)",
+        "Min Nan Chinese (Traditional)"
+      ],
+      "betweenness": 0.0
+    }
+  ],
+  "links": [
+    {
+      "source": "JO",
+      "target": "LB",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "SY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "DZ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "BH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "KM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "JO",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "SY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "DZ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "BH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "KM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LB",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "DZ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "BH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "KM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SY",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "BH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "KM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "DZ",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "KM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "BH",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "EG",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KM",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "IQ",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "EG",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "KW",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "IQ",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "LY",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "KW",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "MR",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "LY",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "MA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MR",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "OM",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "MA",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "QA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "OM",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "SA",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "QA",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SA",
+      "target": "SD",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SA",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SA",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SA",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SA",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SD",
+      "target": "TN",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SD",
+      "target": "AE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SD",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "SD",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "AT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "DE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "LU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "NL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SD",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TN",
+      "target": "AE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "TN",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "TN",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "TN",
+      "target": "BI",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "CM",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "CG",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "LU",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "MU",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "TN",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "AE",
+      "target": "EH",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "AE",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "AE",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "AT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "DE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "LU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "NL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EH",
+      "target": "YE",
+      "shared_languages": "Arabic"
+    },
+    {
+      "source": "AT",
+      "target": "DE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "LU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "NL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "CH",
+      "shared_languages": "German"
+    },
+    {
+      "source": "AT",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AT",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "LU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "NL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "CH",
+      "shared_languages": "German"
+    },
+    {
+      "source": "DE",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "NL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "CH",
+      "shared_languages": "German"
+    },
+    {
+      "source": "LU",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "MU",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LU",
+      "target": "BI",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "CM",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "CG",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "LU",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "NL",
+      "target": "CH",
+      "shared_languages": "German"
+    },
+    {
+      "source": "NL",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "BE",
+      "shared_languages": "Dutch"
+    },
+    {
+      "source": "NL",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "CY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NL",
+      "target": "SR",
+      "shared_languages": "Dutch"
+    },
+    {
+      "source": "CY",
+      "target": "GR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CY",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "AU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GR",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "BS",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "AU",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "BB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BS",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "BE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BB",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "BZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BE",
+      "target": "SR",
+      "shared_languages": "Dutch"
+    },
+    {
+      "source": "BZ",
+      "target": "BW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BZ",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "CA",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BW",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "DK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "CA",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "ER",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "DK",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "EE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "ER",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "SZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "EE",
+      "target": "KZ",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "EE",
+      "target": "LT",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "EE",
+      "target": "RU",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "SZ",
+      "target": "FJ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SZ",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "FI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FJ",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "GY",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "FI",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "HK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GY",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "IE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "HK",
+      "target": "MO",
+      "shared_languages": "Chinese (Traditional)"
+    },
+    {
+      "source": "HK",
+      "target": "TW",
+      "shared_languages": "Chinese (Traditional)"
+    },
+    {
+      "source": "IE",
+      "target": "IL",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "JM",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "IL",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "LR",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "JM",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "MW",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "LR",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "MV",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MW",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "MT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MV",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "MU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MT",
+      "target": "IT",
+      "shared_languages": "Italian"
+    },
+    {
+      "source": "MU",
+      "target": "NZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "MU",
+      "target": "BI",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "CM",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "CG",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MU",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "NZ",
+      "target": "NG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NZ",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "PK",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "NG",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "PG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PK",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "PH",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PG",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "SG",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "PH",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "SI",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SG",
+      "target": "CN",
+      "shared_languages": "Chinese"
+    },
+    {
+      "source": "SI",
+      "target": "SB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SI",
+      "target": "HR",
+      "shared_languages": "Croatian"
+    },
+    {
+      "source": "SB",
+      "target": "SE",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SB",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SB",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SB",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SB",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SB",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SE",
+      "target": "TZ",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SE",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SE",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SE",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "SE",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TZ",
+      "target": "TT",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TZ",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TZ",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TZ",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TZ",
+      "target": "CD",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "TZ",
+      "target": "KE",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "TZ",
+      "target": "UG",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "TT",
+      "target": "GB",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TT",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "TT",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GB",
+      "target": "US",
+      "shared_languages": "English"
+    },
+    {
+      "source": "GB",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "US",
+      "target": "VU",
+      "shared_languages": "English"
+    },
+    {
+      "source": "BI",
+      "target": "CM",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "CG",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "BI",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "CG",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CM",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "CD",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CG",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "DJ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "CD",
+      "target": "KE",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "CD",
+      "target": "UG",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "DJ",
+      "target": "FR",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "DJ",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "GF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "FR",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "PF",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GF",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "GA",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "PF",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GA",
+      "target": "GP",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GA",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GA",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GA",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GA",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GP",
+      "target": "MQ",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GP",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GP",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "GP",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MQ",
+      "target": "YT",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MQ",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "MQ",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "YT",
+      "target": "NC",
+      "shared_languages": "French"
+    },
+    {
+      "source": "YT",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "NC",
+      "target": "RE",
+      "shared_languages": "French"
+    },
+    {
+      "source": "KZ",
+      "target": "LT",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "KZ",
+      "target": "RU",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "LT",
+      "target": "RU",
+      "shared_languages": "Russian"
+    },
+    {
+      "source": "KE",
+      "target": "UG",
+      "shared_languages": "Swahili"
+    },
+    {
+      "source": "MO",
+      "target": "TW",
+      "shared_languages": "Chinese (Traditional)"
+    }
+  ]
+}

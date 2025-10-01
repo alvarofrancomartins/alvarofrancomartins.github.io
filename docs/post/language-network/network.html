@@ -1,0 +1,446 @@
+<div class="network-wrapper">
+  <div class="container">
+      <div class="graph-container">
+          <div id="network-graph"></div>
+          <div class="loading">Loading network data...</div>
+          
+          <div class="zoom-controls">
+              <button class="zoom-btn" id="zoom-in">+</button>
+              <button class="zoom-btn" id="zoom-out">-</button>
+              <button class="zoom-btn" id="fit-to-screen">Fit</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<style>
+  /* Scoped styles so Hugo defaults remain untouched */
+  .network-wrapper {
+      margin: 2rem 0;
+  }
+
+  .network-wrapper .container {
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+  }
+
+  .network-wrapper .graph-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+  }
+
+  .network-wrapper #network-graph {
+      width: 100%;
+      height: 100%;
+  }
+
+  .network-wrapper .tooltip {
+      position: absolute;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      pointer-events: none;
+      font-size: 18px;
+      color: #fff; 
+      opacity: 0;
+      max-width: 300px;
+  }
+
+  .network-wrapper .tooltip h3 {
+      margin: 0 0 8px 0;
+      color: #4cc9f0;
+      font-size: 16px;
+  }
+
+  .network-wrapper .tooltip p {
+      margin: 4px 0;
+  }
+
+  .network-wrapper .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      color: #4cc9f0;
+  }
+
+  .network-wrapper .node-label {
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+      pointer-events: none;
+      user-select: none;
+      transition: all 0.3s;
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 1px;
+      paint-order: stroke;
+  }
+
+  .network-wrapper .zoom-controls {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .network-wrapper .zoom-btn {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .network-wrapper .zoom-btn:hover {
+      background: rgba(76, 201, 240, 0.3);
+  }
+
+  .network-wrapper .legend {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+  }
+</style>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+  // Configuration with your specified defaults
+    const container = document.querySelector(".graph-container");
+
+    const config = {
+        width: container.clientWidth,
+        height: container.clientHeight,
+        chargeStrength: -287,
+        linkDistance: 145,
+        nodeSize: 2.3,
+        gravityStrength: 0.05
+    };
+  // Create SVG and tooltip
+  const svg = d3.select("#network-graph")
+      .append("svg")
+      .attr("width", config.width)
+      .attr("height", config.height);
+
+  const g = svg.append("g");
+  const tooltip = d3.select(".network-wrapper").append("div")
+      .attr("class", "tooltip");
+
+  // Zoom behavior
+  const zoom = d3.zoom()
+      .scaleExtent([0.1, 4])
+      .on("zoom", (event) => {
+          g.attr("transform", event.transform);
+      });
+
+  svg.call(zoom);
+
+  // Color scale for nodes based on betweenness
+  const getNodeColor = (d) => {
+      if (d.betweenness === 0) return "#DBE2EF";      // Low betweenness - Light blue
+      else if (d.betweenness <= 0.1) return "#3F72AF"; // Medium betweenness - Teal
+      else return "#112D4E";                          // High betweenness - Coral
+  };
+
+  // Load and visualize the graph
+  d3.json("country_country_network.json").then(function(graphData) {
+      setTimeout(() => {
+            fitToScreen();
+        }, 1500);
+      d3.select(".loading").remove();
+      // Initialize the graph
+      updateGraph(graphData);
+      // Set up controls
+      setupControls(graphData);
+  }).catch(function(error) {
+      console.error("Error loading graph data:", error);
+      d3.select(".loading").text("Error loading data. Please check the console.");
+  });
+
+  function updateGraph(graphData) {
+      // Clear previous graph
+      g.selectAll("*").remove();
+
+      // Create links
+      const links = graphData.links.map(d => Object.create(d));
+      
+      // Create nodes
+      const nodes = graphData.nodes.map(d => Object.create(d));
+
+      // Create simulation with boundary constraints
+      const simulation = d3.forceSimulation(nodes)
+          .force("link", d3.forceLink(links).id(d => d.id).distance(config.linkDistance))
+          .force("charge", d3.forceManyBody().strength(config.chargeStrength))
+          .force("center", d3.forceCenter(config.width / 2, config.height / 2))
+          .force("x", d3.forceX(config.width / 2).strength(config.gravityStrength))
+          .force("y", d3.forceY(config.height / 2).strength(config.gravityStrength))
+          .force("collision", d3.forceCollide().radius(d => {
+              if (d.betweenness === 0) return 8 + 8; // radius + padding
+              const minBetweenness = 0.0001;
+              const maxBetweenness = 0.12217142691280622;
+              const normalized = Math.log1p(d.betweenness) / Math.log1p(maxBetweenness);
+              const minRadius = 8;
+              const maxRadius = 35;
+              return (minRadius + (normalized * (maxRadius - minRadius))) + 8;
+          }))
+      // Add boundary force to keep nodes within view
+      simulation.force("boundary", function() {
+          nodes.forEach(node => {
+              const radius = Math.sqrt(node.degree) * config.nodeSize;
+              node.x = Math.max(radius, Math.min(config.width - radius, node.x));
+              node.y = Math.max(radius, Math.min(config.height - radius, node.y));
+          });
+      });
+
+      // Create links
+      const link = g.append("g")
+          .attr("class", "links")
+          .selectAll("line")
+          .data(links)
+          .enter().append("line")
+          .attr("stroke-width", 1)
+          .attr("stroke", "rgba(255, 255, 255, 0.4)")
+          .attr("stroke-opacity", 0.7)
+          .attr("class", "link");
+
+      // Create nodes
+      const node = g.append("g")
+          .attr("class", "nodes")
+          .selectAll("circle")
+          .data(nodes)
+          .enter().append("circle")
+          .attr("r", d => {
+              if (d.betweenness === 0) return 8;
+              const minBetweenness = 0.0001;
+              const maxBetweenness = 0.12217142691280622;
+              const normalized = Math.log1p(d.betweenness) / Math.log1p(maxBetweenness);
+              const minRadius = 18;
+              const maxRadius = 35;
+              return minRadius + (normalized * (maxRadius - minRadius));
+          })
+          .attr("fill", d => getNodeColor(d))
+          .attr("stroke", "#ffffff")
+          .attr("stroke-width", 1.5)
+          .attr("class", "node")
+          .call(d3.drag()
+              .on("start", dragstarted)
+              .on("drag", dragged)
+              .on("end", dragended))
+          .on("mouseover", function(event, d) {
+              highlightNeighbors(d);
+              showTooltip(event, d);
+          })
+          .on("mouseout", function() {
+              unhighlightAll();
+              hideTooltip();
+          });
+
+      // Create labels and store their default attributes
+      const label = g.append("g")
+          .attr("class", "labels")
+          .selectAll("text")
+          .data(nodes)
+          .enter().append("text")
+          .attr("class", "node-label")
+          .text(d => d.id)
+          .attr("text-anchor", "middle")
+          .attr("dy", -3)
+          .attr("fill", "#ffffff")
+          .attr("stroke", "#000000")
+          .attr("stroke-width", "1px")
+          .attr("paint-order", "stroke")
+          .attr("font-size", "18px")
+          .each(function(d) {
+              const el = d3.select(this);
+              d._default = {
+                  opacity: el.style("opacity"),
+                  fontWeight: el.style("font-weight"),
+                  textAnchor: el.attr("text-anchor"),
+                  dy: el.attr("dy"),
+                  fill: el.attr("fill"),
+                  stroke: el.attr("stroke"),
+                  strokeWidth: el.attr("stroke-width"),
+                  paintOrder: el.attr("paint-order"),
+                  fontSize: el.attr("font-size")
+              };
+          });
+
+      function highlightNeighbors(selectedNode) {
+          let connectedNodes = new Set([selectedNode.id]);
+          let connectedLinks = new Set();
+
+          links.forEach(link => {
+              if (link.source.id === selectedNode.id) {
+                  connectedNodes.add(link.target.id);
+                  connectedLinks.add(link);
+              } else if (link.target.id === selectedNode.id) {
+                  connectedNodes.add(link.source.id);
+                  connectedLinks.add(link);
+              }
+          });
+
+          node.style("opacity", d => connectedNodes.has(d.id) ? 1 : 0.2);
+          link.style("opacity", d => {
+              const isConnected = connectedLinks.has(d) || 
+                                (connectedNodes.has(d.source.id) && connectedNodes.has(d.target.id));
+              return isConnected ? 0.9 : 0.1;
+          });
+          label.style("opacity", d => connectedNodes.has(d.id) ? 1 : 0.2);
+
+          node.filter(d => connectedNodes.has(d.id))
+              .style("stroke-width", 2.5)
+              .style("filter", "drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))");
+
+          link.filter(d => connectedLinks.has(d) || 
+                        (connectedNodes.has(d.source.id) && connectedNodes.has(d.target.id)))
+              .style("stroke-width", 1)
+              .style("stroke", "rgba(255, 255, 255, 0.8)");
+
+          label.filter(d => connectedNodes.has(d.id))
+              .style("font-weight", "bold")
+              .style("font-size", "18px");
+      }
+
+      function unhighlightAll() {
+          node.style("opacity", 1)
+              .style("stroke-width", 1.5)
+              .style("filter", "none");
+
+          link.style("opacity", 0.7)
+              .style("stroke-width", 1)
+              .style("stroke", "rgba(255, 255, 255, 0.4)");
+
+          label.each(function(d) {
+              const el = d3.select(this);
+              const def = d._default;
+
+              el.style("opacity", def.opacity)
+              .style("font-weight", def.fontWeight)
+              .attr("text-anchor", def.textAnchor)
+              .attr("dy", def.dy)
+              .attr("fill", def.fill)
+              .attr("stroke", def.stroke)
+              .attr("stroke-width", def.strokeWidth)
+              .attr("paint-order", def.paintOrder)
+              .attr("font-size", def.fontSize);
+          });
+      }
+
+      simulation.on("tick", () => {
+          link.attr("x1", d => d.source.x)
+              .attr("y1", d => d.source.y)
+              .attr("x2", d => d.target.x)
+              .attr("y2", d => d.target.y);
+
+          node.attr("cx", d => d.x)
+              .attr("cy", d => d.y);
+
+          label.attr("x", d => d.x)
+              .attr("y", d => d.y);
+      });
+
+      function dragstarted(event, d) {
+          if (!event.active) simulation.alphaTarget(0.3).restart();
+          d.fx = d.x;
+          d.fy = d.y;
+      }
+      function dragged(event, d) {
+          d.fx = event.x;
+          d.fy = event.y;
+      }
+      function dragended(event, d) {
+          if (!event.active) simulation.alphaTarget(0);
+          d.fx = null;
+          d.fy = null;
+      }
+
+      function showTooltip(event, d) {
+          const countryName = d.name;
+          tooltip.html(`
+              <h3>${countryName}</h3>
+              <p><strong>Languages:</strong> ${d.languages}</p>
+          `)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 10) + "px")
+          .style("opacity", 1);
+      }
+      function hideTooltip() {
+          tooltip.style("opacity", 0);
+      }
+
+      window.currentSimulation = simulation;
+      window.currentNodes = nodes;
+      window.currentLinks = links;
+      window.highlightNeighbors = highlightNeighbors;
+      window.unhighlightAll = unhighlightAll;
+  }
+
+  function fitToScreen() {
+      const bounds = g.node().getBBox();
+      const fullWidth = config.width;
+      const fullHeight = config.height;
+      const width = bounds.width;
+      const height = bounds.height;
+      
+      const midX = bounds.x + width / 2;
+      const midY = bounds.y + height / 2;
+      
+      if (width === 0 || height === 0) return;
+      
+      const scale = 0.95 / Math.max(width / fullWidth, height / fullHeight);
+      const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+      
+      svg.transition()
+          .duration(750)
+          .call(zoom.transform, d3.zoomIdentity.translate(translate[0], translate[1]).scale(scale));
+  }
+
+  function setupControls() {
+      d3.select("#fit-to-screen").on("click", fitToScreen);
+      d3.select("#zoom-in").on("click", () => svg.transition().call(zoom.scaleBy, 1.3));
+      d3.select("#zoom-out").on("click", () => svg.transition().call(zoom.scaleBy, 0.7));
+
+      window.addEventListener("resize", function() {
+          config.width = container.clientWidth;
+          config.height = container.clientHeight;
+          
+          svg.attr("width", config.width)
+             .attr("height", config.height);
+          
+          if (window.currentSimulation) {
+              window.currentSimulation.force("center")
+                  .x(config.width / 2)
+                  .y(config.height / 2);
+              window.currentSimulation.force("x")
+                  .x(config.width / 2);
+              window.currentSimulation.force("y")
+                  .y(config.height / 2);
+              window.currentSimulation.alpha(0.3).restart();
+          }
+          
+          setTimeout(fitToScreen, 100);
+      });
+
+  }
+</script>
