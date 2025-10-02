@@ -51,11 +51,11 @@ The resulting network includes **89 countries** and **1338 connections**. The mo
 - **Arabic Cluster:** Dense community across North Africa and the Middle East, tied together by Arabic.  
 - **Francophone Cluster:** Extends from Europe into Africa and overseas territories, linking France, Luxembourg, Cameroon, Gabon, Congo, and Mauritius.  
 - **Anglophone Cluster:** The most globally dispersed, spanning Europe, Africa, Asia, and the Americas.  
-- **Broker Nodes:** Countries such as Tunisia, Sudan, and the UAE serve as bridges, linking these clusters into one global system.
+- **Broker Nodes:** Countries such as Tunisia, Sudan, UAE and Luxembourg serve as bridges, linking these clusters into one global system.
 
 ## Key Bridges and Connectors
-- **Tunisia – Connects French and Arabic worlds:** The sole bridge between Arabic and Francophone blocs, a keystone broker whose removal would fragment the system. Over half of Tunisians are fluent in French alongside Arabic.  
-- **Sudan & UAE – Connect Arabic and English worlds:** Sudan ties the Arabic cluster to the Anglophone bloc, while the UAE adds stability and outward corridors.  
+- **Tunisia – Connects French and Arabic worlds:** The sole bridge between Arabic and Francophone hubs.
+- **Sudan & UAE – Connect Arabic and English worlds:** Sudan and UAE ties the Arabic cluster to the Anglophone.
 - **Luxembourg & Mauritius – Connect English and French worlds:** Luxembourg unites Romance and Germanic Europe while projecting outward to Africa; Mauritius strengthens Francophone–Anglophone ties from the Indian Ocean.  
 - **Estonia – Connects English and Russian worlds:** Prevents the Russian-speaking bloc from isolation, reflecting its balance between eastern history and western integration.
 
