@@ -4,7 +4,7 @@ subtitle: The structural role of multilingual countries
 summary:  How a few key countries act as vital hinges
 authors:
 - admin
-date: "2025-28-09"
+date: "2025-09-28"
 featured: false
 draft: false
 tags: 
