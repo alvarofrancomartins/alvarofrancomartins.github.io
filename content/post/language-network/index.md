@@ -19,11 +19,9 @@ categories:
 
 image:
   placement: 2
-  # caption: "Network Attack"
+  caption: "Languages"
   focal_point: "Smart"
   preview_only: false
-
-reading_time: true
 
 projects: [language]
 ---
@@ -43,7 +41,7 @@ Using this dataset, a country–country network was constructed:
 - **Edges:** A link exists if two countries share a language spoken by at least 50% of their population.  
 - **Filtering:** Smaller components were removed, focusing on the largest connected component.  
 
-The resulting network includes **89 countries** and **1338 connections**.
+The resulting network includes **89 countries** and **1338 connections**. 
 
 {{< include-html "content/post/language-network/network.html" >}}
 
