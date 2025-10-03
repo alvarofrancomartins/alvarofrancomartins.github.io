@@ -57,7 +57,6 @@ The resulting network includes **89 countries** and **1338 connections**.
 - **Luxembourg & Mauritius – Connect English and French worlds:** Luxembourg unites Romance and Germanic Europe while projecting outward to Africa; Mauritius strengthens Francophone–Anglophone ties from the Indian Ocean.  
 - **Estonia – Connects English and Russian worlds:** Prevents the Russian-speaking bloc from isolation, reflecting its balance between eastern history and western integration.
 
-## Structural Insights
-The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: **strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.**
+[See more](slides.pdf)
 
 <!-- {{< include-html "content/post/language-network/plot.html" >}} -->
