@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/languages/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/languages/index.xml" rel="self" type="application/rss+xml" />
     <description>Languages</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 03 Oct 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Languages</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Where Languages Meet Worlds</title>
       <link>https://alvarofrancomartins.com/post/language-network/</link>
-      <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/language-network/</guid>
       <description>&lt;h2 id=&#34;foundation-unicode-and-language-data&#34;&gt;Foundation: Unicode and Language Data&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://home.unicode.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Unicode&lt;/a&gt; is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages.&lt;/p&gt;
