@@ -344,10 +344,10 @@
     
       <meta
         property="article:published_time"
-        content="2025-09-29T00:00:00&#43;00:00"
+        content="2025-10-03T00:00:00&#43;00:00"
       />
     
-    <meta property="article:modified_time" content="2025-09-29T00:00:00&#43;00:00">
+    <meta property="article:modified_time" content="2025-10-03T00:00:00&#43;00:00">
   
 
   
@@ -379,8 +379,8 @@
     "https://alvarofrancomartins.com/post/language-network/featured.png"
   ],
   
-  "datePublished": "2025-09-29T00:00:00Z",
-  "dateModified": "2025-09-29T00:00:00Z",
+  "datePublished": "2025-10-03T00:00:00Z",
+  "dateModified": "2025-10-03T00:00:00Z",
   
   "author": {
     "@type": "Person",
@@ -803,7 +803,7 @@ text-align: justify;
     
       
     
-    Sep 29, 2025
+    Oct 3, 2025
   </span>
   
 
@@ -886,15 +886,15 @@ text-align: justify;
                 <h2 id="foundation-unicode-and-language-data">Foundation: Unicode and Language Data</h2>
 <p><a href="https://home.unicode.org/" target="_blank" rel="noopener">Unicode</a> is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages.</p>
 <br>
-<p>For this project, I relied on the Unicode Consortium’s <a href="https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html" target="_blank" rel="noopener">Territory-Language</a>. This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.</p>
+<p>For this post, I relied on the Unicode Consortium’s <a href="https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html" target="_blank" rel="noopener">Territory-Language</a>. This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.</p>
 <h2 id="methodology-building-the-network">Methodology: Building the Network</h2>
 <p>Using this dataset, a country–country network was constructed:</p>
 <ul>
-<li><strong>Nodes:</strong> Countries with populations above 200,000.</li>
+<li><strong>Nodes:</strong> Countries with populations of at least 200,000.</li>
 <li><strong>Edges:</strong> A link exists if two countries share a language spoken by at least 50% of their population.</li>
 <li><strong>Filtering:</strong> Smaller components were removed, focusing on the largest connected component.</li>
 </ul>
-<p>The resulting network includes <strong>89 countries</strong> and <strong>1338 connections</strong>. The most connected nodes were <strong>Sudan (62), UAE (62), Luxembourg (60), Mauritius (59), and Estonia (47).</strong></p>
+<p>The resulting network includes <strong>89 countries</strong> and <strong>1338 connections</strong>.</p>
 
 <div class="network-wrapper">
   <div class="container">
@@ -1359,7 +1359,6 @@ text-align: justify;
 </ul>
 <h2 id="structural-insights">Structural Insights</h2>
 <p>The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: <strong>strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.</strong></p>
-<!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 <!-- 
 <!DOCTYPE html>
 <meta charset="utf-8">

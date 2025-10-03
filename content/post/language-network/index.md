@@ -4,9 +4,9 @@ subtitle: The structural role of multilingual countries
 summary:  How a few key countries act as vital hinges
 authors:
 - admin
-date: "2025-09-29"
+date: "2025-10-03"
 featured: false
-draft: true
+draft: false
 tags: 
 - Languages
 - Countries
@@ -34,16 +34,16 @@ projects: [language]
 
 <br>
 
-For this project, I relied on the Unicode Consortium’s [Territory-Language](https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html). This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.
+For this post, I relied on the Unicode Consortium’s [Territory-Language](https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html). This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.
 
 ## Methodology: Building the Network
 Using this dataset, a country–country network was constructed:  
 
-- **Nodes:** Countries with populations above 200,000.  
+- **Nodes:** Countries with populations of at least 200,000.  
 - **Edges:** A link exists if two countries share a language spoken by at least 50% of their population.  
 - **Filtering:** Smaller components were removed, focusing on the largest connected component.  
 
-The resulting network includes **89 countries** and **1338 connections**. The most connected nodes were **Sudan (62), UAE (62), Luxembourg (60), Mauritius (59), and Estonia (47).**
+The resulting network includes **89 countries** and **1338 connections**.
 
 {{< include-html "content/post/language-network/network.html" >}}
 
@@ -61,8 +61,5 @@ The resulting network includes **89 countries** and **1338 connections**. The mo
 
 ## Structural Insights
 The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: **strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.**
-
-
-<!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. -->
 
 <!-- {{< include-html "content/post/language-network/plot.html" >}} -->

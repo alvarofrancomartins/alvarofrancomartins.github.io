@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/various-networks/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/various-networks/index.xml" rel="self" type="application/rss+xml" />
     <description>Various networks</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 29 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 03 Oct 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Various networks</title>
@@ -15,20 +15,20 @@
     <item>
       <title>Where Languages Meet Worlds</title>
       <link>https://alvarofrancomartins.com/post/language-network/</link>
-      <pubDate>Mon, 29 Sep 2025 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 03 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/language-network/</guid>
       <description>&lt;h2 id=&#34;foundation-unicode-and-language-data&#34;&gt;Foundation: Unicode and Language Data&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://home.unicode.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Unicode&lt;/a&gt; is the global standard that defines how text, numbers, and symbols are represented on computers, ensuring billions of devices and platforms can handle content consistently across hundreds of languages.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;For this project, I relied on the Unicode Consortium’s &lt;a href=&#34;https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Territory-Language&lt;/a&gt;. This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.&lt;/p&gt;
+&lt;p&gt;For this post, I relied on the Unicode Consortium’s &lt;a href=&#34;https://www.unicode.org/cldr/charts/47/supplemental/territory_language_information.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Territory-Language&lt;/a&gt;. This dataset captures the percentage of literate, functional populations using each language in each country, providing a sociolinguistic view of global language usage.&lt;/p&gt;
 &lt;h2 id=&#34;methodology-building-the-network&#34;&gt;Methodology: Building the Network&lt;/h2&gt;
 &lt;p&gt;Using this dataset, a country–country network was constructed:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Nodes:&lt;/strong&gt; Countries with populations above 200,000.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Nodes:&lt;/strong&gt; Countries with populations of at least 200,000.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Edges:&lt;/strong&gt; A link exists if two countries share a language spoken by at least 50% of their population.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Filtering:&lt;/strong&gt; Smaller components were removed, focusing on the largest connected component.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;The resulting network includes &lt;strong&gt;89 countries&lt;/strong&gt; and &lt;strong&gt;1338 connections&lt;/strong&gt;. The most connected nodes were &lt;strong&gt;Sudan (62), UAE (62), Luxembourg (60), Mauritius (59), and Estonia (47).&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The resulting network includes &lt;strong&gt;89 countries&lt;/strong&gt; and &lt;strong&gt;1338 connections&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;div class=&#34;network-wrapper&#34;&gt;
   &lt;div class=&#34;container&#34;&gt;
@@ -493,7 +493,6 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;structural-insights&#34;&gt;Structural Insights&lt;/h2&gt;
 &lt;p&gt;The network’s cohesion depends on a handful of multilingual brokers. Tunisia is the most critical hinge, Sudan and the UAE keep Arabic–English corridors open, Luxembourg and Mauritius reinforce French–English ties, and Estonia bridges Russian to the Anglophone world. Connectivity here is not about size but about position: &lt;strong&gt;strategic brokers reduce fragmentation, redundant pairs add resilience, and multilingual societies hold the global system together.&lt;/strong&gt;&lt;/p&gt;
-&lt;!-- [^1]: The data used here was downloaded from the [UCINET](https://sites.google.com/site/ucinetsoftware/home?authuser=0) covert datasets. --&gt;
 &lt;!-- 
 &lt;!DOCTYPE html&gt;
 &lt;meta charset=&#34;utf-8&#34;&gt;
