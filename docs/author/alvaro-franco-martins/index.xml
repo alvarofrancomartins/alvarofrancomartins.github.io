@@ -5,12 +5,30 @@
     <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
       <atom:link href="https://alvarofrancomartins.com/author/alvaro-franco-martins/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 28 Sep 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 03 Nov 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
     </image>
+    
+    <item>
+      <title>The Brazilian Sunflowers</title>
+      <link>https://alvarofrancomartins.com/post/sunflower/</link>
+      <pubDate>Mon, 03 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/sunflower/</guid>
+      <description>&lt;h1 id=&#34;heading&#34;&gt;🌻&lt;/h1&gt;
+&lt;p&gt;I made this creative visualization comparing monthly sunlight across some Brazilian capitals.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Each city’s “sunflower” shows how sunshine hours vary through the year. Petal size &amp;amp; width reflect monthly sunlight intensity. To enhance visual contrast, I applied a nonlinear scaling, so differences between months become easier to see.&lt;/p&gt;
+&lt;br&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;https://www.youtube.com/embed/UYLgvMAZmso&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
+</description>
+    </item>
     
     <item>
       <title>Where Languages Meet Worlds</title>
