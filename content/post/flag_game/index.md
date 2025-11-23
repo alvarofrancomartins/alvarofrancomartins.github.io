@@ -96,7 +96,7 @@ Each game ran for 30 rounds, giving a **maximum possible score** of 29 points be
 
 <br>
 
-I stored all game data in JSON files (one file per game, e.g., `data/chatgpt_flag_game_0.json`) containing: the round number, both agents' color choices along with their reasoning (limited to 15 words), the current cumulative score, and each agent's identity (ChatGPT or DeepSeek). The reasoning is what the model returns in response to the following prompt: "Explain in 15 words or less why you chose that color based on the pattern". For more details, see `flag_game.py` in the [GitHub repository](https://github.com/alvarofrancomartins/LLMs-coordination).
+I stored all game data in JSON files (one file per game) containing: the round number, both agents' color choices along with their reasoning (limited to 15 words), the current cumulative score, and each agent's identity (ChatGPT or DeepSeek). The reasoning is what the model returns in response to the following prompt: "Explain in 15 words or less why you chose that color based on the pattern". For more details, see `flag_game.py` in the [GitHub repository](https://github.com/alvarofrancomartins/LLMs-coordination).
 
 {{< include-html "content/post/flag_game/game.html" >}}
 

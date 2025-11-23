@@ -990,7 +990,7 @@ text-align: justify;
 <br>
 <p>Each game ran for 30 rounds, giving a <strong>maximum possible score</strong> of 29 points because the first round has no previous round for comparison. I collected data from 100 games per mode. Therefore, each game mode could accumulate up to 2,900 points (100 games × 29 points).</p>
 <br>
-<p>I stored all game data in JSON files (one file per game, e.g., <code>data/chatgpt_flag_game_0.json</code>) containing: the round number, both agents' color choices along with their reasoning (limited to 15 words), the current cumulative score, and each agent&rsquo;s identity (ChatGPT or DeepSeek). The reasoning is what the model returns in response to the following prompt: &ldquo;Explain in 15 words or less why you chose that color based on the pattern&rdquo;. For more details, see <code>flag_game.py</code> in the <a href="https://github.com/alvarofrancomartins/LLMs-coordination" target="_blank" rel="noopener">GitHub repository</a>.</p>
+<p>I stored all game data in JSON files (one file per game) containing: the round number, both agents' color choices along with their reasoning (limited to 15 words), the current cumulative score, and each agent&rsquo;s identity (ChatGPT or DeepSeek). The reasoning is what the model returns in response to the following prompt: &ldquo;Explain in 15 words or less why you chose that color based on the pattern&rdquo;. For more details, see <code>flag_game.py</code> in the <a href="https://github.com/alvarofrancomartins/LLMs-coordination" target="_blank" rel="noopener">GitHub repository</a>.</p>
 
 <!DOCTYPE html>
 <html lang="en">
