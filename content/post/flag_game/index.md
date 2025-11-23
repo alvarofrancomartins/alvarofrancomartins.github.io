@@ -4,7 +4,7 @@ subtitle: How ChatGPT-5.1 and DeepSeek-V3 Learn to Cooperate
 summary: An experimental analysis of coordination capabilities in large language models through a simple pattern discovery game, revealing that same-model pairs achieve significantly better coordination than cross-model pairs.
 projects: []
 
-date: "2025-11-22"
+date: "2025-11-23"
 
 draft: false
 
