@@ -773,7 +773,6 @@
                     p2Cell.classList.add(&#39;coordGame-scored&#39;);
                     if (!p1Cell.querySelector(&#39;.coordGame-score-indicator&#39;)) {
                         p1Cell.innerHTML += &#39;&lt;div class=&#34;coordGame-score-indicator&#34;&gt;+1&lt;/div&gt;&#39;;
-                        p2Cell.innerHTML += &#39;&lt;div class=&#34;coordGame-score-indicator&#34;&gt;+1&lt;/div&gt;&#39;;
                     }
                 }
             }

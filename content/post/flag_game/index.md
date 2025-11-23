@@ -30,7 +30,7 @@ toc: true
 
 image:
   placement: 2
-  caption: "" 
+  caption: "Coordination between Large Language Models" 
   focal_point: "Smart"
   preview_only: false
 
