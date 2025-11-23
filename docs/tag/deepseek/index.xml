@@ -19,7 +19,7 @@
       <guid>https://alvarofrancomartins.com/post/flag_game/</guid>
       <description>&lt;link rel=&#34;stylesheet&#34; type=&#34;text/css&#34; href=&#34;css/style.css&#34;&gt;
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;This project evaluates the coordination capabilities of large language models (LLMs) through a simple game. Two AI agents must independently discover and maintain a two-color alternating sequence without any communication.&lt;/p&gt;
+&lt;p&gt;This project evaluates the coordination capabilities of large language models (LLMs) through a simple game. Two AI agents must independently discover and maintain a two-color alternating sequence without any communication. They are never told what the pattern is or how to achieve points.&lt;/p&gt;
 &lt;h2 id=&#34;game-mechanics&#34;&gt;Game Mechanics&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Rules&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -122,7 +122,7 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;br&gt;
-&lt;p&gt;There is no communication between agents. Agents should infer the pattern from minimal feedback. In order to win the game, agents must excel at sustained coordination. That is to say, both choosing the same color and also switching colors together.
+&lt;p&gt;Agents do not know the pattern beforehand. There is no communication between agents. Agents should infer the pattern from minimal feedback. In order to win the game, agents must excel at sustained coordination. That is to say, both choosing the same color and also switching colors together.
 &lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
 &lt;br&gt;

@@ -40,7 +40,7 @@ image:
 
 ## Overview
 
-This project evaluates the coordination capabilities of large language models (LLMs) through a simple game. Two AI agents must independently discover and maintain a two-color alternating sequence without any communication.
+This project evaluates the coordination capabilities of large language models (LLMs) through a simple game. Two AI agents must independently discover and maintain a two-color alternating sequence without any communication. They are never told what the pattern is or how to achieve points. 
 
 ## Game Mechanics
 
@@ -82,7 +82,7 @@ Another example:
 
 <br>
 
-There is no communication between agents. Agents should infer the pattern from minimal feedback. In order to win the game, agents must excel at sustained coordination. That is to say, both choosing the same color and also switching colors together. 
+Agents do not know the pattern beforehand. There is no communication between agents. Agents should infer the pattern from minimal feedback. In order to win the game, agents must excel at sustained coordination. That is to say, both choosing the same color and also switching colors together. 
 <br>
 
 ## Methodology
