@@ -1,0 +1,72 @@
+/* Center the table and kill the scrollbar, table only */
+
+table {
+  /* make it behave like a normal table again */
+  display: table !important;
+  width: auto !important;
+  overflow-x: visible !important;  /* no scroll bar */
+
+  /* center inside flex or non-flex containers */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-self: center !important;
+
+  /* optional, but keeps it from stretching weirdly */
+  max-width: 100%;
+}
+
+/* extra safety: if some browser still thinks it can scroll */
+table::-webkit-scrollbar {
+  display: none !important;
+}
+table {
+  scrollbar-width: none;          /* Firefox */
+}
+
+/* Force list rendering - override Hugo defaults */
+article ul,
+.article-content ul,
+.content ul,
+main ul {
+    list-style-type: disc !important;
+    margin-left: 2em !important;
+    padding-left: 1em !important;
+}
+
+article ul li,
+.article-content ul li,
+.content ul li,
+main ul li {
+    display: list-item !important;
+c
+}
+
+article ol,
+.article-content ol,
+.content ol,
+main ol {
+    list-style-type: decimal !important;
+    margin-left: 2em !important;
+    padding-left: 1em !important;
+    display: block !important;
+}
+
+article ol li,
+.article-content ol li,
+.content ol li,
+main ol li {
+    display: list-item !important;
+
+}
+
+
+/* Increase table font size */
+table {
+    font-size: 0.95em !important;
+}
+
+table th,
+table td {
+    font-size: 0.95em !important;
+    padding: 12px !important;
+}

@@ -1,0 +1,2449 @@
+<!DOCTYPE html><html lang="en-us" >
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+    <meta name="google-site-verification" content="U7jZ7b0hmEF2h3bCJtTey4gPa2RTG1IAj4UtXfCMvdU" />
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Alvaro Franco Martins" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="An experimental analysis of coordination capabilities in large language models through a simple pattern discovery game, revealing that same-model pairs achieve significantly better coordination than cross-model pairs." />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/flag_game/" />
+
+  
+  
+  
+    <meta name="theme-color" content="#1565c0" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+
+    
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.cc1fa952786c7d5551c3adc1183830fe.css" />
+
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QGS19RLHHY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-QGS19RLHHY', {});
+  gtag('set', {'cookie_flags': 'SameSite=None;Secure'});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://alvarofrancomartins.com/post/flag_game/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@alvarofmartins" />
+    <meta property="twitter:creator" content="@alvarofmartins" />
+  
+  <meta property="og:site_name" content="Alvaro Franco Martins" />
+  <meta property="og:url" content="https://alvarofrancomartins.com/post/flag_game/" />
+  <meta property="og:title" content="Can AI Agents Coordinate Without Communication? | Alvaro Franco Martins" />
+  <meta property="og:description" content="An experimental analysis of coordination capabilities in large language models through a simple pattern discovery game, revealing that same-model pairs achieve significantly better coordination than cross-model pairs." /><meta property="og:image" content="https://alvarofrancomartins.com/post/flag_game/featured.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/post/flag_game/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2025-11-22T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2025-11-22T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://alvarofrancomartins.com/post/flag_game/"
+  },
+  "headline": "Can AI Agents Coordinate Without Communication?",
+  
+  "image": [
+    "https://alvarofrancomartins.com/post/flag_game/featured.png"
+  ],
+  
+  "datePublished": "2025-11-22T00:00:00Z",
+  "dateModified": "2025-11-22T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Alvaro Franco Martins"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Alvaro Franco Martins",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "An experimental analysis of coordination capabilities in large language models through a simple pattern discovery game, revealing that same-model pairs achieve significantly better coordination than cross-model pairs."
+}
+</script>
+
+  
+
+  
+
+  
+
+  <head>
+   <style>
+   p {
+      margin-top: 0;
+      margin-bottom: 0rem;
+      text-align: justify;
+   }
+
+   .article-container {
+      max-width: 1250px;
+   }
+
+ 
+
+   #container-publications {
+      overflow: visible !important;
+   }
+
+   .see-all {
+      text-transform: none !important;
+   }
+
+   html {
+   scroll-behavior: smooth !important;
+   }
+
+   .docs-toc {
+      padding-top:  3.2rem;
+   }
+
+   figure {
+    display: flex;
+    flex-flow: column;
+}
+   .stream-item {
+      padding-top: 25px;
+   }
+
+figcaption {
+   
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  margin-top: 0.5rem !important; 
+  margin-bottom: 0rem !important;
+  margin-right:  0.5rem !important;
+  line-height: 1.25;
+  color: inherit;
+  text-rendering: optimizeLegibility;
+   
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+   
+  -webkit-hyphens: manual;
+  -ms-hyphens: manual;
+  hyphens: manual; 
+}
+
+div.alert > div {
+text-align: justify;
+
+}
+
+
+
+   </style>
+
+   <script src="/js/prism.js"></script>
+
+   <link rel="stylesheet" href="/css/prism.css" type="text/css"/> 
+
+</head>
+
+  <title>Can AI Agents Coordinate Without Communication? | Alvaro Franco Martins</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="45ea032a2ad787cd3dcc443bb1a95a98" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.da42964e270e05a6063fbca894d7ccff.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Alvaro Franco Martins</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/experience"><span>Experience</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    
+<div class="container-fluid docs">
+    <div class="row flex-xl-nowrap">
+      <div class="d-none d-xl-block col-xl-2 docs-toc">
+        <ul class="nav toc-top">
+          <li><a href="#" id="back_to_top" class="docs-toc-title">Contents</a></li>
+        </ul>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#game-mechanics">Game Mechanics</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#results">Results</a>
+          <ul>
+            <li><a href="#summary-statistics-table">Summary Statistics Table</a></li>
+            <li><a href="#histogram-analysis">Histogram analysis</a></li>
+            <li><a href="#coordination-breaks">Coordination breaks</a></li>
+            <li><a href="#reasoning-pattern-analysis">Reasoning Pattern Analysis</a></li>
+          </ul>
+        </li>
+        <li><a href="#limitations">Limitations</a></li>
+        <li><a href="#future-directions">Future Directions</a></li>
+        <li><a href="#technical-implementation">Technical Implementation</a></li>
+        <li><a href="#practical-considerations">Practical Considerations</a></li>
+        <li><a href="#closing-thoughts">Closing thoughts</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+      <main class="col-12 col-md-0 col-xl-10 py-md-3 pl-md-5 docs-content" role="main">
+
+        <article class="article">
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+
+<div class="article-container pt-3">
+  <h1>Can AI Agents Coordinate Without Communication?</h1>
+
+  
+  <p class="page-subtitle">How ChatGPT-5.1 and DeepSeek-V3 Learn to Cooperate</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span class="author-highlighted">
+      <a href="/author/alvaro-franco-martins/">Alvaro Franco Martins</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 22, 2025
+  </span>
+  
+
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/artificial_intelligence/">artificial_intelligence</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+</div>
+
+
+<div class="article-header container featured-image-wrapper mt-4 mb-4" style="max-width: 1200px; max-height: 611px;">
+  <div style="position: relative">
+    <img src="/post/flag_game/featured_hu1982f20ef73f8d438ab1e2cbad845e0b_74969_1200x0_resize_lanczos_3.png" width="1200" height="611" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+            <div class="article-container">
+              <div class="article-style">
+                <link rel="stylesheet" type="text/css" href="css/style.css">
+<h2 id="overview">Overview</h2>
+<p>This project evaluates the coordination capabilities of large language models (LLMs) through a simple game. Two AI agents must independently discover and maintain a two-color alternating sequence without any communication.</p>
+<h2 id="game-mechanics">Game Mechanics</h2>
+<p><strong>Rules</strong></p>
+<ul>
+<li>Two agents choose either red or blue each round;</li>
+<li>Agents cannot communicate or see each other&rsquo;s reasoning. Each agent only sees the history of color choices made by both players and minimal feedback: &ldquo;Correct&rdquo;, &ldquo;Wrong pattern&rdquo;, or &ldquo;Waiting for next round&rdquo; (if it&rsquo;s the first round).
+<br></li>
+</ul>
+<p>Points are scored based on a simple color alternation pattern:</p>
+<br>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Round</th>
+<th style="text-align:center">Player 1</th>
+<th style="text-align:center">Player 2</th>
+<th style="text-align:left">Feedback</th>
+<th style="text-align:center">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:left">Waiting for next round to verify pattern</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:left">Correct! +1 point</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:left">Correct! +1 point</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:left">Correct! +1 point</td>
+<td style="text-align:center">3</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>The first color does not matter, as long as agents chose the same and keep alternating them. More specifically, points are awarded when three conditions are met:</p>
+<ol>
+<li>Previous round: both agents matched colors;</li>
+<li>Current round: both agents matched colors;</li>
+<li>Colors differ between the two rounds.
+<br></li>
+</ol>
+<p>Another example:</p>
+<br>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Round</th>
+<th style="text-align:center">Player 1</th>
+<th style="text-align:center">Player 2</th>
+<th style="text-align:left">Feedback</th>
+<th style="text-align:center">Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:left">Waiting for next round to verify pattern</td>
+<td style="text-align:center">0</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:left">Correct! +1 point</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:center">🔵</td>
+<td style="text-align:left">Wrong pattern</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:center">🔴</td>
+<td style="text-align:left">Correct! +1 point</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<br>
+<p>There is no communication between agents. Agents should infer the pattern from minimal feedback. In order to win the game, agents must excel at sustained coordination. That is to say, both choosing the same color and also switching colors together.
+<br></p>
+<h2 id="methodology">Methodology</h2>
+<br>
+<p>I employed GPT-5.1 and DeepSeek (chat versions only, not reasoning models), using each model&rsquo;s default temperature. Three game modes were performed: ChatGPT versus ChatGPT, DeepSeek versus DeepSeek and Mixed (ChatGPT versus DeepSeek).</p>
+<br>
+<p>Each game ran for 30 rounds, giving a <strong>maximum possible score</strong> of 29 points because the first round has no previous round for comparison. I collected data from 100 games per mode. Therefore, each game mode could accumulate up to 2,900 points (100 games × 29 points).</p>
+<br>
+<p>I stored all game data in JSON files (one file per game, e.g., <code>data/chatgpt_flag_game_0.json</code>) containing: the round number, both agents' color choices along with their reasoning (limited to 15 words), the current cumulative score, and each agent&rsquo;s identity (ChatGPT or DeepSeek). The reasoning is what the model returns in response to the following prompt: &ldquo;Explain in 15 words or less why you chose that color based on the pattern&rdquo;. For more details, see <code>flag_game.py</code> in the <a href="https://github.com/alvarofrancomartins/LLMs-coordination" target="_blank" rel="noopener">GitHub repository</a>.</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coordination Game Visualizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .coordGame-body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .coordGame-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .coordGame-h1 {
+            text-align: center;
+            color: black;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .coordGame-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .coordGame-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .coordGame-button {
+            background: #606060;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .coordGame-button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .coordGame-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .coordGame-game-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .coordGame-info-item {
+            text-align: center;
+        }
+
+        .coordGame-info-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .coordGame-info-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #606060;
+        }
+
+        .coordGame-visualization {
+            margin-top: 30px;
+        }
+
+        .coordGame-round-display {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px;
+            overflow: hidden;
+        }
+
+        .coordGame-round-grid {
+            display: grid;
+            grid-template-columns: repeat(30, 1fr);
+            gap: 4px;
+            margin-top: 15px;
+        }
+
+        .coordGame-round-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #f5f5f5;
+            position: relative;
+            transition: all 0.3s;
+            font-size: 1.2em;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .coordGame-round-cell.coordGame-active {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px;
+            z-index: 10;
+        }
+
+        .coordGame-round-cell.coordGame-scored {
+            background: #f5f5f5;
+            animation: coordGame-scoreFlash 0.6s ease-out;
+        }
+
+        @keyframes coordGame-scoreFlash {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .coordGame-round-number {
+            font-size: 0.45em;
+            color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            top: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+        }
+
+        .coordGame-score-indicator {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #4ade80;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5em;
+            font-weight: bold;
+            animation: coordGame-popIn 0.3s ease-out;
+        }
+
+        @keyframes coordGame-popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .coordGame-player-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coordGame-player-label {
+            font-weight: 600;
+            min-width: 100px;
+            width: 100px;
+            font-size: 1.0em;
+            flex-shrink: 0;
+        }
+
+        .coordGame-player-choices {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(30, 1fr);
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .coordGame-score-chart {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            height: 350px;
+        }
+
+        .coordGame-chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .coordGame-svg-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .coordGame-grid-line {
+            stroke: #e5e5e5;
+            stroke-width: 1;
+        }
+
+        .coordGame-axis-line {
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .coordGame-axis-label {
+            fill: #666;
+            font-size: 15px;
+        }
+
+        .coordGame-score-line {
+            fill: none;
+            stroke: #606060;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .coordGame-score-point {
+            fill: #606060;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .coordGame-score-point.coordGame-scored {
+            fill: #4ade80;
+            r: 6;
+        }
+
+        .coordGame-current-indicator {
+            stroke: #ff6b6b;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
+
+        .coordGame-reasoning-section {
+            margin-top: 30px;
+        }
+
+        .coordGame-reasoning-header {
+            background: #606060;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .coordGame-reasoning-header:hover {
+            transform: translateX(5px);
+        }
+
+        .coordGame-reasoning-toggle {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+
+        .coordGame-reasoning-toggle.coordGame-expanded {
+            transform: rotate(180deg);
+        }
+
+        .coordGame-reasoning-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .coordGame-reasoning-content.coordGame-expanded {
+            max-height: 2000px;
+        }
+
+        .coordGame-reasoning-items {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .coordGame-reasoning-round {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e5e5e5;
+            transition: all 0.3s;
+        }
+
+        .coordGame-reasoning-round.coordGame-active {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .coordGame-reasoning-round-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coordGame-reasoning-score-badge {
+            background: #4ade80;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        .coordGame-reasoning-players {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .coordGame-reasoning-player {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .coordGame-reasoning-player-name {
+            font-weight: 600;
+            color: #606060;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coordGame-reasoning-choice {
+            font-size: 1.2em;
+        }
+
+        .coordGame-reasoning-text-content {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        @media (max-width: 1400px) {
+            .coordGame-round-grid,
+            .coordGame-player-choices {
+                grid-template-columns: repeat(15, 1fr);
+            }
+
+            .coordGame-round-cell {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .coordGame-container {
+                padding: 20px;
+            }
+
+            .coordGame-h1 {
+                font-size: 1.8em;
+            }
+
+            .coordGame-reasoning-players {
+                grid-template-columns: 1fr;
+            }
+
+            .coordGame-round-grid,
+            .coordGame-player-choices {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="coordGame-body">
+    <div class="coordGame-container">
+        <h1 class="coordGame-h1">AI Coordination Game Visualizer</h1>
+        <p class="coordGame-subtitle">Watch how AI agents discover and maintain patterns through coordination</p>
+
+        <div class="coordGame-controls">
+            <button class="coordGame-button" id="coordGame-playBtn" onclick="coordGame_togglePlay()">Play</button>
+            <button class="coordGame-button" onclick="coordGame_resetGame()">Reset</button>
+        </div>
+
+        <div class="coordGame-game-info">
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Current Round</div>
+                <div class="coordGame-info-value" id="coordGame-currentRound">0 / 30</div>
+            </div>
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Score</div>
+                <div class="coordGame-info-value" id="coordGame-currentScore">0</div>
+            </div>
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Max Possible</div>
+                <div class="coordGame-info-value">29</div>
+            </div>
+        </div>
+
+        <div class="coordGame-visualization">
+            <div class="coordGame-round-display">
+                <div class="coordGame-player-row">
+                    <div class="coordGame-player-label">DeepSeek</div>
+                    <div class="coordGame-player-choices" id="coordGame-player1Grid"></div>
+                </div>
+                <div class="coordGame-player-row">
+                    <div class="coordGame-player-label">DeepSeek</div>
+                    <div class="coordGame-player-choices" id="coordGame-player2Grid"></div>
+                </div>
+            </div>
+
+            <div class="coordGame-score-chart">
+                <div class="coordGame-chart-title">Score Progress</div>
+                <svg id="coordGame-scoreChart" class="coordGame-svg-container" viewBox="0 0 1000 230" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+
+            <div class="coordGame-reasoning-section" id="coordGame-reasoningBox" style="display: none;">
+                <div class="coordGame-reasoning-header" onclick="coordGame_toggleReasoning()">
+                    <span>View Player Reasoning</span>
+                    <span class="coordGame-reasoning-toggle" id="coordGame-reasoningToggle">▼</span>
+                </div>
+                <div class="coordGame-reasoning-content" id="coordGame-reasoningContent">
+                    <div class="coordGame-reasoning-items" id="coordGame-reasoningItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let coordGame_gameData = [];
+        let coordGame_currentRoundIndex = 0;
+        let coordGame_isPlaying = false;
+        let coordGame_animationInterval = null;
+        let coordGame_reasoningExpanded = false;
+        const coordGame_playBtn = document.getElementById('coordGame-playBtn');
+
+        // Auto-load the game file on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            coordGame_loadGameFile();
+        });
+
+        async function coordGame_loadGameFile() {
+            try {
+                const response = await fetch('deepseek_flag_game_65.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load game file');
+                }
+                const data = await response.json();
+                coordGame_processGameData(data);
+            } catch (error) {
+                console.error('Error loading game file:', error);
+                alert('Error loading game file. Make sure deepseek_flag_game_65.json is in the same directory.');
+            }
+        }
+
+        function coordGame_processGameData(data) {
+            coordGame_gameData = data;
+            coordGame_currentRoundIndex = 0;
+            coordGame_initializeGrid();
+            coordGame_initializeChart();
+            coordGame_updateDisplay();
+            coordGame_playBtn.disabled = false;
+        }
+
+        function coordGame_toggleReasoning() {
+            coordGame_reasoningExpanded = !coordGame_reasoningExpanded;
+            const content = document.getElementById('coordGame-reasoningContent');
+            const toggle = document.getElementById('coordGame-reasoningToggle');
+            
+            if (coordGame_reasoningExpanded) {
+                content.classList.add('coordGame-expanded');
+                toggle.classList.add('coordGame-expanded');
+            } else {
+                content.classList.remove('coordGame-expanded');
+                toggle.classList.remove('coordGame-expanded');
+            }
+        }
+
+        function coordGame_initializeGrid() {
+            const p1Grid = document.getElementById('coordGame-player1Grid');
+            const p2Grid = document.getElementById('coordGame-player2Grid');
+
+            p1Grid.innerHTML = '';
+            p2Grid.innerHTML = '';
+
+            for (let i = 0; i < coordGame_gameData.length; i++) {
+                const p1Cell = document.createElement('div');
+                p1Cell.className = 'coordGame-round-cell';
+                p1Cell.id = `coordGame-p1-round-${i}`;
+                p1Grid.appendChild(p1Cell);
+
+                const p2Cell = document.createElement('div');
+                p2Cell.className = 'coordGame-round-cell';
+                p2Cell.id = `coordGame-p2-round-${i}`;
+                p2Grid.appendChild(p2Cell);
+            }
+        }
+
+        function coordGame_initializeChart() {
+            const svg = document.getElementById('coordGame-scoreChart');
+            const maxScore = Math.max(...coordGame_gameData.map(r => r.score), 29);
+            const rounds = coordGame_gameData.length;
+
+            let chartHTML = '';
+
+            // Grid lines and Y-axis labels
+            const gridStep = maxScore > 20 ? 5 : (maxScore > 10 ? 2 : 1);
+            for (let i = 0; i <= maxScore; i += gridStep) {
+                const y = 170 - (i / maxScore * 150);
+                chartHTML += `<line x1="60" y1="${y}" x2="970" y2="${y}" class="coordGame-grid-line"/>`;
+                chartHTML += `<text x="45" y="${y + 5}" class="coordGame-axis-label" text-anchor="end">${i}</text>`;
+            }
+
+            // Axes
+            chartHTML += '<line x1="60" y1="170" x2="970" y2="170" class="coordGame-axis-line"/>';
+            chartHTML += '<line x1="60" y1="20" x2="60" y2="170" class="coordGame-axis-line"/>';
+            
+            // Y-axis label
+            chartHTML += '<text x="15" y="95" class="coordGame-axis-label" text-anchor="middle" transform="rotate(-90 15 95)" style="font-size: 16px; font-weight: 600;">Score</text>';
+            
+            // X-axis label
+            chartHTML += '<text x="515" y="210" class="coordGame-axis-label" text-anchor="middle" style="font-size: 16px; font-weight: 600;">Round</text>';
+            
+            // X-axis ticks (round numbers)
+            const xScale = 910 / rounds;
+            const tickInterval = Math.max(1, Math.floor(rounds / 10));
+            for (let i = 0; i <= rounds; i += tickInterval) {
+                if (i === 0) continue;
+                const x = 60 + i * xScale;
+                chartHTML += `<line x1="${x}" y1="170" x2="${x}" y2="175" class="coordGame-axis-line"/>`;
+                chartHTML += `<text x="${x}" y="185" class="coordGame-axis-label" text-anchor="middle">${i}</text>`;
+            }
+
+            svg.innerHTML = chartHTML;
+        }
+
+        function coordGame_togglePlay() {
+            if (coordGame_isPlaying) {
+                coordGame_pause();
+            } else {
+                coordGame_play();
+            }
+        }
+
+        function coordGame_play() {
+            coordGame_isPlaying = true;
+            coordGame_playBtn.textContent = 'Pause';
+            coordGame_animationInterval = setInterval(coordGame_nextRound, 700);
+        }
+
+        function coordGame_pause() {
+            coordGame_isPlaying = false;
+            coordGame_playBtn.textContent = 'Play';
+            clearInterval(coordGame_animationInterval);
+        }
+
+        function coordGame_resetGame() {
+            coordGame_pause();
+            coordGame_currentRoundIndex = 0;
+            coordGame_updateDisplay();
+        }
+
+        function coordGame_nextRound() {
+            if (coordGame_currentRoundIndex < coordGame_gameData.length) {
+                coordGame_currentRoundIndex++;
+                coordGame_updateDisplay();
+                if (coordGame_currentRoundIndex >= coordGame_gameData.length) {
+                    coordGame_pause();
+                }
+            }
+        }
+
+        function coordGame_updateDisplay() {
+            if (!coordGame_gameData || coordGame_gameData.length === 0) return;
+
+            const maxRounds = coordGame_gameData.length;
+            document.getElementById('coordGame-currentRound').textContent = `${coordGame_currentRoundIndex} / ${maxRounds}`;
+
+            // Clear previous active states
+            document.querySelectorAll('.coordGame-round-cell').forEach(cell => {
+                cell.classList.remove('coordGame-active');
+            });
+
+            // Update choices
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const p1Cell = document.getElementById(`coordGame-p1-round-${i}`);
+                const p2Cell = document.getElementById(`coordGame-p2-round-${i}`);
+
+                const p1Color = round.color_player_1 === 'Red' ? '🔴' : '🔵';
+                const p2Color = round.color_player_2 === 'Red' ? '🔴' : '🔵';
+
+                p1Cell.innerHTML = `<span class="coordGame-round-number"></span>${p1Color}`;
+                p2Cell.innerHTML = `<span class="coordGame-round-number"></span>${p2Color}`;
+
+                // Check if this round scored
+                if (i > 0 && round.score > coordGame_gameData[i-1].score) {
+                    p1Cell.classList.add('coordGame-scored');
+                    p2Cell.classList.add('coordGame-scored');
+                    if (!p1Cell.querySelector('.coordGame-score-indicator')) {
+                        p1Cell.innerHTML += '<div class="coordGame-score-indicator">+1</div>';
+                        p2Cell.innerHTML += '<div class="coordGame-score-indicator">+1</div>';
+                    }
+                }
+            }
+
+            // Highlight current round
+            if (coordGame_currentRoundIndex > 0 && coordGame_currentRoundIndex <= maxRounds) {
+                document.getElementById(`coordGame-p1-round-${coordGame_currentRoundIndex-1}`)?.classList.add('coordGame-active');
+                document.getElementById(`coordGame-p2-round-${coordGame_currentRoundIndex-1}`)?.classList.add('coordGame-active');
+            }
+
+            // Update score
+            const currentScore = coordGame_currentRoundIndex > 0 ? coordGame_gameData[coordGame_currentRoundIndex - 1].score : 0;
+            document.getElementById('coordGame-currentScore').textContent = currentScore;
+
+            // Update chart
+            coordGame_updateChart();
+
+            // Update all reasoning
+            coordGame_updateAllReasoning();
+        }
+
+        function coordGame_updateAllReasoning() {
+            const reasoningItems = document.getElementById('coordGame-reasoningItems');
+            
+            if (coordGame_currentRoundIndex === 0) {
+                document.getElementById('coordGame-reasoningBox').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('coordGame-reasoningBox').style.display = 'block';
+            
+            let html = '';
+            
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const isActive = i === coordGame_currentRoundIndex - 1;
+                const scored = i > 0 && round.score > coordGame_gameData[i-1].score;
+                
+                const p1Type = round.player_1 === 'chatgpt' ? 'ChatGPT' : 'DeepSeek';
+                const p2Type = round.player_2 === 'chatgpt' ? 'ChatGPT' : 'DeepSeek';
+                
+                const p1Color = round.color_player_1 === 'Red' ? '🔴' : '🔵';
+                const p2Color = round.color_player_2 === 'Red' ? '🔴' : '🔵';
+                
+                html += `
+                    <div class="coordGame-reasoning-round ${isActive ? 'coordGame-active' : ''}" id="coordGame-reason-round-${i}">
+                        <div class="coordGame-reasoning-round-title">
+                            <span>Round ${i + 1} ${scored ? '✅' : ''}</span>
+                            ${scored ? '<span class="coordGame-reasoning-score-badge">+1 Point</span>' : ''}
+                        </div>
+                        <div class="coordGame-reasoning-players">
+                            <div class="coordGame-reasoning-player">
+                                <div class="coordGame-reasoning-player-name">
+                                    <span>${p1Type}</span>
+                                    <span class="coordGame-reasoning-choice">${p1Color}</span>
+                                </div>
+                                <div class="coordGame-reasoning-text-content">${round.reasoning_player_1}</div>
+                            </div>
+                            <div class="coordGame-reasoning-player">
+                                <div class="coordGame-reasoning-player-name">
+                                    <span>${p2Type}</span>
+                                    <span class="coordGame-reasoning-choice">${p2Color}</span>
+                                </div>
+                                <div class="coordGame-reasoning-text-content">${round.reasoning_player_2}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            reasoningItems.innerHTML = html;
+            
+            // Scroll to active round if reasoning is expanded
+            if (coordGame_reasoningExpanded && coordGame_currentRoundIndex > 0) {
+                setTimeout(() => {
+                    const activeRound = document.getElementById(`coordGame-reason-round-${coordGame_currentRoundIndex - 1}`);
+                    if (activeRound) {
+                        activeRound.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            }
+        }
+
+        function coordGame_updateChart() {
+            const svg = document.getElementById('coordGame-scoreChart');
+            const maxScore = Math.max(...coordGame_gameData.map(r => r.score), 1);
+            const rounds = coordGame_gameData.length;
+
+            // Calculate scale
+            const xScale = 910 / rounds;
+            const yScale = 150 / maxScore;
+
+            // Build path
+            let pathData = '';
+            let points = '';
+
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const x = 60 + (i + 1) * xScale;
+                const y = 170 - round.score * yScale;
+
+                if (i === 0) {
+                    pathData += `M ${x} ${y}`;
+                } else {
+                    pathData += ` L ${x} ${y}`;
+                }
+
+                // Check if point scored
+                const scored = i > 0 && round.score > coordGame_gameData[i-1].score;
+                const pointClass = scored ? 'coordGame-score-point coordGame-scored' : 'coordGame-score-point';
+                points += `<circle cx="${x}" cy="${y}" r="5" class="${pointClass}"/>`;
+            }
+
+            // Current indicator line
+            let currentLine = '';
+            if (coordGame_currentRoundIndex > 0 && coordGame_currentRoundIndex < rounds) {
+                const x = 60 + coordGame_currentRoundIndex * xScale;
+                currentLine = `<line x1="${x}" y1="20" x2="${x}" y2="170" class="coordGame-current-indicator"/>`;
+            }
+
+            // Remove old path and points
+            const existingPath = svg.querySelector('.coordGame-score-line');
+            const existingPoints = svg.querySelectorAll('.coordGame-score-point');
+            const existingLine = svg.querySelector('.coordGame-current-indicator');
+
+            if (existingPath) existingPath.remove();
+            existingPoints.forEach(p => p.remove());
+            if (existingLine) existingLine.remove();
+
+            // Add new elements
+            if (pathData) {
+                svg.innerHTML += `<path d="${pathData}" class="coordGame-score-line"/>`;
+            }
+            svg.innerHTML += points;
+            svg.innerHTML += currentLine;
+        }
+    </script>
+</body>
+</html>
+<h2 id="results">Results</h2>
+<h3 id="summary-statistics-table">Summary Statistics Table</h3>
+<br>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Game Mode</th>
+<th style="text-align:center">Games</th>
+<th style="text-align:center">Median Score</th>
+<th style="text-align:center">Total Points</th>
+<th style="text-align:center">Total Points Percentage</th>
+<th style="text-align:center">Success Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>ChatGPT vs ChatGPT</strong></td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">23.0</td>
+<td style="text-align:center">2,073</td>
+<td style="text-align:center">71%</td>
+<td style="text-align:center">0%</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>DeepSeek vs DeepSeek</strong></td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">14.0</td>
+<td style="text-align:center">1,769</td>
+<td style="text-align:center">61%</td>
+<td style="text-align:center">45%</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>Mixed (GPT vs DeepSeek)</strong></td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">6.0</td>
+<td style="text-align:center">585</td>
+<td style="text-align:center">20%</td>
+<td style="text-align:center">0%</td>
+</tr>
+</tbody>
+</table>
+<br>
+<ul>
+<li>Total Points represents the cumulative score across all 100 games;</li>
+<li>Total Points Percentage is the proportion of maximum achievable (2,900) points;</li>
+<li>Success Rate indicates the proportion of games that achieved a perfect score (29/29 points).
+<br></li>
+</ul>
+<h3 id="histogram-analysis">Histogram analysis</h3>
+<br>
+The graph below shows the scoring histograms for each game mode.
+<img src="images/scores.png" alt="drawing" width="1000"/>
+<p>The differences are astounding! First, ChatGPT playing with itself never achieves a perfect score, reaching a maximum of 27 points in 44% of games. In contrast, DeepSeek reaches the maximum score of 29 points 45% of the time.</p>
+<br>
+<p>However, ChatGPT versus itself is more consistent than DeepSeek. ChatGPT usually (in 60% of the games) guarantees scores of 20+ points, whereas DeepSeek&rsquo;s scoring distribution is bimodal: sometimes it finds the pattern and locks in perfectly, while other times it struggles a lot.</p>
+<br>
+<p>Finally, when ChatGPT and DeepSeek play together, they perform extremely poorly, reaching a maximum of only 15 points with an even lower median of 6 points. This is surprising because, even though they don&rsquo;t communicate, their choices (Red, Blue, etc.) still seem to capture how each model thinks. And as we&rsquo;re seeing, they can&rsquo;t find common ground or coordinate well. This suggests cross-model coordination isn&rsquo;t just difficult, it&rsquo;s fundamentally broken, with neither model able to adapt to the other&rsquo;s coordination style.</p>
+<br>
+<p>Overall, DeepSeek achieved more perfect scores, but ChatGPT&rsquo;s median (23.0) exceeds DeepSeek&rsquo;s (14.0), and its total points (2,073 vs 1,769) demonstrate that consistency beats occasional perfection in coordination tasks.</p>
+<h3 id="coordination-breaks">Coordination breaks</h3>
+<br>
+<p>The next graph reveals fundamental differences between the models' ability to maintain coordination once established. Analysis of consecutive correct rounds before coordination breaks shows that ChatGPT is less reliable than DeepSeek once it locks onto the correct pattern.</p>
+<img src="images/coordination_break.png" alt="drawing" width="1000"/>
+<p>We can see that even after getting 3, 4 or more consecutive correct rounds, they still break the coordination. Most surprisingly, there are 8 distinct games where ChatGPT breaks the coordination after exactly 16 consecutive correct rounds. Overall, DeepSeek breaks the coordination fewer times than ChatGPT.</p>
+<br>
+<p>There&rsquo;s a trade-off, though. ChatGPT&rsquo;s questioning nature helps it recover from early mistakes (leading to higher median performance). DeepSeek&rsquo;s commitment yields perfection when correct but failure when wrong.</p>
+<h3 id="reasoning-pattern-analysis">Reasoning Pattern Analysis</h3>
+<p>Beyond the scores, examining how each model thinks about the problem reveals differences in their strategies.</p>
+<h4 id="chatgpts-reasoning-structured-abstraction">ChatGPT&rsquo;s Reasoning: Structured Abstraction</h4>
+<p>ChatGPT is systematically testing hypotheses and formalizing the pattern as a two-round cycle. This methodical strategy leads to high consistency, allowing ChatGPT to converge on the correct pattern even when initial rounds fail. The model demonstrates gradual convergence (it never starts scoring at round 2), iteratively refining its hypothesis about the pattern through careful observation and adjustment. Even when struggling initially, ChatGPT eventually identifies the underlying structure, rarely experiencing complete failure.</p>
+<br>
+<p>ChatGPT&rsquo;s weakness stems from this tendency to overthink. Agents debate whether the rule demands single-round alternation (R, B, R, B&hellip;), paired repetition (RR, BB, RR, BB&hellip;), or round-number dependency (odd=Red, even=Blue). This internal debate causes desynchronization when partners interpret the pattern differently. For example, one agent might reason <em>&ldquo;Pattern seems Red then Blue; last round started Red, so continue Red now&rdquo;</em> while its partner concludes the opposite, breaking coordination despite both understanding the general structure.</p>
+<h4 id="deepseeks-reasoning-binary-lock-on">DeepSeek&rsquo;s Reasoning: Binary Lock-On</h4>
+<p>DeepSeek takes a different approach through rapid hypothesis formation, committing immediately to the first plausible pattern interpretation. This decisive strategy produces extreme bimodality: the model either discovers the pattern instantly or rarely recovers from an incorrect initial guess. The results demonstrate a binary performance: 45 perfect games (29/29 points) contrasted against 53 failed games (0-15 points), with virtually no middle ground. Only 2 games scored between 16-28 points, highlighting the all-or-nothing nature of DeepSeek&rsquo;s coordination strategy.</p>
+<br>
+<p>DeepSeek exhibits two distinct cognitive modes with little recovery mechanism. In success mode (45% of games), it start scoring immediately at round 2 and locks onto the simplest pattern (<em>&ldquo;alternating Red, Blue each round&rdquo;</em>), maintaining perfect execution from round 2 onward with unwavering commitment. In failure mode (55% of games), sometimes it fixates on complex counting mechanisms (<em>&ldquo;both Blue every third round&rdquo;</em>) and never converges on the correct pattern. Once committed to an incorrect hypothesis, there is no recovery mechanism - the model continues exploring the wrong theory for all 30 rounds, with reasoning like <em>&ldquo;Pattern scores every third round when both choose Blue&rdquo;</em> persisting despite consistent negative feedback.</p>
+<h4 id="cross-model-coordination-fails-consistently">Cross-Model Coordination Fails Consistently</h4>
+<p>The mixed-model games reveal a fundamental incompatibility between the two coordination strategies. ChatGPT uses a gradual convergence strategy, building understanding through iterative refinement, while DeepSeek employs either immediate lock-on or seemingly random exploration. These incompatible approaches prevent alignment even when one model correctly understands the pattern - the other simply doesn&rsquo;t adapt to match its partner&rsquo;s coordination style.</p>
+<br>
+<p>The results reflect this breakdown: no game exceeded 15 points out of a possible 29. Neither model&rsquo;s individual strengths compensate for the coordination failure, suggesting that successful coordination requires not just pattern recognition, but shared cognitive processes that enable implicit synchronization.</p>
+<br>
+<p>Since agents only see actions (not reasoning), coordination should be model-agnostic. But results show strong model-pairing effects.</p>
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li>Limited number of games: To properly validate the results, I would need to run many more games, but I stopped at 100 because ChatGPT API is relatively expensive;</li>
+<li>Single pattern: Only tested one specific coordination pattern;</li>
+<li>No communication: More sophisticated coordination might involve communication;</li>
+<li>Temperature settings: Used default temperature; performance may vary with explicit temperature control;</li>
+<li>Model versions: Results specific to GPT-5.1 and DeepSeek-V3 as of November 2025.
+<br></li>
+</ul>
+<h2 id="future-directions">Future Directions</h2>
+<ul>
+<li>Increase the number of games and rounds;</li>
+<li>Use LLMs with reasoning (CoT) capabilities. This will likely improve their performance;</li>
+<li>Test other coordination patterns;</li>
+<li>Analyze reasoning quality using another LLM as evaluation;</li>
+<li>Compare performance at different temperature settings;</li>
+<li>Test with other leading models (Claude, Gemini, Kimi, etc.).
+<br></li>
+</ul>
+<h2 id="technical-implementation">Technical Implementation</h2>
+<details class="spoiler "  id="spoiler-1">
+  <summary>Click to view the code</summary>
+  <p><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="c1"># API Keys for each player. Replace the variables below with your own API keys.</span>
+<span class="n">chatgpt_key_player1</span> <span class="o">=</span> <span class="n">YOUR_CHATGPT_API_KEY_1</span>
+<span class="n">chatgpt_key_player2</span> <span class="o">=</span> <span class="n">YOUR_CHATGPT_API_KEY_2</span>
+
+<span class="n">deepseek_key_player1</span> <span class="o">=</span> <span class="n">YOUR_DEEPSEEK_API_KEY_1</span>
+<span class="n">deepseek_key_player2</span> <span class="o">=</span> <span class="n">YOUR_DEEPSEEK_API_KEY_2</span>
+
+<span class="k">def</span> <span class="nf">setup_clients</span><span class="p">(</span><span class="n">game_mode</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">game_mode</span> <span class="o">==</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">:</span>
+        <span class="n">chatgpt_client1</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">chatgpt_key_player1</span><span class="p">)</span>
+        <span class="n">chatgpt_client2</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">chatgpt_key_player2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">chatgpt_client1</span><span class="p">,</span> <span class="n">chatgpt_client2</span>
+    <span class="k">elif</span> <span class="n">game_mode</span> <span class="o">==</span> <span class="s2">&#34;deepseek&#34;</span><span class="p">:</span>
+        <span class="n">deepseek_client1</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s1">&#39;https://api.deepseek.com/v1&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">deepseek_key_player1</span><span class="p">)</span>
+        <span class="n">deepseek_client2</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s1">&#39;https://api.deepseek.com/v1&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">deepseek_key_player2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">deepseek_client1</span><span class="p">,</span> <span class="n">deepseek_client2</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># mixed mode</span>
+        <span class="n">chatgpt_client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">chatgpt_key_player1</span><span class="p">)</span>
+        <span class="n">deepseek_client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s1">&#39;https://api.deepseek.com/v1&#39;</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">deepseek_key_player1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">chatgpt_client</span><span class="p">,</span> <span class="n">deepseek_client</span>
+
+<span class="k">def</span> <span class="nf">format_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">is_player1</span><span class="p">):</span>
+    <span class="n">formatted</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">fb</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">is_player1</span><span class="p">:</span>
+            <span class="n">formatted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Round </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: You (Player 1) chose: </span><span class="si">{</span><span class="n">p1</span><span class="si">}</span><span class="s2"> | Player 2 chose: </span><span class="si">{</span><span class="n">p2</span><span class="si">}</span><span class="s2"> | Feedback: </span><span class="si">{</span><span class="n">fb</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">formatted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Round </span><span class="si">{</span><span class="n">idx</span><span class="si">}</span><span class="s2">: You (Player 2) chose: </span><span class="si">{</span><span class="n">p2</span><span class="si">}</span><span class="s2"> | Player 1 chose: </span><span class="si">{</span><span class="n">p1</span><span class="si">}</span><span class="s2"> | Feedback: </span><span class="si">{</span><span class="n">fb</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span> <span class="k">if</span> <span class="n">formatted</span> <span class="k">else</span> <span class="s2">&#34;No previous rounds&#34;</span>
+
+<span class="k">def</span> <span class="nf">validate_response</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="c1"># Regex pattern to find Choice: and Reasoning: anywhere in the text</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Choice:\s*(.*?)(?=\s*Reasoning:|\s*$|\s*\Z).*Reasoning:\s*(.*)&#39;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">reasoning</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="n">reasoning</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">get_player_choice</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">player_type</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">is_player1</span><span class="p">):</span>
+    <span class="n">system_prompt</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;You are in a coordination game with another player.
+</span><span class="s2">                       The goal is to discover the secret pattern and align your choices. 
+</span><span class="s2">                       Note: the pattern is cyclic with exactly two rounds and based on controlled repetitions, and only scores when both follow it correctly.
+</span><span class="s2">                       Observe the feedback when you score to decipher it.
+</span><span class="s2">                       
+</span><span class="s2">                       Rules:
+</span><span class="s2">                       1. Choose ONLY Red or Blue.
+</span><span class="s2">                       2. Your response must be strictly formatted as follows:
+</span><span class="s2">                       Choice: Red or Blue 
+</span><span class="s2">                       Reasoning: Explain in 15 words or less why you chose that color based on the pattern
+</span><span class="s2">                    &#34;&#34;&#34;</span>
+    
+    <span class="n">user_prompt</span>  <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;&#34;&#34;Complete history:
+</span><span class="s2">                       </span><span class="si">{</span><span class="n">format_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">is_player1</span><span class="p">)</span><span class="si">}</span><span class="s2">
+</span><span class="s2">
+</span><span class="s2">                       Current score: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">
+</span><span class="s2">                       Your choice and reasoning:
+</span><span class="s2">                   &#34;&#34;&#34;</span>
+    
+    <span class="c1"># Determine the model based on player type</span>
+    <span class="k">if</span> <span class="n">player_type</span> <span class="o">==</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="s2">&#34;gpt-5.1&#34;</span>  <span class="c1"># OpenAI&#39;s best model</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># deepseek</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="s2">&#34;deepseek-chat&#34;</span>  <span class="c1"># DeepSeek&#39;s best standard model (v3)</span>
+    
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;system&#34;</span><span class="p">,</span> <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">},</span>
+                <span class="p">{</span><span class="s2">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;user&#34;</span><span class="p">,</span>   <span class="s2">&#34;content&#34;</span><span class="p">:</span> <span class="n">user_prompt</span><span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span>
+        <span class="n">full_response</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">message</span><span class="o">.</span><span class="n">content</span> <span class="k">else</span> <span class="s2">&#34;&#34;</span>
+        
+        <span class="c1"># If the response is empty, try to get from reasoning_content (for compatibility)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">full_response</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s1">&#39;reasoning_content&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">message</span><span class="o">.</span><span class="n">reasoning_content</span><span class="p">:</span>
+            <span class="n">full_response</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">reasoning_content</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        
+        <span class="n">is_valid</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="n">reasoning</span> <span class="o">=</span> <span class="n">validate_response</span><span class="p">(</span><span class="n">full_response</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">is_valid</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">choice</span><span class="p">,</span> <span class="n">reasoning</span>
+        
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Invalid response after 3 attempts. Last response:</span><span class="se">\n</span><span class="si">{</span><span class="n">full_response</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">run_game</span><span class="p">(</span><span class="n">rounds</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">game_mode</span> <span class="o">=</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">,</span> <span class="n">json_filename</span> <span class="o">=</span> <span class="s1">&#39;flag_game.json&#39;</span><span class="p">):</span>
+    <span class="n">client1</span><span class="p">,</span> <span class="n">client2</span> <span class="o">=</span> <span class="n">setup_clients</span><span class="p">(</span><span class="n">game_mode</span><span class="p">)</span>
+
+    <span class="c1"># Configure player types based on game_mode</span>
+    <span class="k">if</span> <span class="n">game_mode</span> <span class="o">==</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">:</span>
+        <span class="n">player1_type</span><span class="p">,</span> <span class="n">player2_type</span> <span class="o">=</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">,</span> <span class="s2">&#34;chatgpt&#34;</span>
+        <span class="n">display_name1</span><span class="p">,</span> <span class="n">display_name2</span> <span class="o">=</span> <span class="s2">&#34;ChatGPT-5.1&#34;</span><span class="p">,</span> <span class="s2">&#34;ChatGPT-5.1&#34;</span>
+    <span class="k">elif</span> <span class="n">game_mode</span> <span class="o">==</span> <span class="s2">&#34;deepseek&#34;</span><span class="p">:</span>
+        <span class="n">player1_type</span><span class="p">,</span> <span class="n">player2_type</span> <span class="o">=</span> <span class="s2">&#34;deepseek&#34;</span><span class="p">,</span> <span class="s2">&#34;deepseek&#34;</span>
+        <span class="n">display_name1</span><span class="p">,</span> <span class="n">display_name2</span> <span class="o">=</span> <span class="s2">&#34;DeepSeek-V3&#34;</span><span class="p">,</span> <span class="s2">&#34;DeepSeek-V3&#34;</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># mixed mode</span>
+        <span class="n">player1_type</span><span class="p">,</span> <span class="n">player2_type</span> <span class="o">=</span> <span class="s2">&#34;chatgpt&#34;</span><span class="p">,</span> <span class="s2">&#34;deepseek&#34;</span>
+        <span class="n">display_name1</span><span class="p">,</span> <span class="n">display_name2</span> <span class="o">=</span> <span class="s2">&#34;ChatGPT-5.1&#34;</span><span class="p">,</span> <span class="s2">&#34;DeepSeek-V3&#34;</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">🔴🔵 Synchronization Game </span><span class="si">{</span><span class="n">display_name1</span><span class="si">}</span><span class="s2"> vs </span><span class="si">{</span><span class="n">display_name2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">rounds</span><span class="si">}</span><span class="s2"> rounds) 🔵🔴</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Store the score that can accumulate</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Add current choices with feedback from this round</span>
+        <span class="n">history</span>  <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Record data in JSON</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">round_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">rounds</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="c1"># Player choices with reasoning</span>
+            <span class="n">p1</span><span class="p">,</span> <span class="n">p1_reasoning</span> <span class="o">=</span> <span class="n">get_player_choice</span><span class="p">(</span><span class="n">client1</span><span class="p">,</span> <span class="n">player1_type</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">p2</span><span class="p">,</span> <span class="n">p2_reasoning</span> <span class="o">=</span> <span class="n">get_player_choice</span><span class="p">(</span><span class="n">client2</span><span class="p">,</span> <span class="n">player2_type</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            
+            <span class="n">feedback</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">history</span><span class="p">):</span>
+                <span class="c1"># Current pattern is synchronized alternation:</span>
+                <span class="c1"># p1: 🔵, p2: 🔵</span>
+                <span class="c1"># p1: 🔴, p2: 🔴 -- +1 point</span>
+                <span class="c1"># p1: 🔵, p2: 🔵</span>
+                <span class="c1"># p1: 🔴, p2: 🔴 -- +1 point</span>
+                <span class="c1"># The order of which color starts doesn&#39;t matter, as long as they keep choosing the same color in alternation.</span>
+
+                <span class="n">last_p1</span><span class="p">,</span> <span class="n">last_p2</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                
+                <span class="k">if</span> <span class="p">((</span><span class="n">last_p1</span> <span class="o">==</span> <span class="n">last_p2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">p1</span> <span class="o">==</span> <span class="n">p2</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">last_p1</span> <span class="o">!=</span> <span class="n">p1</span><span class="p">)):</span>
+                    <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">feedback</span> <span class="o">=</span> <span class="s2">&#34;Correct! +1 point&#34;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Specific feedback for the first round</span>
+                    <span class="n">feedback</span> <span class="o">=</span> <span class="s2">&#34;Wrong pattern&#34;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">feedback</span> <span class="o">=</span> <span class="s2">&#34;Waiting for next round to verify pattern&#34;</span>
+            
+            <span class="n">history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">feedback</span><span class="p">))</span>
+            <span class="n">json_data</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&#34;round&#34;</span><span class="p">:</span> <span class="n">round_num</span><span class="p">,</span>
+                <span class="s2">&#34;player_1&#34;</span><span class="p">:</span> <span class="n">player1_type</span><span class="p">,</span>
+                <span class="s2">&#34;color_player_1&#34;</span><span class="p">:</span> <span class="n">p1</span><span class="p">,</span>
+                <span class="s2">&#34;reasoning_player_1&#34;</span><span class="p">:</span> <span class="n">p1_reasoning</span><span class="p">,</span>
+                <span class="s2">&#34;player_2&#34;</span><span class="p">:</span> <span class="n">player2_type</span><span class="p">,</span>
+                <span class="s2">&#34;color_player_2&#34;</span><span class="p">:</span> <span class="n">p2</span><span class="p">,</span>
+                <span class="s2">&#34;reasoning_player_2&#34;</span><span class="p">:</span> <span class="n">p2_reasoning</span><span class="p">,</span>
+                <span class="s2">&#34;score&#34;</span><span class="p">:</span> <span class="n">score</span>
+            <span class="p">})</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Round </span><span class="si">{</span><span class="n">round_num</span><span class="si">}</span><span class="s2">:&#34;</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">display_name1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">p1</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Reasoning: </span><span class="si">{</span><span class="n">p1_reasoning</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="si">{</span><span class="n">display_name2</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">p2</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Reasoning: </span><span class="si">{</span><span class="n">p2_reasoning</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Feedback: </span><span class="si">{</span><span class="n">feedback</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&#34; | Points: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&#34;</span> <span class="k">if</span> <span class="n">round_num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&#34;&#34;</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;─&#34;</span> <span class="o">*</span> <span class="mi">70</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">()</span>
+            
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">SERIOUS ERROR: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+        <span class="k">raise</span>  <span class="c1"># Propagate the error to show the complete stack trace</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="c1"># Save data to JSON</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">jsonfile</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">json_data</span><span class="p">,</span> <span class="n">jsonfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Game data saved to: </span><span class="si">{</span><span class="n">json_filename</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Final Score: </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2"> points!&#34;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">game_mode</span> <span class="o">=</span> <span class="s2">&#34;mixed&#34;</span> <span class="c1"># alternatives: &#34;deepseek&#34;, &#34;chatgpt&#34;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+        <span class="n">run_game</span><span class="p">(</span><span class="n">rounds</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">game_mode</span> <span class="o">=</span> <span class="n">game_mode</span><span class="p">,</span> <span class="n">json_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;data/</span><span class="si">{</span><span class="n">game_mode</span><span class="si">}</span><span class="s1">_flag_game_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">.json&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+</details>
+<h2 id="practical-considerations">Practical Considerations</h2>
+<p>Cost-performance tradeoff: An important factor in model selection is cost. DeepSeek-V3 is significantly cheaper than GPT-5.1.</p>
+<h2 id="closing-thoughts">Closing thoughts</h2>
+<p>This experiment demonstrates that LLM coordination capabilities vary significantly across models and even simple consecutive decisions such as choosing red or blue still carry their own biases.</p>
+<ul>
+<li>GPT-5.1 excels at reliable, consistent coordination;</li>
+<li>DeepSeek-V3 shows extreme bimodal performance with either perfect success or poor performance;</li>
+<li>Cross-model coordination remains broken.</li>
+</ul>
+<p>Coordination is an emergent phenomena that current LLMs cannot execute reliably. Despite some success in same-model pairings, the complete failure of cross-model coordination and frequent breakdowns even after correct pattern identification suggest LLMs lack the underlying mechanisms necessary for robust coordinated behavior.</p>
+<br>
+<p>This project regards a specific kind of game with rather specific rules, but I reckon the main takeaway is that if you&rsquo;re deploying multiple agents for a given task, using the same model is preferable.</p>
+<hr>
+<blockquote>
+<p>Project Date: November, 2025<br>
+Models Tested: ChatGPT-5.1, DeepSeek-V3<br>
+Total Games Analyzed: 300 games (9,000 rounds)<br>
+Code: Python with OpenAI-compatible API</p>
+</blockquote>
+
+              </div>
+              
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/artificial-intelligence/">Artificial Intelligence</a>
+  
+  <a class="badge badge-light" href="/tag/ai/">AI</a>
+  
+  <a class="badge badge-light" href="/tag/agents/">Agents</a>
+  
+  <a class="badge badge-light" href="/tag/llm/">LLM</a>
+  
+  <a class="badge badge-light" href="/tag/large-language-models/">Large Language Models</a>
+  
+  <a class="badge badge-light" href="/tag/chatgpt/">ChatGPT</a>
+  
+  <a class="badge badge-light" href="/tag/chatgpt-5.1/">ChatGPT 5.1</a>
+  
+  <a class="badge badge-light" href="/tag/deepseek/">DeepSeek</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://alvarofrancomartins.com"><img class="avatar mr-3 avatar-circle" src="/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg" alt="Alvaro Franco Martins"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://alvarofrancomartins.com">Alvaro Franco Martins</a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:alvarought@gmail.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/alvarofmartins" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com.br/citations?user=yB30J2MAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.researchgate.net/profile/Alvaro-Martins-2" target="_blank" rel="noopener">
+        <i class="fab fa-researchgate"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/alvarofrancomartins" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/alvarofrancomartins/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+            </div>
+        </article>
+  
+      </main>
+    </div>
+  </div>
+  
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by" style="font-size:11px;">
+    
+    Published with
+    <a href="https://wowchemy.com/" target="_blank" rel="noopener">Wowchemy</a>. 
+    
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.b206710415a50cb12ea588a8ed1fe3c5.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

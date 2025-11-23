@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Coordination Game Visualizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .coordGame-body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .coordGame-container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .coordGame-h1 {
+            text-align: center;
+            color: black;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        .coordGame-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+
+        .coordGame-controls {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .coordGame-button {
+            background: #606060;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .coordGame-button:hover:not(:disabled) {
+            transform: scale(1.05);
+        }
+
+        .coordGame-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .coordGame-game-info {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .coordGame-info-item {
+            text-align: center;
+        }
+
+        .coordGame-info-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .coordGame-info-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #606060;
+        }
+
+        .coordGame-visualization {
+            margin-top: 30px;
+        }
+
+        .coordGame-round-display {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px;
+            overflow: hidden;
+        }
+
+        .coordGame-round-grid {
+            display: grid;
+            grid-template-columns: repeat(30, 1fr);
+            gap: 4px;
+            margin-top: 15px;
+        }
+
+        .coordGame-round-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #f5f5f5;
+            position: relative;
+            transition: all 0.3s;
+            font-size: 1.2em;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .coordGame-round-cell.coordGame-active {
+            transform: scale(1.2);
+            box-shadow: 0 4px 12px;
+            z-index: 10;
+        }
+
+        .coordGame-round-cell.coordGame-scored {
+            background: #f5f5f5;
+            animation: coordGame-scoreFlash 0.6s ease-out;
+        }
+
+        @keyframes coordGame-scoreFlash {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .coordGame-round-number {
+            font-size: 0.45em;
+            color: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            top: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 600;
+        }
+
+        .coordGame-score-indicator {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #4ade80;
+            color: white;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5em;
+            font-weight: bold;
+            animation: coordGame-popIn 0.3s ease-out;
+        }
+
+        @keyframes coordGame-popIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .coordGame-player-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .coordGame-player-label {
+            font-weight: 600;
+            min-width: 100px;
+            width: 100px;
+            font-size: 1.0em;
+            flex-shrink: 0;
+        }
+
+        .coordGame-player-choices {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(30, 1fr);
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .coordGame-score-chart {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            height: 350px;
+        }
+
+        .coordGame-chart-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .coordGame-svg-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .coordGame-grid-line {
+            stroke: #e5e5e5;
+            stroke-width: 1;
+        }
+
+        .coordGame-axis-line {
+            stroke: #333;
+            stroke-width: 2;
+        }
+
+        .coordGame-axis-label {
+            fill: #666;
+            font-size: 15px;
+        }
+
+        .coordGame-score-line {
+            fill: none;
+            stroke: #606060;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .coordGame-score-point {
+            fill: #606060;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .coordGame-score-point.coordGame-scored {
+            fill: #4ade80;
+            r: 6;
+        }
+
+        .coordGame-current-indicator {
+            stroke: #ff6b6b;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
+
+        .coordGame-reasoning-section {
+            margin-top: 30px;
+        }
+
+        .coordGame-reasoning-header {
+            background: #606060;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: transform 0.2s;
+            user-select: none;
+        }
+
+        .coordGame-reasoning-header:hover {
+            transform: translateX(5px);
+        }
+
+        .coordGame-reasoning-toggle {
+            font-size: 1.5em;
+            transition: transform 0.3s;
+        }
+
+        .coordGame-reasoning-toggle.coordGame-expanded {
+            transform: rotate(180deg);
+        }
+
+        .coordGame-reasoning-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .coordGame-reasoning-content.coordGame-expanded {
+            max-height: 2000px;
+        }
+
+        .coordGame-reasoning-items {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .coordGame-reasoning-round {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e5e5e5;
+            transition: all 0.3s;
+        }
+
+        .coordGame-reasoning-round.coordGame-active {
+            background: #fff3cd;
+            border-left-color: #ffc107;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .coordGame-reasoning-round-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coordGame-reasoning-score-badge {
+            background: #4ade80;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        .coordGame-reasoning-players {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .coordGame-reasoning-player {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+        }
+
+        .coordGame-reasoning-player-name {
+            font-weight: 600;
+            color: #606060;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coordGame-reasoning-choice {
+            font-size: 1.2em;
+        }
+
+        .coordGame-reasoning-text-content {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        @media (max-width: 1400px) {
+            .coordGame-round-grid,
+            .coordGame-player-choices {
+                grid-template-columns: repeat(15, 1fr);
+            }
+
+            .coordGame-round-cell {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .coordGame-container {
+                padding: 20px;
+            }
+
+            .coordGame-h1 {
+                font-size: 1.8em;
+            }
+
+            .coordGame-reasoning-players {
+                grid-template-columns: 1fr;
+            }
+
+            .coordGame-round-grid,
+            .coordGame-player-choices {
+                grid-template-columns: repeat(10, 1fr);
+            }
+        }
+    </style>
+</head>
+<body class="coordGame-body">
+    <div class="coordGame-container">
+        <h1 class="coordGame-h1">AI Coordination Game Visualizer</h1>
+        <p class="coordGame-subtitle">Watch how AI agents discover and maintain patterns through coordination</p>
+
+        <div class="coordGame-controls">
+            <button class="coordGame-button" id="coordGame-playBtn" onclick="coordGame_togglePlay()">Play</button>
+            <button class="coordGame-button" onclick="coordGame_resetGame()">Reset</button>
+        </div>
+
+        <div class="coordGame-game-info">
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Current Round</div>
+                <div class="coordGame-info-value" id="coordGame-currentRound">0 / 30</div>
+            </div>
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Score</div>
+                <div class="coordGame-info-value" id="coordGame-currentScore">0</div>
+            </div>
+            <div class="coordGame-info-item">
+                <div class="coordGame-info-label">Max Possible</div>
+                <div class="coordGame-info-value">29</div>
+            </div>
+        </div>
+
+        <div class="coordGame-visualization">
+            <div class="coordGame-round-display">
+                <div class="coordGame-player-row">
+                    <div class="coordGame-player-label">DeepSeek</div>
+                    <div class="coordGame-player-choices" id="coordGame-player1Grid"></div>
+                </div>
+                <div class="coordGame-player-row">
+                    <div class="coordGame-player-label">DeepSeek</div>
+                    <div class="coordGame-player-choices" id="coordGame-player2Grid"></div>
+                </div>
+            </div>
+
+            <div class="coordGame-score-chart">
+                <div class="coordGame-chart-title">Score Progress</div>
+                <svg id="coordGame-scoreChart" class="coordGame-svg-container" viewBox="0 0 1000 230" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+
+            <div class="coordGame-reasoning-section" id="coordGame-reasoningBox" style="display: none;">
+                <div class="coordGame-reasoning-header" onclick="coordGame_toggleReasoning()">
+                    <span>View Player Reasoning</span>
+                    <span class="coordGame-reasoning-toggle" id="coordGame-reasoningToggle">▼</span>
+                </div>
+                <div class="coordGame-reasoning-content" id="coordGame-reasoningContent">
+                    <div class="coordGame-reasoning-items" id="coordGame-reasoningItems"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let coordGame_gameData = [];
+        let coordGame_currentRoundIndex = 0;
+        let coordGame_isPlaying = false;
+        let coordGame_animationInterval = null;
+        let coordGame_reasoningExpanded = false;
+        const coordGame_playBtn = document.getElementById('coordGame-playBtn');
+
+        // Auto-load the game file on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            coordGame_loadGameFile();
+        });
+
+        async function coordGame_loadGameFile() {
+            try {
+                const response = await fetch('deepseek_flag_game_65.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load game file');
+                }
+                const data = await response.json();
+                coordGame_processGameData(data);
+            } catch (error) {
+                console.error('Error loading game file:', error);
+                alert('Error loading game file. Make sure deepseek_flag_game_65.json is in the same directory.');
+            }
+        }
+
+        function coordGame_processGameData(data) {
+            coordGame_gameData = data;
+            coordGame_currentRoundIndex = 0;
+            coordGame_initializeGrid();
+            coordGame_initializeChart();
+            coordGame_updateDisplay();
+            coordGame_playBtn.disabled = false;
+        }
+
+        function coordGame_toggleReasoning() {
+            coordGame_reasoningExpanded = !coordGame_reasoningExpanded;
+            const content = document.getElementById('coordGame-reasoningContent');
+            const toggle = document.getElementById('coordGame-reasoningToggle');
+            
+            if (coordGame_reasoningExpanded) {
+                content.classList.add('coordGame-expanded');
+                toggle.classList.add('coordGame-expanded');
+            } else {
+                content.classList.remove('coordGame-expanded');
+                toggle.classList.remove('coordGame-expanded');
+            }
+        }
+
+        function coordGame_initializeGrid() {
+            const p1Grid = document.getElementById('coordGame-player1Grid');
+            const p2Grid = document.getElementById('coordGame-player2Grid');
+
+            p1Grid.innerHTML = '';
+            p2Grid.innerHTML = '';
+
+            for (let i = 0; i < coordGame_gameData.length; i++) {
+                const p1Cell = document.createElement('div');
+                p1Cell.className = 'coordGame-round-cell';
+                p1Cell.id = `coordGame-p1-round-${i}`;
+                p1Grid.appendChild(p1Cell);
+
+                const p2Cell = document.createElement('div');
+                p2Cell.className = 'coordGame-round-cell';
+                p2Cell.id = `coordGame-p2-round-${i}`;
+                p2Grid.appendChild(p2Cell);
+            }
+        }
+
+        function coordGame_initializeChart() {
+            const svg = document.getElementById('coordGame-scoreChart');
+            const maxScore = Math.max(...coordGame_gameData.map(r => r.score), 29);
+            const rounds = coordGame_gameData.length;
+
+            let chartHTML = '';
+
+            // Grid lines and Y-axis labels
+            const gridStep = maxScore > 20 ? 5 : (maxScore > 10 ? 2 : 1);
+            for (let i = 0; i <= maxScore; i += gridStep) {
+                const y = 170 - (i / maxScore * 150);
+                chartHTML += `<line x1="60" y1="${y}" x2="970" y2="${y}" class="coordGame-grid-line"/>`;
+                chartHTML += `<text x="45" y="${y + 5}" class="coordGame-axis-label" text-anchor="end">${i}</text>`;
+            }
+
+            // Axes
+            chartHTML += '<line x1="60" y1="170" x2="970" y2="170" class="coordGame-axis-line"/>';
+            chartHTML += '<line x1="60" y1="20" x2="60" y2="170" class="coordGame-axis-line"/>';
+            
+            // Y-axis label
+            chartHTML += '<text x="15" y="95" class="coordGame-axis-label" text-anchor="middle" transform="rotate(-90 15 95)" style="font-size: 16px; font-weight: 600;">Score</text>';
+            
+            // X-axis label
+            chartHTML += '<text x="515" y="210" class="coordGame-axis-label" text-anchor="middle" style="font-size: 16px; font-weight: 600;">Round</text>';
+            
+            // X-axis ticks (round numbers)
+            const xScale = 910 / rounds;
+            const tickInterval = Math.max(1, Math.floor(rounds / 10));
+            for (let i = 0; i <= rounds; i += tickInterval) {
+                if (i === 0) continue;
+                const x = 60 + i * xScale;
+                chartHTML += `<line x1="${x}" y1="170" x2="${x}" y2="175" class="coordGame-axis-line"/>`;
+                chartHTML += `<text x="${x}" y="185" class="coordGame-axis-label" text-anchor="middle">${i}</text>`;
+            }
+
+            svg.innerHTML = chartHTML;
+        }
+
+        function coordGame_togglePlay() {
+            if (coordGame_isPlaying) {
+                coordGame_pause();
+            } else {
+                coordGame_play();
+            }
+        }
+
+        function coordGame_play() {
+            coordGame_isPlaying = true;
+            coordGame_playBtn.textContent = 'Pause';
+            coordGame_animationInterval = setInterval(coordGame_nextRound, 700);
+        }
+
+        function coordGame_pause() {
+            coordGame_isPlaying = false;
+            coordGame_playBtn.textContent = 'Play';
+            clearInterval(coordGame_animationInterval);
+        }
+
+        function coordGame_resetGame() {
+            coordGame_pause();
+            coordGame_currentRoundIndex = 0;
+            coordGame_updateDisplay();
+        }
+
+        function coordGame_nextRound() {
+            if (coordGame_currentRoundIndex < coordGame_gameData.length) {
+                coordGame_currentRoundIndex++;
+                coordGame_updateDisplay();
+                if (coordGame_currentRoundIndex >= coordGame_gameData.length) {
+                    coordGame_pause();
+                }
+            }
+        }
+
+        function coordGame_updateDisplay() {
+            if (!coordGame_gameData || coordGame_gameData.length === 0) return;
+
+            const maxRounds = coordGame_gameData.length;
+            document.getElementById('coordGame-currentRound').textContent = `${coordGame_currentRoundIndex} / ${maxRounds}`;
+
+            // Clear previous active states
+            document.querySelectorAll('.coordGame-round-cell').forEach(cell => {
+                cell.classList.remove('coordGame-active');
+            });
+
+            // Update choices
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const p1Cell = document.getElementById(`coordGame-p1-round-${i}`);
+                const p2Cell = document.getElementById(`coordGame-p2-round-${i}`);
+
+                const p1Color = round.color_player_1 === 'Red' ? '🔴' : '🔵';
+                const p2Color = round.color_player_2 === 'Red' ? '🔴' : '🔵';
+
+                p1Cell.innerHTML = `<span class="coordGame-round-number"></span>${p1Color}`;
+                p2Cell.innerHTML = `<span class="coordGame-round-number"></span>${p2Color}`;
+
+                // Check if this round scored
+                if (i > 0 && round.score > coordGame_gameData[i-1].score) {
+                    p1Cell.classList.add('coordGame-scored');
+                    p2Cell.classList.add('coordGame-scored');
+                    if (!p1Cell.querySelector('.coordGame-score-indicator')) {
+                        p1Cell.innerHTML += '<div class="coordGame-score-indicator">+1</div>';
+                        p2Cell.innerHTML += '<div class="coordGame-score-indicator">+1</div>';
+                    }
+                }
+            }
+
+            // Highlight current round
+            if (coordGame_currentRoundIndex > 0 && coordGame_currentRoundIndex <= maxRounds) {
+                document.getElementById(`coordGame-p1-round-${coordGame_currentRoundIndex-1}`)?.classList.add('coordGame-active');
+                document.getElementById(`coordGame-p2-round-${coordGame_currentRoundIndex-1}`)?.classList.add('coordGame-active');
+            }
+
+            // Update score
+            const currentScore = coordGame_currentRoundIndex > 0 ? coordGame_gameData[coordGame_currentRoundIndex - 1].score : 0;
+            document.getElementById('coordGame-currentScore').textContent = currentScore;
+
+            // Update chart
+            coordGame_updateChart();
+
+            // Update all reasoning
+            coordGame_updateAllReasoning();
+        }
+
+        function coordGame_updateAllReasoning() {
+            const reasoningItems = document.getElementById('coordGame-reasoningItems');
+            
+            if (coordGame_currentRoundIndex === 0) {
+                document.getElementById('coordGame-reasoningBox').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('coordGame-reasoningBox').style.display = 'block';
+            
+            let html = '';
+            
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const isActive = i === coordGame_currentRoundIndex - 1;
+                const scored = i > 0 && round.score > coordGame_gameData[i-1].score;
+                
+                const p1Type = round.player_1 === 'chatgpt' ? 'ChatGPT' : 'DeepSeek';
+                const p2Type = round.player_2 === 'chatgpt' ? 'ChatGPT' : 'DeepSeek';
+                
+                const p1Color = round.color_player_1 === 'Red' ? '🔴' : '🔵';
+                const p2Color = round.color_player_2 === 'Red' ? '🔴' : '🔵';
+                
+                html += `
+                    <div class="coordGame-reasoning-round ${isActive ? 'coordGame-active' : ''}" id="coordGame-reason-round-${i}">
+                        <div class="coordGame-reasoning-round-title">
+                            <span>Round ${i + 1} ${scored ? '✅' : ''}</span>
+                            ${scored ? '<span class="coordGame-reasoning-score-badge">+1 Point</span>' : ''}
+                        </div>
+                        <div class="coordGame-reasoning-players">
+                            <div class="coordGame-reasoning-player">
+                                <div class="coordGame-reasoning-player-name">
+                                    <span>${p1Type}</span>
+                                    <span class="coordGame-reasoning-choice">${p1Color}</span>
+                                </div>
+                                <div class="coordGame-reasoning-text-content">${round.reasoning_player_1}</div>
+                            </div>
+                            <div class="coordGame-reasoning-player">
+                                <div class="coordGame-reasoning-player-name">
+                                    <span>${p2Type}</span>
+                                    <span class="coordGame-reasoning-choice">${p2Color}</span>
+                                </div>
+                                <div class="coordGame-reasoning-text-content">${round.reasoning_player_2}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            reasoningItems.innerHTML = html;
+            
+            // Scroll to active round if reasoning is expanded
+            if (coordGame_reasoningExpanded && coordGame_currentRoundIndex > 0) {
+                setTimeout(() => {
+                    const activeRound = document.getElementById(`coordGame-reason-round-${coordGame_currentRoundIndex - 1}`);
+                    if (activeRound) {
+                        activeRound.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                }, 100);
+            }
+        }
+
+        function coordGame_updateChart() {
+            const svg = document.getElementById('coordGame-scoreChart');
+            const maxScore = Math.max(...coordGame_gameData.map(r => r.score), 1);
+            const rounds = coordGame_gameData.length;
+
+            // Calculate scale
+            const xScale = 910 / rounds;
+            const yScale = 150 / maxScore;
+
+            // Build path
+            let pathData = '';
+            let points = '';
+
+            for (let i = 0; i < coordGame_currentRoundIndex; i++) {
+                const round = coordGame_gameData[i];
+                const x = 60 + (i + 1) * xScale;
+                const y = 170 - round.score * yScale;
+
+                if (i === 0) {
+                    pathData += `M ${x} ${y}`;
+                } else {
+                    pathData += ` L ${x} ${y}`;
+                }
+
+                // Check if point scored
+                const scored = i > 0 && round.score > coordGame_gameData[i-1].score;
+                const pointClass = scored ? 'coordGame-score-point coordGame-scored' : 'coordGame-score-point';
+                points += `<circle cx="${x}" cy="${y}" r="5" class="${pointClass}"/>`;
+            }
+
+            // Current indicator line
+            let currentLine = '';
+            if (coordGame_currentRoundIndex > 0 && coordGame_currentRoundIndex < rounds) {
+                const x = 60 + coordGame_currentRoundIndex * xScale;
+                currentLine = `<line x1="${x}" y1="20" x2="${x}" y2="170" class="coordGame-current-indicator"/>`;
+            }
+
+            // Remove old path and points
+            const existingPath = svg.querySelector('.coordGame-score-line');
+            const existingPoints = svg.querySelectorAll('.coordGame-score-point');
+            const existingLine = svg.querySelector('.coordGame-current-indicator');
+
+            if (existingPath) existingPath.remove();
+            existingPoints.forEach(p => p.remove());
+            if (existingLine) existingLine.remove();
+
+            // Add new elements
+            if (pathData) {
+                svg.innerHTML += `<path d="${pathData}" class="coordGame-score-line"/>`;
+            }
+            svg.innerHTML += points;
+            svg.innerHTML += currentLine;
+        }
+    </script>
+</body>
+</html>
