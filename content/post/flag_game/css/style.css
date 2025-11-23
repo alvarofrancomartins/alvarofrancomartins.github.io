@@ -23,43 +23,6 @@ table {
   scrollbar-width: none;          /* Firefox */
 }
 
-/* Force list rendering - override Hugo defaults */
-article ul,
-.article-content ul,
-.content ul,
-main ul {
-    list-style-type: disc !important;
-    margin-left: 2em !important;
-    padding-left: 1em !important;
-}
-
-article ul li,
-.article-content ul li,
-.content ul li,
-main ul li {
-    display: list-item !important;
-c
-}
-
-article ol,
-.article-content ol,
-.content ol,
-main ol {
-    list-style-type: decimal !important;
-    margin-left: 2em !important;
-    padding-left: 1em !important;
-    display: block !important;
-}
-
-article ol li,
-.article-content ol li,
-.content ol li,
-main ol li {
-    display: list-item !important;
-
-}
-
-
 /* Increase table font size */
 table {
     font-size: 0.95em !important;
