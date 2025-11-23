@@ -23,6 +23,43 @@ table {
   scrollbar-width: none;          /* Firefox */
 }
 
+/* Force list rendering - override Hugo defaults */
+article ul:not(.network-icon),
+.article-content ul:not(.network-icon),
+.content ul:not(.network-icon),
+main ul:not(.network-icon) {
+    list-style-type: disc !important;
+    margin-left: 2em !important;
+    padding-left: 1em !important;
+}
+
+article ul:not(.network-icon) li,
+.article-content ul:not(.network-icon) li,
+.content ul:not(.network-icon) li,
+main ul:not(.network-icon) li {
+    display: list-item !important;
+}
+
+/* Ordered lists (leave as-is) */
+article ol,
+.article-content ol,
+.content ol,
+main ol {
+    list-style-type: decimal !important;
+    margin-left: 2em !important;
+    padding-left: 1em !important;
+    display: block !important;
+}
+
+article ol li,
+.article-content ol li,
+.content ol li,
+main ol li {
+    display: list-item !important;
+}
+
+
+
 /* Increase table font size */
 table {
     font-size: 0.95em !important;
