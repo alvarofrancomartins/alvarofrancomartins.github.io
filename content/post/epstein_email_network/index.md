@@ -37,7 +37,7 @@ image:
 
 This project combines advanced graph analysis with artificial intelligence to visualize and understand email communication networks. The visualization uses k-core decomposition to identify densely connected groups and leverages large language models to automatically generate relationship summaries from email content.
 
-[Click here](https://github.com/alvarofrancomartins/content/post/epstein_email_network/network_undirected.html).
+[Click here](https://alvarofrancomartins.com/post/epstein_email_network/network_undirected.html).
 
 ## K-Core Decomposition
 

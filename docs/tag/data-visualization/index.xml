@@ -19,7 +19,7 @@
       <guid>https://alvarofrancomartins.com/post/epstein_email_network/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;This project combines advanced graph analysis with artificial intelligence to visualize and understand email communication networks. The visualization uses k-core decomposition to identify densely connected groups and leverages large language models to automatically generate relationship summaries from email content.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/alvarofrancomartins/content/post/epstein_email_network/network_undirected.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Click here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/post/epstein_email_network/network_undirected.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Click here&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&#34;k-core-decomposition&#34;&gt;K-Core Decomposition&lt;/h2&gt;
 &lt;p&gt;K-core decomposition is a graph algorithm that identifies the most densely connected subgraph by iteratively removing nodes with fewer connections than a threshold k. This approach reveals the core group of individuals with the strongest communication ties, filtering out peripheral connections to focus on the most interconnected network members.
 The algorithm works by progressively peeling away outer layers of the network until only the densest core remains. This provides a natural way to identify influential nodes and cohesive subgroups within large communication networks.&lt;/p&gt;
