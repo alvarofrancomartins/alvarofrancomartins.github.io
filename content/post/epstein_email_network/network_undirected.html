@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Email Network</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+        }
+        
+        #sidebar {
+            width: 50%;
+            background: rgba(20, 20, 30, 0.95);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+        
+        #sidebar-header {
+            padding: 20px;
+            background: rgba(255, 165, 0, 0.1);
+            border-bottom: 2px solid rgba(255, 165, 0, 0.3);
+            text-align: center;
+        }
+        
+        #sidebar-header h2 {
+            color: #ffa500;
+            font-size: 50px;
+            margin-bottom: 8px;
+        }
+        
+        #sidebar-header p {
+            color: #fff;
+            font-size: 26px;
+            line-height: 1.5;
+        }
+        
+        #sidebar-header .disclaimer {
+            color: #fff;
+            font-size: 12px;
+            margin-top: 12px;
+            font-style: italic;
+        }
+        
+        #people-grid {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            align-content: start;
+        }
+        
+        .person-item {
+            padding: 12px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            font-size: 25px;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .person-item:hover:not(.disabled) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .person-item.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .person-item.selected-first {
+            background: rgba(107, 255, 107, 0.3);
+            border-color: #6bff6b;
+        }
+        
+        .person-item.selected-second {
+            background: rgba(107, 255, 107, 0.3);
+            border-color: #6bff6b;
+        }
+        
+        #relationship-panel {
+            height: 50%;
+            overflow-y: auto;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.4);
+            border-top: 2px solid rgba(255, 165, 0, 0.3);
+            display: none;
+        }
+        
+        #relationship-panel.visible {
+            display: block;
+        }
+        
+        #relationship-panel .relationship-header {
+            color: #ffa500;
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        #relationship-panel .email-stats {
+            margin-bottom: 20px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #relationship-panel .email-stats div {
+            margin: 6px 0;
+            font-size: 20px;
+        }
+        
+        #relationship-panel .summary-content {
+            margin-top: 20px;
+        }
+        
+        #relationship-panel .summary-section {
+            margin-bottom: 20px;
+        }
+
+        #relationship-panel li {
+            margin: 6px 0;
+            color: #e0e0e0;
+            font-size: 20px !important;   /* <-- Add !important and increase the size */
+            line-height: 1.6;
+        }
+        
+        #relationship-panel .summary-label {
+            color: #ffa500;
+            font-weight: 700;
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        #relationship-panel .summary-text {
+            color: #e0e0e0;
+            line-height: 1.7;
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+        
+        #relationship-panel ul {
+            margin: 8px 0 8px 20px;
+            padding: 0;
+            list-style-type: disc;
+        }
+        
+        #relationship-panel li {
+            margin: 6px 0;
+            color: #e0e0e0;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        #relationship-panel em {
+            color: #aaa;
+            font-style: italic;
+            font-size: 15px;
+        }
+        
+        #clear-selection {
+            margin: 12px 16px;
+            padding: 12px;
+            background: rgba(255, 107, 107, 0.3);
+            border: 1px solid #ff6b6b;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s;
+            display: none;
+        }
+        
+        #clear-selection.visible {
+            display: block;
+        }
+        
+        #clear-selection:hover {
+            background: rgba(255, 107, 107, 0.5);
+        }
+        
+        #network-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #network {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #node-instruction {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 20, 30, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 165, 0, 0.4);
+            font-size: 16px;
+            max-width: 280px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            z-index: 500;
+        }
+        
+        #node-instruction strong {
+            color: #ffa500;
+        }
+        
+        #tooltip {
+            position: fixed;
+            padding: 20px;
+            background: rgba(20, 20, 30, 0.98);
+            color: white;
+            border-radius: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 13px;
+            z-index: 1000;
+            max-width: 450px;
+            line-height: 1.7;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #tooltip .relationship-header {
+            color: #ffa500;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        #tooltip .email-stats {
+            margin-bottom: 15px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        #tooltip .email-stats div {
+            margin: 4px 0;
+        }
+        
+        #node-description-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            background: rgba(20, 20, 30, 0.95);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255, 165, 0, 0.3);
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+        }
+        
+        #node-description-panel.visible {
+            display: block;
+        }
+        
+        #node-description-panel .panel-header {
+            color: #ffa500;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        #node-description-panel .panel-content {
+            color: #e0e0e0;
+            font-size: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        #node-description-panel .panel-content a {
+            color: #6bff6b;
+            text-decoration: underline;
+        }
+        
+        #node-description-panel .panel-content a:hover {
+            color: #8fff8f;
+        }
+        
+        #node-description-panel .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 25px;
+            height: 25px;
+        }
+        
+        #node-description-panel .close-btn:hover {
+            color: #ff8f8f;
+        }
+        
+        .node {
+            stroke: #fff;
+            stroke-width: 3px;
+            cursor: move;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            transition: opacity 0.3s, stroke 0.2s, stroke-width 0.2s;
+        }
+        
+        .node:hover {
+            stroke: #ff6b6b;
+            stroke-width: 5px;
+        }
+        
+        .node.dragging {
+            stroke: #ff6b6b;
+            stroke-width: 5px;
+        }
+        
+        .node.dimmed {
+            opacity: 0.1;
+        }
+        
+        .node.highlighted {
+            stroke: #ffd700;
+            stroke-width: 6px;
+            filter: drop-shadow(0 6px 20px rgba(255,215,0,0.8));
+        }
+        
+        .link {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.4);
+            stroke-opacity: 0.8;
+            cursor: pointer;
+            transition: opacity 0.3s, stroke 0.2s;
+        }
+        
+        .link:hover {
+            stroke: rgba(255, 107, 107, 0.9);
+            stroke-opacity: 1;
+        }
+        
+        .link.dimmed {
+            opacity: 0.05;
+        }
+        
+        .link.highlighted {
+            stroke: #ffd700;
+            stroke-opacity: 1;
+            stroke-width: 6px;
+        }
+        
+        .label {
+            font-size: 22px;
+            font-weight: 600;
+            fill: white;
+            pointer-events: none;
+            text-anchor: middle;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s;
+        }
+        
+        .label.dimmed {
+            opacity: 0.1;
+        }
+        
+        .label.highlighted {
+            font-size: 26px;
+            fill: #ffd700;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <h2>Epstein's Email Network</h2>
+            <p>This network shows the closest email connections to Jeffrey Epstein.</p>
+            <br>
+            <p><strong>Click on any two names below</strong> to explore their relationship as documented in email communications.</p>
+            <br>
+            <p class="disclaimer">Relationships are summarized by AI using email content and may contain inaccuracies. This visualization is for research and network mapping purposes only, not to make accusations or implications about any individual. Inclusion in this network reflects email correspondence only and does not imply wrongdoing by any individual.</p>
+        </div>
+        <div id="people-grid"></div>
+        <div id="clear-selection">Clear Selection</div>
+        <div id="relationship-panel"></div>
+    </div>
+    
+    <div id="network-container">
+        <svg id="network"></svg>
+        <div id="node-instruction">
+            <strong>Tip:</strong> Click any node to view detailed information about that person.
+        </div>
+    </div>
+    
+    <div id="tooltip"></div>
+    
+    <div id="node-description-panel">
+        <button class="close-btn" onclick="document.getElementById('node-description-panel').classList.remove('visible')">×</button>
+        <div class="panel-header" id="node-name"></div>
+        <div class="panel-content" id="node-description-content"></div>
+    </div>
+
+    <script>
+        d3.json('network_data_undirected.json').then(function(data) {
+            
+            // Function to capitalize first letter of each word
+            function capitalizeWords(str) {
+                return str.split(' ').map(word => 
+                    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                ).join(' ');
+            }
+            
+            // Transform names
+            const nameMapping = new Map();
+            
+            data.nodes.forEach(node => {
+                const oldName = node.name;
+                
+                // Specific name replacements
+                if (node.label === "Lang, caroline" || node.name === "Lang, caroline") {
+                    node.label = "Caroline Lang";
+                    node.name = "Caroline Lang";
+                }
+                if (node.label === "Jeevacation" || node.name === "Jeevacation") {
+                    node.label = "Jeffrey Epstein";
+                    node.name = "Jeffrey Epstein";
+                }
+                
+                // Capitalize all names (both first names and surnames)
+                if (node.label && node.label.includes(',')) {
+                    // Format: "surname, firstname" -> capitalize both
+                    const parts = node.label.split(',').map(p => capitalizeWords(p.trim()));
+                    node.label = parts.join(', ');
+                }
+                if (node.name && node.name.includes(',')) {
+                    const parts = node.name.split(',').map(p => capitalizeWords(p.trim()));
+                    node.name = parts.join(', ');
+                }
+                
+                // If format is "Firstname Surname", capitalize all words
+                if (node.label && !node.label.includes(',')) {
+                    node.label = capitalizeWords(node.label);
+                }
+                if (node.name && !node.name.includes(',')) {
+                    node.name = capitalizeWords(node.name);
+                }
+                
+                nameMapping.set(oldName, node.name);
+            });
+            
+            // Update edge directions with new names
+            data.edges.forEach(edge => {
+                if (edge.directions && edge.directions.length > 0) {
+                    edge.directions.forEach(dir => {
+                        if (nameMapping.has(dir.from)) {
+                            dir.from = nameMapping.get(dir.from);
+                        }
+                        if (dir.to && nameMapping.has(dir.to)) {
+                            dir.to = nameMapping.get(dir.to);
+                        }
+                    });
+                }
+            });
+            
+            let selectedPeople = [];
+            
+            const width = document.getElementById('network-container').clientWidth;
+            const height = window.innerHeight;
+            
+            const svg = d3.select('#network')
+                .attr('width', width)
+                .attr('height', height);
+            
+            const tooltip = d3.select('#tooltip');
+            
+            const dataWidth = 1000;
+            const dataHeight = 1000;
+            const scale = Math.min(width / dataWidth, height / dataHeight) * 0.85;
+            const offsetX = (width - dataWidth * scale) / 2;
+            const offsetY = (height - dataHeight * scale) / 2;
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${offsetX}, ${offsetY}) scale(${scale})`);
+            
+            const adjacencyMap = new Map();
+            data.nodes.forEach(node => adjacencyMap.set(node.id, new Set()));
+            data.edges.forEach(edge => {
+                adjacencyMap.get(edge.source).add(edge.target);
+                adjacencyMap.get(edge.target).add(edge.source);
+            });
+            
+            function positionTooltip(event) {
+                const tooltipNode = tooltip.node();
+                const tooltipRect = tooltipNode.getBoundingClientRect();
+                const padding = 20;
+                
+                let left = event.pageX + 15;
+                let top = event.pageY - 15;
+                
+                if (left + tooltipRect.width > window.innerWidth - padding) {
+                    left = event.pageX - tooltipRect.width - 15;
+                }
+                
+                if (top + tooltipRect.height > window.innerHeight - padding) {
+                    top = window.innerHeight - tooltipRect.height - padding;
+                }
+                if (top < padding) {
+                    top = padding;
+                }
+                
+                tooltip.style('left', left + 'px').style('top', top + 'px');
+            }
+            
+            function formatSummary(summary) {
+                if (!summary || summary.trim().length === 0) {
+                    return '<em>No summary yet</em>';
+                }
+                
+                let formatted = '<div class="summary-content">';
+                
+                const sections = {
+                    'RELATIONSHIP:': 'RELATIONSHIP',
+                    'KEY TOPICS:': 'KEY TOPICS',
+                    'TONE:': 'TONE',
+                    'NOTABLE:': 'NOTABLE'
+                };
+                
+                let text = summary;
+                const sectionPositions = [];
+                
+                for (const [marker, label] of Object.entries(sections)) {
+                    const regex = new RegExp(marker, 'gi');
+                    let match;
+                    while ((match = regex.exec(text)) !== null) {
+                        sectionPositions.push({
+                            index: match.index,
+                            marker: marker,
+                            label: label
+                        });
+                    }
+                }
+                
+                sectionPositions.sort((a, b) => a.index - b.index);
+                
+                for (let i = 0; i < sectionPositions.length; i++) {
+                    const current = sectionPositions[i];
+                    const next = sectionPositions[i + 1];
+                    
+                    const startIdx = current.index + current.marker.length;
+                    const endIdx = next ? next.index : text.length;
+                    const content = text.substring(startIdx, endIdx).trim();
+                    
+                    formatted += '<div class="summary-section">';
+                    formatted += `<div class="summary-label">${current.label}</div>`;
+                    
+                    if (current.label === 'KEY TOPICS') {
+                        const lines = content.split(/\n/).filter(l => l.trim());
+                        formatted += '<ul>';
+                        lines.forEach(line => {
+                            const cleaned = line.replace(/^[-•]\s*/, '').trim();
+                            if (cleaned) {
+                                formatted += `<li>${cleaned}</li>`;
+                            }
+                        });
+                        formatted += '</ul>';
+                    } else {
+                        const lines = content.split(/\n/).filter(l => l.trim());
+                        lines.forEach(line => {
+                            formatted += `<div class="summary-text">${line.trim()}</div>`;
+                        });
+                    }
+                    
+                    formatted += '</div>';
+                }
+                
+                if (sectionPositions.length === 0) {
+                    const paragraphs = summary.split(/\n\n/).filter(p => p.trim());
+                    paragraphs.forEach(para => {
+                        formatted += `<div class="summary-text">${para.trim()}</div>`;
+                    });
+                }
+                
+                formatted += '</div>';
+                return formatted;
+            }
+            
+            function createRelationshipDisplay(edge) {
+                const person1 = data.nodes[edge.source].name;
+                const person2 = data.nodes[edge.target].name;
+                const p1Short = person1.split('@')[0];
+                const p2Short = person2.split('@')[0];
+                
+                let content = `<div class="relationship-header">${p1Short} ↔ ${p2Short}</div>`;
+                
+                content += '<div class="email-stats">';
+                content += `<div><strong>Total:</strong> ${edge.weight} emails</div>`;
+                
+                if (edge.directions && edge.directions.length > 0) {
+                    const dir1 = edge.directions.find(dir => dir.from === person1) || {weight: 0};
+                    const dir2 = edge.directions.find(dir => dir.from === person2) || {weight: 0};
+                    content += `<div><strong>${p1Short}</strong> → <strong>${p2Short}</strong>: ${dir1.weight}</div>`;
+                    content += `<div><strong>${p2Short}</strong> → <strong>${p1Short}</strong>: ${dir2.weight}</div>`;
+                }
+                content += '</div>';
+                
+                content += formatSummary(edge.summary);
+                
+                return content;
+            }
+            
+            function updatePeopleListAvailability() {
+                document.querySelectorAll('.person-item').forEach(item => {
+                    const nodeId = parseInt(item.dataset.nodeId);
+                    
+                    if (selectedPeople.length === 0) {
+                        item.classList.remove('disabled');
+                    } else if (selectedPeople.length === 1) {
+                        const firstId = selectedPeople[0];
+                        if (nodeId === firstId || adjacencyMap.get(firstId).has(nodeId)) {
+                            item.classList.remove('disabled');
+                        } else {
+                            item.classList.add('disabled');
+                        }
+                    } else {
+                        if (selectedPeople.includes(nodeId)) {
+                            item.classList.remove('disabled');
+                        } else {
+                            item.classList.add('disabled');
+                        }
+                    }
+                });
+            }
+            
+            function highlightSelection() {
+                if (selectedPeople.length === 0) {
+                    nodes.classed('dimmed', false).classed('highlighted', false);
+                    links.classed('dimmed', false).classed('highlighted', false);
+                    labels.classed('dimmed', false).classed('highlighted', false);
+                    document.getElementById('relationship-panel').classList.remove('visible');
+                    document.getElementById('clear-selection').classList.remove('visible');
+                    return;
+                }
+                
+                if (selectedPeople.length === 1) {
+                    const id1 = selectedPeople[0];
+                    const connectedNodeIds = new Set([id1, ...adjacencyMap.get(id1)]);
+                    
+                    nodes.classed('dimmed', node => !connectedNodeIds.has(node.id))
+                        .classed('highlighted', node => node.id === id1);
+                    
+                    links.classed('dimmed', link => link.source !== id1 && link.target !== id1)
+                        .classed('highlighted', false);
+                    
+                    labels.classed('dimmed', node => !connectedNodeIds.has(node.id))
+                        .classed('highlighted', node => node.id === id1);
+                    
+                    document.getElementById('relationship-panel').classList.remove('visible');
+                    document.getElementById('clear-selection').classList.add('visible');
+                    return;
+                }
+                
+                if (selectedPeople.length === 2) {
+                    const id1 = selectedPeople[0];
+                    const id2 = selectedPeople[1];
+                    
+                    const edge = data.edges.find(e => 
+                        (e.source === id1 && e.target === id2) || 
+                        (e.source === id2 && e.target === id1)
+                    );
+                    
+                    nodes.classed('dimmed', true).classed('highlighted', false);
+                    links.classed('dimmed', true).classed('highlighted', false);
+                    labels.classed('dimmed', true).classed('highlighted', false);
+                    
+                    nodes.filter(d => d.id === id1 || d.id === id2)
+                        .classed('dimmed', false)
+                        .classed('highlighted', true);
+                    
+                    labels.filter(d => d.id === id1 || d.id === id2)
+                        .classed('dimmed', false)
+                        .classed('highlighted', true);
+                    
+                    if (edge) {
+                        links.filter(d => d === edge)
+                            .classed('dimmed', false)
+                            .classed('highlighted', true);
+                        
+                        document.getElementById('relationship-panel').innerHTML = createRelationshipDisplay(edge);
+                        document.getElementById('relationship-panel').classList.add('visible');
+                    }
+                    
+                    document.getElementById('clear-selection').classList.add('visible');
+                }
+            }
+            
+            function clearSelection() {
+                selectedPeople = [];
+                
+                document.querySelectorAll('.person-item').forEach(item => {
+                    item.classList.remove('selected-first', 'selected-second');
+                });
+                
+                updatePeopleListAvailability();
+                highlightSelection();
+            }
+            
+            const peopleGrid = document.getElementById('people-grid');
+            const sortedNodes = [...data.nodes].sort((a, b) => a.label.localeCompare(b.label));
+            
+            sortedNodes.forEach(node => {
+                const item = document.createElement('div');
+                item.className = 'person-item';
+                item.textContent = node.label;
+                item.dataset.nodeId = node.id;
+                
+                item.addEventListener('click', function() {
+                    if (this.classList.contains('disabled')) return;
+                    
+                    const nodeId = parseInt(this.dataset.nodeId);
+                    
+                    if (selectedPeople.includes(nodeId)) {
+                        selectedPeople = selectedPeople.filter(id => id !== nodeId);
+                        this.classList.remove('selected-first', 'selected-second');
+                    } else if (selectedPeople.length < 2) {
+                        selectedPeople.push(nodeId);
+                        this.classList.add(selectedPeople.length === 1 ? 'selected-first' : 'selected-second');
+                    } else {
+                        const firstId = selectedPeople[0];
+                        document.querySelector(`[data-node-id="${firstId}"]`).classList.remove('selected-first');
+                        
+                        selectedPeople[0] = selectedPeople[1];
+                        document.querySelector(`[data-node-id="${selectedPeople[0]}"]`)
+                            .classList.remove('selected-second')
+                            .classList.add('selected-first');
+                        
+                        selectedPeople[1] = nodeId;
+                        this.classList.add('selected-second');
+                    }
+                    
+                    updatePeopleListAvailability();
+                    highlightSelection();
+                });
+                
+                peopleGrid.appendChild(item);
+            });
+            
+            document.getElementById('clear-selection').addEventListener('click', clearSelection);
+            
+            data.nodes.forEach(node => node.size *= 2.5);
+            data.edges.forEach(edge => edge.width *= 2);
+            
+            const links = g.append('g')
+                .selectAll('line')
+                .data(data.edges)
+                .enter().append('line')
+                .attr('class', 'link')
+                .attr('x1', d => data.nodes[d.source].x)
+                .attr('y1', d => data.nodes[d.source].y)
+                .attr('x2', d => data.nodes[d.target].x)
+                .attr('y2', d => data.nodes[d.target].y)
+                .attr('stroke-width', d => d.width)
+                .on('mouseover', function(event, d) {
+                    if (selectedPeople.length > 0) return;
+                    
+                    links.classed('dimmed', link => link !== d);
+                    nodes.classed('dimmed', node => node.id !== d.source && node.id !== d.target);
+                    labels.classed('dimmed', node => node.id !== d.source && node.id !== d.target);
+                })
+                .on('mouseout', function() {
+                    if (selectedPeople.length > 0) return;
+                    
+                    links.classed('dimmed', false);
+                    nodes.classed('dimmed', false);
+                    labels.classed('dimmed', false);
+                });
+            
+            const nodes = g.append('g')
+                .selectAll('circle')
+                .data(data.nodes)
+                .enter().append('circle')
+                .attr('class', 'node')
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y)
+                .attr('r', d => d.size)
+                .attr('fill', d => d.color)
+                .call(d3.drag()
+                    .on('start', function() { d3.select(this).classed('dragging', true); })
+                    .on('drag', function(event, d) {
+                        d.x = event.x;
+                        d.y = event.y;
+                        
+                        d3.select(this).attr('cx', d.x).attr('cy', d.y);
+                        
+                        links.filter(link => link.source === d.id)
+                            .attr('x1', d.x).attr('y1', d.y);
+                        
+                        links.filter(link => link.target === d.id)
+                            .attr('x2', d.x).attr('y2', d.y);
+                        
+                        d3.select(`#label-${d.id}`)
+                            .attr('x', d.x)
+                            .attr('y', d.y + d.size + 20);
+                    })
+                    .on('end', function() { d3.select(this).classed('dragging', false); })
+                )
+                .on('mouseover', function(event, d) {
+                    if (selectedPeople.length > 0) return;
+                    
+                    const connectedNodeIds = new Set([d.id, ...adjacencyMap.get(d.id)]);
+                    
+                    links.classed('dimmed', link => link.source !== d.id && link.target !== d.id);
+                    nodes.classed('dimmed', node => !connectedNodeIds.has(node.id));
+                    labels.classed('dimmed', node => !connectedNodeIds.has(node.id));
+                    
+                    d3.select(`#label-${d.id}`).attr('font-size', '26px');
+                })
+                .on('mouseout', function(event, d) {
+                    if (selectedPeople.length > 0) return;
+                    
+                    links.classed('dimmed', false);
+                    nodes.classed('dimmed', false);
+                    labels.classed('dimmed', false);
+                    d3.select(`#label-${d.id}`).attr('font-size', '22px');
+                })
+                .on('click', function(event, d) {
+                    event.stopPropagation();
+                    
+                    const panel = document.getElementById('node-description-panel');
+                    const nameEl = document.getElementById('node-name');
+                    const contentEl = document.getElementById('node-description-content');
+                    
+                    nameEl.textContent = d.name;
+                    contentEl.textContent = 'Loading...';
+                    panel.classList.add('visible');
+                    
+                    // Fetch the description file
+                    fetch(`node_description/${d.name}.txt`)
+                        .then(response => {
+                            if (!response.ok) throw new Error('File not found');
+                            return response.text();
+                        })
+                        .then(text => {
+                            // Convert "Source: URL" to clickable links
+                            const processedText = text.replace(/(Source:\s*)(https?:\/\/[^\s]+)/gi, '$1<a href="$2" target="_blank">$2</a>');
+                            contentEl.innerHTML = processedText;
+                        })
+                        .catch(error => {
+                            contentEl.textContent = 'No description available.';
+                        });
+                });
+            
+            const labels = g.append('g')
+                .selectAll('text')
+                .data(data.nodes)
+                .enter().append('text')
+                .attr('id', d => `label-${d.id}`)
+                .attr('class', 'label')
+                .attr('x', d => d.x)
+                .attr('y', d => d.y + d.size + 20)
+                .text(d => d.label);
+        });
+    </script>
+</body>
+</html>

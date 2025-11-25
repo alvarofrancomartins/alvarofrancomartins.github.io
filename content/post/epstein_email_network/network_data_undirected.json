@@ -1,0 +1,1148 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "name": "jack lang",
+      "label": "Jack lang",
+      "x": 656.8441108476034,
+      "y": 217.67700405879654,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 1,
+      "name": "etienne binant",
+      "label": "Etienne binant",
+      "x": 1000.0,
+      "y": 207.65933361397086,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 2,
+      "name": "christina galbraith",
+      "label": "Christina galbraith",
+      "x": 13.374136178878429,
+      "y": 298.36884888998077,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 3,
+      "name": "jack goldberger",
+      "label": "Jack goldberger",
+      "x": 921.5455109389906,
+      "y": 800.6216215572578,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 4,
+      "name": "richard kahn",
+      "label": "Richard kahn",
+      "x": 481.0648868493849,
+      "y": 840.6373766120969,
+      "size": 15.0,
+      "degree": 7,
+      "in_degree": 4,
+      "out_degree": 3,
+      "color": "#56b7d0"
+    },
+    {
+      "id": 5,
+      "name": "roy black",
+      "label": "Roy black",
+      "x": 994.740276995974,
+      "y": 602.268607582191,
+      "size": 15.0,
+      "degree": 5,
+      "in_degree": 2,
+      "out_degree": 3,
+      "color": "#9fd9b8"
+    },
+    {
+      "id": 6,
+      "name": "peggy siegal",
+      "label": "Peggy siegal",
+      "x": 451.21803144698737,
+      "y": 147.98419227965272,
+      "size": 15.0,
+      "degree": 4,
+      "in_degree": 2,
+      "out_degree": 2,
+      "color": "#d4eecd"
+    },
+    {
+      "id": 7,
+      "name": "kathy ruemmler",
+      "label": "Kathy ruemmler",
+      "x": 719.7148263748784,
+      "y": 441.72402383002714,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 8,
+      "name": "tyler shears",
+      "label": "Tyler shears",
+      "x": 133.14048035731636,
+      "y": 146.70467518055008,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 9,
+      "name": "neal kassell",
+      "label": "Neal kassell",
+      "x": 481.4829922919411,
+      "y": 346.5512792565036,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 10,
+      "name": "ken starr",
+      "label": "Ken starr",
+      "x": 283.78943596938615,
+      "y": 490.98413886070847,
+      "size": 15.0,
+      "degree": 4,
+      "in_degree": 2,
+      "out_degree": 2,
+      "color": "#d4eecd"
+    },
+    {
+      "id": 11,
+      "name": "steven pfeiffer",
+      "label": "Steven pfeiffer",
+      "x": 557.7936138233466,
+      "y": 0.0,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 12,
+      "name": "amanda ens",
+      "label": "Amanda ens",
+      "x": 340.5328632191455,
+      "y": 700.3047441231442,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 13,
+      "name": "tonja haddad coleman",
+      "label": "Tonja haddad coleman",
+      "x": 860.8702736251628,
+      "y": 1000.0,
+      "size": 15.0,
+      "degree": 4,
+      "in_degree": 1,
+      "out_degree": 3,
+      "color": "#d4eecd"
+    },
+    {
+      "id": 14,
+      "name": "paul barrett",
+      "label": "Paul barrett",
+      "x": 416.40347770757353,
+      "y": 996.1014246661035,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 15,
+      "name": "fred haddad",
+      "label": "Fred haddad",
+      "x": 641.6790763422493,
+      "y": 984.861733648922,
+      "size": 15.0,
+      "degree": 4,
+      "in_degree": 2,
+      "out_degree": 2,
+      "color": "#d4eecd"
+    },
+    {
+      "id": 16,
+      "name": "alan dershowitz",
+      "label": "Alan dershowitz",
+      "x": 929.1994626595249,
+      "y": 456.9239654442049,
+      "size": 15.0,
+      "degree": 5,
+      "in_degree": 2,
+      "out_degree": 3,
+      "color": "#9fd9b8"
+    },
+    {
+      "id": 17,
+      "name": "michael wolff",
+      "label": "Michael wolff",
+      "x": 120.1069624392316,
+      "y": 506.3011608015355,
+      "size": 15.0,
+      "degree": 5,
+      "in_degree": 3,
+      "out_degree": 2,
+      "color": "#9fd9b8"
+    },
+    {
+      "id": 18,
+      "name": "darren indyke",
+      "label": "Darren indyke",
+      "x": 712.0421753939055,
+      "y": 822.9844324813705,
+      "size": 15.0,
+      "degree": 9,
+      "in_degree": 5,
+      "out_degree": 4,
+      "color": "#1d7db6"
+    },
+    {
+      "id": 19,
+      "name": "larry visoski",
+      "label": "Larry visoski",
+      "x": 264.26484248152417,
+      "y": 875.7148895791415,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 20,
+      "name": "jay lefkowitz",
+      "label": "Jay lefkowitz",
+      "x": 615.5203201605151,
+      "y": 702.2085244163251,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 21,
+      "name": "lang, caroline",
+      "label": "Lang, caroline",
+      "x": 821.1931346969287,
+      "y": 264.79680207522796,
+      "size": 15.0,
+      "degree": 5,
+      "in_degree": 2,
+      "out_degree": 3,
+      "color": "#9fd9b8"
+    },
+    {
+      "id": 22,
+      "name": "sean bannon",
+      "label": "Sean bannon",
+      "x": 0.0,
+      "y": 810.8925947410039,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 1,
+      "out_degree": 2,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 23,
+      "name": "jeevacation@gmail.com",
+      "label": "Jeevacation",
+      "x": 531.8242198442321,
+      "y": 556.1786660047521,
+      "size": 15.0,
+      "degree": 46,
+      "in_degree": 25,
+      "out_degree": 21,
+      "color": "#084081"
+    },
+    {
+      "id": 24,
+      "name": "melanie walker",
+      "label": "Melanie walker",
+      "x": 298.5422017782503,
+      "y": 297.6709187852574,
+      "size": 15.0,
+      "degree": 3,
+      "in_degree": 2,
+      "out_degree": 1,
+      "color": "#f7fcf0"
+    },
+    {
+      "id": 25,
+      "name": "steve bannon",
+      "label": "Steve bannon",
+      "x": 131.04745664823682,
+      "y": 680.9705731886442,
+      "size": 15.0,
+      "degree": 5,
+      "in_degree": 2,
+      "out_degree": 3,
+      "color": "#9fd9b8"
+    },
+    {
+      "id": 26,
+      "name": "martin weinberg",
+      "label": "Martin weinberg",
+      "x": 806.7503560384771,
+      "y": 627.9661597746497,
+      "size": 15.0,
+      "degree": 7,
+      "in_degree": 4,
+      "out_degree": 3,
+      "color": "#56b7d0"
+    }
+  ],
+  "edges": [
+    {
+      "source": 0,
+      "target": 23,
+      "weight": 5,
+      "width": 1.1401869158878504,
+      "directions": [
+        {
+          "from": "jack lang",
+          "to": "jeevacation@gmail.com",
+          "weight": 3
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "jack lang",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Jack Lang maintain a cordial, conversational relationship marked by political discussion, personal updates, and coordination on cultural or media-related projects. \n\nKEY TOPICS:\nExchanges about U.S. politics\u2014specifically Donald Trump\u2014with Lang repeatedly affirming Epstein\u2019s predictions or insights. \nDiscussion of Serge Moati\u2019s film project and arranging direct contact with the film team, including providing the appropriate English-speaking collaborator. \nEpstein relaying a question from Tom Pritzker about ideas related to the Pritzker Prize, seeking Lang\u2019s input. \n\nNOTABLE:\nThe thread shows Epstein engaged not only in political commentary but also in high-level cultural networking, involving figures connected to major film and architectural institutions."
+    },
+    {
+      "source": 1,
+      "target": 23,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "etienne binant",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nEtienne Binant and Jeffrey Epstein communicate in a collaborative, business-oriented manner about coordinating art acquisitions, with Epstein responding briefly and Binant providing detailed clarification and planning.\n\nKEY TOPICS:\nClarifying the intended strategy for acquiring artwork\u2014focusing on visiting artists\u2019 studios, fostering personal connections, and supporting emerging talent rather than attending art fairs.\nScheduling discussions and planning travel to meet artists in cities such as Los Angeles or Berlin.\nEpstein noting recent delays due to being busy during the Trump political period.\n\nNOTABLE:\nBinant emphasizes a philanthropic-sounding goal of influencing the art ecosystem by directly backing young, financially vulnerable artists."
+    },
+    {
+      "source": 1,
+      "target": 21,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "etienne binant",
+          "to": "lang, caroline",
+          "weight": 1
+        },
+        {
+          "from": "lang, caroline",
+          "to": "etienne binant",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nEtienne Binant and Caroline Lang exchange brief updates while jointly coordinating with Jeffrey Epstein on planned art acquisitions, reflecting a cooperative, business-oriented communication pattern.\n\nKEY TOPICS:\nAligning on an art-buying strategy focused on visiting artists\u2019 studios, cultivating direct relationships, and supporting emerging artists rather than attending art fairs.\nScheduling discussions and clarifying travel plans to meet artists in locations such as Los Angeles or Berlin.\nEpstein indicating delays due to being \u201ccrazy busy\u201d during the political climate surrounding Trump.\n\nNOTABLE:\nBoth Binant and Lang emphasize a mission-driven approach of influencing the art ecosystem by backing young, under-recognized artists through personal engagement."
+    },
+    {
+      "source": 2,
+      "target": 8,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "christina galbraith",
+          "to": "tyler shears",
+          "weight": 1
+        },
+        {
+          "from": "tyler shears",
+          "to": "christina galbraith",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nChristina Galbraith and Tyler Shears communicate frequently and collaboratively about online reputation management strategy for Jeffrey Epstein, with Galbraith requesting updates and Shears explaining tactics and timelines.\n\nKEY TOPICS:\nEfforts to suppress negative Google search results by boosting alternative URLs, publishing new content, and coordinating press placements.\nDiscussion of search-ranking timelines, Google response patterns, and competition from high-traffic media coverage.\nMonitoring newly released press materials and evaluating their visibility in search results.\n\nNOTABLE:\nThey explicitly strategize to \u201cdislodge\u201d unfavorable Forbes and New York Post articles by manipulating search-engine visibility rather than addressing the content itself."
+    },
+    {
+      "source": 3,
+      "target": 23,
+      "weight": 7,
+      "width": 1.1869158878504673,
+      "directions": [
+        {
+          "from": "jack goldberger",
+          "to": "jeevacation@gmail.com",
+          "weight": 3
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "jack goldberger",
+          "weight": 4
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and attorney Jack Goldberger exchange messages primarily to relay media inquiries and legal developments, reflecting a direct, utilitarian communication pattern focused on managing press and litigation risk. \n\nKEY TOPICS:\nForwarding extensive press questions from the *New York Daily News* regarding allegations of sexual abuse, Ghislaine Maxwell\u2019s role, lawsuits brought by multiple Jane Does, accusations of intimidation, and the implications of Epstein\u2019s non-prosecution agreement. \nMedia inquiries involving a 2016 federal lawsuit alleging rape by Epstein and Donald Trump, with Reuters requesting comment or an interview. \nA BBC request seeking an interview with Epstein to address stories in the UK press about him and Prince Andrew. \n\nNOTABLE:\nThe messages consist almost entirely of high-stakes media inquiries containing detailed, explicit allegations, indicating Goldberger\u2019s role as a legal gatekeeper for Epstein\u2019s public exposure."
+    },
+    {
+      "source": 23,
+      "target": 4,
+      "weight": 115,
+      "width": 6.0,
+      "directions": [
+        {
+          "from": "richard kahn",
+          "to": "jeevacation@gmail.com",
+          "weight": 107
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "richard kahn",
+          "weight": 8
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Richard Kahn have a close, informal relationship marked by frequent, candid exchanges\u2014often involving financial decisions, personal frustrations, and advisory discussions. \n\nKEY TOPICS:\n\nOngoing debates about investment strategies, including disagreements over option trades, market timing, and risk management.\nJeffrey\u2019s repeated criticism of trading decisions and performance, expressing concern over losses and urging more disciplined or experienced approaches.\nCoordination of next steps, solutions, or adjustments to how financial decisions should be handled going forward. \n\nNOTABLE:\nJeffrey\u2019s tone is unusually direct and at times harsh for a peer or colleague, repeatedly lecturing Richard on trading fundamentals and expressing exasperation over perceived amateurism."
+    },
+    {
+      "source": 18,
+      "target": 4,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "richard kahn",
+          "to": "darren indyke",
+          "weight": 1
+        },
+        {
+          "from": "darren indyke",
+          "to": "richard kahn",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nDarren Indyke and Richard Kahn exchange brief, informal emails, sharing politically themed articles and commentary, suggesting a collegial relationship with occasional communication.\n\nKEY TOPICS:\nKahn forwards an article written by Jared Kushner defending Donald Trump.\nIndyke forwards a legal training announcement about challenging immigration detention under the Trump administration, noting its timeliness.\n\nNOTABLE:\nTheir exchanges focus on Trump-related media and legal developments rather than Epstein matters."
+    },
+    {
+      "source": 19,
+      "target": 4,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "richard kahn",
+          "to": "larry visoski",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nRichard Kahn sends Larry Visoski a news link regarding aviation, suggesting a professional or shared interest in flight operations or current events.\n\nKEY TOPICS:\n\nAviation Incident: The email contains a link to a CBS New York article reporting that President Trump&#x27;s private plane was clipped while on the ground at LaGuardia Airport.\n\nNOTABLE:\nThe communication consists solely of a URL without any accompanying message or context from the sender."
+    },
+    {
+      "source": 23,
+      "target": 5,
+      "weight": 6,
+      "width": 1.1869158878504673,
+      "directions": [
+        {
+          "from": "roy black",
+          "to": "jeevacation@gmail.com",
+          "weight": 4
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "roy black",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and attorney Roy Black maintain a professional, legal-focused relationship in which Jeffrey forwards media inquiries and legal developments, and Roy responds with guidance, clarifications, and prepared attorney statements. \n\nKEY TOPICS:\n\nHandling press inquiries from Reuters and other reporters regarding lawsuits, allegations, and questions involving Jeffrey Epstein and, in some instances, Donald Trump.\nCoordination on legal strategy, including who will represent Alexander Acosta in hearings and how to respond to inquiries about the Crime Victims\u2019 Rights Act suit and proposed remedies.\nRoy Black\u2019s guidance on when and how comments will be issued, particularly emphasizing withholding statements until legal pleadings are finalized. \n\nNOTABLE:\nThe emails repeatedly involve high-profile and politically sensitive allegations, requiring coordinated responses among multiple attorneys and careful control of public statements."
+    },
+    {
+      "source": 16,
+      "target": 5,
+      "weight": 3,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "roy black",
+          "to": "alan dershowitz",
+          "weight": 1
+        },
+        {
+          "from": "alan dershowitz",
+          "to": "roy black",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nAlan Dershowitz and Roy Black communicate as legal colleagues, briefly exchanging forwarded media inquiries related to Jeffrey Epstein and coordinating awareness of unfolding press coverage.\n\nKEY TOPICS:\nReuters requests comment regarding a newly filed lawsuit alleging that Jeffrey Epstein and Donald Trump raped a woman in 1994.\nThe attorneys share the inquiry internally among Epstein\u2019s legal team to determine how to respond, if at all.\n\nNOTABLE:\nThe lawsuit\u2019s inclusion of Trump alongside Epstein elevates the media scrutiny prompting rapid circulation among defense lawyers."
+    },
+    {
+      "source": 26,
+      "target": 5,
+      "weight": 2,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "roy black",
+          "to": "martin weinberg",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nRoy Black sends two identical FYI messages to Martin Weinberg, reflecting a professional, lawyer-to-lawyer communication pattern focused on coordinating public statements related to Epstein matters.\n\nKEY TOPICS:\n\nBlack states they will not comment on the \u201cTrump story\u201d at this time.\nHe explains they are finalizing a pleading related to the plaintiff\u2019s position on remedies and will only comment publicly after it is filed.\nThe messages serve as informational updates rather than a request for discussion or action.\n\nNOTABLE:\nBoth emails are duplicates, each relaying that no public comment will be made until the legal filing is complete."
+    },
+    {
+      "source": 23,
+      "target": 6,
+      "weight": 16,
+      "width": 1.514018691588785,
+      "directions": [
+        {
+          "from": "peggy siegal",
+          "to": "jeevacation@gmail.com",
+          "weight": 5
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "peggy siegal",
+          "weight": 11
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Peggy Siegal maintain a friendly, informal relationship marked by frequent personal updates, travel stories, entertainment-industry discussions, and socially connected banter. \n\nKEY TOPICS:\n\nSocial events, travel, film-industry engagements, and detailed behind-the-scenes accounts of *Wall Street 2* and other Hollywood-related activities shared by Peggy.\nPersonal check-ins, including health updates, scheduling calls, and casual conversation about mutual acquaintances and ongoing projects.\nDiscussions about Peggy\u2019s magazine writing, film promotion work, and her interactions with actors, directors, producers, and high-profile social figures. \n\nNOTABLE:\nPeggy frequently provides Jeffrey with unusually detailed insider accounts of high-society gatherings, film sets, and celebrity interactions, including anecdotes involving Donald Trump, Michael Douglas, Oliver Stone, and numerous socialites."
+    },
+    {
+      "source": 6,
+      "target": 11,
+      "weight": 3,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "peggy siegal",
+          "to": "steven pfeiffer",
+          "weight": 2
+        },
+        {
+          "from": "steven pfeiffer",
+          "to": "peggy siegal",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nPeggy Siegal and Steven Pfeiffer communicate in a professional, transactional manner to coordinate donation logistics and event attendance for the 2017 IFP Gotham Awards.\n\nKEY TOPICS:\n\nPfeiffer requests organizational details needed to issue an invoice and donation letter for a $10,000 contribution tied to event seating (\u201cchairs\u201d).\nSiegal (through her assistant Rebecca) provides the required company name, contact, and address information.\nThe thread includes messages from Jeffrey confirming the donation, specifying seating needs, and directing that correspondence be handled through Siegal.\n\nNOTABLE:\nJeffrey\u2019s donation and direction to route all administrative details to Siegal shape the entire exchange, making Siegal the central point of coordination for a high-value event contribution."
+    },
+    {
+      "source": 23,
+      "target": 7,
+      "weight": 118,
+      "width": 4.224299065420561,
+      "directions": [
+        {
+          "from": "kathy ruemmler",
+          "to": "jeevacation@gmail.com",
+          "weight": 69
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "kathy ruemmler",
+          "weight": 49
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Kathy Ruemmler communicate frequently and informally, mixing personal banter with serious discussion about a major career decision she is considering. \n\nKEY TOPICS:\nOngoing deliberations about whether Ruemmler should accept an unnamed high-level job, including salary concerns, relocation issues, and the need to speak with her \u201cboss.\u201d \nEpstein repeatedly offers advice framed in terms of \u201crisk/reward,\u201d encourages her to meet influential people in town for the UN General Assembly week, and proposes further discussion in person. \nSide conversations about political and legal news, including a criminal conviction related to Senator Reid\u2019s office, and casual commentary on public figures. \n\nNOTABLE:\nThe tone is unusually familiar for a professional-adjacent exchange, with Epstein extending invitations to high-profile gatherings and Ruemmler openly weighing a major career move with him as a sounding board."
+    },
+    {
+      "source": 23,
+      "target": 8,
+      "weight": 4,
+      "width": 1.1869158878504673,
+      "directions": [
+        {
+          "from": "tyler shears",
+          "to": "jeevacation@gmail.com",
+          "weight": 4
+        }
+      ],
+      "summary": "RELATIONSHIP:\nTyler Shears communicates with Jeffrey in a professional, service-provider capacity, giving frequent updates on online reputation-management efforts and responding to Jeffrey\u2019s concerns about negative search results. \n\nKEY TOPICS:\n\nOngoing attempts to suppress or dislodge negative Google search results about Jeffrey Epstein, including boosting alternative URLs, securing new placements, and monitoring ranking changes.\nTechnical instructions and troubleshooting related to search-result accuracy (incognito mode, cache clearing, hacked foundation site, domain security fixes) and coordination with Christina Galbraith on content strategy.\nChallenges posed by new negative press\u2014especially those involving public figures such as Bill Clinton\u2014which repeatedly undermine progress and delay the goal of having a \u201cclean\u201d first page. \n\nNOTABLE:\nThe emails reveal an extensive, coordinated effort to manipulate search-engine results through link-building, content placement, and media strategy, explicitly aimed at burying negative press and reshaping Epstein\u2019s online footprint."
+    },
+    {
+      "source": 23,
+      "target": 9,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "neal kassell",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "neal kassell",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nThe two correspondents, Jeffrey and Dr. Neal Kassell, communicate politely and briefly, coordinating an introductory meeting facilitated by a mutual acquaintance, Melanie. \n\nKEY TOPICS:\nScheduling a meeting during Neal Kassell\u2019s upcoming trip to New York (25\u201328 September).\nConfirmation that Jeffrey will be in town and coordination should be finalized closer to the date.\nQuick logistical clarification about whether \u201cLeslie\u201d manages Jeffrey\u2019s schedule. \n\nNOTABLE:\nThe introduction email notes that Jeffrey and Neal were originally connected through Melanie, who mentions that Jeffrey was introduced to her decades earlier by Donald Trump, adding an unusual personal historical detail."
+    },
+    {
+      "source": 24,
+      "target": 9,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "neal kassell",
+          "to": "melanie walker",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nNeal Kassell responds to an introduction email from Melanie Walker, showing a friendly, appreciative tone and a willingness to coordinate a meeting with the introduced party.\n\nKEY TOPICS:\n\nWalker introduces Jeffrey and Neal, noting her long acquaintance with both and referencing how each introduction originally occurred.\nKassell confirms interest in meeting Jeffrey and provides his upcoming travel dates in New York for scheduling.\nWalker expresses gratitude and suggests that both men would enjoy connecting.\n\nNOTABLE:\nWalker mentions that Donald Trump originally introduced her to Jeffrey 28 years earlier, an unusual detail in an otherwise routine introduction."
+    },
+    {
+      "source": 23,
+      "target": 10,
+      "weight": 11,
+      "width": 1.3271028037383177,
+      "directions": [
+        {
+          "from": "ken starr",
+          "to": "jeevacation@gmail.com",
+          "weight": 4
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "ken starr",
+          "weight": 7
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Ken Starr exchange warm, personal, and highly conversational emails, mixing social invitations, political discussion, and legal commentary, reflecting an unusually friendly relationship between a high-profile lawyer and Epstein. \n\nKEY TOPICS:\nSocial coordination and travel plans, including invitations to the Caribbean, meeting in New York or Florida, holiday greetings, and arranging lunches while Starr is on cruise travel or visiting Palm Beach. \nPolitical and legal discussions, with Epstein seeking Starr\u2019s views on JASTA, constitutional issues around indicting a sitting president, Trump-related developments, and commentary on scholarly/legal arguments. Epstein also requests that Starr speak with journalist Michael Wolff about presidential indictment questions. \nForwarded legal matters, including a motion to unseal Epstein\u2019s prior appeal briefs and discussions involving third-party legal academics like Jed Rubenfeld in relation to other \u201cunhappy situations.\u201d \n\nNOTABLE:\nStarr responds with affection and familiarity\u2014calling Epstein \u201ca prince\u201d and signing with \u201clove\u201d and \u201chugs\u201d\u2014highlighting a notably close rapport unusual for a relationship that also involves discussions of politically sensitive legal matters."
+    },
+    {
+      "source": 10,
+      "target": 17,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "ken starr",
+          "to": "michael wolff",
+          "weight": 1
+        },
+        {
+          "from": "michael wolff",
+          "to": "ken starr",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJournalist Michael Wolff and Ken Starr are introduced via email by Jeffrey Epstein, establishing a cordial professional connection where Wolff seeks Starr&#x27;s expertise for a book project.\n\nKEY TOPICS:\nTrump Book Sequel: Wolff informs Starr he is writing a sequel to his recent book on the Trump White House, specifically focusing on the legal case against Trump and the President&#x27;s response to it.\n\nRequest for Counsel: Wolff solicits Starr&#x27;s &quot;counsel and background&quot; to enrich the book, offering to speak on an &quot;entirely off-the-record basis&quot;.\n\nIntroduction and Coordination: Starr responds warmly to the introduction, thanking Epstein for bringing them together, and provides his mailing address to receive a copy of Wolff&#x27;s previous book.\n\nNOTABLE:\nIt is significant that Michael Wolff utilized Jeffrey Epstein as an intermediary to gain access to Ken Starr for &quot;counsel&quot; regarding a book about the legal challenges facing Donald Trump."
+    },
+    {
+      "source": 23,
+      "target": 11,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "steven pfeiffer",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Steven Pfeiffer maintain a cordial, professional relationship involving event fundraising logistics and coordination facilitated through their mutual contact, Peggy Siegal. \n\nKEY TOPICS:\n\nArrangements for Jeffrey\u2019s $10,000 donation to the IFP Gotham Awards, including invoicing details and required donor information.\nCoordination of seating needs for the event and the request that all administrative details be directed to Peggy Siegal for processing.\nOverview of the upcoming Gotham Awards ceremony, including tribute honorees and event expectations. \n\nNOTABLE:\nThe exchange includes Jeffrey\u2019s immediate commitment to purchase \u201c$10k of chairs\u201d and request for four seats, indicating a high-level donor relationship with the organization."
+    },
+    {
+      "source": 12,
+      "target": 23,
+      "weight": 8,
+      "width": 1.3271028037383177,
+      "directions": [
+        {
+          "from": "amanda ens",
+          "to": "jeevacation@gmail.com",
+          "weight": 7
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "amanda ens",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nAmanda Ens, a Bank of America Merrill Lynch equities director, regularly sends investment research, trade ideas, and meeting invitations to Jeffrey Epstein, who replies only once to authorize a trade, reflecting a primarily one-way professional advisory relationship.\n\nKEY TOPICS:\nPost-2016 U.S. election market strategy, including volatility, interest rates, Japan equities, U.S. financials, and reflation-driven investment opportunities.\nSpecific trade recommendations\u2014SPX puts, DXJ call spreads, XLF call spreads, and S&amp;P hedges\u2014supported by research, positioning commentary, and macroeconomic forecasts.\nInvitations to analyst briefings and commodity policy discussions involving senior Bank of America strategists.\n\nNOTABLE:\nEpstein approves a $250,000-premium financials options trade, indicating active participation rather than passive receipt of research."
+    },
+    {
+      "source": 12,
+      "target": 4,
+      "weight": 6,
+      "width": 1.280373831775701,
+      "directions": [
+        {
+          "from": "amanda ens",
+          "to": "richard kahn",
+          "weight": 6
+        }
+      ],
+      "summary": "RELATIONSHIP:\nAmanda Ens, a Bank of America Merrill Lynch equities director, regularly emails Richard Kahn investment research, trade recommendations, and meeting invitations, with no recorded replies, reflecting a one-sided professional advisory relationship.\n\nKEY TOPICS:\nPost-Trump-election market strategy, including equity volatility, rising interest rates, Japan bullishness, and the reflation trade.\nSpecific trading ideas such as SPX puts, DXJ call spreads, XLF call spreads, and European bank equities, supported by macro and sector analysis.\nInvitations to analyst and commodities briefings featuring senior BofA research leadership.\n\nNOTABLE:\nKahn\u2019s lack of response suggests he may be a distribution-list recipient rather than an active client participant."
+    },
+    {
+      "source": 23,
+      "target": 13,
+      "weight": 4,
+      "width": 1.1869158878504673,
+      "directions": [
+        {
+          "from": "tonja haddad coleman",
+          "to": "jeevacation@gmail.com",
+          "weight": 4
+        }
+      ],
+      "summary": "RELATIONSHIP:\nTonja Haddad Coleman, an attorney, communicates with Jeffrey in a professional, legal-oriented manner, primarily forwarding media inquiries and legal developments concerning cases involving him. \n\nKEY TOPICS:\n\nForwarding press inquiries regarding allegations and litigation involving Jeffrey Epstein, including requests from *The Mail on Sunday* about claims by Bradley Edwards and Virginia Roberts.\nSharing news links related to lawsuits involving Donald Trump that may intersect with Epstein-related matters.\nRelaying a journalist\u2019s request for comment on an Epstein/Trump story and referencing prior legal clarifications she provided in unrelated matters. \n\nNOTABLE:\nMultiple forwarded inquiries reference highly sensitive allegations involving public figures\u2014including Prince Andrew, President Clinton, and Donald Trump\u2014indicating the legal and media pressure surrounding Epstein at the time."
+    },
+    {
+      "source": 18,
+      "target": 13,
+      "weight": 8,
+      "width": 1.3738317757009346,
+      "directions": [
+        {
+          "from": "tonja haddad coleman",
+          "to": "darren indyke",
+          "weight": 8
+        }
+      ],
+      "summary": "RELATIONSHIP:\nTonja Haddad Coleman repeatedly forwards news articles and journalist inquiries to Darren Indyke, reflecting a professional relationship in which she monitors Epstein-related media and legal developments and keeps him informed.\n\nKEY TOPICS:\nMedia requests for comment regarding lawsuits, witness claims, and allegations involving Jeffrey Epstein, Prince Andrew, Bill Clinton, and Donald Trump.\nLinks to published or upcoming news stories about Epstein, including litigation updates and reporting on his associations.\nAlerts about unrelated public lawsuits or legal news involving Trump and other parties of potential relevance.\n\nNOTABLE:\nSeveral forwarded inquiries reference high-profile political figures and explicit sex-trafficking allegations, showing awareness of escalating public scrutiny surrounding Epstein."
+    },
+    {
+      "source": 3,
+      "target": 13,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "tonja haddad coleman",
+          "to": "jack goldberger",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nTonja Haddad Coleman forwards a media inquiry to attorney Jack Goldberger, reflecting a professional relationship centered on coordinating responses to high-profile press requests. \n\nKEY TOPICS:\nA *National Enquirer* request seeking comment on an upcoming story alleging Bill Clinton traveled on Jeffrey Epstein\u2019s plane to Brunei for a dinner with a royal accused of exploiting women. \nClaims that Epstein brought two women alleged to be \u201cmadams\u201d who recruited teenage girls, and details linking the trip to a donation from Brunei to the Clinton Presidential Library. \nA deadline-driven request for Goldberger or Epstein\u2019s representatives to provide comment before publication. \n\nNOTABLE:\nThe inquiry combines politically sensitive allegations involving Clinton, Epstein, and foreign royalty, underscoring the escalating tabloid scrutiny surrounding Epstein\u2019s associations."
+    },
+    {
+      "source": 23,
+      "target": 14,
+      "weight": 5,
+      "width": 1.1869158878504673,
+      "directions": [
+        {
+          "from": "paul barrett",
+          "to": "jeevacation@gmail.com",
+          "weight": 4
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "paul barrett",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Paul Barrett have a tense investor\u2013manager relationship characterized by financial advice from Paul and increasingly frustrated critiques from Jeffrey about Paul&#x27;s trading decisions. \n\nKEY TOPICS:\n\nJeffrey\u2019s strong dissatisfaction with Paul\u2019s handling of SPY and Broadcom (AVGO) option trades, accusing him of inexperience, poor discipline, and causing significant losses.\nPaul\u2019s attempts to justify his strategies, provide updated market analysis, and recommend protective actions such as buying August $200 puts, along with proposing broader solutions to their working relationship.\nOngoing discussion about the correct approach to options timing, strike selection, and how existing stock positions influence decision-making. \n\nNOTABLE:\nJeffrey repeatedly delivers harsh, teacher-like evaluations\u2014at one point giving Paul \u201can F\u201d\u2014highlighting an unusually severe tone for an investor\u2013advisor exchange."
+    },
+    {
+      "source": 14,
+      "target": 4,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "paul barrett",
+          "to": "richard kahn",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nPaul Barrett sends a professional finance-related message to Richard Kahn, forwarding part of a tense exchange with a third party (Jeffrey) and providing market commentary and option-trading guidance.\n\nKEY TOPICS:\n\nBarrett asks Kahn for thoughts on Broadcom (AVGO) August put options and discusses pricing and market conditions.\nHe forwards an earlier email to Jeffrey describing strategy around Broadcom puts, uncertainty over a corporate deal, and his preference for August versus September contracts.\nThe forwarded thread includes Jeffrey\u2019s strongly worded criticism of Barrett\u2019s previous trading decisions, expressing frustration over losses and perceived inexperience.\n\nNOTABLE:\nJeffrey\u2019s forwarded message contains unusually harsh personal criticism about Barrett\u2019s trading skill, making the overall thread more emotionally charged than a typical finance correspondence."
+    },
+    {
+      "source": 15,
+      "target": 13,
+      "weight": 2,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "fred haddad",
+          "to": "tonja haddad coleman",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nFred Haddad forwards media inquiries to Tonja Haddad Coleman, indicating a direct, informational communication pattern likely tied to shared legal or advisory responsibilities.\n\nKEY TOPICS:\nA reporter from *The Mail on Sunday* requests comment on allegations involving underage victims, accusations of intimidation, and claims connecting Jeffrey Epstein to Prince Andrew and President Clinton.\nRepeated forwarding of the same inquiry to ensure Coleman is aware of the press deadline and the sensitive nature of the requested comment.\n\nNOTABLE:\nBoth emails are nearly identical forwardings of the same high-stakes media request, suggesting urgency or an attempt to ensure it reached Coleman without delay."
+    },
+    {
+      "source": 15,
+      "target": 23,
+      "weight": 3,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "fred haddad",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "fred haddad",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Fred Haddad exchange short, mostly forwarded messages, indicating a minimal but direct line of communication focused on relaying urgent media inquiries.\n\nKEY TOPICS:\nMultiple forwarded requests from *The Mail on Sunday* seeking comment on allegations involving underage victims, intimidation claims, and high-profile figures such as Prince Andrew and Bill Clinton.\nCoordination around responding\u2014if at all\u2014to these press inquiries, with Epstein forwarding material back to Haddad for awareness or action.\n\nNOTABLE:\nAll messages center on one highly sensitive media request, repeatedly circulated among the parties with no added discussion, underscoring the urgency and gravity of the allegations."
+    },
+    {
+      "source": 16,
+      "target": 23,
+      "weight": 8,
+      "width": 1.280373831775701,
+      "directions": [
+        {
+          "from": "alan dershowitz",
+          "to": "jeevacation@gmail.com",
+          "weight": 2
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "alan dershowitz",
+          "weight": 6
+        }
+      ],
+      "summary": "RELATIONSHIP:\nA contact periodically forwards Epstein-related news, public records, and commentary to Alan Dershowitz, who responds briefly and infrequently, indicating an uneven and largely one-directional communication.\n\nKEY TOPICS:\nForwarding of articles, editorials, and public-record emails criticizing Jeffrey Epstein\u2019s plea deal, law-enforcement handling, media silence, and the influence of Epstein\u2019s legal team, including Dershowitz.\nCirculation of sensational online commentary and accusations involving public figures such as Bill Clinton, along with broader political reactions.\nA journalist notifying Dershowitz about a new court filing alleging misconduct and requesting comment.\n\nNOTABLE:\nThe volume of forwarded material\u2014ranging from official communications to highly inflammatory online posts\u2014creates a stream of politically charged Epstein coverage being directed at Dershowitz rather than a typical personal or professional exchange."
+    },
+    {
+      "source": 16,
+      "target": 26,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "alan dershowitz",
+          "to": "martin weinberg",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nAlan Dershowitz forwards a media inquiry to fellow attorney Martin Weinberg, indicating a professional relationship and occasional coordination regarding Epstein-related press questions.\n\nKEY TOPICS:\nA FoxNews.com reporter requests clarification about a 2007 letter asserting Jeffrey Epstein was part of the original group behind the Clinton Global Initiative.\nSpecific questions focus on whether Epstein held any formal role\u2014such as board membership or founder status\u2014and what was meant by his involvement.\n\nNOTABLE:\nDershowitz shares the inquiry without commentary, and Weinberg does not respond in the thread, leaving the request unresolved."
+    },
+    {
+      "source": 23,
+      "target": 17,
+      "weight": 139,
+      "width": 4.738317757009346,
+      "directions": [
+        {
+          "from": "michael wolff",
+          "to": "jeevacation@gmail.com",
+          "weight": 80
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "michael wolff",
+          "weight": 59
+        }
+      ],
+      "summary": "RELATIONSHIP: \nThey maintain a strategic, transactional alliance where Wolff solicits insider information and introductions for his books on the Trump administration, while simultaneously providing Epstein with media coaching and PR advice regarding sexual misconduct allegations.\n\nKEY TOPICS:\nTrump Investigations and Book Content: Wolff shares draft excerpts of his writing with Epstein, who provides detailed edits and claims regarding Donald Trump&#x27;s financial dealings, specifically alleging money laundering involving Russian oligarch Dmitry Rybolovlev and a Palm Beach property.\n\nEpstein&#x27;s PR Strategy: Wolff advises Epstein on how to handle media inquiries and pending lawsuits, suggesting he position himself as an anti-Trump figure for &quot;political cover&quot; and strategizing on how to discredit accusers or distance himself from figures like Bill Clinton.\n\nSteve Bannon: The two coordinate meetings between Epstein and Steve Bannon, discussing Bannon&#x27;s estrangement from Trump, his &quot;nationalist-populist&quot; platform, and his potential to bring down the presidency.\n\nNOTABLE:\nSignificantly, Wolff allows Epstein to directly edit book passages to shape the narrative of Trump&#x27;s finances, while Epstein claims he possessed &quot;tapes&quot; and asserts that Bill Clinton was never on his private island."
+    },
+    {
+      "source": 18,
+      "target": 23,
+      "weight": 53,
+      "width": 2.6355140186915884,
+      "directions": [
+        {
+          "from": "darren indyke",
+          "to": "jeevacation@gmail.com",
+          "weight": 35
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "darren indyke",
+          "weight": 18
+        }
+      ],
+      "summary": "RELATIONSHIP: \nDarren Indyke acts as Jeffrey Epstein&#x27;s primary legal gatekeeper and fixer, maintaining a formal attorney-client communication style where he provides a steady stream of media monitoring, legal defense strategies, and financial management. Epstein\u2019s responses are typically terse, directive, and informal, often reacting briefly to news alerts or approving logistical maneuvers.\n\nKEY TOPICS:\nLegal Defense &amp; Media Crisis Management: The majority of the correspondence involves tracking sensitive news stories and managing legal inquiries from outlets like the Daily Mail, ABC News, and the Miami Herald. This includes detailed discussions on specific allegations from Virginia Roberts (Giuffre) regarding sexual abuse and trafficking, as well as the increasing scrutiny on Epstein&#x27;s 2008 plea deal and non-prosecution agreement.\n\nHigh-Profile Political Associations: The pair frequently exchange articles and alerts linking Epstein to powerful figures such as Bill Clinton, Prince Andrew, and Donald Trump. The emails track how these associations impacted the 2016 election cycle and subsequent political landscape, including rape allegations levied against Trump and Clinton&#x27;s connection to Epstein&#x27;s plane.\n\nFinancial Logistics &amp; Art Acquisition: There is a distinct operational thread regarding the movement of funds, the management of bank accounts (preparing checks vs. wires), and the coordination of an art acquisition project involving Etienne Binant in early 2017.\n\nNOTABLE: \nIn a February 10, 2017 email regarding the logistics of the art project, Epstein apologizes for a delay by stating, &quot;sorry with trump around its been very crazy busy&quot; ; the archive concludes with the extensive 2018-2019 Miami Herald &quot;Perversion of Justice&quot; reporting that exposed the leniency of his original plea deal."
+    },
+    {
+      "source": 18,
+      "target": 26,
+      "weight": 6,
+      "width": 1.1401869158878504,
+      "directions": [
+        {
+          "from": "darren indyke",
+          "to": "martin weinberg",
+          "weight": 3
+        },
+        {
+          "from": "martin weinberg",
+          "to": "darren indyke",
+          "weight": 3
+        }
+      ],
+      "summary": "RELATIONSHIP:\nDarren Indyke and Martin Weinberg communicate as part of Jeffrey Epstein\u2019s legal team, sharing information, media inquiries, and legal developments in a professional, coordinated manner. \n\nKEY TOPICS:\nForwarded media inquiries\u2014primarily from The Guardian\u2014seeking comment regarding Epstein\u2019s Swiss bank accounts, legal history, and high-profile associations. \nDiscussion of reputational and litigation strategy, including concerns about an upcoming James Patterson book and suggestions for a public counter-narrative.\nCirculation of news articles on Epstein settlements, the Acosta plea agreement, and timelines of the sex-abuse case to keep counsel informed. \n\nNOTABLE:\nIndyke frequently forwards lengthy news reports and inquiries without added analysis, suggesting a monitoring and information-distribution role within the defense team."
+    },
+    {
+      "source": 18,
+      "target": 15,
+      "weight": 2,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "darren indyke",
+          "to": "fred haddad",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nDarren Indyke forwards urgent media inquiries to Fred Haddad, indicating a professional relationship focused on coordinating Epstein-related legal and press responses.\n\nKEY TOPICS:\nA reporter from The Mail on Sunday requests comment regarding Bradley Edwards\u2019 lawsuit accusing Epstein of intimidation.\nAllegations involving underage trafficking, including claims about Prince Andrew, President Clinton, and other men named in Epstein\u2019s address book.\n\nNOTABLE:\nIndyke provides no discussion or guidance\u2014only the forwarded inquiries\u2014suggesting rapid internal notification rather than deliberated media strategy."
+    },
+    {
+      "source": 23,
+      "target": 19,
+      "weight": 37,
+      "width": 2.4485981308411215,
+      "directions": [
+        {
+          "from": "larry visoski",
+          "to": "jeevacation@gmail.com",
+          "weight": 31
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "larry visoski",
+          "weight": 6
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Larry Visoski communicate in a highly logistical, business-like manner, with Visoski (Epstein\u2019s longtime pilot) providing continuous operational updates and Epstein giving brief confirmations. \n\nKEY TOPICS:\nFlight logistics and scheduling, including detailed planning of departure times, customs procedures, fuel calculations, aircraft maintenance, and coordination for trips to destinations such as New York, St. Thomas, Newark, Paris, Brunswick, and Cuba. \nAirspace, TSA, and airport restrictions caused by President Trump\u2019s travel, which repeatedly affect Epstein\u2019s aircraft routing, allowable airports, screening requirements, arrival/departure windows, and last-minute schedule changes at PBI, Boca, Fort Lauderdale, and other gateway airports. \nRegulatory and compliance matters, including Cuba-travel authorization forms, passenger documentation, pre-clear customs procedures, and 24-hour passenger-list requirements during Temporary Flight Restrictions (TFRs). \n\nNOTABLE:\nThe frequency and depth of coordination around Donald Trump\u2019s movements\u2014often down to exact arrival and departure times\u2014make the thread unusually dominated by presidential TFR impacts on Epstein\u2019s private flights."
+    },
+    {
+      "source": 20,
+      "target": 23,
+      "weight": 3,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "jay lefkowitz",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "jay lefkowitz",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and attorney Jay Lefkowitz communicate professionally about managing press inquiries, with Lefkowitz acting as an intermediary between reporters and Epstein. \n\nKEY TOPICS:\nA reporter from *The Wall Street Journal* sends Lefkowitz an extensive list of interview questions covering Epstein\u2019s business activities, time in prison, social life, scientific foundation, ties to Ghislaine Maxwell, and charitable work with Bill Clinton. \nLefkowitz insists that all factual questions be routed through him due to inaccurate or defamatory prior coverage, offering to provide controlled responses. \nEpstein forwards the message back to Lefkowitz, indicating he is reviewing the inquiry but providing no direct answers. \n\nNOTABLE:\nThe reporter\u2019s questions probe deeply into Epstein\u2019s activities and relationships, reflecting early efforts by major media to scrutinize him years before later scandals exploded publicly."
+    },
+    {
+      "source": 18,
+      "target": 20,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "jay lefkowitz",
+          "to": "darren indyke",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nAttorney Jay Lefkowitz forwards a journalist\u2019s inquiry to Darren Indyke, reflecting a professional relationship centered on coordinating Epstein-related media responses.\n\nKEY TOPICS:\nA reporter seeks to interview Jeffrey Epstein and submits detailed questions about his business activities, philanthropy, social life, time in prison, and associations.\nLefkowitz expresses concern about inaccurate past press coverage and requests that factual questions be routed through him to ensure accurate responses.\n\nNOTABLE:\nThe journalist\u2019s questions directly reference Epstein\u2019s ties to figures like Ghislaine Maxwell and Bill Clinton, indicating ongoing public scrutiny of his network and activities."
+    },
+    {
+      "source": 23,
+      "target": 21,
+      "weight": 4,
+      "width": 1.1401869158878504,
+      "directions": [
+        {
+          "from": "lang, caroline",
+          "to": "jeevacation@gmail.com",
+          "weight": 3
+        },
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "lang, caroline",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Caroline Lang exchange brief, friendly messages centered on social coordination with her father (Jack Lang) and light political commentary, indicating an informal, acquaintance-level relationship. \n\nKEY TOPICS:\nArranging meetings in Paris, including attending the Herg\u00e9/Tintin exhibition at the Grand Palais and coordinating whether Epstein\u2019s assistants could join. \nCaroline updating Epstein on her father\u2019s health and mood, noting he was tired and depressed by the U.S. presidential campaign. \nPolitical commentary about Trump, including Epstein joking that Jack Lang should move to the U.S. and repeating his prediction that investigators would \u201cgo after [Trump\u2019s] family first.\u201d \n\nNOTABLE:\nDespite being a minimal thread, the exchange shows Epstein engaging comfortably with the Lang family on both cultural outings and real-time political predictions."
+    },
+    {
+      "source": 0,
+      "target": 21,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "lang, caroline",
+          "to": "jack lang",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nCaroline Lang replies briefly to a message that Jeffrey Epstein originally sent to Jack Lang and copied to her, indicating an informal, acquaintance-level communication loop connected through Jack Lang. \n\nKEY TOPICS:\nEpstein shares a political prediction that investigations into Donald Trump would \u201cfirst go after his family.\u201d \nCaroline Lang acknowledges receiving this political news and commentary. \n\nNOTABLE:\nThe message shows Epstein broadcasting political analysis to both Jack Lang and Caroline Lang, suggesting he viewed them as part of the same conversational circle."
+    },
+    {
+      "source": 22,
+      "target": 25,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "sean bannon",
+          "to": "steve bannon",
+          "weight": 1
+        },
+        {
+          "from": "steve bannon",
+          "to": "sean bannon",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nSteve Bannon and Sean Bannon exchange brief, informal messages, showing a familiar and collaborative communication pattern involving forwarded political content and coordination on media materials.\n\nKEY TOPICS:\n\nSteve forwards an article praising his political influence in Europe, with Jeffrey adding travel updates and suggesting planning a strategy meeting.\nThe thread highlights Bannon\u2019s ongoing international political activities and discussions around perceptions of his influence.\nA separate exchange concerns obtaining the latest version of a film titled *Trump@War*.\n\nNOTABLE:\nThe German media article forwarded within the thread portrays Steve Bannon as a significant and strategic figure in global right-wing populist movements."
+    },
+    {
+      "source": 23,
+      "target": 22,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "sean bannon",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Sean Bannon communicate briefly and cordially, with Sean acknowledging logistics and thanking Jeffrey after what appears to have been an in-person meeting or discussion. \n\nKEY TOPICS:\n\nJeffrey\u2019s sudden change in travel plans after speaking with a \u201ccountry leader\u201d and his intention to regroup in New York later that week to plan strategy.\nCirculation of a forwarded article about European media reactions to Steve Bannon\u2019s political activities, indicating shared interest in geopolitical or populist-movement developments. \n\nNOTABLE:\nThe thread includes direct participation from Steve Bannon, who forwards international press coverage portraying him as influential and strategically impactful."
+    },
+    {
+      "source": 23,
+      "target": 26,
+      "weight": 35,
+      "width": 1.8411214953271027,
+      "directions": [
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "martin weinberg",
+          "weight": 17
+        },
+        {
+          "from": "martin weinberg",
+          "to": "jeevacation@gmail.com",
+          "weight": 18
+        }
+      ],
+      "summary": "RELATIONSHIP:\nMartin Weinberg served as a primary attorney for Jeffrey Epstein, with their email communication consisting primarily of Weinberg forwarding media inquiries and legal strategy to Epstein, and Epstein providing direct, often brief, instructions and notifications.\n\nKEY TOPICS:\nManaging media scrutiny and public relations, including responding to numerous press inquiries about Epstein&#x27;s associations with high-profile figures like Bill Clinton, Donald Trump, and Prince Andrew.\n\nLegal defense and strategy concerning the 2008 plea deal and the subsequent Crime Victims&#x27; Rights Act (CVRA) lawsuit, including efforts to challenge new allegations and victim claims.\n\nMonitoring and discussing publications (books, articles, awards) related to Epstein&#x27;s case, such as the Miami Herald&#x27;s &quot;Perversion of Justice&quot; series and a planned book by James Patterson.\n\nNOTABLE:\nEpstein was directly and actively involved in monitoring media coverage and discussing strategic counter-narratives, including one proposal to become a public &quot;anti-Trump voice&quot; for &quot;political cover.&quot;"
+    },
+    {
+      "source": 23,
+      "target": 25,
+      "weight": 65,
+      "width": 2.7757009345794392,
+      "directions": [
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "steve bannon",
+          "weight": 27
+        },
+        {
+          "from": "steve bannon",
+          "to": "jeevacation@gmail.com",
+          "weight": 38
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey and Steve Bannon maintain a highly active, informal, and strategic relationship, frequently exchanging political news, policy ideas, intelligence gossip, and coordination on projects involving cryptocurrencies and international political figures. \n\nKEY TOPICS:\n\nExtensive discussions on cryptocurrency policy, regulatory risks, tax treatment, donor flows, and potential use of blockchain technologies in political organizing.\nOngoing exchanges about U.S. and international political developments, including Trump administration dynamics, Mueller investigation updates, foreign leaders, European populist movements, and geopolitical events.\nPlanning and coordination of in-person meetings, dinners, introductions to high-level contacts, and collaboration on strategy related to political projects, think-tank concepts, and outreach to global figures. \n\nNOTABLE:\nThe emails repeatedly blend political strategizing with cryptocurrency planning and include references to high-level global officials, intelligence-related topics, and sensitive discussions normally outside typical personal correspondence."
+    },
+    {
+      "source": 2,
+      "target": 23,
+      "weight": 1,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "christina galbraith",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein briefly replies to Christina Galbraith, who appears to manage or relay PR-related correspondence to him, indicating a minimal and business-like communication pattern.\n\nKEY TOPICS:\nA forwarded message from an acquaintance commenting on Epstein\u2019s recent press attention and congratulating him on his financial success since teaching physics at Dalton.\nEpstein responds only to ask what a mutual acquaintance, David, is doing.\n\nNOTABLE:\nThe email references Epstein being toasted by former associates and nostalgically linked to his past as a Dalton teacher, an uncommon detail in most correspondence."
+    },
+    {
+      "source": 23,
+      "target": 24,
+      "weight": 2,
+      "width": 1.0467289719626167,
+      "directions": [
+        {
+          "from": "jeevacation@gmail.com",
+          "to": "melanie walker",
+          "weight": 1
+        },
+        {
+          "from": "melanie walker",
+          "to": "jeevacation@gmail.com",
+          "weight": 1
+        }
+      ],
+      "summary": "RELATIONSHIP:\nJeffrey Epstein and Melanie Walker communicate informally and supportively, sharing news articles and personal reactions to allegations and political developments.\n\nKEY TOPICS:\n\nDiscussion of a fabricated sexual assault claim against Epstein and Donald Trump, as reported in a Daily Mail article.\n\nEpstein sharing a Fox News article about Trump expanding the ban on abortion funding overseas, with a note implying prior knowledge.\n\nNOTABLE:\nEpstein used the article about Trump&#x27;s policy to affirm a previous statement or prediction, highlighting his engagement with political news following personal controversies."
+    },
+    {
+      "source": 17,
+      "target": 25,
+      "weight": 2,
+      "width": 1.0934579439252337,
+      "directions": [
+        {
+          "from": "steve bannon",
+          "to": "michael wolff",
+          "weight": 2
+        }
+      ],
+      "summary": "RELATIONSHIP:\nSteve Bannon and Michael Wolff exchange brief, informal messages, showing a familiar, conversational relationship where Bannon responds with short reactions to Wolff\u2019s forwarded journalism-related content.\n\nKEY TOPICS:\n\nWolff forwards news about the 2019 Hillman Prize winners, including the Miami Herald\u2019s Epstein investigation and other major reporting awards.\nBannon replies with terse comments (\u201cPile on\u201d and \u201cFix always in\u201d), indicating dismissive or critical reactions to the media institutions and judges involved.\nWolff remarks on the judges as \u201cthe right-thinking establishment,\u201d prompting further reaction from Bannon.\n\nNOTABLE:\nThe thread contains minimal dialogue but reflects Bannon\u2019s negative view of the award\u2019s judging panel and journalism establishment."
+    },
+    {
+      "source": 7,
+      "target": 26,
+      "weight": 3,
+      "width": 1.1401869158878504,
+      "directions": [
+        {
+          "from": "martin weinberg",
+          "to": "kathy ruemmler",
+          "weight": 3
+        }
+      ],
+      "summary": "RELATIONSHIP:\nMartin Weinberg, acting as legal counsel, forwards high-priority correspondence regarding media inquiries, witness statements, and public relations strategy concerning Jeffrey Epstein to Kathy Ruemmler, likely a fellow legal team member.\n\nKEY TOPICS:\nABC News Allegations: Weinberg shared an inquiry from ABC News regarding an interview with &quot;Jane Doe #3,&quot; who alleged she was recruited by Ghislaine Maxwell at age 15 and forced to have sex with Epstein and his friends, including Prince Andrew. The allegations also claimed she met Bill Clinton on Epstein&#x27;s island.\n\nWitness Affidavit regarding Clinton: Weinberg circulated an email from Miles Alexander, the island manager from 1999 to 2007, who stated he was willing to sign an affidavit denying that Bill Clinton or Al Gore ever visited Little St. James during his tenure.\n\nMedia Strategy and &quot;Anti-Trump&quot; Pivot: The thread includes advice from Michael Wolff suggesting Epstein create an &quot;immediate counter narrative&quot; to an upcoming James Patterson book by becoming an &quot;anti-Trump voice&quot; to gain &quot;political cover&quot;.\n\nNOTABLE:\nIt is significant that Michael Wolff explicitly advised Epstein that positioning himself as an anti-Trump voice would provide him with political cover he &quot;decidedly [didn&#x27;t] have&quot; at the time."
+    }
+  ],
+  "stats": {
+    "num_nodes": 27,
+    "num_edges": 48,
+    "summaries_loaded": 48,
+    "summaries_missing": 0
+  }
+}

@@ -5,12 +5,42 @@
     <link>https://alvarofrancomartins.com/tag/data-visualization/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/data-visualization/index.xml" rel="self" type="application/rss+xml" />
     <description>Data Visualization</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Mar 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Data Visualization</title>
       <link>https://alvarofrancomartins.com/tag/data-visualization/</link>
     </image>
+    
+    <item>
+      <title>Mapping Epstein&#39;s Email Network with K-Core Decomposition and AI-Generated Relationship Summaries</title>
+      <link>https://alvarofrancomartins.com/post/epstein_email_network/</link>
+      <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/epstein_email_network/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;This project combines advanced graph analysis with artificial intelligence to visualize and understand email communication networks. The visualization uses k-core decomposition to identify densely connected groups and leverages large language models to automatically generate relationship summaries from email content.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/alvarofrancomartins/content/post/epstein_email_network/network_undirected.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Click here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;k-core-decomposition&#34;&gt;K-Core Decomposition&lt;/h2&gt;
+&lt;p&gt;K-core decomposition is a graph algorithm that identifies the most densely connected subgraph by iteratively removing nodes with fewer connections than a threshold k. This approach reveals the core group of individuals with the strongest communication ties, filtering out peripheral connections to focus on the most interconnected network members.
+The algorithm works by progressively peeling away outer layers of the network until only the densest core remains. This provides a natural way to identify influential nodes and cohesive subgroups within large communication networks.&lt;/p&gt;
+&lt;h2 id=&#34;ai-powered-relationship-summaries&#34;&gt;AI-Powered Relationship Summaries&lt;/h2&gt;
+&lt;p&gt;The distinctive feature of this visualization is the integration of large language models to automatically generate relationship summaries between any two individuals. When selecting two people in the network, the system analyzes their complete email history and produces a natural language summary of their documented interactions.
+This represents a novel application of AI to communication analysis. Rather than manually reading through potentially hundreds of emails, the LLM synthesizes the relationship dynamics, key topics discussed, and interaction patterns into concise summaries. This approach enables network analysis at scale while preserving qualitative insights from the correspondence.&lt;/p&gt;
+&lt;p&gt;The system displays both quantitative metrics (total emails exchanged, directional counts) and AI-generated contextual summaries, providing a comprehensive view of each relationship.&lt;/p&gt;
+&lt;h2 id=&#34;technical-implementation&#34;&gt;Technical Implementation&lt;/h2&gt;
+&lt;p&gt;The visualization combines several technologies:&lt;/p&gt;
+&lt;p&gt;D3.js for interactive network rendering with drag-and-drop node positioning
+K-core decomposition algorithm for network analysis
+Large language models for relationship extraction and summarization
+File-based architecture for individual node descriptions&lt;/p&gt;
+&lt;p&gt;Users can explore the network by selecting pairs of individuals to view their relationship details, or clicking individual nodes to access biographical information. The interface highlights connected nodes and edges dynamically, making it easy to understand local network structure around any person.
+Methodology&lt;/p&gt;
+&lt;p&gt;Email correspondence data was processed through a multi-stage pipeline. First, the k-core decomposition algorithm identified the core network members based on connection density. Then, for each pair of connected individuals, their email threads were extracted and passed to a large language model with instructions to summarize the nature of their relationship and key interaction topics.
+Individual node descriptions were compiled from available biographical sources and stored as text files, allowing for easy updates and manual curation when needed.&lt;/p&gt;
+&lt;h2 id=&#34;disclaimer&#34;&gt;Disclaimer&lt;/h2&gt;
+&lt;p&gt;Inclusion in this network reflects email correspondence only and does not imply wrongdoing by any individual. Relationships are summarized by AI using email content and may contain inaccuracies. This visualization is for research and network mapping purposes only, not to make accusations or implications about any individual shown.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Sensibilidade, especificidade e curvas ROC: Um guia visual para não se confundir mais!</title>

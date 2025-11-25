@@ -1,0 +1,450 @@
+================================================================================
+EMAIL RELATIONSHIP: jeevacation@gmail.com ↔ zubair khan
+Total Emails: 9
+  jeevacation@gmail.com → zubair khan: 1 emails
+  zubair khan → jeevacation@gmail.com: 8 emails
+================================================================================
+
+
+================================================================================
+EMAIL #1
+================================================================================
+Date: 9/15/2016 5:02:37 PM
+Subject: Re:
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Please find attached US Election Report. 
+Regards, 
+Zubair 
+HOUSE OVERSIGHT 032280
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #2
+================================================================================
+Date: 9/27/2016 9:46:03 PM
+Subject: Update on US Elections
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+We have processed 943,338 tweets since the start of the presidential debate till now. 
+Clinton's popularity has increased dramatically since the debate. According to our recent data, 62% support 
+Clinton and 38% Trump. 
+Clinton is now more popular in New York, California and Michigan. She is likely to win in these states with 
+huge margins. Clinton has also gained popularity in Texas (Clinton 65% - Trump 35%). 
+Trump has huge support in Ohio (90% Trump - 10% Clinton) and in New Jersey. 
+Regards, 
+Zubair 
+On Sep 25, 2016, at 11:12 PM, Zubair Khan < 
+Sure. Let me know your availability. 
+Regards, 
+> wrote: 
+On Sep 25, 2016, at 11:09 PM, jeffrey E. <jeevacation@gmail.com> wrote: 
+Skype this week? 
+On Sunday, 25 September 2016, Zubair Khan < > wrote: 
+Hi Jeffrey, 
+Please find attached InsightsPod business plan for your consideration. 
+Since Twitter is live streaming the presidential debates, the social media activity will accelerate and it will help 
+us in making better predictions of outcome. It was apparent from the US Election report, which I sent you 
+previously that we need a Data Scientist who can translate our data into better insights. Taking this into 
+account I hope you can help us by backing this venture. 
+Thanks, 
+Zubair 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+HOUSE OVERSIGHT 033171 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 033172
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #3
+================================================================================
+Date: 10/13/2016 1:39:13 PM
+Subject: US Election Update
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Hi Jeffrey, 
+Since the start of 2nd US Presidential Election debate till now, we have processed 3.1 million tweets. 
+Here is the performance of candidates: 
+1. Donald Trump 11.80% (Positive), 15.66% (Neutral), 72.54% (Negative) 
+2. Hillary Clinton 40.70% (Positive), 19.09% (Neutral), 40.21% (Negative) 
+Winning Chances: 
+1. Clinton 72% 
+2. Trump 28% 
+Winning chances in US States: 
+1. Clinton: New York (84%), California (75%), North Carolina (64%), Florida (75%), Washington (52%), Ohio 
+(96%), New Jersey (70%) 
+2. Trump: Texas (66%) 
+Regards, 
+Zubair Khan 
+HOUSE OVERSIGHT 033175
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #4
+================================================================================
+Date: 10/29/2016 1:40:09 PM
+Subject: Re:
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Hi Jeffrey, 
+Looks like Trump is back in game. We processed 11 million tweets this week for Trump and 50.03% are 
+positive and only 20.66% are negative whereas Clinton is 56.05% negative and 20.03% positive. 
+We are trying to correlate that into popular vote outcome and electoral votes received. 
+Regards, 
+Zubair 
+On Sep 15, 2016, at 5:15 AM, Zubair Khan wrote: 
+Hi Jeffrey, 
+We are in the process of removing data from bots and making a clean report which I will share with you in few 
+hours. Overall Trump is way more popular than Clinton. 
+Regards, 
+Zubair 
+On Sep 14, 2016, at 8:04 PM, jeffrey E. <jeevacation@gmail.com> wrote: 
+what is your heat map showign for trump clinton 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 032319
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #5
+================================================================================
+Date: 11/4/2016 12:43:32 PM
+Subject: Election Update
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Hi Jeffrey, 
+According to InsightsPod Trump is more popular. We processed 3 million tweets this week. 
+I have attached detailed report. 
+Regards, 
+Zubair 
+HOUSE OVERSIGHT 032323
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #6
+================================================================================
+Date: 11/4/2016 1:07:21 PM
+Subject: Re: Election Update
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Trump is definitely winning popular vote so far. According to our data winning chances of Trump are 52% in 
+Electoral college. 
+On Nov 4, 2016, at 5:46 PM, jeffrey E. <jeevacation@gmail.com> wrote: 
+thats in the popular vote , not talking into account the elctoral college? 
+On Fri, Nov 4, 2016 at 1:43 PM, Zubair Khan wrote: 
+Hi Jeffrey, 
+According to InsightsPod Trump is more popular. We processed 3 million tweets this week. 
+I have attached detailed report. 
+Regards, 
+Zubair 
+On Oct 9, 2016, at 4:06 PM, jeffrey E. <jeevacation@gmail.com> wrote: 
+jeevacation 
+On Sat, Oct 8, 2016 at 11:20 PM, Zubair Khan wrote: 
+What is your Skype ID? 
+Thanks. 
+On Saturday, 8 October 2016, jeffrey E. <jeevacation@gmail.com> wrote: 
+yes 
+On Sat, Oct 8, 2016 at 7:07 AM, Zubair Khan wrote: 
+Hi Jeffrey, 
+Are you available to talk today? 
+Regards, 
+Zubair 
+On Oct 6, 2016, at 11:24 AM, jeffrey E. <jeevacation@gmail.com> wrote: 
+skyype good this weekend? 
+HOUSE OVERSIGHT 032325 
+On Thu, Oct 6, 2016 at 5:42 AM, Zubair Khan________________________wrote: 
+Hi Jeffrey, 
+Just wondered if you have time to discuss the business plan of InsightsPod on Skype or if you prefer I can 
+meet you in person after 19th Oct. 
+Regards, 
+Zubair 
+On Sunday, 25 September 2016, jeffrey E. <jeevacation@gmail.com> wrote: 
+Skype this week? 
+On Sunday, 25 September 2016, Zubair Khan_________________________wrote: 
+Hi Jeffrey, 
+Please find attached InsightsPod business plan for your consideration. 
+Since Twitter is live streaming the presidential debates, the social media activity will accelerate and it 
+will help us in making better predictions of outcome. It was apparent from the US Election report, which 
+I sent you previously that we need a Data Scientist who can translate our data into better insights. Taking 
+this into account I hope you can help us by backing this venture. 
+Thanks, 
+Zubair 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+Best regards, 
+Zubair Khan 
+Chief Executive Officer I Tranchulas 
+London I San Francisco I Auckland I Islamabad 
+email: 
+I web: www.tranchulas.com 
+HOUSE OVERSIGHT 032326 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+Best regards, 
+Zubair Khan 
+Chief Executive Officer I Tranchulas 
+London I San Francisco I Auckland I Islamabad 
+email: I web: www.tranchulas.com 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+HOUSE OVERSIGHT 032327 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 032328
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #7
+================================================================================
+Date: 11/11/2016 5:21:53 AM
+Subject: Re:
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Out of 13 states we got 11 right. The ones we got wrong are NY and WI. 
+In the last report, analyzed data was of 3 days in which Clinton got a positive spike after she got clearance from 
+FBI. However Trump dominated the social media positively if we analyze one week data before starting time of 
+election, monthly data and entire data which we have gathered for months. Based on this we predicted on our 
+Facebook page on 30th October that Trump will be next president of US. 
+Our model works but I think the important question which we failed to answer is that how much historic data 
+must be analyzed to make the right decision. This could have been answered if we had a Data Scientist. Also I 
+believe its a great tool to track voters and get them to vote. It can be used in French elections next year or 
+elections of Brazil in 2018 but unfortunately I have to shut down this project as getting data from Twitter is 
+expensive and the start up is running out of money. 
+I am going to focus on cyber security again and will definitely reach out if I have a powerful investable idea. 
+Regards, 
+Zubair Khan 
+On Nov 11, 2016, at 4:49 AM, jeffrey E. <jeevacation@gmail.com> wrote: 
+not so good 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 031518
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #8
+================================================================================
+Date: 11/11/2016 5:29:35 AM
+Subject: Re:
+From: jeevacation@gmail.com
+To: zubair khan
+Direction: jeevacation@gmail.com → zubair khan
+--------------------------------------------------------------------------------
+New York ? How ? It was hillary no doubt always 
+On Friday, 11 November 2016, Zubair Khan <> wrote: 
+Out of 13 states we got 11 right. The ones we got wrong are NY and WI. 
+In the last report, analyzed data was of 3 days in which Clinton got a positive spike after she got clearance 
+from FBI. However Trump dominated the social media positively if we analyze one week data before starting 
+time of election, monthly data and entire data which we have gathered for months. Based on this we predicted 
+on our Facebook page on 30th October that Trump will be next president of US. 
+Our model works but I think the important question which we failed to answer is that how much historic data 
+must be analyzed to make the right decision. This could have been answered if we had a Data Scientist. Also I 
+believe its a great tool to track voters and get them to vote. It can be used in French elections next year or 
+elections of Brazil in 2018 but unfortunately I have to shut down this project as getting data from Twitter is 
+expensive and the start up is running out of money. 
+I am going to focus on cyber security again and will definitely reach out if I have a powerful investable idea. 
+Regards, 
+Zubair Khan 
+On Nov 11, 2016, at 4:49 AM, jeffrey E. <jeevacation@gmail.com> wrote: 
+not so good 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 031640 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 031641
+--------------------------------------------------------------------------------
+
+
+================================================================================
+EMAIL #9
+================================================================================
+Date: 11/11/2016 6:34:29 AM
+Subject: Re:
+From: zubair khan
+To: jeevacation@gmail.com
+Direction: zubair khan → jeevacation@gmail.com
+--------------------------------------------------------------------------------
+Just checked report again. NY is correct. We only got WI wrong. 
+Regards, 
+Zubair 
+On Fri, 11 Nov 2016 at 10:29 am, jeffrey E. <jeevacation@gmail.com> wrote: 
+New York ? How ? It was hillary no doubt always 
+On Friday, 11 November 2016, Zubair Khan ‘1> wrote: 
+Out of 13 states we got 11 right. The ones we got wrong are NY and WI. 
+In the last report, analyzed data was of 3 days in which Clinton got a positive spike after she got clearance 
+from FBI. However Trump dominated the social media positively if we analyze one week data before starting 
+time of election, monthly data and entire data which we have gathered for months. Based on this we predicted 
+on our Facebook page on 30th October that Trump will be next president of US. 
+Our model works but I think the important question which we failed to answer is that how much historic data 
+must be analyzed to make the right decision. This could have been answered if we had a Data Scientist. Also I 
+believe its a great tool to track voters and get them to vote. It can be used in French elections next year or 
+elections of Brazil in 2018 but unfortunately I have to shut down this project as getting data from Twitter is 
+expensive and the start up is running out of money. 
+I am going to focus on cyber security again and will definitely reach out if I have a powerful investable idea. 
+Regards, 
+Zubair Khan 
+On Nov 11, 2016, at 4:49 AM, jeffrey E. <jeevacation@gmail.com> wrote: 
+not so good 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+HOUSE OVERSIGHT 031521 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+please note 
+The information contained in this communication is 
+confidential, may be attorney-client privileged, may 
+constitute inside information, and is intended only for 
+the use of the addressee. It is the property of 
+JEE 
+Unauthorized use, disclosure or copying of this 
+communication or any part thereof is strictly prohibited 
+and may be unlawful. If you have received this 
+communication in error, please notify us immediately by 
+return e-mail or by e-mail to jeevacation@gmail.com, and 
+destroy this communication and all copies thereof, 
+including all attachments. copyright -all rights reserved 
+HOUSE OVERSIGHT 031522
+--------------------------------------------------------------------------------
+
