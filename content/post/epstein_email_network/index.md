@@ -23,7 +23,7 @@ tags:
 categories:
 - artificial_intelligence
 
-toc: true
+toc: false
 
 image:
   placement: 2
