@@ -33,7 +33,7 @@ image:
 
 ## Overview
 
-On November 12th, 2024, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein's estate, containing extensive email correspondence. 
+On November 12th, 2025, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein's estate, containing extensive email correspondence. 
 
 <br>
 

@@ -18,7 +18,7 @@
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/epstein_email_network/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;On November 12th, 2024, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein&amp;rsquo;s estate, containing extensive email correspondence.&lt;/p&gt;
+&lt;p&gt;On November 12th, 2025, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein&amp;rsquo;s estate, containing extensive email correspondence.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;This post analyzes that email data by combining graph analysis with artificial intelligence. The visualization uses k-core decomposition to identify Epstein&amp;rsquo;s most densely connected contacts and leverages large language models to automatically generate relationship summaries from the email content.&lt;/p&gt;
 &lt;br&gt;
