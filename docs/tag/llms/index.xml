@@ -13,30 +13,19 @@
     </image>
     
     <item>
-      <title>Epstein&#39;s Email Core Network</title>
+      <title>Inside Epstein’s Email Web</title>
       <link>https://alvarofrancomartins.com/post/epstein_email_network/</link>
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/epstein_email_network/</guid>
       <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-&lt;p&gt;This post combines advanced graph analysis with artificial intelligence to visualize and understand email communication networks. The visualization uses k-core decomposition to identify densely connected groups and leverages large language models to automatically generate relationship summaries from email content. &lt;a href=&#34;https://alvarofrancomartins.com/post/epstein_email_network/network_undirected.html&#34; target=&#34;_blank&#34;&gt;Click here&lt;/a&gt; to explore the network and its connections.
-&lt;img src=&#34;images/screen.png&#34; width=&#34;1000&#34; alt=&#34;Description of the image&#34; title=&#34;Description of the image&#34;/&gt;&lt;/p&gt;
-&lt;h2 id=&#34;methodology&#34;&gt;Methodology&lt;/h2&gt;
-&lt;p&gt;After (a lot of data cleaning) I created the entire directed network (connecting people where emails from to). Then I identified influential nodes and cohesive extracted using k-core&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; graph algorithm.&lt;/p&gt;
+&lt;p&gt;On November 12th, 2024, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein&amp;rsquo;s estate, containing extensive email correspondence.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;The distinctive feature of this visualization is the integration of large language models to automatically generate relationship summaries between any two individuals. When selecting two people in the network, the system analyzes their complete email history and produces a natural language summary of their documented interactions.
-This represents a novel application of AI to communication analysis. Rather than manually reading through potentially hundreds of emails, the LLM synthesizes the relationship dynamics, key topics discussed, and interaction patterns into concise summaries. This approach enables network analysis at scale while preserving qualitative insights from the correspondence.&lt;/p&gt;
+&lt;p&gt;This post analyzes that email data by combining graph analysis with artificial intelligence. The visualization uses k-core decomposition to identify Epstein&amp;rsquo;s most densely connected contacts and leverages large language models to automatically generate relationship summaries from the email content.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Users can explore the network by selecting pairs of individuals to view their relationship details, or clicking individual nodes to access biographical information. The interface highlights connected nodes and edges dynamically, making it easy to understand local network structure around any person.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/post/epstein_email_network/network_undirected.html&#34; target=&#34;_blank&#34;&gt;Click here&lt;/a&gt; to explore the interactive network. See a demonstration below.
+&lt;img src=&#34;images/screen.gif&#34; width=&#34;1200&#34; alt=&#34;Description of the image&#34; title=&#34;Description of the image&#34;/&gt;&lt;/p&gt;
 &lt;h2 id=&#34;disclaimer&#34;&gt;Disclaimer&lt;/h2&gt;
-&lt;p&gt;Inclusion in this network reflects email correspondence only and does not imply wrongdoing by any individual. Relationships are summarized by AI using email content and may contain inaccuracies. This visualization is for research and network mapping purposes only, not to make accusations or implications about any individual shown.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
-&lt;hr&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;K-core decomposition is a graph algorithm that identifies the most densely connected subgraph by iteratively removing nodes with fewer connections than a threshold k. This approach reveals the core group of individuals with the strongest communication ties, filtering out peripheral connections to focus on the most interconnected network members. The algorithm works by progressively peeling away outer layers of the network until only the densest core remains. This provides a natural way to identify influential nodes and cohesive subgroups within large communication networks.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/section&gt;
+&lt;p&gt;Relationships are summarized by AI using email content and may contain inaccuracies. This visualization is for research and network mapping purposes only, not to make accusations or implications about any individual. Inclusion in this network reflects email correspondence only and does not imply wrongdoing by any individual.&lt;/p&gt;
 </description>
     </item>
     
