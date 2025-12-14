@@ -5,12 +5,27 @@
     <link>https://alvarofrancomartins.com/post/</link>
       <atom:link href="https://alvarofrancomartins.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Posts</title>
       <link>https://alvarofrancomartins.com/post/</link>
     </image>
+    
+    <item>
+      <title>numero de mortes</title>
+      <link>https://alvarofrancomartins.com/post/acidentes-transito/</link>
+      <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/acidentes-transito/</guid>
+      <description>&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+&lt;p&gt;On November 12th, 2025, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein&amp;rsquo;s estate, containing extensive email correspondence.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This post analyzes that email data by combining graph analysis with artificial intelligence. The visualization uses k-core decomposition to identify Epstein&amp;rsquo;s most densely connected contacts and leverages large language models to automatically generate relationship summaries from the email content.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;a href=&#34;https://alvarofrancomartins.com/post/acidentes-transito/index.html&#34; target=&#34;_blank&#34;&gt;Click here&lt;/a&gt; to explore the interactive network. See a demonstration below.&lt;/p&gt;
+&lt;!-- &lt;img src=&#34;images/screen.gif&#34; width=&#34;1200&#34; alt=&#34;Description of the image&#34; title=&#34;Description of the image&#34;/&gt; --&gt;
+</description>
+    </item>
     
     <item>
       <title>Inside Epstein’s Email Web</title>
