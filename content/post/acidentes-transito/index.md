@@ -36,5 +36,5 @@ This post analyzes that email data by combining graph analysis with artificial i
 
 <br>
 
-<a href="https://alvarofrancomartins.com/post/acidentes-transito/numero_mortes_transito.html" target="_blank">Click here</a> to explore the interactive network. See a demonstration below.
-<!-- <img src="images/screen.gif" width="1200" alt="Description of the image" title="Description of the image"/> -->
+
+{{< include-html "content/post/acidentes-transito/numero_mortes_transito.html" >}}

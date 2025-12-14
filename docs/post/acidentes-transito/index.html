@@ -828,8 +828,498 @@ text-align: justify;
 <br>
 <p>This post analyzes that email data by combining graph analysis with artificial intelligence. The visualization uses k-core decomposition to identify Epstein&rsquo;s most densely connected contacts and leverages large language models to automatically generate relationship summaries from the email content.</p>
 <br>
-<p><a href="https://alvarofrancomartins.com/post/acidentes-transito/numero_mortes_transito.html" target="_blank">Click here</a> to explore the interactive network. See a demonstration below.</p>
-<!-- <img src="images/screen.gif" width="1200" alt="Description of the image" title="Description of the image"/> -->
+
+<!-- 
+  INSTRUCTIONS FOR HUGO:
+  1. Copy everything below this comment.
+  2. Paste it into your Markdown file (if 'unsafe' HTML is enabled) 
+     OR create a shortcode (e.g., layouts/shortcodes/heatmap.html) and use {{< heatmap >}}.
+  3. Ensure the .csv files are accessible in your 'static/data/' folder or adjust the 'filename' path in the JS below.
+-->
+
+<style>
+    /* Scoped CSS Variables */
+    #hm_wrapper {
+        --hm-bg-color: #f0f2f5;
+        --hm-card-bg: #ffffff;
+        --hm-text-color: #333;
+        --hm-cell-empty: #f7f7f7;
+        --hm-primary-red: 200, 0, 0;
+        
+        /* Reset basic font styles for this container */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        color: var(--hm-text-color);
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Loading Indicator */
+    #hm_loadingOverlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255,255,255,0.9);
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: opacity 0.5s;
+        border-radius: 8px;
+    }
+
+    .hm_spinner {
+        width: 40px; height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #333;
+        border-radius: 50%;
+        animation: hm_spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+
+    @keyframes hm_spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Title */
+    #hm_wrapper h2 {
+        margin: 0 0 20px 0;
+        font-weight: 300;
+        color: #444;
+        text-align: center;
+    }
+
+    /* Controls */
+    .hm_controls {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        z-index: 2000;
+    }
+
+    .hm_btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .hm_btn:active { transform: scale(0.95); }
+    .hm_btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* 3D Scene */
+    .hm_scene {
+        width: 900px;
+        height: 600px;
+        perspective: 1500px;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 950px) { .hm_scene { width: 95vw; height: 60vh; } }
+
+    .hm_book {
+        width: 100%; height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(10deg) rotateY(10deg); 
+        transition: transform 0.5s;
+    }
+
+    /* Page Styles */
+    .hm_page {
+        position: absolute;
+        width: 100%; height: 100%;
+        background-color: var(--hm-card-bg);
+        border-radius: 6px;
+        box-shadow: -1px 2px 15px rgba(0,0,0,0.15); 
+        border: 1px solid #ddd;
+        border-right: 4px solid #ddd;
+        padding: 20px;
+        box-sizing: border-box;
+        transform-origin: left center;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s 0.3s;
+        display: flex; flex-direction: column;
+        backface-visibility: hidden;
+    }
+
+    .hm_header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+        flex-shrink: 0;
+    }
+
+    .hm_year_title { font-size: 2rem; font-weight: 700; color: #222; margin: 0; }
+
+    .hm_legend {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 0.8rem; color: #666;
+    }
+
+    .hm_gradient_bar {
+        width: 100px; height: 10px; border-radius: 5px;
+        background: linear-gradient(to right, rgb(255,235,235), rgb(200, 0, 0));
+    }
+
+    .hm_grid {
+        display: grid;
+        grid-template-columns: 80px repeat(24, 1fr);
+        grid-template-rows: 30px repeat(7, 1fr);
+        gap: 2px;
+        width: 100%; flex-grow: 1; min-height: 0;
+    }
+
+    .hm_label {
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.7rem; color: #888; font-weight: 600;
+    }
+    
+    .hm_label_day { justify-content: flex-start; padding-left: 5px; }
+
+    .hm_cell {
+        background-color: var(--hm-cell-empty);
+        border-radius: 1px; position: relative; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.65rem; color: rgba(255, 255, 255, 0.95);
+        font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .hm_cell:hover {
+        transform: scale(1.6); z-index: 500;
+        border: 1px solid #333;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .hm_cell[data-val]:hover::after {
+        content: attr(data-val) " mortos";
+        position: absolute; bottom: 120%; left: 50%;
+        transform: translateX(-50%);
+        background: #222; color: #fff;
+        padding: 6px 10px; border-radius: 4px;
+        font-size: 0.8rem; white-space: nowrap; pointer-events: none;
+        font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+</style>
+
+<div id="hm_wrapper">
+    <div id="hm_loadingOverlay">
+        <div class="hm_spinner"></div>
+        <div id="hm_loadingText">Carregando dados (2007-2025)...</div>
+    </div>
+
+    <h2>Visualização de Acidentes</h2>
+    
+    <div class="hm_controls">
+        <button id="hm_btnPrev" class="hm_btn" disabled>← Anterior</button>
+        <button id="hm_btnNext" class="hm_btn" disabled>Próximo →</button>
+    </div>
+
+    <div class="hm_scene">
+        <div id="hm_bookContainer" class="hm_book"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    // Encapsulate in an IIFE to avoid global variable conflicts
+    const hm_daysOrder = ['segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado', 'domingo'];
+    let hm_data = {};
+    let hm_years = [];
+    let hm_currentIdx = 0;
+
+    // Start loading when DOM is ready (compatible with Hugo page loads)
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', hm_autoLoadData);
+    } else {
+        hm_autoLoadData();
+    }
+
+    async function hm_autoLoadData() {
+        const startYear = 2007;
+        const endYear = 2025;
+        
+        hm_data = {};
+        hm_years = [];
+        hm_currentIdx = 0;
+
+        let loadedCount = 0;
+
+        for (let y = startYear; y <= endYear; y++) {
+            // NOTE: Ensure this path matches your Hugo static structure
+            // e.g. /data/heatmap_2020.csv if file is in static/data/
+            const filename = `data/heatmap_${y}.csv`; 
+            try {
+                const response = await fetch(filename);
+                if (response.ok) {
+                    const text = await response.text();
+                    hm_parseCSV(text, y);
+                    hm_years.push(y);
+                    loadedCount++;
+                }
+            } catch (e) {
+                // Silent fail for missing years
+            }
+        }
+
+        if (loadedCount > 0) {
+            hm_years.sort((a, b) => a - b);
+            
+            // Calculate Global Median
+            hm_calculateGlobalMedian();
+            hm_years.push('Global');
+            
+            const overlay = document.getElementById('hm_loadingOverlay');
+            if(overlay) {
+                overlay.style.opacity = 0;
+                setTimeout(() => overlay.style.display = 'none', 500);
+            }
+            
+            hm_initBook();
+            
+            // Attach button listeners here to avoid global namespace pollution
+            const btnPrev = document.getElementById('hm_btnPrev');
+            const btnNext = document.getElementById('hm_btnNext');
+            if(btnPrev) btnPrev.addEventListener('click', hm_prevPage);
+            if(btnNext) btnNext.addEventListener('click', hm_nextPage);
+
+        } else {
+            const txt = document.getElementById('hm_loadingText');
+            if(txt) txt.innerText = "Nenhum arquivo encontrado em /data/.";
+        }
+    }
+
+    function hm_calculateGlobalMedian() {
+        hm_data['Global'] = { max: 0, grid: {} };
+        const hours = Array.from({length: 24}, (_, i) => i);
+        
+        hm_daysOrder.forEach(day => {
+            hm_data['Global'].grid[day] = {};
+            hours.forEach(h => {
+                let values = [];
+                hm_years.forEach(y => {
+                    if (typeof y === 'number') {
+                        const val = hm_data[y].grid[day][h] || 0;
+                        values.push(val);
+                    }
+                });
+
+                values.sort((a, b) => a - b);
+                let median = 0;
+                if (values.length > 0) {
+                    const mid = Math.floor(values.length / 2);
+                    if (values.length % 2 !== 0) {
+                        median = values[mid];
+                    } else {
+                        median = (values[mid - 1] + values[mid]) / 2;
+                    }
+                }
+                
+                median = parseFloat(median.toFixed(1));
+                hm_data['Global'].grid[day][h] = median;
+                
+                if (median > hm_data['Global'].max) {
+                    hm_data['Global'].max = median;
+                }
+            });
+        });
+    }
+
+    function hm_splitCSV(str) {
+        const result = [];
+        let current = '';
+        let inQuote = false;
+        for (let i = 0; i < str.length; i++) {
+            const char = str[i];
+            if (char === '"') {
+                inQuote = !inQuote;
+            } else if (char === ';' && !inQuote) {
+                result.push(current);
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+        result.push(current);
+        return result;
+    }
+
+    function hm_parseCSV(csvText, year) {
+        const lines = csvText.split(/\r?\n/);
+        if (lines.length < 2) return;
+
+        const clean = (str) => str ? str.trim().replace(/^"|"$/g, '') : '';
+        const headers = hm_splitCSV(lines[0]).map(clean);
+        
+        const idxDay = headers.findIndex(h => h.toLowerCase() === 'dia_semana');
+        const idxHour = headers.findIndex(h => h.toLowerCase() === 'hour');
+        const idxDead = headers.findIndex(h => h.toLowerCase() === 'mortos');
+
+        if (idxDay === -1 || idxHour === -1 || idxDead === -1) return;
+
+        if (!hm_data[year]) {
+            hm_data[year] = { max: 0, grid: {} };
+            hm_daysOrder.forEach(d => hm_data[year].grid[d] = {});
+        }
+
+        for (let i = 1; i < lines.length; i++) {
+            const line = lines[i];
+            if (!line || line.trim() === '') continue;
+
+            const row = hm_splitCSV(line);
+            if (row.length < headers.length) continue;
+
+            const day = clean(row[idxDay]); 
+            const hourStr = clean(row[idxHour]);
+            const deadStr = clean(row[idxDead]).replace(',', '.');
+            
+            const hour = parseInt(hourStr);
+            const dead = parseFloat(deadStr);
+
+            if (!day || isNaN(hour) || isNaN(dead)) continue;
+
+            if (hm_data[year].grid[day]) {
+                hm_data[year].grid[day][hour] = dead;
+                if (hm_data[year].grid[day][hour] > hm_data[year].max) {
+                    hm_data[year].max = hm_data[year].grid[day][hour];
+                }
+            }
+        }
+    }
+
+    function hm_initBook() {
+        const bookContainer = document.getElementById('hm_bookContainer');
+        if(!bookContainer) return;
+        bookContainer.innerHTML = '';
+        const hours = Array.from({length: 24}, (_, i) => i);
+
+        hm_years.forEach((year, index) => {
+            const page = document.createElement('div');
+            page.className = 'hm_page';
+            page.id = `hm_page-${index}`;
+            
+            const isGlobal = (year === 'Global');
+            let threshold = Infinity;
+
+            if (isGlobal) {
+                threshold = -1; 
+            } else {
+                let allValues = [];
+                hm_daysOrder.forEach(day => {
+                    hours.forEach(h => {
+                        const val = hm_data[year].grid[day][h] || 0;
+                        if (val > 0) allValues.push(val);
+                    });
+                });
+                
+                allValues.sort((a, b) => b - a);
+                if (allValues.length > 0) {
+                    const top10Index = Math.floor(allValues.length * 0.1);
+                    threshold = allValues[Math.min(top10Index, allValues.length - 1)];
+                }
+            }
+
+            const maxVal = hm_data[year].max || 1; 
+            let gridHTML = `<div class="hm_label"></div>`;
+            hours.forEach(h => gridHTML += `<div class="hm_label">${h}h</div>`);
+
+            hm_daysOrder.forEach(day => {
+                gridHTML += `<div class="hm_label hm_label_day">${day.split('-')[0]}</div>`;
+                hours.forEach(h => {
+                    const val = hm_data[year].grid[day][h] || 0;
+                    const color = hm_getColor(val, maxVal);
+                    const isTopVal = (val >= threshold && val > 0);
+                    const content = isTopVal ? val : '';
+                    gridHTML += `<div class="hm_cell" style="background-color: ${color};" data-val="${val}">${content}</div>`;
+                });
+            });
+
+            const displayTitle = isGlobal ? 'Global (Mediana)' : year;
+
+            page.innerHTML = `
+                <div class="hm_header">
+                    <h3 class="hm_year_title">${displayTitle}</h3>
+                    <div class="hm_legend">
+                        <span>0</span>
+                        <div class="hm_gradient_bar"></div>
+                        <span>${maxVal} (Max)</span>
+                    </div>
+                </div>
+                <div class="hm_grid">${gridHTML}</div>
+            `;
+
+            bookContainer.appendChild(page);
+        });
+        
+        hm_updateBookState();
+    }
+
+    function hm_updateBookState() {
+        const total = hm_years.length;
+
+        hm_years.forEach((_, index) => {
+            const page = document.getElementById(`hm_page-${index}`);
+            if (!page) return;
+
+            if (index < hm_currentIdx) {
+                page.style.transform = `rotateY(-180deg) translateZ(${index * 2}px)`;
+                page.style.zIndex = index;
+                page.style.pointerEvents = 'none';
+            } 
+            else if (index === hm_currentIdx) {
+                page.style.transform = `rotateY(0deg) translateZ(0px)`;
+                page.style.zIndex = 100; 
+                page.style.pointerEvents = 'auto';
+            } 
+            else {
+                const offsetIndex = index - hm_currentIdx;
+                const xOffset = offsetIndex * 25; 
+                const zOffset = offsetIndex * -30;
+                page.style.transform = `translate3d(${xOffset}px, 0, ${zOffset}px)`;
+                page.style.zIndex = (total - index); 
+                page.style.pointerEvents = 'none';
+            }
+        });
+
+        const prev = document.getElementById('hm_btnPrev');
+        const next = document.getElementById('hm_btnNext');
+        if(prev) prev.disabled = hm_currentIdx === 0;
+        if(next) next.disabled = hm_currentIdx >= total - 1;
+    }
+
+    function hm_getColor(value, max) {
+        if (value === 0) return '#f7f7f7';
+        const intensity = value / max;
+        const alpha = 0.2 + (0.8 * intensity);
+        // Using var from CSS context usually hard in inline js calculation, keeping rgb literal for simplicity
+        return `rgba(200, 0, 0, ${alpha})`;
+    }
+
+    function hm_nextPage() {
+        if (hm_currentIdx < hm_years.length - 1) {
+            hm_currentIdx++;
+            hm_updateBookState();
+        }
+    }
+
+    function hm_prevPage() {
+        if (hm_currentIdx > 0) {
+            hm_currentIdx--;
+            hm_updateBookState();
+        }
+    }
+
+})();
+</script>
 
               </div>
               
