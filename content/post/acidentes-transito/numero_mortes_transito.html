@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Número de mortes no trânsito por ano, dia e hora</title>
+    <title>Visualização de Acidentes</title>
     <style>
         :root {
             --bg-color: #f0f2f5;
@@ -173,7 +173,7 @@
 
     <div id="loadingOverlay">
         <div class="spinner"></div>
-        <div id="loadingText">Procurando arquivos CSV (2007-2025)...</div>
+        <div id="loadingText">Procurando arquivos heatmap_YYYY.csv...</div>
     </div>
 
     <h1>Visualização de Acidentes</h1>
@@ -208,7 +208,8 @@
             let loadedCount = 0;
 
             for (let y = startYear; y <= endYear; y++) {
-                const filename = `data/${y}.csv`;
+                // Now fetching the lightweight pre-aggregated file
+                const filename = `data/heatmap_${y}.csv`;
                 try {
                     const response = await fetch(filename);
                     if (response.ok) {
@@ -238,7 +239,7 @@
                 
                 initBook();
             } else {
-                document.getElementById('loadingText').innerText = "Nenhum arquivo encontrado (ex: 2020.csv).";
+                document.getElementById('loadingText').innerText = "Nenhum arquivo encontrado (ex: heatmap_2020.csv).";
             }
         }
 
@@ -311,12 +312,13 @@
             const clean = (str) => str ? str.trim().replace(/^"|"$/g, '') : '';
             const headers = splitCSV(lines[0]).map(clean);
             
+            // Expected columns from our new Python script: dia_semana;hour;mortos
             const idxDay = headers.findIndex(h => h.toLowerCase() === 'dia_semana');
-            const idxTime = headers.findIndex(h => h.toLowerCase() === 'horario');
+            const idxHour = headers.findIndex(h => h.toLowerCase() === 'hour');
             const idxDead = headers.findIndex(h => h.toLowerCase() === 'mortos');
 
-            if (idxDay === -1 || idxTime === -1 || idxDead === -1) {
-                console.error(`Missing columns in ${year}.csv`);
+            if (idxDay === -1 || idxHour === -1 || idxDead === -1) {
+                console.error(`Missing columns in heatmap_${year}.csv`);
                 return;
             }
 
@@ -325,18 +327,6 @@
                 daysOrder.forEach(d => accidentsData[year].grid[d] = {});
             }
 
-            const normalizeDay = (rawDay) => {
-                const d = rawDay.toLowerCase().trim();
-                if (d.includes('segunda')) return 'segunda-feira';
-                if (d.includes('terça') || d.includes('terca')) return 'terça-feira';
-                if (d.includes('quarta')) return 'quarta-feira';
-                if (d.includes('quinta')) return 'quinta-feira';
-                if (d.includes('sexta')) return 'sexta-feira';
-                if (d.includes('sábado') || d.includes('sabado')) return 'sábado';
-                if (d.includes('domingo')) return 'domingo';
-                return null;
-            };
-
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i];
                 if (!line || line.trim() === '') continue;
@@ -344,21 +334,20 @@
                 const row = splitCSV(line);
                 if (row.length < headers.length) continue;
 
-                let day = clean(row[idxDay]);
-                const timeStr = clean(row[idxTime]); 
+                // Day is already normalized by the Python script
+                const day = clean(row[idxDay]); 
+                // Hour is already an integer in the CSV
+                const hourStr = clean(row[idxHour]);
                 const deadStr = clean(row[idxDead]).replace(',', '.');
+                
+                const hour = parseInt(hourStr);
                 const dead = parseFloat(deadStr);
 
-                if (!day || !timeStr || isNaN(dead)) continue;
-                
-                day = normalizeDay(day);
-                if (!day) continue;
-
-                const hour = parseInt(timeStr.split(':')[0]);
+                if (!day || isNaN(hour) || isNaN(dead)) continue;
 
                 if (accidentsData[year].grid[day]) {
-                    if (!accidentsData[year].grid[day][hour]) accidentsData[year].grid[day][hour] = 0;
-                    accidentsData[year].grid[day][hour] += dead;
+                    // Direct assignment as the CSV is already summed
+                    accidentsData[year].grid[day][hour] = dead;
                     
                     if (accidentsData[year].grid[day][hour] > accidentsData[year].max) {
                         accidentsData[year].max = accidentsData[year].grid[day][hour];
