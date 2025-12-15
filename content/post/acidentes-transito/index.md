@@ -1,5 +1,5 @@
 ---
-title: O momento de maior risco nas rodovias brasileiras
+title: Qual é a hora mais perigosa para viajar no Brasil?
 subtitle: Uma análise visual revela dias e horários mais críticos
 summary: Uma análise visual revela dias e horários mais críticos
 projects: []
