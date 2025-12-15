@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dia | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/dia/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/dia/index.xml" rel="self" type="application/rss+xml" />
+    <description>Dia</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 14 Dec 2025 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Dia</title>
+      <link>https://alvarofrancomartins.com/tag/dia/</link>
+    </image>
+    
+    <item>
+      <title>O dia e horário mais letal das rodovias brasileiras</title>
+      <link>https://alvarofrancomartins.com/post/acidentes-transito/</link>
+      <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/acidentes-transito/</guid>
+      <description>&lt;h2 id=&#34;visão-geral&#34;&gt;Visão Geral&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;Acidentes fatais representam realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais perigoso? Para responder a isso, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas.&lt;/p&gt;
+&lt;p&gt;A visualização interativa abaixo organiza esses milhares de registros mapas de calor. Você pode navegar pelos anos para ver a evolução histórica ou consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes.&lt;/p&gt;
+&lt;br&gt;
+
+&lt;!-- 
+  INSTRUCTIONS FOR HUGO:
+  1. Copy everything below this comment.
+  2. Paste it into your Markdown file (if &#39;unsafe&#39; HTML is enabled) 
+     OR create a shortcode (e.g., layouts/shortcodes/heatmap.html) and use {{&lt; heatmap &gt;}}.
+  3. Ensure the .csv files are accessible in your &#39;static/data/&#39; folder or adjust the &#39;filename&#39; path in the JS below.
+--&gt;
+
+&lt;style&gt;
+    /* Scoped CSS Variables */
+    #hm_wrapper {
+        --hm-bg-color: #f0f2f5;
+        --hm-card-bg: #ffffff;
+        --hm-text-color: #333;
+        --hm-cell-empty: #f7f7f7;
+        --hm-primary-red: 200, 0, 0;
+        
+        /* Reset basic font styles for this container */
+        font-family: -apple-system, BlinkMacSystemFont, &#34;Segoe UI&#34;, Roboto, Helvetica, Arial, sans-serif;
+        color: var(--hm-text-color);
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        padding: 20px 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Loading Indicator */
+    #hm_loadingOverlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(255,255,255,0.9);
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        transition: opacity 0.5s;
+        border-radius: 8px;
+    }
+
+    .hm_spinner {
+        width: 40px; height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #333;
+        border-radius: 50%;
+        animation: hm_spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+
+    @keyframes hm_spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Title */
+    #hm_wrapper h2 {
+        margin: 0 0 20px 0;
+        font-weight: 300;
+        color: #444;
+        text-align: center;
+    }
+
+    /* Controls */
+    .hm_controls {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        z-index: 2000;
+    }
+
+    .hm_btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .hm_btn:active { transform: scale(0.95); }
+    .hm_btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* 3D Scene */
+    .hm_scene {
+        width: 900px;
+        height: 600px;
+        perspective: 1500px;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 950px) { .hm_scene { width: 95vw; height: 60vh; } }
+
+    .hm_book {
+        width: 100%; height: 100%;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateX(10deg) rotateY(10deg); 
+        transition: transform 0.5s;
+    }
+
+    /* Page Styles */
+    .hm_page {
+        position: absolute;
+        width: 100%; height: 100%;
+        background-color: var(--hm-card-bg);
+        border-radius: 6px;
+        box-shadow: -1px 2px 15px rgba(0,0,0,0.15); 
+        border: 1px solid #ddd;
+        border-right: 4px solid #ddd;
+        padding: 20px;
+        box-sizing: border-box;
+        transform-origin: left center;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s 0.3s;
+        display: flex; flex-direction: column;
+        backface-visibility: hidden;
+    }
+
+    .hm_header {
+        display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee;
+        flex-shrink: 0;
+    }
+
+    .hm_year_title { font-size: 2rem; font-weight: 700; color: #222; margin: 0; }
+
+    .hm_legend {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 0.8rem; color: #666;
+    }
+
+    .hm_gradient_bar {
+        width: 100px; height: 10px; border-radius: 5px;
+        background: linear-gradient(to right, rgb(255,235,235), rgb(200, 0, 0));
+    }
+
+    .hm_grid {
+        display: grid;
+        grid-template-columns: 80px repeat(24, 1fr);
+        grid-template-rows: 30px repeat(7, 1fr);
+        gap: 2px;
+        width: 100%; flex-grow: 1; min-height: 0;
+    }
+
+    .hm_label {
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.7rem; color: #888; font-weight: 600;
+    }
+    
+    .hm_label_day { justify-content: flex-start; padding-left: 5px; }
+
+    .hm_cell {
+        background-color: var(--hm-cell-empty);
+        border-radius: 1px; position: relative; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.65rem; color: rgba(255, 255, 255, 0.95);
+        font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .hm_cell:hover {
+        transform: scale(1.); z-index: 500;
+        border: 1px solid #333;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .hm_cell[data-val]:hover::after {
+        content: attr(data-val) &#34; mortos&#34;;
+        position: absolute; bottom: 120%; left: 50%;
+        transform: translateX(-50%);
+        background: #222; color: #fff;
+        padding: 6px 10px; border-radius: 4px;
+        font-size: 0.8rem; white-space: nowrap; pointer-events: none;
+        font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+&lt;/style&gt;
+
+&lt;div id=&#34;hm_wrapper&#34;&gt;
+    &lt;div id=&#34;hm_loadingOverlay&#34;&gt;
+        &lt;div class=&#34;hm_spinner&#34;&gt;&lt;/div&gt;
+        &lt;div id=&#34;hm_loadingText&#34;&gt;Carregando dados (2007-2025)...&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;h2&gt;Número de mortes por ano, dia da semana e hora.&lt;/h2&gt;
+    
+    &lt;div class=&#34;hm_controls&#34;&gt;
+        &lt;button id=&#34;hm_btnPrev&#34; class=&#34;hm_btn&#34; disabled&gt;← Anterior&lt;/button&gt;
+        &lt;button id=&#34;hm_btnNext&#34; class=&#34;hm_btn&#34; disabled&gt;Próximo →&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&#34;hm_scene&#34;&gt;
+        &lt;div id=&#34;hm_bookContainer&#34; class=&#34;hm_book&#34;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function() {
+    // Encapsulate in an IIFE to avoid global variable conflicts
+    const hm_daysOrder = [&#39;segunda-feira&#39;, &#39;terça-feira&#39;, &#39;quarta-feira&#39;, &#39;quinta-feira&#39;, &#39;sexta-feira&#39;, &#39;sábado&#39;, &#39;domingo&#39;];
+    let hm_data = {};
+    let hm_years = [];
+    let hm_currentIdx = 0;
+
+    // Start loading when DOM is ready (compatible with Hugo page loads)
+    if (document.readyState === &#39;loading&#39;) {
+        document.addEventListener(&#39;DOMContentLoaded&#39;, hm_autoLoadData);
+    } else {
+        hm_autoLoadData();
+    }
+
+    async function hm_autoLoadData() {
+        const startYear = 2007;
+        const endYear = 2025;
+        
+        hm_data = {};
+        hm_years = [];
+        hm_currentIdx = 0;
+
+        let loadedCount = 0;
+
+        for (let y = startYear; y &lt;= endYear; y++) {
+            // NOTE: Ensure this path matches your Hugo static structure
+            // e.g. /data/heatmap_2020.csv if file is in static/data/
+            const filename = `data/heatmap_${y}.csv`; 
+            try {
+                const response = await fetch(filename);
+                if (response.ok) {
+                    const text = await response.text();
+                    hm_parseCSV(text, y);
+                    hm_years.push(y);
+                    loadedCount++;
+                }
+            } catch (e) {
+                // Silent fail for missing years
+            }
+        }
+
+        if (loadedCount &gt; 0) {
+            hm_years.sort((a, b) =&gt; a - b);
+            
+            // Calculate Global Sum
+            hm_calculateGlobalSum();
+            hm_years.push(&#39;Global&#39;);
+            
+            const overlay = document.getElementById(&#39;hm_loadingOverlay&#39;);
+            if(overlay) {
+                overlay.style.opacity = 0;
+                setTimeout(() =&gt; overlay.style.display = &#39;none&#39;, 500);
+            }
+            
+            hm_initBook();
+            
+            // Attach button listeners here to avoid global namespace pollution
+            const btnPrev = document.getElementById(&#39;hm_btnPrev&#39;);
+            const btnNext = document.getElementById(&#39;hm_btnNext&#39;);
+            if(btnPrev) btnPrev.addEventListener(&#39;click&#39;, hm_prevPage);
+            if(btnNext) btnNext.addEventListener(&#39;click&#39;, hm_nextPage);
+
+        } else {
+            const txt = document.getElementById(&#39;hm_loadingText&#39;);
+            if(txt) txt.innerText = &#34;Nenhum arquivo encontrado em /data/.&#34;;
+        }
+    }
+
+    function hm_calculateGlobalSum() {
+        hm_data[&#39;Global&#39;] = { max: 0, grid: {} };
+        const hours = Array.from({length: 24}, (_, i) =&gt; i);
+        
+        hm_daysOrder.forEach(day =&gt; {
+            hm_data[&#39;Global&#39;].grid[day] = {};
+            hours.forEach(h =&gt; {
+                let sum = 0;
+                hm_years.forEach(y =&gt; {
+                    if (typeof y === &#39;number&#39;) {
+                        const val = hm_data[y].grid[day][h] || 0;
+                        sum += val;
+                    }
+                });
+
+                // Format: remove decimals if integer
+                sum = parseFloat(sum.toFixed(1));
+                hm_data[&#39;Global&#39;].grid[day][h] = sum;
+                
+                if (sum &gt; hm_data[&#39;Global&#39;].max) {
+                    hm_data[&#39;Global&#39;].max = sum;
+                }
+            });
+        });
+    }
+
+    function hm_splitCSV(str) {
+        const result = [];
+        let current = &#39;&#39;;
+        let inQuote = false;
+        for (let i = 0; i &lt; str.length; i++) {
+            const char = str[i];
+            if (char === &#39;&#34;&#39;) {
+                inQuote = !inQuote;
+            } else if (char === &#39;;&#39; &amp;&amp; !inQuote) {
+                result.push(current);
+                current = &#39;&#39;;
+            } else {
+                current += char;
+            }
+        }
+        result.push(current);
+        return result;
+    }
+
+    function hm_parseCSV(csvText, year) {
+        const lines = csvText.split(/\r?\n/);
+        if (lines.length &lt; 2) return;
+
+        const clean = (str) =&gt; str ? str.trim().replace(/^&#34;|&#34;$/g, &#39;&#39;) : &#39;&#39;;
+        const headers = hm_splitCSV(lines[0]).map(clean);
+        
+        const idxDay = headers.findIndex(h =&gt; h.toLowerCase() === &#39;dia_semana&#39;);
+        const idxHour = headers.findIndex(h =&gt; h.toLowerCase() === &#39;hour&#39;);
+        const idxDead = headers.findIndex(h =&gt; h.toLowerCase() === &#39;mortos&#39;);
+
+        if (idxDay === -1 || idxHour === -1 || idxDead === -1) return;
+
+        if (!hm_data[year]) {
+            hm_data[year] = { max: 0, grid: {} };
+            hm_daysOrder.forEach(d =&gt; hm_data[year].grid[d] = {});
+        }
+
+        for (let i = 1; i &lt; lines.length; i++) {
+            const line = lines[i];
+            if (!line || line.trim() === &#39;&#39;) continue;
+
+            const row = hm_splitCSV(line);
+            if (row.length &lt; headers.length) continue;
+
+            const day = clean(row[idxDay]); 
+            const hourStr = clean(row[idxHour]);
+            const deadStr = clean(row[idxDead]).replace(&#39;,&#39;, &#39;.&#39;);
+            
+            const hour = parseInt(hourStr);
+            const dead = parseFloat(deadStr);
+
+            if (!day || isNaN(hour) || isNaN(dead)) continue;
+
+            if (hm_data[year].grid[day]) {
+                hm_data[year].grid[day][hour] = dead;
+                if (hm_data[year].grid[day][hour] &gt; hm_data[year].max) {
+                    hm_data[year].max = hm_data[year].grid[day][hour];
+                }
+            }
+        }
+    }
+
+    function hm_initBook() {
+        const bookContainer = document.getElementById(&#39;hm_bookContainer&#39;);
+        if(!bookContainer) return;
+        bookContainer.innerHTML = &#39;&#39;;
+        const hours = Array.from({length: 24}, (_, i) =&gt; i);
+
+        hm_years.forEach((year, index) =&gt; {
+            const page = document.createElement(&#39;div&#39;);
+            page.className = &#39;hm_page&#39;;
+            page.id = `hm_page-${index}`;
+            
+            const isGlobal = (year === &#39;Global&#39;);
+            let threshold = Infinity;
+
+            if (isGlobal) {
+                threshold = -1; 
+            } else {
+                let allValues = [];
+                hm_daysOrder.forEach(day =&gt; {
+                    hours.forEach(h =&gt; {
+                        const val = hm_data[year].grid[day][h] || 0;
+                        if (val &gt; 0) allValues.push(val);
+                    });
+                });
+                
+                allValues.sort((a, b) =&gt; b - a);
+                if (allValues.length &gt; 0) {
+                    const top10Index = Math.floor(allValues.length * 0.1);
+                    threshold = allValues[Math.min(top10Index, allValues.length - 1)];
+                }
+            }
+
+            const maxVal = hm_data[year].max || 1; 
+            let gridHTML = `&lt;div class=&#34;hm_label&#34;&gt;&lt;/div&gt;`;
+            hours.forEach(h =&gt; gridHTML += `&lt;div class=&#34;hm_label&#34;&gt;${h}h&lt;/div&gt;`);
+
+            hm_daysOrder.forEach(day =&gt; {
+                gridHTML += `&lt;div class=&#34;hm_label hm_label_day&#34;&gt;${day.split(&#39;-&#39;)[0]}&lt;/div&gt;`;
+                hours.forEach(h =&gt; {
+                    const val = hm_data[year].grid[day][h] || 0;
+                    const color = hm_getColor(val, maxVal);
+                    const isTopVal = (val &gt;= threshold &amp;&amp; val &gt; 0);
+                    const content = isTopVal ? val : &#39;&#39;;
+                    
+                    // APPLY FONT SIZE REDUCTION FOR GLOBAL PAGE
+                    const fontSizeStyle = isGlobal ? &#39;font-size: 0.5rem;&#39; : &#39;&#39;;
+                    
+                    gridHTML += `&lt;div class=&#34;hm_cell&#34; style=&#34;background-color: ${color}; ${fontSizeStyle}&#34; data-val=&#34;${val}&#34;&gt;${content}&lt;/div&gt;`;
+                });
+            });
+
+            const displayTitle = isGlobal ? &#39;Acumulado&#39; : year;
+
+            page.innerHTML = `
+                &lt;div class=&#34;hm_header&#34;&gt;
+                    &lt;h3 class=&#34;hm_year_title&#34;&gt;${displayTitle}&lt;/h3&gt;
+                    &lt;div class=&#34;hm_legend&#34;&gt;
+                        &lt;span&gt;0&lt;/span&gt;
+                        &lt;div class=&#34;hm_gradient_bar&#34;&gt;&lt;/div&gt;
+                        &lt;span&gt;${maxVal} (Max)&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class=&#34;hm_grid&#34;&gt;${gridHTML}&lt;/div&gt;
+            `;
+
+            bookContainer.appendChild(page);
+        });
+        
+        hm_updateBookState();
+    }
+
+    function hm_updateBookState() {
+        const total = hm_years.length;
+
+        hm_years.forEach((_, index) =&gt; {
+            const page = document.getElementById(`hm_page-${index}`);
+            if (!page) return;
+
+            if (index &lt; hm_currentIdx) {
+                page.style.transform = `rotateY(-180deg) translateZ(${index * 2}px)`;
+                page.style.zIndex = index;
+                page.style.pointerEvents = &#39;none&#39;;
+            } 
+            else if (index === hm_currentIdx) {
+                page.style.transform = `rotateY(0deg) translateZ(0px)`;
+                page.style.zIndex = 100; 
+                page.style.pointerEvents = &#39;auto&#39;;
+            } 
+            else {
+                const offsetIndex = index - hm_currentIdx;
+                const xOffset = offsetIndex * 25; 
+                const zOffset = offsetIndex * -30;
+                page.style.transform = `translate3d(${xOffset}px, 0, ${zOffset}px)`;
+                page.style.zIndex = (total - index); 
+                page.style.pointerEvents = &#39;none&#39;;
+            }
+        });
+
+        const prev = document.getElementById(&#39;hm_btnPrev&#39;);
+        const next = document.getElementById(&#39;hm_btnNext&#39;);
+        if(prev) prev.disabled = hm_currentIdx === 0;
+        if(next) next.disabled = hm_currentIdx &gt;= total - 1;
+    }
+
+    function hm_getColor(value, max) {
+        if (value === 0) return &#39;#f7f7f7&#39;;
+        const intensity = value / max;
+        const alpha = 0.2 + (0.8 * intensity);
+        // Using var from CSS context usually hard in inline js calculation, keeping rgb literal for simplicity
+        return `rgba(200, 0, 0, ${alpha})`;
+    }
+
+    function hm_nextPage() {
+        if (hm_currentIdx &lt; hm_years.length - 1) {
+            hm_currentIdx++;
+            hm_updateBookState();
+        }
+    }
+
+    function hm_prevPage() {
+        if (hm_currentIdx &gt; 0) {
+            hm_currentIdx--;
+            hm_updateBookState();
+        }
+    }
+
+})();
+&lt;/script&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;o-que-os-dados-revelam&#34;&gt;O que os dados revelam?&lt;/h2&gt;
+&lt;p&gt;A resposta é direta: domingos, às 18h, registram o maior volume histórico de mortes, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
+&lt;p&gt;O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Fonte: &lt;a href=&#34;https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-da-prf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dados Abertos da PRF&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -61,7 +61,7 @@
   
     
   
-  <meta name="description" content="numero de mortes" />
+  <meta name="description" content="Análise dos padrões de mortes no trânsito ao longo de 19 anos usando uma visualização 3D interativa para identificar janelas de tempo de alto risco." />
 
   
   <link rel="alternate" hreflang="en-us" href="https://alvarofrancomartins.com/post/acidentes-transito/" />
@@ -337,9 +337,9 @@
   
   <meta property="og:site_name" content="Alvaro Franco Martins" />
   <meta property="og:url" content="https://alvarofrancomartins.com/post/acidentes-transito/" />
-  <meta property="og:title" content="numero de mortes | Alvaro Franco Martins" />
-  <meta property="og:description" content="numero de mortes" /><meta property="og:image" content="https://alvarofrancomartins.com/media/sharing.png" />
-    <meta property="twitter:image" content="https://alvarofrancomartins.com/media/sharing.png" /><meta property="og:locale" content="en-us" />
+  <meta property="og:title" content="O dia e horário mais letal das rodovias brasileiras | Alvaro Franco Martins" />
+  <meta property="og:description" content="Análise dos padrões de mortes no trânsito ao longo de 19 anos usando uma visualização 3D interativa para identificar janelas de tempo de alto risco." /><meta property="og:image" content="https://alvarofrancomartins.com/post/acidentes-transito/featured.png" />
+    <meta property="twitter:image" content="https://alvarofrancomartins.com/post/acidentes-transito/featured.png" /><meta property="og:locale" content="en-us" />
   
     
       <meta
@@ -373,7 +373,11 @@
     "@type": "WebPage",
     "@id": "https://alvarofrancomartins.com/post/acidentes-transito/"
   },
-  "headline": "numero de mortes",
+  "headline": "O dia e horário mais letal das rodovias brasileiras",
+  
+  "image": [
+    "https://alvarofrancomartins.com/post/acidentes-transito/featured.png"
+  ],
   
   "datePublished": "2025-12-14T00:00:00Z",
   "dateModified": "2025-12-14T00:00:00Z",
@@ -391,7 +395,7 @@
       "url": "https://alvarofrancomartins.com/media/icon_hu2554c39cea7f7ac56f2127a9008220c1_75996_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "numero de mortes"
+  "description": "Análise dos padrões de mortes no trânsito ao longo de 19 anos usando uma visualização 3D interativa para identificar janelas de tempo de alto risco."
 }
 </script>
 
@@ -474,7 +478,7 @@ text-align: justify;
 
 </head>
 
-  <title>numero de mortes | Alvaro Franco Martins</title>
+  <title>O dia e horário mais letal das rodovias brasileiras | Alvaro Franco Martins</title>
 </head>
 
 
@@ -754,20 +758,28 @@ text-align: justify;
 
 
 
-  
+
+
+
+
+
+
+
 
   
-  
-  
-<div class="article-container pt-3">
-  <h1>numero de mortes</h1>
-
-  
-  <p class="page-subtitle">numero de mortes</p>
-  
-
   
     
+  
+
+
+<div class="article-container pt-3">
+  <h1>O dia e horário mais letal das rodovias brasileiras</h1>
+
+  
+  <p class="page-subtitle">Um mapa de calor interativo que realça dias e horários críticos</p>
+  
+
+  
 
 
 <div class="article-metadata">
@@ -811,22 +823,29 @@ text-align: justify;
 
 </div>
 
-    
-
-
-
-
-
   
+
+
+
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 720px; max-height: 490px;">
+  <div style="position: relative">
+    <img src="/post/acidentes-transito/featured_hu1dd094446623c72b4535e1aee3c5fda5_295707_720x0_resize_lanczos_3.png" width="720" height="490" alt="" class="featured-image">
+    
+  </div>
 </div>
 
 
             <div class="article-container">
               <div class="article-style">
-                <h2 id="overview">Overview</h2>
-<p>On November 12th, 2025, the House Committee on Oversight and Government Reform released 20,000 pages of documents from Jeffrey Epstein&rsquo;s estate, containing extensive email correspondence.</p>
+                <h2 id="visão-geral">Visão Geral</h2>
 <br>
-<p>This post analyzes that email data by combining graph analysis with artificial intelligence. The visualization uses k-core decomposition to identify Epstein&rsquo;s most densely connected contacts and leverages large language models to automatically generate relationship summaries from the email content.</p>
+<p>Acidentes fatais representam realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais perigoso? Para responder a isso, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas.</p>
+<p>A visualização interativa abaixo organiza esses milhares de registros mapas de calor. Você pode navegar pelos anos para ver a evolução histórica ou consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes.</p>
 <br>
 
 <!-- 
@@ -995,7 +1014,7 @@ text-align: justify;
     }
 
     .hm_cell:hover {
-        transform: scale(1.6); z-index: 500;
+        transform: scale(1.); z-index: 500;
         border: 1px solid #333;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
@@ -1017,7 +1036,7 @@ text-align: justify;
         <div id="hm_loadingText">Carregando dados (2007-2025)...</div>
     </div>
 
-    <h2>Visualização de Acidentes</h2>
+    <h2>Número de mortes por ano, dia da semana e hora.</h2>
     
     <div class="hm_controls">
         <button id="hm_btnPrev" class="hm_btn" disabled>← Anterior</button>
@@ -1074,8 +1093,8 @@ text-align: justify;
         if (loadedCount > 0) {
             hm_years.sort((a, b) => a - b);
             
-            // Calculate Global Median
-            hm_calculateGlobalMedian();
+            // Calculate Global Sum
+            hm_calculateGlobalSum();
             hm_years.push('Global');
             
             const overlay = document.getElementById('hm_loadingOverlay');
@@ -1098,37 +1117,27 @@ text-align: justify;
         }
     }
 
-    function hm_calculateGlobalMedian() {
+    function hm_calculateGlobalSum() {
         hm_data['Global'] = { max: 0, grid: {} };
         const hours = Array.from({length: 24}, (_, i) => i);
         
         hm_daysOrder.forEach(day => {
             hm_data['Global'].grid[day] = {};
             hours.forEach(h => {
-                let values = [];
+                let sum = 0;
                 hm_years.forEach(y => {
                     if (typeof y === 'number') {
                         const val = hm_data[y].grid[day][h] || 0;
-                        values.push(val);
+                        sum += val;
                     }
                 });
 
-                values.sort((a, b) => a - b);
-                let median = 0;
-                if (values.length > 0) {
-                    const mid = Math.floor(values.length / 2);
-                    if (values.length % 2 !== 0) {
-                        median = values[mid];
-                    } else {
-                        median = (values[mid - 1] + values[mid]) / 2;
-                    }
-                }
+                // Format: remove decimals if integer
+                sum = parseFloat(sum.toFixed(1));
+                hm_data['Global'].grid[day][h] = sum;
                 
-                median = parseFloat(median.toFixed(1));
-                hm_data['Global'].grid[day][h] = median;
-                
-                if (median > hm_data['Global'].max) {
-                    hm_data['Global'].max = median;
+                if (sum > hm_data['Global'].max) {
+                    hm_data['Global'].max = sum;
                 }
             });
         });
@@ -1239,11 +1248,15 @@ text-align: justify;
                     const color = hm_getColor(val, maxVal);
                     const isTopVal = (val >= threshold && val > 0);
                     const content = isTopVal ? val : '';
-                    gridHTML += `<div class="hm_cell" style="background-color: ${color};" data-val="${val}">${content}</div>`;
+                    
+                    // APPLY FONT SIZE REDUCTION FOR GLOBAL PAGE
+                    const fontSizeStyle = isGlobal ? 'font-size: 0.5rem;' : '';
+                    
+                    gridHTML += `<div class="hm_cell" style="background-color: ${color}; ${fontSizeStyle}" data-val="${val}">${content}</div>`;
                 });
             });
 
-            const displayTitle = isGlobal ? 'Global (Mediana)' : year;
+            const displayTitle = isGlobal ? 'Acumulado' : year;
 
             page.innerHTML = `
                 <div class="hm_header">
@@ -1320,6 +1333,12 @@ text-align: justify;
 
 })();
 </script>
+<br>
+<h2 id="o-que-os-dados-revelam">O que os dados revelam?</h2>
+<p>A resposta é direta: domingos, às 18h, registram o maior volume histórico de mortes, seguidos pelos sábados no mesmo horário.</p>
+<p>O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.</p>
+<br>
+<p>Fonte: <a href="https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-da-prf" target="_blank" rel="noopener">Dados Abertos da PRF</a></p>
 
               </div>
               
@@ -1331,7 +1350,19 @@ text-align: justify;
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tag/asdasda/">asdasda</a>
+  <a class="badge badge-light" href="/tag/dataviz/">DataViz</a>
+  
+  <a class="badge badge-light" href="/tag/visualizacao-de-dados/">Visualização de dados</a>
+  
+  <a class="badge badge-light" href="/tag/fatalidades/">Fatalidades</a>
+  
+  <a class="badge badge-light" href="/tag/transito/">Trânsito</a>
+  
+  <a class="badge badge-light" href="/tag/mortes/">Mortes</a>
+  
+  <a class="badge badge-light" href="/tag/horario/">Horário</a>
+  
+  <a class="badge badge-light" href="/tag/dia/">Dia</a>
   
 </div>
 
@@ -1494,6 +1525,15 @@ text-align: justify;
 
 
   
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/ml-metrics/">Sensibilidade, especificidade e curvas ROC: Um guia visual para não se confundir mais!</a></li>
+      
+    </ul>
+  </div>
   
 
 

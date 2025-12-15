@@ -164,7 +164,7 @@
     }
 
     .hm_cell:hover {
-        transform: scale(1.6); z-index: 500;
+        transform: scale(1.); z-index: 500;
         border: 1px solid #333;
         box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     }
@@ -186,7 +186,7 @@
         <div id="hm_loadingText">Carregando dados (2007-2025)...</div>
     </div>
 
-    <h2>Visualização de Acidentes</h2>
+    <h2>Número de mortes por ano, dia da semana e hora.</h2>
     
     <div class="hm_controls">
         <button id="hm_btnPrev" class="hm_btn" disabled>← Anterior</button>
@@ -243,8 +243,8 @@
         if (loadedCount > 0) {
             hm_years.sort((a, b) => a - b);
             
-            // Calculate Global Median
-            hm_calculateGlobalMedian();
+            // Calculate Global Sum
+            hm_calculateGlobalSum();
             hm_years.push('Global');
             
             const overlay = document.getElementById('hm_loadingOverlay');
@@ -267,37 +267,27 @@
         }
     }
 
-    function hm_calculateGlobalMedian() {
+    function hm_calculateGlobalSum() {
         hm_data['Global'] = { max: 0, grid: {} };
         const hours = Array.from({length: 24}, (_, i) => i);
         
         hm_daysOrder.forEach(day => {
             hm_data['Global'].grid[day] = {};
             hours.forEach(h => {
-                let values = [];
+                let sum = 0;
                 hm_years.forEach(y => {
                     if (typeof y === 'number') {
                         const val = hm_data[y].grid[day][h] || 0;
-                        values.push(val);
+                        sum += val;
                     }
                 });
 
-                values.sort((a, b) => a - b);
-                let median = 0;
-                if (values.length > 0) {
-                    const mid = Math.floor(values.length / 2);
-                    if (values.length % 2 !== 0) {
-                        median = values[mid];
-                    } else {
-                        median = (values[mid - 1] + values[mid]) / 2;
-                    }
-                }
+                // Format: remove decimals if integer
+                sum = parseFloat(sum.toFixed(1));
+                hm_data['Global'].grid[day][h] = sum;
                 
-                median = parseFloat(median.toFixed(1));
-                hm_data['Global'].grid[day][h] = median;
-                
-                if (median > hm_data['Global'].max) {
-                    hm_data['Global'].max = median;
+                if (sum > hm_data['Global'].max) {
+                    hm_data['Global'].max = sum;
                 }
             });
         });
@@ -408,11 +398,15 @@
                     const color = hm_getColor(val, maxVal);
                     const isTopVal = (val >= threshold && val > 0);
                     const content = isTopVal ? val : '';
-                    gridHTML += `<div class="hm_cell" style="background-color: ${color};" data-val="${val}">${content}</div>`;
+                    
+                    // APPLY FONT SIZE REDUCTION FOR GLOBAL PAGE
+                    const fontSizeStyle = isGlobal ? 'font-size: 0.5rem;' : '';
+                    
+                    gridHTML += `<div class="hm_cell" style="background-color: ${color}; ${fontSizeStyle}" data-val="${val}">${content}</div>`;
                 });
             });
 
-            const displayTitle = isGlobal ? 'Global (Mediana)' : year;
+            const displayTitle = isGlobal ? 'Acumulado' : year;
 
             page.innerHTML = `
                 <div class="hm_header">
