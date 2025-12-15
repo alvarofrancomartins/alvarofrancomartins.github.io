@@ -842,11 +842,8 @@ text-align: justify;
 
             <div class="article-container">
               <div class="article-style">
-                <h2 id="visão-geral">Visão Geral</h2>
-<br>
-<p>Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente.</p>
-<br>
-<p>A visualização interativa abaixo organiza milhares de registros. Você pode navegar pelos anos e consultar a página final, que acumula os dados de todos os anos para evidenciar o comportamento de risco mais consistentes.</p>
+                <br>
+<p>Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, de 2007 a 2025.</p>
 <br>
 
 <!-- 
@@ -1040,8 +1037,8 @@ text-align: justify;
     <h2>Número de mortes por ano, dia da semana e hora.</h2>
     
     <div class="hm_controls">
-        <button id="hm_btnPrev" class="hm_btn" disabled>← Anterior</button>
-        <button id="hm_btnNext" class="hm_btn" disabled>Próximo →</button>
+        <button id="hm_btnPrev" class="hm_btn" disabled>Ano anterior</button>
+        <button id="hm_btnNext" class="hm_btn" disabled>Próximo ano</button>
     </div>
 
     <div class="hm_scene">
@@ -1336,9 +1333,13 @@ text-align: justify;
 </script>
 <br>
 <h2 id="o-que-os-dados-revelam">O que os dados revelam?</h2>
-<p>A resposta é clara: domingos, às 18h, registram o maior volume de mortes, seguidos pelos sábados no mesmo horário.</p>
+<p>A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário.</p>
 <br>
-<p>O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.</p>
+<figure>
+    <img src="images/acumulado.png" width="700px" />
+    <figcaption>Número acumulado de mortes, de 2007 a 2019.</figcaption>
+</figure>
+<p>O risco tende a crescer com o passar da semana a partir das 18h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.</p>
 <br>
 <p>Fonte: <a href="https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-da-prf" target="_blank" rel="noopener">Dados Abertos da PRF</a></p>
 

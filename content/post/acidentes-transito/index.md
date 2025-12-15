@@ -32,15 +32,9 @@ image:
 
 ---
 
-## Visão Geral
-
 <br>
 
-Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. 
-
-<br>
-
-A visualização interativa abaixo organiza milhares de registros. Você pode navegar pelos anos e consultar a página final, que acumula os dados de todos os anos para evidenciar o comportamento de risco mais consistentes. 
+Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, de 2007 a 2025. 
 
 <br>
 
@@ -50,11 +44,16 @@ A visualização interativa abaixo organiza milhares de registros. Você pode na
 
 ## O que os dados revelam?
 
-A resposta é clara: domingos, às 18h, registram o maior volume de mortes, seguidos pelos sábados no mesmo horário.
+A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário. 
 
 <br>
 
-O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.
+<figure>
+    <img src="images/acumulado.png" width="700px" />
+    <figcaption>Número acumulado de mortes, de 2007 a 2019.</figcaption>
+</figure>
+
+O risco tende a crescer com o passar da semana a partir das 18h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.
 
 <br>
 

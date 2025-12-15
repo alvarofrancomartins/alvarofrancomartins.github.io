@@ -17,11 +17,8 @@
       <link>https://alvarofrancomartins.com/post/acidentes-transito/</link>
       <pubDate>Sun, 14 Dec 2025 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/acidentes-transito/</guid>
-      <description>&lt;h2 id=&#34;visão-geral&#34;&gt;Visão Geral&lt;/h2&gt;
-&lt;br&gt;
-&lt;p&gt;Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente.&lt;/p&gt;
-&lt;br&gt;
-&lt;p&gt;A visualização interativa abaixo organiza milhares de registros. Você pode navegar pelos anos e consultar a página final, que acumula os dados de todos os anos para evidenciar o comportamento de risco mais consistentes.&lt;/p&gt;
+      <description>&lt;br&gt;
+&lt;p&gt;Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, de 2007 a 2025.&lt;/p&gt;
 &lt;br&gt;
 
 &lt;!-- 
@@ -215,8 +212,8 @@
     &lt;h2&gt;Número de mortes por ano, dia da semana e hora.&lt;/h2&gt;
     
     &lt;div class=&#34;hm_controls&#34;&gt;
-        &lt;button id=&#34;hm_btnPrev&#34; class=&#34;hm_btn&#34; disabled&gt;← Anterior&lt;/button&gt;
-        &lt;button id=&#34;hm_btnNext&#34; class=&#34;hm_btn&#34; disabled&gt;Próximo →&lt;/button&gt;
+        &lt;button id=&#34;hm_btnPrev&#34; class=&#34;hm_btn&#34; disabled&gt;Ano anterior&lt;/button&gt;
+        &lt;button id=&#34;hm_btnNext&#34; class=&#34;hm_btn&#34; disabled&gt;Próximo ano&lt;/button&gt;
     &lt;/div&gt;
 
     &lt;div class=&#34;hm_scene&#34;&gt;
@@ -511,9 +508,13 @@
 &lt;/script&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;o-que-os-dados-revelam&#34;&gt;O que os dados revelam?&lt;/h2&gt;
-&lt;p&gt;A resposta é clara: domingos, às 18h, registram o maior volume de mortes, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
+&lt;p&gt;A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;images/acumulado.png&#34; width=&#34;700px&#34; /&gt;
+    &lt;figcaption&gt;Número acumulado de mortes, de 2007 a 2019.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;p&gt;O risco tende a crescer com o passar da semana a partir das 18h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Fonte: &lt;a href=&#34;https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-da-prf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dados Abertos da PRF&lt;/a&gt;&lt;/p&gt;
 </description>
