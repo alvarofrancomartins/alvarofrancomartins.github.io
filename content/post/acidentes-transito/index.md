@@ -44,7 +44,7 @@ Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, ma
 
 ## O que os dados revelam?
 
-A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário. 
+A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-20h, seguidos pelos sábados no mesmo horário. 
 
 <br>
 
@@ -53,7 +53,7 @@ A figura abaixo evidencia a resposta: domingos registram o maior volume de morte
     <figcaption>Número acumulado de mortes, de 2007 a 2019.</figcaption>
 </figure>
 
-O risco tende a crescer com o passar da semana entre 18h-19h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.
+O risco tende a crescer com o passar da semana entre 18h-20h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.
 
 <br>
 

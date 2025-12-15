@@ -508,13 +508,13 @@
 &lt;/script&gt;
 &lt;br&gt;
 &lt;h2 id=&#34;o-que-os-dados-revelam&#34;&gt;O que os dados revelam?&lt;/h2&gt;
-&lt;p&gt;A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
+&lt;p&gt;A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-20h, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
 &lt;br&gt;
 &lt;figure&gt;
     &lt;img src=&#34;images/acumulado.png&#34; width=&#34;950px&#34; /&gt;
     &lt;figcaption&gt;Número acumulado de mortes, de 2007 a 2019.&lt;/figcaption&gt;
 &lt;/figure&gt;
-&lt;p&gt;O risco tende a crescer com o passar da semana entre 18h-19h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.&lt;/p&gt;
+&lt;p&gt;O risco tende a crescer com o passar da semana entre 18h-20h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Fonte: &lt;a href=&#34;https://www.gov.br/prf/pt-br/acesso-a-informacao/dados-abertos/dados-abertos-da-prf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Dados Abertos da PRF&lt;/a&gt;&lt;/p&gt;
 </description>
