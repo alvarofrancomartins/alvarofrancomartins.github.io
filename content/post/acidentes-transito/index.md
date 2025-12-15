@@ -40,7 +40,7 @@ Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, ma
 
 <br>
 
-A visualização interativa abaixo organiza esses milhares de registros. Você pode navegar pelos anos para ver a evolução histórica e consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes. 
+A visualização interativa abaixo organiza milhares de registros. Você pode navegar pelos anos e consultar a página final, que acumula os dados de todos os anos para evidenciar o comportamento de risco mais consistentes. 
 
 <br>
 
