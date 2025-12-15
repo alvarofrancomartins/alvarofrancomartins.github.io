@@ -49,7 +49,7 @@ A figura abaixo evidencia a resposta: domingos registram o maior volume de morte
 <br>
 
 <figure>
-    <img src="images/acumulado.png" width="700px" />
+    <img src="images/acumulado.png" width="950px" />
     <figcaption>Número acumulado de mortes, de 2007 a 2019.</figcaption>
 </figure>
 

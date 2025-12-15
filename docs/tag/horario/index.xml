@@ -511,7 +511,7 @@
 &lt;p&gt;A figura abaixo evidencia a resposta: domingos registram o maior volume de mortes entre 18h-19h, seguidos pelos sábados no mesmo horário.&lt;/p&gt;
 &lt;br&gt;
 &lt;figure&gt;
-    &lt;img src=&#34;images/acumulado.png&#34; width=&#34;700px&#34; /&gt;
+    &lt;img src=&#34;images/acumulado.png&#34; width=&#34;950px&#34; /&gt;
     &lt;figcaption&gt;Número acumulado de mortes, de 2007 a 2019.&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;p&gt;O risco tende a crescer com o passar da semana entre 18h-19h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.&lt;/p&gt;
