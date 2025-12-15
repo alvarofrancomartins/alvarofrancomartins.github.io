@@ -1,7 +1,7 @@
 ---
 title: O momento de maior risco nas rodovias brasileiras
-subtitle: Uma análise visual revela dias e horários mais críticos nas estradas federais
-summary: Uma análise visual revela dias e horários mais críticos nas estradas federais
+subtitle: Uma análise visual revela dias e horários mais críticos
+summary: Uma análise visual revela dias e horários mais críticos
 projects: []
 
 date: "2025-12-14"
