@@ -28,13 +28,13 @@ image:
   placement: 1
   caption: "" 
   focal_point: "Smart"
-  preview_only: false
+  preview_only: true
 
 ---
 
 <br>
 
-Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, de 2007 a 2025. 
+Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e uma hora mais críticos? Para responder a esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, abrangendo o período de 2007 a 2025. 
 
 <br>
 
@@ -53,7 +53,7 @@ A figura abaixo evidencia a resposta: domingos registram o maior volume de morte
     <figcaption>Número acumulado de mortes, de 2007 a 2019.</figcaption>
 </figure>
 
-O risco tende a crescer com o passar da semana a partir das 18h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.
+O risco tende a crescer com o passar da semana entre 18h-19h, atingindo o pico nos fins de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada ao consumo de álcool. Por outro lado, os momentos mais seguros ocorrem nas madrugadas (0h-4h) de terça e quarta-feira.
 
 <br>
 
