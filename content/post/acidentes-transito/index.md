@@ -1,7 +1,7 @@
 ---
-title: O dia e horário mais letal das rodovias brasileiras
-subtitle: Um mapa de calor interativo que realça dias e horários críticos
-summary: Análise dos padrões de mortes no trânsito ao longo de 19 anos usando uma visualização 3D interativa para identificar janelas de tempo de alto risco.
+title: O momento de maior risco nas rodovias brasileiras
+subtitle: Uma análise visual revela dias e horários mais críticos nas estradas federais
+summary: Uma análise visual revela dias e horários mais críticos nas estradas federais
 projects: []
 
 date: "2025-12-14"
@@ -36,9 +36,9 @@ image:
 
 <br>
 
-Acidentes fatais representam realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais perigoso? Para responder a isso, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas.
+Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder a isso, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. 
 
-A visualização interativa abaixo organiza esses milhares de registros mapas de calor. Você pode navegar pelos anos para ver a evolução histórica ou consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes. 
+A visualização interativa abaixo organiza esses milhares de registros. Você pode navegar pelos anos para ver a evolução histórica e consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes. 
 
 <br>
 
