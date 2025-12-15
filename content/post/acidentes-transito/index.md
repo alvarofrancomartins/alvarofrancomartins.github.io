@@ -50,7 +50,9 @@ A visualização interativa abaixo organiza milhares de registros. Você pode na
 
 ## O que os dados revelam?
 
-A resposta é direta: domingos, às 18h, registram o maior volume histórico de mortes, seguidos pelos sábados no mesmo horário.
+A resposta é clara: domingos, às 18h, registram o maior volume de mortes, seguidos pelos sábados no mesmo horário.
+
+<br>
 
 O risco tende a crescer diariamente a partir das 18h, atingindo o pico no fim de semana. Há também uma alta incidência nas madrugadas de sábado e domingo (4h-5h), provavelmente associada a álcool e fadiga. Por outro lado, o momento que parece ser mais seguro nas estradas ocorre nas madrugadas de terça e quarta-feira.
 
