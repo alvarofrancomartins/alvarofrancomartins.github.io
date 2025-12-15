@@ -38,6 +38,8 @@ image:
 
 Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e um horário mais crítico? Para responder a isso, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. 
 
+<br>
+
 A visualização interativa abaixo organiza esses milhares de registros. Você pode navegar pelos anos para ver a evolução histórica e consultar a página final, que soma todos os dados para evidenciar o comportamento de risco mais consistentes. 
 
 <br>
