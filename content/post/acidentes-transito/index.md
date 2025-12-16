@@ -34,6 +34,10 @@ image:
 
 <br>
 
+{{% callout note %}}
+**Nota:** Esta é uma visualização descritiva focada no volume absoluto de fatalidades (impacto sistêmico), e não um estudo acadêmico sobre taxas de risco normalizadas.
+{{% /callout %}}
+
 Acidentes fatais representam uma realidade trágica nas rodovias brasileiras, mas será que existe um dia e uma hora mais críticos? Para responder a esta pergunta, processei dados da Polícia Rodoviária Federal cobrindo quase duas décadas. Entre outras informações, esses dados apresentam o número de mortes e o horário de cada acidente. A visualização interativa abaixo organiza milhares de registros, abrangendo o período de 2007 a 2025. 
 
 <br>
