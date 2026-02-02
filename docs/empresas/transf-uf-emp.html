@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Fluxo</title>
+    
+    <!-- Tailwind CSS (Estilização) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js (Gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- DADOS: Carrega o arquivo gerado pelo script Python de ETL -->
+    <script src="dados_fluxo.js"></script>
+
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; }
+        .card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="bg-slate-100 p-4 h-screen w-screen overflow-hidden flex flex-col">
+
+    <!-- Container Principal: Flex para gerenciar altura -->
+    <div class="w-full h-full flex flex-col gap-4">
+        
+        <!-- Header: flex-none para não encolher -->
+        <header class="flex-none flex flex-col items-center justify-center gap-2 bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+            <div class="flex items-center justify-between w-full px-4">
+                <div class="flex-1"></div> <!-- Espaçador -->
+                <div class="flex flex-col items-center">
+                    <!-- AUMENTADO: text-3xl -->
+                    <h1 class="text-6xl font-extrabold text-slate-800 tracking-tight">Transferência de Domicílio Fiscal</h1>
+                    <br>
+                    <!-- AUMENTADO: text-base -->
+                    <p class="text-2xl flex items-center justify-center gap-2">
+                        Análise de Saldo (Entrada - Saída) entre Estados
+                    </p>
+                </div>
+                <!-- Status no canto direito -->
+                <div class="flex-1 flex justify-end">
+                    <div id="status-container" class="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-lg border border-slate-200">
+                        <div id="status-dot" class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                        <!-- AUMENTADO: text-sm -->
+                        <span id="status-text" class="text-sm font-medium text-slate-600">Carregando...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Grid Principal -->
+        <main class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-5">
+            
+            <!-- Painel Esquerdo: Saldo Geral (Barras) -->
+            <section class="lg:col-span-4 h-full flex flex-col">
+                <div class="card p-5 h-full flex flex-col border border-slate-100">
+                    <div class="mb-2 flex-none">
+                        <!-- AUMENTADO: text-xl -->
+                        <h2 class="text-4xl font-bold text-slate-700">Saldo Total por UF</h2>
+                        <!-- AUMENTADO: text-xs -->
+                        <p class="text-xl text-slate-400 uppercase tracking-wider font-semibold mt-1">Clique na barra para detalhar</p>
+                    </div>
+                    <div class="flex-1 relative w-full min-h-0">
+                        <canvas id="chartSaldo"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Painel Direito: Linha do Tempo -->
+            <section class="lg:col-span-8 h-full flex flex-col">
+                <div class="card p-5 h-full flex flex-col border border-slate-100">
+                    <div class="flex justify-between items-start mb-2 pb-2 border-b border-slate-100 flex-none">
+                        <div>
+                            <!-- AUMENTADO: text-xl -->
+                            <h2 class="text-4xl font-bold text-slate-700">Evolução Temporal</h2>
+                        </div>
+                        <div class="text-right">
+                            <!-- AUMENTADO: text-xs -->
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Estado</span>
+                            <!-- AUMENTADO: text-4xl -->
+                            <div id="selected-uf-display" class="text-4xl font-black  text-slate-700 leading-tight">--</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 relative w-full min-h-0">
+                        <canvas id="chartTemporal"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script de Lógica -->
+    <script>
+        // --- Configuração Global ---
+        let chartSaldoInstance = null;
+        let chartTemporalInstance = null;
+        
+        // --- Estado da Aplicação ---
+        const appState = {
+            totals: {},      // { SP: 1500, SC: 300 }
+            timeSeries: {},  // { '2023-05': { SP: 10, SC: 5 } }
+            months: []       // Lista ordenada de meses
+        };
+
+        // --- Inicialização ---
+        window.onload = function() {
+            const statusDot = document.getElementById('status-dot');
+            const statusText = document.getElementById('status-text');
+            const statusContainer = document.getElementById('status-container');
+
+            if (typeof DADOS_FLUXO === 'undefined') {
+                statusDot.className = "w-3 h-3 rounded-full bg-red-500";
+                statusText.className = "text-sm font-bold text-red-600";
+                statusText.innerText = "Erro: JS ausente";
+                alert("ERRO: O arquivo 'dados_fluxo.js' não foi encontrado.\nCertifique-se de rodar o script Python 'agregar_dados.py' na mesma pasta.");
+                return;
+            }
+
+            // Sucesso no carregamento -> Ocultar status container
+            statusContainer.style.display = 'none';
+
+            processarDados(DADOS_FLUXO);
+        };
+
+        // --- Processamento de Dados ---
+        function processarDados(rawData) {
+            const ufsSet = new Set();
+            const monthsSet = new Set();
+
+            rawData.forEach(row => {
+                const count = Number(row.count);
+                const ufOrigem = row.uf_origem;
+                const ufDestino = row.uf_destino;
+                const mes = row.mes_destino; 
+
+                if (!ufOrigem || !ufDestino || !mes) return;
+
+                ufsSet.add(ufOrigem);
+                ufsSet.add(ufDestino);
+                monthsSet.add(mes);
+
+                // Inicializar objeto do mês se não existir
+                if (!appState.timeSeries[mes]) appState.timeSeries[mes] = {};
+
+                // Calcular Saldo Total
+                appState.totals[ufOrigem] = (appState.totals[ufOrigem] || 0) - count;
+                appState.totals[ufDestino] = (appState.totals[ufDestino] || 0) + count;
+
+                // Calcular Saldo Temporal
+                appState.timeSeries[mes][ufOrigem] = (appState.timeSeries[mes][ufOrigem] || 0) - count;
+                appState.timeSeries[mes][ufDestino] = (appState.timeSeries[mes][ufDestino] || 0) + count;
+            });
+
+            // Ordenar meses cronologicamente
+            appState.months = Array.from(monthsSet).sort();
+
+            // Renderizar Gráficos
+            renderizarBarChart();
+            
+            // Inicia selecionando o estado com maior movimentação positiva
+            const topState = Object.keys(appState.totals).sort((a,b) => appState.totals[b] - appState.totals[a])[0];
+            if(topState) atualizarLineChart(topState);
+        }
+
+        // --- Gráfico de Barras (Saldo Geral) ---
+        function renderizarBarChart() {
+            const ctx = document.getElementById('chartSaldo').getContext('2d');
+            
+            // Ordenar: Decrescente (Maior saldo positivo primeiro/em cima)
+            const ufs = Object.keys(appState.totals).sort((a, b) => appState.totals[b] - appState.totals[a]);
+            const values = ufs.map(uf => appState.totals[uf]);
+
+            // Cores condicionais
+            const bgColors = values.map(v => v < 0 ? 'rgba(239, 68, 68, 0.7)' : 'rgba(34, 197, 94, 0.7)');
+            const borderColors = values.map(v => v < 0 ? 'rgb(220, 38, 38)' : 'rgb(22, 163, 74)');
+
+            chartSaldoInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ufs,
+                    datasets: [{
+                        label: 'Saldo',
+                        data: values,
+                        backgroundColor: bgColors,
+                        borderColor: borderColors,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 14,
+                            titleFont: { size: 20 }, // Fonte Tooltip Aumentada
+                            bodyFont: { size: 20 },
+                            callbacks: { label: (c) => `Saldo: ${c.raw > 0 ? '+' : ''}${c.raw}` } 
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { color: '#f1f5f9' }, 
+                            ticks: { font: { size: 20 } } // Fonte Eixo X Aumentada
+                        },
+                        y: { 
+                            grid: { display: false }, 
+                            ticks: { font: { weight: 'bold', size: 20 } } // Fonte Eixo Y Aumentada
+                        }
+                    },
+                    // Configuração de clique para facilitar seleção de estados pequenos
+                    onClick: (evt, elements, chart) => {
+                        const points = chart.getElementsAtEventForMode(evt, 'y', { intersect: false }, true);
+                        if (points.length) {
+                            const index = points[0].index;
+                            atualizarLineChart(ufs[index]);
+                        }
+                    },
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = 'pointer'; 
+                    }
+                }
+            });
+        }
+
+        // --- Gráfico de Linha (Detalhe Temporal) ---
+        function atualizarLineChart(uf) {
+            document.getElementById('selected-uf-display').innerText = uf;
+            const ctx = document.getElementById('chartTemporal').getContext('2d');
+
+            const dataPoints = appState.months.map(m => (appState.timeSeries[m] && appState.timeSeries[m][uf]) || 0);
+
+            if (chartTemporalInstance) chartTemporalInstance.destroy();
+
+            // --- Função para Gradiente Dinâmico (Verde acima de 0, Vermelho abaixo) ---
+            const getGradient = (context, type) => {
+                const chart = context.chart;
+                const {ctx, chartArea, scales} = chart;
+                if (!chartArea) return null;
+
+                const yScale = scales.y;
+                const yZero = yScale.getPixelForValue(0);
+                const yTop = yScale.getPixelForValue(yScale.max);
+                const yBottom = yScale.getPixelForValue(yScale.min);
+
+                let zeroStop = (yZero - chartArea.top) / (chartArea.bottom - chartArea.top);
+                zeroStop = Math.max(0, Math.min(1, zeroStop));
+
+                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+
+                if (type === 'border') {
+                    gradient.addColorStop(0, 'rgb(34, 197, 94)'); 
+                    gradient.addColorStop(zeroStop, 'rgb(34, 197, 94)');
+                    gradient.addColorStop(zeroStop, 'rgb(239, 68, 68)');
+                    gradient.addColorStop(1, 'rgb(239, 68, 68)');
+                } else {
+                    gradient.addColorStop(0, 'rgba(34, 197, 94, 0.5)'); 
+                    gradient.addColorStop(zeroStop, 'rgba(34, 197, 94, 0.1)'); 
+                    gradient.addColorStop(zeroStop, 'rgba(239, 68, 68, 0.1)');
+                    gradient.addColorStop(1, 'rgba(239, 68, 68, 0.5)'); 
+                }
+                
+                return gradient;
+            };
+
+            chartTemporalInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: appState.months,
+                    datasets: [{
+                        label: `Saldo Mensal (${uf})`,
+                        data: dataPoints,
+                        borderColor: function(context) { return getGradient(context, 'border'); },
+                        backgroundColor: function(context) { return getGradient(context, 'background'); },
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: function(context) {
+                            const val = context.raw;
+                            return val >= 0 ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)';
+                        },
+                        pointBorderWidth: 2,
+                        pointRadius: 5, // Ponto Aumentado
+                        pointHoverRadius: 8,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 14,
+                            titleFont: { size: 16 }, // Fonte Tooltip Aumentada
+                            bodyFont: { size: 14 },
+                            displayColors: false,
+                            callbacks: {
+                                title: (t) => `Mês: ${t[0].label}`,
+                                label: (c) => `Saldo: ${c.raw > 0 ? '+' : ''}${c.raw}`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9', drawBorder: false },
+                            ticks: { 
+                                callback: (val) => val > 0 ? '+' + val : val,
+                                font: { size: 20} // Fonte Eixo Y Aumentada
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                font: { size: 20 }, // Fonte Eixo X Aumentada
+                                maxRotation: 0,
+                                autoSkip: true,   // Pula labels automaticamente se estiver cheio
+                                maxTicksLimit: 12 // Limita para garantir espaçamento
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
