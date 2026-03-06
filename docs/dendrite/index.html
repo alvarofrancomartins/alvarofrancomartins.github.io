@@ -261,7 +261,7 @@
         var payload={model:'deepseek-chat',messages:[{role:'system',content:fullSystem},{role:'user',content:domain.userPrompt(path,vibe,limit,category)}],response_format:{type:'json_object'}};
         var backoff=[800,1600,3200,6400];
         for(var attempt=0;attempt<5;attempt++){
-            try{var isProxy=API_KEY==='proxy';var fetchUrl=isProxy?'/.netlify/functions/chat':'https://api.deepseek.com/chat/completions';var fetchHeaders={'Content-Type':'application/json'};if(!isProxy)fetchHeaders['Authorization']='Bearer '+API_KEY;var res=await fetch(fetchUrl,{method:'POST',headers:fetchHeaders,body:JSON.stringify(payload)});
+            try{var isProxy=API_KEY==='proxy';var fetchUrl=isProxy?'https://afmartins.netlify.app/.netlify/functions/chat':'https://api.deepseek.com/chat/completions';var fetchHeaders={'Content-Type':'application/json'};if(!isProxy)fetchHeaders['Authorization']='Bearer '+API_KEY;var res=await fetch(fetchUrl,{method:'POST',headers:fetchHeaders,body:JSON.stringify(payload)});
                 if(!res.ok)throw new Error('HTTP '+res.status);var data=await res.json();var text=data.choices[0].message.content;if(!text)throw new Error('Empty');var parsed=JSON.parse(text);return parsed[domain.resultKey]||parsed.recommendations||[]
             }catch(err){if(attempt===4)throw err;await delay(backoff[attempt])}
         }
