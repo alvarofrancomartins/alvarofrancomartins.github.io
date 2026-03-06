@@ -61,72 +61,111 @@
         .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-left-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-left:6px}
         @keyframes spin{to{transform:rotate(360deg)}}
 
+        /* ===== ABOUT MODAL ===== */
+        .about-trigger{background:none;border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;flex-shrink:0;margin-left:auto}
+        .about-trigger:hover{border-color:var(--text-muted);color:var(--text-primary)}
+        .about-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+        .about-overlay.visible{display:flex}
+        .about-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:36px 32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+        .about-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s;line-height:1}
+        .about-close:hover{color:var(--text-primary);background:var(--bg-hover)}
+        .about-card h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px}
+        .about-card p{color:var(--text-secondary);font-size:1rem;line-height:1.75;margin-bottom:14px}
+        .about-card p:last-child{margin-bottom:0}
+        .about-card strong{color:var(--text-primary)}
+        .about-card .about-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.78rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);margin-right:6px;margin-bottom:6px}
+
         /* ===== MOBILE VIEW ===== */
         .mobile-view{display:none}
+        .m-home{display:none}
+        .m-explore-wrap{display:none}
+        .m-back-btn{display:none}
 
         @media(max-width:768px){
             html,body{overflow:auto;overflow-x:hidden}
             .app-shell{height:auto;min-height:100vh}
 
-            /* Compact header — wraps on mobile */
+            /* Header: just brand name on mobile */
             .app-header{padding:10px 14px 0;flex-wrap:wrap;gap:8px}
             .brand-name{font-size:1.15rem}
+            .domain-bar{display:none!important}
 
-
-            /* Domain bar: icon-only on mobile, active shows label */
-            .domain-bar{padding:0;gap:4px;order:3;width:100%}
-            .domain-tab{font-size:0;padding:7px 9px;border-radius:14px;gap:0}
-            .domain-tab .tab-icon{font-size:1.05rem}
-            .domain-tab.active{font-size:0.72rem;padding:5px 11px;gap:4px}
-
-            /* Controls stacked */
-            .controls-row{flex-direction:column;padding:8px 14px 0;gap:6px}
-            .input-group{width:100%}
-            .input-group input{width:100%;padding:8px 12px;font-size:0.88rem}
-            .input-group label{font-size:0.7rem}
-            .btn-generate{width:100%;height:42px;font-size:0.92rem}
-
-            .feedback{padding:4px 14px 0;font-size:0.78rem}
-
-            /* Hide desktop tree on mobile */
+            /* Hide desktop-only elements */
+            .controls-row{display:none!important}
+            .intro-state{display:none!important}
             .tree-container{display:none!important}
-            .intro-state{padding:30px 16px 30px}
-            .intro-graphic{width:72px;height:72px;border-radius:14px;font-size:32px}
-            .intro-state h3{font-size:1.1rem}
-            .intro-state p{font-size:0.82rem;line-height:1.4}
+            .feedback{display:none!important}
             .app-footer{font-size:0.6rem;padding:10px 0}
 
+            /* Mobile About */
+            .about-trigger{display:none}
+            .m-about-link{display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;color:var(--text-secondary);text-decoration:none;margin-top:20px;padding:10px 22px;border:1px solid var(--border);border-radius:20px;background:var(--bg-card);transition:all 0.2s}
+            .m-about-link:active{border-color:var(--accent);color:var(--text-primary)}
+            .about-card{padding:28px 22px}
+            .about-card h2{font-size:1.3rem}
+            .about-card p{font-size:0.88rem;line-height:1.65}
 
+            /* ===== MOBILE HOME SCREEN ===== */
+            .m-home{display:none;padding:20px 16px 24px;flex-direction:column;align-items:center}
+            .m-home.visible{display:flex}
+
+            .m-home-title{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;text-align:center;margin-bottom:4px}
+            .m-home-sub{font-size:0.85rem;color:var(--text-secondary);text-align:center;margin-bottom:20px;line-height:1.5}
+
+            .m-domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:400px}
+
+            .m-domain-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px 8px;background:var(--bg-card);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all 0.2s}
+            .m-domain-card:active{transform:scale(0.95);border-color:var(--accent)}
+            .m-domain-card-icon{font-size:1.8rem}
+            .m-domain-card-name{font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:600;color:var(--text-secondary);text-align:center}
+            .m-domain-card.has-data{border-color:var(--accent);border-style:solid;position:relative}
+            .m-domain-card.has-data::after{content:'';position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+
+            /* General card: subtle accent glow */
+
+            /* ===== MOBILE EXPLORE SCREEN ===== */
+            .m-explore-wrap{display:none;flex-direction:column;padding:0}
+            .m-explore-wrap.visible{display:flex}
+
+            /* Back button */
+            .m-back-btn{display:flex;align-items:center;gap:6px;padding:10px 14px 0;background:none;border:none;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+            .m-back-btn:active{color:var(--accent)}
+            .m-back-arrow{font-size:1.1rem}
+
+            /* Explore header with domain icon */
+            .m-explore-header{display:flex;align-items:center;gap:8px;padding:8px 14px 0}
+            .m-explore-domain-icon{font-size:1.4rem}
+            .m-explore-domain-name{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700}
+
+            /* Controls inside explore */
+            .m-controls{display:flex;flex-direction:column;gap:6px;padding:8px 14px 0}
+            .m-controls .input-group{width:100%;display:flex;flex-direction:column;gap:5px}
+            .m-controls .input-group label{font-size:0.7rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
+            .m-controls .input-group input{width:100%;padding:8px 12px;font-size:0.88rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text-primary);font-family:'DM Sans',sans-serif}
+            .m-controls .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+            .m-controls .input-group input::placeholder{color:var(--text-muted)}
+            .m-controls .m-btn-generate{width:100%;height:42px;font-size:0.92rem;padding:0;background:var(--accent);color:var(--bg-primary);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer}
+
+            .m-feedback{text-align:center;padding:4px 14px 0;font-size:0.78rem;color:var(--text-secondary);min-height:20px}
+            .m-feedback.error{color:#ef4444}
+            .m-feedback.success{color:var(--accent)}
 
             /* ===== VERTICAL DENDRITE TREE ===== */
             .mobile-view{display:none;position:relative;padding:8px 0 24px;overflow-x:hidden}
             .mobile-view.visible{display:block}
 
             .m-tree{position:relative;width:100%;padding:0}
-
-            /* SVG edge overlay */
             .m-tree-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
             .m-tree-edge{fill:none;stroke-linecap:round;opacity:0.5}
-
-            /* Depth layers — always fit screen width */
             .m-layer{position:relative;z-index:1;display:flex;justify-content:center;align-items:flex-start;padding:0 6px}
-
-            /* Spacer between layers */
             .m-spacer{height:36px}
-
-            /* Node cards */
             .m-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;padding:0 3px}
             .m-node:active{transform:scale(0.95)}
-
             .m-node-img-wrap{border-radius:10px;overflow:hidden;border:2px solid var(--border);background:var(--bg-card);position:relative;transition:border-color 0.2s}
             .m-node:active .m-node-img-wrap{border-color:var(--accent)}
-
             .m-node-img{display:block;width:100%;height:100%;object-fit:cover}
             .m-node-initials{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Sora',sans-serif;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:1px}
-
             .m-node-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-primary);text-align:center;line-height:1.2;margin-top:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
-
-            /* Generating indicator */
             .m-tree-status{text-align:center;padding:12px 0 0;font-size:0.75rem;color:var(--text-muted)}
         }
     </style>
@@ -137,6 +176,7 @@
     <header class="app-header">
         <div class="brand"><span class="brand-name">Dendrite</span></div>
         <nav class="domain-bar" id="domain-bar"></nav>
+        <button class="about-trigger" id="about-trigger">About</button>
     </header>
     <div class="controls-row">
         <div class="input-group" id="category-group" style="display:none"><label id="category-label">Category</label><input type="text" id="category-input" placeholder=""></div>
@@ -155,7 +195,37 @@
         <div class="m-tree" id="m-tree"></div>
         <div class="m-tree-status" id="m-tree-status"></div>
     </div>
+    <!-- Mobile home screen: domain grid -->
+    <div class="m-home" id="m-home">
+        <div class="m-home-title">Explore anything</div>
+        <div class="m-home-sub">Pick a category to start branching</div>
+        <div class="m-domain-grid" id="m-domain-grid"></div>
+        <a class="m-about-link" id="m-about-link" href="#">ℹ️ What is Dendrite?</a>
+    </div>
+    <!-- Mobile explore screen -->
+    <div class="m-explore-wrap" id="m-explore-wrap">
+        <button class="m-back-btn" id="m-back-btn"><span class="m-back-arrow">←</span> All categories</button>
+        <div class="m-explore-header"><span class="m-explore-domain-icon" id="m-explore-icon"></span><span class="m-explore-domain-name" id="m-explore-name"></span></div>
+        <div class="m-controls" id="m-controls"></div>
+        <div class="m-feedback" id="m-feedback"></div>
+    </div>
     <footer class="app-footer">Dendrite &mdash; Structured AI Exploration Engine &nbsp;&middot;&nbsp; Powered by <a href="https://deepseek.com" target="_blank">DeepSeek</a></footer>
+</div>
+<!-- About modal -->
+<div class="about-overlay" id="about-overlay">
+    <div class="about-card">
+        <button class="about-close" id="about-close">&times;</button>
+        <h2>What is Dendrite?</h2>
+        <p>Dendrite is a <strong>context-aware visual branching engine</strong>. You give it a starting point &mdash; an artist, a dish, a book, anything &mdash; and it uses AI to grow a tree of connected recommendations.</p>
+        <p>What makes it different from a simple "recommend me something" is the <strong>path</strong>. Each branch remembers how you got there. Starting from Radiohead and drifting toward jazz produces completely different depth-3 results than drifting toward electronic. The path <em>is</em> the context.</p>
+        <p>The tree is generated in real-time using the DeepSeek LLM. Each node branches into two children, three levels deep &mdash; producing 15 connected nodes per exploration. Images are pulled from Wikipedia, iTunes, Open Library, TVMaze, and Jikan depending on the domain.</p>
+        <p>
+            <span class="about-tag">15 domains</span>
+            <span class="about-tag">Path-aware prompts</span>
+            <span class="about-tag">Real-time branching</span>
+            <span class="about-tag">Zero accounts</span>
+        </p>
+    </div>
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
@@ -181,10 +251,6 @@
 
     function mkDomain(o){return o}
     var DOMAINS={
-        general:mkDomain({name:'General',icon:'🌿',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#44403c','#78716c','#a8a29e','#d6d3d1','#e7e5e3'],seedLabel:'Seed \u2014 Starting Point',seedPlaceholder:'e.g. Tiramisu, Bossa Nova, Mars...',seedDefault:'',twistLabel:'Vibe (Optional)',twistPlaceholder:'e.g. Cozy, Experimental, For Kids',twistDefault:'',categoryLabel:'Category',categoryPlaceholder:'e.g. Comedians, Scientists, Cities, Dishes',categoryDefault:'',introIcon:'🌿',introTitle:'Explore anything',introDesc:'Pick a category (e.g. "Comedians"), type a starting point, and optionally add a vibe. Dendrite branches into a visual map of connections.',
-            systemPrompt:function(limit,vibe,category){var v=vibe?' filtered through the lens of "'+vibe+'"':'';var c=category?'\nCRITICAL: Every recommendation must be a specific '+category+'. Return ONLY names of '+category+', nothing else. No descriptions, no qualifiers \u2014 just the name.':'';return 'You are an extraordinarily knowledgeable polymath. The user provides a "Path" showing a chain of connected concepts. Recommend exactly '+limit+' closely related items that logically branch from the LAST item in the path'+v+'.'+c+'\nEach recommendation must be concise (1-5 words, just the name).\nCRITICAL: Do NOT recommend anything already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
-            userPrompt:function(path,vibe,limit,category){return 'Path: '+path.join(' \u2192 ')+'\n'+(category?'Return only: '+category+'\n':'')+(vibe?'Lens: "'+vibe+'"\n':'')+'Provide exactly '+limit+' branching connections.'},
-            fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(n)},resultKey:'recommendations'}),
         music:mkDomain({name:'Music',icon:'🎵',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#78350f','#b45309','#d97706','#f59e0b','#fbbf24'],seedLabel:'Seed Artist',seedPlaceholder:'e.g. Radiohead',seedDefault:'Radiohead',twistLabel:'Vibe / Twist (Optional)',twistPlaceholder:'e.g. Chaotic, Lo-fi, Brazilian',twistDefault:'',introIcon:'🎵',introTitle:'Explore the musical universe',introDesc:'Enter an artist and an optional vibe. Dendrite will branch out through similar artists, building a visual map of musical connections.',
             systemPrompt:function(limit,vibe){var v=vibe?' while heavily embodying the requested vibe ("'+vibe+'")':'';return 'You are an expert music curator. The user provides a "Path" showing the lineage of artists explored. Recommend exactly '+limit+' new artists that logically continue this musical journey from the LAST artist in the path, respecting overarching context'+v+'.\nCRITICAL: Do NOT recommend any artist already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Vibe: "'+vibe+'"\n':'')+'Provide exactly '+limit+' recommendations.'},
@@ -199,7 +265,7 @@
             systemPrompt:function(limit,vibe){var v=vibe?' with a strong lean toward "'+vibe+'"':'';return 'You are a world-class literary advisor and bibliophile with deep knowledge spanning fiction, non-fiction, academic texts, and obscure works. The user provides a "Reading Path" showing a chain of books or authors explored. Recommend exactly '+limit+' books (format: "Title - Author") that logically continue the intellectual or narrative journey from the LAST item in the path'+v+'.\nConsider thematic connections, writing style, intellectual lineage, and the specific thread this path represents \u2014 not just "same genre."\nCRITICAL: Do NOT recommend any book already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Reading Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Angle: "'+vibe+'"\n':'')+'Provide exactly '+limit+' book recommendations.'},
             fetchImage:async function(name){try{var searchTerm=name.split(' - ')[0]||name;var r=await fetch('https://openlibrary.org/search.json?q='+encodeURIComponent(searchTerm)+'&limit=1');var d=await r.json();if(d.docs&&d.docs.length&&d.docs[0].cover_i)return 'https://covers.openlibrary.org/b/id/'+d.docs[0].cover_i+'-L.jpg'}catch(e){}return null},
-            makeLink:function(n){return 'https://www.goodreads.com/search?q='+encodeURIComponent(n)},resultKey:'recommendations'}),
+            makeLink:function(n){return 'https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(n)},resultKey:'recommendations'}),
         movies:mkDomain({name:'Movies',icon:'🎬',accent:'#06b6d4',accentGlow:'rgba(6,182,212,0.15)',colors:['#083344','#155e75','#0891b2','#22d3ee','#67e8f9'],seedLabel:'Seed Film',seedPlaceholder:'e.g. Blade Runner, Parasite',seedDefault:'Blade Runner',twistLabel:'Cinematic Lens (Optional)',twistPlaceholder:'e.g. More Surreal, 70s Only, Foreign',twistDefault:'',introIcon:'🎬',introTitle:'Explore cinematic connections',introDesc:'Enter a film. Dendrite branches into connected movies \u2014 tracing visual style, thematic DNA, directorial lineage, and tonal echoes.',
             systemPrompt:function(limit,vibe){var v=vibe?' filtered through a "'+vibe+'" cinematic lens':'';return 'You are an encyclopedic film curator, critic, and historian. The user provides a "Viewing Path" showing films explored so far. Recommend exactly '+limit+' films (format: "Title (Year)") that logically continue the cinematic thread from the LAST film in the path'+v+'.\nConsider visual style, directorial influences, thematic depth, narrative structure, and cinematographic DNA \u2014 not just genre or popularity.\nCRITICAL: Do NOT recommend any film already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Viewing Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Lens: "'+vibe+'"\n':'')+'Provide exactly '+limit+' film recommendations.'},
@@ -236,20 +302,148 @@
         travel:mkDomain({name:'Travel',icon:'✈️',accent:'#0d9488',accentGlow:'rgba(13,148,136,0.15)',colors:['#042f2e','#115e59','#0f766e','#0d9488','#2dd4bf'],seedLabel:'Seed Destination or Place',seedPlaceholder:'e.g. Kyoto, Oaxaca, Dubrovnik',seedDefault:'Kyoto',twistLabel:'Travel Style (Optional)',twistPlaceholder:'e.g. Budget, Food-Focused, Off the Beaten Path',twistDefault:'',introIcon:'✈️',introTitle:'Discover where to go next',introDesc:'Enter a destination you loved. Dendrite branches into places that share its essence \u2014 similar energy, aesthetic, culture, or vibe, not just geographic proximity.',
             systemPrompt:function(limit,vibe){var v=vibe?' for a traveler whose style is "'+vibe+'"':'';return 'You are a seasoned travel expert who has explored the world deeply \u2014 not as a tourist but as someone who understands the soul of a place. The user provides a "Travel Path" showing destinations explored. Recommend exactly '+limit+' destinations that someone who loved the LAST place in the path would naturally want to visit next'+v+'.\nConsider cultural atmosphere, architectural character, food scene, pace of life, visual aesthetic, and the emotional experience of being there \u2014 not just "same continent" or "also popular."\nFormat: "City, Country" or "Region, Country" \u2014 be specific.\nCRITICAL: Do NOT recommend any destination already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Travel Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Style: "'+vibe+'"\n':'')+'Provide exactly '+limit+' destination recommendations.'},
-            fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://www.google.com/search?q='+encodeURIComponent(n+' travel guide')},resultKey:'recommendations'})
+            fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://www.google.com/search?q='+encodeURIComponent(n+' travel guide')},resultKey:'recommendations'}),
+        documentaries:mkDomain({name:'Docs',icon:'🎞️',accent:'#737373',accentGlow:'rgba(115,115,115,0.15)',colors:['#171717','#404040','#525252','#737373','#a3a3a3'],seedLabel:'Seed Documentary',seedPlaceholder:'e.g. Making a Murderer, Planet Earth',seedDefault:'Making a Murderer',twistLabel:'Topic Lean (Optional)',twistPlaceholder:'e.g. True Crime, Nature, Political, Science',twistDefault:'',introIcon:'🎞️',introTitle:'Discover untold stories',introDesc:'Enter a documentary. Dendrite branches by topic, investigative thread, and storytelling style \u2014 not just "same genre on Netflix."',
+            systemPrompt:function(limit,vibe){var v=vibe?' with a "'+vibe+'" topic lean':'';return 'You are an expert documentary curator with deep knowledge spanning true crime, nature, political, science, music, sports, history, and independent docs. The user provides a "Viewing Path" showing documentaries explored. Recommend exactly '+limit+' documentaries that someone who loved the LAST documentary would want to watch next'+v+'.\nConsider subject matter, investigative depth, storytelling approach, emotional tone, and the intellectual thread connecting them.\nCRITICAL RULES:\n- ONLY recommend actual, named documentaries (not series categories or topics)\n- Format: just the documentary title\n- Do NOT recommend anything in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
+            userPrompt:function(path,vibe,limit){return 'Viewing Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Lean: "'+vibe+'"\n':'')+'Provide exactly '+limit+' documentary recommendations.'},
+            fetchImage:async function(name){return await wikiImage(name+' documentary')},makeLink:function(n){return 'https://www.google.com/search?q='+encodeURIComponent(n+' documentary')},resultKey:'recommendations'}),
+        perfumes:mkDomain({name:'Perfumes',icon:'🌸',accent:'#c084fc',accentGlow:'rgba(192,132,252,0.15)',colors:['#3b0764','#6b21a8','#7c3aed','#c084fc','#e9d5ff'],seedLabel:'Seed Fragrance',seedPlaceholder:'e.g. Bleu de Chanel, Santal 33',seedDefault:'Bleu de Chanel',twistLabel:'Scent Direction (Optional)',twistPlaceholder:'e.g. Fresher, More Woody, Unisex, Niche',twistDefault:'',introIcon:'🌸',introTitle:'Map the fragrance world',introDesc:'Enter a perfume you love. Dendrite branches into fragrances with similar DNA \u2014 connected by scent profile, notes, and the feeling they evoke.',
+            systemPrompt:function(limit,vibe){var v=vibe?' leaning toward "'+vibe+'"':'';return 'You are a master perfumer and fragrance expert with encyclopedic knowledge of designer, niche, and indie fragrances for all genders. The user provides a "Scent Path" showing perfumes explored. Recommend exactly '+limit+' fragrances that someone who loved the LAST perfume would want to try next'+v+'.\nConsider shared notes, olfactory families (woody, floral, oriental, fresh, gourmand), sillage, longevity, and the emotional experience of wearing them.\nCRITICAL RULES:\n- ONLY recommend specific, named fragrances (e.g. "Tom Ford Oud Wood", "Byredo Gypsy Water")\n- Format: "Fragrance Name - House" (e.g. "Santal 33 - Le Labo")\n- NEVER recommend raw notes or families (no "Sandalwood", "Oriental Fragrances")\n- NEVER recommend brands alone (no "Tom Ford", "Creed")\n- Do NOT recommend anything in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
+            userPrompt:function(path,vibe,limit){return 'Scent Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Direction: "'+vibe+'"\n':'')+'Provide exactly '+limit+' fragrance recommendations.'},
+            fetchImage:async function(name){var clean=name.split(' - ')[0]||name;return await wikiImage(clean+' perfume fragrance')},makeLink:function(n){return 'https://www.fragrantica.com/search/?query='+encodeURIComponent(n.split(' - ')[0]||n)},resultKey:'recommendations'}),
+        general:mkDomain({name:'General',icon:'🌿',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#44403c','#78716c','#a8a29e','#d6d3d1','#e7e5e3'],seedLabel:'Seed \u2014 Starting Point',seedPlaceholder:'e.g. Tiramisu, Bossa Nova, Mars...',seedDefault:'',twistLabel:'Vibe (Optional)',twistPlaceholder:'e.g. Cozy, Experimental, For Kids',twistDefault:'',categoryLabel:'Category',categoryPlaceholder:'e.g. Comedians, Scientists, Cities, Dishes',categoryDefault:'',introIcon:'🌿',introTitle:'Explore anything',introDesc:'Pick a category (e.g. "Comedians"), type a starting point, and optionally add a vibe. Dendrite branches into a visual map of connections.',
+            systemPrompt:function(limit,vibe,category){var v=vibe?' filtered through the lens of "'+vibe+'"':'';var c=category?'\nCRITICAL: Every recommendation must be a specific '+category+'. Return ONLY names of '+category+', nothing else. No descriptions, no qualifiers \u2014 just the name.':'';return 'You are an extraordinarily knowledgeable polymath. The user provides a "Path" showing a chain of connected concepts. Recommend exactly '+limit+' closely related items that logically branch from the LAST item in the path'+v+'.'+c+'\nEach recommendation must be concise (1-5 words, just the name).\nCRITICAL: Do NOT recommend anything already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
+            userPrompt:function(path,vibe,limit,category){return 'Path: '+path.join(' \u2192 ')+'\n'+(category?'Return only: '+category+'\n':'')+(vibe?'Lens: "'+vibe+'"\n':'')+'Provide exactly '+limit+' branching connections.'},
+            fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(n)},resultKey:'recommendations'})
     };
 
 
     // STATE
-    var activeDomain='general',globalNodes=[],globalLinks=[],isGenerating=false;
+    var activeDomain='music',globalNodes=[],globalLinks=[],isGenerating=false;
     var MAX_DEPTH=3,BRANCH_FACTOR=2,TOTAL_ROWS=Math.pow(BRANCH_FACTOR,MAX_DEPTH);
     var domainBar=document.getElementById('domain-bar'),seedInput=document.getElementById('seed-input'),twistInput=document.getElementById('twist-input'),categoryInput=document.getElementById('category-input'),categoryGroup=document.getElementById('category-group'),categoryLabelEl=document.getElementById('category-label'),seedLabelEl=document.getElementById('seed-label'),twistLabelEl=document.getElementById('twist-label'),btnGenerate=document.getElementById('btn-generate'),feedback=document.getElementById('feedback'),introState=document.getElementById('intro-state'),introIconEl=document.getElementById('intro-icon'),introTitleEl=document.getElementById('intro-title'),introDescEl=document.getElementById('intro-desc'),treeContainer=document.getElementById('tree-container'),treeSvgMount=document.getElementById('tree-svg-mount');
 
     // MOBILE STATE
     var isMobile=window.innerWidth<=768;
     var mobileView=document.getElementById('mobile-view'),mTree=document.getElementById('m-tree'),mTreeStatus=document.getElementById('m-tree-status');
+    var mHome=document.getElementById('m-home'),mDomainGrid=document.getElementById('m-domain-grid');
+    var mExploreWrap=document.getElementById('m-explore-wrap'),mBackBtn=document.getElementById('m-back-btn');
+    var mExploreIcon=document.getElementById('m-explore-icon'),mExploreName=document.getElementById('m-explore-name');
+    var mControls=document.getElementById('m-controls'),mFeedback=document.getElementById('m-feedback');
+    var explorations={};// Cache: {domainKey: {nodes:[], links:[], seed:'', twist:'', category:''}}
 
-    function renderDomainTabs(){domainBar.innerHTML='';Object.keys(DOMAINS).forEach(function(key){var d=DOMAINS[key];var tab=document.createElement('button');tab.className='domain-tab'+(key===activeDomain?' active':'');tab.innerHTML='<span class="tab-icon">'+d.icon+'</span>'+d.name;tab.onclick=function(){switchDomain(key)};domainBar.appendChild(tab)})}
+    // Build mobile domain grid
+    function buildDomainGrid(){
+        var html='';
+        Object.keys(DOMAINS).forEach(function(key){
+            var d=DOMAINS[key];
+            var extraClass=key==='general'?' m-general':'';
+            html+='<div class="m-domain-card'+extraClass+'" data-domain="'+key+'">';
+            html+='<span class="m-domain-card-icon">'+d.icon+'</span>';
+            html+='<span class="m-domain-card-name">'+d.name+'</span>';
+            html+='</div>'
+        });
+        mDomainGrid.innerHTML=html;
+        mDomainGrid.querySelectorAll('.m-domain-card').forEach(function(card){
+            card.addEventListener('click',function(){mobileSelectDomain(card.getAttribute('data-domain'))})
+        })
+    }
+
+    function updateDomainGridDots(){
+        mDomainGrid.querySelectorAll('.m-domain-card').forEach(function(card){
+            var key=card.getAttribute('data-domain');
+            card.classList.toggle('has-data',!!(explorations[key]&&explorations[key].nodes.length>0))
+        })
+    }
+
+    function mobileShowHome(){
+        if(!isMobile)return;
+        // Save current exploration
+        if(activeDomain&&globalNodes.length>0){
+            explorations[activeDomain]={nodes:globalNodes.slice(),links:globalLinks.slice(),seed:seedInput.value,twist:twistInput.value,category:categoryInput.value}
+        }
+        updateDomainGridDots();
+        mExploreWrap.classList.remove('visible');
+        mobileView.classList.remove('visible');
+        mHome.classList.add('visible');
+        window.scrollTo(0,0)
+    }
+
+    function mobileSelectDomain(key){
+        if(!isMobile)return;
+        if(isGenerating)return;
+        activeDomain=key;
+        var d=DOMAINS[key];
+        applyTheme(key);
+
+        // Update desktop state too (keeps things in sync)
+        renderDomainTabs();
+        seedLabelEl.textContent=d.seedLabel;seedInput.placeholder=d.seedPlaceholder;
+        twistLabelEl.textContent=d.twistLabel;twistInput.placeholder=d.twistPlaceholder;
+        introIconEl.textContent=d.introIcon;introTitleEl.textContent=d.introTitle;introDescEl.textContent=d.introDesc;
+
+        // Build mobile controls
+        var controlsHtml='';
+        if(d.categoryLabel){
+            controlsHtml+='<div class="input-group"><label>'+d.categoryLabel+'</label><input type="text" id="m-category" placeholder="'+d.categoryPlaceholder+'" value="'+(d.categoryDefault||'')+'"></div>'
+        }
+        controlsHtml+='<div class="input-group"><label>'+d.seedLabel+'</label><input type="text" id="m-seed" placeholder="'+d.seedPlaceholder+'" value="'+(d.seedDefault||'')+'"></div>';
+        controlsHtml+='<div class="input-group"><label>'+d.twistLabel+'</label><input type="text" id="m-twist" placeholder="'+d.twistPlaceholder+'" value="'+(d.twistDefault||'')+'"></div>';
+        controlsHtml+='<button class="m-btn-generate" id="m-btn-generate">Explore</button>';
+        mControls.innerHTML=controlsHtml;
+
+        // Set explore header
+        mExploreIcon.textContent=d.icon;
+        mExploreName.textContent=d.name;
+
+        // Restore cached exploration if any
+        var cached=explorations[key];
+        if(cached&&cached.nodes.length>0){
+            globalNodes=cached.nodes;globalLinks=cached.links;
+            if(cached.seed){var si=mControls.querySelector('#m-seed');if(si)si.value=cached.seed}
+            if(cached.twist){var ti=mControls.querySelector('#m-twist');if(ti)ti.value=cached.twist}
+            if(cached.category){var ci=mControls.querySelector('#m-category');if(ci)ci.value=cached.category}
+            mobileView.classList.add('visible');
+            mFeedback.innerHTML='\u2726 '+globalNodes.length+' nodes';mFeedback.className='m-feedback success';
+            renderMobile()
+        }else{
+            globalNodes=[];globalLinks=[];
+            mobileView.classList.remove('visible');
+            mTree.innerHTML='';mTreeStatus.innerHTML='';
+            mFeedback.innerHTML='';mFeedback.className='m-feedback'
+        }
+
+        // Switch screens
+        mHome.classList.remove('visible');
+        mExploreWrap.classList.add('visible');
+
+        // Wire generate button and enter keys
+        var mBtnGen=mControls.querySelector('#m-btn-generate');
+        var mSeedInput=mControls.querySelector('#m-seed');
+        var mTwistInput=mControls.querySelector('#m-twist');
+        var mCatInput=mControls.querySelector('#m-category');
+        function mobileGenerate(){
+            var seed=(mSeedInput?mSeedInput.value:'').trim();
+            var twist=(mTwistInput?mTwistInput.value:'').trim();
+            var category=(mCatInput?mCatInput.value:'').trim();
+            if(!seed){mFeedback.textContent='Please enter a starting point.';mFeedback.className='m-feedback error';return}
+            if(isGenerating){isGenerating=false;mBtnGen.textContent='Explore';mFeedback.textContent='Stopped.';return}
+            // Sync to desktop inputs for the generation engine
+            seedInput.value=seed;twistInput.value=twist;categoryInput.value=category;
+            isGenerating=true;mBtnGen.textContent='Stop';
+            startGeneration(seed,twist,category)
+        }
+        mBtnGen.addEventListener('click',mobileGenerate);
+        [mSeedInput,mTwistInput,mCatInput].forEach(function(el){
+            if(el)el.addEventListener('keypress',function(e){if(e.key==='Enter')mobileGenerate()})
+        });
+
+        window.scrollTo(0,0)
+    }
+
+    mBackBtn.addEventListener('click',mobileShowHome);
+
+    function renderDomainTabs(){domainBar.innerHTML='';Object.keys(DOMAINS).forEach(function(key){var d=DOMAINS[key];var tab=document.createElement('button');tab.className='domain-tab'+(key===activeDomain?' active':'')+(key==='general'?' tab-general':'');tab.innerHTML='<span class="tab-icon">'+d.icon+'</span>'+d.name;tab.onclick=function(){switchDomain(key)};domainBar.appendChild(tab)})}
     function applyTheme(domain){var d=DOMAINS[domain];document.documentElement.style.setProperty('--accent',d.accent);document.documentElement.style.setProperty('--accent-glow',d.accentGlow)}
     function switchDomain(key){if(isGenerating)return;activeDomain=key;var d=DOMAINS[key];applyTheme(key);renderDomainTabs();seedLabelEl.textContent=d.seedLabel;seedInput.placeholder=d.seedPlaceholder;seedInput.value=d.seedDefault;twistLabelEl.textContent=d.twistLabel;twistInput.placeholder=d.twistPlaceholder;twistInput.value=d.twistDefault;introIconEl.textContent=d.introIcon;introTitleEl.textContent=d.introTitle;introDescEl.textContent=d.introDesc;if(d.categoryLabel){categoryGroup.style.display='';categoryLabelEl.textContent=d.categoryLabel;categoryInput.placeholder=d.categoryPlaceholder;categoryInput.value=d.categoryDefault||''}else{categoryGroup.style.display='none';categoryInput.value=''}treeContainer.classList.remove('visible');introState.classList.remove('hidden');feedback.textContent='';globalNodes=[];globalLinks=[];mobileView.classList.remove('visible');mTree.innerHTML='';mTreeStatus.innerHTML=''}
 
@@ -386,6 +580,7 @@
         var domain=DOMAINS[activeDomain];var cleanSeed=seed.trim();
         var twistDisplay=twist?' \u2014 <span style="color:'+domain.accent+'">'+twist+'</span>':'';
         feedback.innerHTML='Branching from <b>'+cleanSeed+'</b>'+twistDisplay+' <span class="spinner"></span>';feedback.className='feedback';
+        if(isMobile){mFeedback.innerHTML='Branching from <b>'+cleanSeed+'</b>'+twistDisplay+' <span class="spinner"></span>';mFeedback.className='m-feedback'}
         var rootNode={id:'n-'+Math.random().toString(36).substr(2,9),name:cleanSeed,depth:0,startRow:0,rowSpan:TOTAL_ROWS,url:domain.makeLink(cleanSeed),imageUrl:null};
         lazyLoadImage(rootNode,domain);
         globalNodes=[rootNode];globalLinks=[];introState.classList.add('hidden');treeContainer.classList.add('visible');
@@ -407,7 +602,15 @@
                 if(updated&&isGenerating){drawTree();renderMobile()}
             }catch(e){console.warn('Gen failed for '+cur.name+':',e)}
         }
-        if(isGenerating){feedback.innerHTML='\u2726 Exploration complete \u2014 '+globalNodes.length+' nodes mapped';feedback.className='feedback success';isGenerating=false;btnGenerate.textContent='Explore';renderMobile()}
+        if(isGenerating){
+            feedback.innerHTML='\u2726 Exploration complete \u2014 '+globalNodes.length+' nodes mapped';feedback.className='feedback success';isGenerating=false;btnGenerate.textContent='Explore';
+            if(isMobile){
+                mFeedback.innerHTML='\u2726 '+globalNodes.length+' nodes mapped';mFeedback.className='m-feedback success';
+                var mBG=document.getElementById('m-btn-generate');if(mBG)mBG.textContent='Explore';
+                explorations[activeDomain]={nodes:globalNodes.slice(),links:globalLinks.slice(),seed:seedInput.value,twist:twistInput.value,category:categoryInput.value}
+            }
+            renderMobile()
+        }
     }
 
     function drawTree(){
@@ -441,7 +644,20 @@
     categoryInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
     twistInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
     window.addEventListener('resize',function(){isMobile=window.innerWidth<=768;if(globalNodes.length&&!isGenerating){drawTree();renderMobile()}});
-    switchDomain('general');
+    // About modal
+    var aboutOverlay=document.getElementById('about-overlay');
+    var aboutTrigger=document.getElementById('about-trigger');
+    var aboutClose=document.getElementById('about-close');
+    var mAboutLink=document.getElementById('m-about-link');
+    function openAbout(e){if(e)e.preventDefault();aboutOverlay.classList.add('visible')}
+    function closeAbout(){aboutOverlay.classList.remove('visible')}
+    aboutTrigger.addEventListener('click',openAbout);
+    aboutClose.addEventListener('click',closeAbout);
+    if(mAboutLink)mAboutLink.addEventListener('click',openAbout);
+    aboutOverlay.addEventListener('click',function(e){if(e.target===aboutOverlay)closeAbout()});
+
+    switchDomain('music');
+    if(isMobile){buildDomainGrid();mobileShowHome()}
 })();
 </script>
 </body>
