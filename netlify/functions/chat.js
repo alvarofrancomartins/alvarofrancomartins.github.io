@@ -1,46 +1,50 @@
-// Rate limit: per-IP tracking
-const rateMap = new Map();
+const https = require('https');
 
-exports.handler = async (event) => {
-  // CORS preflight
+exports.handler = async function(event, context) {
+  // CORS
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Content-Type': 'application/json'
+  };
+
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'POST', 'Access-Control-Allow-Headers': 'Content-Type' } };
+    return { statusCode: 200, headers, body: '' };
   }
 
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: JSON.stringify({ error: 'POST only' }) };
+    return { statusCode: 405, headers, body: JSON.stringify({ error: 'POST only' }) };
   }
 
-  // Rate limit: 20 req/min per IP
-  const ip = event.headers['x-forwarded-for']?.split(',')[0]?.trim() || 'unknown';
-  const now = Date.now();
-  const entry = rateMap.get(ip) || { count: 0, start: now };
-  if (now - entry.start > 60000) { entry.count = 0; entry.start = now; }
-  entry.count++;
-  rateMap.set(ip, entry);
+  // Proxy to DeepSeek using Node built-in https (no fetch dependency)
+  return new Promise((resolve) => {
+    const postData = event.body;
 
-  if (entry.count > 20) {
-    return { statusCode: 429, body: JSON.stringify({ error: 'Rate limited. Try again in a minute.' }) };
-  }
-
-  // Proxy to DeepSeek
-  try {
-    const res = await fetch('https://api.deepseek.com/chat/completions', {
+    const options = {
+      hostname: 'api.deepseek.com',
+      path: '/chat/completions',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.DEEPSEEK_KEY}`
-      },
-      body: event.body
+        'Authorization': 'Bearer ' + process.env.DEEPSEEK_KEY,
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    };
+
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        resolve({ statusCode: res.statusCode, headers, body: data });
+      });
     });
 
-    const data = await res.json();
-    return {
-      statusCode: res.status,
-      headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    };
-  } catch (err) {
-    return { statusCode: 500, body: JSON.stringify({ error: 'Proxy error' }) };
-  }
+    req.on('error', (err) => {
+      resolve({ statusCode: 500, headers, body: JSON.stringify({ error: 'Proxy error: ' + err.message }) });
+    });
+
+    req.write(postData);
+    req.end();
+  });
 };
