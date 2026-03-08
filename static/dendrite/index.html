@@ -274,10 +274,10 @@
             systemPrompt:function(limit,vibe,category){var v=vibe?' filtered through the lens of "'+vibe+'"':'';var c=category?'\nCRITICAL: Every recommendation must be a specific '+category+'. Return ONLY names of '+category+', nothing else. No descriptions, no qualifiers \u2014 just the name.':'';return 'You are an extraordinarily knowledgeable polymath. The user provides a "Path" showing a chain of connected concepts. Recommend exactly '+limit+' items that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nThe path is not just context \u2014 it IS the query. Each step narrowed the direction. Recommendations must feel like the logical next step in THIS exact journey.'+c+'\nEach recommendation must be concise (1-5 words, just the name).\nCRITICAL: Do NOT recommend anything already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit,category){return 'Path: '+path.join(' \u2192 ')+'\n'+(category?'Return only: '+category+'\n':'')+(vibe?'Lens: "'+vibe+'"\n':'')+'Provide exactly '+limit+' branching connections.'},
             fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(n)},resultKey:'recommendations'}),
-        music:mkDomain({name:'Music',icon:'🎵',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#78350f','#b45309','#d97706','#f59e0b','#fbbf24'],seedLabel:'Artist, genre, or album',seedPlaceholder:'e.g. Radiohead, 90s trip-hop, OK Computer',inputTypes:[{l:'Artist',ph:'e.g. Radiohead, Billie Eilish'},{l:'Album',ph:'e.g. OK Computer, Kind of Blue'}],seedDefault:'',twistLabel:'Vibe / Twist (Optional)',twistPlaceholder:'e.g. Chaotic, Lo-fi, Brazilian',twistDefault:'',introIcon:'🎵',introTitle:'Explore the musical universe',introDesc:'Enter an artist and an optional vibe. Dendrite will branch out through similar artists, building a visual map of musical connections.',
-            systemPrompt:function(limit,vibe){var v=vibe?' while heavily embodying the requested vibe ("'+vibe+'")':'';return 'You are an expert music curator. The user provides a "Path" which may start with a specific artist, a genre (e.g. "90s trip-hop"), or a specific album. If given an album, recommend artists similar to that album\'s sound. Interpret accordingly and recommend exactly '+limit+' new artists that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nThe path is not just context \u2014 it IS the query. Each step in the path narrowed the direction. Your recommendations must feel like the logical next step in THIS exact journey, not just \"artists similar to the last one.\" A path of arca \u2192 Eartheater should produce very different results than Eartheater alone.\nCRITICAL: Do NOT recommend any artist already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
+        music:mkDomain({name:'Music',icon:'🎵',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#78350f','#b45309','#d97706','#f59e0b','#fbbf24'],seedLabel:'Artist, genre, or song',seedPlaceholder:'e.g. Radiohead, 90s trip-hop, Billie Jean',inputTypes:[{l:'Artist',ph:'e.g. Radiohead, Billie Eilish'},{l:'Song',ph:'e.g. Billie Jean, Bohemian Rhapsody'}],seedDefault:'',twistLabel:'Vibe / Twist (Optional)',twistPlaceholder:'e.g. Chaotic, Lo-fi, Brazilian',twistDefault:'',introIcon:'🎵',introTitle:'Explore the musical universe',introDesc:'Enter an artist or song, and an optional vibe. Dendrite will branch out through similar music, building a visual map of musical connections.',
+            systemPrompt:function(limit,vibe){var v=vibe?' while heavily embodying the requested vibe ("'+vibe+'")':'';return 'You are an expert music curator. The user provides a "Path" which may start with a specific artist, a genre, or a song. Interpret accordingly and recommend exactly '+limit+' new items that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nCRITICAL: If the path starts with a Song, you MUST recommend ONLY specific songs (Format: "Song Name - Artist"). If it starts with an Artist, recommend ONLY artists.\nThe path is not just context \u2014 it IS the query. Each step narrowed the direction. Your recommendations must feel like the logical next step in THIS exact journey. A path of Michael Jackson \u2192 Bruno Mars should produce very different results than Bruno Mars alone.\nCRITICAL: Do NOT recommend any item already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Vibe: "'+vibe+'"\n':'')+'Provide exactly '+limit+' recommendations.'},
-            fetchImage:async function(name){try{var r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(name)+'&entity=album&limit=1');var d=await r.json();if(d.results&&d.results.length)return d.results[0].artworkUrl100.replace('100x100bb','600x600bb')}catch(e){}return null},
+            fetchImage:async function(name){try{var r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(name.replace(' - ',' '))+'&limit=1');var d=await r.json();if(d.results&&d.results.length)return d.results[0].artworkUrl100.replace('100x100bb','600x600bb')}catch(e){}return null},
             makeLink:function(n){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(n+' music')},resultKey:'recommendations'}),
         podcasts:mkDomain({name:'Podcasts',icon:'🎙️',accent:'#f97316',accentGlow:'rgba(249,115,22,0.15)',colors:['#431407','#9a3412','#c2410c','#f97316','#fb923c'],seedLabel:'Podcast, host, or topic',seedPlaceholder:'e.g. Lex Fridman, true crime, science interviews',inputTypes:[{l:'Podcast',ph:'e.g. Lex Fridman, Serial, Hardcore History'}],seedDefault:'',twistLabel:'Topic Lean (Optional)',twistPlaceholder:'e.g. More Technical, Storytelling, Comedy',twistDefault:'',introIcon:'🎙️',introTitle:'Discover your next listen',introDesc:'Enter a podcast. Dendrite branches into shows with similar depth, style, and intellectual DNA \u2014 not just the same category.',
             systemPrompt:function(limit,vibe){var v=vibe?' leaning toward "'+vibe+'"':'';return 'You are a podcast discovery expert with deep knowledge of shows across all categories \u2014 from indie productions to major networks. The user provides a "Listening Path" which may start with a specific podcast, a host, or a topic (e.g. "science interviews"). Interpret accordingly and recommend exactly '+limit+' podcasts that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nThe path is not just context \u2014 it IS the query. Each step narrowed the direction. Recommendations must feel like the logical next step in THIS exact journey.\nConsider host style, production quality, intellectual depth, audience overlap, and conversational tone \u2014 not just topic category.\nCRITICAL: Do NOT recommend any podcast already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
@@ -628,14 +628,39 @@
         while(head<queue.length&&isGenerating){
             var cur=queue[head++];if(cur.depth>=MAX_DEPTH)continue;
             try{
-                var recs=await callLLM(cur.path,twist,Array.from(used),BRANCH_FACTOR,category);var updated=false;
-                recs.forEach(function(rec,ci){
-                    if(!rec||!rec.name)return;var originalName=rec.name.trim();var normName=originalName.toLowerCase();if(used.has(normName))return;used.add(normName);
+                var fetchLimit=BRANCH_FACTOR+3; // Request a buffer to prevent missing nodes
+                var recs=await callLLM(cur.path,twist,Array.from(used),fetchLimit,category);var updated=false;
+                
+                var validRecs=[];
+                // 1. Primary pass: extract strictly unique recommendations
+                for(var i=0;i<recs.length;i++){
+                    if(!recs[i]||!recs[i].name)continue;
+                    var originalName=recs[i].name.trim();var normName=originalName.toLowerCase();
+                    if(!used.has(normName)){
+                        validRecs.push({name:originalName});
+                        used.add(normName);
+                        if(validRecs.length===BRANCH_FACTOR)break;
+                    }
+                }
+                
+                // 2. Fallback pass: if LLM failed to give enough uniques, backfill to avoid broken tree gaps
+                if(validRecs.length<BRANCH_FACTOR){
+                    for(var i=0;i<recs.length;i++){
+                        if(!recs[i]||!recs[i].name)continue;
+                        var originalName=recs[i].name.trim();
+                        if(!validRecs.some(function(v){return v.name===originalName})){
+                            validRecs.push({name:originalName});
+                            if(validRecs.length===BRANCH_FACTOR)break;
+                        }
+                    }
+                }
+
+                validRecs.forEach(function(rec,ci){
                     var childSpan=cur.nodeRef.rowSpan/BRANCH_FACTOR;var childStartRow=cur.nodeRef.startRow+ci*childSpan;
-                    var childNode={id:'n-'+Math.random().toString(36).substr(2,9),name:originalName,depth:cur.depth+1,startRow:childStartRow,rowSpan:childSpan,url:domain.makeLink(originalName),imageUrl:null};
+                    var childNode={id:'n-'+Math.random().toString(36).substr(2,9),name:rec.name,depth:cur.depth+1,startRow:childStartRow,rowSpan:childSpan,url:domain.makeLink(rec.name),imageUrl:null};
                     lazyLoadImage(childNode,domain);
                     globalNodes.push(childNode);globalLinks.push({source:cur.nodeRef,target:childNode,childIndex:ci});
-                    queue.push({name:originalName,depth:cur.depth+1,nodeRef:childNode,path:cur.path.concat([originalName])});updated=true
+                    queue.push({name:rec.name,depth:cur.depth+1,nodeRef:childNode,path:cur.path.concat([rec.name])});updated=true
                 });
                 if(updated&&isGenerating){drawTree();renderMobile()}
             }catch(e){console.warn('Gen failed for '+cur.name+':',e)}
