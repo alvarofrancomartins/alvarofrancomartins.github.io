@@ -19,7 +19,6 @@
 
         .app-header{flex-shrink:0;padding:18px 32px 0 32px;display:flex;align-items:center;gap:16px}
         .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
-        .brand-icon{width:38px;height:38px;background:var(--accent);border-radius:8px;display:grid;place-items:center;font-size:19px;font-weight:800;color:var(--bg-primary);font-family:'Sora',sans-serif}
         .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:2rem;letter-spacing:-0.5px}
 
         .domain-bar-wrap{display:flex;align-items:center;gap:0;flex:1;min-width:0;position:relative}
@@ -47,13 +46,7 @@
         .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
         .btn-generate{padding:14px 38px;background:var(--accent);color:var(--bg-primary);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;cursor:pointer;height:56px;transition:all 0.2s;white-space:nowrap}
         .btn-generate:hover{filter:brightness(1.15)}
-        .diversity-group{display:flex;flex-direction:column;gap:4px}
-        .diversity-label{font-size:0.85rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
-        .diversity-wrap{display:flex;align-items:center;gap:8px}
-        .diversity-end{font-size:0.75rem;color:var(--text-muted);font-weight:500;white-space:nowrap}
-        .diversity-slider{-webkit-appearance:none;appearance:none;width:100px;height:6px;border-radius:3px;background:linear-gradient(to right,var(--border),var(--accent));outline:none;cursor:pointer}
-        .diversity-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-primary);cursor:pointer;box-shadow:0 0 6px rgba(0,0,0,0.3)}
-        .diversity-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid var(--bg-primary);cursor:pointer}
+
         .feedback{flex-shrink:0;text-align:center;padding:10px 32px 0 32px;min-height:30px;font-size:1.2rem;color:var(--text-secondary)}
         .feedback.error{color:#ef4444}.feedback.success{color:var(--accent)}
         .tree-container{flex:1;width:100%;min-height:0;padding:0 10px;display:none;flex-direction:column}
@@ -92,7 +85,6 @@
         .about-card p{color:var(--text-secondary);font-size:1rem;line-height:1.75;margin-bottom:14px}
         .about-card p:last-child{margin-bottom:0}
         .about-card strong{color:var(--text-primary)}
-        .about-card .about-tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:0.78rem;font-weight:600;border:1px solid var(--border);color:var(--text-muted);margin-right:6px;margin-bottom:6px}
 
         /* ===== MOBILE VIEW ===== */
         .mobile-view{display:none}
@@ -141,8 +133,6 @@
             .m-domain-card.has-data{border-color:var(--accent);border-style:solid;position:relative}
             .m-domain-card.has-data::after{content:'';position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
 
-            /* General card: subtle accent glow */
-
             /* ===== MOBILE EXPLORE SCREEN ===== */
             .m-explore-wrap{display:none;flex-direction:column;padding:0}
             .m-explore-wrap.visible{display:flex}
@@ -167,9 +157,6 @@
             .m-controls .seed-type-pills{margin-bottom:4px;border-radius:6px;width:fit-content}
             .m-controls .seed-pill{font-size:0.75rem;padding:5px 8px}
             .m-controls .m-btn-generate{width:100%;height:42px;font-size:0.92rem;padding:0;background:var(--accent);color:var(--bg-primary);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer}
-            .m-controls .diversity-group{margin-top:2px}
-            .m-controls .diversity-slider{width:100%}
-            .m-controls .diversity-label{font-size:0.7rem}
 
             .m-feedback{text-align:center;padding:4px 14px 0;font-size:0.78rem;color:var(--text-secondary);min-height:20px}
             .m-feedback.error{color:#ef4444}
@@ -211,7 +198,6 @@
         <div class="input-group" id="category-group" style="display:none"><label id="category-label">Category</label><input type="text" id="category-input" placeholder=""></div>
         <div class="input-group"><div class="seed-row"><div class="seed-type-pills" id="seed-type-pills"></div><label id="seed-label">Similar to</label></div><input type="text" id="seed-input" placeholder=""></div>
         <div class="input-group"><label id="twist-label">Vibe (Optional)</label><input type="text" id="twist-input" placeholder=""></div>
-        <div class="diversity-group"><label class="diversity-label">Diversity</label><div class="diversity-wrap"><span class="diversity-end">Safe</span><input type="range" class="diversity-slider" id="diversity-slider" min="0" max="100" value="50"><span class="diversity-end">Wild</span></div></div>
         <button class="btn-generate" id="btn-generate">Explore</button>
     </div>
     <div class="feedback" id="feedback"></div>
@@ -269,7 +255,7 @@
     function lazyLoadImage(node,domain){
         if(!domain.fetchImage)return;
         withTimeout(domain.fetchImage(node.name),4000).then(function(url){
-            if(url){node.imageUrl=url;if(!isGenerating){drawTree()};renderMobile()}
+            if(url){node.imageUrl=url;if(!isGenerating){drawTree()}renderMobile()}
         })
     }
 
@@ -312,16 +298,12 @@
             fetchImage:async function(name){var clean=name.split(' - ')[0]||name;return await wikiImage(clean+' perfume fragrance')},makeLink:function(n){return 'https://www.fragrantica.com/search/?query='+encodeURIComponent(n.split(' - ')[0]||n)},resultKey:'recommendations'}),
     };
 
-
     // STATE
     var activeDomain='music',globalNodes=[],globalLinks=[],isGenerating=false;
     var MAX_DEPTH=3,BRANCH_FACTOR=2,TOTAL_ROWS=Math.pow(BRANCH_FACTOR,MAX_DEPTH);
     var domainBar=document.getElementById('domain-bar'),seedInput=document.getElementById('seed-input'),twistInput=document.getElementById('twist-input'),categoryInput=document.getElementById('category-input'),categoryGroup=document.getElementById('category-group'),categoryLabelEl=document.getElementById('category-label'),seedLabelEl=document.getElementById('seed-label'),twistLabelEl=document.getElementById('twist-label'),btnGenerate=document.getElementById('btn-generate'),feedback=document.getElementById('feedback'),introState=document.getElementById('intro-state'),introIconEl=document.getElementById('intro-icon'),introTitleEl=document.getElementById('intro-title'),introDescEl=document.getElementById('intro-desc'),treeContainer=document.getElementById('tree-container'),treeSvgMount=document.getElementById('tree-svg-mount');
     var seedTypePills=document.getElementById('seed-type-pills');
     var activeInputType='';
-    var diversitySlider=document.getElementById('diversity-slider');
-    // Map 0-100 slider to temperature 0.3-1.5
-    function getTemperature(slider){var v=parseInt(slider?slider.value:50);return 0.3+(v/100)*1.2}
 
     // MOBILE STATE
     var isMobile=window.innerWidth<=1024;
@@ -337,8 +319,7 @@
         var html='';
         Object.keys(DOMAINS).forEach(function(key){
             var d=DOMAINS[key];
-            var extraClass=key==='general'?' m-general':'';
-            html+='<div class="m-domain-card'+extraClass+'" data-domain="'+key+'">';
+            html+='<div class="m-domain-card" data-domain="'+key+'">';
             html+='<span class="m-domain-card-icon">'+d.icon+'</span>';
             html+='<span class="m-domain-card-name">'+d.name+'</span>';
             html+='</div>'
@@ -378,7 +359,7 @@
 
         // Update desktop state too (keeps things in sync)
         renderDomainTabs();
-        seedLabelEl.textContent=d.seedLabel;seedInput.placeholder=d.seedPlaceholder;
+        // Sync desktop state
         twistLabelEl.textContent=d.twistLabel;twistInput.placeholder=d.twistPlaceholder;
         introIconEl.textContent=d.introIcon;introTitleEl.textContent=d.introTitle;introDescEl.textContent=d.introDesc;
 
@@ -390,7 +371,6 @@
         var mPillLabel=('pillLabel' in d)?d.pillLabel:'Similar to';
         controlsHtml+='<div class="input-group"><div class="seed-type-pills" id="m-seed-pills"></div>'+(mPillLabel?'<label>'+mPillLabel+'</label>':'')+'<input type="text" id="m-seed" placeholder="" value=""></div>';
         controlsHtml+='<div class="input-group"><label>'+d.twistLabel+'</label><input type="text" id="m-twist" placeholder="'+d.twistPlaceholder+'" value="'+(d.twistDefault||'')+'"></div>';
-        controlsHtml+='<div class="diversity-group"><label class="diversity-label">Diversity</label><div class="diversity-wrap"><span class="diversity-end">Safe</span><input type="range" class="diversity-slider" id="m-diversity" min="0" max="100" value="50"><span class="diversity-end">Wild</span></div></div>';
         controlsHtml+='<button class="m-btn-generate" id="m-btn-generate">Explore</button>';
         mControls.innerHTML=controlsHtml;
 
@@ -435,10 +415,9 @@
             var category=(mCatInput?mCatInput.value:'').trim();
             if(!seed){mFeedback.textContent='Please enter a starting point.';mFeedback.className='m-feedback error';return}
             if(isGenerating){isGenerating=false;mBtnGen.textContent='Explore';mFeedback.textContent='Stopped.';return}
-            var mDiversityEl=mControls.querySelector('#m-diversity');
             seedInput.value=seed;twistInput.value=twist;categoryInput.value=category;
             isGenerating=true;mBtnGen.textContent='Stop';
-            startGeneration(seed,twist,category,getTemperature(mDiversityEl))
+            startGeneration(seed,twist,category)
         }
         mBtnGen.addEventListener('click',mobileGenerate);
         [mSeedInput,mTwistInput,mCatInput].forEach(function(el){
@@ -450,7 +429,7 @@
 
     mBackBtn.addEventListener('click',mobileShowHome);
 
-    function renderDomainTabs(){domainBar.innerHTML='';Object.keys(DOMAINS).forEach(function(key){var d=DOMAINS[key];var tab=document.createElement('button');tab.className='domain-tab'+(key===activeDomain?' active':'')+(key==='general'?' tab-general':'');tab.innerHTML='<span class="tab-icon">'+d.icon+'</span>'+d.name;tab.onclick=function(){switchDomain(key)};domainBar.appendChild(tab)});var activeTab=domainBar.querySelector('.active');if(activeTab)activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});setTimeout(updateDomainArrows,50)}
+    function renderDomainTabs(){domainBar.innerHTML='';Object.keys(DOMAINS).forEach(function(key){var d=DOMAINS[key];var tab=document.createElement('button');tab.className='domain-tab'+(key===activeDomain?' active':'');tab.innerHTML='<span class="tab-icon">'+d.icon+'</span>'+d.name;tab.onclick=function(){switchDomain(key)};domainBar.appendChild(tab)});var activeTab=domainBar.querySelector('.active');if(activeTab)activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});setTimeout(updateDomainArrows,50)}
 
     // Domain bar scroll arrows
     var domainArrowL=document.getElementById('domain-arrow-left'),domainArrowR=document.getElementById('domain-arrow-right');
@@ -498,16 +477,16 @@
         var cached=explorations[key];
         if(cached&&cached.nodes.length>0){globalNodes=cached.nodes;globalLinks=cached.links;seedInput.value=cached.seed||'';twistInput.value=cached.twist||'';categoryInput.value=cached.category||'';introState.classList.add('hidden');treeContainer.classList.add('visible');feedback.innerHTML='\u2726 '+globalNodes.length+' nodes mapped';feedback.className='feedback success';drawTree();if(isMobile){mobileView.classList.add('visible');renderMobile()}}
         else{globalNodes=[];globalLinks=[];seedInput.value='';twistInput.value='';treeContainer.classList.remove('visible');introState.classList.remove('hidden');feedback.textContent=''}
-        mobileView.classList.toggle('visible',!!(cached&&cached.nodes.length>0&&isMobile));if(!(cached&&cached.nodes.length>0)){mTree.innerHTML='';mTreeStatus.innerHTML=''}}
+        if(!cached||!cached.nodes.length){mobileView.classList.remove('visible');mTree.innerHTML='';mTreeStatus.innerHTML=''}}
 
     function delay(ms){return new Promise(function(r){setTimeout(r,ms)})}
 
-    async function callLLM(path,vibe,avoidList,limit,category,temp){
+    async function callLLM(path,vibe,avoidList,limit,category){
         var domain=DOMAINS[activeDomain];
         var fullSystem=domain.systemPrompt(limit,vibe,category)+'\n\nAVOID LIST:\n['+avoidList.join(', ')+']';
         var userMsg=domain.userPrompt(path,vibe,limit,category);
         if(activeInputType&&path.length===1)userMsg='The starting point is a '+activeInputType+': "'+path[0]+'"\n'+userMsg;
-        var payload={model:'deepseek-chat',messages:[{role:'system',content:fullSystem},{role:'user',content:userMsg}],response_format:{type:'json_object'},temperature:temp||1.0};
+        var payload={model:'deepseek-chat',messages:[{role:'system',content:fullSystem},{role:'user',content:userMsg}],response_format:{type:'json_object'}};
         var backoff=[800,1600,3200,6400];
         for(var attempt=0;attempt<5;attempt++){
             try{var isProxy=API_KEY==='proxy';var fetchUrl=isProxy?'https://afmartins.netlify.app/.netlify/functions/chat':'https://api.deepseek.com/chat/completions';var fetchHeaders={'Content-Type':'application/json'};if(!isProxy)fetchHeaders['Authorization']='Bearer '+API_KEY;var res=await fetch(fetchUrl,{method:'POST',headers:fetchHeaders,body:JSON.stringify(payload)});
@@ -631,7 +610,7 @@
         })
     }
 
-    async function startGeneration(seed,twist,category,temp){
+    async function startGeneration(seed,twist,category){
         var domain=DOMAINS[activeDomain];var cleanSeed=seed.trim();
         var twistDisplay=twist?' \u2014 <span style="color:'+domain.accent+'">'+twist+'</span>':'';
         feedback.innerHTML='Branching from <b>'+cleanSeed+'</b>'+twistDisplay+' <span class="spinner"></span>';feedback.className='feedback';
@@ -645,7 +624,7 @@
         while(head<queue.length&&isGenerating){
             var cur=queue[head++];if(cur.depth>=MAX_DEPTH)continue;
             try{
-                var recs=await callLLM(cur.path,twist,Array.from(used),BRANCH_FACTOR+4,category,temp);var updated=false;var accepted=0;
+                var recs=await callLLM(cur.path,twist,Array.from(used),BRANCH_FACTOR+4,category);var updated=false;var accepted=0;
                 recs.forEach(function(rec){
                     if(accepted>=BRANCH_FACTOR)return;
                     if(!rec||!rec.name)return;var originalName=rec.name.trim();var normName=originalName.toLowerCase();if(used.has(normName))return;used.add(normName);
@@ -693,7 +672,7 @@
         var seed=seedInput.value.trim();var twist=twistInput.value.trim();var category=categoryInput.value.trim();
         if(!seed){feedback.textContent='Please enter a '+DOMAINS[activeDomain].seedLabel+'.';feedback.className='feedback error';return}
         if(isGenerating){isGenerating=false;btnGenerate.textContent='Explore';feedback.textContent='Generation stopped.';return}
-        isGenerating=true;btnGenerate.textContent='Stop';startGeneration(seed,twist,category,getTemperature(diversitySlider))
+        isGenerating=true;btnGenerate.textContent='Stop';startGeneration(seed,twist,category)
     }
     btnGenerate.addEventListener('click',handleGenerate);
     seedInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
