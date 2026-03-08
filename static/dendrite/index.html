@@ -92,7 +92,7 @@
         .m-explore-wrap{display:none}
         .m-back-btn{display:none}
 
-        @media(max-width:768px){
+        @media(max-width:1024px){
             html,body{overflow:auto;overflow-x:hidden}
             .app-shell{height:auto;min-height:100vh}
 
@@ -274,7 +274,7 @@
             userPrompt:function(path,vibe,limit,category){return 'Path: '+path.join(' \u2192 ')+'\n'+(category?'Return only: '+category+'\n':'')+(vibe?'Lens: "'+vibe+'"\n':'')+'Provide exactly '+limit+' branching connections.'},
             fetchImage:async function(name){return await wikiImage(name)},makeLink:function(n){return 'https://en.wikipedia.org/wiki/Special:Search?search='+encodeURIComponent(n)},resultKey:'recommendations'}),
         music:mkDomain({name:'Music',icon:'🎵',accent:'#f59e0b',accentGlow:'rgba(245,158,11,0.15)',colors:['#78350f','#b45309','#d97706','#f59e0b','#fbbf24'],seedLabel:'Artist, genre, or album',seedPlaceholder:'e.g. Radiohead, 90s trip-hop, OK Computer',inputTypes:[{l:'Artist',ph:'e.g. Radiohead, Billie Eilish'},{l:'Album',ph:'e.g. OK Computer, Kind of Blue'}],seedDefault:'',twistLabel:'Vibe / Twist (Optional)',twistPlaceholder:'e.g. Chaotic, Lo-fi, Brazilian',twistDefault:'',introIcon:'🎵',introTitle:'Explore the musical universe',introDesc:'Enter an artist and an optional vibe. Dendrite will branch out through similar artists, building a visual map of musical connections.',
-            systemPrompt:function(limit,vibe){var v=vibe?' while heavily embodying the requested vibe ("'+vibe+'")':'';return 'You are an expert music curator. The user provides a "Path" which may start with a specific artist, a genre (e.g. "90s trip-hop"), or a specific album. If given an album, recommend artists similar to that album\'s sound. Interpret accordingly and recommend exactly '+limit+' new artists that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nThe path is not just context \u2014 it IS the query. Each step in the path narrowed the direction. Your recommendations must feel like the logical next step in THIS exact journey, not just \"artists similar to the last one.\" A path of Michael Jackson \u2192 Daft Punk should produce very different results than Daft Punk alone.\nCRITICAL: Do NOT recommend any artist already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
+            systemPrompt:function(limit,vibe){var v=vibe?' while heavily embodying the requested vibe ("'+vibe+'")':'';return 'You are an expert music curator. The user provides a "Path" which may start with a specific artist, a genre (e.g. "90s trip-hop"), or a specific album. If given an album, recommend artists similar to that album\'s sound. Interpret accordingly and recommend exactly '+limit+' new artists that continue the SPECIFIC TRAJECTORY shown by the full path'+v+'.\nThe path is not just context \u2014 it IS the query. Each step in the path narrowed the direction. Your recommendations must feel like the logical next step in THIS exact journey, not just \"artists similar to the last one.\" A path of arca \u2192 Eartheater should produce very different results than Eartheater alone.\nCRITICAL: Do NOT recommend any artist already in the avoid list.\nReturn ONLY JSON: {"recommendations":[{"name":"...","score":0.85}]}'},
             userPrompt:function(path,vibe,limit){return 'Path: '+path.join(' \u2192 ')+'\n'+(vibe?'Vibe: "'+vibe+'"\n':'')+'Provide exactly '+limit+' recommendations.'},
             fetchImage:async function(name){try{var r=await fetch('https://itunes.apple.com/search?term='+encodeURIComponent(name)+'&entity=album&limit=1');var d=await r.json();if(d.results&&d.results.length)return d.results[0].artworkUrl100.replace('100x100bb','600x600bb')}catch(e){}return null},
             makeLink:function(n){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(n+' music')},resultKey:'recommendations'}),
@@ -315,7 +315,7 @@
     var activeInputType='';
 
     // MOBILE STATE
-    var isMobile=window.innerWidth<=768;
+    var isMobile=window.innerWidth<=1024;
     var mobileView=document.getElementById('mobile-view'),mTree=document.getElementById('m-tree'),mTreeStatus=document.getElementById('m-tree-status');
     var mHome=document.getElementById('m-home'),mDomainGrid=document.getElementById('m-domain-grid');
     var mExploreWrap=document.getElementById('m-explore-wrap'),mBackBtn=document.getElementById('m-back-btn');
@@ -680,7 +680,7 @@
     seedInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
     categoryInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
     twistInput.addEventListener('keypress',function(e){if(e.key==='Enter')handleGenerate()});
-    window.addEventListener('resize',function(){isMobile=window.innerWidth<=768;if(globalNodes.length&&!isGenerating){drawTree();renderMobile()}});
+    window.addEventListener('resize',function(){isMobile=window.innerWidth<=1024;if(globalNodes.length&&!isGenerating){drawTree();renderMobile()}});
     // About modal
     var aboutOverlay=document.getElementById('about-overlay');
     var aboutTrigger=document.getElementById('about-trigger');
