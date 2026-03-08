@@ -481,7 +481,15 @@
         inputEl.placeholder=types[0].ph
     }
 
-    function switchDomain(key){if(isGenerating)return;activeDomain=key;var d=DOMAINS[key];applyTheme(key);renderDomainTabs();var pLabel=('pillLabel' in d)?d.pillLabel:'Similar to';seedLabelEl.textContent=pLabel;seedLabelEl.style.display=pLabel?'':'none';renderSeedPills(seedTypePills,d.inputTypes,seedInput);seedInput.value='';twistLabelEl.textContent=d.twistLabel;twistInput.placeholder=d.twistPlaceholder;twistInput.value='';introIconEl.textContent=d.introIcon;introTitleEl.textContent=d.introTitle;introDescEl.textContent=d.introDesc;if(d.categoryLabel){categoryGroup.style.display='';categoryLabelEl.textContent=d.categoryLabel;categoryInput.placeholder=d.categoryPlaceholder;categoryInput.value=d.categoryDefault||''}else{categoryGroup.style.display='none';categoryInput.value=''}treeContainer.classList.remove('visible');introState.classList.remove('hidden');feedback.textContent='';globalNodes=[];globalLinks=[];mobileView.classList.remove('visible');mTree.innerHTML='';mTreeStatus.innerHTML=''}
+    function switchDomain(key){if(isGenerating)return;
+        // Save current exploration
+        if(activeDomain&&globalNodes.length>0){explorations[activeDomain]={nodes:globalNodes.slice(),links:globalLinks.slice(),seed:seedInput.value,twist:twistInput.value,category:categoryInput.value}}
+        activeDomain=key;var d=DOMAINS[key];applyTheme(key);renderDomainTabs();var pLabel=('pillLabel' in d)?d.pillLabel:'Similar to';seedLabelEl.textContent=pLabel;seedLabelEl.style.display=pLabel?'':'none';renderSeedPills(seedTypePills,d.inputTypes,seedInput);twistLabelEl.textContent=d.twistLabel;twistInput.placeholder=d.twistPlaceholder;introIconEl.textContent=d.introIcon;introTitleEl.textContent=d.introTitle;introDescEl.textContent=d.introDesc;if(d.categoryLabel){categoryGroup.style.display='';categoryLabelEl.textContent=d.categoryLabel;categoryInput.placeholder=d.categoryPlaceholder}else{categoryGroup.style.display='none';categoryInput.value=''}
+        // Restore cached exploration or reset
+        var cached=explorations[key];
+        if(cached&&cached.nodes.length>0){globalNodes=cached.nodes;globalLinks=cached.links;seedInput.value=cached.seed||'';twistInput.value=cached.twist||'';categoryInput.value=cached.category||'';introState.classList.add('hidden');treeContainer.classList.add('visible');feedback.innerHTML='\u2726 '+globalNodes.length+' nodes mapped';feedback.className='feedback success';drawTree();if(isMobile){mobileView.classList.add('visible');renderMobile()}}
+        else{globalNodes=[];globalLinks=[];seedInput.value='';twistInput.value='';treeContainer.classList.remove('visible');introState.classList.remove('hidden');feedback.textContent=''}
+        mobileView.classList.toggle('visible',!!(cached&&cached.nodes.length>0&&isMobile));if(!(cached&&cached.nodes.length>0)){mTree.innerHTML='';mTreeStatus.innerHTML=''}}
 
     function delay(ms){return new Promise(function(r){setTimeout(r,ms)})}
 
@@ -643,10 +651,10 @@
         }
         if(isGenerating){
             feedback.innerHTML='\u2726 Exploration complete \u2014 '+globalNodes.length+' nodes mapped';feedback.className='feedback success';isGenerating=false;btnGenerate.textContent='Explore';
+            explorations[activeDomain]={nodes:globalNodes.slice(),links:globalLinks.slice(),seed:seedInput.value,twist:twistInput.value,category:categoryInput.value};
             if(isMobile){
                 mFeedback.innerHTML='\u2726 '+globalNodes.length+' nodes mapped';mFeedback.className='m-feedback success';
                 var mBG=document.getElementById('m-btn-generate');if(mBG)mBG.textContent='Explore';
-                explorations[activeDomain]={nodes:globalNodes.slice(),links:globalLinks.slice(),seed:seedInput.value,twist:twistInput.value,category:categoryInput.value}
             }
             renderMobile()
         }
