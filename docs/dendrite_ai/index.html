@@ -233,7 +233,7 @@
     
     // Config
     var MAX_DEPTH = 3;
-    var BRANCH_FACTOR = 2;
+    var BRANCH_FACTOR = 2; // Exact branch factor
     var TOTAL_ROWS = Math.pow(BRANCH_FACTOR, MAX_DEPTH);
     var NODE_COLORS = ['#78350f', '#b45309', '#d97706', '#f59e0b', '#fbbf24'];
 
@@ -269,7 +269,7 @@
     var playlistBody = document.getElementById('playlist-body');
     var playlistClose = document.getElementById('playlist-close');
 
-    // RESTORED: Dendrite's superior iTunes image fetching logic
+    // Image fetcher
     async function fetchArtistImage(name) {
         try {
             var r = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(name) + '&entity=musicArtist&limit=1');
@@ -292,7 +292,6 @@
         return null;
     }
 
-    // Timeout wrapper
     function withTimeout(promise, ms) {
         return Promise.race([promise, new Promise(function(r){setTimeout(function(){r(null)}, ms||4000)})]);
     }
@@ -327,7 +326,6 @@
         return [];
     }
 
-    // NEW: Fetch top track for the playlist feature
     async function fetchArtistTopTrackAPIApp(artistName) {
         try {
             var data = await callNetlifyProxy('artist.gettoptracks', artistName, 1);
@@ -364,7 +362,7 @@
                 await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
             }
         }
-        return originalRecs; // Fallback to Last.fm if LLM fails 3 times
+        return []; // Return empty array on absolute failure so fallback works correctly
     }
 
     function generateNodeSVG(name, depth, size) {
@@ -471,7 +469,6 @@
         });
     }
 
-    // --- Playlist Feature Logic ---
     function togglePlaylistButtons(show) {
         btnPlaylist.style.display = show ? 'block' : 'none';
         mBtnPlaylist.style.display = show ? 'block' : 'none';
@@ -565,32 +562,43 @@
             if (cur.depth >= MAX_DEPTH) continue;
             
             try {
-                // 1. Fetch 15 similar artists to ensure we have enough after filtering
+                // 1. Fetch 15 similar artists from Last.fm to build a solid pool
                 var lastFmRecs = await fetchLastFmSimilar(cur.name, 15);
                 
-                // 2. Filter out ones we've already used
+                // 2. Filter out artists already on the map
                 var validLastFm = lastFmRecs.filter(name => !used.has(name.toLowerCase()));
                 
-                // 3. Take exactly what we need + generous buffer for LLM flexibility (prevents missing nodes)
-                var toProcess = validLastFm.slice(0, BRANCH_FACTOR + 5); 
-                
-                if (toProcess.length > 0) {
-                    var finalNames = toProcess;
+                if (validLastFm.length > 0) {
+                    var finalNames = [];
                     
-                    // 4. Send to LLM for twisting if requested
+                    // 3. The Twist: Feed a small subset to the LLM to save time
                     if (twist) {
-                        finalNames = await twistArtistsWithLLM(cur.path, toProcess, twist, Array.from(used));
+                        var toTwist = validLastFm.slice(0, BRANCH_FACTOR + 2); // Send 4 artists to twist
+                        var twistedNames = await twistArtistsWithLLM(cur.path, toTwist, twist, Array.from(used));
+                        
+                        twistedNames.forEach(name => {
+                            if (name && name.toLowerCase() !== 'none') {
+                                finalNames.push(name);
+                            }
+                        });
                     }
                     
-                    // 5. Add to the graphical tree
+                    // 4. THE ROBUST FIX (Graceful Fallback): 
+                    // Append the untwisted, validated Last.fm artists to the end of the array.
+                    // If the LLM fails, hallucinates duplicates, or returns too few, the loop seamlessly
+                    // pulls from these real Last.fm connections to guarantee we hit our BRANCH_FACTOR.
+                    finalNames = finalNames.concat(validLastFm);
+                    
+                    // 5. Add exactly BRANCH_FACTOR nodes to the graphical tree
                     var accepted = 0;
                     var updated = false;
                     for (var i = 0; i < finalNames.length; i++) {
                         if (accepted >= BRANCH_FACTOR) break;
+                        
                         var originalName = finalNames[i].trim();
                         var normName = originalName.toLowerCase();
                         
-                        if (!originalName || used.has(normName) || normName === 'none') continue;
+                        if (!originalName || used.has(normName)) continue;
                         used.add(normName);
                         
                         var childSpan = cur.nodeRef.rowSpan / BRANCH_FACTOR;
