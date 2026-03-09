@@ -233,7 +233,7 @@
     
     // Config
     var MAX_DEPTH = 3;
-    var BRANCH_FACTOR = 2;
+    var BRANCH_FACTOR = 3;
     var TOTAL_ROWS = Math.pow(BRANCH_FACTOR, MAX_DEPTH);
     var NODE_COLORS = ['#78350f', '#b45309', '#d97706', '#f59e0b', '#fbbf24'];
 
@@ -565,14 +565,14 @@
             if (cur.depth >= MAX_DEPTH) continue;
             
             try {
-                // 1. Fetch 10 similar artists to ensure we have enough after filtering
-                var lastFmRecs = await fetchLastFmSimilar(cur.name, 10);
+                // 1. Fetch 15 similar artists to ensure we have enough after filtering
+                var lastFmRecs = await fetchLastFmSimilar(cur.name, 15);
                 
                 // 2. Filter out ones we've already used
                 var validLastFm = lastFmRecs.filter(name => !used.has(name.toLowerCase()));
                 
-                // 3. Take exactly what we need + small buffer for LLM flexibility
-                var toProcess = validLastFm.slice(0, BRANCH_FACTOR + 1); 
+                // 3. Take exactly what we need + generous buffer for LLM flexibility (prevents missing nodes)
+                var toProcess = validLastFm.slice(0, BRANCH_FACTOR + 5); 
                 
                 if (toProcess.length > 0) {
                     var finalNames = toProcess;
@@ -652,7 +652,7 @@
             var span = Math.pow(BRANCH_FACTOR, MAX_DEPTH - depth);
             var maxV = span * slotH * 0.85;
             var ideal = [340, 200, 110, 66][depth] || 50;
-            return Math.max(28, Math.min(ideal, maxV, colW * 0.7));
+            return Math.max(20, Math.min(ideal, maxV, colW * 0.7)); // Adjusted minimum from 28 to 20
         }
         
         globalNodes.forEach(function(n) {
