@@ -3,629 +3,654 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dendrite x Last.fm — Twisted Branches</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dendrite — Twisted Branches</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='6' cy='16' r='3.5' fill='%23f59e0b'/%3E%3Ccircle cx='18' cy='8' r='2.5' fill='%23d97706'/%3E%3Ccircle cx='18' cy='24' r='2.5' fill='%23d97706'/%3E%3Ccircle cx='28' cy='4' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='20' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='28' r='2' fill='%23b45309'/%3E%3Cline x1='9' y1='14' x2='16' y2='8' stroke='%23f59e0b' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='9' y1='18' x2='16' y2='24' stroke='%23f59e0b' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='20' y1='7' x2='26' y2='4' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='9' x2='26' y2='12' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='23' x2='26' y2='20' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='25' x2='26' y2='28' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-page: #f9fafb;
-            --bg-card: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --accent: #c53030;
-            --accent-hover: #a02828;
-            --border-color: #d1d5db;
+            --bg-primary: #0a0a0f; --bg-card: #1a1a26; --bg-hover: #22222f;
+            --text-primary: #e8e8f0; --text-secondary: #8888a0; --text-muted: #555566;
+            --border: #2a2a3a; --accent: #f59e0b; --accent-glow: rgba(245,158,11,0.15);
         }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%;margin:0;background:var(--bg-primary);color:var(--text-primary);font-family:'DM Sans',system-ui,sans-serif;overflow:hidden}
+        body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+        .app-shell{display:flex;flex-direction:column;height:100vh;width:100%;position:relative;z-index:1}
 
-        body { margin: 0; padding: 20px; font-family: 'Inter', sans-serif; background: var(--bg-page); color: var(--text-main); }
+        .app-header{flex-shrink:0;padding:18px 32px 0 32px;display:flex;align-items:center;gap:16px}
+        .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+        .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:2rem;letter-spacing:-0.5px}
+        .brand-subtitle { font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-left: 12px; padding-left: 16px; border-left: 2px solid var(--border); }
 
-        .artistas-app-wrapper {
-            max-width: 900px;
-            margin: 0 auto 30px auto;
-            text-align: center;
-        }
+        .controls-row{flex-shrink:0;display:flex;align-items:flex-end;gap:16px;padding:18px 32px 0 32px;flex-wrap:wrap}
+        .input-group{display:flex;flex-direction:column;gap:5px}
+        .input-group label{font-size:1.1rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
+        .input-group input{padding:14px 18px;width:clamp(200px,28vw,380px);background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-size:1.25rem;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+        .input-group input::placeholder{color:var(--text-muted)}
+        .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        .btn-generate{padding:14px 38px;background:var(--accent);color:var(--bg-primary);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;cursor:pointer;height:56px;transition:all 0.2s;white-space:nowrap}
+        .btn-generate:hover{filter:brightness(1.15)}
+
+        .feedback{flex-shrink:0;text-align:center;padding:10px 32px 0 32px;min-height:30px;font-size:1.2rem;color:var(--text-secondary)}
+        .feedback.error{color:#ef4444}.feedback.success{color:var(--accent)}
         
-        .artistas-app-header h2 { color: var(--accent); margin: 0 0 8px 0; font-weight: 700; font-size: 2rem; }
-        .artistas-app-header p { margin: 0 0 24px 0; font-size: 1.05rem; color: var(--text-muted); }
-
-        .artistas-app-search-container {
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .tree-container{flex:1;width:100%;min-height:0;padding:0 10px;display:none;flex-direction:column}
+        .tree-container.visible{display:flex}
+        #tree-svg-mount{flex:1;width:100%;height:100%;min-height:0}
+        #tree-svg-mount svg{display:block;width:100%;height:100%}
         
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 4px;
-        }
-        .input-group label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .artistas-app-search-container input[type="text"] {
-            padding: 12px 16px;
-            width: clamp(200px, 30vw, 300px);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            transition: all 0.2s;
-        }
-        .artistas-app-search-container input[type="text"]:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.15);
-        }
-
-        .action-buttons {
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-        }
-
-        button#search-button-app {
-            padding: 0 24px;
-            height: 44px;
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-        button#search-button-app:hover { background-color: var(--accent-hover); }
-
-        button.artistas-app-playlist-button {
-            background-color: #2563eb;
-            color: white;
-            padding: 0 20px;
-            height: 44px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        button.artistas-app-playlist-button:hover { background-color: #1d4ed8; }
-        button.artistas-app-playlist-button:disabled { background-color: #9ca3af; cursor: not-allowed; }
-
-        .artistas-app-feedback { text-align: center; margin: 8px 0; min-height: 24px; font-size: 1rem; color: var(--text-muted); font-weight: 500; }
-        .artistas-app-feedback.error { color: var(--accent); }
-        .artistas-app-feedback .spinner { display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border-color); border-left-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
-
-        .artistas-app-sankey-container { width: 100%; background-color: var(--bg-card); border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); padding: 10px; box-sizing: border-box; overflow-x: auto; border: 1px solid var(--border-color); margin-bottom: 20px;}
-        .artistas-app-sankey-container svg { display: block; width: 100%; min-height: 800px; }
+        .intro-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding-bottom:60px}
+        .intro-state.hidden{display:none}
+        .intro-graphic{width:160px;height:160px;border-radius:32px;background:linear-gradient(135deg,var(--accent-glow),transparent);border:1px solid var(--border);display:grid;place-items:center;font-size:64px;animation:float 4s ease-in-out infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .intro-state h3{font-family:'Sora',sans-serif;font-size:2.8rem;font-weight:700}
+        .intro-state p{color:var(--text-secondary);font-size:1.4rem;max-width:680px;text-align:center;line-height:1.7}
         
-        .sankey-node-group { cursor: pointer; }
-        .sankey-node { fill-opacity: 1; stroke: rgba(0,0,0,0.2); stroke-width: 1px; transition: all 0.2s ease; }
-        .sankey-node-group:hover .sankey-node { stroke-width: 2px; stroke: rgba(0,0,0,0.5); filter: brightness(1.1); }
-        .sankey-node-image { opacity: 0.95; transition: all 0.2s ease; }
-        .sankey-node-group:hover .sankey-node-image { opacity: 1; filter: brightness(1.1); }
+        .tree-link{fill:none;stroke-opacity:0.4;transition:stroke-opacity 0.25s}
+        .tree-link:hover{stroke-opacity:0.8}
+        .node-group{cursor:pointer}.node-rect{transition:all 0.2s}
+        .node-image{opacity:0.92;transition:all 0.2s}
+        .node-group:hover .node-image{opacity:1;filter:brightness(1.15)}
+        .node-group:hover .node-rect{filter:brightness(1.3)}
+        .node-label{pointer-events:none;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;fill:var(--text-primary);transition:all 0.2s}
+        .node-group:hover .node-label{font-weight:700}
         
-        .sankey-link { fill: none; stroke-opacity: 0.45; transition: stroke-opacity 0.2s ease; }
-        .sankey-link:hover { stroke-opacity: 0.8; }
-        
-        .sankey-node-label { pointer-events: none; font-size: 14px; font-weight: 600; font-family: 'Inter', sans-serif; fill: var(--text-main); transition: all 0.2s ease; }
-        .sankey-node-group:hover .sankey-node-label { font-weight: 700; font-size: 15px; }
+        .app-footer{flex-shrink:0;text-align:center;padding:12px 0;font-size:0.95rem;color:var(--text-muted);border-top:1px solid var(--border)}
+        .app-footer a{color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+        .app-footer a:hover{color:var(--text-secondary)}
+        .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-left-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-left:6px}
+        @keyframes spin{to{transform:rotate(360deg)}}
 
-        .artistas-app-modal-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px); }
-        .artistas-app-modal-overlay.active { opacity: 1; visibility: visible; }
-        .artistas-app-modal-content { background-color: white; padding: 24px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 90%; max-width: 650px; max-height: 80vh; overflow-y: auto; position: relative; }
-        .artistas-app-modal-content h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.5rem; color: var(--accent); }
-        .artistas-app-modal-content ul { list-style: decimal; padding-left: 20px; }
-        .artistas-app-modal-content li { margin-bottom: 10px; font-size: 0.95rem; }
-        .artistas-app-modal-content li a { color: #2563eb; text-decoration: none; font-weight: 600; }
-        .artistas-app-modal-content li a:hover { text-decoration: underline; }
-        .artistas-app-modal-close-button { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--text-muted); padding: 0; line-height: 1; transition: color 0.2s; }
-        .artistas-app-modal-close-button:hover { color: var(--text-main); }
-        
-        .artistas-app-footer { text-align: center; padding: 20px 0; font-size: 0.85rem; color: var(--text-muted); }
-        .artistas-app-footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        /* ===== ABOUT MODAL ===== */
+        .about-trigger{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;flex-shrink:0;margin-left:auto}
+        .about-trigger:hover{border-color:var(--text-muted);color:var(--text-primary)}
+        .about-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+        .about-overlay.visible{display:flex}
+        .about-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:36px 32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+        .about-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s;line-height:1}
+        .about-close:hover{color:var(--text-primary);background:var(--bg-hover)}
+        .about-card h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px}
+        .about-card p{color:var(--text-secondary);font-size:1rem;line-height:1.75;margin-bottom:14px}
+        .about-card p:last-child{margin-bottom:0}
+        .about-card strong{color:var(--text-primary)}
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* ===== MOBILE VIEW ===== */
+        .mobile-view{display:none}
+        .m-explore-wrap{display:none}
+
+        @media(max-width:1024px){
+            html,body{overflow:auto;overflow-x:hidden}
+            .app-shell{height:auto;min-height:100vh}
+
+            /* Header */
+            .app-header{padding:14px 16px 0;flex-wrap:wrap;gap:8px}
+            .brand-name{font-size:1.4rem}
+            .brand-subtitle{display:none}
+
+            /* Hide desktop elements */
+            .controls-row{display:none!important}
+            .intro-state{display:none!important}
+            .tree-container{display:none!important}
+            .feedback{display:none!important}
+            .app-footer{font-size:0.75rem;padding:15px 0}
+
+            /* Mobile About */
+            .about-trigger{display:none}
+            .m-about-link{display:inline-flex;align-items:center;justify-content:center;width:100%; gap:6px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text-secondary);text-decoration:none;margin:20px 0;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);transition:all 0.2s}
+            .m-about-link:active{border-color:var(--accent);color:var(--text-primary)}
+            
+            /* ===== MOBILE EXPLORE SCREEN ===== */
+            .m-explore-wrap{display:flex;flex-direction:column;padding:0; flex: 1;}
+
+            .m-explore-header{display:flex;align-items:center;gap:8px;padding:16px 16px 0}
+            .m-explore-domain-icon{font-size:1.6rem}
+            .m-explore-domain-name{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700}
+
+            /* Controls inside explore */
+            .m-controls{display:flex;flex-direction:column;gap:12px;padding:16px 16px 0}
+            .m-controls .input-group{width:100%;display:flex;flex-direction:column;gap:6px}
+            .m-controls .input-group label{font-size:0.8rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
+            .m-controls .input-group input{width:100%;padding:12px 14px;font-size:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:'DM Sans',sans-serif}
+            .m-controls .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+            .m-controls .m-btn-generate{width:100%;height:50px;font-size:1.05rem;padding:0;background:var(--accent);color:var(--bg-primary);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer}
+
+            .m-feedback{text-align:center;padding:12px 16px 0;font-size:0.9rem;color:var(--text-secondary);min-height:30px}
+            .m-feedback.error{color:#ef4444}
+            .m-feedback.success{color:var(--accent)}
+
+            /* ===== VERTICAL DENDRITE TREE ===== */
+            .mobile-view{display:none;position:relative;padding:16px 0 30px;overflow-x:hidden}
+            .mobile-view.visible{display:block}
+
+            .m-tree{position:relative;width:100%;padding:0}
+            .m-tree-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+            .m-tree-edge{fill:none;stroke-linecap:round;opacity:0.5}
+            .m-layer{position:relative;z-index:1;display:flex;justify-content:center;align-items:flex-start;padding:0 10px}
+            .m-spacer{height:46px}
+            .m-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;padding:0 5px}
+            .m-node:active{transform:scale(0.95)}
+            .m-node-img-wrap{border-radius:12px;overflow:hidden;border:2px solid var(--border);background:var(--bg-card);position:relative;transition:border-color 0.2s}
+            .m-node:active .m-node-img-wrap{border-color:var(--accent)}
+            .m-node-img{display:block;width:100%;height:100%;object-fit:cover}
+            .m-node-initials{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Sora',sans-serif;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:1px}
+            .m-node-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-primary);text-align:center;line-height:1.2;margin-top:6px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+            .m-tree-status{text-align:center;padding:20px 0 0;font-size:0.85rem;color:var(--text-muted)}
+        }
     </style>
 </head>
 <body>
 
-<div id="artistas-app-container" class="artistas-app-wrapper">
-    <header class="artistas-app-header">
-        <h2>Twisted Branches</h2>
-        <p>Start with a band. Last.fm finds similar artists, and the LLM twists them to match your vibe.</p>
+<div class="app-shell">
+    <header class="app-header">
+        <div class="brand">
+            <span class="brand-name">Dendrite</span>
+            <span class="brand-subtitle">Twisted Branches</span>
+        </div>
+        <button class="about-trigger" id="about-trigger">About</button>
     </header>
-    <div class="artistas-app-search-container">
+    
+    <div class="controls-row">
         <div class="input-group">
-            <label>Starting Artist</label>
-            <input type="text" id="artist-input-app" placeholder="e.g. Radiohead" value="Radiohead">
+            <label>Starting Band / Artist</label>
+            <input type="text" id="seed-input" placeholder="e.g. Radiohead, Pink Floyd">
         </div>
         <div class="input-group">
             <label>Twist / Vibe (Optional)</label>
-            <input type="text" id="twist-input-app" placeholder="e.g. Psychedelic, Chaotic" value="Psychedelic">
+            <input type="text" id="twist-input" placeholder="e.g. Chaotic, Lo-fi, Brazilian">
         </div>
-        <div class="action-buttons">
-            <button id="search-button-app">Explore</button>
-            <button id="generate-diagram-playlist-btn-app" class="artistas-app-playlist-button" disabled>✨ Generate Playlist</button>
+        <button class="btn-generate" id="btn-generate">Explore</button>
+    </div>
+    
+    <div class="feedback" id="feedback"></div>
+    
+    <div class="intro-state" id="intro-state">
+        <div class="intro-graphic">🎵</div>
+        <h3>Map the musical universe</h3>
+        <p>Enter a band and an optional vibe. Dendrite uses Last.fm to find true musical connections, then uses AI to "twist" those branches toward your requested vibe.</p>
+    </div>
+    
+    <div class="tree-container" id="tree-container"><div id="tree-svg-mount"></div></div>
+    
+    <div class="mobile-view" id="mobile-view">
+        <div class="m-tree" id="m-tree"></div>
+        <div class="m-tree-status" id="m-tree-status"></div>
+        <div style="padding: 0 16px;"><a class="m-about-link" id="m-about-link" href="#">ℹ️ How does it work?</a></div>
+    </div>
+    
+    <!-- Mobile explore screen -->
+    <div class="m-explore-wrap" id="m-explore-wrap">
+        <div class="m-explore-header">
+            <span class="m-explore-domain-icon">🎵</span>
+            <span class="m-explore-domain-name">Music Explorer</span>
         </div>
+        <div class="m-controls" id="m-controls">
+            <div class="input-group"><label>Starting Band</label><input type="text" id="m-seed" placeholder="e.g. Radiohead"></div>
+            <div class="input-group"><label>Twist / Vibe (Optional)</label><input type="text" id="m-twist" placeholder="e.g. Chaotic, Lo-fi"></div>
+            <button class="m-btn-generate" id="m-btn-generate">Explore</button>
+        </div>
+        <div class="m-feedback" id="m-feedback"></div>
     </div>
-    <div id="search-feedback-message-app" class="artistas-app-feedback"></div>
+    
+    <footer class="app-footer">Created by <a href="https://alvarofrancomartins.com" target="_blank">Alvaro Franco Martins, PhD</a>&nbsp;&mdash;&nbsp;Powered by Last.fm & DeepSeek</footer>
 </div>
 
-<div id="sankey-chart-container-app" class="artistas-app-sankey-container" style="display: none;">
-    <div id="sankey-chart-app"></div>
-</div>
-
-<div id="playlist-modal-overlay-app" class="artistas-app-modal-overlay">
-    <div class="artistas-app-modal-content">
-        <button id="modal-close-btn-app" class="artistas-app-modal-close-button">&times;</button>
-        <h2 id="playlist-modal-title-app">🎶 Sankey Playlist</h2>
-        <div id="playlist-modal-body-app"></div>
+<!-- About modal -->
+<div class="about-overlay" id="about-overlay">
+    <div class="about-card">
+        <button class="about-close" id="about-close">&times;</button>
+        <h2>How does Twisted Dendrite work?</h2>
+        <p>This is a <strong>hybrid recommendation engine</strong> that guarantees logical connections while allowing creative freedom.</p>
+        <p>1. <strong>The Base Layer (Last.fm):</strong> For every artist in the map, the engine queries the Last.fm graph API to find artists that are statistically similar based on millions of listeners.</p>
+        <p>2. <strong>The Twist (DeepSeek LLM):</strong> If you enter a "Vibe", the engine takes the Last.fm recommendations and feeds them into an AI. It asks the AI to swap out those artists for others that share the same musical DNA, but heavily lean into your requested vibe.</p>
+        <p>The result is a completely unique, context-aware visual map.</p>
     </div>
 </div>
-
-<footer class="artistas-app-footer">
-    Powered by Last.fm Graph API & DeepSeek LLM
-</footer>
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
 <script>
 (function() {
-    // --- Configuration ---
-    const API_KEY = 'proxy'; 
-    const MAX_DEPTH_APP = 3; 
-    const SIMILAR_ARTISTS_LIMIT = 3; 
+    // API routing
+    var API_KEY = 'proxy';
+    
+    // Config
+    var MAX_DEPTH = 3;
+    var BRANCH_FACTOR = 2;
+    var TOTAL_ROWS = Math.pow(BRANCH_FACTOR, MAX_DEPTH);
+    var NODE_COLORS = ['#78350f', '#b45309', '#d97706', '#f59e0b', '#fbbf24'];
 
-    const artistInputApp = document.getElementById('artist-input-app');
-    const twistInputApp = document.getElementById('twist-input-app');
-    const searchButtonApp = document.getElementById('search-button-app');
-    const generateDiagramPlaylistBtnApp = document.getElementById('generate-diagram-playlist-btn-app');
-    const searchFeedbackMessageApp = document.getElementById('search-feedback-message-app');
-    const sankeyChartContainerApp = document.getElementById('sankey-chart-container-app');
-    const sankeyChartDivApp = document.getElementById('sankey-chart-app');
+    // State
+    var globalNodes = [], globalLinks = [], isGenerating = false;
+    var isMobile = window.innerWidth <= 1024;
+    
+    // Desktop DOM
+    var seedInput = document.getElementById('seed-input');
+    var twistInput = document.getElementById('twist-input');
+    var btnGenerate = document.getElementById('btn-generate');
+    var feedback = document.getElementById('feedback');
+    var introState = document.getElementById('intro-state');
+    var treeContainer = document.getElementById('tree-container');
+    var treeSvgMount = document.getElementById('tree-svg-mount');
+    
+    // Mobile DOM
+    var mobileView = document.getElementById('mobile-view');
+    var mTree = document.getElementById('m-tree');
+    var mTreeStatus = document.getElementById('m-tree-status');
+    var mExploreWrap = document.getElementById('m-explore-wrap');
+    var mSeedInput = document.getElementById('m-seed');
+    var mTwistInput = document.getElementById('m-twist');
+    var mBtnGenerate = document.getElementById('m-btn-generate');
+    var mFeedback = document.getElementById('m-feedback');
 
-    const playlistModalOverlayApp = document.getElementById('playlist-modal-overlay-app');
-    const playlistModalTitleApp = document.getElementById('playlist-modal-title-app');
-    const playlistModalBodyApp = document.getElementById('playlist-modal-body-app');
-    const modalCloseBtnApp = document.getElementById('modal-close-btn-app');
-
-    let currentGraphNodesApp = [];
-    let cachedPlaylistDataApp = null;
-    let cachedDiagramSignatureApp = null;
-
-    const marginApp = {top: 40, right: 180, bottom: 40, left: 180}; 
-    const nodeWidthApp = 50; // Wider to fit images
-    const nodePaddingVerticalApp = 40; 
-    const simpleColors = ["#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"];
-
-    function initializePageApp() {
-        searchButtonApp.addEventListener('click', handleSearchApp);
-        artistInputApp.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearchApp(); });
-        twistInputApp.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSearchApp(); });
-        generateDiagramPlaylistBtnApp.addEventListener('click', handleGenerateDiagramPlaylistApp);
-        modalCloseBtnApp.addEventListener('click', () => playlistModalOverlayApp.classList.remove('active'));
-        playlistModalOverlayApp.addEventListener('click', (e) => {
-            if (e.target === playlistModalOverlayApp) playlistModalOverlayApp.classList.remove('active');
-        });
-        // handleSearchApp(); // Trigger on load if needed
-    }
-
-    function showLoadingApp(message) {
-        searchFeedbackMessageApp.innerHTML = message + '<span class="spinner"></span>';
-        searchFeedbackMessageApp.className = 'artistas-app-feedback';
-        sankeyChartContainerApp.style.display = 'none';
-        generateDiagramPlaylistBtnApp.disabled = true;
-        searchButtonApp.disabled = true;
-    }
-
-    function hideLoadingApp() {
-        searchButtonApp.disabled = false;
-        searchFeedbackMessageApp.innerHTML = '';
-    }
-
-    function showErrorApp(message) {
-        searchFeedbackMessageApp.textContent = message;
-        searchFeedbackMessageApp.className = 'artistas-app-feedback error';
-        sankeyChartContainerApp.style.display = 'none';
-        generateDiagramPlaylistBtnApp.disabled = true;
-        searchButtonApp.disabled = false;
-    }
-
-    // --- API Proxies ---
-    async function callNetlifyProxy(method, artistName = null, limit = SIMILAR_ARTISTS_LIMIT) {
-        const netlifyFunctionBaseUrl = "https://afmartins.netlify.app/.netlify/functions/lastfm-proxy";
-        let proxyUrl = `${netlifyFunctionBaseUrl}?method=${method}`;
-        if (artistName) proxyUrl += `&artist=${encodeURIComponent(artistName)}`;
-        if (method === 'artist.getsimilar' || method === 'artist.gettoptracks') proxyUrl += `&limit=${limit}`;
-
-        const response = await fetch(proxyUrl);
-        const data = await response.json();
-        if (!response.ok || data.error) throw new Error(data.message || data.error || `Proxy Error (${response.status})`);
-        return data;
-    }
-
-    async function fetchArtistInfoAPIApp(artistName) {
-        const data = await callNetlifyProxy('artist.getinfo', artistName);
-        if (!data.artist) throw new Error (`Artist "${artistName}" not found on Last.fm.`);
-        return data.artist;
-    }
-
-    async function fetchSimilarArtistsAPIApp(artistName) {
-        try {
-            const data = await callNetlifyProxy('artist.getsimilar', artistName, SIMILAR_ARTISTS_LIMIT);
-            return (data.similarartists && Array.isArray(data.similarartists.artist)) ? data.similarartists.artist : [];
-        } catch (e) { return []; }
-    }
-
-    async function fetchArtistTopTrackAPIApp(artistName) {
-         try {
-            const data = await callNetlifyProxy('artist.gettoptracks', artistName, 1);
-            if (!data.toptracks || !data.toptracks.track || data.toptracks.track.length === 0) return null;
-            return data.toptracks.track[0];
-        } catch (e) { return null; }
-    }
-
-    // --- Image Fetching ---
+    // Wikipedia fuzzy search for images
     async function fetchArtistImage(name) {
         try {
-            const r = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(name) + '&entity=musicArtist&limit=1');
-            const d = await r.json();
-            if (d.results && d.results.length && d.results[0].artworkUrl100) return d.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
-        } catch (e) {}
-        try {
-            const r = await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=' + encodeURIComponent(name) + '&gsrlimit=1&prop=pageimages&pithumbsize=600&format=json&origin=*');
-            const d = await r.json();
+            var r = await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=' + encodeURIComponent(name + ' band music') + '&gsrlimit=1&prop=pageimages&pithumbsize=600&format=json&origin=*');
+            var d = await r.json();
             if (d.query && d.query.pages) {
-                const pages = Object.values(d.query.pages);
+                var pages = Object.values(d.query.pages);
                 if (pages.length && pages[0].thumbnail) return pages[0].thumbnail.source;
             }
         } catch (e) {}
         return null;
     }
 
-    function lazyLoadImage(nodeData) {
-        fetchArtistImage(nodeData.name).then(url => {
-            if (url) {
-                nodeData.imageUrl = url;
-                d3.select(`#img-${nodeData.id}`).attr("href", url);
-                d3.select(`#rect-${nodeData.id}`).style("display", "none"); // Hide fallback SVG
+    // Timeout wrapper
+    function withTimeout(promise, ms) {
+        return Promise.race([promise, new Promise(function(r){setTimeout(function(){r(null)}, ms||4000)})]);
+    }
+
+    function lazyLoadImage(node) {
+        withTimeout(fetchArtistImage(node.name), 4000).then(function(url) {
+            if(url) { 
+                node.imageUrl = url; 
+                if(!isGenerating) { drawTree(); }
+                renderMobile(); 
             }
         });
     }
 
-    function generateNodeSVG(name, depth) {
-        const bg = simpleColors[depth % simpleColors.length];
-        const initials = name.replace(/\s*\(.*?\)\s*/g, '').split(/[\s\-\/]+/).filter(w => w && /^[a-zA-Z]/.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join('');
-        return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="${bg}"/><text x="50" y="50" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-weight="700" font-size="32" fill="rgba(255,255,255,0.85)">${initials}</text></svg>`)}`;
+    // --- Data Fetching Logic ---
+    async function fetchLastFmSimilar(artistName, limit) {
+        try {
+            var proxyUrl = `https://afmartins.netlify.app/.netlify/functions/lastfm-proxy?method=artist.getsimilar&artist=${encodeURIComponent(artistName)}&limit=${limit}`;
+            var res = await fetch(proxyUrl);
+            var data = await res.json();
+            if (data.similarartists && Array.isArray(data.similarartists.artist)) {
+                return data.similarartists.artist.map(a => a.name);
+            }
+            return [];
+        } catch (e) {
+            console.warn("Last.fm fetch failed:", e);
+            return [];
+        }
     }
 
-    // --- LLM Twisting ---
-    async function callLLMTwist(artistsArray, twist, avoidList) {
-        const limit = artistsArray.length;
-        const fullSystem = `You are an expert music curator. 
-The user will provide a list of seed bands/artists. For EACH artist, recommend EXACTLY ONE new band/artist that shares some musical DNA with the seed, BUT heavily embodies the requested twist/vibe: "${twist}".
-CRITICAL RULES:
-- Return ONLY band/artist names.
-- NEVER return specific song titles or albums.
-- Do NOT recommend anything already in the avoid list.
-- You must return EXACTLY ${limit} recommendations in the exact order mapping 1-to-1 to the input list.
-Return ONLY JSON: {"recommendations": ["Twisted Band A", "Twisted Band B"]}`;
-
-        const userMsg = `Avoid List: [${avoidList.join(', ')}]\nSeed Artists: ${artistsArray.join(', ')}\nProvide exactly ${limit} recommendations.`;
-
-        const payload = { model: 'deepseek-chat', messages: [{ role: 'system', content: fullSystem }, { role: 'user', content: userMsg }], response_format: { type: 'json_object' } };
-        const isProxy = API_KEY === 'proxy';
-        const fetchUrl = isProxy ? 'https://afmartins.netlify.app/.netlify/functions/chat' : 'https://api.deepseek.com/chat/completions';
-        const fetchHeaders = { 'Content-Type': 'application/json' };
+    async function twistArtistsWithLLM(path, originalRecs, twist, avoidList) {
+        var limit = originalRecs.length;
+        var fullSystem = `You are an expert music curator.\nThe user's listening path is: [${path.join(' \u2192 ')}].\nLast.fm recommended the following similar artists based on the last artist in the path: [${originalRecs.join(', ')}].\n\nYour task: Twist EACH of these recommendations to heavily embody the requested vibe: "${twist}".\nFor example, if the original is "The Smiths" and the vibe is "Psychedelic", you might change it to "Pink Floyd".\n\nCRITICAL RULES:\n- Return ONLY band/artist names. NEVER songs or albums.\n- Do NOT recommend anything in the Avoid List.\n- You must return EXACTLY ${limit} recommendations mapping 1-to-1 to the original list.\n\nReturn ONLY JSON: {"recommendations": ["Twisted Band A", "Twisted Band B"]}`;
+        
+        var userMsg = `Avoid List: [${avoidList.join(', ')}]\nOriginal Recommendations: [${originalRecs.join(', ')}]\nVibe: "${twist}"\nProvide exactly ${limit} twisted recommendations.`;
+        
+        var payload = { model: 'deepseek-chat', messages: [{ role: 'system', content: fullSystem }, { role: 'user', content: userMsg }], response_format: { type: 'json_object' } };
+        
+        var isProxy = API_KEY === 'proxy';
+        var fetchUrl = isProxy ? 'https://afmartins.netlify.app/.netlify/functions/chat' : 'https://api.deepseek.com/chat/completions';
+        var fetchHeaders = { 'Content-Type': 'application/json' };
         if (!isProxy) fetchHeaders['Authorization'] = 'Bearer ' + API_KEY;
 
-        for (let attempt = 0; attempt < 3; attempt++) {
+        for (var attempt = 0; attempt < 3; attempt++) {
             try {
-                const res = await fetch(fetchUrl, { method: 'POST', headers: fetchHeaders, body: JSON.stringify(payload) });
+                var res = await fetch(fetchUrl, { method: 'POST', headers: fetchHeaders, body: JSON.stringify(payload) });
                 if (!res.ok) throw new Error('HTTP ' + res.status);
-                const data = await res.json();
-                const parsed = JSON.parse(data.choices[0].message.content);
+                var data = await res.json();
+                var parsed = JSON.parse(data.choices[0].message.content);
                 if (parsed.recommendations && parsed.recommendations.length > 0) return parsed.recommendations;
-            } catch (e) {
-                console.warn('LLM Attempt failed', e);
+            } catch (err) {
+                console.warn('LLM Attempt failed', err);
                 await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
             }
         }
-        return artistsArray; // Fallback to original
+        return originalRecs; // Fallback to Last.fm if LLM fails 3 times
     }
 
-    // --- Graph Generation Logic ---
-    function safeId(name) { return name.replace(/[^a-zA-Z0-9]/g, '_'); }
+    function generateNodeSVG(name, depth, size) {
+        var bg = NODE_COLORS[depth % NODE_COLORS.length];
+        var bgLight = NODE_COLORS[Math.min(depth + 1, NODE_COLORS.length - 1)];
+        var initials = name.replace(/\s*\(.*?\)\s*/g, '').split(/[\s\-\/]+/).filter(function(w){return w && /^[a-zA-Z]/.test(w)}).slice(0, 2).map(function(w){return w[0].toUpperCase()}).join('');
+        var fontSize = Math.max(12, Math.min(size * 0.3, 48));
+        return 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="'+bg+'"/><stop offset="100%" stop-color="'+bgLight+'"/></linearGradient></defs><rect width="'+size+'" height="'+size+'" rx="8" fill="url(#g)"/><text x="'+(size/2)+'" y="'+(size/2)+'" text-anchor="middle" dominant-baseline="central" font-family="Sora,sans-serif" font-weight="700" font-size="'+fontSize+'" fill="rgba(255,255,255,0.85)" letter-spacing="1">'+initials+'</text></svg>');
+    }
 
-    async function generateSankeyDataApp(initialArtistName, twist, maxDepth) {
-        const rawLinks = [];
-        const fetchedArtists = new Set();
-        const allNodesData = new Map();
+    // --- Mobile Rendering ---
+    function mobileInitials(name) { return name.replace(/\s*\(.*?\)\s*/g, '').split(/[\s\-\/]+/).filter(w => w && /^[a-zA-Z]/.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join(''); }
+    function mobileNodeColor(d) { return NODE_COLORS[d % NODE_COLORS.length] || '#555'; }
 
-        let initialArtistData = await fetchArtistInfoAPIApp(initialArtistName);
-        let currentLevelNodes = [initialArtistData.name];
-        fetchedArtists.add(initialArtistData.name.toLowerCase());
-        
-        allNodesData.set(initialArtistData.name, { 
-            name: initialArtistData.name, 
-            url: initialArtistData.url, 
-            explicitDepth: 0, 
-            id: safeId(initialArtistData.name) 
-        });
-        lazyLoadImage(allNodesData.get(initialArtistData.name));
+    function renderMobile() {
+        if (!isMobile || !globalNodes.length) return;
+        var vw = window.innerWidth;
+        var layers = {}; 
+        globalNodes.forEach(function(n) { if (!layers[n.depth]) layers[n.depth] = []; layers[n.depth].push(n); });
+        var maxD = Math.max.apply(null, Object.keys(layers).map(Number));
 
-        // Process Graph Level-by-Level to batch LLM calls for speed
-        for (let currentDepth = 0; currentDepth < maxDepth; currentDepth++) {
-            if (currentLevelNodes.length === 0) break;
-            let nextLevelNodes = [];
-
-            // Fetch Last.fm for all nodes in current depth concurrently
-            const levelPromises = currentLevelNodes.map(async (currentArtist) => {
-                const similarArtists = await fetchSimilarArtistsAPIApp(currentArtist);
-                let topSimilar = similarArtists.slice(0, SIMILAR_ARTISTS_LIMIT);
-
-                let processedEdges = [];
-                if (twist && topSimilar.length > 0) {
-                    const originalNames = topSimilar.map(a => a.name);
-                    // Ask LLM to twist the recommendations
-                    const twistedNames = await callLLMTwist(originalNames, twist, Array.from(fetchedArtists));
-                    
-                    for (let i = 0; i < topSimilar.length; i++) {
-                        const twistedName = (twistedNames[i] && twistedNames[i].toLowerCase() !== 'none') ? twistedNames[i] : originalNames[i];
-                        processedEdges.push({ 
-                            name: twistedName, 
-                            weight: parseFloat(topSimilar[i].match) * 100 || 50, 
-                            url: `https://www.last.fm/music/${encodeURIComponent(twistedName.replace(/\s+/g, '+'))}` // Dynamic URL for twisted
-                        });
-                    }
-                } else {
-                    processedEdges = topSimilar.map(a => ({ name: a.name, weight: parseFloat(a.match) * 100 || 50, url: a.url }));
-                }
-
-                // Process edges synchronously to safely track duplicates
-                const validEdges = [];
-                for (let edge of processedEdges) {
-                    const normalized = edge.name.toLowerCase();
-                    if (!fetchedArtists.has(normalized)) {
-                        fetchedArtists.add(normalized);
-                        allNodesData.set(edge.name, { 
-                            name: edge.name, 
-                            url: edge.url, 
-                            explicitDepth: currentDepth + 1, 
-                            id: safeId(edge.name) 
-                        });
-                        lazyLoadImage(allNodesData.get(edge.name));
-                        nextLevelNodes.push(edge.name);
-                    }
-                    validEdges.push(edge);
-                }
-
-                return { source: currentArtist, edges: validEdges };
-            });
-
-            // Wait for all processing of this depth to complete
-            const results = await Promise.all(levelPromises);
-
-            results.forEach(res => {
-                res.edges.forEach(edge => {
-                    const sourceNode = allNodesData.get(res.source);
-                    const targetNode = allNodesData.get(edge.name);
-                    // Prevent circular links back up the tree
-                    if (sourceNode && targetNode && targetNode.explicitDepth > sourceNode.explicitDepth) {
-                        rawLinks.push({ source: res.source, target: edge.name, value: Math.max(0.01, edge.weight) });
-                    }
-                });
-            });
-
-            currentLevelNodes = nextLevelNodes;
+        function nodeSize(count) { var available = vw - 32; var perNode = Math.floor(available / count) - 10; return Math.min(Math.max(perNode, 40), 140); }
+        function fontSpec(sz) {
+            if(sz >= 100) return {i: '2.4rem', n: '0.9rem', w: sz+'px'};
+            if(sz >= 70) return {i: '1.6rem', n: '0.75rem', w: sz+'px'};
+            if(sz >= 50) return {i: '1.1rem', n: '0.65rem', w: (sz+6)+'px'};
+            return {i: '0.85rem', n: '0.55rem', w: (sz+4)+'px'};
         }
 
-        const nodes = Array.from(allNodesData.values());
-        const links = rawLinks.filter(link => allNodesData.has(link.source) && allNodesData.has(link.target));
+        var html = '';
+        for (var d = 0; d <= maxD; d++) {
+            if (!layers[d]) continue;
+            if (d > 0) html += '<div class="m-spacer"></div>';
+            var count = layers[d].length; 
+            var sz = nodeSize(count); 
+            var fs = fontSpec(sz); 
+            var rad = Math.max(8, Math.round(sz * 0.12));
+            
+            html += '<div class="m-layer">';
+            layers[d].forEach(function(n) {
+                var bgColor = mobileNodeColor(n.depth); 
+                var bgLight = mobileNodeColor(Math.min(n.depth + 1, NODE_COLORS.length - 1));
+                var initials = mobileInitials(n.name);
+                var displayName = n.name; // Let CSS handle truncation
+                
+                html += '<a class="m-node" data-depth="'+n.depth+'" data-nid="'+n.id+'" href="'+n.url+'" target="_blank">';
+                html += '<div class="m-node-img-wrap" style="width:'+sz+'px;height:'+sz+'px;border-color:'+bgColor+';border-radius:'+rad+'px">';
+                if (n.imageUrl) {
+                    html += '<img class="m-node-img" src="'+n.imageUrl+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+                    html += '<div class="m-node-initials" style="display:none;background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>';
+                } else {
+                    html += '<div class="m-node-initials" style="background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>';
+                }
+                html += '</div>';
+                html += '<div class="m-node-name" style="font-size:'+fs.n+';max-width:'+fs.w+'">'+displayName+'</div>';
+                html += '</a>';
+            });
+            html += '</div>';
+        }
+        mTree.innerHTML = html;
+        mTreeStatus.innerHTML = isGenerating ? 'Exploring branches<span class="spinner"></span>' : '\u2726 ' + globalNodes.length + ' nodes mapped';
 
-        return { nodes, links, initialArtistName: initialArtistData.name };
+        requestAnimationFrame(function() {
+            var oldSvg = mTree.querySelector('.m-tree-svg'); if (oldSvg) oldSvg.remove();
+            var treeRect = mTree.getBoundingClientRect();
+            var svgNS = 'http://www.w3.org/2000/svg';
+            var svg = document.createElementNS(svgNS, 'svg');
+            svg.setAttribute('class', 'm-tree-svg');
+            svg.setAttribute('width', treeRect.width);
+            svg.setAttribute('height', treeRect.height);
+            
+            var defs = document.createElementNS(svgNS, 'defs');
+            globalLinks.forEach(function(link, i) {
+                var srcEl = mTree.querySelector('[data-nid="'+link.source.id+'"]');
+                var tgtEl = mTree.querySelector('[data-nid="'+link.target.id+'"]');
+                if (!srcEl || !tgtEl) return;
+
+                var srcRect = srcEl.getBoundingClientRect();
+                var tgtRect = tgtEl.getBoundingClientRect();
+                var x1 = srcRect.left + srcRect.width/2 - treeRect.left;
+                var y1 = srcRect.bottom - treeRect.top - 8;
+                var x2 = tgtRect.left + tgtRect.width/2 - treeRect.left;
+                var y2 = tgtRect.top - treeRect.top + 8;
+                var cy = y1 + (y2 - y1) * 0.5;
+
+                var gradId = 'mg-' + i;
+                var grad = document.createElementNS(svgNS, 'linearGradient');
+                grad.setAttribute('id', gradId); grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+                grad.setAttribute('x1', x1); grad.setAttribute('y1', y1); grad.setAttribute('x2', x2); grad.setAttribute('y2', y2);
+                var stop1 = document.createElementNS(svgNS, 'stop'); stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', mobileNodeColor(link.source.depth));
+                var stop2 = document.createElementNS(svgNS, 'stop'); stop2.setAttribute('offset', '100%'); stop2.setAttribute('stop-color', mobileNodeColor(link.target.depth));
+                grad.appendChild(stop1); grad.appendChild(stop2); defs.appendChild(grad);
+
+                var path = document.createElementNS(svgNS, 'path');
+                path.setAttribute('class', 'm-tree-edge');
+                path.setAttribute('d', 'M'+x1+','+y1+' C'+x1+','+cy+' '+x2+','+cy+' '+x2+','+y2);
+                var strokeW = link.source.depth === 0 ? 3.5 : link.source.depth === 1 ? 2.5 : 1.5;
+                path.setAttribute('stroke', 'url(#'+gradId+')');
+                path.setAttribute('stroke-width', strokeW);
+                svg.appendChild(path);
+            });
+            svg.insertBefore(defs, svg.firstChild);
+            mTree.insertBefore(svg, mTree.firstChild);
+        });
     }
 
-    // --- D3 Drawing ---
-    function drawSankeyD3App(sankeyData) {
-        const { nodes, links, initialArtistName } = sankeyData;
-        currentGraphNodesApp = [];
+    async function startGeneration(seed, twist) {
+        var cleanSeed = seed.trim();
+        var twistDisplay = twist ? ' \u2014 <span style="color:var(--accent)">' + twist + '</span>' : '';
+        
+        var startMsg = 'Branching from <b>' + cleanSeed + '</b>' + twistDisplay + ' <span class="spinner"></span>';
+        feedback.innerHTML = startMsg; feedback.className = 'feedback';
+        mFeedback.innerHTML = startMsg; mFeedback.className = 'm-feedback';
+        
+        var rootNode = { 
+            id: 'n-' + Math.random().toString(36).substr(2,9), 
+            name: cleanSeed, 
+            depth: 0, 
+            startRow: 0, 
+            rowSpan: TOTAL_ROWS, 
+            url: 'https://www.last.fm/music/' + encodeURIComponent(cleanSeed.replace(/\s+/g, '+')), 
+            imageUrl: null 
+        };
+        lazyLoadImage(rootNode);
+        
+        globalNodes = [rootNode]; globalLinks = [];
+        introState.classList.add('hidden'); treeContainer.classList.add('visible');
+        if (isMobile) { mExploreWrap.style.display = 'flex'; mobileView.classList.add('visible'); renderMobile(); }
+        
+        var used = new Set([cleanSeed.toLowerCase()]);
+        var queue = [{ name: cleanSeed, depth: 0, nodeRef: rootNode, path: [cleanSeed] }];
+        drawTree();
+        
+        var head = 0;
+        while (head < queue.length && isGenerating) {
+            var cur = queue[head++];
+            if (cur.depth >= MAX_DEPTH) continue;
+            
+            try {
+                // 1. Fetch 10 similar artists to ensure we have enough after filtering
+                var lastFmRecs = await fetchLastFmSimilar(cur.name, 10);
+                
+                // 2. Filter out ones we've already used
+                var validLastFm = lastFmRecs.filter(name => !used.has(name.toLowerCase()));
+                
+                // 3. Take exactly what we need + small buffer for LLM flexibility
+                var toProcess = validLastFm.slice(0, BRANCH_FACTOR + 1); 
+                
+                if (toProcess.length > 0) {
+                    var finalNames = toProcess;
+                    
+                    // 4. Send to LLM for twisting if requested
+                    if (twist) {
+                        finalNames = await twistArtistsWithLLM(cur.path, toProcess, twist, Array.from(used));
+                    }
+                    
+                    // 5. Add to the graphical tree
+                    var accepted = 0;
+                    var updated = false;
+                    for (var i = 0; i < finalNames.length; i++) {
+                        if (accepted >= BRANCH_FACTOR) break;
+                        var originalName = finalNames[i].trim();
+                        var normName = originalName.toLowerCase();
+                        
+                        if (!originalName || used.has(normName) || normName === 'none') continue;
+                        used.add(normName);
+                        
+                        var childSpan = cur.nodeRef.rowSpan / BRANCH_FACTOR;
+                        var childStartRow = cur.nodeRef.startRow + accepted * childSpan;
+                        var childNode = {
+                            id: 'n-' + Math.random().toString(36).substr(2,9),
+                            name: originalName,
+                            depth: cur.depth + 1,
+                            startRow: childStartRow,
+                            rowSpan: childSpan,
+                            url: 'https://www.last.fm/music/' + encodeURIComponent(originalName.replace(/\s+/g, '+')),
+                            imageUrl: null
+                        };
+                        
+                        lazyLoadImage(childNode);
+                        globalNodes.push(childNode);
+                        globalLinks.push({ source: cur.nodeRef, target: childNode, childIndex: accepted });
+                        queue.push({ name: originalName, depth: cur.depth + 1, nodeRef: childNode, path: cur.path.concat([originalName]) });
+                        
+                        accepted++;
+                        updated = true;
+                    }
+                    
+                    if (updated && isGenerating) { drawTree(); renderMobile(); }
+                }
+            } catch (e) {
+                console.warn('Gen failed for ' + cur.name + ':', e);
+            }
+        }
+        
+        if (isGenerating) {
+            var completeMsg = '\u2726 Exploration complete \u2014 ' + globalNodes.length + ' nodes mapped';
+            feedback.innerHTML = completeMsg; feedback.className = 'feedback success';
+            mFeedback.innerHTML = completeMsg; mFeedback.className = 'm-feedback success';
+            isGenerating = false; 
+            btnGenerate.textContent = 'Explore';
+            mBtnGenerate.textContent = 'Explore';
+            renderMobile();
+        }
+    }
 
-        if (!nodes || nodes.length === 0) {
-            showErrorApp(`No data found for "${initialArtistName}".`);
+    function drawTree() {
+        if (!globalNodes.length) return;
+        treeSvgMount.innerHTML = '';
+        
+        var margin = { top: 20, right: 130, bottom: 20, left: 130 };
+        var containerW = treeSvgMount.clientWidth || window.innerWidth - 40;
+        var containerH = Math.max(380, treeSvgMount.clientHeight || (window.innerHeight - 280));
+        var w = containerW - margin.left - margin.right;
+        var h = containerH - margin.top - margin.bottom;
+        var colW = w / MAX_DEPTH;
+        var slotH = h / TOTAL_ROWS;
+        
+        var svg = d3.select(treeSvgMount).append('svg')
+            .attr('width', containerW).attr('height', containerH)
+            .append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            
+        function getNodeSize(depth) {
+            var span = Math.pow(BRANCH_FACTOR, MAX_DEPTH - depth);
+            var maxV = span * slotH * 0.85;
+            var ideal = [340, 200, 110, 66][depth] || 50;
+            return Math.max(28, Math.min(ideal, maxV, colW * 0.7));
+        }
+        
+        globalNodes.forEach(function(n) {
+            n.size = getNodeSize(n.depth);
+            n.width = n.size; n.height = n.size;
+            n.x0 = n.depth * colW; n.x1 = n.x0 + n.width;
+            n.yCenter = (n.startRow + n.rowSpan / 2) * slotH;
+            n.y0 = n.yCenter - n.height / 2; n.y1 = n.yCenter + n.height / 2;
+            if (!n.imageUrl) n._generatedImg = generateNodeSVG(n.name, n.depth, Math.round(n.size));
+        });
+        
+        var renderLinks = globalLinks.map(function(l) {
+            var seg = l.source.height / BRANCH_FACTOR;
+            return { source: l.source, target: l.target, y0: l.source.y0 + l.childIndex * seg + seg / 2, y1: l.target.yCenter, width: seg * 0.88 };
+        });
+        
+        function nodeColor(n) { return NODE_COLORS[n.depth % NODE_COLORS.length] || '#555'; }
+        
+        var defs = svg.append('defs');
+        globalNodes.forEach(function(n) {
+            defs.append('clipPath').attr('id', 'clip-' + n.id)
+                .append('rect').attr('width', n.width).attr('height', n.height).attr('rx', 8);
+        });
+        
+        renderLinks.forEach(function(link, i) {
+            var grad = defs.append('linearGradient').attr('id', 'lg-' + i).attr('gradientUnits', 'userSpaceOnUse')
+                .attr('x1', link.source.x1).attr('x2', link.target.x0);
+            grad.append('stop').attr('offset', '0%').attr('stop-color', nodeColor(link.source));
+            grad.append('stop').attr('offset', '100%').attr('stop-color', nodeColor(link.target));
+        });
+        
+        svg.append('g').attr('fill', 'none').selectAll('path').data(renderLinks).join('path')
+            .attr('class', 'tree-link').attr('d', d3.sankeyLinkHorizontal())
+            .attr('stroke', function(d, i) { return 'url(#lg-' + i + ')'; })
+            .attr('stroke-width', function(d) { return Math.max(2, d.width); });
+            
+        var ng = svg.append('g').selectAll('a').data(globalNodes).join('a')
+            .attr('href', function(d) { return d.url; }).attr('target', '_blank')
+            .append('g').attr('class', 'node-group').attr('transform', function(d) { return 'translate(' + d.x0 + ',' + d.y0 + ')'; });
+            
+        ng.append('rect').attr('class', 'node-rect')
+            .attr('width', function(d) { return d.width; }).attr('height', function(d) { return d.height; })
+            .attr('fill', function(d) { return nodeColor(d); }).attr('rx', 8);
+            
+        ng.append('image').attr('class', 'node-image')
+            .attr('href', function(d) { return d.imageUrl || d._generatedImg || ''; })
+            .attr('width', function(d) { return d.width; }).attr('height', function(d) { return d.height; })
+            .attr('preserveAspectRatio', 'xMidYMid slice').attr('clip-path', function(d) { return 'url(#clip-' + d.id + ')'; });
+            
+        ng.append('text').attr('class', 'node-label')
+            .attr('x', function(d) { return d.depth < MAX_DEPTH ? d.width + 12 : -12; })
+            .attr('y', function(d) { return d.height / 2; }).attr('dy', '0.35em')
+            .attr('text-anchor', function(d) { return d.depth < MAX_DEPTH ? 'start' : 'end'; })
+            .text(function(d) { return d.name.length > 28 ? d.name.slice(0, 26) + '\u2026' : d.name; });
+    }
+
+    // --- Events ---
+    async function handleGenerate() {
+        var seed = (isMobile ? mSeedInput.value : seedInput.value).trim();
+        var twist = (isMobile ? mTwistInput.value : twistInput.value).trim();
+        
+        if (!seed) {
+            var msg = 'Please enter a starting band.';
+            feedback.textContent = msg; feedback.className = 'feedback error';
+            mFeedback.textContent = msg; mFeedback.className = 'm-feedback error';
             return;
         }
-
-        const containerWidth = Math.max(800, sankeyChartDivApp.clientWidth);
-        const dynamicHeight = Math.max(600, nodes.length * 40 + links.length * 15);
-        const width = containerWidth - marginApp.left - marginApp.right;
-        const height = dynamicHeight - marginApp.top - marginApp.bottom;
-
-        sankeyChartDivApp.innerHTML = ''; 
-        const svg = d3.select(sankeyChartDivApp).append("svg")
-            .attr("width", containerWidth)
-            .attr("height", dynamicHeight)
-          .append("g")
-            .attr("transform", `translate(${marginApp.left},${marginApp.top})`);
-
-        const sankey = d3.sankey()
-            .nodeId(d => d.name)
-            .nodeAlign(node => node.explicitDepth)
-            .nodeWidth(nodeWidthApp)
-            .nodePadding(nodePaddingVerticalApp)
-            .extent([[0, 5], [width, height - 5]])
-            .iterations(32);
-
-        let graph;
-        try {
-            graph = sankey({ nodes: JSON.parse(JSON.stringify(nodes)), links: JSON.parse(JSON.stringify(links)) });
-        } catch (error) {
-            showErrorApp(`Layout error: ${error.message}.`); return;
-        }
-
-        // Merge runtime calculated bounds with our original tracked data (which holds the ID for images)
-        graph.nodes.forEach(gn => {
-            const originalNode = nodes.find(n => n.name === gn.name);
-            gn.id = originalNode.id;
-            gn.imageUrl = originalNode.imageUrl;
-            gn.explicitDepth = originalNode.explicitDepth;
-        });
-
-        currentGraphNodesApp = graph.nodes; 
-        generateDiagramPlaylistBtnApp.disabled = false;
-
-        const defs = svg.append("defs");
         
-        // Setup clip paths for rounded images
-        graph.nodes.forEach(n => {
-            defs.append("clipPath")
-                .attr("id", "clip-" + n.id)
-                .append("rect")
-                .attr("width", n.x1 - n.x0)
-                .attr("height", Math.max(1, n.y1 - n.y0))
-                .attr("rx", 6);
-        });
-
-        graph.links.forEach((link, i) => {
-            const gradientID = `linkGradient-${i}`;
-            const gradient = defs.append("linearGradient").attr("id", gradientID).attr("gradientUnits", "userSpaceOnUse")
-                .attr("x1", link.source.x1).attr("x2", link.target.x0);
-            gradient.append("stop").attr("offset", "0%").attr("stop-color", simpleColors[link.source.explicitDepth % simpleColors.length]);
-            gradient.append("stop").attr("offset", "100%").attr("stop-color", simpleColors[link.target.explicitDepth % simpleColors.length]);
-        });
-
-        const linkGroups = svg.append("g")
-            .attr("fill", "none")
-            .selectAll("g.sankey-link-group").data(graph.links).join("g").attr("class", "sankey-link-group");
-
-        linkGroups.append("path")
-            .attr("class", "sankey-link")
-            .attr("d", d3.sankeyLinkHorizontal())
-            .attr("stroke", (d, i) => `url(#linkGradient-${i})`)
-            .attr("stroke-width", d => Math.max(2, d.width));
-
-        const nodeLinkGroups = svg.append("g")
-            .selectAll("a.sankey-node-link").data(graph.nodes).join("a")
-            .attr("class", "sankey-node-link").attr("xlink:href", d => d.url).attr("target", "_blank")
-            .append("g").attr("class", "sankey-node-group").attr("transform", d => `translate(${d.x0},${d.y0})`);
-
-        // Base Rect
-        nodeLinkGroups.append("rect")
-            .attr("class", "sankey-node")
-            .attr("height", d => Math.max(10, d.y1 - d.y0))
-            .attr("width", d => d.x1 - d.x0)
-            .attr("fill", d => simpleColors[d.explicitDepth % simpleColors.length])
-            .attr("rx", 6);
-
-        // Fallback or Active Image
-        nodeLinkGroups.append("image")
-            .attr("id", d => "img-" + d.id)
-            .attr("class", "sankey-node-image")
-            .attr("href", d => d.imageUrl || generateNodeSVG(d.name, d.explicitDepth))
-            .attr("width", d => d.x1 - d.x0)
-            .attr("height", d => Math.max(10, d.y1 - d.y0))
-            .attr("preserveAspectRatio", "xMidYMid slice")
-            .attr("clip-path", d => `url(#clip-${d.id})`);
-
-        nodeLinkGroups.append("text")
-            .attr("class", "sankey-node-label")
-            .each(function(d) {
-                const text = d3.select(this);
-                const nodeWidth = d.x1 - d.x0;
-                const nodeHeight = Math.max(10, d.y1 - d.y0);
-                
-                // Labels alternate side based on depth to prevent overlap
-                if (d.explicitDepth < MAX_DEPTH_APP) {
-                    text.attr("x", nodeWidth + 10).attr("y", nodeHeight / 2).attr("text-anchor", "start");
-                } else {
-                    text.attr("x", -10).attr("y", nodeHeight / 2).attr("text-anchor", "end");
-                }
-            })
-            .attr("dy", "0.35em")
-            .text(d => d.name.length > 30 ? d.name.substring(0, 27) + "..." : d.name);
-
-        sankeyChartContainerApp.style.display = 'block';
-        hideLoadingApp();
-    }
-
-    async function handleGenerateDiagramPlaylistApp() {
-        if (!currentGraphNodesApp || currentGraphNodesApp.length === 0) return;
-        const currentDiagramSignature = currentGraphNodesApp.map(n => n.name).sort().join('||');
-        if (cachedPlaylistDataApp && cachedDiagramSignatureApp === currentDiagramSignature) {
-            displayPlaylistInModalApp(cachedPlaylistDataApp); return;
-        }
-
-        playlistModalTitleApp.textContent = `🎶 Generating Playlist...`;
-        playlistModalBodyApp.innerHTML = '<div style="text-align:center; padding: 30px;"><p style="color: #6b7280; margin-bottom: 15px;">Fetching top tracks for mapped artists...</p><div class="spinner" style="border-left-color: #2563eb;"></div></div>';
-        playlistModalOverlayApp.classList.add('active');
-        generateDiagramPlaylistBtnApp.disabled = true; 
-
-        const trackPromises = currentGraphNodesApp.map(node => fetchArtistTopTrackAPIApp(node.name));
-        try {
-            const topTracksResponses = await Promise.all(trackPromises);
-            const validTracks = topTracksResponses.filter(track => track !== null);
-
-            if (validTracks.length === 0) throw new Error("Could not fetch top tracks.");
-
-            const playlistData = {
-                playlistName: "Twisted Sankey Playlist",
-                tracks: validTracks.map(track => ({ artistName: track.artist.name, trackName: track.name, trackUrl: track.url }))
-            };
-
-            cachedPlaylistDataApp = playlistData;
-            cachedDiagramSignatureApp = currentDiagramSignature;
-            displayPlaylistInModalApp(playlistData);
-        } catch (error) {
-            playlistModalTitleApp.textContent = "Error Generating Playlist";
-            playlistModalBodyApp.innerHTML = `<p style="color: #c53030;">${error.message}</p>`;
-        } finally {
-            generateDiagramPlaylistBtnApp.disabled = false;
-        }
-    }
-
-    function displayPlaylistInModalApp(playlistData) {
-        playlistModalTitleApp.textContent = `🎶 ${playlistData.playlistName}`;
-        let playlistHtml = "<ul>";
-        playlistData.tracks.forEach(track => { playlistHtml += `<li><a href="${track.trackUrl}" target="_blank">${track.trackName}</a> - ${track.artistName}</li>`; });
-        playlistHtml += "</ul>";
-        playlistModalBodyApp.innerHTML = playlistHtml;
-        playlistModalOverlayApp.classList.add('active'); 
-        generateDiagramPlaylistBtnApp.disabled = false;
-    }
-
-    async function handleSearchApp() {
-        const artistName = artistInputApp.value.trim();
-        const twist = twistInputApp.value.trim();
-        if (!artistName) { showErrorApp('Please enter a starting artist.'); return; }
-
-        let msg = `Branching from "${artistName}"`;
-        if(twist) msg += ` with vibe "<span style="color: #c53030;">${twist}</span>"`;
-        showLoadingApp(msg);
+        // Sync inputs
+        seedInput.value = seed; mSeedInput.value = seed;
+        twistInput.value = twist; mTwistInput.value = twist;
         
-        if(sankeyChartDivApp) sankeyChartDivApp.innerHTML = '';
-        currentGraphNodesApp = [];
-        cachedPlaylistDataApp = null; 
-        cachedDiagramSignatureApp = null;
-
-        try {
-            const sankeyData = await generateSankeyDataApp(artistName, twist, MAX_DEPTH_APP);
-            drawSankeyD3App(sankeyData);
-        } catch (error) {
-            showErrorApp(error.message || `Error fetching data for "${artistName}".`);
+        if (isGenerating) {
+            isGenerating = false; 
+            btnGenerate.textContent = 'Explore'; mBtnGenerate.textContent = 'Explore';
+            feedback.textContent = 'Generation stopped.'; mFeedback.textContent = 'Generation stopped.';
+            return;
         }
+        
+        isGenerating = true; 
+        btnGenerate.textContent = 'Stop'; mBtnGenerate.textContent = 'Stop';
+        startGeneration(seed, twist);
     }
 
-    if (document.getElementById('artist-input-app')) initializePageApp();
+    btnGenerate.addEventListener('click', handleGenerate);
+    mBtnGenerate.addEventListener('click', handleGenerate);
+    [seedInput, twistInput, mSeedInput, mTwistInput].forEach(function(el) {
+        el.addEventListener('keypress', function(e) { if (e.key === 'Enter') handleGenerate(); });
+    });
+
+    window.addEventListener('resize', function() {
+        var wasMobile = isMobile;
+        isMobile = window.innerWidth <= 1024;
+        if (globalNodes.length && !isGenerating) {
+            if (!isMobile) drawTree();
+            if (isMobile) renderMobile();
+        }
+    });
+
+    // About modal
+    var aboutOverlay = document.getElementById('about-overlay');
+    var aboutTrigger = document.getElementById('about-trigger');
+    var aboutClose = document.getElementById('about-close');
+    var mAboutLink = document.getElementById('m-about-link');
+    
+    function openAbout(e) { if(e) e.preventDefault(); aboutOverlay.classList.add('visible'); }
+    function closeAbout() { aboutOverlay.classList.remove('visible'); }
+    
+    aboutTrigger.addEventListener('click', openAbout);
+    aboutClose.addEventListener('click', closeAbout);
+    if(mAboutLink) mAboutLink.addEventListener('click', openAbout);
+    aboutOverlay.addEventListener('click', function(e) { if (e.target === aboutOverlay) closeAbout(); });
 
 })();
 </script>
