@@ -233,7 +233,7 @@
     
     // Config
     var MAX_DEPTH = 3;
-    var BRANCH_FACTOR = 3;
+    var BRANCH_FACTOR = 2;
     var TOTAL_ROWS = Math.pow(BRANCH_FACTOR, MAX_DEPTH);
     var NODE_COLORS = ['#78350f', '#b45309', '#d97706', '#f59e0b', '#fbbf24'];
 
@@ -652,7 +652,7 @@
             var span = Math.pow(BRANCH_FACTOR, MAX_DEPTH - depth);
             var maxV = span * slotH * 0.85;
             var ideal = [340, 200, 110, 66][depth] || 50;
-            return Math.max(20, Math.min(ideal, maxV, colW * 0.7)); // Adjusted minimum from 28 to 20
+            return Math.max(28, Math.min(ideal, maxV, colW * 0.7));
         }
         
         globalNodes.forEach(function(n) {
