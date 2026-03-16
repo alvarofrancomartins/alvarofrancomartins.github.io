@@ -225,16 +225,16 @@
         <div class="m-controls" id="m-controls"></div>
         <div class="m-feedback" id="m-feedback"></div>
     </div>
-    <footer class="app-footer">Created by <a href="https://alvarofrancomartins.com" target="_blank">Alvaro Franco Martins</a>&nbsp;&mdash;&nbsp;Powered by <a href="https://deepseek.com" target="_blank">DeepSeek</a></footer>
+    <footer class="app-footer">Created by <a href="https://alvarofrancomartins.com" target="_blank">Alvaro Franco Martins, PhD</a>&nbsp;&mdash;&nbsp;Powered by <a href="https://deepseek.com" target="_blank">DeepSeek</a></footer>
 </div>
 <!-- About modal -->
 <div class="about-overlay" id="about-overlay">
     <div class="about-card">
         <button class="about-close" id="about-close">&times;</button>
         <h2>What is Dendrite?</h2>
-        <p>Dendrite is a branching recommendation engine powered by AI. You give it a starting point (an artist, a dish, a book, anything) and it uses AI to grow a tree of connected recommendations.</p>
-        <p>What makes it different from a simple "recommend me something" is the path. Each branch remembers how you got there. Starting from Radiohead and drifting toward jazz produces completely different depth-3 results than drifting toward electronic. The path <em>is</em> the context.</p>
-        <p>The tree is generated in real-time using the DeepSeek LLM. Each node branches into two children, three levels deep; producing 15 connected nodes per exploration.</p>
+        <p>Dendrite is a <strong>context-aware visual branching engine</strong>. You give it a starting point &mdash; an artist, a dish, a book, anything &mdash; and it uses AI to grow a tree of connected recommendations.</p>
+        <p>What makes it different from a simple "recommend me something" is the <strong>path</strong>. Each branch remembers how you got there. Starting from Radiohead and drifting toward jazz produces completely different depth-3 results than drifting toward electronic. The path <em>is</em> the context.</p>
+        <p>The tree is generated in real-time using the DeepSeek LLM. Each node branches into two children, three levels deep &mdash; producing 15 connected nodes per exploration.</p>
     </div>
 </div>
 <script src="https://d3js.org/d3.v7.min.js"></script>
@@ -250,6 +250,7 @@
 
     // Timeout wrapper — kills slow image fetches after 4s
     function withTimeout(promise,ms){return Promise.race([promise,new Promise(function(r){setTimeout(function(){r(null)},ms||4000)})])}
+    function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
     // Fire-and-forget image loader — renders immediately, swaps image in when ready
     function lazyLoadImage(node,domain){
@@ -518,12 +519,12 @@
                 html+='<div class="m-node-img-wrap" style="width:'+sz+'px;height:'+sz+'px;border-color:'+bgColor+';border-radius:'+rad+'px">';
                 if(n.imageUrl){
                     html+='<img class="m-node-img" src="'+n.imageUrl+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
-                    html+='<div class="m-node-initials" style="display:none;background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>'
+                    html+='<div class="m-node-initials" style="display:none;background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+esc(initials)+'</div>'
                 }else{
-                    html+='<div class="m-node-initials" style="background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>'
+                    html+='<div class="m-node-initials" style="background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+esc(initials)+'</div>'
                 }
                 html+='</div>';
-                html+='<div class="m-node-name" style="font-size:'+fs.n+';max-width:'+fs.w+'">'+displayName+'</div>';
+                html+='<div class="m-node-name" style="font-size:'+fs.n+';max-width:'+fs.w+'">'+esc(displayName)+'</div>';
                 html+='</a>'
             });
             html+='</div>'
@@ -595,9 +596,9 @@
 
     async function startGeneration(seed,twist,category){
         var domain=DOMAINS[activeDomain];var cleanSeed=seed.trim();
-        var twistDisplay=twist?' \u2014 <span style="color:'+domain.accent+'">'+twist+'</span>':'';
-        feedback.innerHTML='Branching from <b>'+cleanSeed+'</b>'+twistDisplay+' <span class="spinner"></span>';feedback.className='feedback';
-        if(isMobile){mFeedback.innerHTML='Branching from <b>'+cleanSeed+'</b>'+twistDisplay+' <span class="spinner"></span>';mFeedback.className='m-feedback'}
+        var twistDisplay=twist?' \u2014 <span style="color:'+domain.accent+'">'+esc(twist)+'</span>':'';
+        feedback.innerHTML='Branching from <b>'+esc(cleanSeed)+'</b>'+twistDisplay+' <span class="spinner"></span>';feedback.className='feedback';
+        if(isMobile){mFeedback.innerHTML='Branching from <b>'+esc(cleanSeed)+'</b>'+twistDisplay+' <span class="spinner"></span>';mFeedback.className='m-feedback'}
         var rootNode={id:'n-'+Math.random().toString(36).substr(2,9),name:cleanSeed,depth:0,startRow:0,rowSpan:TOTAL_ROWS,url:domain.makeLink(cleanSeed),imageUrl:null};
         lazyLoadImage(rootNode,domain);
         globalNodes=[rootNode];globalLinks=[];introState.classList.add('hidden');treeContainer.classList.add('visible');
