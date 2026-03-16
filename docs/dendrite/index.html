@@ -468,7 +468,7 @@
         var domain=DOMAINS[activeDomain];
         var fullSystem=domain.systemPrompt(limit,vibe,category)+'\n\nAVOID LIST:\n['+avoidList.join(', ')+']';
         var userMsg=domain.userPrompt(path,vibe,limit,category);
-        if(activeInputType){if(path.length===1)userMsg='The starting point is a '+activeInputType+': "'+path[0]+'"\n'+userMsg;else userMsg='MODE: '+activeInputType+' \u2014 return ONLY '+activeInputType+' results, not other types.\n'+userMsg;}
+        if(activeInputType&&activeInputType!=='Anything'){if(path.length===1)userMsg='The starting point is a '+activeInputType+': "'+path[0]+'"\n'+userMsg;else userMsg='MODE: '+activeInputType+' \u2014 return ONLY '+activeInputType+' results, not other types.\n'+userMsg;}
         var payload={model:'deepseek-chat',messages:[{role:'system',content:fullSystem},{role:'user',content:userMsg}],response_format:{type:'json_object'}};
         var backoff=[800,1600,3200,6400];
         for(var attempt=0;attempt<5;attempt++){
