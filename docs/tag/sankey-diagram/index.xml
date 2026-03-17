@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sankey Diagram | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/sankey-diagram/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/sankey-diagram/index.xml" rel="self" type="application/rss+xml" />
+    <description>Sankey Diagram</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>Sankey Diagram</title>
+      <link>https://alvarofrancomartins.com/tag/sankey-diagram/</link>
+    </image>
+    
+    <item>
+      <title>Dendrite: an AI-powered branching recommendation engine</title>
+      <link>https://alvarofrancomartins.com/post/dendrite/</link>
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/dendrite/</guid>
+      <description>&lt;p&gt;LLMs are great at recommendations. What if you could watch its whole tree of recommendations branch out in front of you?&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Start with Radiohead with a &amp;ldquo;chaotic&amp;rdquo; vibe. Maybe it branches into The Mars Volta and Swans. Now, given the path Radiohead &amp;gt; Swans, we ask the LLM: what&amp;rsquo;s the next most natural recommendation? And so on. The path is the query.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This is great for someone like me who is constantly trying to listen to new (and much different) bands or artists. Different vibes will generate completely different trees from the same starting point. Vibes are optional and leaving it blank returns a vanilla tree.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The fun thing is that this kind of branching tree works for everything. Dishes, cocktails, perfumes, games, podcasts. The structure is general.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This is actually a generalization of something I built a while ago (&lt;a href=&#34;https://alvarofrancomartins.com/post/sankey/&#34;&gt;a sankey diagram to find new artists&lt;/a&gt;) powered by Last.fm&amp;rsquo;s similar artists API. Now the recommendations come from a large language model. Powered by DeepSeek, because it&amp;rsquo;s cheap and it works well enough. Works on mobile too.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://alvarofrancomartins.com/dendrite/&#34;&gt;Try Dendrite →&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
