@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/dendrite/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/dendrite/index.xml" rel="self" type="application/rss+xml" />
     <description>Dendrite</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 15 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Dendrite</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Dendrite: an AI-powered branching recommendation engine</title>
       <link>https://alvarofrancomartins.com/post/dendrite/</link>
-      <pubDate>Sun, 15 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/dendrite/</guid>
       <description>&lt;p&gt;LLMs are great at recommendations. What if you could watch its whole tree of recommendations branch out in front of you?&lt;/p&gt;
 &lt;br&gt;

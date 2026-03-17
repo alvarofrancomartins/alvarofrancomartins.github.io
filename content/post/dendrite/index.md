@@ -1,6 +1,6 @@
 ---
 title: "Dendrite: an AI-powered branching recommendation engine"
-date: 2026-03-15
+date: 2026-03-16
 subtitle: "A recommendation engine that grows a tree of connected suggestions"
 summary: "A recommendation engine that grows a tree of connected suggestions"
 draft: false
