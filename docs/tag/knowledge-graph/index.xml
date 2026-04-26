@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>knowledge graph | Alvaro Franco Martins</title>
+    <link>https://alvarofrancomartins.com/tag/knowledge-graph/</link>
+      <atom:link href="https://alvarofrancomartins.com/tag/knowledge-graph/index.xml" rel="self" type="application/rss+xml" />
+    <description>knowledge graph</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://alvarofrancomartins.com/media/sharing.png</url>
+      <title>knowledge graph</title>
+      <link>https://alvarofrancomartins.com/tag/knowledge-graph/</link>
+    </image>
+    
+    <item>
+      <title>CRIMENET — the global network of organized crime</title>
+      <link>https://alvarofrancomartins.com/post/crimenet/</link>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/crimenet/</guid>
+      <description>&lt;p&gt;Mapping the network of global organized crime used to be impractical. It would mean reading thousands of documents in dozens of languages and reconciling thousands of named entities by hand. Nobody had done it. The result is that the public picture of organized crime stayed fragmented: one cartel paper here, one mafia study there, never the full graph.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;LLMs change that. In a few weeks, working solo, I built &lt;strong&gt;CRIMENET&lt;/strong&gt;: an open-source network of 1,173 criminal organizations worldwide and the 2,765 alliances and rivalries between them, extracted from 737 Wikipedia articles. Every node and edge is traceable back to a Wikipedia source.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In this post, I will&lt;/p&gt;
+&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;Describe the data and the pipeline &lt;a href=&#34;#data&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Show the interactive visualization &lt;a href=&#34;#play&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Walk through the main findings &lt;a href=&#34;#results&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Share the LLM extraction prompt &lt;a href=&#34;#prompt&#34;&gt;
+  &lt;i class=&#34;fas fa-fas fa-link  pr-1 fa-fw&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;data&#34;&gt;The data&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;I manually compiled a list of 737 Wikipedia article URLs about criminal organizations, aiming for broad coverage across cartels, mafias, gangs, triads, motorcycle clubs, militias, and terrorist groups. The pipeline then runs in five steps:&lt;/p&gt;
+&lt;br&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Fetch.&lt;/strong&gt; For each article, retrieve the clean text via the Wikipedia API and the page&amp;rsquo;s HTML via the MediaWiki Action API. Parse the infobox table with BeautifulSoup and append it to the article text.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Extract.&lt;/strong&gt; Send each article to the DeepSeek API with a structured prompt enforcing a strict JSON schema. Extract entities (organizations, with type and time period) and relationships (alliance, rivalry, or other).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Merge.&lt;/strong&gt; Combine all per-article extractions into one global network, deduplicating nodes by name and edges by &lt;code&gt;(source, target, relationship, detail)&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Clean.&lt;/strong&gt; Consolidate 60+ LLM-generated organization types into 9 canonical ones (gang, mafia, cartel, clan, motorcycle club, triad, militia, faction, terrorist organization). Filter generic umbrella terms, defunct organizations, and noisy edge labels.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Centrality.&lt;/strong&gt; Compute betweenness centrality three ways (alliance-only, rivalry-only, combined) so the visualization can resize nodes correctly for each filter.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;br&gt;
+&lt;p&gt;The final dataset has 1,173 organizations and 2,765 relationships (1,547 alliances, 1,218 rivalries). The full pipeline, dataset, and analysis code are open-source on &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;play&#34;&gt;Interact with the network&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;The visualization below is the live network, deployed on this site. Green edges are alliances, red edges are rivalries, and node size is proportional to betweenness centrality. You can filter by relationship type, search for specific organizations, click any node to isolate it and its neighbors, and read the source text behind every relationship.&lt;/p&gt;
+&lt;br&gt;
+&lt;div style=&#34;text-align: center; margin: 2em 0;&#34;&gt;
+  &lt;a href=&#34;https://alvarofrancomartins.com/crimenet/&#34; target=&#34;_blank&#34; style=&#34;display: inline-block; padding: 12px 28px; background: #c0392b; color: white; border-radius: 4px; text-decoration: none; font-weight: 600;&#34;&gt;
+    Open the interactive visualization →
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;p&gt;The figure below shows the alliance and rivalry networks side by side. Even at a glance, the two are structurally different: cooperation forms one big cohesive component, while conflict fragments into smaller dense clusters.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/alliance_rivalry.png&#34;&gt;
+&lt;figcaption&gt;Figure 1: Alliance (left, blue) and rivalry (right, red) networks shown separately. The alliance network forms a single cohesive component; the rivalry network fragments into more, smaller clusters.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;results&#34;&gt;Findings&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;I analyze the alliance and rivalry layers separately. Combining them would create shortest paths that flip between cooperation and conflict, which has no meaningful interpretation. The two are only merged for signed-pair analysis. Here are the patterns that fall out of the data.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;mafias-cooperate-gangs-fight&#34;&gt;Mafias cooperate. Gangs fight.&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;For each organizational type, I pool all edges incident on organizations of that type and compute the fraction that are alliances. Bootstrap 95% confidence intervals come from resampling organizations within each type ($B = 2000$).&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/edge_composition.png&#34;&gt;
+&lt;figcaption&gt;Figure 2: Alliance share of edges by organizational type, edge-weighted. Error bars are bootstrap 95% confidence intervals over organizations. The dashed line marks 50%.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;Three types lean cooperation with intervals safely above 50%: &lt;strong&gt;mafia (79%)&lt;/strong&gt;, &lt;strong&gt;clan (68%)&lt;/strong&gt;, and &lt;strong&gt;faction (65%)&lt;/strong&gt;. Two types lean conflict with intervals at or below 50%: &lt;strong&gt;gang (44%)&lt;/strong&gt; and &lt;strong&gt;motorcycle club (46%)&lt;/strong&gt;. Cartels, triads, militias, and terrorist organizations sit in the ambiguous middle, with confidence intervals straddling 50%.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This is the most direct version of a pattern that runs through every other analysis in the project. At the individual-organization level, the average mafia spends nearly 80% of its relational budget on cooperation, while the average gang or motorcycle club spends most of its edges on conflict. Two different operational strategies, visible in the network structure itself.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;hells-angels-are-the-systems-outlier&#34;&gt;Hells Angels are the system&amp;rsquo;s outlier&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;Hells Angels top &lt;strong&gt;every&lt;/strong&gt; centrality ranking in &lt;strong&gt;both&lt;/strong&gt; networks: degree, betweenness, and PageRank, in alliance and rivalry alike. No other organization does this. They are also the only organization at the very top of role-persistence rankings, which measure who is structurally important across both layers simultaneously.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In second place by total signed degree (allies plus rivals), and far behind: the Sinaloa Cartel. The gap is large enough that Hells Angels deserve their own row in any future analysis.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;the-commission-falls-out-of-the-math&#34;&gt;The Commission falls out of the math&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;$k$-core decomposition recursively removes vertices with degree less than $k$, peeling off lower-connectivity nodes to reveal a network&amp;rsquo;s nested core. The alliance network reaches $k = 11$ before the algorithm runs out of dense substructure. The rivalry network only reaches $k = 7$.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The alliance $k = 11$ shell contains 13 organizations. &lt;strong&gt;12 of them are American Mafia crime families.&lt;/strong&gt; The decomposition recovers the historical Commission structure with no supervision, no prior labels, no expert knowledge of the American Mafia. Just degree pruning on a graph extracted from Wikipedia.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This was the result that surprised me most. The Commission is a piece of organizational structure that took the FBI decades to map. Here it appears as a side effect of generic graph algorithms.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;rivalries-are-more-type-assortative-than-alliances&#34;&gt;Rivalries are more type-assortative than alliances&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;Newman&amp;rsquo;s categorical assortativity measures whether nodes preferentially connect to others of the same type. For rivalries, $r = 0.62$. For alliances, $r = 0.52$. The gap is significant ($p &amp;lt; 0.001$, edge bootstrap).&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;In plain terms: organizations fight within their type more often than they ally within it. Cartels fight cartels over routes. Gangs fight gangs over streets. Mafias fight mafias over territory. But cartels ally with gangs for distribution, mafias ally with motorcycle clubs for logistics, and so on. The &amp;ldquo;compete within niche, cooperate across niche&amp;rdquo; pattern is familiar from ecology.&lt;/p&gt;
+&lt;br&gt;
+&lt;h2 id=&#34;brokerage-roles-are-layer-specific&#34;&gt;Brokerage roles are layer-specific&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;For each organization active in both layers, I compute its betweenness rank in the alliance network and its betweenness rank in the rivalry network. If brokerage roles transferred perfectly, every point would land on the diagonal.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Most don&amp;rsquo;t. Alliance-dominant brokers (high alliance rank, low rivalry rank) are mostly mafias and diasporic crime groups: Serbian mafia, Pelle &amp;lsquo;ndrina, Greek mafia, Provisional IRA, Real IRA. Rivalry-dominant brokers (high rivalry rank, low alliance rank) are almost all gangs, and seven of the top ten are based in Los Angeles: South Side Compton Crips, West Side Piru, Toonerville Rifa 13, Bounty Hunter Watts Bloods, Mob Piru, 18th Street, Avenues.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;A smaller group of organizations are persistent across both layers: the type-mixed elite. Mexican Mafia, Sinaloa Cartel, Los Zetas, Crips, Latin Kings, Bloods, Outlaws, Jalisco New Generation Cartel, Rizzuto crime family, plus Hells Angels at the top. Brokerage in only one layer clusters by type. Brokerage in both does not.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;prompt&#34;&gt;The LLM extraction prompt&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;The whole project hinges on this prompt. It enforces a strict JSON schema, defines the entity and edge formats, and lays out a small set of rules to keep the LLM honest. I share it here because anyone trying a similar approach will benefit from a known-good starting point.&lt;/p&gt;
+&lt;br&gt;
+&lt;details class=&#34;spoiler &#34;  id=&#34;spoiler-4&#34;&gt;
+  &lt;summary&gt;Click to view the prompt&lt;/summary&gt;
+  &lt;p&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;You are an expert in global organized crime. Extract criminal organizations and their relationships from the provided text.
+
+══ NODES ══
+
+Extract every named criminal entity: cartels, mafias, gangs, triads, crime families, motorcycle clubs, syndicates, militias, terrorist groups, factions, clans, crews — any organized criminal group.
+
+Node format:
+{
+  &amp;#34;standard_name&amp;#34;: &amp;#34;Most recognized international name&amp;#34;,
+  &amp;#34;original_text_name&amp;#34;: &amp;#34;Exactly as written in the text&amp;#34;,
+  &amp;#34;aliases&amp;#34;: [&amp;#34;other names&amp;#34;, &amp;#34;abbreviations&amp;#34;],
+  &amp;#34;type&amp;#34;: &amp;#34;One of: cartel, crime_family, gang, mafia, triad, motorcycle_club, militia, terrorist_organization, faction, clan, crew, crime_syndicate, organized_crime_group, criminal_organization&amp;#34;,
+  &amp;#34;context&amp;#34;: &amp;#34;1-2 sentences: what they do, where they operate.&amp;#34;,
+  &amp;#34;time_period&amp;#34;: &amp;#34;When active, e.g. &amp;#39;1980s-present&amp;#39;, &amp;#39;founded 1969&amp;#39;, &amp;#39;1990s-2010&amp;#39;. null if unknown.&amp;#34;
+}
+
+══ EDGES ══
+
+Extract relationships between pairs of organizations.
+
+Edge format:
+{
+  &amp;#34;source&amp;#34;: &amp;#34;standard_name of org A&amp;#34;,
+  &amp;#34;target&amp;#34;: &amp;#34;standard_name of org B&amp;#34;,
+  &amp;#34;relationship&amp;#34;: &amp;#34;alliance | rivalry | other&amp;#34;,
+  &amp;#34;detail&amp;#34;: &amp;#34;For &amp;#39;other&amp;#39;: specify what — e.g. splinter, armed_wing, successor, merger, faction_of, founded_by_members_of, evolved_into, reformation. For alliance/rivalry: null.&amp;#34;,
+  &amp;#34;context&amp;#34;: &amp;#34;Explain the relationship in 1-2 sentences.&amp;#34;,
+  &amp;#34;time_period&amp;#34;: &amp;#34;When this relationship held, e.g. &amp;#39;2006-2012&amp;#39;, &amp;#39;since 1990s&amp;#39;. null if unknown.&amp;#34;
+}
+
+══ RULES ══
+
+1. ALL text output in English. Org names may stay in original language if internationally known (&amp;#39;Ndrangheta, Yamaguchi-gumi, Primeiro Comando da Capital).
+2. ONLY organizations as nodes. No individuals, places, or events.
+3. STANDARDIZE names: most recognized name as standard_name, variants in aliases.
+4. Every edge MUST have a context. Never empty.
+5. Do NOT invent. Only extract what the text states or strongly implies.
+6. Return ONLY valid JSON: {&amp;#34;nodes&amp;#34;: [...], &amp;#34;edges&amp;#34;: [...]}
+7. If nothing relevant found: {&amp;#34;nodes&amp;#34;: [], &amp;#34;edges&amp;#34;: []}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;/details&gt;
+&lt;br&gt;
+&lt;p&gt;A few decisions inside the prompt are worth flagging. Articles longer than 3,000 words are split into chunks, with the article&amp;rsquo;s opening paragraph passed as context to every chunk so entity resolution holds across the split. Temperature is set to 0 for reproducibility. The schema is enforced via DeepSeek&amp;rsquo;s JSON-mode response format, not by post-hoc parsing of free text. Extraction runs in parallel across 50 concurrent workers.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The LLM still makes mistakes. Some &amp;ldquo;other&amp;rdquo; edges are mislabeled (collaboration tagged as a rival relation, conflict tagged as ally). Some organization types are inconsistent across articles. The cleanup pipeline catches the obvious cases with rule-based reclassification, but a real precision-recall evaluation against expert-labeled data remains future work.&lt;/p&gt;
+&lt;br&gt;
+&lt;h1 id=&#34;closing-thoughts&#34;&gt;Closing thoughts&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt;CRIMENET is the first open-source network of alliances and rivalries between criminal organizations at a global scale. The single most persistent finding across every analysis is the &lt;strong&gt;mafia–gang split&lt;/strong&gt;: mafias hold the alliance network together as the cooperative class, gangs hold the rivalry network together as the antagonistic class, and the two types occupy structurally different niches.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The pipeline matters as much as the result. Five years ago, building this would have required a research team and a year of work. With LLMs, one person can do it in weeks. The bottleneck has moved from extraction to validation: we can now produce structured knowledge graphs from messy text faster than we can audit them. That asymmetry is going to define the next wave of computational social science, and the right response is not to slow down the extraction but to invest harder in evaluation.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The dataset, pipeline, and analysis code are public. Anyone can verify the results, extend them, or use the pipeline as a template for a different domain. The interactive visualization is at &lt;a href=&#34;https://alvarofrancomartins.com/crimenet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;alvarofrancomartins.com/crimenet&lt;/a&gt;, and the report and code are on &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Main references:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Martins, A. F. (2026). &lt;strong&gt;CRIMENET: The global network of organized crime&lt;/strong&gt;. Technical report.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1103/PhysRevE.67.026126&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Newman, M. E. J. (2003). &lt;strong&gt;Mixing patterns in networks&lt;/strong&gt;. Physical Review E, 67(2):026126.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1016/0378-8733%2883%2990028-X&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Seidman, S. B. (1983). &lt;strong&gt;Network structure and minimum degree&lt;/strong&gt;. Social Networks, 5(3):269–287.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1086/597791&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Papachristos, A. V. (2009). &lt;strong&gt;Murder by structure: Dominance relations and the social structure of gang homicide&lt;/strong&gt;. American Journal of Sociology, 115(1):74–128.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1007/s10611-012-9387-9&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Calderoni, F. (2012). &lt;strong&gt;The structure of drug trafficking mafias: the &amp;lsquo;Ndrangheta and cocaine&lt;/strong&gt;. Crime, Law and Social Change, 58(3):321–349.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
