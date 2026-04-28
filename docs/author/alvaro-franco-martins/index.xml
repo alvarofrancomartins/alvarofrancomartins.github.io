@@ -5,12 +5,74 @@
     <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
       <atom:link href="https://alvarofrancomartins.com/author/alvaro-franco-martins/index.xml" rel="self" type="application/rss+xml" />
     <description>Alvaro Franco Martins</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 28 Apr 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/author/alvaro-franco-martins/avatar_hu9663ca6c1fda1d039f779a01a14750c7_758770_270x270_fill_q100_lanczos_center.jpg</url>
       <title>Alvaro Franco Martins</title>
       <link>https://alvarofrancomartins.com/author/alvaro-franco-martins/</link>
     </image>
+    
+    <item>
+      <title>The global network of organized crime</title>
+      <link>https://alvarofrancomartins.com/post/crimenet/</link>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/crimenet/</guid>
+      <description>&lt;p&gt;There is no map of the world&amp;rsquo;s criminal organizations and how they connect to each other. The pieces exist, scattered across thousands of Wikipedia articles and news reports, but no one has assembled them into a single, structured network.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;LLMs change that. I used DeepSeek to read 771 Wikipedia articles and extract every criminal organization mentioned and every relationship between them. The result is &lt;strong&gt;CRIMENET&lt;/strong&gt;: the first open-source global map of criminal organizations and the alliances and rivalries between them, with 1,890 organizations connected by 3,354 relationships. Every node and edge is traceable back to a Wikipedia source. The full &lt;a href=&#34;https://alvarofrancomartins.com/crimenet/&#34;&gt;interactive visualization&lt;/a&gt; is live&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; on this site, and the entire pipeline is &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;open-source on GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;alliance-and-rivalry-are-different-networks&#34;&gt;Alliance and rivalry are different networks&lt;/h1&gt;
+&lt;p&gt;Built as two separate networks, one for alliances and one for rivalries:&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/alliance_rivalry.png&#34;&gt;
+&lt;figcaption&gt;Figure 1: Alliance (left, blue) and rivalry (right, red) networks shown separately.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;The alliance network is bigger and more cohesive. It has 1,517 active organizations and 2,293 edges, and its largest connected component covers 85% of them. Cooperation reaches almost everyone.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The rivalry network is smaller and more fragmented. It has 876 active organizations and 1,061 edges, with the largest component covering only 55%. Conflict tends to happen in dense local clusters rather than across the whole network. The rivalry component is locally denser than the alliance one (0.0065 vs 0.0026).&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The two layers also differ in who fights whom. Type assortativity is 0.64 for rivalries and 0.48 for alliances. Organizations fight within their own type more often than they cooperate within it. Gangs fight gangs, cartels fight cartels, motorcycle clubs fight motorcycle clubs. Alliances cross type lines more easily.&lt;/p&gt;
+&lt;h1 id=&#34;who-sits-at-the-center&#34;&gt;Who sits at the center&lt;/h1&gt;
+&lt;p&gt;One organization tops every centrality ranking in both networks: the &lt;strong&gt;Hells Angels&lt;/strong&gt;. No one else does. They have 134 alliances and 53 rivalries. The next most-connected organization, the Sinaloa Cartel, has 66 alliances. Hells Angels are the structural backbone of global organized crime as recorded on Wikipedia.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Beyond Hells Angels, the alliance side is dominated by mafias: &amp;lsquo;Ndrangheta, Cosa Nostra, Camorra, Mexican Mafia, and the major American Mafia families (Gambino, Bonanno, Chicago Outfit). On the rivalry side, motorcycle clubs and gangs take over: Bandidos, Outlaws, Crips, Bloods, Latin Kings, Mara Salvatrucha. Cartels stay relevant in both layers.&lt;/p&gt;
+&lt;h1 id=&#34;mafias-cooperate-gangs-fight&#34;&gt;Mafias cooperate, gangs fight&lt;/h1&gt;
+&lt;p&gt;Each organizational type has a clear cooperation-conflict signature. Mafias are overwhelmingly cooperative: 86% of their edges are alliances. Terrorist organizations, factions, and clans also lean strongly cooperative (above 75%). Cartels and motorcycle clubs sit in the middle (66% and 64%). Gangs come last at 55%, the most conflict-heavy type in the dataset.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;This dichotomy shows up everywhere I looked. Decomposing each network into k-shells (the largest subgraph in which every node has at least k neighbors) makes it visible:&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/kcore.png&#34;&gt;
+&lt;figcaption&gt;Figure 2: Type composition of k-core shells for the alliance (left) and rivalry (right) networks. Numbers above bars indicate shell size.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;The alliance network reaches k = 8 and its deepest shell is populated almost entirely by mafias, including the major American crime families, plus Hells Angels. The rivalry network only reaches k = 4 and its deepest shells are populated almost entirely by gangs. The same pattern holds for cross-layer brokers: among organizations active in both networks, those that broker rivalries without brokering alliances are 9-out-of-10 gangs (many of them Los Angeles street gangs); those that broker alliances without brokering rivalries are type-mixed (mafias, clans, terrorist organizations, and gangs alike).&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Mafias build alliances. Gangs fight. Everyone else falls between them.&lt;/p&gt;
+&lt;h1 id=&#34;the-full-report&#34;&gt;The full report&lt;/h1&gt;
+&lt;p&gt;If you want the full methodology, the extended analysis, and every table that did not make it into this post, the technical report is embedded below. You can also &lt;a href=&#34;crimenet.pdf&#34;&gt;download it&lt;/a&gt; directly.&lt;/p&gt;
+&lt;figure&gt;
+&lt;iframe src=&#34;crimenet.pdf&#34; width=&#34;100%&#34; height=&#34;800px&#34; style=&#34;border: 1px solid #ccc;&#34;&gt;
+  &lt;p&gt;Your browser does not support embedded PDFs. &lt;a href=&#34;crimenet.pdf&#34;&gt;Download the report&lt;/a&gt;.&lt;/p&gt;
+&lt;/iframe&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;open-source-and-where-to-next&#34;&gt;Open source, and where to next&lt;/h1&gt;
+&lt;p&gt;Everything is open source. The full pipeline (source URLs, extraction code, cleanup logic, deduplication dictionaries, analysis scripts, and the interactive visualization) is on &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;CRIMENET has limitations worth flagging. Wikipedia coverage skews English-language and Western, so well-documented organizations look more connected than they really are. Relationships are aggregated across time, so a 1970s alliance and a 2020 alliance count the same. The boundary between &amp;ldquo;cartel&amp;rdquo; and &amp;ldquo;militia&amp;rdquo;, or &amp;ldquo;gang&amp;rdquo; and &amp;ldquo;faction&amp;rdquo;, is sometimes fuzzy. None of this is fatal, but all of it is worth keeping in mind when reading the network.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Because the project is open source, anyone can extend it: add non-English Wikipedia editions, plug in other sources, refine the type taxonomy, add temporal weights to the edges. If you find an error or want to contribute, open an issue or pull request on GitHub.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;If you have questions or ideas, get in touch.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Search any organization to see its profile, allies, and rivals. Click any node to read the Wikipedia source behind it. Filter by relationship type, isolate any node and its neighbors, and explore the network.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
     
     <item>
       <title>Dendrite: an AI-powered branching recommendation engine</title>
