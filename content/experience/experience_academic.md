@@ -25,9 +25,17 @@ date_format = "Jan 2006"
   location = "Curitiba, Paraná, Brasil"
   date_start = "2024-04-03"
   date_end = ""
-  description = """I work in the Corporate Security Modelling team at **Bradesco**. My role involves developing and monitoring machine learning models to detect and prevent fraud.
-  <br><br>
-  I'm also responsible for statistical analyses and hypothesis testing, as well as data manipulation to generate effective solutions and valuable insights. My primary goal is to significantly reduce fraud-related losses."""
+  description = """<p>I work in the <strong>Corporate Security Modelling</strong> team at Bradesco. My role involves developing and monitoring machine learning models to detect and prevent fraud.</p>
+  <br>
+
+<ul>
+  <li style="margin-bottom: 12px;">Uncovered a major vulnerability involving high-risk accounts, revealing <strong>R$ 5.2 million per month</strong> circulating through accounts that should have been blocked, leading to strengthened fraud-prevention controls.</li>
+  <li style="margin-bottom: 12px;">Built a scoring model to detect mule-account behavior at onboarding branches, delivering <strong>R$ 3.8M/year in fraud-prevention impact</strong> by improving alert prioritization.</li>
+  <li style="margin-bottom: 12px;">Developed a fraud-profile model for business onboarding that delivered a <strong>30–40% increase</strong> in detected fraudulent account-opening attempts, significantly strengthening early-stage fraud prevention.</li>
+  <li style="margin-bottom: 12px;">Developed a behavioral detection model analyzing <strong>19.6 million active accounts</strong>, combining behavioral and demographic data to identify high-risk profiles, ultimately isolating a refined set of highly suspicious accounts.</li>
+  <li>Led a large-scale fraud-detection initiative on a <strong>PIX transaction network (4.5M nodes, 6.5M edges)</strong>, uncovering hidden intermediaries and exposing mule networks.</li>
+</ul>
+  """
 
 [[experience]]
   title = "PhD in Physics"
