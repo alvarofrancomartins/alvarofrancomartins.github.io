@@ -450,7 +450,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
         </li>
         <li style="display: flex; gap: 12px; align-items: flex-start;">
           <span style="color: var(--amber); font-size: 18px; line-height: 1;">▸</span>
-          <span><strong>Select an organization</strong> to map its local network. <strong style="color:var(--green)">Green</strong> cards indicate <strong>Allies</strong>, while <strong style="color:var(--red)">Red</strong> cards highlight established <strong>Rivals</strong>.</span>
+          <span><strong>Select an organization</strong> to map its local network. <strong style="color:var(--green)">Green</strong> cards indicate <strong>Allies</strong>, while <strong style="color:var(--red)">Red</strong> cards highlight <strong>Rivals</strong>.</span>
         </li>
       </ul>
     </div>
@@ -907,6 +907,15 @@ function openPanel(name) {
 
   sortedTypes.forEach(type => {
     const items = byType[type];
+    
+    // Sort items: visible (clickable) first, then alphabetical
+    items.sort((a, b) => {
+      const visA = visibleNames.has(a.target) ? 1 : 0;
+      const visB = visibleNames.has(b.target) ? 1 : 0;
+      if (visA !== visB) return visB - visA;
+      return String(a.target).localeCompare(String(b.target));
+    });
+    
     const col = TYPE_COLOR[type] || '#607080';
     const open = AUTO_OPEN.has(type) ? ' open' : '';
     const lbl = TYPE_LABEL[type] || type.replace(/_/g, ' ');
