@@ -55,7 +55,7 @@ LLMs change that. I used DeepSeek to read 771 Wikipedia articles and extract eve
 Built as two separate networks, one for alliances and one for rivalries:
 
 <figure>
-<img style="width: 100%; display: inline-block;" src="figs/alliance_rivalry.png">
+<img style="width: 100%; display: inline-block;" src="figs/join_networks.png">
 <figcaption>Figure 1: Alliance (left, blue) and rivalry (right, red) networks shown separately.</figcaption>
 </figure>
 
@@ -110,6 +110,19 @@ If you want the full methodology, the extended analysis, and every table that di
 </iframe>
 </figure>
 
+# [update] Browse by country
+
+The interactive network is dense, and not everyone wants to read a force-directed graph. To make CRIMENET easier to explore, I built a [Country Browser](/crimenet_countries/) view that breaks the data down country by country.
+
+<figure>
+<img style="width: 100%; display: inline-block;" src="figs/countries.png">
+<figcaption>Figure 3: The Country Browser view, here showing the 40 organizations based in Brazil, ranked by how connected they are.</figcaption>
+</figure>
+
+<br>
+
+Pick any of the 52 countries in the dataset and you get every organization based there or active there, ranked by how connected it is. Each card shows its allies and rivals counts. Two modes are possible: **Based** lists organizations that originated or are primarily based in a given country, **Active In** lists organizations that operate there regardless of origin.
+
 # Open source, and where to next
 
 Everything is open source. The full pipeline (source URLs, extraction code, cleanup logic, deduplication dictionaries, analysis scripts, and the interactive visualization) is on [GitHub](https://github.com/alvarofrancomartins/CRIMENET).
@@ -125,3 +138,5 @@ Because the project is open source, anyone can extend it: add non-English Wikipe
 <br>
 
 If you have questions or ideas, get in touch.
+
+

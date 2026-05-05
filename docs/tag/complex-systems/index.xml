@@ -23,7 +23,7 @@
 &lt;h1 id=&#34;alliance-and-rivalry-are-different-networks&#34;&gt;Alliance and rivalry are different networks&lt;/h1&gt;
 &lt;p&gt;Built as two separate networks, one for alliances and one for rivalries:&lt;/p&gt;
 &lt;figure&gt;
-&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/alliance_rivalry.png&#34;&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/join_networks.png&#34;&gt;
 &lt;figcaption&gt;Figure 1: Alliance (left, blue) and rivalry (right, red) networks shown separately.&lt;/figcaption&gt;
 &lt;/figure&gt;
 &lt;br&gt;
@@ -55,6 +55,14 @@
   &lt;p&gt;Your browser does not support embedded PDFs. &lt;a href=&#34;crimenet.pdf&#34;&gt;Download the report&lt;/a&gt;.&lt;/p&gt;
 &lt;/iframe&gt;
 &lt;/figure&gt;
+&lt;h1 id=&#34;update-browse-by-country&#34;&gt;[update] Browse by country&lt;/h1&gt;
+&lt;p&gt;The interactive network is dense, and not everyone wants to read a force-directed graph. To make CRIMENET easier to explore, I built a &lt;a href=&#34;https://alvarofrancomartins.com/crimenet_countries/&#34;&gt;Country Browser&lt;/a&gt; view that breaks the data down country by country.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/countries.png&#34;&gt;
+&lt;figcaption&gt;Figure 3: The Country Browser view, here showing the 40 organizations based in Brazil, ranked by how connected they are.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;Pick any of the 52 countries in the dataset and you get every organization based there or active there, ranked by how connected it is. Each card shows its allies and rivals counts. Two modes are possible: &lt;strong&gt;Based&lt;/strong&gt; lists organizations that originated or are primarily based in a given country, &lt;strong&gt;Active In&lt;/strong&gt; lists organizations that operate there regardless of origin.&lt;/p&gt;
 &lt;h1 id=&#34;open-source-and-where-to-next&#34;&gt;Open source, and where to next&lt;/h1&gt;
 &lt;p&gt;Everything is open source. The full pipeline (source URLs, extraction code, cleanup logic, deduplication dictionaries, analysis scripts, and the interactive visualization) is on &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;br&gt;
