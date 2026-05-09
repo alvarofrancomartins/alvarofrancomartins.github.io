@@ -357,7 +357,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   
   <div class="tb-stats">
     <div class="tb-stat"><div class="tb-val" id="s-orgs">—</div><div class="tb-lbl">Orgs</div></div>
-    <div class="tb-stat"><div class="tb-val" id="s-rels">—</div><div class="tb-lbl">Relations</div></div>
   </div>
 
   <div class="tb-spacer"></div>
@@ -415,8 +414,8 @@ async function init() {
     document.getElementById('ld-fill').style.width = p + '%';
   };
   try {
-    setLD('Fetching crimenet_countries.json…', 15);
-    const res = await fetch('./crimenet_countries.json');
+    setLD('Fetching crimenet.json…', 15);
+    const res = await fetch('./crimenet.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     setLD('Parsing…', 40);
     G = await res.json();
@@ -441,7 +440,6 @@ async function init() {
     });
 
     document.getElementById('s-orgs').textContent = fmt(connectedOrgs.size);
-    document.getElementById('s-rels').textContent = fmt(validEdges);
 
     setLD('Indexing countries…', 80);
     buildCountryList();
@@ -461,7 +459,7 @@ async function init() {
   } catch (e) {
     document.getElementById('ld-err').style.display = 'block';
     document.getElementById('ld-err').innerHTML =
-      `⚠ Cannot load <code>crimenet_countries.json</code><br>Place it alongside this HTML.<br><small style=\"color:var(--text-muted)\">${e.message}</small>`;
+      `⚠ Cannot load <code>crimenet.json</code><br>Place it alongside this HTML.<br><small style=\"color:var(--text-muted)\">${e.message}</small>`;
     document.getElementById('ld-msg').style.display = 'none';
     document.getElementById('ld-fill').parentElement.style.display = 'none';
   }
@@ -516,14 +514,6 @@ function buildCountryDropdown() {
     const f = filter.trim().toLowerCase();
     const filtered = f ? allCountries.filter(c => c.name.toLowerCase().includes(f)) : allCountries;
     let html = `<div class="cd-hdr">Select a country</div>`;
-    
-    // Add "All Countries" Option
-    const selAll = !selectedCountry ? 'selected' : '';
-    html += `<div class="cd-item ${selAll}" data-name="">
-      <span class="cd-dot"></span>
-      <span class="cd-name">All Countries</span>
-      <span class="cd-count"></span>
-    </div>`;
     
     if (filtered.length === 0) {
       html += `<div style="padding:14px 16px;color:var(--text-muted);font-size:13px">No countries match.</div>`;
@@ -602,10 +592,13 @@ function renderContent() {
   const root = document.getElementById('content');
   if (!selectedCountry && viewCards.length === 0) {
     root.innerHTML = emptyState('No data', 'There are no criminal organizations available.');
+    updateStats();
     return;
   }
   const f = searchFilter.trim().toLowerCase();
   const visible = f ? viewCards.filter(c => c.name.toLowerCase().includes(f) || (c.entity.aliases || []).some(a => String(a).toLowerCase().includes(f))) : viewCards;
+  
+  updateStats();
   
   if (visible.length === 0) {
     root.innerHTML = emptyState('No organizations match', f ? `No connected orgs match "${escHtml(searchFilter)}".` : `${escHtml(selectedCountry || 'Anywhere')} has no connected criminal organizations.`);
@@ -811,9 +804,8 @@ function applyNeighborHighlight() {
   });
 }
 
-function updateStats(orgs, rels) {
-  document.getElementById('s-orgs').textContent = fmt(orgs);
-  document.getElementById('s-rels').textContent = fmt(rels);
+function updateStats() {
+  document.getElementById('s-orgs').textContent = fmt(viewCards.length);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
