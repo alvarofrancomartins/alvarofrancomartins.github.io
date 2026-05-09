@@ -415,7 +415,7 @@ async function init() {
   };
   try {
     setLD('Fetching crimenet.json…', 15);
-    const res = await fetch('./crimenet.json');
+    const res = await fetch('./crimenet_countries.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     setLD('Parsing…', 40);
     G = await res.json();
