@@ -13,7 +13,7 @@
   --green:#2db87d; --red:#d63b3b;
   /* Refined typography palette for depth (Cards) */
   --text-bright:#ffffff; --text-main:#cbd5e1; --text-muted:#64748b;
-  /* Network view palette (Panel perfectly matched) */
+  /* Network view palette */
   --text:#bdd0e8; --text2:#56708a; --text3:#2c3f58;
   
   --body:'Inter',sans-serif; --disp:'Oswald',sans-serif;
@@ -45,7 +45,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 
 /* CENTERED COUNTRY PICKER */
 .country-wrap{
-  position:relative;display:flex;align-items:center;padding:0 24px;
+  display:flex;align-items:center;padding:0 24px;
   flex-shrink:0;justify-content:center;
 }
 
@@ -61,7 +61,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 #country-btn .cb-arrow{font-size:14px;color:var(--text-muted);margin-left:8px}
 
 #country-dropdown{
-  display:none;position:absolute;top:calc(100% - 12px);left:50%;transform:translateX(-50%);width:420px;
+  display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);width:420px;
   max-height:520px;overflow-y:auto;background:var(--s2);border:1px solid var(--b2);
   border-radius:6px;z-index:500;box-shadow:0 12px 32px rgba(0,0,0,.65);
 }
@@ -158,7 +158,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 /* CARDS GRID */
 .featured-grid, .cards-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
   gap:16px;
   margin-bottom:8px;
 }
@@ -169,11 +169,13 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   background:linear-gradient(180deg, var(--s2) 0%, var(--s1) 100%);
   border:1px solid var(--b1);
   border-radius:6px;
-  padding:32px 18px 22px;
+  padding:28px 20px 22px;
   cursor:pointer;
   transition:all .15s ease;
-  /* Removed overflow: hidden to allow dropdowns to pop out */
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.card:has(.src-dropdown.src-open) {
+  z-index: 200; /* Ensure active dropdowns escape card grid */
 }
 .card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
@@ -195,7 +197,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   box-shadow: 0 0 0 2px var(--text-bright), 0 16px 40px rgba(255,255,255,0.1) !important;
   background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, var(--s1) 100%) !important;
   transform: translateY(-4px) scale(1.02);
-  z-index: 100; /* Increased z-index to ensure open dropdowns overlap other cards cleanly */
+  z-index: 100;
 }
 .card.selected::before{
   background: var(--text-bright) !important;
@@ -238,21 +240,17 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   opacity:0.04;
 }
 
-/* Hide stats on all cards except the active selection */
-#main.has-selection .card:not(.selected) .card-stats {
-  display: none;
-}
-#main.has-selection .card:not(.selected) .card-top {
-  margin-bottom: 8px; /* Bring the title down closer when stats are hidden */
+/* Hide unselected card meta/connections when navigating a selected network */
+#main.has-selection .card:not(.selected) .card-meta,
+#main.has-selection .card:not(.selected) .card-conn-badge {
+  display: none !important;
 }
 
-/* Simplified layout to perfectly utilize card width without truncation bugs */
 .card-top{
   display:flex;
   justify-content:center;
   align-items:center;
-  margin-bottom:20px;
-  min-height:48px;
+  margin-bottom:12px;
   transition: margin 0.15s ease;
 }
 
@@ -265,7 +263,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   text-align: center;
   width: 100%;
   font-size: 24px;
-  /* Allows wrapping to a max of 2 lines if the name is extraordinarily long */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -278,23 +275,22 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   font-size: 28px;
 }
 
-.card-meta{
-  padding-bottom: 16px;
+/* The new Connections text under the title */
+.card-conn-badge {
+  text-align: center;
+  font-size: 18px; /* Prominent, clean text */
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--amber);
   margin-bottom: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-.card-stats{
-  display:flex;align-items:baseline;justify-content:center;gap:32px;
+/* Compact integrated metadata */
+.card-meta {
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
-
-.card-stat{display:flex;flex-direction:column;gap:2px;align-items:center;}
-.card-stat-val{font-family:var(--disp);color:var(--text-bright);font-size:38px;font-weight:700;letter-spacing:.5px;line-height:1}
-.card-stat-val.alliance{color:var(--green)}
-.card-stat-val.rivalry{color:var(--red)}
-
-.card.featured .card-stat-val{font-size:48px}
-.card-stat-lbl{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
 
 /* Dynamic embedded edge logic styles */
 .card-edges {
@@ -330,7 +326,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--b2);border-radius:3px}
 
-.src-dropdown.src-open{display:block!important; z-index:999999;}
+.src-dropdown.src-open{display:block!important;}
 
 /* LOADER */
 #loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:20px}
@@ -362,15 +358,18 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   <div class="tb-spacer"></div>
 
   <div class="country-wrap">
-    <button id="country-btn">
-      <span id="country-label">—</span>
-      <span class="cb-arrow">▼</span>
-    </button>
-    <div id="country-dropdown">
-      <div class="cd-search">
-        <input type="text" id="cd-search-input" placeholder="Filter countries…" autocomplete="off">
+    <div style="font-size:20px; font-weight:600; color:white; letter-spacing:1px; margin-right:20px;">Showing organizations active in</div>
+    <div style="position:relative;">
+      <button id="country-btn">
+        <span id="country-label">—</span>
+        <span class="cb-arrow">▼</span>
+      </button>
+      <div id="country-dropdown">
+        <div class="cd-search">
+          <input type="text" id="cd-search-input" placeholder="Filter countries…" autocomplete="off">
+        </div>
+        <div class="cd-list" id="cd-list"></div>
       </div>
-      <div class="cd-list" id="cd-list"></div>
     </div>
   </div>
 
@@ -414,7 +413,7 @@ async function init() {
     document.getElementById('ld-fill').style.width = p + '%';
   };
   try {
-    setLD('Fetching crimenet.json…', 15);
+    setLD('Fetching crimenet_countries.json…', 15);
     const res = await fetch('./crimenet_countries.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     setLD('Parsing…', 40);
@@ -439,8 +438,6 @@ async function init() {
       (orgADJ[r.target] = orgADJ[r.target] || []).push({...r, source: r.target, target: r.source});
     });
 
-    document.getElementById('s-orgs').textContent = fmt(connectedOrgs.size);
-
     setLD('Indexing countries…', 80);
     buildCountryList();
 
@@ -459,7 +456,7 @@ async function init() {
   } catch (e) {
     document.getElementById('ld-err').style.display = 'block';
     document.getElementById('ld-err').innerHTML =
-      `⚠ Cannot load <code>crimenet.json</code><br>Place it alongside this HTML.<br><small style=\"color:var(--text-muted)\">${e.message}</small>`;
+      `⚠ Cannot load <code>crimenet_countries.json</code><br>Place it alongside this HTML.<br><small style=\"color:var(--text-muted)\">${e.message}</small>`;
     document.getElementById('ld-msg').style.display = 'none';
     document.getElementById('ld-fill').parentElement.style.display = 'none';
   }
@@ -555,7 +552,7 @@ function buildCountryDropdown() {
     if (selectedCountry) {
       const entry = allCountries.find(c => c.name === selectedCountry);
       el.textContent = entry ? `${selectedCountry} · ${entry.count}` : selectedCountry;
-    } else { el.textContent = 'All Countries'; }
+    } else { el.textContent = 'Select Country'; }
   };
 }
 
@@ -572,13 +569,12 @@ function buildCardList() {
   const inCountryNames = new Set(orgs.map(e => e.name));
   return orgs.map(e => {
     const rels = orgADJ[e.name] || [];
-    let allyCount = 0, rivalCount = 0;
+    let interactionsCount = 0;
     rels.forEach(r => {
       if (!inCountryNames.has(r.target)) return;
-      if (r.type === 'allied_with') allyCount++;
-      else if (r.type === 'rivals_with') rivalCount++;
+      interactionsCount++;
     });
-    return { name: e.name, type: e.type || 'other', allyCount, rivalCount, degree: allyCount + rivalCount, entity: e };
+    return { name: e.name, degree: interactionsCount, entity: e };
   }).filter(c => c.degree > 0).sort((a, b) => (b.degree - a.degree) || a.name.localeCompare(b.name));
 }
 
@@ -598,7 +594,7 @@ function renderContent() {
   const f = searchFilter.trim().toLowerCase();
   const visible = f ? viewCards.filter(c => c.name.toLowerCase().includes(f) || (c.entity.aliases || []).some(a => String(a).toLowerCase().includes(f))) : viewCards;
   
-  updateStats();
+  updateStats(visible.length);
   
   if (visible.length === 0) {
     root.innerHTML = emptyState('No organizations match', f ? `No connected orgs match "${escHtml(searchFilter)}".` : `${escHtml(selectedCountry || 'Anywhere')} has no connected criminal organizations.`);
@@ -632,7 +628,6 @@ function renderContent() {
     });
   });
 
-  // Reapply highlighting and injected details to persist over filtering
   if (selectedCard) {
     applyNeighborHighlight();
   } else {
@@ -644,6 +639,9 @@ function renderCard(c, isFeatured) {
   const featuredCls = isFeatured ? ' featured' : '';
   const selectedCls = c.name === selectedCard ? ' selected' : '';
   const charCount = Math.max(1, c.name.length);
+  
+  const connStr = c.degree === 1 ? '1 Interaction' : `${c.degree} Interactions`;
+
   return `
     <div class="card${featuredCls}${selectedCls}" data-name="${escHtml(c.name)}">
       <div class="card-top">
@@ -651,17 +649,10 @@ function renderCard(c, isFeatured) {
           <div class="card-title" title="${escHtml(c.name)}" style="--chars:${charCount}">${escHtml(c.name)}</div>
         </div>
       </div>
+      
+      <div class="card-conn-badge">${connStr}</div>
+
       <div class="card-meta" style="display:none;"></div>
-      <div class="card-stats">
-        <div class="card-stat">
-          <span class="card-stat-val alliance">${c.allyCount}</span>
-          <span class="card-stat-lbl">Allies</span>
-        </div>
-        <div class="card-stat">
-          <span class="card-stat-val rivalry">${c.rivalCount}</span>
-          <span class="card-stat-lbl">Rivals</span>
-        </div>
-      </div>
       <div class="card-edges" style="display:none;"></div>
     </div>`;
 }
@@ -716,7 +707,7 @@ function applyNeighborHighlight() {
         
         const dropClick = `const d=this.nextElementSibling; const o=d.classList.contains('src-open'); document.querySelectorAll('.src-dropdown').forEach(x=>x.classList.remove('src-open')); if(!o) d.classList.add('src-open'); event.stopPropagation();`;
 
-        const typeHtml = `<span style="display:inline-block;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--b2);color:var(--text2);background:var(--s2)">${(e.type||'organization').replace(/_/g, ' ')}</span>`;
+        const typeHtml = `<span style="display:inline-block;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--b2);color:var(--text2);background:var(--s2)">${(e.type||'organization').replace(/_/g, ' ')}</span>`;
 
         const srcHtml = ownSrc ? `<a href="${ownSrc.url}" target="_blank" rel="noopener" class="np-btn-sm" onclick="event.stopPropagation()">Source</a>` : '';
 
@@ -724,15 +715,22 @@ function applyNeighborHighlight() {
 
         const basedHtml = (e.country && e.country.toLowerCase() !== 'unknown') ? `<div style="position:relative; display:inline-block;"><button onclick="${dropClick}" class="np-btn-sm">Based: ${escHtml(e.country)} <span style="font-size:10px;">▼</span></button><div class="src-dropdown" style="display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:4px; background:var(--s3); border:1px solid var(--b2); border-radius:6px; padding:12px; width:260px; z-index:999999; box-shadow:0 12px 30px rgba(0,0,0,0.8); font-size:13px; color:var(--text-main); line-height:1.5;" onclick="event.stopPropagation()"><strong style="color:var(--amber);">Probable Origin / HQ</strong><br>Extracted by AI. Reflects primary headquarters.</div></div>` : '';
 
-        const activeHtml = activeList.length > 0 ? `<div style="position:relative; display:inline-block;"><button onclick="${dropClick}" class="np-btn-sm">Active In (${activeList.length}) <span style="font-size:10px;">▼</span></button><div class="src-dropdown" style="display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:4px; background:var(--s3); border:1px solid var(--b2); border-radius:6px; padding:8px 0; width:240px; max-height:220px; overflow-y:auto; z-index:999999; box-shadow:0 12px 30px rgba(0,0,0,0.8);" onclick="event.stopPropagation()"><div style="padding:0 14px 8px; border-bottom:1px solid var(--b2); margin-bottom:4px; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Operating Regions</div>${activeList.map(c => `<div style="padding:6px 14px; font-size:13px; font-weight:500; color:var(--text-main);">${escHtml(c)}</div>`).join('')}</div></div>` : '';
+        const activeHtml = activeList.length > 0 ? `<div style="position:relative; display:inline-block;"><button onclick="${dropClick}" class="np-btn-sm">Active In (${activeList.length}) <span style="font-size:10px;">▼</span></button><div class="src-dropdown" style="display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:4px; background:var(--s3); border:1px solid var(--b2); border-radius:6px; padding:8px 0; width:240px; max-height:220px; overflow-y:auto; z-index:999999; box-shadow:0 12px 30px rgba(0,0,0,0.8);" onclick="event.stopPropagation()"><div style="padding:0 14px 8px; border-bottom:1px solid var(--b2); margin-bottom:4px; font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Operating Regions</div>${activeList.map(ci => `<div style="padding:6px 14px; font-size:13px; font-weight:500; color:var(--text-main);">${escHtml(ci)}</div>`).join('')}</div></div>` : '';
 
         let descHtml = '';
         if (e.descriptions?.[0]) {
           descHtml = `<div style="position:relative; display:inline-block;"><button onclick="${dropClick}" class="np-btn-sm">Description <span style="font-size:10px;">▼</span></button><div class="src-dropdown" style="display:none; position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:4px; background:var(--s3); border:1px solid var(--b2); border-radius:6px; padding:12px; width:280px; max-height:260px; overflow-y:auto; z-index:999999; box-shadow:0 12px 30px rgba(0,0,0,0.8); font-size:13px; color:var(--text-main); line-height:1.5; text-align:left;" onclick="event.stopPropagation()">${escHtml(e.descriptions[0])}</div></div>`;
         }
+        
+        const infoId = Math.random().toString(36).slice(2,8);
 
         metaDiv.innerHTML = `
-          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px;">
+          <div style="text-align:center;">
+            <button onclick="const el=document.getElementById('info-${infoId}'); el.style.display=el.style.display==='none'?'flex':'none'; event.stopPropagation();" class="np-btn-sm" style="padding:6px 14px; background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.1);">
+              SHOW INFO <span style="font-size:10px; margin-left:4px;">▼</span>
+            </button>
+          </div>
+          <div id="info-${infoId}" style="display:none; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin-top:12px;" onclick="event.stopPropagation()">
             ${typeHtml} ${srcHtml} ${mentionsHtml} ${basedHtml} ${activeHtml} ${descHtml}
           </div>
         `;
@@ -759,7 +757,7 @@ function applyNeighborHighlight() {
     else if (aCount > 0) el.classList.add('related-ally');
     else if (rCount > 0) el.classList.add('related-rival');
 
-    // Build the dynamic relationship HTML injected directly into the active card
+    // Build the dynamic relationship HTML injected directly into the related card
     const edgesDiv = el.querySelector('.card-edges');
     if (edgesDiv) {
       let edgesHtml = '';
@@ -804,8 +802,8 @@ function applyNeighborHighlight() {
   });
 }
 
-function updateStats() {
-  document.getElementById('s-orgs').textContent = fmt(viewCards.length);
+function updateStats(visibleCount = 0) {
+  document.getElementById('s-orgs').textContent = fmt(visibleCount);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
