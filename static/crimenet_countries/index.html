@@ -173,6 +173,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   cursor:pointer;
   transition:all .15s ease;
   box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  text-align: center;
 }
 .card:has(.src-dropdown.src-open) {
   z-index: 200; /* Ensure active dropdowns escape card grid */
@@ -186,6 +187,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 .card:hover{
   transform:translateY(-2px);
   border-color:var(--b3);
+  background:linear-gradient(180deg, var(--s3) 0%, var(--s1) 100%);
   box-shadow:0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
 }
 .card.featured::before{
@@ -228,14 +230,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   box-shadow:0 0 20px rgba(255,255,255,.2) !important;
 }
 
-.card.related-both .card-stat-val {
-  text-shadow: 
-    -1px -1px 0 rgba(255,255,255,0.4), 
-     1px -1px 0 rgba(255,255,255,0.4), 
-    -1px  1px 0 rgba(255,255,255,0.4), 
-     1px  1px 0 rgba(255,255,255,0.4);
-}
-
 #main.has-selection .card:not(.selected):not(.related-ally):not(.related-rival):not(.related-both){
   opacity:0.04;
 }
@@ -246,23 +240,25 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   display: none !important;
 }
 
+/* Centered layout for better symmetry */
 .card-top{
   display:flex;
   justify-content:center;
   align-items:center;
-  margin-bottom:12px;
+  margin-bottom:8px;
   transition: margin 0.15s ease;
 }
 
 .card-title{
   font-family:var(--disp);
+  margin-bottom: 5px;
   letter-spacing:.5px;
   color:var(--text-bright);
   line-height:1.2;
   text-transform:uppercase;
   text-align: center;
   width: 100%;
-  font-size: 24px;
+  font-size: 25px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -272,23 +268,69 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
 }
 .card.featured .card-title{
   color: var(--amber); 
-  font-size: 28px;
+  font-size: 30px;
 }
 
-/* The new Connections text under the title */
+/* Smart Pill Badge for Interactions */
 .card-conn-badge {
-  text-align: center;
-  font-size: 18px; /* Prominent, clean text */
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 20px;
+  font-family: var(--body);
+  font-weight: 0;
+  color: 'white';
+  margin-bottom: 0;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.card-conn-badge b {
+  color: var(--text-main);
   font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  margin-right: 2px;
+}
+.card.featured .card-conn-badge b {
   color: var(--amber);
-  margin-bottom: 16px;
+}
+
+/* Edge interaction Toggle (Shares styling logic with card-conn-badge) */
+.edge-toggle-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 100;
+  font-family: var(--body);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 8px;
+}
+.edge-toggle-btn b {
+  color: #ffffff;
+  margin-right: 4px;
+}
+.card.featured .edge-toggle-btn b {
+  color: var(--amber);
+}
+.edge-toggle-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.1);
+  color: var(--text-bright);
 }
 
 /* Compact integrated metadata */
 .card-meta {
   padding-top: 16px;
+  margin-top: 12px;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
 
@@ -297,12 +339,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   border-top: 1px solid rgba(255,255,255,0.06);
   padding-top: 16px;
   margin-top: 12px;
+  text-align: left; /* Keep the actual edge details strictly left-aligned for readability */
 }
 
 /* SMALL BUTTONS (For Metadata) */
 .np-btn-sm {
-  display: inline-block;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
   border-radius: 4px;
   font-size: 12px;
   font-weight: 700;
@@ -358,7 +402,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;
   <div class="tb-spacer"></div>
 
   <div class="country-wrap">
-    <div style="font-size:20px; font-weight:600; color:white; letter-spacing:1px; margin-right:20px;">Showing organizations active in</div>
+    <div style="font-size:14px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-right:16px;">Showing organizations active in</div>
     <div style="position:relative;">
       <button id="country-btn">
         <span id="country-label">—</span>
@@ -640,17 +684,17 @@ function renderCard(c, isFeatured) {
   const selectedCls = c.name === selectedCard ? ' selected' : '';
   const charCount = Math.max(1, c.name.length);
   
-  const connStr = c.degree === 1 ? '1 Interaction' : `${c.degree} Interactions`;
+  const connStr = c.degree === 1 ? '<b>1</b> interaction' : `<b>${c.degree}</b> interactions`;
 
   return `
     <div class="card${featuredCls}${selectedCls}" data-name="${escHtml(c.name)}">
       <div class="card-top">
-        <div class="card-title-wrap">
+        <div class="card-title-wrap" style="width: 100%;">
           <div class="card-title" title="${escHtml(c.name)}" style="--chars:${charCount}">${escHtml(c.name)}</div>
         </div>
       </div>
       
-      <div class="card-conn-badge">${connStr}</div>
+      <div class="card-conn-badge"><span>${connStr}</span></div>
 
       <div class="card-meta" style="display:none;"></div>
       <div class="card-edges" style="display:none;"></div>
@@ -727,6 +771,7 @@ function applyNeighborHighlight() {
         metaDiv.innerHTML = `
           <div style="text-align:center;">
             <button onclick="const el=document.getElementById('info-${infoId}'); el.style.display=el.style.display==='none'?'flex':'none'; event.stopPropagation();" class="np-btn-sm" style="padding:6px 14px; background:rgba(255,255,255,0.03); border-color:rgba(255,255,255,0.1);">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
               SHOW INFO <span style="font-size:10px; margin-left:4px;">▼</span>
             </button>
           </div>
@@ -774,7 +819,7 @@ function applyNeighborHighlight() {
 
         const dropdownHtml = srcN > 0 ? `<div id="es-${uid}" style="display:none;margin-top:8px;padding:4px;background:var(--s1);border:1px solid var(--b1);border-radius:4px;" onclick="event.stopPropagation()">${r.sources.map(s => `<a href="${s.url}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;padding:6px 8px;font-size:13px;font-weight:500;color:var(--text-main);text-decoration:none;border-radius:3px;" onmouseover="this.style.background='rgba(232,160,32,0.1)';this.style.color='var(--amber)'" onmouseout="this.style.background='none';this.style.color='var(--text-main)'"><span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; min-width:0;">${s.title||'Wikipedia'}</span></a>`).join('')}</div>` : '';
 
-        const metaHtml = (srcBtnHtml || timePeriodHtml) ? `<div style="margin-top:8px;"><div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">${srcBtnHtml}${timePeriodHtml}</div>${dropdownHtml}</div>` : '';
+        const metaHtml = (srcBtnHtml || timePeriodHtml) ? `<div style="margin-top:8px;"><div style="display:flex; align-items:center; justify-content:flex-start; gap:12px; flex-wrap:wrap;">${srcBtnHtml}${timePeriodHtml}</div>${dropdownHtml}</div>` : '';
         
         let res = '';
         if (desc) res += `<div class="np-rel-desc" style="font-size:14px; margin-bottom:8px;">${escHtml(desc)}</div>`;
@@ -783,14 +828,15 @@ function applyNeighborHighlight() {
       }
 
       const mId = Math.random().toString(36).slice(2,8);
-      const btnText = edges.length === 1 ? '1 Recorded Interaction' : `${edges.length} Recorded Interactions`;
-      edgesHtml += `<button onclick="const el=document.getElementById('m-${mId}');el.style.display=el.style.display==='none'?'flex':'none'; event.stopPropagation();" style="width:100%; display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.15); border-radius:6px; color:var(--amber); font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; cursor:pointer; font-family:var(--body); transition:all 0.15s; margin-bottom:8px;" onmouseover="this.style.background='rgba(0,0,0,0.5)'; this.style.borderColor='var(--amber)';" onmouseout="this.style.background='rgba(0,0,0,0.25)'; this.style.borderColor='rgba(255,255,255,0.15)';">${btnText} <span style="font-size:12px">▼</span></button>`;
-      edgesHtml += `<div id="m-${mId}" style="display:none; flex-direction:column; gap:14px; margin-top:8px;" onclick="event.stopPropagation()">`;
+      const btnText = edges.length === 1 ? '<b>1</b> interaction' : `<b>${edges.length}</b> interactions`;
+      
+      edgesHtml += `<button onclick="const el=document.getElementById('m-${mId}');el.style.display=el.style.display==='none'?'flex':'none'; event.stopPropagation();" class="edge-toggle-btn">${btnText} <span style="font-size:10px; margin-left:6px; opacity:0.7;">▼</span></button>`;
+      edgesHtml += `<div id="m-${mId}" style="display:none; flex-direction:column; gap:16px; margin-top:12px;" onclick="event.stopPropagation()">`;
       edges.forEach(r => {
          const typeColor = r.type === 'allied_with' ? 'var(--green)' : 'var(--red)';
          const typeLabel = r.type === 'allied_with' ? 'Ally' : 'Rival';
-         edgesHtml += `<div style="border-left:2px solid ${typeColor}; padding-left:12px;">`;
-         edgesHtml += `<div style="display:inline-block; font-size:11px; font-weight:800; color:${typeColor}; background:rgba(255,255,255,0.95); padding:2px 6px; border-radius:4px; text-transform:uppercase; margin-bottom:6px; letter-spacing:1px;">${typeLabel}</div>`;
+         edgesHtml += `<div style="border-left:2px solid ${typeColor}; padding-left:14px; margin-left:2px;">`;
+         edgesHtml += `<div style="display:inline-block; font-size:11px; font-weight:800; color:${typeColor}; background:rgba(0,0,0,0.5); border:1px solid rgba(0,0,0,0.8); padding:4px 8px; border-radius:4px; text-transform:uppercase; margin-bottom:8px; letter-spacing:1px; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${typeLabel}</div>`;
          edgesHtml += renderEdgeDetails(r);
          edgesHtml += `</div>`;
       });
