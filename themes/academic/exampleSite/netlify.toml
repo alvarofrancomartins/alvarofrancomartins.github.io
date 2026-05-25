@@ -5,4 +5,4 @@
   functions = "netlify/functions"  # Onde o Netlify encontra as suas funções
 [build.environment]
   HUGO_VERSION = "0.84.4"  # <--- ESSENCIAL
-  NODE_VERSION = "18"    # <--- BOM PARA AS FUNÇÕES
+  NODE_VERSION = "20"    # <--- BOM PARA AS FUNÇÕES
