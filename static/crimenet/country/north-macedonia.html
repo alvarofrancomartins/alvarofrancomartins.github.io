@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organized crime in North Macedonia — groups &amp; networks | CRIMENET</title>
+<meta name="description" content="Criminal organizations based in North Macedonia (1) and foreign groups with a documented footprint there (2), from the CRIMENET knowledge graph.">
+<link rel="canonical" href="https://www.alvarofrancomartins.com/crimenet/country/north-macedonia.html">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Organized crime in North Macedonia — groups &amp; networks | CRIMENET">
+<meta property="og:description" content="Criminal organizations based in North Macedonia (1) and foreign groups with a documented footprint there (2), from the CRIMENET knowledge graph.">
+<meta property="og:url" content="https://www.alvarofrancomartins.com/crimenet/country/north-macedonia.html">
+<meta property="og:image" content="https://www.alvarofrancomartins.com/crimenet/featured.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../static_pages.css">
+</head>
+<body>
+<div class="wrap wide country-page">
+<nav class="crumb"><a href="../browse.html">CRIMENET</a> / <span>North Macedonia</span></nav><h1>Organized crime in North Macedonia</h1><div class="stats"><div class="stat"><b>1</b><span>based here</span></div><div class="stat"><b>2</b><span>foreign footprints</span></div></div><div class="country-cols"><section class="cc-panel"><h2 class="section-h">Based in North Macedonia <span class="count">1</span></h2><div class="panel-scroll"><div class="org-list" id="based-list"><a class="bo" href="../org/frankfurt-mafia.html"><span class="bo-name">Frankfurt mafia</span><span class="bo-meta"><span class="bo-dot status-active" title="Active"></span><span class="bo-deg"><b>0</b> linkages</span></span></a></div></div></section><section class="cc-panel"><h2 class="section-h">Foreign groups with a footprint in North Macedonia <span class="count">2</span></h2><div class="panel-scroll"><div class="fp-list" id="fp-list"><div class="fp-row"><div class="fp-rank">1</div><div class="fp-main"><div class="fp-name"><a href="../org/kosovo-liberation-army.html">Kosovo Liberation Army</a><span class="fp-kind k-activity">Operations</span></div><div class="fp-origin">based in <a href="../country/kosovo.html">Kosovo</a></div><div class="fp-context">Offshoot groups from the KLA continued violent struggles in northwestern Macedonia in 2001.</div><div class="ev-toggles"><button type="button" class="ev-toggle q" data-target="fpq-0"><span>Quote</span><span class="chev">▾</span></button><span class="ev-srcs"><span class="ev-srcs-label">Sources:</span> <a href="https://en.wikipedia.org/w/index.php?title=Kosovo_Liberation_Army&amp;oldid=1352600647" target="_blank" rel="noopener nofollow">Kosovo Liberation Army</a></span></div><div class="fp-reveal" id="fpq-0" hidden><blockquote class="ev-quote">The ending of the Kosovo war resulted in the emergence of offshoot guerrilla groups ... continuing violent struggles in ... northwestern Macedonia (2001)...</blockquote></div></div></div><div class="fp-row"><div class="fp-rank">2</div><div class="fp-main"><div class="fp-name"><a href="../org/night-wolves.html">Night Wolves</a><span class="fp-kind k-presence">Presence</span></div><div class="fp-origin">based in <a href="../country/russia.html">Russia</a></div><div class="fp-context">The Night Wolves have a chapter in North Macedonia.</div><div class="ev-toggles"><button type="button" class="ev-toggle q" data-target="fpq-1"><span>Quote</span><span class="chev">▾</span></button><span class="ev-srcs"><span class="ev-srcs-label">Sources:</span> <a href="https://en.wikipedia.org/w/index.php?title=Night_Wolves&amp;oldid=1349833488" target="_blank" rel="noopener nofollow">Night Wolves</a></span></div><div class="fp-reveal" id="fpq-1" hidden><blockquote class="ev-quote">There is a Night Wolves chapter in North Macedonia .</blockquote></div></div></div></div><button type="button" class="load-more" id="lm-fp">Load more</button></div></section></div><script>
+(function(){
+  function paginate(listId,rowSel,btnId,batch){
+    var list=document.getElementById(listId),btn=document.getElementById(btnId);
+    if(!list||!btn)return;
+    var rows=[].slice.call(list.querySelectorAll(rowSel)),shown=0;
+    function render(){
+      for(var i=0;i<rows.length;i++)rows[i].hidden=i>=shown;
+      if(shown>=rows.length){btn.style.display='none';}
+      else{btn.style.display='';btn.textContent='Load more ('+(rows.length-shown)+' remaining)';}
+    }
+    shown=Math.min(batch,rows.length);render();
+    btn.addEventListener('click',function(){shown=Math.min(shown+batch,rows.length);render();});
+  }
+  paginate('fp-list','.fp-row','lm-fp',15);
+  var fp=document.getElementById('fp-list');
+  if(fp)fp.addEventListener('click',function(ev){
+    var b=ev.target.closest('.ev-toggle'); if(!b)return;
+    var t=document.getElementById(b.dataset.target); if(!t)return;
+    var opening=t.hasAttribute('hidden');
+    if(opening)t.removeAttribute('hidden');else t.setAttribute('hidden','');
+    b.classList.toggle('open',opening);
+  });
+})();
+</script></div>
+</body>
+</html>

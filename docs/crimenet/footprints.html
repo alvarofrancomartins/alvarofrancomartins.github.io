@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRIMENET — Footprints</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #0a0a0c;
+    color: #ddd;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+    overflow: hidden;
+  }
+  main { position: relative; height: 100vh; overflow: hidden; }
+  #map { width: 100%; height: 100%; display: block; cursor: grab; }
+  #map:active { cursor: grabbing; }
+
+  /* ── Top-left title + hero stats ─────────────────────────────── */
+  .titleblock {
+    position: absolute;
+    top: 20px; left: 28px;
+    max-width: 540px;
+    z-index: 5;
+    pointer-events: none;
+  }
+  .tb-toggle {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px 22px;
+    background: rgba(20, 20, 24, 0.90);
+    border: 1px solid #2a2a32;
+    border-radius: 999px;
+    color: #f8f8f0;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .tb-toggle:hover { color: #fff; border-color: #555; background: rgba(30, 30, 36, 0.95); }
+  .tb-toggle .chev { font-size: 13px; opacity: 0.8; }
+  .tb-body {
+    background: rgba(10, 10, 14, 0.92);
+    border: 1px solid #1f1f28;
+    border-radius: 10px;
+    padding: 20px 24px;
+    backdrop-filter: blur(6px);
+  }
+  .titleblock.collapsed .tb-body { display: none; }
+  .titleblock h1 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+    letter-spacing: 0.005em;
+  }
+  .titleblock p {
+    font-size: 22px;
+    color: #d0d0d6;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+  .titleblock a {
+    color: #f8f8f0; text-decoration: none; font-weight: 600;
+    pointer-events: auto;
+  }
+  .titleblock a:hover { text-decoration: underline; }
+  #tb-desc b { color: #f8f8f0; font-weight: 700; }
+
+  /* ── Top-right controls ───────────────────────────────────────── */
+  .controls {
+    position: absolute;
+    top: 20px; right: 28px;
+    width: 340px;
+    z-index: 6;
+    background: rgba(20, 20, 24, 0.95);
+    border: 1px solid #2a2a32;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    backdrop-filter: blur(8px);
+  }
+  .controls .section { margin-bottom: 18px; }
+  .controls .section:last-child { margin-bottom: 0; }
+  .controls .section-label {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .search-input-wrap { position: relative; }
+  .search-input {
+    width: 100%; padding: 10px 14px 10px 38px;
+    background: #18181d; border: 1px solid #2a2a32;
+    border-radius: 6px; color: #fff; font-size: 14px;
+    font-family: inherit; outline: none; transition: border-color 120ms;
+  }
+  .search-input:focus { border-color: #555; }
+  .search-input::placeholder { color: #555; }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    color: #666; pointer-events: none; width: 16px; height: 16px;
+  }
+  .search-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+    background: rgba(20, 20, 24, 0.98); border: 1px solid #2a2a32;
+    border-radius: 6px; max-height: 280px; overflow-y: auto;
+    display: none; z-index: 10; box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .search-results.open { display: block; }
+  .search-result {
+    padding: 10px 14px; cursor: pointer; font-size: 13px; color: #ddd;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #1c1c22;
+  }
+  .search-result:last-child { border-bottom: none; }
+  .search-result:hover, .search-result.active { background: #20202a; }
+
+  /* ── Info card ── */
+  .info-card {
+    position: absolute; top: 20px; right: 28px; width: 380px;
+    max-height: calc(100vh - 40px); overflow-y: auto; z-index: 7;
+    background: rgba(20, 20, 24, 0.97); border: 1px solid #2a2a32;
+    border-radius: 10px; padding: 22px 24px 18px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+    display: none;
+  }
+  .info-card.open { display: block; }
+
+  .info-card .ic-close {
+    position: absolute; top: 12px; right: 14px; background: none; border: none;
+    color: #888; font-size: 26px; line-height: 1; cursor: pointer;
+    padding: 2px 8px; border-radius: 4px; transition: background 120ms, color 120ms;
+  }
+  .info-card .ic-close:hover { background: #25252e; color: #fff; }
+
+  .info-card .ic-name {
+    font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 14px; padding-right: 36px;
+  }
+  .info-card .ic-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;
+  }
+  .info-card .ic-stat { background: #18181d; border-radius: 8px; padding: 12px 14px; border-left: 3px solid transparent; }
+  .info-card .ic-stat.out { border-left-color: #f8f8f0; }
+  .info-card .ic-stat.in { border-left-color: #f8f8f0; }
+  .info-card .ic-stat .n { font-size: 28px; font-weight: 700; color: #fff; line-height: 1; font-variant-numeric: tabular-nums; }
+  .info-card .ic-stat .l { font-size: 11px; color: #888; margin-top: 5px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  .info-card .section-title {
+    font-size: 13px; color: #aaa; letter-spacing: 0.05em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 8px; margin-top: 14px;
+  }
+  .corridor-list { display: flex; flex-direction: column; gap: 4px; }
+  .corridor-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 10px; border-radius: 5px; cursor: pointer;
+    transition: background 100ms; font-size: 14px; background: #1a1a20;
+  }
+  .corridor-row:hover { background: #25252e; }
+  .corridor-row .country { color: #ddd; font-weight: 500; }
+  .corridor-row .weight { font-variant-numeric: tabular-nums; font-weight: 600; font-size: 14px; }
+  .corridor-row.out .weight { color: #f8f8f0; }
+  .corridor-row.in .weight { color: #f8f8f0; }
+  .corridor-more[hidden] { display: none; }
+  .show-more {
+    display: block; width: 100%; margin-top: 10px; padding: 9px;
+    background: rgba(24, 24, 29, 0.9); border: 1px solid #2a2a32; border-radius: 6px;
+    color: #aaa; font-family: inherit; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.03em; text-transform: uppercase; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .show-more:hover { color: #fff; border-color: #555; background: rgba(40, 40, 48, 0.95); }
+
+  /* ── Legend bottom-left ────────────────────────────────────────── */
+  .legend-block {
+    position: absolute; bottom: 22px; left: 28px; z-index: 5; pointer-events: none;
+    background: rgba(14, 14, 18, 0.85); padding: 16px 18px; border-radius: 8px;
+    border: 1px solid #1f1f26; backdrop-filter: blur(4px); display: flex; gap: 32px;
+  }
+  .legend-section h3 {
+    font-size: 11px; color: #888; letter-spacing: 0.06em; text-transform: uppercase;
+    font-weight: 600; margin-bottom: 10px;
+  }
+  .legend-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 6px; }
+  .legend-row:last-child { margin-bottom: 0; }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; }
+  .legend-row .lbl { color: #ccc; font-size: 13px; }
+
+  /* ── Tooltip ─────────────────────────────────────────────── */
+  .tooltip {
+    position: absolute; pointer-events: none; background: rgba(20, 20, 24, 0.96);
+    color: #fff; padding: 16px 22px; border-radius: 8px; border: 1px solid #2a2a32;
+    z-index: 100; opacity: 0; transition: opacity 100ms; min-width: 240px; max-width: 380px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  }
+  .tooltip .tt-name { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px; }
+  .tooltip .tt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+  .tooltip .tt-stat .num { font-size: 22px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .tooltip .tt-stat .lbl { font-size: 11px; color: #888; margin-top: 4px; text-transform: uppercase; }
+  .tooltip .tt-total { font-size: 13px; color: #aaa; margin-top: 10px; padding-top: 10px; border-top: 1px solid #2a2a32; }
+  .tooltip .tt-hint { color: #fff; font-size: 11.5px; margin-top: 8px; opacity: 0.6; font-weight: 500; }
+
+  /* ── Map Elements ────────────────────────────────────────────── */
+  .country { transition: fill 150ms, stroke 150ms; }
+  .country.dim { opacity: 0.3; }
+
+  .edge { transition: opacity 150ms; }
+  .edge .core { transition: stroke-width 150ms, stroke 150ms; }
+
+  /* ── Modal ─────────────────────────────────────────────────────── */
+  .modal-backdrop {
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); z-index: 200;
+    display: none; align-items: center; justify-content: center; backdrop-filter: blur(3px);
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: #14141a; border: 1px solid #2a2a32; border-radius: 10px;
+    width: min(880px, 94vw); max-height: 90vh; overflow: hidden;
+    display: flex; flex-direction: column; box-shadow: 0 16px 60px rgba(0, 0, 0, 0.6);
+  }
+  .modal-header {
+    padding: 28px 34px 22px; border-bottom: 1px solid #25252e;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 14px;
+  }
+  .modal-header h2 { font-size: 27px; font-weight: 600; }
+  .modal-header .sub { margin-top: 8px; color: #b4b4bc; font-size: 16.5px; font-weight: 500; line-height: 1.5; }
+  .modal-close {
+    background: none; border: none; color: #aaa; font-size: 32px; line-height: 1; cursor: pointer;
+    padding: 4px 10px; border-radius: 4px; transition: background 120ms, color 120ms;
+  }
+  .modal-close:hover { background: #25252e; color: #fff; }
+  .org-list { overflow-y: auto; padding: 8px 0; }
+  .org-row {
+    padding: 20px 34px; display: grid; grid-template-columns: 34px 1fr; gap: 18px;
+    align-items: start; border-bottom: 1px solid #1c1c22;
+  }
+  .org-row:last-child { border-bottom: none; }
+  .org-rank { color: #888; font-size: 16px; text-align: right; padding-top: 3px; font-variant-numeric: tabular-nums; }
+  .org-main { min-width: 0; }
+  .org-name { font-size: 19px; color: #fff; font-weight: 600; margin-bottom: 5px; }
+  .org-type { font-size: 14px; color: #9a9aa4; text-transform: capitalize; letter-spacing: 0.02em; margin-bottom: 12px; }
+  .ev-context { font-size: 16px; color: #d8d8e0; line-height: 1.65; margin-bottom: 12px; }
+  .ev-quote {
+    font-size: 16px; color: #eaeaf0; line-height: 1.65; font-style: italic;
+    padding: 12px 16px; margin: 0 0 12px; border-left: 3px solid #f8f8f0;
+    background: rgba(248, 248, 240, 0.05); border-radius: 0 6px 6px 0;
+  }
+  .ev-quote::before { content: "\201C"; }
+  .ev-quote::after  { content: "\201D"; }
+  .ev-none { font-size: 14.5px; color: #999; font-style: italic; margin-bottom: 8px; }
+  .ev-toggles { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; align-items: center; }
+  .ev-toggle {
+    font-family: inherit; font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    color: #aaa; background: #18181d; border: 1px solid #2a2a32; border-radius: 999px;
+    padding: 7px 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    transition: border-color 120ms, color 120ms, background 120ms;
+  }
+  .ev-toggle:hover { color: #fff; border-color: #444; }
+  .ev-toggle .chev { font-size: 10px; opacity: 0.7; transition: transform 150ms; }
+  .ev-toggle.open .chev { transform: rotate(180deg); }
+  .ev-toggle.q.open { color: #f8f8f0; border-color: #f8f8f0; background: rgba(248, 248, 240, 0.08); }
+  .ev-reveal { margin-top: 10px; }
+  .ev-reveal[hidden] { display: none; }
+  .ev-srcs { margin-left: auto; font-size: 14.5px; color: #a0a0a8; line-height: 1.55; }
+  .ev-srcs-label { font-weight: 600; color: #b0b0b8; }
+  .ev-srcs a { color: #f8f8f0; text-decoration: none; }
+  .ev-srcs a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <main>
+    <svg id="map"></svg>
+
+    <div class="titleblock" id="titleblock">
+      <button class="tb-toggle" id="tb-toggle" aria-expanded="true" aria-controls="tb-body">
+        <span class="tb-label" id="tb-label">Hide</span>
+        <span class="chev" id="tb-chev">▴</span>
+      </button>
+      <div class="tb-body" id="tb-body">
+        <h1>Cross-Border Footprints</h1>
+        <p id="tb-desc"><a href="browse.html">CRIMENET</a> is a knowledge graph of organized crime worldwide, spanning <b id="tb-connections">—</b> documented cross-border connections. Each arrow links a criminal organization's home country to a country where it has a documented footprint, extracted from Wikipedia and traceable to the source sentence behind it. Click any country to follow its connections and read the evidence.</p>
+      </div>
+  </div>
+
+  <div class="controls" id="controls">
+    <div class="section">
+      <div class="section-label">Search Country</div>
+      <div class="search-input-wrap">
+        <input type="text" class="search-input" id="search" placeholder="e.g. Mexico..." autocomplete="off" spellcheck="false">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div class="search-results" id="results"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-card" id="info-card">
+      <button class="ic-close" id="ic-close">×</button>
+      <div class="ic-name" id="ic-name">—</div>
+      <div class="ic-stats">
+        <div class="ic-stat out">
+          <div class="n" id="ic-out-n">—</div>
+          <div class="l">Links abroad</div>
+        </div>
+        <div class="ic-stat in">
+          <div class="n" id="ic-in-n">—</div>
+          <div class="l">Foreign links here</div>
+        </div>
+      </div>
+      <div id="ic-corridors-out"></div>
+      <div id="ic-corridors-in"></div>
+    </div>
+
+    <div class="legend-block" id="legend">
+      <div class="legend-section">
+        <h3>Cross-Border Activity</h3>
+        <div class="legend-row"><div class="swatch" style="background:#b91c1c"></div><div class="lbl">More links</div></div>
+        <div class="legend-row"><div class="swatch" style="background:#c8a845"></div><div class="lbl">Fewer links</div></div>
+        <div class="legend-row"><div class="swatch" style="background:#1e1e24"></div><div class="lbl">No data</div></div>
+      </div>
+      <div class="legend-section">
+        <h3>Lines</h3>
+        <div class="legend-row">
+          <svg width="24" height="12">
+            <line x1="0" y1="6" x2="20" y2="6" stroke="#0a0a0c" stroke-width="4"/>
+            <line x1="0" y1="6" x2="20" y2="6" stroke="#f8f8f0" stroke-width="2" marker-end="url(#arrow-head)"/>
+          </svg>
+          <div class="lbl">Cross-border links</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+  </main>
+
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-title">—</h2>
+          <div class="sub" id="modal-sub">—</div>
+        </div>
+        <button class="modal-close" id="modal-close">×</button>
+      </div>
+      <div class="org-list" id="modal-list"></div>
+    </div>
+  </div>
+
+<script type="module">
+import * as d3 from "https://cdn.jsdelivr.net/npm/d3@7/+esm";
+import { feature } from "https://cdn.jsdelivr.net/npm/topojson-client@3/+esm";
+
+// ═══════════════════════════════════════════════════════════════════
+// Constants & Color Definitions
+// ═══════════════════════════════════════════════════════════════════
+
+const LINE_COLOR = "#f8f8f0";     // White: active edges
+const LINE_OUTLINE = "#0a0a0c";  // Near-black outline underneath
+const COLOR_NEUTRAL = "#2a2a33"; // Dark: inactive edges
+const MAP_FILL = "#1e1e24";    // Dark base map
+const MAP_STROKE = "#555566";  // Brightened stroke outline
+const CHOROPLETH_LO = "#f5e6a3";   // Pale yellow (few links)
+const CHOROPLETH_HI = "#b91c1c";   // Deep red (many links)
+
+const COUNTRY_ALIASES = {
+  "United States": "United States of America",
+  "Czech Republic": "Czechia",
+  "Tanzania": "United Republic of Tanzania",
+  "Democratic Republic of the Congo": "Dem. Rep. Congo",
+  "Republic of the Congo": "Congo",
+  "Bosnia and Herzegovina": "Bosnia and Herz.",
+  "Dominican Republic": "Dominican Rep.",
+  "Central African Republic": "Central African Rep.",
+  "South Sudan": "S. Sudan",
+  "Equatorial Guinea": "Eq. Guinea",
+  "Solomon Islands": "Solomon Is.",
+  "Eswatini": "eSwatini",
+  "North Macedonia": "Macedonia",
+};
+const TOPO_TO_DISPLAY = Object.fromEntries(Object.entries(COUNTRY_ALIASES).map(([k, v]) => [v, k]));
+function displayName(topoName) { return TOPO_TO_DISPLAY[topoName] || topoName; }
+
+const MANUAL_CENTROIDS = {
+  "Hong Kong":   [114.17, 22.32], "Singapore":   [103.82, 1.35],
+  "Puerto Rico": [-66.59, 18.22], "Palestine":   [35.21, 31.95],
+  "Kosovo":      [20.90, 42.60],
+  // Overrides where d3.geoCentroid gets skewed by overseas territories
+  "United States": [-98.58, 39.83],
+  "France":        [2.21, 46.23],
+  "Netherlands":   [5.29, 52.13],
+  "Norway":        [8.46, 60.47]
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// Schema adapters
+//
+// The pipeline rewrite renamed several fields. This view only consumes
+// a small subset of each node, but the renames are:
+//   - top-level array:  entities → nodes
+//   - node identifier:  name → standard_name
+//   - node type:        type (string) → types (list)
+//   - country fields:   country (origin), country_links (list of {country,...} records)
+// We accept both new and old shapes so this file works against either
+// crimenet.json version.
+// ═══════════════════════════════════════════════════════════════════
+
+function getNodes(data) { return data.nodes || data.entities || []; }
+function nodeName(n)    { return n.standard_name || n.name || ""; }
+function nodeType(n) {
+  if (Array.isArray(n.types) && n.types.length) return n.types[0];
+  return n.type || "other";
+}
+// The org's own source articles — where its profiled text (and the country-link
+// quotes) come from. We deliberately exclude `mentioned_in`: those merely name the
+// org, so attributing a quote to them would be wrong.
+function nodeSources(n) {
+  const out = [];
+  const seen = new Set();
+  for (const s of (n.own_sources || [])) {
+    const url = s && s.url;
+    if (!url || seen.has(url)) continue;
+    seen.add(url);
+    out.push({ url, title: (s.title || url).trim() });
+    if (out.length >= 3) break;
+  }
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Load data
+// ═══════════════════════════════════════════════════════════════════
+
+const [topology, crimenet] = await Promise.all([
+  d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"),
+  d3.json("crimenet.json")
+]);
+
+const nodes = getNodes(crimenet);
+
+// ═══════════════════════════════════════════════════════════════════
+// Setup SVG & Projection
+// ═══════════════════════════════════════════════════════════════════
+
+const svg = d3.select("#map");
+const width = window.innerWidth;
+const height = window.innerHeight;
+svg.attr("viewBox", [0, 0, width, height]);
+
+const mapFeatures = feature(topology, topology.objects.countries);
+const topoNames = new Set(mapFeatures.features.map(f => f.properties.name));
+
+const projection = d3.geoEqualEarth().fitSize([width, height], mapFeatures);
+const path = d3.geoPath(projection);
+
+function toTopo(crimenetCountry) { return COUNTRY_ALIASES[crimenetCountry] || crimenetCountry; }
+
+// ═══════════════════════════════════════════════════════════════════
+// Build the directed expansion graph
+//
+// One "expansion edge" per (origin → destination) country pair, derived
+// from each org's country / country_links fields. The 12-relationship
+// edge taxonomy in the underlying data is not used here — this view is
+// about geographic footprints, not inter-org relationships.
+// ═══════════════════════════════════════════════════════════════════
+
+const edgeMap = new Map();
+
+for (const ent of nodes) {
+  const originRaw = ent.country;
+  if (!originRaw || originRaw === "Unknown") continue;
+
+  const originTopo = toTopo(originRaw);
+  if (!topoNames.has(originTopo) && !MANUAL_CENTROIDS[originRaw]) continue;
+
+  // country_links is a list of records {country, evidence_quote, context}: each
+  // is a documented link between this org and a country, drawn from source text.
+  // Legacy plain-string entries are tolerated (no evidence) for back-compat.
+  const links = (ent.country_links || ent.countries_active || [])
+    .map(c => (typeof c === "string"
+      ? { country: c, evidence_quote: "", context: "" }
+      : { country: (c && c.country) || "", evidence_quote: (c && c.evidence_quote) || "", context: (c && c.context) || "" }))
+    .filter(l => l.country && l.country.trim());
+
+  // Footprints abroad only — a link back to the org's own home country isn't a footstep.
+  const foreignLinks = links.filter(l => l.country.trim() !== originRaw);
+  if (foreignLinks.length === 0) continue;
+
+  for (const link of foreignLinks) {
+    const destRaw = link.country.trim();
+    const destTopo = toTopo(destRaw);
+    if (!topoNames.has(destTopo) && !MANUAL_CENTROIDS[destRaw]) continue;
+
+    const key = `${originTopo}|${destTopo}`;
+    if (!edgeMap.has(key)) {
+      edgeMap.set(key, {
+        originTopo, destTopo,
+        originDisplay: displayName(originTopo), destDisplay: displayName(destTopo),
+        weight: 0, orgs: [],
+      });
+    }
+    const e = edgeMap.get(key);
+    e.weight++;
+    // Carry the per-org evidence for THIS destination through to the reading panel.
+    e.orgs.push({ node: ent, quote: link.evidence_quote.trim(), context: link.context.trim() });
+  }
+}
+
+const allEdges = [...edgeMap.values()].sort((a, b) => b.weight - a.weight);
+
+const outboundCount = new Map();
+const inboundCount = new Map();
+for (const e of allEdges) {
+  outboundCount.set(e.originTopo, (outboundCount.get(e.originTopo) || 0) + e.weight);
+  inboundCount.set(e.destTopo, (inboundCount.get(e.destTopo) || 0) + e.weight);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Centroid & Geographic Constraint Generation
+// ═══════════════════════════════════════════════════════════════════
+
+const centroidByTopo = new Map();
+
+for (const f of mapFeatures.features) {
+  centroidByTopo.set(f.properties.name, d3.geoCentroid(f));
+}
+
+for (const [crimenetName, [lon, lat]] of Object.entries(MANUAL_CENTROIDS)) {
+  centroidByTopo.set(toTopo(crimenetName), [lon, lat]);
+}
+
+const activeTopos = new Set([...outboundCount.keys(), ...inboundCount.keys()]);
+const totalByTopo = new Map();
+const countryNodes = [];
+for (const topo of activeTopos) {
+  const outC = outboundCount.get(topo) || 0;
+  const inC = inboundCount.get(topo) || 0;
+  const total = outC + inC;
+  const c = centroidByTopo.get(topo);
+  if (c) {
+    countryNodes.push({ topo, lon: c[0], lat: c[1], outC, inC, total });
+    totalByTopo.set(topo, total);
+  }
+}
+
+const maxTotal = d3.max(countryNodes, d => d.total) || 1;
+const choropleth = d3.scaleSequentialSqrt()
+  .domain([0, maxTotal])
+  .interpolator(t => d3.interpolateRgb(CHOROPLETH_LO, CHOROPLETH_HI)(t));
+
+// ═══════════════════════════════════════════════════════════════════
+// Map Interactions & Rendering
+// ═══════════════════════════════════════════════════════════════════
+
+svg.append("rect").attr("width", width).attr("height", height).attr("fill", "#0a0a0c")
+  .on("click", () => selectCountry(null));
+
+const g = svg.append("g");
+let currentK = 1;
+
+const zoom = d3.zoom()
+  .scaleExtent([1, 15])
+  .on("zoom", (event) => {
+    g.attr("transform", event.transform);
+    currentK = event.transform.k;
+
+    g.selectAll("path.country").attr("stroke-width", function () {
+      return (d3.select(this).classed("selected") ? 2.5 : 0.8) / currentK;
+    });
+
+    g.selectAll("g.edge").each(function () {
+      const e = d3.select(this).datum();
+      const w = arrowWidth(e) / Math.sqrt(currentK);
+      d3.select(this).select(".outline").attr("d", arrowPath).attr("stroke-width", w + 2.5);
+      d3.select(this).select(".core").attr("d", arrowPath).attr("stroke-width", w);
+    });
+  });
+svg.call(zoom);
+
+// ═══════════════════════════════════════════════════════════════════
+// Map Layers: Countries, Nodes, Arrows
+// ═══════════════════════════════════════════════════════════════════
+
+const countryPaths = g.append("g").selectAll("path.country")
+  .data(mapFeatures.features)
+  .join("path")
+    .attr("class", "country")
+    .attr("d", path)
+    .attr("fill", d => {
+      const t = totalByTopo.get(d.properties.name) || 0;
+      return t > 0 ? choropleth(t) : MAP_FILL;
+    })
+    .attr("stroke", MAP_STROKE).attr("stroke-width", 0.8)
+    .style("cursor", "pointer")
+    .on("mouseover", (e, d) => handleHover(d.properties.name, e))
+    .on("mousemove", moveTooltip)
+    .on("mouseout", () => handleHover(null))
+    .on("click", (e, d) => { e.stopPropagation(); selectCountry(d.properties.name); });
+
+const maxWeight = d3.max(allEdges, e => e.weight) || 1;
+function arrowWidth(e) { return 1.5 + 5.0 * Math.sqrt(e.weight / maxWeight); }
+
+const defs = svg.append("defs");
+
+// Arrowheads use markerUnits "strokeWidth", so they scale with the line's
+// (already zoom-compensated) thickness instead of ballooning when you zoom in.
+// refX=0 puts the head's BASE at the line's end, so the head sits entirely
+// beyond the line — the line can't poke past its own arrowhead. arrowPath ends
+// the line a head-length short so the tip still lands just outside the destination centroid.
+const ARROW_MARKER_W = 7;  // markerWidth in stroke-width units (also used by arrowPath)
+function createMarker(id, color) {
+  defs.append("marker")
+    .attr("id", id).attr("viewBox", "0 -7 12 14")
+    .attr("refX", 0).attr("refY", 0)
+    .attr("markerWidth", ARROW_MARKER_W).attr("markerHeight", 7)
+    .attr("orient", "auto").attr("markerUnits", "strokeWidth")
+    .append("path")
+      .attr("d", "M0,-7 L12,0 L0,7 Z")
+      .attr("fill", color)
+      .attr("stroke", LINE_OUTLINE).attr("stroke-width", 1).attr("stroke-linejoin", "round");
+}
+createMarker("arrow-head", LINE_COLOR);
+createMarker("arrow-head-neutral", COLOR_NEUTRAL);
+
+function arrowPath(e) {
+  const op = projection(centroidByTopo.get(e.originTopo));
+  const dp = projection(centroidByTopo.get(e.destTopo));
+  if (!op || !dp) return null;
+
+  const dx = dp[0] - op[0], dy = dp[1] - op[1];
+  const dist = Math.hypot(dx, dy);
+  if (dist < 1) return null;
+  const ux = dx / dist, uy = dy / dist;
+
+  const gap = 6 / currentK;
+  const headLen = ARROW_MARKER_W * arrowWidth(e) / Math.sqrt(currentK);
+  const startGap = gap, endGap = gap + headLen;
+  if (startGap + endGap >= dist) return null;
+
+  const x1 = op[0] + ux * startGap, y1 = op[1] + uy * startGap;
+  const x2 = dp[0] - ux * endGap,   y2 = dp[1] - uy * endGap;
+
+  const mdx = x2 - x1, mdy = y2 - y1, mlen = Math.hypot(mdx, mdy) || 1;
+  const cpX = (x1 + x2) / 2 - (mdy / mlen) * mlen * 0.2;
+  const cpY = (y1 + y2) / 2 + (mdx / mlen) * mlen * 0.2;
+
+  return `M${x1},${y1} Q${cpX},${cpY} ${x2},${y2}`;
+}
+
+const arrowG = g.append("g").attr("class", "arrows-layer");
+
+// ═══════════════════════════════════════════════════════════════════
+// State & Filtering Logic
+// ═══════════════════════════════════════════════════════════════════
+
+const state = {
+  selected: null,
+  hovered: null
+};
+
+function getActiveCountry() { return state.hovered || state.selected; }
+
+function applyFilters() {
+  let edges = allEdges;
+  const active = getActiveCountry();
+  if (active) {
+    edges = edges.filter(e => e.originTopo === active || e.destTopo === active);
+  } else {
+    edges = [];
+  }
+  return edges;
+}
+
+function getEdgeColor(active) {
+  return active ? LINE_COLOR : COLOR_NEUTRAL;
+}
+
+function getEdgeMarker(active) {
+  return active ? "url(#arrow-head)" : "url(#arrow-head-neutral)";
+}
+
+function rerender() {
+  const edges = applyFilters();
+  const active = getActiveCountry();
+
+  arrowG.selectAll("g.edge")
+    .data(edges, e => `${e.originTopo}|${e.destTopo}`)
+    .join(
+      enter => {
+        const grp = enter.append("g").attr("class", "edge").style("cursor", "pointer");
+        grp.append("path").attr("class", "outline").attr("d", arrowPath)
+           .attr("fill", "none").attr("stroke-linecap", "round")
+           .attr("stroke", LINE_OUTLINE);
+        grp.append("path").attr("class", "core").attr("d", arrowPath)
+           .attr("fill", "none").attr("stroke-linecap", "round");
+        return grp;
+      },
+      update => update,
+      exit => exit.remove()
+    )
+    .on("mouseover", function (e, d) { d3.select(this).raise(); showCorridorTooltip(d); })
+    .on("mousemove", moveTooltip)
+    .on("mouseout", () => { tooltip.style("opacity", 0); })
+    .on("click", (e, d) => { e.stopPropagation(); openModal(d); })
+    .each(function(e) {
+      const color = getEdgeColor(active);
+      const marker = getEdgeMarker(active);
+      const w = arrowWidth(e) / Math.sqrt(currentK);
+      d3.select(this).select(".outline")
+        .attr("stroke-width", w + 2.5);
+      d3.select(this).select(".core")
+        .attr("stroke-width", w).attr("stroke", color).attr("marker-end", marker);
+    })
+    .style("opacity", e => {
+      if (active && e.originTopo !== active && e.destTopo !== active) return 0.15;
+      return 0.75 + 0.25 * Math.sqrt(e.weight / maxWeight);
+    });
+
+  if (active) {
+    const involved = new Set([active]);
+    for (const e of edges) { involved.add(e.originTopo); involved.add(e.destTopo); }
+    countryPaths.classed("dim", d => !involved.has(d.properties.name));
+  } else {
+    countryPaths.classed("dim", false);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Interactions
+// ═══════════════════════════════════════════════════════════════════
+
+const tooltip = d3.select("#tooltip");
+const infoCard = document.getElementById("info-card");
+
+function handleHover(topoName, event) {
+  if (state.hovered === topoName) return;
+  state.hovered = topoName;
+  if (topoName && event) showCountryTooltip(topoName);
+  else tooltip.style("opacity", 0);
+  rerender();
+}
+
+function selectCountry(topoName) {
+  state.selected = topoName;
+  countryPaths.classed("selected", d => d.properties.name === topoName);
+
+  if (!topoName) {
+    infoCard.classList.remove("open");
+    document.getElementById("controls").style.display = "";
+    rerender();
+    return;
+  }
+
+  const sel = countryPaths.filter(d => d.properties.name === topoName);
+  const feature = sel.datum();
+  if (feature) {
+    const c = projection(d3.geoCentroid(feature));
+    if (c) {
+      const bounds = path.bounds(feature);
+      const k = Math.max(2, Math.min(6, 0.35 * Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1]))));
+      svg.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(width/2 - k*c[0], height/2 - k*c[1]).scale(k));
+    }
+  }
+
+  document.getElementById("ic-name").textContent = displayName(topoName);
+  document.getElementById("ic-out-n").textContent = outboundCount.get(topoName) || 0;
+  document.getElementById("ic-in-n").textContent = inboundCount.get(topoName) || 0;
+
+  const outEdges = allEdges.filter(e => e.originTopo === topoName);
+  const inEdges = allEdges.filter(e => e.destTopo === topoName);
+
+  const CORRIDOR_INITIAL = 8;
+
+  function renderCorridorSection(edges, dir, id) {
+    if (!edges.length) return "";
+    const visible = edges.slice(0, CORRIDOR_INITIAL);
+    const rest = edges.slice(CORRIDOR_INITIAL);
+    const rowHTML = (e) => `<div class="corridor-row ${dir}" data-key="${e.originTopo}|${e.destTopo}">
+      <span class="country">${dir === 'out' ? '→ ' + escapeHTML(e.destDisplay) : '← ' + escapeHTML(e.originDisplay)}</span>
+      <span class="weight">${e.weight}</span></div>`;
+    let html = `<div class="section-title">${dir === 'out' ? 'Footprints abroad' : 'Foreign footprints here'}</div>`;
+    html += `<div class="corridor-list">${visible.map(rowHTML).join("")}</div>`;
+    if (rest.length) {
+      html += `<div class="corridor-more" id="more-${id}" hidden>${rest.map(rowHTML).join("")}</div>`;
+      html += `<button class="show-more" id="btn-${id}" data-target="more-${id}">Show all ${edges.length} →</button>`;
+    }
+    return html;
+  }
+
+  document.getElementById("ic-corridors-out").innerHTML = renderCorridorSection(outEdges, 'out', 'out');
+  document.getElementById("ic-corridors-in").innerHTML = renderCorridorSection(inEdges, 'in', 'in');
+
+  // Wire up Show-more buttons + corridor-row clicks
+  document.querySelectorAll(".show-more").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tgt = document.getElementById(btn.dataset.target);
+      if (tgt) { tgt.hidden = false; btn.style.display = "none"; }
+    });
+  });
+
+  document.querySelectorAll(".corridor-row").forEach(row => {
+    row.addEventListener("click", () => {
+      const e = edgeMap.get(row.dataset.key);
+      if (e) openModal(e);
+    });
+  });
+
+  infoCard.classList.add("open");
+  document.getElementById("controls").style.display = "none";
+  rerender();
+}
+
+document.getElementById("ic-close").addEventListener("click", () => selectCountry(null));
+
+// ═══════════════════════════════════════════════════════════════════
+// Tooltips & Modals
+// ═══════════════════════════════════════════════════════════════════
+
+function showCountryTooltip(topoName) {
+  const outC = outboundCount.get(topoName) || 0;
+  const inC = inboundCount.get(topoName) || 0;
+
+  let body = `<div class="tt-grid">
+      <div class="tt-stat"><div class="num" style="color:#f8f8f0">${outC}</div><div class="lbl">Links abroad</div></div>
+      <div class="tt-stat"><div class="num" style="color:#f8f8f0">${inC}</div><div class="lbl">Foreign links here</div></div>
+    </div>
+    <div class="tt-hint">Click to isolate and read its links</div>`;
+
+  if(outC === 0 && inC === 0) body = `<div class="tt-total">No documented cross-border links</div>`;
+
+  tooltip.style("opacity", 1).html(`<div class="tt-name">${displayName(topoName)}</div>${body}`);
+}
+
+function showCorridorTooltip(e) {
+  const sampleOrgs = e.orgs.slice(0, 3).map(o => nodeName(o.node));
+  tooltip.style("opacity", 1).html(`
+    <div class="tt-name" style="font-size:16px; margin-bottom:4px;">${escapeHTML(e.originDisplay)} → ${escapeHTML(e.destDisplay)}</div>
+    <div class="tt-grid" style="margin-top:12px;">
+      <div class="tt-stat"><div class="num" style="color:#fff">${e.weight}</div><div class="lbl">Documented links</div></div>
+    </div>
+    <div class="tt-total">
+      ${sampleOrgs.map(escapeHTML).join("<br>")}
+      ${e.orgs.length > 3 ? `<br><span style="color:#666">+ ${e.orgs.length - 3} more</span>` : ""}
+    </div>
+    <div class="tt-hint">Click to read the evidence</div>
+  `);
+}
+
+function moveTooltip(event) {
+  const x = event.pageX, y = event.pageY;
+  const left = (x + 300 > window.innerWidth) ? x - 280 : x + 14;
+  const top  = (y + 150 > window.innerHeight) ? y - 130 : y + 14;
+  tooltip.style("left", left + "px").style("top", top + "px");
+}
+
+function openModal(edge) {
+  document.getElementById("modal-title").textContent = `${edge.originDisplay} → ${edge.destDisplay}`;
+  const n = edge.orgs.length;
+  document.getElementById("modal-sub").textContent =
+    `${n} organization${n === 1 ? "" : "s"} based in ${edge.originDisplay} with documented links to ${edge.destDisplay}`;
+
+  document.getElementById("modal-list").innerHTML = edge.orgs.map((o, k) => {
+    const node = o.node;
+    const srcs = nodeSources(node);
+    const t = nodeType(node);
+    const typePrefix = (t && t !== "other") ? `${escapeHTML(t.replace(/_/g, " "))} · ` : "";
+
+    const quotePill = o.quote
+      ? `<button class="ev-toggle q" data-target="q-${k}"><span>Quote</span><span class="chev">▾</span></button>`
+      : "";
+    const quoteReveal = o.quote
+      ? `<div class="ev-reveal" id="q-${k}" hidden><blockquote class="ev-quote">${escapeHTML(o.quote)}</blockquote></div>`
+      : "";
+    // Sources are listed inline (no toggle) on the right of the pill row.
+    const srcLine = srcs.length
+      ? `<span class="ev-srcs"><span class="ev-srcs-label">Sources:</span> ${srcs.map(s =>
+          `<a href="${escapeHTML(s.url)}" target="_blank" rel="noopener">${escapeHTML(s.title)}</a>`).join(", ")}</span>`
+      : "";
+    const pillRow = (quotePill || srcLine) ? `<div class="ev-toggles">${quotePill}${srcLine}</div>` : "";
+
+    let body;
+    if (o.context || o.quote || srcs.length) {
+      body = (o.context ? `<div class="ev-context">${escapeHTML(o.context)}</div>` : "") + pillRow + quoteReveal;
+    } else {
+      body = `<div class="ev-none">No evidence text was recorded for this link.</div>`;
+    }
+    return `
+      <div class="org-row">
+        <div class="org-rank">${k + 1}</div>
+        <div class="org-main">
+          <div class="org-name">${escapeHTML(nodeName(node))}</div>
+          <div class="org-type">${typePrefix}based in ${escapeHTML(displayName(edge.originTopo))}</div>
+          ${body}
+        </div>
+      </div>`;
+  }).join("");
+  document.getElementById("modal-backdrop").classList.add("open");
+}
+
+// Reveal/collapse the Quote and Sources blocks (event-delegated, attached once).
+document.getElementById("modal-list").addEventListener("click", (ev) => {
+  const btn = ev.target.closest(".ev-toggle");
+  if (!btn) return;
+  const tgt = document.getElementById(btn.dataset.target);
+  if (!tgt) return;
+  const opening = tgt.hasAttribute("hidden");
+  if (opening) tgt.removeAttribute("hidden"); else tgt.setAttribute("hidden", "");
+  btn.classList.toggle("open", opening);
+});
+
+document.getElementById("modal-close").addEventListener("click", () => document.getElementById("modal-backdrop").classList.remove("open"));
+
+// ═══════════════════════════════════════════════════════════════════
+// Search Setup
+// ═══════════════════════════════════════════════════════════════════
+
+const searchInput = document.getElementById("search");
+const resultsDiv = document.getElementById("results");
+
+const searchIndex = mapFeatures.features.map(f => {
+  const topo = f.properties.name;
+  const outC = outboundCount.get(topo) || 0;
+  const inC = inboundCount.get(topo) || 0;
+  return {
+    topo,
+    display: displayName(topo),
+    lc: displayName(topo).toLowerCase(),
+    total: outC + inC
+  };
+});
+
+let activeIdx = -1;
+let lastResults = [];
+
+function search(q) {
+  q = q.trim().toLowerCase();
+  if (!q) return [];
+  const m = [];
+  for (const e of searchIndex) {
+    const i = e.lc.indexOf(q);
+    if (i !== -1) m.push({ ...e, prefix: i === 0 });
+  }
+  m.sort((a, b) => {
+    if (a.prefix !== b.prefix) return a.prefix ? -1 : 1;
+    if (b.total !== a.total) return b.total - a.total;
+    return a.display.localeCompare(b.display);
+  });
+  return m.slice(0, 10);
+}
+
+function renderResults(results, q) {
+  if (!q.trim()) { resultsDiv.classList.remove("open"); resultsDiv.innerHTML = ""; return; }
+  if (!results.length) {
+    resultsDiv.classList.add("open");
+    resultsDiv.innerHTML = `<div style="padding:14px;color:#777;text-align:center;font-style:italic">no countries match</div>`;
+    return;
+  }
+  resultsDiv.innerHTML = results.map((r, i) => {
+    return `<div class="search-result${i === activeIdx ? " active" : ""}" data-topo="${escapeHTML(r.topo)}">
+      <span>${escapeHTML(r.display)}</span>
+      <span class="meta" style="color:#aaa; font-variant-numeric:tabular-nums;">${r.total || "—"}</span>
+    </div>`;
+  }).join("");
+  resultsDiv.classList.add("open");
+  resultsDiv.querySelectorAll(".search-result").forEach(el => {
+    el.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      pickResult(el.dataset.topo);
+    });
+  });
+}
+
+function pickResult(topo) {
+  selectCountry(topo);
+  searchInput.value = displayName(topo);
+  resultsDiv.classList.remove("open");
+  searchInput.blur();
+  activeIdx = -1;
+}
+
+searchInput.addEventListener("input", () => {
+  activeIdx = -1;
+  lastResults = search(searchInput.value);
+  renderResults(lastResults, searchInput.value);
+});
+searchInput.addEventListener("focus", () => {
+  if (searchInput.value.trim()) {
+    lastResults = search(searchInput.value);
+    renderResults(lastResults, searchInput.value);
+  }
+});
+searchInput.addEventListener("blur", () => {
+  setTimeout(() => resultsDiv.classList.remove("open"), 120);
+});
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowDown") {
+    e.preventDefault();
+    if (lastResults.length) { activeIdx = Math.min(activeIdx + 1, lastResults.length - 1); renderResults(lastResults, searchInput.value); }
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    if (lastResults.length) { activeIdx = Math.max(activeIdx - 1, 0); renderResults(lastResults, searchInput.value); }
+  } else if (e.key === "Enter") {
+    e.preventDefault();
+    if (lastResults[activeIdx]) pickResult(lastResults[activeIdx].topo);
+    else if (lastResults[0]) pickResult(lastResults[0].topo);
+  } else if (e.key === "Escape") {
+    resultsDiv.classList.remove("open");
+    searchInput.blur();
+  }
+});
+
+document.getElementById("tb-connections").textContent = allEdges.length.toLocaleString();
+
+// Collapse/expand the whole intro panel (title, description, stats) so it
+// doesn't sit over the map while exploring.
+const titleblock = document.getElementById("titleblock");
+const tbToggle = document.getElementById("tb-toggle");
+const tbLabel = document.getElementById("tb-label");
+const tbChev = document.getElementById("tb-chev");
+tbToggle.addEventListener("click", () => {
+  const collapsed = titleblock.classList.toggle("collapsed");
+  tbLabel.textContent = collapsed ? "About this map" : "Hide";
+  tbChev.textContent = collapsed ? "▾" : "▴";
+  tbToggle.setAttribute("aria-expanded", String(!collapsed));
+});
+
+function escapeHTML(s) { return String(s).replace(/[&<>"']/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[m])); }
+
+rerender();
+</script>
+</body>
+</html>
