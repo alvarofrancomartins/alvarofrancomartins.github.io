@@ -6,7 +6,7 @@ deploying is just publishing the `app/` folder.
 
 ## What the site is
 
-- **`browse.html`** — the home page: an **Explore the network visually** card row (links
+- **`index.html`** — the home page: an **Explore the network visually** card row (links
   to the two visualizations), two panels (organizations ranked by linkages, and countries
   ranked by cross-border activity), and a **connection finder** below them.
 - **`org/<slug>.html`** — one page per organization (profiled, or with ≥1 relationship):
@@ -23,7 +23,7 @@ deploying is just publishing the `app/` folder.
 
 Pages cross-link densely (org ↔ neighbour orgs, org ↔ country) so the whole set is one
 connected, crawlable web. Every org/country has its own linkable, indexable URL. The two
-visualizations are reachable from `browse.html`'s explore cards and from every page footer;
+visualizations are reachable from `index.html`'s explore cards and from every page footer;
 each visualization carries a top-bar **Browse / Footprints / Graph** switcher back into
 the rest of the site.
 
@@ -54,7 +54,7 @@ On every page, "Trace a connection" finds how two organizations link:
 - **Connection Pathways** — every route through **one shared organization** (2 hops),
   shortest first, capped at 150. BFS-from-target distances prune the path-enumerating DFS
   hard. Each route is collapsible; a hop's evidence loads from the shards on expand.
-- On `browse.html` you pick both orgs; on an org page side A is locked and **Org B
+- On `index.html` you pick both orgs; on an org page side A is locked and **Org B
   suggests that org's direct connections, ranked by linkage count** (falling back to a
   global search for any other org).
 
@@ -78,7 +78,7 @@ Then publish **`app/`**. That's the whole deployable unit:
 
 ```
 app/
-├── browse.html              # home (explore cards + lists + finder)
+├── index.html              # home (explore cards + lists + finder)
 ├── org/<slug>.html          # one per org
 ├── country/<slug>.html      # one per country
 ├── footprints.html          # viz: country→country footprint map
