@@ -215,9 +215,7 @@
   /* ── Map Elements ────────────────────────────────────────────── */
   .country { transition: fill 150ms, stroke 150ms; }
   .country.dim { opacity: 0.3; }
-
-  .edge { transition: opacity 150ms; }
-  .edge .core { transition: stroke-width 150ms, stroke 150ms; }
+  .edge { pointer-events: none; }
 
   /* ── Modal ─────────────────────────────────────────────────────── */
   .modal-backdrop {
@@ -518,6 +516,14 @@ for (const ent of nodes) {
 
 const allEdges = [...edgeMap.values()].sort((a, b) => b.weight - a.weight);
 
+// Reciprocal pairs (A→B and B→A both exist) — used by arrowPath to
+// make both directions share the same arc side so they don't criss-cross.
+const reciprocalSet = new Set();
+for (const e of allEdges) {
+  const revKey = `${e.destTopo}|${e.originTopo}`;
+  if (edgeMap.has(revKey)) reciprocalSet.add(`${e.originTopo}|${e.destTopo}`);
+}
+
 const outboundCount = new Map();
 const inboundCount = new Map();
 for (const e of allEdges) {
@@ -631,6 +637,20 @@ function createMarker(id, color) {
 }
 createMarker("arrow-head", LINE_COLOR);
 createMarker("arrow-head-neutral", COLOR_NEUTRAL);
+// Reverse markers: triangle points left (for marker-start on bidirectional edges)
+function createMarkerRev(id, color) {
+  defs.append("marker")
+    .attr("id", id).attr("viewBox", "0 -7 12 14")
+    .attr("refX", 12).attr("refY", 0)
+    .attr("markerWidth", ARROW_MARKER_W).attr("markerHeight", 7)
+    .attr("orient", "auto").attr("markerUnits", "strokeWidth")
+    .append("path")
+      .attr("d", "M12,-7 L0,0 L12,7 Z")
+      .attr("fill", color)
+      .attr("stroke", LINE_OUTLINE).attr("stroke-width", 1).attr("stroke-linejoin", "round");
+}
+createMarkerRev("arrow-head-rev", LINE_COLOR);
+createMarkerRev("arrow-head-neutral-rev", COLOR_NEUTRAL);
 
 function arrowPath(e) {
   const op = projection(centroidByTopo.get(e.originTopo));
@@ -644,15 +664,18 @@ function arrowPath(e) {
 
   const gap = 6 / currentK;
   const headLen = ARROW_MARKER_W * arrowWidth(e) / Math.sqrt(currentK);
-  const startGap = gap, endGap = gap + headLen;
+  const isBidirectional = reciprocalSet.has(`${e.originTopo}|${e.destTopo}`);
+  const startGap = isBidirectional ? gap + headLen : gap;
+  const endGap = gap + headLen;
   if (startGap + endGap >= dist) return null;
 
   const x1 = op[0] + ux * startGap, y1 = op[1] + uy * startGap;
   const x2 = dp[0] - ux * endGap,   y2 = dp[1] - uy * endGap;
 
   const mdx = x2 - x1, mdy = y2 - y1, mlen = Math.hypot(mdx, mdy) || 1;
-  const cpX = (x1 + x2) / 2 - (mdy / mlen) * mlen * 0.2;
-  const cpY = (y1 + y2) / 2 + (mdx / mlen) * mlen * 0.2;
+
+  const cpX = (x1 + x2) / 2 - mdy * 0.2;
+  const cpY = (y1 + y2) / 2 + mdx * 0.2;
 
   return `M${x1},${y1} Q${cpX},${cpY} ${x2},${y2}`;
 }
@@ -688,16 +711,27 @@ function getEdgeColor(active) {
 function getEdgeMarker(active) {
   return active ? "url(#arrow-head)" : "url(#arrow-head-neutral)";
 }
+function getEdgeMarkerRev(active) {
+  return active ? "url(#arrow-head-rev)" : "url(#arrow-head-neutral-rev)";
+}
 
 function rerender() {
-  const edges = applyFilters();
+  let edges = applyFilters();
   const active = getActiveCountry();
+
+  // Reciprocal pairs (A→B and B→A) are drawn as a single curve with
+  // arrowheads at both ends — skip the lexicographically larger origin.
+  edges = edges.filter(e => {
+    const key = `${e.originTopo}|${e.destTopo}`;
+    if (!reciprocalSet.has(key)) return true;
+    return e.originTopo < e.destTopo;
+  });
 
   arrowG.selectAll("g.edge")
     .data(edges, e => `${e.originTopo}|${e.destTopo}`)
     .join(
       enter => {
-        const grp = enter.append("g").attr("class", "edge").style("cursor", "pointer");
+        const grp = enter.append("g").attr("class", "edge");
         grp.append("path").attr("class", "outline").attr("d", arrowPath)
            .attr("fill", "none").attr("stroke-linecap", "round")
            .attr("stroke", LINE_OUTLINE);
@@ -708,18 +742,18 @@ function rerender() {
       update => update,
       exit => exit.remove()
     )
-    .on("mouseover", function (e, d) { d3.select(this).raise(); showCorridorTooltip(d); })
-    .on("mousemove", moveTooltip)
-    .on("mouseout", () => { tooltip.style("opacity", 0); })
-    .on("click", (e, d) => { e.stopPropagation(); openModal(d); })
-    .each(function(e) {
+        .each(function(e) {
       const color = getEdgeColor(active);
       const marker = getEdgeMarker(active);
+      const isBidir = reciprocalSet.has(`${e.originTopo}|${e.destTopo}`);
+      const markerRev = isBidir ? getEdgeMarkerRev(active) : null;
       const w = arrowWidth(e) / Math.sqrt(currentK);
       d3.select(this).select(".outline")
         .attr("stroke-width", w + 2.5);
       d3.select(this).select(".core")
-        .attr("stroke-width", w).attr("stroke", color).attr("marker-end", marker);
+        .attr("stroke-width", w).attr("stroke", color)
+        .attr("marker-end", marker)
+        .attr("marker-start", markerRev);
     })
     .style("opacity", e => {
       if (active && e.originTopo !== active && e.destTopo !== active) return 0.15;
@@ -841,20 +875,6 @@ function showCountryTooltip(topoName) {
   tooltip.style("opacity", 1).html(`<div class="tt-name">${displayName(topoName)}</div>${body}`);
 }
 
-function showCorridorTooltip(e) {
-  const sampleOrgs = e.orgs.slice(0, 3).map(o => nodeName(o.node));
-  tooltip.style("opacity", 1).html(`
-    <div class="tt-name" style="font-size:16px; margin-bottom:4px;">${escapeHTML(e.originDisplay)} → ${escapeHTML(e.destDisplay)}</div>
-    <div class="tt-grid" style="margin-top:12px;">
-      <div class="tt-stat"><div class="num" style="color:#fff">${e.weight}</div><div class="lbl">Documented links</div></div>
-    </div>
-    <div class="tt-total">
-      ${sampleOrgs.map(escapeHTML).join("<br>")}
-      ${e.orgs.length > 3 ? `<br><span style="color:#666">+ ${e.orgs.length - 3} more</span>` : ""}
-    </div>
-    <div class="tt-hint">Click to read the evidence</div>
-  `);
-}
 
 function moveTooltip(event) {
   const x = event.pageX, y = event.pageY;
