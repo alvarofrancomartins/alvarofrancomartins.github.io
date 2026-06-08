@@ -40,24 +40,28 @@ Every node and every relationship is traceable to a versioned Wikipedia source.
 <div class="section-h">Why this exists</div>
 
 <p class="desc">
-Organized crime is global, but our understanding of it is mostly local. It is scattered
-across news reports, academic papers, and government briefings. There was no single map
-of who works with whom, who fights whom, and how these groups reach across borders.
-</p>
-
-<p class="desc">
-CRIMENET fills that gap. It covers cartels, mafias, gangs, motorcycle clubs, triads,
+CRIMENET maps criminal organizations and their relationships into a single,
+searchable graph. It covers cartels, mafias, gangs, motorcycle clubs, triads,
 clans, factions, militias, and terrorist groups, drawn from nearly 1,500 Wikipedia
-articles in English, Italian, Portuguese, and Spanish. An LLM pipeline reads every
-article and extracts every organization mentioned and every alliance or rivalry
-between them.
+articles in English, Italian, Portuguese, and Spanish.
 </p>
 
 <p class="desc">
-The result is a single graph of the global criminal landscape. Every edge carries the
-verbatim Wikipedia sentence that justifies it, plus a paraphrased description, an
-extracted time period, and a versioned source URL. Any claim can be audited back to
-a specific revision of a specific article.
+An LLM pipeline reads each article and extracts every organization mentioned and
+every alliance, rivalry, or other tie between them. Every edge carries the verbatim
+Wikipedia sentence that justifies it, a paraphrased description, an extracted time
+period, and a versioned source URL. Any claim can be audited back to the specific
+revision of the specific article it came from.
+</p>
+
+<div class="section-h">A note on coverage</div>
+
+<p class="desc">
+The graph reflects what was found in the articles processed — about 1,500 out of
+millions on Wikipedia. The LLM pipeline is not perfect and occasionally misses a
+connection or misclassifies one. More importantly, Wikipedia itself does not
+document every real-world tie. An absent link does not mean a relationship does not
+exist; it means it was not recorded in the sources that were processed.
 </p>
 
 <div class="section-h">Open source</div>
