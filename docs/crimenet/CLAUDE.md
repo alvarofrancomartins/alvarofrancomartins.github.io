@@ -1,4 +1,4 @@
-# CLAUDE.md
+# CLAUDE.md 
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -106,4 +106,4 @@ DeepSeek API key goes in the `DEEPSEEK_API_KEY` env var. Steps 2 and 3 and all a
 
 ### Writing
 
-Your writing should be concise and only the necessary. Never use dashes.
+Your writing should be concise and only the necessary. Avoid using dashes.
