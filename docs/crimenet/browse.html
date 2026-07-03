@@ -935,7 +935,7 @@ document.querySelectorAll('.browse-panel').forEach(function(p){p.addEventListene
         ]
       };
 
-      fetch('/.netlify/functions/crimenet-ask',{
+      fetch('https://afmartins.netlify.app/.netlify/functions/crimenet-ask',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(payload)
