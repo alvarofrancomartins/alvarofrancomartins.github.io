@@ -1,4 +1,4 @@
-# CRIMENET — app architecture and deploy
+# CRIMENET — app architecture & deploy
 
 The front end is **fully static** — no database, no backend, no single-page app.
 All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
@@ -10,13 +10,15 @@ All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
   panel toggles between Organizations and Countries; clicking any name renders its full
   detail (description, aliases, country, time period, sources, footprint links) in the
   right panel. Data comes from `data/compact.json`.
-- **`browse.html`** — standalone connection finder with four tabs:
+- **`browse.html`** — standalone connection finder with five tabs:
   - **Trace a Connection** — direct edge viewer using
     `data/evidence/NNN.json` and `data/relationship_summaries/NNN.json`.
   - **Communities** — Infomap community clusters loaded from `data/communities.json`.
   - **Bridges** — organizations bridging communities, loaded from `data/bridges.json`.
   - **Triadic Signals** — candidate undocumented allies from triadic closure, loaded from
     `data/triadic_signals.json`.
+  - **Ask CRIMENET AI** — natural language queries proxied to DeepSeek via a Netlify Function
+    with tool calling that queries the graph data (see section below).
 - **`footprints.html`** — interactive world map of country→country footprints (D3 +
   world-atlas TopoJSON). Loads `data/crimenet.json` at runtime.
 - **`knowledge_graph.html`** — full org network as an interactive 3D force-directed graph
@@ -140,6 +142,65 @@ two organizations A and B have no direct edge but share common cooperation partn
 
 The standalone `triadic_signals.html` page loads the same `data/triadic_signals.json`
 and renders an identical table. It exists for direct linking and search engine indexing.
+
+## Ask CRIMENET AI tab (`browse.html`)
+
+A natural language query interface that lets users ask questions about organized crime
+and get evidence-backed answers from the CRIMENET knowledge graph. The LLM calls tools
+that query the static data files, and the agent loop runs entirely in the browser.
+
+### Architecture
+
+The **agent loop runs in the browser**, tools execute against static JSON files locally,
+and only the DeepSeek API call goes through the Netlify Function proxy. This keeps the
+Netlify Function as a thin proxy and avoids loading data files server-side.
+
+```
+Browser (browse.html "Ask CRIMENET AI" tab)
+  │  User question + system prompt + tool definitions
+  │  POST https://afmartins.netlify.app/.netlify/functions/crimenet-ask
+  │  Body: { model: "deepseek-chat", messages: [...], tools: [...] }
+  │
+  ▼
+Netlify Function (netlify/functions/crimenet-ask.js)
+  │  CORS → method check → origin check → rate limit (20 req/min/IP)
+  │  Attaches Authorization: Bearer DEEPSEEK_KEY (env var)
+  │  Forwards payload unchanged to DeepSeek
+  │
+  ▼
+DeepSeek Chat API (api.deepseek.com/chat/completions)
+  │  Returns either:
+  │    a) text answer → display to user, DONE
+  │    b) tool_calls → browser executes tools locally
+  │
+  ▼ (if tool_calls)
+Browser executes tool functions against static JSON
+  │  Appends tool results as {role:"tool", tool_call_id, content}
+  │  Sends updated messages back to DeepSeek
+  │  Repeat until text answer or max 5 iterations
+  │
+  ▼
+Netlify Function → Browser
+  │  Final answer rendered in the chat area with simple markdown formatting
+```
+
+Important: the function file (`netlify/functions/crimenet-ask.js`) lives in the **Hugo
+site repo**, not in this CRIMENET repo. The function is a thin proxy identical to the
+existing `chat.js` (Dendrite) function, with rate limiting and CORS.
+
+### Tool functions
+
+DeepSeek can call these 5 tools to query the graph. Each tool reads from existing static
+data files already served from `app/data/`. Tools execute in the browser — no server-side
+data loading.
+
+| Tool | Parameters | Data source | Description |
+|------|-----------|-------------|-------------|
+| `get_organization` | `query` (string) | `compact.json` | Search organizations by name (exact or partial match against standard_name and aliases). Returns matches with description, country, time period, aliases, degree, and country footprints. Limited to 15 results. |
+| `get_connections` | `organization` (string), `relationship_type` (optional: cooperation/conflict/other), `target_organization` (optional) | `crimenet_adj.json` + `evidence/NNN.json` | Get connections for an org, optionally filtered by type or between two specific orgs. Each connection includes the verbatim Wikipedia evidence quote and time period. Limited to 25 results. |
+| `find_by_country` | `country` (string) | `compact.json` | Find organizations associated with a country. Returns orgs based there (headquartered) and orgs with operational footprints there (with context and evidence quotes). |
+| `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 4) | `crimenet_adj.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each listing the intermediate hops with relationship types. |
+| `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and member list. If omitted: returns list of all 224 communities with id, title, size, and top 5 hubs. |
 
 ## Build & deploy
 
