@@ -36,6 +36,7 @@
 <button class="browse-toggle-btn" data-view="communities">Communities</button>
 <button class="browse-toggle-btn" data-view="bridges">Bridges</button>
 <button class="browse-toggle-btn" data-view="signals">Triadic Signals</button>
+<button class="browse-toggle-btn" data-view="ask">Ask AI</button>
 </div>
 <div id="finder" data-base="" data-locked="">
 <div class="finder-row">
@@ -64,6 +65,13 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
 <div id="signals-view" style="display:none">
 <div class="sig-list" id="sig-list"></div>
 </div>
+<div id="ask-view" style="display:none">
+<div class="ask-chat" id="ask-chat"></div>
+<div class="ask-input-row">
+  <input type="text" id="ask-input" class="ask-input" placeholder="Ask about organized crime…" autocomplete="off" spellcheck="false">
+  <button type="button" class="ask-send" id="ask-send">Send</button>
+</div>
+</div>
 </div>
 </section>
 
@@ -73,12 +81,13 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
 <script>
 (function(){
   // Trace a Connection / Communities / Bridges toggle
-  var VIEWS=['finder','communities','bridges','signals'];
+  var VIEWS=['finder','communities','bridges','signals','ask'];
   var subtitles={
     finder:'Find how two organizations link: directly or through a shared group',
     communities:'Explore community clusters detected from cooperation ties in the organized crime network',
     bridges:'Organizations and edges that bridge community boundaries in the cooperation network',
-    signals:'When two organizations A and B have no direct edge between them but share several of the same cooperation partners or the same adversaries, these common neighbors suggest a real-world relationship that may be missing from Wikipedia. This tab lists every such pair. Each common neighbor Cᵢ contributes min(statements A↔Cᵢ, statements B↔Cᵢ) and the Total Score is the sum across all shared neighbors, so relationships backed by more evidence weigh proportionally. 2,561 unique pairs: 1,609 with both signals, 486 cooperation-partner-only, 466 adversary-only.'
+    signals:'When two organizations A and B have no direct edge between them but share several of the same cooperation partners or the same adversaries, these common neighbors suggest a real-world relationship that may be missing from Wikipedia. This tab lists every such pair. Each common neighbor Cᵢ contributes min(statements A↔Cᵢ, statements B↔Cᵢ) and the Total Score is the sum across all shared neighbors, so relationships backed by more evidence weigh proportionally. 2,561 unique pairs: 1,609 with both signals, 486 cooperation-partner-only, 466 adversary-only.',
+    ask:'Ask questions about organized crime. Answers draw on the CRIMENET knowledge graph of 4,505 organizations and 10,935 relationships extracted from Wikipedia.'
   };
   document.querySelectorAll('.panel-finder .browse-toggle-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
@@ -867,6 +876,100 @@ document.querySelectorAll('.browse-panel').forEach(function(p){p.addEventListene
   if(document.getElementById('signals-view').style.display===''){
     initSignals();
   }
+})();
+</script>
+
+<script>
+// ── Ask AI tab ───────────────────────────────────────────────────────────
+(function(){
+  var initialized = false;
+
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+  var SYSTEM_PROMPT = 'You are a helpful assistant answering questions about organized crime. You have access to the CRIMENET knowledge graph, which contains 4,505 criminal organizations and 10,935 relationships extracted from multi-language Wikipedia. Organizations include cartels, mafias, gangs, motorcycle clubs, triads, clans, factions, militias, and terrorist groups. Relationships are classified as cooperation (alliances, joint operations, supply chains), conflict (fights, wars, rivalries), or other (structural ties like sub-units, splinters, successors). Every relationship is backed by a verbatim Wikipedia quote. Answer concisely. If you do not know something, say so.';
+
+  function initAsk(){
+    if(initialized)return;
+    initialized=true;
+
+    var chat=document.getElementById('ask-chat');
+    var input=document.getElementById('ask-input');
+    var send=document.getElementById('ask-send');
+
+    function addMessage(role, text){
+      var div=document.createElement('div');
+      div.className='ask-msg ask-'+role;
+      var label=role==='user'?'You':'CRIMENET AI';
+      div.innerHTML='<div class=\"ask-msg-label\">'+esc(label)+'</div><div class=\"ask-msg-body\">'+text+'</div>';
+      chat.appendChild(div);
+      chat.scrollTop=chat.scrollHeight;
+    }
+
+    function simpleMarkdown(t){
+      return esc(t)
+        .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g,'<em>$1</em>')
+        .replace(/\n/g,'<br>');
+    }
+
+    function sendMessage(){
+      var q=input.value.trim();
+      if(!q)return;
+
+      addMessage('user', esc(q));
+      input.value='';
+      send.disabled=true;
+      input.disabled=true;
+
+      var loading=document.createElement('div');
+      loading.className='ask-msg ask-assistant';
+      loading.innerHTML='<div class=\"ask-msg-label\">CRIMENET AI</div><div class=\"ask-msg-body\"><span class=\"ask-spinner\"></span> Thinking…</div>';
+      chat.appendChild(loading);
+      chat.scrollTop=chat.scrollHeight;
+
+      var payload={
+        model:'deepseek-chat',
+        messages:[
+          {role:'system',content:SYSTEM_PROMPT},
+          {role:'user',content:q}
+        ]
+      };
+
+      fetch('/.netlify/functions/crimenet-ask',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      }).then(function(r){
+        if(!r.ok)throw new Error('HTTP '+r.status);
+        return r.json();
+      }).then(function(data){
+        loading.remove();
+        if(data.error){addMessage('assistant','Error: '+esc(data.error));return}
+        var content=data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
+        if(!content){addMessage('assistant','No response.');return}
+        addMessage('assistant',simpleMarkdown(content));
+      }).catch(function(err){
+        loading.remove();
+        addMessage('assistant','Error: '+esc(err.message||'Failed to reach the API.'));
+      }).then(function(){
+        send.disabled=false;
+        input.disabled=false;
+        input.focus();
+      });
+    }
+
+    send.addEventListener('click',sendMessage);
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();sendMessage();}
+    });
+  }
+
+  var askBtn=document.querySelector('.browse-toggle-btn[data-view="ask"]');
+  if(askBtn){
+    askBtn.addEventListener('click',function(){initAsk();});
+  }
+
+  if(document.getElementById('ask-view').style.display===''){initAsk();}
 })();
 </script>
 
