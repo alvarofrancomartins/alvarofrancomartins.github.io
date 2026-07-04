@@ -173,6 +173,12 @@
         to_organization:{type:'string',description:'Target organization'},
         max_hops:{type:'integer',description:'Maximum path length (2-5)',default:3}
       },required:['from_organization','to_organization']}}},
+    {type:'function',function:{name:'find_cooperation_routes',
+      description:'Find cooperation routes between two organizations. First checks if there is a direct cooperation edge. If none exists, finds up to 3 shortest cooperation-only paths (where every hop is a cooperation relationship). Use this when the user asks whether two orgs cooperate, are allied, or work together. Only follows cooperation edges, never conflict or other.',
+      parameters:{type:'object',properties:{
+        organization_a:{type:'string',description:'First organization name'},
+        organization_b:{type:'string',description:'Second organization name'}
+      },required:['organization_a','organization_b']}}},
     {type:'function',function:{name:'get_network_neighborhood',
       description:'Get the local network around an organization: all direct connections grouped by relationship type, plus second-degree connections (orgs connected to the direct connections). Optionally filter by relationship type. Use this to understand an org\'s position in the network or answer questions about allies-of-allies.',
       parameters:{type:'object',properties:{
@@ -321,6 +327,70 @@
     });
   }
 
+  function tool_find_cooperation_routes(args){
+    var orgA=args.organization_a||'', orgB=args.organization_b||'';
+    return Promise.all([loadAdj(),loadCompact()]).then(function(){
+      var a=bestMatch(orgA), b=bestMatch(orgB);
+      if(!a)return JSON.stringify({error:'Organization not found: '+orgA});
+      if(!b)return JSON.stringify({error:'Organization not found: '+orgB});
+      if(a===b)return JSON.stringify({error:'Same organization: '+a});
+
+      // Check direct cooperation
+      var aEdges=adjData[a]||[], directCoop=false;
+      for(var i=0;i<aEdges.length;i++){
+        if(aEdges[i].t===b&&aEdges[i].r.indexOf('cooperation')>=0){directCoop=true;break;}
+      }
+      if(directCoop){
+        return loadEvidence(a).then(function(entry){
+          var evEdges=(entry&&entry.edges)?entry.edges:[];
+          var found=null;
+          for(var i=0;i<evEdges.length;i++){
+            var ee=evEdges[i];
+            if((ee.source===a&&ee.target===b)||(ee.source===b&&ee.target===a)){found=ee;break;}
+          }
+          var result={organization_a:a,organization_b:b,direct_cooperation:true};
+          if(found){result.evidence_quote=found.evidence_quote;result.description=found.descriptions?found.descriptions[0]:'';result.time_period=found.time_periods?found.time_periods.join(', '):'';result.source_urls=found.source_urls||[];}
+          return JSON.stringify(result);
+        });
+      }
+
+      // No direct cooperation — BFS cooperation-only paths (max 5 hops)
+      var visited={}, queue=[{node:a,path:[a]}], coopPaths=[];
+      visited[a]=true;
+      while(queue.length>0&&coopPaths.length<3){
+        var cur=queue.shift();
+        if(cur.path.length>=5)continue; // max 5 hops = up to 4 intermediates + target
+        var nbrs=adjData[cur.node]||[];
+        for(var i=0;i<nbrs.length;i++){
+          var e=nbrs[i];
+          if(e.r.indexOf('cooperation')<0)continue; // only follow cooperation
+          var n=e.t;
+          if(n===b){
+            coopPaths.push(cur.path.concat([n]));
+            if(coopPaths.length>=3)break;
+          }
+          if(!visited[n]){visited[n]=true;queue.push({node:n,path:cur.path.concat([n])});}
+        }
+      }
+
+      if(coopPaths.length===0){
+        return JSON.stringify({organization_a:a,organization_b:b,direct_cooperation:false,cooperation_routes:[],message:'No cooperation route found between '+a+' and '+b+'. They are not directly allied and no chain of cooperation links connects them.'});
+      }
+
+      // Build route summaries
+      var routes=coopPaths.map(function(path){
+        return {hops:path.length-1,path:path};
+      });
+
+      return JSON.stringify({
+        organization_a:a,organization_b:b,
+        direct_cooperation:false,
+        cooperation_routes_found:routes.length,
+        cooperation_routes:routes.map(function(r){return {hops:r.hops,path:r.route};})
+      });
+    });
+  }
+
   function tool_get_network_neighborhood(args){
     var org=args.organization||'', relType=args.relationship_type||null;
     return Promise.all([loadAdj(),loadCompact()]).then(function(){
@@ -440,6 +510,7 @@
       case 'get_relationship_summary':return tool_get_relationship_summary(args);
       case 'find_by_country':return tool_find_by_country(args);
       case 'find_paths':return tool_find_paths(args);
+      case 'find_cooperation_routes':return tool_find_cooperation_routes(args);
       case 'get_network_neighborhood':return tool_get_network_neighborhood(args);
       case 'get_community':return tool_get_community(args);
       case 'get_triadic_signals':return tool_get_triadic_signals(args);
@@ -449,7 +520,8 @@
   }
 
   // ── System prompt ─────────────────────────────────────────────────────
-  var SYSTEM_PROMPT='You are CRIMENET AI, an assistant that answers questions about organized crime using the CRIMENET knowledge graph. Answer in English.\n\nCRIMENET contains 4,505 criminal organizations and 10,935 relationships extracted from multi-language Wikipedia. Organizations include cartels, mafias, gangs, motorcycle clubs, triads, clans, factions, militias, and terrorist groups. Relationships are classified as cooperation (alliances, joint operations, supply chains), conflict (fights, wars, rivalries), or other (structural ties like sub-units, splinters, successors). Every relationship is backed by a verbatim Wikipedia quote.\n\nYou have 9 tools to query the graph:\n- get_organization: search orgs by name (returns description, country, time period, aliases, degree, footprints, sources)\n- get_connections: get connections for an org (filterable by type or between two specific orgs)\n- get_relationship_summary: get a pre-written LLM narrative summary of the relationship between two specific orgs\n- find_by_country: find orgs associated with a country (headquartered or with operational footprints)\n- find_paths: find shortest paths between two orgs through the network (up to 5 hops)\n- get_network_neighborhood: get the local network around an org (direct + second-degree connections grouped by type)\n- get_community: get community membership for an org, or list all 224 communities\n- get_triadic_signals: get candidate undocumented relationships for an org (shared partners/adversaries with no direct edge)\n- get_bridges: get bridge orgs that span multiple communities\n\nGuidelines:\n- Always use tools to look up specific information. Do not guess organization names.\n- For questions about how two specific orgs relate, use get_relationship_summary first, then get_connections for details.\n- For questions about allies-of-allies or the broader network around an org, use get_network_neighborhood.\n- When discussing networks, cite evidence quotes and relationship types.\n- For questions about potential undocumented relationships, use get_triadic_signals (note: these are statistical signals, not confirmed).\n- Cite sources when available.\n- If a lookup returns no results, tell the user and suggest alternatives.\n- Use bullet points for lists. Answer concisely.\n- If asked about something outside CRIMENET\'s scope, say so.';
+  var SYSTEM_PROMPT='You are CRIMENET AI. Answer in English.\n\nCRIMENET: 4,505 criminal organizations and 10,935 relationships from Wikipedia. Relationships: cooperation (alliances, joint operations), conflict (wars, rivalries), other (splinters, successors). Every edge has a verbatim quote.\n\nTools:\nget_organization — search orgs by name (metadata, sources, footprints)\nget_connections — connections for an org, filter by type or target\nget_relationship_summary — LLM narrative for a specific org pair\nfind_by_country — orgs in a country (headquartered or with footprints)\nfind_paths — multi-hop paths between two orgs, any type (max 5 hops)\nfind_cooperation_routes — direct cooperation check, or cooperation-only routes. Use for "do X cooperate with Y?"\nget_network_neighborhood — direct + second-degree connections around an org\nget_community — community membership, or list all communities\nget_triadic_signals — candidate undocumented ties (shared partners/adversaries)\nget_bridges — orgs spanning multiple communities\n\nRules:\n- Use tools. Never guess org names.\n- "How do X and Y relate?": get_relationship_summary, then get_connections.\n- "Do X and Y cooperate?": find_cooperation_routes.\n- "Allies of allies": get_network_neighborhood.\n- Multi-hop any type: find_paths.\n- Potential ties: get_triadic_signals (statistical, not confirmed).\n- Cite evidence quotes. If no results, suggest alternatives.\n- Bullet points. Concise.\n- Outside scope? Say so.\n- If find_paths returns nothing, fall back to find_cooperation_routes.';
+
 
   // ── Agent loop ────────────────────────────────────────────────────────
   async function runAgent(userQuestion, onStatus){
@@ -502,6 +574,10 @@
     var send=document.getElementById('ask-send');
     var welcome=document.getElementById('ask-welcome');
     var answers=document.getElementById('ask-answers');
+
+    // Set panel subtitle when Ask tab activates
+    var sub=document.getElementById('finder-panel-sub');
+    if(sub)sub.textContent='Ask questions about organized crime in natural language. Backed by 4,505 organizations and 10,935 relationships with verbatim Wikipedia evidence.';
 
     function showAnswer(question, answer){
       answers.innerHTML='';

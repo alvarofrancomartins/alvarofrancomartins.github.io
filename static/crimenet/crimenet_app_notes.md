@@ -10,17 +10,18 @@ All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
   panel toggles between Organizations and Countries; clicking any name renders its full
   detail (description, aliases, country, time period, sources, footprint links) in the
   right panel. Data comes from `data/compact.json`.
-- **`browse.html`** — standalone connection finder with five tabs:
+- **`browse.html`** — standalone connection finder with five tabs (Ask CRIMENET AI shown first by default):
+  - **Ask CRIMENET AI** — natural language queries proxied to DeepSeek via a Netlify Function
+    with tool calling that queries the graph data. 10 tools available covering org lookup,
+    connections, relationship summaries, country search, path finding, cooperation routes,
+    network neighborhoods, communities, triadic signals, and bridges (see section below).
+    This is the default tab when the page loads.
   - **Trace a Connection** — direct edge viewer using
     `data/evidence/NNN.json` and `data/relationship_summaries/NNN.json`.
   - **Communities** — Infomap community clusters loaded from `data/communities.json`.
   - **Bridges** — organizations bridging communities, loaded from `data/bridges.json`.
   - **Triadic Signals** — candidate undocumented allies from triadic closure, loaded from
     `data/triadic_signals.json`.
-  - **Ask CRIMENET AI** — natural language queries proxied to DeepSeek via a Netlify Function
-    with tool calling that queries the graph data. 9 tools available covering org lookup,
-    connections, relationship summaries, country search, path finding, network neighborhoods,
-    communities, triadic signals, and bridges (see section below).
 - **`footprints.html`** — interactive world map of country→country footprints (D3 +
   world-atlas TopoJSON). Loads `data/crimenet.json` at runtime.
 - **`knowledge_graph.html`** — full org network as an interactive 3D force-directed graph
@@ -199,7 +200,7 @@ a new question replaces the previous answer.
 
 ### Tool functions
 
-DeepSeek can call these 9 tools to query the graph. Each tool reads from existing static
+DeepSeek can call these 10 tools to query the graph. Each tool reads from existing static
 data files already served from `app/data/`. Tools execute in the browser — no server-side
 data loading.
 
@@ -210,6 +211,7 @@ data loading.
 | `get_relationship_summary` | `organization_a` (string), `organization_b` (string) | `relationship_summaries/NNN.json` | Get the pre-written LLM narrative summary (~150-250 words) synthesizing all documented interactions between two specific orgs. Includes whether a direct edge exists and its relationship types. Use for "how do X and Y relate?" questions. |
 | `find_by_country` | `country` (string) | `compact.json` | Find organizations associated with a country. Returns orgs based there (headquartered) and orgs with operational footprints there (with context and evidence quotes). |
 | `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each listing the intermediate hops with relationship types. |
+| `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Returns evidence quotes when direct cooperation exists. |
 | `get_network_neighborhood` | `organization` (string), `relationship_type` (optional) | `crimenet_adj.json` | Get the local network around an org: direct connections (grouped by type with counts) and top second-degree connections (orgs connected to direct connections), ranked by number of paths. Answers "allies of allies" and "network position" questions. |
 | `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns list of all 224 communities with id, title, size, and top 5 hubs. |
 | `get_triadic_signals` | `organization` (string), `signal_type` (optional: cooperation/adversaries/both), `min_score` (optional, default 5) | `triadic_signals.json` | Get candidate undocumented relationships: pairs where the org and another share multiple common cooperation partners or common adversaries but have no direct edge. High-scoring pairs are statistical signals of real-world connections possibly missing from Wikipedia. |
