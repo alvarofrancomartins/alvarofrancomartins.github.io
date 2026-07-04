@@ -179,13 +179,20 @@ DeepSeek Chat API (api.deepseek.com/chat/completions)
   ▼ (if tool_calls)
 Browser executes tool functions against static JSON
   │  Appends tool results as {role:"tool", tool_call_id, content}
+  │  Extracts source URLs from tool results (source_urls, sources, edges)
   │  Sends updated messages back to DeepSeek
   │  Repeat until text answer or max 5 iterations
   │
   ▼
 Netlify Function → Browser
-  │  Final answer rendered in the chat area with simple markdown formatting
+  │  Final answer rendered with full markdown (headings, tables, lists, bold, links)
+  │  Sources section auto-appended by code (not left to the LLM) as styled pills
 ```
+
+Sources are collected automatically: `extractSources()` parses every tool result and
+extracts `source_urls`, `sources` (own_sources), per-edge source URLs, and per-path
+evidence source URLs. After the LLM's final answer, the loop appends a "Sources" section
+with clickable Wikipedia links — no LLM involvement, nothing to hallucinate.
 
 Important: the function file (`netlify/functions/crimenet-ask.js`) lives in the **Hugo
 site repo**, not in this CRIMENET repo. The function is a thin proxy identical to the
@@ -207,11 +214,11 @@ data loading.
 | Tool | Parameters | Data source | Description |
 |------|-----------|-------------|-------------|
 | `get_organization` | `query` (string) | `compact.json` | Search organizations by name (exact or partial match against standard_name and aliases). Returns matches with description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Limited to 15 results. |
-| `get_connections` | `organization` (string), `relationship_type` (optional: cooperation/conflict/other), `target_organization` (optional) | `crimenet_adj.json` + `evidence/NNN.json` | Get connections for an org, optionally filtered by type or between two specific orgs. Each connection includes the verbatim Wikipedia evidence quote and time period. Returns type_counts (cooperation/conflict/other breakdown). Limited to 25 results. |
+| `get_connections` | `organization` (string), `relationship_type` (optional: cooperation/conflict/other), `target_organization` (optional) | `crimenet_adj.json` + `evidence/NNN.json` | Get connections for an org, or all edges between two specific orgs. When `target_organization` is set, loads evidence from both orgs' shards and returns all edges (deduplicated), with evidence quotes, time periods, source URLs, and a consolidated `source_urls` array. Without a target, returns up to 25 connections. |
 | `get_relationship_summary` | `organization_a` (string), `organization_b` (string) | `relationship_summaries/NNN.json` | Get the pre-written LLM narrative summary (~150-250 words) synthesizing all documented interactions between two specific orgs. Includes whether a direct edge exists and its relationship types. Use for "how do X and Y relate?" questions. |
 | `find_by_country` | `country` (string) | `compact.json` | Find organizations associated with a country. Returns orgs based there (headquartered) and orgs with operational footprints there (with context and evidence quotes). |
-| `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each listing the intermediate hops with relationship types. |
-| `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Returns evidence quotes when direct cooperation exists. |
+| `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` + `evidence/NNN.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each hop listing relationship types and evidence (description, time period, evidence quote, source URLs). Also returns a consolidated `source_urls` array. |
+| `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Each step includes evidence quotes and source URLs. Returns a consolidated `source_urls` array. |
 | `get_network_neighborhood` | `organization` (string), `relationship_type` (optional) | `crimenet_adj.json` | Get the local network around an org: direct connections (grouped by type with counts) and top second-degree connections (orgs connected to direct connections), ranked by number of paths. Answers "allies of allies" and "network position" questions. |
 | `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns list of all 224 communities with id, title, size, and top 5 hubs. |
 | `get_triadic_signals` | `organization` (string), `signal_type` (optional: cooperation/adversaries/both), `min_score` (optional, default 5) | `triadic_signals.json` | Get candidate undocumented relationships: pairs where the org and another share multiple common cooperation partners or common adversaries but have no direct edge. High-scoring pairs are statistical signals of real-world connections possibly missing from Wikipedia. |
@@ -221,11 +228,14 @@ data loading.
 
 The system prompt guides DeepSeek to:
 - Use `get_organization` first when an organization is mentioned, to verify it exists
-- Use `get_relationship_summary` + `get_connections` for questions about two specific orgs
+- Use `get_relationship_summary` + `get_connections` (with `target_organization`) for questions about two specific orgs
+- Use `find_cooperation_routes` for "do X and Y cooperate?" questions
 - Use `get_network_neighborhood` for questions about network position, allies-of-allies, or indirect influence
-- Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
 - Use `find_paths` for questions about how two orgs are connected through intermediaries
+- Use `get_connections` with `relationship_type: "other"` for structural decomposition questions (clans, factions, sub-units)
+- Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
 - Cite evidence quotes and relationship types precisely
+- Sources are added automatically by code after every answer — no need to list them manually
 
 ### Second-degree queries
 
@@ -241,8 +251,10 @@ chains from conflict chains.
 
 ### Code files
 
-- `app/ask_ai.js` — all tool definitions, tool implementations (9 tools), data loaders,
-  agent loop, system prompt, and UI wiring. Loaded by `browse.html` via `<script src>`.
+- `app/ask_ai.js` — all tool definitions, tool implementations (10 tools), data loaders,
+  agent loop with automatic source URL collection, full markdown renderer (headings, tables,
+  lists, bold, italic, links, code), system prompt, and UI wiring. Loaded by `browse.html`
+  via `<script src>`.
 - `app/browse.html` — welcome panel HTML (example questions grid), input row, and
   answer area. The inline script block was extracted to `ask_ai.js`.
 - `app/static_pages.css` — Ask AI tab styles (chat layout, welcome panel, example

@@ -5,11 +5,103 @@
 
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
+  function renderMarkdown(t){
+    // Block-level: split into paragraphs/lines, process heading / hr / table / list
+    // then join, then process inline formatting.
+    var lines=(t||'').split('\n');
+    var out=[], inTable=false, inList=false, tableHtml='', listHtml='';
+
+    function flushTable(){
+      if(!inTable)return;
+      var rows=tableHtml.trim().split('\n');
+      if(rows.length<2){tableHtml='';inTable=false;return;}
+      // First row = header, second = separator, rest = body
+      var hdr=rows[0], sep=rows[1], bodyRows=rows.slice(2);
+      // If second row isn't a separator, treat whole thing as non-table
+      if(!/^\|?[\s\-:|]+\|?$/.test(sep)){out.push('<p>'+esc(rows.join('<br>'))+'</p>');tableHtml='';inTable=false;return;}
+      // Build table
+      var html='<table class="ask-table"><thead><tr>';
+      var hdrCells=hdr.split('|').filter(function(c){return c.trim();});
+      for(var i=0;i<hdrCells.length;i++){html+='<th>'+renderInline(hdrCells[i].trim())+'</th>';}
+      html+='</tr></thead><tbody>';
+      for(var j=0;j<bodyRows.length;j++){
+        var cells=bodyRows[j].split('|').filter(function(c){return c.trim();});
+        if(cells.length===0)continue;
+        html+='<tr>';
+        for(var k=0;k<cells.length;k++){html+='<td>'+renderInline(cells[k].trim())+'</td>';}
+        html+='</tr>';
+      }
+      html+='</tbody></table>';
+      out.push(html);
+      tableHtml='';inTable=false;
+    }
+
+    function flushList(){
+      if(!inList)return;
+      out.push('<ul>'+listHtml+'</ul>');
+      listHtml='';inList=false;
+    }
+
+    for(var i=0;i<lines.length;i++){
+      var raw=lines[i], trimmed=raw.trim();
+
+      // Empty line → flush blocks
+      if(!trimmed){flushTable();flushList();out.push('');continue;}
+
+      // Heading
+      var hdrMatch=trimmed.match(/^(#{1,4})\s+(.+)$/);
+      if(hdrMatch&&!inTable&&!inList){
+        flushTable();flushList();
+        var lvl=hdrMatch[1].length;
+        out.push('<h'+lvl+' class="ask-h">'+renderInline(hdrMatch[2])+'</h'+lvl+'>');
+        continue;
+      }
+
+      // Horizontal rule
+      if(/^\-{3,}$/.test(trimmed)||/^\*{3,}$/.test(trimmed)){
+        flushTable();flushList();
+        out.push('<hr class="ask-hr">');
+        continue;
+      }
+
+      // Table row detection
+      if(trimmed.indexOf('|')>=0){
+        if(!inTable){flushList();inTable=true;}
+        tableHtml+=raw+'\n';
+        continue;
+      }else{flushTable();}
+
+      // List item
+      if(/^[\-\*]\s+/.test(trimmed)){
+        if(!inList){flushTable();inList=true;}
+        var itemText=trimmed.replace(/^[\-\*]\s+/,'');
+        listHtml+='<li>'+renderInline(itemText)+'</li>';
+        continue;
+      }else{flushList();}
+
+      // Regular paragraph line
+      out.push('<p>'+renderInline(trimmed)+'</p>');
+    }
+    flushTable();flushList();
+
+    return out.join('\n');
+  }
+
+  function renderInline(s){
+    s=esc(s);
+    // Links [text](url)
+    s=s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener nofollow">$1</a>');
+    // Bold **text**
+    s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    // Italic *text* (but not inside words with **)
+    s=s.replace(/(^|[^*])\*([^*]+)\*($|[^*])/g,'$1<em>$2</em>$3');
+    // Backtick code
+    s=s.replace(/`([^`]+)`/g,'<code>$1</code>');
+    return s;
+  }
+
   function simpleMarkdown(t){
-    return esc(t)
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/\*(.+?)\*\*/g,'<em>$1</em>')
-      .replace(/\n/g,'<br>');
+    return renderMarkdown(t);
   }
 
   // ── Data loading ──────────────────────────────────────────────────────
@@ -237,7 +329,51 @@
         var tMatch=bestMatch(targetOrg);
         if(!tMatch)return JSON.stringify({error:'Target organization not found: '+targetOrg});
         edges=edges.filter(function(e){return e.t===tMatch;});
+        // When targeting a specific pair, return ALL evidence edges from both orgs' shards
+        return Promise.all([loadEvidence(match),loadEvidence(tMatch)]).then(function(results){
+          var e1=results[0], e2=results[1];
+          var allEdges=[];
+          var seen=new Set();
+          function addEdges(entry){
+            if(!entry||!entry.edges)return;
+            for(var i=0;i<entry.edges.length;i++){
+              var ee=entry.edges[i];
+              if((ee.source===match&&ee.target===tMatch)||(ee.source===tMatch&&ee.target===match)){
+                var key=JSON.stringify([ee.source,ee.target,ee.relationship,ee.evidence_quote]);
+                if(seen.has(key))continue;seen.add(key);
+                if(relType&&ee.relationship.indexOf(relType)<0)continue;
+                allEdges.push({
+                  source:ee.source,target:ee.target,relationship:ee.relationship,
+                  description:ee.descriptions?ee.descriptions[0]:'',
+                  time_period:ee.time_periods?ee.time_periods.join(', '):'',
+                  evidence_quote:ee.evidence_quote||'',
+                  source_urls:ee.source_urls||[]
+                });
+              }
+            }
+          }
+          addEdges(e1);addEdges(e2);
+          // Count by relationship type
+          var counts={cooperation:0,conflict:0,other:0};
+          for(var j=0;j<allEdges.length;j++){
+            var r=allEdges[j].relationship;
+            if(counts.hasOwnProperty(r))counts[r]++;else counts[r]=1;
+          }
+          // Collect unique source URLs across ALL edges
+          var sourceUrls={};
+          for(var k=0;k<allEdges.length;k++){
+            var urls=allEdges[k].source_urls||[];
+            for(var u=0;u<urls.length;u++)sourceUrls[urls[u]]=true;
+          }
+          return JSON.stringify({
+            organization_a:match,organization_b:tMatch,
+            total_edges:allEdges.length,type_counts:counts,
+            source_urls:Object.keys(sourceUrls),
+            edges:allEdges
+          });
+        });
       }
+      // General case: return up to 25 unique org connections
       var total=edges.length;
       if(edges.length>25)edges=edges.slice(0,25);
       return loadEvidence(match).then(function(entry){
@@ -251,7 +387,6 @@
           if(found)return {source:found.source,target:found.target,relationship:found.relationship,description:found.descriptions?found.descriptions[0]:'',time_period:found.time_periods?found.time_periods.join(', '):'',evidence_quote:found.evidence_quote||'',source_urls:found.source_urls||[]};
           return {source:match,target:n.t,relationship:n.r.join(', '),description:'',time_period:'',evidence_quote:'',source_urls:[]};
         });
-        // Group counts by relationship type
         var counts={cooperation:0,conflict:0,other:0};
         for(var j=0;j<edges.length;j++){var rs=edges[j].r;for(var k=0;k<rs.length;k++){var r=rs[k];if(counts.hasOwnProperty(r))counts[r]++;else counts[r]=1;}}
         return JSON.stringify({organization:match,connections_shown:results.length,connections_total:total,type_counts:counts,connections:results});
@@ -317,13 +452,34 @@
         }
       }
       if(foundPaths.length===0)return JSON.stringify({paths:[],message:'No path found within '+maxHops+' hops between '+fromMatch+' and '+toMatch+'.'});
-      var enriched=foundPaths.map(function(path){
-        return path.map(function(step){
-          var aedges=adjData[step.from]||[], aedge=aedges.find(function(e){return e.t===step.to;});
-          return {from:step.from,to:step.to,relationships:aedge?aedge.r:['unknown']};
+      // Collect all orgs involved to load their evidence shards
+      var allOrgs={};allOrgs[fromMatch]=true;allOrgs[toMatch]=true;
+      foundPaths.forEach(function(p){p.forEach(function(s){allOrgs[s.from]=true;allOrgs[s.to]=true;});});
+      var orgNames=Object.keys(allOrgs);
+      return Promise.all(orgNames.map(function(o){return loadEvidence(o).then(function(e){return e||{};});})).then(function(evidences){
+        var evByOrg={};
+        for(var ei=0;ei<orgNames.length;ei++){evByOrg[orgNames[ei]]=evidences[ei];}
+        var allSourceUrls={};
+        var enriched=foundPaths.map(function(path){
+          return path.map(function(step){
+            var aedges=adjData[step.from]||[], aedge=aedges.find(function(e){return e.t===step.to;});
+            var evidence=null;
+            var ee=evByOrg[step.from];
+            if(ee&&ee.edges){
+              for(var i=0;i<ee.edges.length;i++){
+                var ex=ee.edges[i];
+                if((ex.source===step.from&&ex.target===step.to)||(ex.source===step.to&&ex.target===step.from)){
+                  evidence={description:ex.descriptions?ex.descriptions[0]:'',time_period:ex.time_periods?ex.time_periods.join(', '):'',evidence_quote:ex.evidence_quote||'',source_urls:ex.source_urls||[]};
+                  if(ex.source_urls)ex.source_urls.forEach(function(u){allSourceUrls[u]=true;});
+                  break;
+                }
+              }
+            }
+            return {from:step.from,to:step.to,relationships:aedge?aedge.r:['unknown'],evidence:evidence};
+          });
         });
+        return JSON.stringify({from:fromMatch,to:toMatch,paths:enriched,source_urls:Object.keys(allSourceUrls)});
       });
-      return JSON.stringify({from:fromMatch,to:toMatch,paths:enriched});
     });
   }
 
@@ -377,16 +533,34 @@
         return JSON.stringify({organization_a:a,organization_b:b,direct_cooperation:false,cooperation_routes:[],message:'No cooperation route found between '+a+' and '+b+'. They are not directly allied and no chain of cooperation links connects them.'});
       }
 
-      // Build route summaries
-      var routes=coopPaths.map(function(path){
-        return {hops:path.length-1,path:path};
-      });
-
-      return JSON.stringify({
-        organization_a:a,organization_b:b,
-        direct_cooperation:false,
-        cooperation_routes_found:routes.length,
-        cooperation_routes:routes.map(function(r){return {hops:r.hops,path:r.route};})
+      // Collect all orgs on cooperation paths, load evidence for source URLs
+      var coopOrgs={};
+      coopPaths.forEach(function(p){p.forEach(function(o){coopOrgs[o]=true;});});
+      var coopOrgNames=Object.keys(coopOrgs);
+      return Promise.all(coopOrgNames.map(function(o){return loadEvidence(o).then(function(e){return e||{};});})).then(function(coopEv){
+        var coopEvByOrg={};
+        for(var ei=0;ei<coopOrgNames.length;ei++){coopEvByOrg[coopOrgNames[ei]]=coopEv[ei];}
+        var allSrc={};
+        var routes=coopPaths.map(function(path){
+          var steps=[];
+          for(var s=0;s<path.length-1;s++){
+            var f=path[s], t=path[s+1];
+            var entry=coopEvByOrg[f];var ev=null;
+            if(entry&&entry.edges){
+              for(var i=0;i<entry.edges.length;i++){
+                var ex=entry.edges[i];
+                if((ex.source===f&&ex.target===t||ex.source===t&&ex.target===f)&&ex.relationship.indexOf('cooperation')>=0){
+                  ev={description:ex.descriptions?ex.descriptions[0]:'',time_period:ex.time_periods?ex.time_periods.join(', '):'',evidence_quote:ex.evidence_quote||'',source_urls:ex.source_urls||[]};
+                  if(ex.source_urls)ex.source_urls.forEach(function(u){allSrc[u]=true;});
+                  break;
+                }
+              }
+            }
+            steps.push({from:f,to:t,evidence:ev});
+          }
+          return {hops:path.length-1,steps:steps};
+        });
+        return JSON.stringify({organization_a:a,organization_b:b,direct_cooperation:false,cooperation_routes_found:routes.length,source_urls:Object.keys(allSrc),cooperation_routes:routes});
       });
     });
   }
@@ -520,13 +694,91 @@
   }
 
   // ── System prompt ─────────────────────────────────────────────────────
-  var SYSTEM_PROMPT='You are CRIMENET AI. Answer in English.\n\nCRIMENET: 4,505 criminal organizations and 10,935 relationships from Wikipedia. Relationships: cooperation (alliances, joint operations), conflict (wars, rivalries), other (splinters, successors). Every edge has a verbatim quote.\n\nTools:\nget_organization — search orgs by name (metadata, sources, footprints)\nget_connections — connections for an org, filter by type or target\nget_relationship_summary — LLM narrative for a specific org pair\nfind_by_country — orgs in a country (headquartered or with footprints)\nfind_paths — multi-hop paths between two orgs, any type (max 5 hops)\nfind_cooperation_routes — direct cooperation check, or cooperation-only routes. Use for "do X cooperate with Y?"\nget_network_neighborhood — direct + second-degree connections around an org\nget_community — community membership, or list all communities\nget_triadic_signals — candidate undocumented ties (shared partners/adversaries)\nget_bridges — orgs spanning multiple communities\n\nRules:\n- Use tools. Never guess org names.\n- "How do X and Y relate?": get_relationship_summary, then get_connections.\n- "Do X and Y cooperate?": find_cooperation_routes.\n- "Allies of allies": get_network_neighborhood.\n- Multi-hop any type: find_paths.\n- Potential ties: get_triadic_signals (statistical, not confirmed).\n- Cite evidence quotes. If no results, suggest alternatives.\n- Bullet points. Concise.\n- Outside scope? Say so.\n- If find_paths returns nothing, fall back to find_cooperation_routes.';
+  var SYSTEM_PROMPT=[
+    'You are CRIMENET AI. Answer in English.',
+    '',
+    'CRIMENET: 4,505 criminal organizations and 10,935 relationships from Wikipedia.',
+    'Relationships: cooperation (alliances, joint operations, commercial dealings),',
+    'conflict (wars, rivalries, clashes), other (structural ties: sub-unit, faction,',
+    'wing, splinter, successor, merged into, truce). Every edge has a verbatim quote.',
+    '',
+    'Tools:',
+    'get_organization — search orgs by name (metadata, sources, footprints)',
+    'get_connections — connections for an org, or all edges between two orgs',
+    '  (pass organization + target_organization). Returns every edge with evidence',
+    '  quotes, time periods, and source_urls. Also returns a source_urls array',
+    '  listing every Wikipedia article the evidence comes from.',
+    'get_relationship_summary — LLM narrative for a specific org pair',
+    'find_by_country — orgs in a country (headquartered or with footprints)',
+    'find_paths — multi-hop paths between two orgs, any type (max 5 hops).',
+    '  Returns paths with evidence quotes and source URLs per hop, plus a',
+    '  consolidated source_urls list.',
+    'find_cooperation_routes — direct cooperation check, or cooperation-only',
+    '  routes. Use for "do X cooperate with Y?"',
+    'get_network_neighborhood — direct + second-degree connections around an org',
+    'get_community — community membership, or list all communities',
+    'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
+    'get_bridges — orgs spanning multiple communities',
+    '',
+    'Rules:',
+    '- Use tools. Never guess org names.',
+    '- "What are X\'s clans / factions / sub-units / wings / splinters?":',
+    '  get_organization for X first — read the description, which often names',
+    '  the specific term (e.g. \'ndrina for \'Ndrangheta, cosca for Sicilian mafia).',
+    '  Then get_connections with relationship_type "other" (structural ties).',
+    '  These edges are how the graph models internal breakdowns. If no structural',
+    '  edges exist, check the description — it may state the total number of',
+    '  sub-units even when the individual units are not all named in Wikipedia.',
+    '- "How do X and Y relate?": get_relationship_summary, then get_connections',
+    '  with target_organization set. get_connections returns ALL edges between',
+    '  the two orgs (from both orgs\' evidence shards). Always list every',
+    '  evidence quote grouped by relationship type. Sources are added automatically.',
+    '- "Do X and Y cooperate?": find_cooperation_routes.',
+    '- "Allies of allies" / "X\'s network position": get_network_neighborhood.',
+    '- Multi-hop any type: find_paths. Sources are added automatically.',
+    '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
+    '- Sources are added automatically after each answer — no need to list them yourself.',
+    '- Bullet points. Concise.',
+    '- Outside scope? Say so.',
+    '- If find_paths returns nothing, fall back to find_cooperation_routes.',
+    '- Plan your tool calls before making them. If a question needs two tools,',
+    '  call them in order. Do not repeat the same call.'
+  ].join('\n');
 
 
   // ── Agent loop ────────────────────────────────────────────────────────
   async function runAgent(userQuestion, onStatus){
     await dataReady;
     var messages=[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:userQuestion}];
+    var collectedSources={};  // url -> {title, url}
+
+    function extractSources(toolResult){
+      // Parse JSON tool results and collect any source URLs found
+      try{
+        var r=JSON.parse(toolResult);
+      }catch(e){return;}
+      if(!r)return;
+      // Direct source_urls array
+      if(Array.isArray(r.source_urls))r.source_urls.forEach(function(u){collectedSources[u]={title:titleFromUrl(u),url:u};});
+      // Per-edge source_urls
+      var edges=r.edges||r.connections||null;
+      if(edges){edges.forEach(function(e){if(e.source_urls)e.source_urls.forEach(function(u){collectedSources[u]={title:titleFromUrl(u),url:u};});});}
+      // Per-path evidence
+      var paths=r.paths||r.cooperation_routes||null;
+      if(paths){paths.forEach(function(p){var steps=p.steps||(Array.isArray(p)?p:[]);steps.forEach(function(s){var ev=s.evidence||null;if(ev&&ev.source_urls)ev.source_urls.forEach(function(u){collectedSources[u]={title:titleFromUrl(u),url:u};});});});}
+      // Organization sources (own_sources mapped as sources)
+      var matches=r.matches||null;
+      if(matches){matches.forEach(function(m){if(m.sources)m.sources.forEach(function(s){collectedSources[s.url]={title:s.title,url:s.url};});});}
+      // get_organization single result
+      if(r.sources)r.sources.forEach(function(s){collectedSources[s.url]={title:s.title,url:s.url};});
+    }
+
+    // Helper to extract Wikipedia article title from URL
+    function titleFromUrl(u){
+      var m=u.match(/title=([^&]+)/);
+      if(m)return decodeURIComponent(m[1]).replace(/_/g,' ');
+      return u;
+    }
 
     for(var iter=0;iter<MAX_ITERATIONS;iter++){
       if(onStatus)onStatus(iter===0?'Reasoning…':'Looking up data…');
@@ -554,12 +806,25 @@
           try{toolArgs=JSON.parse(tc.function.arguments||'{}');}catch(e){}
           if(onStatus)onStatus('Looking up: '+toolName.replace(/_/g,' ')+'…');
           var result=await executeTool(toolName,toolArgs);
+          extractSources(result);
           messages.push({role:'tool',tool_call_id:tc.id,content:result});
         }
         continue;
       }
 
-      return msg.content||'No response generated.';
+      // Final answer — append sources footer if we collected any
+      var answer=msg.content||'No response generated.';
+      var urls=Object.keys(collectedSources);
+      if(urls.length>0){
+        answer+='\n<div class="ask-src-head">Sources</div>';
+        answer+='<div class="ask-src-list">';
+        urls.forEach(function(u){
+          var s=collectedSources[u];
+          answer+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener nofollow">'+esc(s.title)+'</a>';
+        });
+        answer+='</div>';
+      }
+      return answer;
     }
     return 'I ran into a loop trying to answer your question. Please try rephrasing it.';
   }
