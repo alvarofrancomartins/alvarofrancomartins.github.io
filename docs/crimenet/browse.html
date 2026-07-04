@@ -66,10 +66,59 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
 <div class="sig-list" id="sig-list"></div>
 </div>
 <div id="ask-view" style="display:none">
-<div class="ask-chat" id="ask-chat"></div>
+<div class="ask-chat" id="ask-chat">
+<div class="ask-welcome" id="ask-welcome">
+  <div class="ask-examples-title">Try these examples</div>
+
+  <div class="ask-examples-grid">
+
+  <div class="ask-examples-group">
+    <div class="ask-examples-group-title">Organizations</div>
+    <button class="ask-example" data-prompt="Tell me about the Sinaloa Cartel">Tell me about the Sinaloa Cartel</button>
+    <button class="ask-example" data-prompt="What are the main 'Ndrangheta clans?">What are the main 'Ndrangheta clans?</button>
+    <button class="ask-example" data-prompt="Which motorcycle clubs are defunct?">Which motorcycle clubs are defunct?</button>
+    <button class="ask-example" data-prompt="What is the history of the Camorra?">What is the history of the Camorra?</button>
+    <button class="ask-example" data-prompt="What are the oldest criminal organizations still active?">What are the oldest orgs still active?</button>
+  </div>
+
+  <div class="ask-examples-group">
+    <div class="ask-examples-group-title">Relationships &amp; Networks</div>
+    <button class="ask-example" data-prompt="What's the relationship between the Sinaloa Cartel and CJNG?">Relationship between Sinaloa Cartel and CJNG?</button>
+    <button class="ask-example" data-prompt="Who are the Sinaloa Cartel's closest allies?">Who are the Sinaloa Cartel's closest allies?</button>
+    <button class="ask-example" data-prompt="How are Hells Angels and the 'Ndrangheta connected?">How are Hells Angels and the 'Ndrangheta connected?</button>
+    <button class="ask-example" data-prompt="What is the local network around the American Mafia?">Network around the American Mafia?</button>
+    <button class="ask-example" data-prompt="What criminal organizations does the Sinaloa Cartel have conflicts with?">Who does the Sinaloa Cartel have conflicts with?</button>
+  </div>
+
+  <div class="ask-examples-group">
+    <div class="ask-examples-group-title">Countries &amp; Geography</div>
+    <button class="ask-example" data-prompt="What criminal organizations operate in Brazil?">What orgs operate in Brazil?</button>
+    <button class="ask-example" data-prompt="Which countries does the 'Ndrangheta have a footprint in?">Which countries does the 'Ndrangheta operate in?</button>
+    <button class="ask-example" data-prompt="Compare organized crime in Mexico and Colombia">Compare organized crime in Mexico and Colombia</button>
+  </div>
+
+  <div class="ask-examples-group">
+    <div class="ask-examples-group-title">Paths &amp; Connections</div>
+    <button class="ask-example" data-prompt="How is the Sinaloa Cartel connected to the Russian mafia?">How is Sinaloa Cartel connected to Russian mafia?</button>
+    <button class="ask-example" data-prompt="Find connections between the Yakuza and the Sicilian Mafia">Find connections between Yakuza and Sicilian Mafia</button>
+    <button class="ask-example" data-prompt="What are the allies of allies of Mara Salvatrucha?">Allies of allies of Mara Salvatrucha?</button>
+  </div>
+
+  <div class="ask-examples-group">
+    <div class="ask-examples-group-title">Communities &amp; Structure</div>
+    <button class="ask-example" data-prompt="What community does the Sinaloa Cartel belong to?">Which community is Sinaloa Cartel in?</button>
+    <button class="ask-example" data-prompt="What are the largest criminal communities?">What are the largest criminal communities?</button>
+    <button class="ask-example" data-prompt="Which organizations bridge the most communities?">Which orgs bridge the most communities?</button>
+    <button class="ask-example" data-prompt="Which organizations might be cooperating based on shared partners?">Which orgs might be secretly cooperating?</button>
+  </div>
+
+  </div>
+</div>
 <div class="ask-input-row">
   <input type="text" id="ask-input" class="ask-input" placeholder="Ask about organized crime…" autocomplete="off" spellcheck="false">
   <button type="button" class="ask-send" id="ask-send">Send</button>
+</div>
+<div class="ask-answers" id="ask-answers"></div>
 </div>
 </div>
 </div>
