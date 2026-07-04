@@ -1004,23 +1004,24 @@
         continue;
       }
 
-      // Final answer — insert evidence section, then sources footer
+      // Final answer — return markdown text and HTML sections separately
+      // so the caller can render markdown without escaping the evidence/sources HTML.
       var answer=msg.content||'No response generated.';
       var evidHtml=renderEvidenceSection();
-      if(evidHtml)answer+='\n'+evidHtml;
       var urls=Object.keys(collectedSources);
+      var sourcesHtml='';
       if(urls.length>0){
-        answer+='\n<div class="ask-src-head">Sources</div>';
-        answer+='<div class="ask-src-list">';
+        sourcesHtml+='<div class="ask-src-head">Sources</div>';
+        sourcesHtml+='<div class="ask-src-list">';
         urls.forEach(function(u){
           var s=collectedSources[u];
-          answer+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener nofollow">'+esc(s.title)+'</a>';
+          sourcesHtml+='<a href="'+esc(s.url)+'" target="_blank" rel="noopener nofollow">'+esc(s.title)+'</a>';
         });
-        answer+='</div>';
+        sourcesHtml+='</div>';
       }
-      return answer;
+      return {markdown:answer,evidenceHtml:evidHtml,sourcesHtml:sourcesHtml};
     }
-    return 'I ran into a loop trying to answer your question. Please try rephrasing it.';
+    return {markdown:'I ran into a loop trying to answer your question. Please try rephrasing it.',evidenceHtml:'',sourcesHtml:''};
   }
 
   // ── UI ────────────────────────────────────────────────────────────────
@@ -1071,8 +1072,10 @@
       showLoading();
       input.value='';send.disabled=true;input.disabled=true;
 
-      runAgent(q,updateStatus).then(function(answer){
-        showAnswer(q,simpleMarkdown(answer));
+      runAgent(q,updateStatus).then(function(result){
+        // Structured result: {markdown, evidenceHtml, sourcesHtml}
+        var answer=simpleMarkdown(result.markdown||'')+result.evidenceHtml+result.sourcesHtml;
+        showAnswer(q,answer);
       }).catch(function(err){
         showAnswer(q,'Error: '+esc(err.message||'Failed to reach the API.'));
       }).then(function(){
