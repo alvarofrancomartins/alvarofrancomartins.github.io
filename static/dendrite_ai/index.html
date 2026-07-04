@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dendrite — Twisted Branches</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='6' cy='16' r='3.5' fill='%23f59e0b'/%3E%3Ccircle cx='18' cy='8' r='2.5' fill='%23d97706'/%3E%3Ccircle cx='18' cy='24' r='2.5' fill='%23d97706'/%3E%3Ccircle cx='28' cy='4' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='12' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='20' r='2' fill='%23b45309'/%3E%3Ccircle cx='28' cy='28' r='2' fill='%23b45309'/%3E%3Cline x1='9' y1='14' x2='16' y2='8' stroke='%23f59e0b' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='9' y1='18' x2='16' y2='24' stroke='%23f59e0b' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='20' y1='7' x2='26' y2='4' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='9' x2='26' y2='12' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='23' x2='26' y2='20' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3Cline x1='20' y1='25' x2='26' y2='28' stroke='%23d97706' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f; --bg-card: #1a1a26; --bg-hover: #22222f;
+            --text-primary: #e8e8f0; --text-secondary: #8888a0; --text-muted: #555566;
+            --border: #2a2a3a; --accent: #f59e0b; --accent-glow: rgba(245,158,11,0.15);
+        }
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%;margin:0;background:var(--bg-primary);color:var(--text-primary);font-family:'DM Sans',system-ui,sans-serif;overflow:hidden}
+        body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+        .app-shell{display:flex;flex-direction:column;height:100vh;width:100%;position:relative;z-index:1}
+
+        .app-header{flex-shrink:0;padding:18px 32px 0 32px;display:flex;align-items:center;gap:16px}
+        .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+        .brand-name{font-family:'Sora',sans-serif;font-weight:700;font-size:2rem;letter-spacing:-0.5px}
+        .brand-subtitle { font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--text-secondary); margin-left: 12px; padding-left: 16px; border-left: 2px solid var(--border); }
+
+        .controls-row{flex-shrink:0;display:flex;align-items:flex-end;gap:16px;padding:18px 32px 0 32px;flex-wrap:wrap}
+        .input-group{display:flex;flex-direction:column;gap:5px}
+        .input-group label{font-size:1.1rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
+        .input-group input{padding:14px 18px;width:clamp(200px,28vw,380px);background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-size:1.25rem;font-family:'DM Sans',sans-serif;transition:all 0.2s}
+        .input-group input::placeholder{color:var(--text-muted)}
+        .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+        
+        .btn-generate{padding:14px 38px;background:var(--accent);color:var(--bg-primary);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:1.25rem;font-weight:700;cursor:pointer;height:56px;transition:all 0.2s;white-space:nowrap}
+        .btn-generate:hover{filter:brightness(1.15)}
+        .btn-generate:disabled{background:var(--text-muted);cursor:not-allowed;color:var(--bg-primary);}
+        
+        .btn-playlist{background:#3b82f6; display:none;}
+        .btn-playlist:hover{background:#2563eb;}
+
+        .feedback{flex-shrink:0;text-align:center;padding:10px 32px 0 32px;min-height:30px;font-size:1.2rem;color:var(--text-secondary)}
+        .feedback.error{color:#ef4444}.feedback.success{color:var(--accent)}
+        
+        .tree-container{flex:1;width:100%;min-height:0;padding:0 10px;display:none;flex-direction:column}
+        .tree-container.visible{display:flex}
+        #tree-svg-mount{flex:1;width:100%;height:100%;min-height:0}
+        #tree-svg-mount svg{display:block;width:100%;height:100%}
+        
+        .intro-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding-bottom:60px}
+        .intro-state.hidden{display:none}
+        .intro-graphic{width:160px;height:160px;border-radius:32px;background:linear-gradient(135deg,var(--accent-glow),transparent);border:1px solid var(--border);display:grid;place-items:center;font-size:64px;animation:float 4s ease-in-out infinite}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        .intro-state h3{font-family:'Sora',sans-serif;font-size:2.8rem;font-weight:700}
+        .intro-state p{color:var(--text-secondary);font-size:1.4rem;max-width:680px;text-align:center;line-height:1.7}
+        
+        .tree-link{fill:none;stroke-opacity:0.4;transition:stroke-opacity 0.25s}
+        .tree-link:hover{stroke-opacity:0.8}
+        .node-group{cursor:pointer}.node-rect{transition:all 0.2s}
+        .node-image{opacity:0.92;transition:all 0.2s}
+        .node-group:hover .node-image{opacity:1;filter:brightness(1.15)}
+        .node-group:hover .node-rect{filter:brightness(1.3)}
+        .node-label{pointer-events:none;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:600;fill:var(--text-primary);transition:all 0.2s}
+        .node-group:hover .node-label{font-weight:700}
+        
+        .app-footer{flex-shrink:0;text-align:center;padding:12px 0;font-size:0.95rem;color:var(--text-muted);border-top:1px solid var(--border)}
+        .app-footer a{color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+        .app-footer a:hover{color:var(--text-secondary)}
+        .spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-left-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;vertical-align:middle;margin-left:6px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+
+        /* ===== MODALS (About & Playlist) ===== */
+        .about-trigger{background:none;border:1px solid var(--border);border-radius:10px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:1.05rem;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;flex-shrink:0;margin-left:auto}
+        .about-trigger:hover{border-color:var(--text-muted);color:var(--text-primary)}
+        
+        .overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+        .overlay.visible{display:flex}
+        .modal-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:36px 32px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;position:relative}
+        .modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--text-muted);font-size:1.4rem;cursor:pointer;padding:4px 8px;border-radius:6px;transition:all 0.2s;line-height:1}
+        .modal-close:hover{color:var(--text-primary);background:var(--bg-hover)}
+        
+        .about-card h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px}
+        .about-card p{color:var(--text-secondary);font-size:1rem;line-height:1.75;margin-bottom:14px}
+        .about-card p:last-child{margin-bottom:0}
+        .about-card strong{color:var(--text-primary)}
+
+        .playlist-card h2{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:16px; color:#3b82f6;}
+        .playlist-card a:hover { text-decoration: underline !important; }
+
+        /* ===== MOBILE VIEW ===== */
+        .mobile-view{display:none}
+        .m-explore-wrap{display:none}
+
+        @media(max-width:1024px){
+            html,body{overflow:auto;overflow-x:hidden}
+            .app-shell{height:auto;min-height:100vh}
+
+            .app-header{padding:14px 16px 0;flex-wrap:wrap;gap:8px}
+            .brand-name{font-size:1.4rem}
+            .brand-subtitle{display:none}
+
+            .controls-row{display:none!important}
+            .intro-state{display:none!important}
+            .tree-container{display:none!important}
+            .feedback{display:none!important}
+            .app-footer{font-size:0.75rem;padding:15px 0}
+
+            .about-trigger{display:none}
+            .m-about-link{display:inline-flex;align-items:center;justify-content:center;width:100%; gap:6px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text-secondary);text-decoration:none;margin:20px 0;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--bg-card);transition:all 0.2s}
+            .m-about-link:active{border-color:var(--accent);color:var(--text-primary)}
+            
+            .m-explore-wrap{display:flex;flex-direction:column;padding:0; flex: 1;}
+            .m-explore-header{display:flex;align-items:center;gap:8px;padding:16px 16px 0}
+            .m-explore-domain-icon{font-size:1.6rem}
+            .m-explore-domain-name{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700}
+
+            .m-controls{display:flex;flex-direction:column;gap:12px;padding:16px 16px 0}
+            .m-controls .input-group{width:100%;display:flex;flex-direction:column;gap:6px}
+            .m-controls .input-group label{font-size:0.8rem;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.8px}
+            .m-controls .input-group input{width:100%;padding:12px 14px;font-size:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text-primary);font-family:'DM Sans',sans-serif}
+            .m-controls .input-group input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+            
+            .m-btn-generate{width:100%;height:50px;font-size:1.05rem;padding:0;background:var(--accent);color:var(--bg-primary);border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer}
+            .m-btn-playlist{background:#3b82f6; display:none; margin-top:-6px;}
+            .m-btn-playlist:active{background:#2563eb;}
+            .m-btn-generate:disabled{background:var(--text-muted);cursor:not-allowed;color:var(--bg-primary);}
+
+            .m-feedback{text-align:center;padding:12px 16px 0;font-size:0.9rem;color:var(--text-secondary);min-height:30px}
+            .m-feedback.error{color:#ef4444}
+            .m-feedback.success{color:var(--accent)}
+
+            .mobile-view{display:none;position:relative;padding:16px 0 30px;overflow-x:hidden}
+            .mobile-view.visible{display:block}
+
+            .m-tree{position:relative;width:100%;padding:0}
+            .m-tree-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+            .m-tree-edge{fill:none;stroke-linecap:round;opacity:0.5}
+            .m-layer{position:relative;z-index:1;display:flex;justify-content:center;align-items:flex-start;padding:0 10px}
+            .m-spacer{height:46px}
+            .m-node{display:flex;flex-direction:column;align-items:center;flex-shrink:0;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:transform 0.15s;padding:0 5px}
+            .m-node:active{transform:scale(0.95)}
+            .m-node-img-wrap{border-radius:12px;overflow:hidden;border:2px solid var(--border);background:var(--bg-card);position:relative;transition:border-color 0.2s}
+            .m-node:active .m-node-img-wrap{border-color:var(--accent)}
+            .m-node-img{display:block;width:100%;height:100%;object-fit:cover}
+            .m-node-initials{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Sora',sans-serif;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:1px}
+            .m-node-name{font-family:'DM Sans',sans-serif;font-weight:600;color:var(--text-primary);text-align:center;line-height:1.2;margin-top:6px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-word}
+            .m-tree-status{text-align:center;padding:20px 0 0;font-size:0.85rem;color:var(--text-muted)}
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <header class="app-header">
+        <div class="brand">
+            <span class="brand-name">Dendrite</span>
+            <span class="brand-subtitle">Twisted Branches</span>
+        </div>
+        <button class="about-trigger" id="about-trigger">About</button>
+    </header>
+    
+    <div class="controls-row">
+        <div class="input-group">
+            <label>Starting Band / Artist</label>
+            <input type="text" id="seed-input" placeholder="e.g. Radiohead, Pink Floyd">
+        </div>
+        <div class="input-group">
+            <label>Twist / Vibe (Optional)</label>
+            <input type="text" id="twist-input" placeholder="e.g. Chaotic, Lo-fi, Brazilian">
+        </div>
+        <button class="btn-generate" id="btn-generate">Explore</button>
+        <button class="btn-generate btn-playlist" id="btn-playlist">✨ Playlist</button>
+    </div>
+    
+    <div class="feedback" id="feedback"></div>
+    
+    <div class="intro-state" id="intro-state">
+        <div class="intro-graphic">🎵</div>
+        <h3>Map the musical universe</h3>
+        <p>Enter a band and an optional vibe. Dendrite uses Last.fm to find true musical connections, then uses AI to "twist" those branches toward your requested vibe.</p>
+    </div>
+    
+    <div class="tree-container" id="tree-container"><div id="tree-svg-mount"></div></div>
+    
+    <div class="mobile-view" id="mobile-view">
+        <div class="m-tree" id="m-tree"></div>
+        <div class="m-tree-status" id="m-tree-status"></div>
+        <div style="padding: 0 16px;"><a class="m-about-link" id="m-about-link" href="#">ℹ️ How does it work?</a></div>
+    </div>
+    
+    <!-- Mobile explore screen -->
+    <div class="m-explore-wrap" id="m-explore-wrap">
+        <div class="m-explore-header">
+            <span class="m-explore-domain-icon">🎵</span>
+            <span class="m-explore-domain-name">Music Explorer</span>
+        </div>
+        <div class="m-controls" id="m-controls">
+            <div class="input-group"><label>Starting Band</label><input type="text" id="m-seed" placeholder="e.g. Radiohead"></div>
+            <div class="input-group"><label>Twist / Vibe (Optional)</label><input type="text" id="m-twist" placeholder="e.g. Chaotic, Lo-fi"></div>
+            <button class="m-btn-generate" id="m-btn-generate">Explore</button>
+            <button class="m-btn-generate m-btn-playlist" id="m-btn-playlist">✨ Playlist</button>
+        </div>
+        <div class="m-feedback" id="m-feedback"></div>
+    </div>
+    
+    <footer class="app-footer">Created by <a href="https://alvarofrancomartins.com" target="_blank">Alvaro Franco Martins, PhD</a>&nbsp;&mdash;&nbsp;Powered by Last.fm & DeepSeek</footer>
+</div>
+
+<!-- About modal -->
+<div class="overlay" id="about-overlay">
+    <div class="modal-card about-card">
+        <button class="modal-close" id="about-close">&times;</button>
+        <h2>How does Twisted Dendrite work?</h2>
+        <p>This is a <strong>hybrid recommendation engine</strong> that guarantees logical connections while allowing creative freedom.</p>
+        <p>1. <strong>The Base Layer (Last.fm):</strong> For every artist in the map, the engine queries the Last.fm graph API to find artists that are statistically similar based on millions of listeners.</p>
+        <p>2. <strong>The Twist (DeepSeek LLM):</strong> If you enter a "Vibe", the engine takes the Last.fm recommendations and feeds them into an AI. It asks the AI to swap out those artists for others that share the same musical DNA, but heavily lean into your requested vibe.</p>
+        <p>The result is a completely unique, context-aware visual map.</p>
+    </div>
+</div>
+
+<!-- Playlist modal -->
+<div class="overlay" id="playlist-overlay">
+    <div class="modal-card playlist-card">
+        <button class="modal-close" id="playlist-close">&times;</button>
+        <h2 id="playlist-title">🎶 Sankey Playlist</h2>
+        <div id="playlist-body"></div>
+    </div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+<script>
+(function() {
+    // API routing
+    var API_KEY = 'proxy';
+    
+    // Config
+    var MAX_DEPTH = 3;
+    var BRANCH_FACTOR = 2; // Exact branch factor
+    var TOTAL_ROWS = Math.pow(BRANCH_FACTOR, MAX_DEPTH);
+    var NODE_COLORS = ['#78350f', '#b45309', '#d97706', '#f59e0b', '#fbbf24'];
+
+    // State
+    var globalNodes = [], globalLinks = [], isGenerating = false;
+    var cachedPlaylistData = null, cachedDiagramSignature = null;
+    var isMobile = window.innerWidth <= 1024;
+    
+    // Desktop DOM
+    var seedInput = document.getElementById('seed-input');
+    var twistInput = document.getElementById('twist-input');
+    var btnGenerate = document.getElementById('btn-generate');
+    var btnPlaylist = document.getElementById('btn-playlist');
+    var feedback = document.getElementById('feedback');
+    var introState = document.getElementById('intro-state');
+    var treeContainer = document.getElementById('tree-container');
+    var treeSvgMount = document.getElementById('tree-svg-mount');
+    
+    // Mobile DOM
+    var mobileView = document.getElementById('mobile-view');
+    var mTree = document.getElementById('m-tree');
+    var mTreeStatus = document.getElementById('m-tree-status');
+    var mExploreWrap = document.getElementById('m-explore-wrap');
+    var mSeedInput = document.getElementById('m-seed');
+    var mTwistInput = document.getElementById('m-twist');
+    var mBtnGenerate = document.getElementById('m-btn-generate');
+    var mBtnPlaylist = document.getElementById('m-btn-playlist');
+    var mFeedback = document.getElementById('m-feedback');
+
+    // Modals
+    var playlistOverlay = document.getElementById('playlist-overlay');
+    var playlistTitle = document.getElementById('playlist-title');
+    var playlistBody = document.getElementById('playlist-body');
+    var playlistClose = document.getElementById('playlist-close');
+
+    // Image fetcher
+    async function fetchArtistImage(name) {
+        try {
+            var r = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(name) + '&entity=musicArtist&limit=1');
+            var d = await r.json();
+            if (d.results && d.results.length && d.results[0].artworkUrl100) return d.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+        } catch (e) {}
+        try {
+            var r2 = await fetch('https://itunes.apple.com/search?term=' + encodeURIComponent(name) + '&entity=album&limit=1');
+            var d2 = await r2.json();
+            if (d2.results && d2.results.length) return d2.results[0].artworkUrl100.replace('100x100bb', '600x600bb');
+        } catch (e) {}
+        try {
+            var r3 = await fetch('https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=' + encodeURIComponent(name + ' band music') + '&gsrlimit=1&prop=pageimages&pithumbsize=600&format=json&origin=*');
+            var d3 = await r3.json();
+            if (d3.query && d3.query.pages) {
+                var pages = Object.values(d3.query.pages);
+                if (pages.length && pages[0].thumbnail) return pages[0].thumbnail.source;
+            }
+        } catch (e) {}
+        return null;
+    }
+
+    function withTimeout(promise, ms) {
+        return Promise.race([promise, new Promise(function(r){setTimeout(function(){r(null)}, ms||4000)})]);
+    }
+
+    function lazyLoadImage(node) {
+        withTimeout(fetchArtistImage(node.name), 4000).then(function(url) {
+            if(url) { 
+                node.imageUrl = url; 
+                if(!isGenerating) { drawTree(); }
+                renderMobile(); 
+            }
+        });
+    }
+
+    // --- Last.fm & Proxy Logic ---
+    async function callNetlifyProxy(method, artistName, limit) {
+        var proxyUrl = `https://afmartins.netlify.app/.netlify/functions/lastfm-proxy?method=${method}&artist=${encodeURIComponent(artistName)}`;
+        if (limit) proxyUrl += `&limit=${limit}`;
+        var res = await fetch(proxyUrl);
+        var data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.message || data.error || 'Proxy Error');
+        return data;
+    }
+
+    async function fetchLastFmSimilar(artistName, limit) {
+        try {
+            var data = await callNetlifyProxy('artist.getsimilar', artistName, limit);
+            if (data.similarartists && Array.isArray(data.similarartists.artist)) {
+                return data.similarartists.artist.map(a => a.name);
+            }
+        } catch (e) { console.warn("Last.fm fetch failed:", e); }
+        return [];
+    }
+
+    async function fetchArtistTopTrackAPIApp(artistName) {
+        try {
+            var data = await callNetlifyProxy('artist.gettoptracks', artistName, 1);
+            if (data.toptracks && data.toptracks.track && data.toptracks.track.length > 0) {
+                return data.toptracks.track[0];
+            }
+        } catch (e) { console.warn("Top track fetch failed:", e); }
+        return null;
+    }
+
+    // --- LLM Logic ---
+    async function twistArtistsWithLLM(path, originalRecs, twist, avoidList) {
+        var limit = originalRecs.length;
+        var fullSystem = `You are an expert music curator.\nThe user's listening path is: [${path.join(' \u2192 ')}].\nLast.fm recommended the following similar artists based on the last artist in the path: [${originalRecs.join(', ')}].\n\nYour task: Twist EACH of these recommendations to heavily embody the requested vibe: "${twist}".\nFor example, if the original is "The Smiths" and the vibe is "Psychedelic", you might change it to "Pink Floyd".\n\nCRITICAL RULES:\n- Return ONLY band/artist names. NEVER songs or albums.\n- Do NOT recommend anything in the Avoid List.\n- You must return EXACTLY ${limit} recommendations mapping 1-to-1 to the original list.\n\nReturn ONLY JSON: {"recommendations": ["Twisted Band A", "Twisted Band B"]}`;
+        
+        var userMsg = `Avoid List: [${avoidList.join(', ')}]\nOriginal Recommendations: [${originalRecs.join(', ')}]\nVibe: "${twist}"\nProvide exactly ${limit} twisted recommendations.`;
+        
+        var payload = { model: 'deepseek-chat', messages: [{ role: 'system', content: fullSystem }, { role: 'user', content: userMsg }], response_format: { type: 'json_object' } };
+        
+        var isProxy = API_KEY === 'proxy';
+        var fetchUrl = isProxy ? 'https://afmartins.netlify.app/.netlify/functions/chat' : 'https://api.deepseek.com/chat/completions';
+        var fetchHeaders = { 'Content-Type': 'application/json' };
+        if (!isProxy) fetchHeaders['Authorization'] = 'Bearer ' + API_KEY;
+
+        for (var attempt = 0; attempt < 3; attempt++) {
+            try {
+                var res = await fetch(fetchUrl, { method: 'POST', headers: fetchHeaders, body: JSON.stringify(payload) });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                var data = await res.json();
+                var parsed = JSON.parse(data.choices[0].message.content);
+                if (parsed.recommendations && parsed.recommendations.length > 0) return parsed.recommendations;
+            } catch (err) {
+                console.warn('LLM Attempt failed', err);
+                await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+            }
+        }
+        return []; // Return empty array on absolute failure so fallback works correctly
+    }
+
+    function generateNodeSVG(name, depth, size) {
+        var bg = NODE_COLORS[depth % NODE_COLORS.length];
+        var bgLight = NODE_COLORS[Math.min(depth + 1, NODE_COLORS.length - 1)];
+        var initials = name.replace(/\s*\(.*?\)\s*/g, '').split(/[\s\-\/]+/).filter(function(w){return w && /^[a-zA-Z]/.test(w)}).slice(0, 2).map(function(w){return w[0].toUpperCase()}).join('');
+        var fontSize = Math.max(12, Math.min(size * 0.3, 48));
+        return 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="'+bg+'"/><stop offset="100%" stop-color="'+bgLight+'"/></linearGradient></defs><rect width="'+size+'" height="'+size+'" rx="8" fill="url(#g)"/><text x="'+(size/2)+'" y="'+(size/2)+'" text-anchor="middle" dominant-baseline="central" font-family="Sora,sans-serif" font-weight="700" font-size="'+fontSize+'" fill="rgba(255,255,255,0.85)" letter-spacing="1">'+initials+'</text></svg>');
+    }
+
+    // --- Mobile Rendering ---
+    function mobileInitials(name) { return name.replace(/\s*\(.*?\)\s*/g, '').split(/[\s\-\/]+/).filter(w => w && /^[a-zA-Z]/.test(w)).slice(0, 2).map(w => w[0].toUpperCase()).join(''); }
+    function mobileNodeColor(d) { return NODE_COLORS[d % NODE_COLORS.length] || '#555'; }
+
+    function renderMobile() {
+        if (!isMobile || !globalNodes.length) return;
+        var vw = window.innerWidth;
+        var layers = {}; 
+        globalNodes.forEach(function(n) { if (!layers[n.depth]) layers[n.depth] = []; layers[n.depth].push(n); });
+        var maxD = Math.max.apply(null, Object.keys(layers).map(Number));
+
+        function nodeSize(count) { var available = vw - 32; var perNode = Math.floor(available / count) - 10; return Math.min(Math.max(perNode, 40), 140); }
+        function fontSpec(sz) {
+            if(sz >= 100) return {i: '2.4rem', n: '0.9rem', w: sz+'px'};
+            if(sz >= 70) return {i: '1.6rem', n: '0.75rem', w: sz+'px'};
+            if(sz >= 50) return {i: '1.1rem', n: '0.65rem', w: (sz+6)+'px'};
+            return {i: '0.85rem', n: '0.55rem', w: (sz+4)+'px'};
+        }
+
+        var html = '';
+        for (var d = 0; d <= maxD; d++) {
+            if (!layers[d]) continue;
+            if (d > 0) html += '<div class="m-spacer"></div>';
+            var count = layers[d].length; 
+            var sz = nodeSize(count); 
+            var fs = fontSpec(sz); 
+            var rad = Math.max(8, Math.round(sz * 0.12));
+            
+            html += '<div class="m-layer">';
+            layers[d].forEach(function(n) {
+                var bgColor = mobileNodeColor(n.depth); 
+                var bgLight = mobileNodeColor(Math.min(n.depth + 1, NODE_COLORS.length - 1));
+                var initials = mobileInitials(n.name);
+                var displayName = n.name; // Let CSS handle truncation
+                
+                html += '<a class="m-node" data-depth="'+n.depth+'" data-nid="'+n.id+'" href="'+n.url+'" target="_blank">';
+                html += '<div class="m-node-img-wrap" style="width:'+sz+'px;height:'+sz+'px;border-color:'+bgColor+';border-radius:'+rad+'px">';
+                if (n.imageUrl) {
+                    html += '<img class="m-node-img" src="'+n.imageUrl+'" alt="" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+                    html += '<div class="m-node-initials" style="display:none;background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>';
+                } else {
+                    html += '<div class="m-node-initials" style="background:linear-gradient(135deg,'+bgColor+','+bgLight+');font-size:'+fs.i+'">'+initials+'</div>';
+                }
+                html += '</div>';
+                html += '<div class="m-node-name" style="font-size:'+fs.n+';max-width:'+fs.w+'">'+displayName+'</div>';
+                html += '</a>';
+            });
+            html += '</div>';
+        }
+        mTree.innerHTML = html;
+        mTreeStatus.innerHTML = isGenerating ? 'Exploring branches<span class="spinner"></span>' : '\u2726 ' + globalNodes.length + ' nodes mapped';
+
+        requestAnimationFrame(function() {
+            var oldSvg = mTree.querySelector('.m-tree-svg'); if (oldSvg) oldSvg.remove();
+            var treeRect = mTree.getBoundingClientRect();
+            var svgNS = 'http://www.w3.org/2000/svg';
+            var svg = document.createElementNS(svgNS, 'svg');
+            svg.setAttribute('class', 'm-tree-svg');
+            svg.setAttribute('width', treeRect.width);
+            svg.setAttribute('height', treeRect.height);
+            
+            var defs = document.createElementNS(svgNS, 'defs');
+            globalLinks.forEach(function(link, i) {
+                var srcEl = mTree.querySelector('[data-nid="'+link.source.id+'"]');
+                var tgtEl = mTree.querySelector('[data-nid="'+link.target.id+'"]');
+                if (!srcEl || !tgtEl) return;
+
+                var srcRect = srcEl.getBoundingClientRect();
+                var tgtRect = tgtEl.getBoundingClientRect();
+                var x1 = srcRect.left + srcRect.width/2 - treeRect.left;
+                var y1 = srcRect.bottom - treeRect.top - 8;
+                var x2 = tgtRect.left + tgtRect.width/2 - treeRect.left;
+                var y2 = tgtRect.top - treeRect.top + 8;
+                var cy = y1 + (y2 - y1) * 0.5;
+
+                var gradId = 'mg-' + i;
+                var grad = document.createElementNS(svgNS, 'linearGradient');
+                grad.setAttribute('id', gradId); grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+                grad.setAttribute('x1', x1); grad.setAttribute('y1', y1); grad.setAttribute('x2', x2); grad.setAttribute('y2', y2);
+                var stop1 = document.createElementNS(svgNS, 'stop'); stop1.setAttribute('offset', '0%'); stop1.setAttribute('stop-color', mobileNodeColor(link.source.depth));
+                var stop2 = document.createElementNS(svgNS, 'stop'); stop2.setAttribute('offset', '100%'); stop2.setAttribute('stop-color', mobileNodeColor(link.target.depth));
+                grad.appendChild(stop1); grad.appendChild(stop2); defs.appendChild(grad);
+
+                var path = document.createElementNS(svgNS, 'path');
+                path.setAttribute('class', 'm-tree-edge');
+                path.setAttribute('d', 'M'+x1+','+y1+' C'+x1+','+cy+' '+x2+','+cy+' '+x2+','+y2);
+                var strokeW = link.source.depth === 0 ? 3.5 : link.source.depth === 1 ? 2.5 : 1.5;
+                path.setAttribute('stroke', 'url(#'+gradId+')');
+                path.setAttribute('stroke-width', strokeW);
+                svg.appendChild(path);
+            });
+            svg.insertBefore(defs, svg.firstChild);
+            mTree.insertBefore(svg, mTree.firstChild);
+        });
+    }
+
+    function togglePlaylistButtons(show) {
+        btnPlaylist.style.display = show ? 'block' : 'none';
+        mBtnPlaylist.style.display = show ? 'block' : 'none';
+    }
+
+    async function handleGeneratePlaylist() {
+        if (!globalNodes || globalNodes.length === 0) return;
+        var sig = globalNodes.map(n => n.name).sort().join('|');
+        if (cachedPlaylistData && cachedDiagramSignature === sig) {
+            showPlaylistModal(cachedPlaylistData);
+            return;
+        }
+
+        btnPlaylist.disabled = true; mBtnPlaylist.disabled = true;
+        var genText = 'Generating <span class="spinner" style="border-left-color:#fff;"></span>';
+        btnPlaylist.innerHTML = genText; mBtnPlaylist.innerHTML = genText;
+
+        playlistTitle.textContent = '🎶 Generating Playlist...';
+        playlistBody.innerHTML = '<div style="text-align:center; padding: 20px;"><p style="color:var(--text-secondary);">Fetching top tracks for mapped artists...</p><div class="spinner"></div></div>';
+        playlistOverlay.classList.add('visible');
+
+        var trackPromises = globalNodes.map(n => fetchArtistTopTrackAPIApp(n.name));
+        try {
+            var tracks = await Promise.all(trackPromises);
+            var validTracks = tracks.filter(t => t !== null);
+            if (validTracks.length === 0) throw new Error("Could not fetch top tracks from Last.fm.");
+
+            var pData = {
+                name: "Twisted Sankey Playlist",
+                tracks: validTracks.map(t => ({ artist: t.artist.name, track: t.name, url: t.url }))
+            };
+            cachedPlaylistData = pData;
+            cachedDiagramSignature = sig;
+            showPlaylistModal(pData);
+        } catch (e) {
+            playlistTitle.textContent = 'Error Generating Playlist';
+            playlistBody.innerHTML = '<p style="color:#ef4444;">' + e.message + '</p>';
+        } finally {
+            btnPlaylist.disabled = false; mBtnPlaylist.disabled = false;
+            btnPlaylist.innerHTML = '✨ Playlist'; mBtnPlaylist.innerHTML = '✨ Playlist';
+        }
+    }
+
+    function showPlaylistModal(data) {
+        playlistTitle.textContent = '🎶 ' + data.name;
+        var html = '<ul style="list-style:decimal; padding-left:20px; color:var(--text-secondary);">';
+        data.tracks.forEach(t => {
+            html += '<li style="margin-bottom:12px; font-size:1.05rem;"><a href="'+t.url+'" target="_blank" style="color:#3b82f6; text-decoration:none; font-weight:600;">'+t.track+'</a> - <span style="color:var(--text-primary);">'+t.artist+'</span></li>';
+        });
+        html += '</ul>';
+        playlistBody.innerHTML = html;
+    }
+
+    btnPlaylist.addEventListener('click', handleGeneratePlaylist);
+    mBtnPlaylist.addEventListener('click', handleGeneratePlaylist);
+    playlistClose.addEventListener('click', () => playlistOverlay.classList.remove('visible'));
+    playlistOverlay.addEventListener('click', e => { if (e.target === playlistOverlay) playlistOverlay.classList.remove('visible'); });
+
+    // --- Primary Generation Logic ---
+    async function startGeneration(seed, twist) {
+        togglePlaylistButtons(false);
+        var cleanSeed = seed.trim();
+        var twistDisplay = twist ? ' \u2014 <span style="color:var(--accent)">' + twist + '</span>' : '';
+        
+        var startMsg = 'Branching from <b>' + cleanSeed + '</b>' + twistDisplay + ' <span class="spinner"></span>';
+        feedback.innerHTML = startMsg; feedback.className = 'feedback';
+        mFeedback.innerHTML = startMsg; mFeedback.className = 'm-feedback';
+        
+        var rootNode = { 
+            id: 'n-' + Math.random().toString(36).substr(2,9), 
+            name: cleanSeed, 
+            depth: 0, 
+            startRow: 0, 
+            rowSpan: TOTAL_ROWS, 
+            url: 'https://www.last.fm/music/' + encodeURIComponent(cleanSeed.replace(/\s+/g, '+')), 
+            imageUrl: null 
+        };
+        lazyLoadImage(rootNode);
+        
+        globalNodes = [rootNode]; globalLinks = [];
+        introState.classList.add('hidden'); treeContainer.classList.add('visible');
+        if (isMobile) { mExploreWrap.style.display = 'flex'; mobileView.classList.add('visible'); renderMobile(); }
+        
+        var used = new Set([cleanSeed.toLowerCase()]);
+        var queue = [{ name: cleanSeed, depth: 0, nodeRef: rootNode, path: [cleanSeed] }];
+        drawTree();
+        
+        var head = 0;
+        while (head < queue.length && isGenerating) {
+            var cur = queue[head++];
+            if (cur.depth >= MAX_DEPTH) continue;
+            
+            try {
+                // 1. Fetch 15 similar artists from Last.fm to build a solid pool
+                var lastFmRecs = await fetchLastFmSimilar(cur.name, 15);
+                
+                // 2. Filter out artists already on the map
+                var validLastFm = lastFmRecs.filter(name => !used.has(name.toLowerCase()));
+                
+                if (validLastFm.length > 0) {
+                    var finalNames = [];
+                    
+                    // 3. The Twist: Feed a small subset to the LLM to save time
+                    if (twist) {
+                        var toTwist = validLastFm.slice(0, BRANCH_FACTOR + 2); // Send 4 artists to twist
+                        var twistedNames = await twistArtistsWithLLM(cur.path, toTwist, twist, Array.from(used));
+                        
+                        twistedNames.forEach(name => {
+                            if (name && name.toLowerCase() !== 'none') {
+                                finalNames.push(name);
+                            }
+                        });
+                    }
+                    
+                    // 4. THE ROBUST FIX (Graceful Fallback): 
+                    // Append the untwisted, validated Last.fm artists to the end of the array.
+                    // If the LLM fails, hallucinates duplicates, or returns too few, the loop seamlessly
+                    // pulls from these real Last.fm connections to guarantee we hit our BRANCH_FACTOR.
+                    finalNames = finalNames.concat(validLastFm);
+                    
+                    // 5. Add exactly BRANCH_FACTOR nodes to the graphical tree
+                    var accepted = 0;
+                    var updated = false;
+                    for (var i = 0; i < finalNames.length; i++) {
+                        if (accepted >= BRANCH_FACTOR) break;
+                        
+                        var originalName = finalNames[i].trim();
+                        var normName = originalName.toLowerCase();
+                        
+                        if (!originalName || used.has(normName)) continue;
+                        used.add(normName);
+                        
+                        var childSpan = cur.nodeRef.rowSpan / BRANCH_FACTOR;
+                        var childStartRow = cur.nodeRef.startRow + accepted * childSpan;
+                        var childNode = {
+                            id: 'n-' + Math.random().toString(36).substr(2,9),
+                            name: originalName,
+                            depth: cur.depth + 1,
+                            startRow: childStartRow,
+                            rowSpan: childSpan,
+                            url: 'https://www.last.fm/music/' + encodeURIComponent(originalName.replace(/\s+/g, '+')),
+                            imageUrl: null
+                        };
+                        
+                        lazyLoadImage(childNode);
+                        globalNodes.push(childNode);
+                        globalLinks.push({ source: cur.nodeRef, target: childNode, childIndex: accepted });
+                        queue.push({ name: originalName, depth: cur.depth + 1, nodeRef: childNode, path: cur.path.concat([originalName]) });
+                        
+                        accepted++;
+                        updated = true;
+                    }
+                    
+                    if (updated && isGenerating) { drawTree(); renderMobile(); }
+                }
+            } catch (e) {
+                console.warn('Gen failed for ' + cur.name + ':', e);
+            }
+        }
+        
+        if (isGenerating) {
+            var completeMsg = '\u2726 Exploration complete \u2014 ' + globalNodes.length + ' nodes mapped';
+            feedback.innerHTML = completeMsg; feedback.className = 'feedback success';
+            mFeedback.innerHTML = completeMsg; mFeedback.className = 'm-feedback success';
+            isGenerating = false; 
+            btnGenerate.textContent = 'Explore'; mBtnGenerate.textContent = 'Explore';
+            togglePlaylistButtons(true);
+            renderMobile();
+        }
+    }
+
+    function drawTree() {
+        if (!globalNodes.length) return;
+        treeSvgMount.innerHTML = '';
+        
+        var margin = { top: 20, right: 130, bottom: 20, left: 130 };
+        var containerW = treeSvgMount.clientWidth || window.innerWidth - 40;
+        var containerH = Math.max(380, treeSvgMount.clientHeight || (window.innerHeight - 280));
+        var w = containerW - margin.left - margin.right;
+        var h = containerH - margin.top - margin.bottom;
+        var colW = w / MAX_DEPTH;
+        var slotH = h / TOTAL_ROWS;
+        
+        var svg = d3.select(treeSvgMount).append('svg')
+            .attr('width', containerW).attr('height', containerH)
+            .append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            
+        function getNodeSize(depth) {
+            var span = Math.pow(BRANCH_FACTOR, MAX_DEPTH - depth);
+            var maxV = span * slotH * 0.85;
+            var ideal = [340, 200, 110, 66][depth] || 50;
+            return Math.max(28, Math.min(ideal, maxV, colW * 0.7)); // Restored minimum to 28
+        }
+        
+        globalNodes.forEach(function(n) {
+            n.size = getNodeSize(n.depth);
+            n.width = n.size; n.height = n.size;
+            n.x0 = n.depth * colW; n.x1 = n.x0 + n.width;
+            n.yCenter = (n.startRow + n.rowSpan / 2) * slotH;
+            n.y0 = n.yCenter - n.height / 2; n.y1 = n.yCenter + n.height / 2;
+            if (!n.imageUrl) n._generatedImg = generateNodeSVG(n.name, n.depth, Math.round(n.size));
+        });
+        
+        var renderLinks = globalLinks.map(function(l) {
+            var seg = l.source.height / BRANCH_FACTOR;
+            return { source: l.source, target: l.target, y0: l.source.y0 + l.childIndex * seg + seg / 2, y1: l.target.yCenter, width: seg * 0.88 };
+        });
+        
+        function nodeColor(n) { return NODE_COLORS[n.depth % NODE_COLORS.length] || '#555'; }
+        
+        var defs = svg.append('defs');
+        globalNodes.forEach(function(n) {
+            defs.append('clipPath').attr('id', 'clip-' + n.id)
+                .append('rect').attr('width', n.width).attr('height', n.height).attr('rx', 8);
+        });
+        
+        renderLinks.forEach(function(link, i) {
+            var grad = defs.append('linearGradient').attr('id', 'lg-' + i).attr('gradientUnits', 'userSpaceOnUse')
+                .attr('x1', link.source.x1).attr('x2', link.target.x0);
+            grad.append('stop').attr('offset', '0%').attr('stop-color', nodeColor(link.source));
+            grad.append('stop').attr('offset', '100%').attr('stop-color', nodeColor(link.target));
+        });
+        
+        svg.append('g').attr('fill', 'none').selectAll('path').data(renderLinks).join('path')
+            .attr('class', 'tree-link').attr('d', d3.sankeyLinkHorizontal())
+            .attr('stroke', function(d, i) { return 'url(#lg-' + i + ')'; })
+            .attr('stroke-width', function(d) { return Math.max(2, d.width); });
+            
+        var ng = svg.append('g').selectAll('a').data(globalNodes).join('a')
+            .attr('href', function(d) { return d.url; }).attr('target', '_blank')
+            .append('g').attr('class', 'node-group').attr('transform', function(d) { return 'translate(' + d.x0 + ',' + d.y0 + ')'; });
+            
+        ng.append('rect').attr('class', 'node-rect')
+            .attr('width', function(d) { return d.width; }).attr('height', function(d) { return d.height; })
+            .attr('fill', function(d) { return nodeColor(d); }).attr('rx', 8);
+            
+        ng.append('image').attr('class', 'node-image')
+            .attr('href', function(d) { return d.imageUrl || d._generatedImg || ''; })
+            .attr('width', function(d) { return d.width; }).attr('height', function(d) { return d.height; })
+            .attr('preserveAspectRatio', 'xMidYMid slice').attr('clip-path', function(d) { return 'url(#clip-' + d.id + ')'; });
+            
+        ng.append('text').attr('class', 'node-label')
+            .attr('x', function(d) { return d.depth < MAX_DEPTH ? d.width + 12 : -12; })
+            .attr('y', function(d) { return d.height / 2; }).attr('dy', '0.35em')
+            .attr('text-anchor', function(d) { return d.depth < MAX_DEPTH ? 'start' : 'end'; })
+            .text(function(d) { return d.name.length > 28 ? d.name.slice(0, 26) + '\u2026' : d.name; });
+    }
+
+    // --- Events ---
+    async function handleGenerate() {
+        var seed = (isMobile ? mSeedInput.value : seedInput.value).trim();
+        var twist = (isMobile ? mTwistInput.value : twistInput.value).trim();
+        
+        if (!seed) {
+            var msg = 'Please enter a starting band.';
+            feedback.textContent = msg; feedback.className = 'feedback error';
+            mFeedback.textContent = msg; mFeedback.className = 'm-feedback error';
+            return;
+        }
+        
+        // Sync inputs
+        seedInput.value = seed; mSeedInput.value = seed;
+        twistInput.value = twist; mTwistInput.value = twist;
+        
+        if (isGenerating) {
+            isGenerating = false; 
+            btnGenerate.textContent = 'Explore'; mBtnGenerate.textContent = 'Explore';
+            feedback.textContent = 'Generation stopped.'; mFeedback.textContent = 'Generation stopped.';
+            return;
+        }
+        
+        isGenerating = true; 
+        btnGenerate.textContent = 'Stop'; mBtnGenerate.textContent = 'Stop';
+        startGeneration(seed, twist);
+    }
+
+    btnGenerate.addEventListener('click', handleGenerate);
+    mBtnGenerate.addEventListener('click', handleGenerate);
+    [seedInput, twistInput, mSeedInput, mTwistInput].forEach(function(el) {
+        el.addEventListener('keypress', function(e) { if (e.key === 'Enter') handleGenerate(); });
+    });
+
+    window.addEventListener('resize', function() {
+        var wasMobile = isMobile;
+        isMobile = window.innerWidth <= 1024;
+        if (globalNodes.length && !isGenerating) {
+            if (!isMobile) drawTree();
+            if (isMobile) renderMobile();
+        }
+    });
+
+    // About modal
+    var aboutOverlay = document.getElementById('about-overlay');
+    var aboutTrigger = document.getElementById('about-trigger');
+    var aboutClose = document.getElementById('about-close');
+    var mAboutLink = document.getElementById('m-about-link');
+    
+    function openAbout(e) { if(e) e.preventDefault(); aboutOverlay.classList.add('visible'); }
+    function closeAbout() { aboutOverlay.classList.remove('visible'); }
+    
+    aboutTrigger.addEventListener('click', openAbout);
+    aboutClose.addEventListener('click', closeAbout);
+    if(mAboutLink) mAboutLink.addEventListener('click', openAbout);
+    aboutOverlay.addEventListener('click', function(e) { if (e.target === aboutOverlay) closeAbout(); });
+
+})();
+</script>
+</body>
+</html>

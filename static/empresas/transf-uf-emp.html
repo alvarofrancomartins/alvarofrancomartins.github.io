@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Fluxo Migratório</title>
+    
+    <!-- Tailwind CSS (Estilização) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js (Gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plugin para Rótulos de Dados (DataLabels) -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+    <!-- DADOS: Carrega o arquivo gerado pelo script Python de ETL -->
+    <script src="dados_fluxo.js"></script>
+
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); transition: all 0.3s ease; }
+        .card:hover { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        
+        /* Ajuste para garantir que o scroll funcione apenas onde necessário em telas pequenas */
+        @media (max-width: 1023px) {
+            body { overflow-y: auto !important; height: auto !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 p-2 md:p-4 lg:h-screen lg:w-screen lg:overflow-hidden flex flex-col">
+
+    <!-- Container Principal -->
+    <div class="w-full h-full flex flex-col gap-4">
+        
+        <!-- Header -->
+        <header class="flex-none flex flex-col items-center justify-center gap-2 bg-white p-4 md:p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+            <div class="flex flex-col lg:flex-row items-center justify-between w-full px-2 md:px-4 gap-4">
+                <div class="hidden lg:flex flex-1"></div> <!-- Espaçador Desktop -->
+                
+                <div class="flex flex-col items-center">
+                    <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-slate-800 tracking-tight">Fluxo Migratório de Empresas</h1>
+                    <p class="text-slate-500 text-xs md:text-sm lg:text-base mt-1 flex items-center justify-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        Análise de Saldo (Entrada - Saída) entre Estados
+                    </p>
+                </div>
+                
+                <div class="lg:flex-1 flex justify-center lg:justify-end">
+                    <div id="status-container" class="flex items-center gap-2 bg-slate-50 px-3 md:px-4 py-1 md:py-2 rounded-lg border border-slate-200">
+                        <div id="status-dot" class="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></div>
+                        <span id="status-text" class="text-xs md:text-sm font-medium text-slate-600">Carregando...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Grid Principal -->
+        <main class="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5">
+            
+            <!-- Painel Esquerdo: Saldo Geral (Barras) -->
+            <section class="lg:col-span-4 h-[500px] lg:h-full flex flex-col">
+                <div class="card p-4 md:p-5 h-full flex flex-col border border-slate-100">
+                    <div class="mb-2 flex-none">
+                        <h2 class="text-lg md:text-xl font-bold text-slate-700">Saldo Total por UF</h2>
+                        <p class="text-[10px] md:text-xs text-slate-400 uppercase tracking-wider font-semibold mt-1">Clique para detalhar</p>
+                    </div>
+                    <div class="flex-1 relative w-full min-h-0">
+                        <canvas id="chartSaldo"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Painel Direito: Linha do Tempo -->
+            <section class="lg:col-span-8 h-[500px] lg:h-full flex flex-col">
+                <div class="card p-4 md:p-5 h-full flex flex-col border border-slate-100">
+                    <div class="flex justify-between items-start mb-2 pb-2 border-b border-slate-100 flex-none">
+                        <div>
+                            <h2 class="text-lg md:text-xl font-bold text-slate-700">Evolução Temporal</h2>
+                            <p class="text-xs md:text-sm text-slate-500 mt-1">Histórico mês a mês</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Estado</span>
+                            <div id="selected-uf-display" class="text-2xl md:text-3xl lg:text-4xl font-black text-blue-600 leading-tight">--</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 relative w-full min-h-0">
+                        <canvas id="chartTemporal"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Script de Lógica -->
+    <script>
+        // Registrar o plugin DataLabels
+        Chart.register(ChartDataLabels);
+
+        let chartSaldoInstance = null;
+        let chartTemporalInstance = null;
+        
+        const appState = {
+            totals: {},
+            timeSeries: {},
+            months: []
+        };
+
+        window.onload = function() {
+            const statusContainer = document.getElementById('status-container');
+
+            if (typeof DADOS_FLUXO === 'undefined') {
+                alert("ERRO: O arquivo 'dados_fluxo.js' não foi encontrado.");
+                return;
+            }
+
+            statusContainer.style.display = 'none';
+            processarDados(DADOS_FLUXO);
+        };
+
+        function processarDados(rawData) {
+            const monthsSet = new Set();
+
+            rawData.forEach(row => {
+                const count = Number(row.count);
+                const ufOrigem = row.uf_origem;
+                const ufDestino = row.uf_destino;
+                const mes = row.mes_destino; 
+
+                if (!ufOrigem || !ufDestino || !mes) return;
+                monthsSet.add(mes);
+
+                if (!appState.timeSeries[mes]) appState.timeSeries[mes] = {};
+
+                appState.totals[ufOrigem] = (appState.totals[ufOrigem] || 0) - count;
+                appState.totals[ufDestino] = (appState.totals[ufDestino] || 0) + count;
+
+                appState.timeSeries[mes][ufOrigem] = (appState.timeSeries[mes][ufOrigem] || 0) - count;
+                appState.timeSeries[mes][ufDestino] = (appState.timeSeries[mes][ufDestino] || 0) + count;
+            });
+
+            appState.months = Array.from(monthsSet).sort();
+            renderizarBarChart();
+            
+            const topState = Object.keys(appState.totals).sort((a,b) => appState.totals[b] - appState.totals[a])[0];
+            if(topState) atualizarLineChart(topState);
+        }
+
+        function renderizarBarChart() {
+            const ctx = document.getElementById('chartSaldo').getContext('2d');
+            const ufs = Object.keys(appState.totals).sort((a, b) => appState.totals[b] - appState.totals[a]);
+            const values = ufs.map(uf => appState.totals[uf]);
+
+            const bgColors = values.map(v => v < 0 ? 'rgba(239, 68, 68, 0.7)' : 'rgba(34, 197, 94, 0.7)');
+            const borderColors = values.map(v => v < 0 ? 'rgb(220, 38, 38)' : 'rgb(22, 163, 74)');
+
+            chartSaldoInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ufs,
+                    datasets: [{
+                        label: 'Saldo',
+                        data: values,
+                        backgroundColor: bgColors,
+                        borderColor: borderColors,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 14,
+                            titleFont: { size: 16 },
+                            bodyFont: { size: 14 },
+                            callbacks: { label: (c) => `Saldo: ${c.raw > 0 ? '+' : ''}${c.raw}` } 
+                        },
+                        datalabels: {
+                            color: 'black',
+                            anchor: 'end',
+                            align: 'start',
+                            font: { weight: 'bold', size: 11 },
+                            formatter: (value, context) => {
+                                const index = context.dataIndex;
+                                const totalItems = context.dataset.data.length;
+                                if (index < 3 || index >= totalItems - 3) return value > 0 ? '+' + value : value;
+                                return null;
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
+                        y: { grid: { display: false }, ticks: { font: { weight: 'bold', size: 10 } } }
+                    },
+                    onClick: (evt, elements, chart) => {
+                        const points = chart.getElementsAtEventForMode(evt, 'y', { intersect: false }, true);
+                        if (points.length) {
+                            atualizarLineChart(ufs[points[0].index]);
+                        }
+                    }
+                }
+            });
+        }
+
+        function atualizarLineChart(uf) {
+            document.getElementById('selected-uf-display').innerText = uf;
+            const ctx = document.getElementById('chartTemporal').getContext('2d');
+            const dataPoints = appState.months.map(m => (appState.timeSeries[m] && appState.timeSeries[m][uf]) || 0);
+
+            if (chartTemporalInstance) chartTemporalInstance.destroy();
+
+            const getGradient = (context, type) => {
+                const {ctx, chartArea, scales} = context.chart;
+                if (!chartArea) return null;
+                const zeroStop = Math.max(0, Math.min(1, (scales.y.getPixelForValue(0) - chartArea.top) / (chartArea.bottom - chartArea.top)));
+                const gradient = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+
+                if (type === 'border') {
+                    gradient.addColorStop(0, 'rgb(34, 197, 94)'); 
+                    gradient.addColorStop(zeroStop, 'rgb(34, 197, 94)');
+                    gradient.addColorStop(zeroStop, 'rgb(239, 68, 68)');
+                    gradient.addColorStop(1, 'rgb(239, 68, 68)');
+                } else {
+                    gradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)'); 
+                    gradient.addColorStop(zeroStop, 'rgba(34, 197, 94, 0.05)'); 
+                    gradient.addColorStop(zeroStop, 'rgba(239, 68, 68, 0.05)');
+                    gradient.addColorStop(1, 'rgba(239, 68, 68, 0.4)'); 
+                }
+                return gradient;
+            };
+
+            chartTemporalInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: appState.months,
+                    datasets: [{
+                        label: `Saldo Mensal (${uf})`,
+                        data: dataPoints,
+                        borderColor: (c) => getGradient(c, 'border'),
+                        backgroundColor: (c) => getGradient(c, 'background'),
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: (c) => c.raw >= 0 ? 'rgb(34, 197, 94)' : 'rgb(239, 68, 68)',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { display: false },
+                        datalabels: { display: false }, 
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                            padding: 12,
+                            callbacks: {
+                                title: (t) => `Mês: ${t[0].label}`,
+                                label: (c) => `Saldo: ${c.raw > 0 ? '+' : ''}${c.raw}`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { callback: (val) => val > 0 ? '+' + val : val, font: { size: 11 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 }, autoSkip: true, maxTicksLimit: 8 }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
