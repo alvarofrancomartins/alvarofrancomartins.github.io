@@ -6,11 +6,19 @@
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
   // Strip any HTML tags that leaked from the LLM (it's told not to, but safety net)
+  // First removes entire <details> blocks (tags + content), then any
+  // stray tags that survived. This prevents the LLM's old-format evidence
+  // text from leaking into the response alongside the app-generated section.
   function stripHtmlTags(t){
-    return (t||'').replace(/<details[^>]*>/gi,'').replace(/<\/details>/gi,'')
-                 .replace(/<summary[^>]*>/gi,'').replace(/<\/summary>/gi,'')
-                 .replace(/<\/?div[^>]*>/gi,'').replace(/<\/?p[^>]*>/gi,'')
-                 .replace(/<\/?span[^>]*>/gi,'').replace(/<\/?br\s*\/?>/gi,'');
+    // Kill full <details>...</details> blocks including their inner content
+    t=(t||'').replace(/<details[^>]*>[\s\S]*?<\/details>/gi,'');
+    // Kill full <summary>...</summary> blocks
+    t=t.replace(/<summary[^>]*>[\s\S]*?<\/summary>/gi,'');
+    // Kill any remaining bare tags
+    t=t.replace(/<\/?details[^>]*>/gi,'').replace(/<\/?summary[^>]*>/gi,'')
+         .replace(/<\/?div[^>]*>/gi,'').replace(/<\/?p[^>]*>/gi,'')
+         .replace(/<\/?span[^>]*>/gi,'').replace(/<\/?br\s*\/?>/gi,'');
+    return t;
   }
 
   function titleFromUrl(u){
@@ -764,6 +772,9 @@
     '  <div>, or any other HTML element. The app builds the evidence section,',
     '  sources list, and summary blocks automatically. HTML in your answer will',
     '  render as broken raw text.',
+    '- Do NOT add your own evidence table, edge list, or source list at the',
+    '  bottom of your answer. The app appends all edges and sources below',
+    '  automatically. Duplicating them confuses the reader.',
     '- Bullet points. Concise.',
     '- Outside scope? Say so.',
     '- If find_paths returns nothing, fall back to find_cooperation_routes.',
