@@ -615,6 +615,13 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .ask-msg-body code{font-size:.9em;background:var(--s2);padding:1px 5px;border-radius:3px;color:var(--amber)}
 .ask-msg-body em{color:var(--text-bright)}
 
+/* Auto-appended evidence section (matches Trace a Connection format) */
+.ask-evid{margin:1.2em 0 0;padding-top:1em;border-top:1px solid var(--b1)}
+.ask-evid-head{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);cursor:pointer;user-select:none;margin-bottom:.6em}
+.ask-evid-head::before{content:"▸ "}
+.ask-evid-head.open::before{content:"▾ "}
+.ask-evid-body.collapsed{display:none}
+
 /* Auto-appended source links */
 .ask-src-head{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin:1.2em 0 .4em;padding-top:1em;border-top:1px solid var(--b1)}
 .ask-src-list{display:flex;flex-wrap:wrap;gap:6px}

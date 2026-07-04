@@ -5,6 +5,12 @@
 
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
+  function titleFromUrl(u){
+    var m=u.match(/title=([^&]+)/);
+    if(m)return decodeURIComponent(m[1]).replace(/_/g,' ');
+    return u;
+  }
+
   function renderMarkdown(t){
     // Block-level: split into paragraphs/lines, process heading / hr / table / list
     // then join, then process inline formatting.
@@ -737,7 +743,12 @@
     '- "Allies of allies" / "X\'s network position": get_network_neighborhood.',
     '- Multi-hop any type: find_paths. Sources are added automatically.',
     '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
-    '- Sources are added automatically after each answer — no need to list them yourself.',
+    '- When citing facts, mention the Wikipedia article name inline where possible',
+    '  (e.g. "according to the Jalisco New Generation Cartel article, CJNG broke away...").',
+    '  This makes claims traceable even before the user expands the Evidence section.',
+    '- Every answer ends with a structured Evidence section (collapsed by default)',
+    '  showing every edge with Source/Time/Quote pills, plus a Sources list.',
+    '  These are added automatically — no need to repeat sources manually.',
     '- Bullet points. Concise.',
     '- Outside scope? Say so.',
     '- If find_paths returns nothing, fall back to find_cooperation_routes.',
@@ -751,9 +762,10 @@
     await dataReady;
     var messages=[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:userQuestion}];
     var collectedSources={};  // url -> {title, url}
+    var collectedEvidence={pairs:{}, paths:[], routes:[], orgPairsSeen:new Set()};
 
     function extractSources(toolResult){
-      // Parse JSON tool results and collect any source URLs found
+      // Parse JSON tool results and collect any source URLs found and edge evidence
       try{
         var r=JSON.parse(toolResult);
       }catch(e){return;}
@@ -771,13 +783,193 @@
       if(matches){matches.forEach(function(m){if(m.sources)m.sources.forEach(function(s){collectedSources[s.url]={title:s.title,url:s.url};});});}
       // get_organization single result
       if(r.sources)r.sources.forEach(function(s){collectedSources[s.url]={title:s.title,url:s.url};});
+
+      // ── Collect edge evidence for structured rendering ──
+      // get_connections pair: {organization_a, organization_b, edges[], source_urls[]}
+      if(r.organization_a&&r.organization_b&&r.edges&&r.edges.length>0){
+        var pairKey=[r.organization_a,r.organization_b].sort().join('||');
+        if(!collectedEvidence.pairs[pairKey]){
+          collectedEvidence.pairs[pairKey]={a:r.organization_a,b:r.organization_b,edges:[],summaryLoaded:false};
+        }
+        for(var ei=0;ei<r.edges.length;ei++){
+          collectedEvidence.pairs[pairKey].edges.push({
+            description:r.edges[ei].description||'',
+            relationship:r.edges[ei].relationship||'other',
+            time_period:r.edges[ei].time_period||'',
+            evidence_quote:r.edges[ei].evidence_quote||'',
+            source_urls:r.edges[ei].source_urls||[]
+          });
+        }
+      }
+      // find_paths: {from, to, paths[]}
+      if(r.from&&r.to&&r.paths&&r.paths.length>0){
+        collectedEvidence.paths.push({from:r.from,to:r.to,paths:r.paths});
+      }
+      // find_cooperation_routes: {organization_a, organization_b, cooperation_routes[]}
+      if(r.organization_a&&r.organization_b&&r.cooperation_routes&&r.cooperation_routes.length>0){
+        collectedEvidence.routes.push({from:r.organization_a,to:r.organization_b,routes:r.cooperation_routes});
+      }
+      // get_relationship_summary: {organization_a, organization_b, summary}
+      if(r.organization_a&&r.organization_b&&r.summary){
+        var pk=[r.organization_a,r.organization_b].sort().join('||');
+        if(!collectedEvidence.pairs[pk]){
+          collectedEvidence.pairs[pk]={a:r.organization_a,b:r.organization_b,edges:[],summaryLoaded:true};
+        }
+        collectedEvidence.pairs[pk].summary=r.summary;
+      }
     }
 
-    // Helper to extract Wikipedia article title from URL
-    function titleFromUrl(u){
-      var m=u.match(/title=([^&]+)/);
-      if(m)return decodeURIComponent(m[1]).replace(/_/g,' ');
-      return u;
+    // ── Render evidence section (matching Trace a Connection format) ──
+    var EDGE_LABELS={cooperation:'Cooperation',conflict:'Conflict',other:'Other'};
+    var FAMILY_COLORS={cooperation:'var(--fam-coop)',conflict:'var(--fam-hostile)',other:'var(--fam-loose)'};
+
+    function renderSourcePill(url){
+      return '<div class="ev-srcs"><span class="ev-srcs-label">Source:</span> <a href="'+esc(url)+'" target="_blank" rel="noopener nofollow">'+esc(titleFromUrl(url))+'</a></div>';
+    }
+
+    function renderTimeToggle(timeVal){
+      var tid='evt-'+Math.random().toString(36).slice(2,10);
+      var btn='<button type="button" class="ev-toggle t" data-target="'+tid+'"><span>Time</span><span class="chev">▾</span></button>';
+      var reveal='<div class="fp-reveal" id="'+tid+'" hidden><span class="ev-time">'+esc(timeVal||'Unknown')+'</span></div>';
+      return btn+reveal;
+    }
+
+    function renderQuoteToggle(quote){
+      var qid='evq-'+Math.random().toString(36).slice(2,10);
+      var btn='<button type="button" class="ev-toggle q" data-target="'+qid+'"><span>Quote</span><span class="chev">▾</span></button>';
+      var reveal='<div class="fp-reveal" id="'+qid+'" hidden><blockquote class="ev-quote">'+esc(quote||'')+'</blockquote></div>';
+      return btn+reveal;
+    }
+
+    function renderEdgeBlock(e){
+      var desc=e.description||'';
+      var html='<div class="rp-linkage">';
+      html+='<div class="rp-linkage-desc">'+(desc?esc(desc):'<em style="color:var(--text-muted)">No description.</em>')+'</div>';
+      // Meta row: sources + time + quote
+      var metaParts='';
+      if(e.source_urls&&e.source_urls.length)for(var u=0;u<e.source_urls.length;u++)metaParts+=renderSourcePill(e.source_urls[u]);
+      metaParts+=renderTimeToggle(e.time_period||'');
+      metaParts+=renderQuoteToggle(e.evidence_quote||'');
+      html+='<div class="ev-meta">'+metaParts+'</div>';
+      html+='</div>';
+      return html;
+    }
+
+    function renderEvidenceSection(){
+      var html='';
+      var pairKeys=Object.keys(collectedEvidence.pairs);
+      var hasPaths=collectedEvidence.paths.length>0;
+      var hasRoutes=collectedEvidence.routes.length>0;
+      if(!pairKeys.length&&!hasPaths&&!hasRoutes)return '';
+
+      html+='<div class="ask-evid">';
+      html+='<div class="ask-evid-head collapsed" onclick="var b=this.nextElementSibling;var opening=b.classList.contains(\'collapsed\');this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">Evidence</div>';
+      html+='<div class="ask-evid-body collapsed">';
+
+      // Direct pairs
+      pairKeys.forEach(function(pk){
+        var pair=collectedEvidence.pairs[pk];
+        // Group edges by relationship type
+        var byRel={};
+        pair.edges.forEach(function(e){
+          var r=e.relationship||'other';
+          if(!byRel[r])byRel[r]=[];
+          byRel[r].push(e);
+        });
+        // Deduplicate edges (same description+relationship+quote)
+        var deduped={};
+        ['cooperation','conflict','other'].forEach(function(r){
+          if(!byRel[r])return;
+          var seen=new Set();deduped[r]=[];
+          byRel[r].forEach(function(e){
+            var key=JSON.stringify([e.description,e.evidence_quote]);
+            if(!seen.has(key)){seen.add(key);deduped[r].push(e);}
+          });
+          if(!deduped[r].length)delete deduped[r];
+        });
+
+        // Relationship Summary (from get_relationship_summary tool)
+        if(pair.summary){
+          html+='<div class="rs-heading">Relationship Summary</div>';
+          html+='<div class="rs-ai-note">AI-generated summary based on the connection details below</div>';
+          html+='<div class="rs-summary">'+esc(pair.summary)+'</div>';
+        }
+
+        // Render each relationship group
+        var order=['cooperation','conflict','other'];
+        order.forEach(function(r){
+          if(!deduped[r]||!deduped[r].length)return;
+          var color=FAMILY_COLORS[r]||FAMILY_COLORS.other;
+          html+='<div class="rp-section" style="--rc:'+color+'">';
+          html+='<div class="rp-section-title collapsed" onclick="var b=this.nextElementSibling;this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">'+(EDGE_LABELS[r]||r)+'<span class="rp-section-count">'+deduped[r].length+'</span></div>';
+          html+='<div class="rp-section-body collapsed">';
+          deduped[r].forEach(function(e){html+=renderEdgeBlock(e);});
+          html+='</div></div>';
+        });
+      });
+
+      // Multi-hop paths
+      if(hasPaths){
+        collectedEvidence.paths.forEach(function(pathResult,pi){
+          if(!pathResult.paths||!pathResult.paths.length)return;
+          pathResult.paths.forEach(function(path,pp){
+            var hops=path.length||0;
+            html+='<div class="rp-section" style="--rc:var(--fam-loose)">';
+            html+='<div class="rp-section-title collapsed" onclick="var b=this.nextElementSibling;this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">Path '+(pp+1)+'<span class="rp-section-count">'+hops+' hop'+(hops!==1?'s':'')+'</span></div>';
+            html+='<div class="rp-section-body collapsed">';
+            for(var hi=0;hi<path.length;hi++){
+              var step=path[hi];
+              var ev=step.evidence||null;
+              var label=(step.from||'?')+' → '+(step.to||'?');
+              var rels=step.relationships?step.relationships.join(', '):'';
+              if(rels)label+=' ('+rels+')';
+              html+='<div class="rp-linkage">';
+              html+='<div class="rp-linkage-desc"><strong>'+esc(label)+'</strong></div>';
+              if(ev){
+                var mp='';
+                if(ev.source_urls&&ev.source_urls.length)for(var su=0;su<ev.source_urls.length;su++)mp+=renderSourcePill(ev.source_urls[su]);
+                mp+=renderTimeToggle(ev.time_period||'');
+                mp+=renderQuoteToggle(ev.evidence_quote||'');
+                html+='<div class="ev-meta">'+mp+'</div>';
+              }
+              html+='</div>';
+            }
+            html+='</div></div>';
+          });
+        });
+      }
+
+      // Cooperation routes (similar structure to paths)
+      if(hasRoutes){
+        collectedEvidence.routes.forEach(function(routeResult,ri){
+          if(!routeResult.routes||!routeResult.routes.length)return;
+          routeResult.routes.forEach(function(route,rp){
+            var steps=route.steps||[];
+            html+='<div class="rp-section" style="--rc:var(--fam-coop)">';
+            html+='<div class="rp-section-title collapsed" onclick="var b=this.nextElementSibling;this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">Cooperation Route '+(rp+1)+'<span class="rp-section-count">'+route.hops+' hop'+(route.hops!==1?'s':'')+'</span></div>';
+            html+='<div class="rp-section-body collapsed">';
+            for(var si=0;si<steps.length;si++){
+              var st=steps[si];
+              var sev=st.evidence||null;
+              var slabel=(st.from||'?')+' → '+(st.to||'?');
+              html+='<div class="rp-linkage">';
+              html+='<div class="rp-linkage-desc"><strong>'+esc(slabel)+'</strong></div>';
+              if(sev){
+                var sp='';
+                if(sev.source_urls&&sev.source_urls.length)for(var su2=0;su2<sev.source_urls.length;su2++)sp+=renderSourcePill(sev.source_urls[su2]);
+                sp+=renderTimeToggle(sev.time_period||'');
+                sp+=renderQuoteToggle(sev.evidence_quote||'');
+                html+='<div class="ev-meta">'+sp+'</div>';
+              }
+              html+='</div>';
+            }
+            html+='</div></div>';
+          });
+        });
+      }
+
+      html+='</div></div>'; // .ask-evid-body, .ask-evid
+      return html;
     }
 
     for(var iter=0;iter<MAX_ITERATIONS;iter++){
@@ -812,8 +1004,10 @@
         continue;
       }
 
-      // Final answer — append sources footer if we collected any
+      // Final answer — insert evidence section, then sources footer
       var answer=msg.content||'No response generated.';
+      var evidHtml=renderEvidenceSection();
+      if(evidHtml)answer+='\n'+evidHtml;
       var urls=Object.keys(collectedSources);
       if(urls.length>0){
         answer+='\n<div class="ask-src-head">Sources</div>';

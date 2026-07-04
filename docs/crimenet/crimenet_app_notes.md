@@ -186,6 +186,7 @@ Browser executes tool functions against static JSON
   ▼
 Netlify Function → Browser
   │  Final answer rendered with full markdown (headings, tables, lists, bold, links)
+  │  Evidence section auto-appended by code (collapsed by default, mirrors Trace a Connection)
   │  Sources section auto-appended by code (not left to the LLM) as styled pills
 ```
 
@@ -193,6 +194,13 @@ Sources are collected automatically: `extractSources()` parses every tool result
 extracts `source_urls`, `sources` (own_sources), per-edge source URLs, and per-path
 evidence source URLs. After the LLM's final answer, the loop appends a "Sources" section
 with clickable Wikipedia links — no LLM involvement, nothing to hallucinate.
+
+Edge evidence is also collected and rendered as a structured "Evidence" section
+(collapsed by default) that mirrors the Trace a Connection format: Relationship Summary
+followed by edges grouped by relationship type (Cooperation/Conflict/Other), each with
+Source/Time/Quote pills. For multi-hop paths, each hop is shown with its own evidence.
+Time and Quote are collapsible toggles, same as in Trace a Connection. This gives users
+full per-edge audit trails without relying on the LLM to cite sources correctly.
 
 Important: the function file (`netlify/functions/crimenet-ask.js`) lives in the **Hugo
 site repo**, not in this CRIMENET repo. The function is a thin proxy identical to the
@@ -252,9 +260,10 @@ chains from conflict chains.
 ### Code files
 
 - `app/ask_ai.js` — all tool definitions, tool implementations (10 tools), data loaders,
-  agent loop with automatic source URL collection, full markdown renderer (headings, tables,
-  lists, bold, italic, links, code), system prompt, and UI wiring. Loaded by `browse.html`
-  via `<script src>`.
+  agent loop with automatic source URL collection and structured evidence section rendering
+  (collapsed by default, mirrors Trace a Connection format with Source/Time/Quote pills),
+  full markdown renderer (headings, tables, lists, bold, italic, links, code), system prompt,
+  and UI wiring. Loaded by `browse.html` via `<script src>`.
 - `app/browse.html` — welcome panel HTML (example questions grid), input row, and
   answer area. The inline script block was extracted to `ask_ai.js`.
 - `app/static_pages.css` — Ask AI tab styles (chat layout, welcome panel, example
