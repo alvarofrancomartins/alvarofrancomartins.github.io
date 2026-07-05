@@ -270,7 +270,7 @@
   // ── Tool schemas ──────────────────────────────────────────────────────
   var TOOLS=[
     {type:'function',function:{name:'get_organization',
-      description:'Look up a SPECIFIC organization by its name or alias. Returns the best matching org with metadata: description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). Returns up to 15 results ranked by match quality and network degree.',
+      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile also call get_connections and get_community. Returns up to 15 results ranked by match quality and network degree.',
       parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to look up'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['query']}}},
     {type:'function',function:{name:'find_by_type',
       description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
@@ -314,8 +314,8 @@
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter to only follow edges of this type at the first hop'}
       },required:['organization']}}},
     {type:'function',function:{name:'get_community',
-      description:'Get the community (densely connected cooperation group) that an organization belongs to, or list all communities if no organization specified.',
-      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name. Omit to list all communities.'}},required:[]}}},
+      description:'Get the community (densely connected cooperation group) that an organization belongs to, or list all communities if no organization specified. With an org: returns community_id, title, summary, size, top_hubs, and full member list. Without an org: returns all 224 communities, each with id, title, summary, size, top_hubs (top 5), and full member list. Use the list-all mode for questions that compare, rank, or search across communities (e.g. "most surprising", "largest", "which communities relate to X topic"). Use the single-org mode to find which community a specific org belongs to.',
+      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name. Omit to list all communities with full details.'}},required:[]}}},
     {type:'function',function:{name:'get_triadic_signals',
       description:'Get triadic signals for an organization: pairs where this org and another org share multiple common cooperation partners or common adversaries but have no direct edge between them. These are candidate undocumented relationships. High-scoring pairs are more likely to have a real-world connection not yet documented in Wikipedia.',
       parameters:{type:'object',properties:{
@@ -354,9 +354,10 @@
       // Apply is_defunct filter
       if(isDefunctFilter===true&&o.is_defunct!==true)continue;
       if(isDefunctFilter===false&&o.is_defunct!==false)continue;
-      var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0};
-      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.slice(0,15).map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote};});
+      var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0,profiled:o.profiled===true};
+      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote,source_url:cl.source_url||null,source_title:cl.source_title||null};});
       if(o.own_sources&&o.own_sources.length)entry.sources=o.own_sources.slice(0,5).map(function(s){return {title:s.title,url:s.url};});
+      if(!entry.sources&&o.mentioned_in&&o.mentioned_in.length)entry.sources=o.mentioned_in.slice(0,5).map(function(s){return {title:s.title,url:s.url};});
       matches.push(entry);
       if(matches.length>=cap)break;
     }
@@ -382,7 +383,7 @@
       if(isDefunctFilter===true&&o.is_defunct!==true)continue;
       if(isDefunctFilter===false&&o.is_defunct!==false)continue;
       var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0};
-      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.slice(0,15).map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote};});
+      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote,source_url:cl.source_url||null,source_title:cl.source_title||null};});
       matches.push(entry);
       if(matches.length>=cap)break;
     }
@@ -743,7 +744,7 @@
         }
         return JSON.stringify({message:'Organization "'+match+'" not found in any community.'});
       }
-      var list=comms.map(function(c){return {id:c.i,title:c.t,size:c.s,top_hubs:(c.k||[]).slice(0,5)};});
+      var list=comms.map(function(c){return {id:c.i,title:c.t,summary:c.m,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
       return JSON.stringify({total_communities:list.length,communities:list});
     });
   }
@@ -882,8 +883,14 @@
     'wing, splinter, successor, merged into, truce). Every edge has a verbatim quote.',
     '',
     'Tools:',
-    'get_organization — search orgs by name (metadata, sources, footprints).',
-    '  Pass is_defunct:true to get only defunct orgs, is_defunct:false for active.',
+    'get_organization — search orgs by name. Returns full metadata: aliases,',
+    '  description, country, time_period, is_defunct, profiled flag, degree,',
+    '  country_links (footprints with source per footprint), and sources',
+    '  (own_sources with fallback to mentioned_in). Pass is_defunct to filter.',
+    '  For comprehensive "tell me about X": also call get_connections (top',
+    '  connections + relationship types), get_community (which community it',
+    '  belongs to), and get_centrality with the org name (network ranking).',
+    '  Do this in a single multi-tool batch when the user asks about one org.',
     'find_by_type — find orgs by category, type, or keyword (NOT specific',
     '  names). Use for "Russian mafia", "motorcycle clubs", "political groups",',
     '  "paramilitaries", etc. Searches names + aliases + descriptions. Use as',
@@ -903,7 +910,13 @@
     'find_cooperation_routes — direct cooperation check, or cooperation-only',
     '  routes. Use for "do X cooperate with Y?"',
     'get_network_neighborhood — direct + second-degree connections around an org',
-    'get_community — community membership, or list all communities',
+    'get_community — community membership, or list all communities. Without an',
+    '  org: returns all 224 communities with id, title, summary, size, top_hubs,',
+    '  and full member list. Use for any question that requires scanning, comparing,',
+    '  ranking, or searching across communities: "most surprising community",',
+    '  "largest/smallest communities", "communities about X topic", "which community',
+    '  has the most orgs", "find communities that include Y type of org", etc.',
+    '  With an org: returns just that org\'s community with the same full detail.',
     'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
     'get_bridges — orgs spanning multiple communities',
     'get_centrality — network centrality rankings (degree, betweenness, PageRank).',

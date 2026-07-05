@@ -155,6 +155,11 @@ A natural language query interface that lets users ask questions about organized
 and get evidence-backed answers from the CRIMENET knowledge graph. The LLM calls tools
 that query the static data files, and the agent loop runs entirely in the browser.
 
+**Disclaimer:** A `<span class="panel-disclaimer">` badge sits inline after the title
+on the Ask tab only. It reads "AI-generated from extracted data" in a small bordered
+capsule. The tab switch logic hides it on all other tabs.
+the title.
+
 ### Architecture
 
 The **agent loop runs in the browser**, tools execute against static JSON files locally,
@@ -224,7 +229,7 @@ data loading.
 
 | Tool | Parameters | Data source | Description |
 |------|-----------|-------------|-------------|
-| `get_organization` | `query` (string), `is_defunct` (optional boolean) | `compact.json` | Look up a SPECIFIC organization by its name or alias. Returns the best matching org with metadata: description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Use for named orgs ("Tell me about the Sinaloa Cartel"). Covered by `bestMatch()`: exact match → prefix match → substring match → alias match. Limited to 15 results by default, cap relaxed to 100 when `is_defunct` is set. |
+| `get_organization` | `query` (string), `is_defunct` (optional boolean) | `compact.json` | Look up a SPECIFIC organization by its name or alias. Returns full metadata: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (all footprints with country, context, quote, source_url, source_title), and sources (own_sources with fallback to mentioned_in). Use for named orgs ("Tell me about the Sinaloa Cartel"). For a comprehensive profile, also call get_connections + get_community + get_centrality in a multi-tool batch. Covered by `bestMatch()`: exact match → prefix match → substring match → alias match. Limited to 15 results by default, cap relaxed to 100 when `is_defunct` is set. |
 | `find_by_type` | `keyword` (string), `is_defunct` (optional boolean) | `compact.json` | Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use for category queries ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels"). Also use as a fallback after `get_organization` returns empty for a category query. Limited to 25 results by default, cap relaxed to 100 when `is_defunct` is set. |
 | `get_connections` | `organization` (string), `relationship_type` (optional: cooperation/conflict/other), `target_organization` (optional) | `crimenet_adj.json` + `evidence/NNN.json` | Get connections for an org, or all edges between two specific orgs. When `target_organization` is set, loads evidence from both orgs' shards and returns all edges (deduplicated), with evidence quotes, time periods, source URLs, and a consolidated `source_urls` array. Without a target, returns up to 25 connections. |
 | `get_relationship_summary` | `organization_a` (string), `organization_b` (string) | `relationship_summaries/NNN.json` | Get the pre-written LLM narrative summary (~150-250 words) synthesizing all documented interactions between two specific orgs. Includes whether a direct edge exists and its relationship types. Use for "how do X and Y relate?" questions. |
@@ -233,7 +238,7 @@ data loading.
 | `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` + `evidence/NNN.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each hop listing relationship types and evidence (description, time period, evidence quote, source URLs). Also returns a consolidated `source_urls` array. |
 | `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Each step includes evidence quotes and source URLs. Returns a consolidated `source_urls` array. |
 | `get_network_neighborhood` | `organization` (string), `relationship_type` (optional) | `crimenet_adj.json` | Get the local network around an org: direct connections (grouped by type with counts) and top second-degree connections (orgs connected to direct connections), ranked by number of paths. Answers "allies of allies" and "network position" questions. |
-| `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns list of all 224 communities with id, title, size, and top 5 hubs. |
+| `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns all 224 communities, each with id, title, summary, size, top 5 hubs, and full member list. Use for any question that requires scanning, comparing, ranking, or searching across communities ("most surprising community", "largest/smallest communities", "communities about X topic", "find communities that include Y type of org"). |
 | `get_triadic_signals` | `organization` (string), `signal_type` (optional: cooperation/adversaries/both), `min_score` (optional, default 5) | `triadic_signals.json` | Get candidate undocumented relationships: pairs where the org and another share multiple common cooperation partners or common adversaries but have no direct edge. High-scoring pairs are statistical signals of real-world connections possibly missing from Wikipedia. |
 | `get_bridges` | `min_communities` (optional, default 3) | `bridges.json` | Get bridge organizations that span multiple communities. Returns orgs ranked by betweenness, showing which criminal ecosystems they connect. Each bridge lists the communities it spans and its betweenness/strength scores. |
 | `get_centrality` | `metric` (string: degree/betweenness/pagerank), `organization` (optional string), `limit` (optional, default 20, max 50), `country` (optional string) | `centrality.json` | Get network centrality rankings and per-org metrics. **degree** = raw connection count (popularity). **betweenness** = bridging importance — how often an org sits on shortest paths (gatekeeping power). **PageRank** = weighted importance (quality over quantity, connections to important orgs matter more). Use for "most important/powerful/influential/connected" questions. Can return global top-N, filter by country, or return all three metrics for a single org with ranks out of 3,521. |
@@ -241,7 +246,7 @@ data loading.
 ### Tool guidance for the LLM
 
 The system prompt guides DeepSeek to:
-- Use `get_organization` first when a specific named organization is mentioned, to verify it exists; use the `is_defunct` flag for "which [type] are defunct?" or "which orgs are still active?" questions
+- Use `get_organization` first when a specific named organization is mentioned, to verify it exists; use the `is_defunct` flag for "which [type] are defunct?" or "which orgs are still active?" questions. For "tell me about X" questions, batch `get_organization` + `get_connections` + `get_community` + `get_centrality` in one multi-tool call to build a full profile matching the dashboard detail panel.
 - Use `find_by_type` for category/type queries ("Russian mafia", "motorcycle clubs", "political crime groups") — searches names + aliases + descriptions. If `get_organization` returns empty on a category query, immediately fall back to `find_by_type`.
 - Use `get_relationship_summary` + `get_connections` (with `target_organization`) for questions about two specific orgs
 - Use `find_cooperation_routes` for "do X and Y cooperate?" questions
@@ -251,6 +256,7 @@ The system prompt guides DeepSeek to:
 - Use `find_by_countries` for questions about orgs operating in multiple countries simultaneously (e.g., "which orgs have footprints in both Colombia and Venezuela?")
 - Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
 - For comparison questions ("compare X and Y"), limit to 2-4 focused tool calls, then synthesize — do not look up every organization individually
+- Use `get_community` for community membership, cross-community comparison, ranking, and search. List-all mode (no org) returns all 224 communities with full summaries and members — use it for "most surprising community", "largest communities", "communities about X topic", or any question that needs to scan across communities. Single-org mode returns the community a specific org belongs to.
 - Use `get_centrality` for "most important / powerful / influential / connected" questions. Default to betweenness when the question is vague — it best captures structural importance. Combine with `find_by_country` to filter by country, or with `get_organization` to get details on top-ranked orgs.
 - The agent loop blocks exact duplicate tool calls automatically to prevent wasted iterations
 - Cite evidence quotes and relationship types precisely

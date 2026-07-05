@@ -257,9 +257,12 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .panel-finder{overflow:hidden}
 .panel-head{flex-shrink:0;padding:18px 22px 14px;border-bottom:1px solid var(--b1);
   background:linear-gradient(180deg,var(--s2),var(--s1))}
-.panel-head-row{display:flex;align-items:baseline;gap:12px}
+.panel-head-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .panel-head h2{font-family:var(--disp);font-size:26px;font-weight:600;letter-spacing:1.2px;
-  text-transform:uppercase;color:var(--amber)}
+  text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.panel-disclaimer{font-size:11px;color:var(--text-dim);line-height:1;white-space:nowrap;
+  padding:3px 8px;border:1px solid var(--b2);border-radius:4px;
+  background:var(--s1);letter-spacing:.3px;text-transform:uppercase}
 .panel-count{font-size:16px;color:var(--text-muted);font-weight:600;font-variant-numeric:tabular-nums}
 .panel-sub{font-size:18px;color:var(--text-main);margin-top:4px}
 .panel-search{width:100%;margin-top:12px;padding:10px 14px;font-family:var(--body);font-size:16px;
@@ -643,6 +646,7 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .ask-src-list a:hover{background:rgba(232,160,32,.15);border-color:var(--amber);color:#ffd27a}
 
 @media(max-width:900px){
+  .panel-disclaimer{white-space:normal}
   .ask-chat{padding:16px 12px 22px}
   .ask-input-row{padding:10px 0 0}
   .ask-send{padding:12px 18px;font-size:13px}

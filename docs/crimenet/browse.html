@@ -29,6 +29,7 @@
 <header class="panel-head">
 <div class="panel-head-row">
 <h2 id="finder-panel-title">Ask CRIMENET AI</h2>
+<span class="panel-disclaimer" id="panel-disclaimer">AI-generated from extracted data</span>
 </div>
 <p class="panel-sub" id="finder-panel-sub">Ask questions about organized crime in natural language. Backed by 4,505 organizations and 10,935 relationships with verbatim Wikipedia evidence. Try the examples below or type your own question.</p>
 <div class="browse-toggle ask-default">
@@ -121,6 +122,7 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
     <div class="ask-examples-group-title">Communities &amp; Structure</div>
     <button class="ask-example" data-prompt="What community does the Sinaloa Cartel belong to?">What community does the Sinaloa Cartel belong to?</button>
     <button class="ask-example" data-prompt="What are the largest criminal communities?">What are the largest criminal communities?</button>
+    <button class="ask-example" data-prompt="What is the most surprising community on CRIMENET?">What is the most surprising community on CRIMENET?</button>
     <button class="ask-example" data-prompt="Which organizations bridge the most communities?">Which organizations bridge the most communities?</button>
     <button class="ask-example" data-prompt="Who might the 'Ndrangheta be secretly allied with, based on shared partners?">Who might the 'Ndrangheta be secretly allied with, based on shared partners?</button>
     <button class="ask-example" data-prompt="What potential rivalries does the Sinaloa Cartel have based on shared adversaries?">What potential rivalries does the Sinaloa Cartel have based on shared adversaries?</button>
@@ -165,6 +167,7 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
       document.getElementById('finder').style.display = view==='finder' ? '' : 'none';
       document.getElementById('finder-panel-title').textContent = view==='finder' ? 'Trace a Connection' : view==='communities' ? 'Communities' : view==='bridges' ? 'Bridges' : view==='signals' ? 'Triadic Signals' : 'Ask CRIMENET AI';
       document.getElementById('finder-panel-sub').textContent = subtitles[view]||'';
+      document.getElementById('panel-disclaimer').style.display = view==='ask' ? '' : 'none';
     });
   });
 })();
