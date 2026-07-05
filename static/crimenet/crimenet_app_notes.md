@@ -12,10 +12,10 @@ All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
   right panel. Data comes from `data/compact.json`.
 - **`browse.html`** — standalone connection finder with five tabs (Ask CRIMENET AI shown first by default):
   - **Ask CRIMENET AI** — natural language queries proxied to DeepSeek via a Netlify Function
-    with tool calling that queries the graph data. 12 tools available covering org lookup,
+    with tool calling that queries the graph data. 13 tools available covering org lookup,
     category/type search, connections, relationship summaries, country search, path finding,
-    cooperation routes, network neighborhoods, communities, triadic signals, and bridges
-    (see section below).
+    cooperation routes, network neighborhoods, communities, triadic signals, bridges,
+    and centrality metrics (see section below).
     This is the default tab when the page loads.
   - **Trace a Connection** — direct edge viewer using
     `data/evidence/NNN.json` and `data/relationship_summaries/NNN.json`.
@@ -218,7 +218,7 @@ a new question replaces the previous answer.
 
 ### Tool functions
 
-DeepSeek can call these 11 tools to query the graph. Each tool reads from existing static
+DeepSeek can call these 13 tools to query the graph. Each tool reads from existing static
 data files already served from `app/data/`. Tools execute in the browser — no server-side
 data loading.
 

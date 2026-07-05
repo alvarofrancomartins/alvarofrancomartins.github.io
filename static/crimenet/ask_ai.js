@@ -1012,7 +1012,7 @@
       if(r.organization_a&&r.organization_b&&r.edges&&r.edges.length>0){
         var pairKey=[r.organization_a,r.organization_b].sort().join('||');
         if(!collectedEvidence.pairs[pairKey]){
-          collectedEvidence.pairs[pairKey]={a:r.organization_a,b:r.organization_b,edges:[],summaryLoaded:false};
+          collectedEvidence.pairs[pairKey]={a:r.organization_a,b:r.organization_b,edges:[],summary:null};
         }
         for(var ei=0;ei<r.edges.length;ei++){
           collectedEvidence.pairs[pairKey].edges.push({
@@ -1036,7 +1036,7 @@
       if(r.organization_a&&r.organization_b&&r.summary){
         var pk=[r.organization_a,r.organization_b].sort().join('||');
         if(!collectedEvidence.pairs[pk]){
-          collectedEvidence.pairs[pk]={a:r.organization_a,b:r.organization_b,edges:[],summaryLoaded:true};
+          collectedEvidence.pairs[pk]={a:r.organization_a,b:r.organization_b,edges:[],summary:null};
         }
         collectedEvidence.pairs[pk].summary=r.summary;
       }
