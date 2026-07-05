@@ -68,8 +68,10 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
 <div id="ask-view">
 <div class="ask-chat" id="ask-chat">
 <div class="ask-welcome" id="ask-welcome">
-  <div class="ask-examples-title">Try these examples</div>
-
+  <div class="ask-examples-title">
+    Try these examples <button class="ask-examples-toggle" id="ask-examples-toggle" title="Hide examples" aria-label="Toggle examples">▾</button>
+  </div>
+  <div class="ask-examples-body" id="ask-examples-body">
   <div class="ask-examples-grid">
 
   <div class="ask-examples-group">
@@ -78,52 +80,53 @@ placeholder="Search organizations…" autocomplete="off" spellcheck="false">
     <button class="ask-example" data-prompt="What are the main 'Ndrangheta clans?">What are the main 'Ndrangheta clans?</button>
     <button class="ask-example" data-prompt="Which motorcycle clubs are defunct?">Which motorcycle clubs are defunct?</button>
     <button class="ask-example" data-prompt="What is the history of the Camorra?">What is the history of the Camorra?</button>
-    <button class="ask-example" data-prompt="What are the oldest criminal organizations still active?">What are the oldest orgs still active?</button>
+    <button class="ask-example" data-prompt="What are the oldest criminal organizations still active?">What are the oldest criminal organizations still active?</button>
   </div>
 
   <div class="ask-examples-group">
     <div class="ask-examples-group-title">Relationships &amp; Networks</div>
-    <button class="ask-example" data-prompt="What's the relationship between the Sinaloa Cartel and CJNG?">Relationship between Sinaloa Cartel and CJNG?</button>
+    <button class="ask-example" data-prompt="What's the relationship between the Sinaloa Cartel and CJNG?">What's the relationship between the Sinaloa Cartel and CJNG?</button>
     <button class="ask-example" data-prompt="Who are the Sinaloa Cartel's closest allies?">Who are the Sinaloa Cartel's closest allies?</button>
     <button class="ask-example" data-prompt="How are Hells Angels and the 'Ndrangheta connected?">How are Hells Angels and the 'Ndrangheta connected?</button>
-    <button class="ask-example" data-prompt="What is the local network around the American Mafia?">Network around the American Mafia?</button>
-    <button class="ask-example" data-prompt="What criminal organizations does the Sinaloa Cartel have conflicts with?">Who does the Sinaloa Cartel have conflicts with?</button>
+    <button class="ask-example" data-prompt="What is the local network around the American Mafia?">What is the local network around the American Mafia?</button>
+    <button class="ask-example" data-prompt="What criminal organizations does the Sinaloa Cartel have conflicts with?">What criminal organizations does the Sinaloa Cartel have conflicts with?</button>
   </div>
 
   <div class="ask-examples-group">
     <div class="ask-examples-group-title">Countries &amp; Geography</div>
-    <button class="ask-example" data-prompt="What criminal organizations operate in Brazil?">What orgs operate in Brazil?</button>
-    <button class="ask-example" data-prompt="Which countries does the 'Ndrangheta have a footprint in?">Which countries does the 'Ndrangheta operate in?</button>
+    <button class="ask-example" data-prompt="What criminal organizations operate in Brazil?">What criminal organizations operate in Brazil?</button>
+    <button class="ask-example" data-prompt="Which countries does the 'Ndrangheta have a footprint in?">Which countries does the 'Ndrangheta have a footprint in?</button>
     <button class="ask-example" data-prompt="Compare organized crime in Mexico and Colombia">Compare organized crime in Mexico and Colombia</button>
-    <button class="ask-example" data-prompt="Which criminal organizations operate in both Colombia and Venezuela?">Orgs operating in both Colombia and Venezuela?</button>
+    <button class="ask-example" data-prompt="Which criminal organizations operate in both Colombia and Venezuela?">Which criminal organizations operate in both Colombia and Venezuela?</button>
   </div>
 
   <div class="ask-examples-group">
     <div class="ask-examples-group-title">Paths &amp; Cooperation</div>
-    <button class="ask-example" data-prompt="Are the Yakuza and the Sicilian Mafia connected?">Are the Yakuza and Sicilian Mafia connected?</button>
+    <button class="ask-example" data-prompt="Are the Yakuza and the Sicilian Mafia connected?">Are the Yakuza and the Sicilian Mafia connected?</button>
     <button class="ask-example" data-prompt="Who are the allies of allies of Mara Salvatrucha?">Who are the allies of allies of Mara Salvatrucha?</button>
-    <button class="ask-example" data-prompt="Does the Sinaloa Cartel cooperate with the Sicilian Mafia?">Does the Sinaloa Cartel cooperate with Sicilian Mafia?</button>
-    <button class="ask-example" data-prompt="Is there cooperation between Comando Vermelho and Sinaloa Cartel?">Does Comando Vermelho cooperate with Sinaloa Cartel?</button>
+    <button class="ask-example" data-prompt="Does the Sinaloa Cartel cooperate with the Sicilian Mafia?">Does the Sinaloa Cartel cooperate with the Sicilian Mafia?</button>
+    <button class="ask-example" data-prompt="Is there cooperation between Comando Vermelho and Sinaloa Cartel?">Is there cooperation between Comando Vermelho and Sinaloa Cartel?</button>
   </div>
 
   <div class="ask-examples-group">
     <div class="ask-examples-group-title">Network Centrality</div>
-    <button class="ask-example" data-prompt="What is the most important criminal organization in the global network?">What is the most important criminal org?</button>
-    <button class="ask-example" data-prompt="Which Italian mafia group is the most central in the network?">Which Italian mafia is most central?</button>
-    <button class="ask-example" data-prompt="How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?">How does Sinaloa Cartel's network rank compare to American Mafia?</button>
-    <button class="ask-example" data-prompt="Which Mexican cartels have the most network influence?">Which Mexican cartels are most influential?</button>
-    <button class="ask-example" data-prompt="Who are the most connected criminal organizations in the world?">Who are the most connected organizations?</button>
+    <button class="ask-example" data-prompt="What is the most important criminal organization in the global network?">What is the most important criminal organization in the global network?</button>
+    <button class="ask-example" data-prompt="Which Italian mafia group is the most central in the network?">Which Italian mafia group is the most central in the network?</button>
+    <button class="ask-example" data-prompt="How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?">How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?</button>
+    <button class="ask-example" data-prompt="Which Mexican cartels have the most network influence?">Which Mexican cartels have the most network influence?</button>
+    <button class="ask-example" data-prompt="Who are the most connected criminal organizations in the world?">Who are the most connected criminal organizations in the world?</button>
   </div>
 
   <div class="ask-examples-group">
     <div class="ask-examples-group-title">Communities &amp; Structure</div>
-    <button class="ask-example" data-prompt="What community does the Sinaloa Cartel belong to?">Which community is Sinaloa Cartel in?</button>
+    <button class="ask-example" data-prompt="What community does the Sinaloa Cartel belong to?">What community does the Sinaloa Cartel belong to?</button>
     <button class="ask-example" data-prompt="What are the largest criminal communities?">What are the largest criminal communities?</button>
-    <button class="ask-example" data-prompt="Which organizations bridge the most communities?">Which orgs bridge the most communities?</button>
-    <button class="ask-example" data-prompt="Who might the 'Ndrangheta be secretly allied with, based on shared partners?">Hidden partners of 'Ndrangheta?</button>
-    <button class="ask-example" data-prompt="What potential rivalries does the Sinaloa Cartel have based on shared adversaries?">Sinaloa Cartel's hidden rivalries?</button>
+    <button class="ask-example" data-prompt="Which organizations bridge the most communities?">Which organizations bridge the most communities?</button>
+    <button class="ask-example" data-prompt="Who might the 'Ndrangheta be secretly allied with, based on shared partners?">Who might the 'Ndrangheta be secretly allied with, based on shared partners?</button>
+    <button class="ask-example" data-prompt="What potential rivalries does the Sinaloa Cartel have based on shared adversaries?">What potential rivalries does the Sinaloa Cartel have based on shared adversaries?</button>
   </div>
 
+  </div>
   </div>
 </div>
 <div class="ask-input-row">

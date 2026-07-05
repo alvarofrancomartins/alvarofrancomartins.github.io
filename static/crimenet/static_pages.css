@@ -584,12 +584,21 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .ask-spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--b2);border-left-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
 /* Welcome panel with example questions */
 .ask-welcome{padding:12px 0 0}
-.ask-examples-title{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:10px}
+.ask-examples-title{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-main);margin-bottom:10px}
+.ask-examples-toggle{margin-left:4px;padding:1px 7px;border:1px solid var(--b2);border-radius:4px;background:var(--s2);color:var(--amber);font-size:16px;line-height:1.5;cursor:pointer;vertical-align:middle;transition:background .2s,border-color .2s,transform .15s}
+.ask-examples-toggle:hover{background:var(--s3);border-color:var(--amber)}
+.ask-welcome.collapsed .ask-examples-toggle{transform:rotate(-90deg)}
+.ask-examples-body{overflow:hidden;max-height:1200px;transition:max-height .35s ease}
+.ask-welcome.collapsed .ask-examples-body{max-height:0}
+.ask-welcome.collapsed .ask-examples-title{margin-bottom:0}
 .ask-examples-group{margin-bottom:7px}
-.ask-examples-group-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);margin-bottom:4px;opacity:.8}
-.ask-example{display:block;width:100%;text-align:left;padding:6px 10px;margin-bottom:2px;background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--text-main);font-family:var(--body);font-size:14px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.35}
+.ask-examples-group-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);margin-bottom:4px;opacity:.8}
+.ask-example{display:block;width:100%;text-align:left;padding:7px 10px;margin-bottom:2px;background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--text-main);font-family:var(--body);font-size:16px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.35}
 .ask-example:hover{background:var(--s3);border-color:var(--b2);color:var(--text-bright)}
 .ask-example:active{background:var(--s1)}
+.ask-example.hidden-example{display:none}
+.ask-example-more-btn{display:block;width:100%;text-align:left;padding:4px 10px;margin-bottom:2px;background:none;border:1px solid transparent;border-radius:6px;color:var(--amber);font-family:var(--body);font-size:12px;font-weight:500;cursor:pointer;opacity:.7;transition:opacity .2s}
+.ask-example-more-btn:hover{opacity:1}
 .ask-examples-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
 @keyframes spin{to{transform:rotate(360deg)}}
 

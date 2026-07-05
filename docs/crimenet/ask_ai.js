@@ -1294,6 +1294,12 @@
     var sub=document.getElementById('finder-panel-sub');
     if(sub)sub.textContent='Ask questions about organized crime in natural language. Backed by 4,505 organizations and 10,935 relationships with verbatim Wikipedia evidence.';
 
+    function collapseExamples(){
+      if(welcome&&!welcome.classList.contains('collapsed')){
+        welcome.classList.add('collapsed');
+      }
+    }
+
     function showAnswer(question, answer){
       answers.innerHTML='';
       var qDiv=document.createElement('div');
@@ -1309,6 +1315,7 @@
     }
 
     function showLoading(){
+      collapseExamples();
       answers.innerHTML='';
       var loading=document.createElement('div');
       loading.className='ask-msg ask-assistant';
@@ -1325,7 +1332,7 @@
     function submitQuestion(q){
       q=(q||'').trim();if(!q)return;
       showLoading();
-      input.value='';send.disabled=true;input.disabled=true;
+      send.disabled=true;input.disabled=true;
 
       runAgent(q,updateStatus).then(function(result){
         // Structured result: {markdown, evidenceHtml, sourcesHtml}
@@ -1355,6 +1362,38 @@
           input.focus();
         });
       }
+    }
+
+    // Show 2 examples per group, rest hidden with a More button
+    if(welcome){
+      var groups=welcome.querySelectorAll('.ask-examples-group');
+      for(var g=0;g<groups.length;g++){
+        var btns=groups[g].querySelectorAll('.ask-example');
+        if(btns.length<=2)continue;
+        for(var ei=2;ei<btns.length;ei++)btns[ei].classList.add('hidden-example');
+        var moreBtn=document.createElement('button');
+        moreBtn.className='ask-example-more-btn';
+        moreBtn.textContent='+ '+(btns.length-2)+' more';
+        (function(btn,total){
+          btn.addEventListener('click',function(e){
+            e.preventDefault();e.stopPropagation();
+            var all=this.parentNode.querySelectorAll('.ask-example');
+            var expanded=all[2]&&!all[2].classList.contains('hidden-example');
+            for(var j=2;j<all.length;j++)all[j].classList.toggle('hidden-example',expanded);
+            this.textContent=expanded?('+ '+(total-2)+' more'):'Show less';
+          });
+        })(moreBtn,btns.length);
+        groups[g].appendChild(moreBtn);
+      }
+    }
+
+    // Toggle examples section
+    var toggleBtn=document.getElementById('ask-examples-toggle');
+    if(toggleBtn){
+      toggleBtn.addEventListener('click',function(e){
+        e.stopPropagation();
+        welcome.classList.toggle('collapsed');
+      });
     }
 
     dataReady=Promise.all([loadCompact(),loadAdj()]);
