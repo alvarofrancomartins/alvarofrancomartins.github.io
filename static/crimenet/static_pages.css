@@ -489,7 +489,9 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 	.cc-card-body{padding:0 18px 16px}
 	.cc-card-body.collapsed{display:none}
 
-	.cc-summary{font-size:16px;color:var(--text-main);line-height:1.75;margin:0 0 16px}
+	.cc-short-summary{font-size:14.5px;color:var(--text-dim);line-height:1.6;margin:0}
+	.cc-summary{font-size:16px;color:var(--text-main);line-height:1.75;margin:16px 0 16px}
+	.cc-summary:first-child{margin-top:0}
 
 	.cc-orgs{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 	.cc-orgs-dots{font-size:14px;color:var(--text-muted)}

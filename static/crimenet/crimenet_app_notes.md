@@ -53,18 +53,65 @@ app/data/
     └── 000.json … 127.json   # 128 shards of LLM pair relationship summaries
 ```
 
+### Data file key conventions
+
+Keys are minified to reduce bytes served over HTTP. The full key names are:
+
+**`bridges.json`** — `bridge_nodes[]` fields:
+| Key | Full name |
+|-----|-----------|
+| `r` | rank |
+| `n` | name |
+| `c` | country |
+| `x` | cross_edges |
+| `b` | communities_bridged |
+| `s` | own_community_size |
+| `d` | communities_reached (array of "Title (N)" strings) |
+
+**`communities.json`** — `communities[]` fields:
+| Key | Full name |
+|-----|-----------|
+| `i` | id |
+| `s` | size |
+| `t` | title |
+| `m` | summary (full paragraph) |
+| `b` | short_summary (one sentence) |
+| `k` | top_hubs (top 10 org names) |
+| `o` | members (all org names) |
+
+**`triadic_signals.json`** — each row:
+| Key | Full name |
+|-----|-----------|
+| `a`, `b` | org pair names |
+| `cp_count` | common cooperation partner count |
+| `cp_items` | common cooperation partner names |
+| `cp_score` | weighted cooperation score |
+| `adv_count` | common adversary count |
+| `adv_items` | common adversary names |
+| `adv_score` | weighted adversary score |
+| `country_a`, `country_b` | org countries |
+| `same_country` | bool: both orgs in same country |
+| `is_cp`, `is_sa` | bool: found by cooperation / adversary signal |
+| `signal` | "Both" / "Only Common Partners" / "Only Common Adversaries" |
+| `total_weighted` | cp_score + adv_score |
+| `rank` | 1-based rank by total_weighted desc |
+
+**`centrality.json`** — top-level keys are `degree`, `betweenness`, `pagerank`, each holding `{rankings[], orgs: {name: {rank, value}}}`.
+
+**`compact.json`** — `organizations[]` and `countries[]` arrays with readable keys.
+
 ### How data files are built
 
-Each build script reads from `data/crimenet.json` (or notebook outputs) and writes to `app/data/`:
+Each build script reads from `data/crimenet.json` and writes to `app/data/`:
 
 ```bash
 python build/build_compact_data.py        --input data/crimenet.json --output app/data/compact.json
 python build/build_adjacency.py           --input data/crimenet.json --output app/data/crimenet_adj.json
 python build/build_evidence_shards.py     --input data/crimenet.json --output app/data/evidence
 python build/build_relationship_summaries.py --input data/crimenet.json --output app/data/relationship_summaries
-python build/build_communities_data.py    --input notebooks/v2/data/communities_cooperation.json --output app/data/communities.json
-python build/build_bridges_data.py        --input notebooks/v2/data/communities_cooperation.json --output app/data/bridges.json
-python build/build_triadic_data.py        # reads notebooks/v2/data/ → app/data/triadic_signals.json
+python build/build_communities_data.py    --input data/crimenet.json --output app/data/communities.json --workers 10
+python build/build_bridges_data.py        --input data/crimenet.json --communities app/data/communities.json --output app/data/bridges.json
+python build/build_triadic_data.py        --input data/crimenet.json --output app/data/triadic_signals.json
 python build/build_centrality.py          --input data/crimenet.json --output app/data/centrality.json
 python build/build_static_pages.py        --input data/crimenet.json --output app --base-url https://www.alvarofrancomartins.com/crimenet
 ```
@@ -114,37 +161,38 @@ mod N** (N = 128). The finder JS reproduces the identical hash (`evidenceBucketI
 
 ## Communities tab (`browse.html`)
 
-Lists every Infomap community with its LLM-generated title, summary, and full org membership.
-Lazy-loads `data/communities.json` on first click.
+Lists every Infomap community with its LLM-generated title, short summary (shown collapsed),
+full summary (shown expanded), and full org membership. Lazy-loads `data/communities.json` on
+first click.
 
-Data comes from `notebooks/v2/4_communities.py`, which runs Infomap on the cooperation graph
-and characterises each community with DeepSeek (title + summary per community). Output:
-`notebooks/v2/data/communities_cooperation.json`.
+`build/build_communities_data.py` is a self-contained pipeline that runs Infomap on the
+cooperation graph from `data/crimenet.json` and characterises each community with DeepSeek
+(title + full summary + short summary). Caching by `frozenset(org_names)` makes re-runs
+cheap when the partition is unchanged.
 
 To rebuild after a data change:
 ```bash
-cd notebooks/v2
-python 4_communities.py -n cooperation
-cd ../..
-python build/build_communities_data.py
+# First run requires DEEPSEEK_API_KEY env var set
+python build/build_communities_data.py --input data/crimenet.json --output app/data/communities.json --workers 10
+# Re-runs automatically reuse cached characterizations from existing communities.json
 ```
 
 The Infomap partition is deterministic (sorted node IDs + fixed seed) and the LLM cache
-keys on `frozenset(org_names)`, so a re-run only sends **new or changed** communities
-to DeepSeek.
+keys on `frozenset(org_names)` gated by `PROMPT_VERSION`, so a re-run only sends
+**new or changed** communities to DeepSeek.
 
 ## Bridges tab (`browse.html`)
 
 Shows organizations bridging community boundaries in the cooperation network. Each bridge
 node shows cross-community edges, communities spanned, and degree. Lazy-loads
-`data/bridges.json` on first click. Built by `build/build_bridges_data.py`.
+`data/bridges.json` on first click. Built by `build/build_bridges_data.py` (self-contained, reads crimenet.json + communities.json).
 
 ## Triadic Signals tab (`browse.html` + `triadic_signals.html`)
 
 Lists 2,561 candidate undocumented ally pairs discovered through triadic closure: when
 two organizations A and B have no direct edge but share common cooperation partners
 (threshold ≥3) or common adversaries (threshold ≥2). Built by
-`build/build_triadic_data.py` from notebook outputs (`notebooks/v2/data/`).
+`build/build_triadic_data.py` (self-contained, reads crimenet.json directly).
 
 The standalone `triadic_signals.html` page loads the same `data/triadic_signals.json`
 and renders an identical table. It exists for direct linking and search engine indexing.
@@ -238,7 +286,7 @@ data loading.
 | `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` + `evidence/NNN.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each hop listing relationship types and evidence (description, time period, evidence quote, source URLs). Also returns a consolidated `source_urls` array. |
 | `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Each step includes evidence quotes and source URLs. Returns a consolidated `source_urls` array. |
 | `get_network_neighborhood` | `organization` (string), `relationship_type` (optional) | `crimenet_adj.json` | Get the local network around an org: direct connections (grouped by type with counts) and top second-degree connections (orgs connected to direct connections), ranked by number of paths. Answers "allies of allies" and "network position" questions. |
-| `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns all 224 communities, each with id, title, summary, size, top 5 hubs, and full member list. Use for any question that requires scanning, comparing, ranking, or searching across communities ("most surprising community", "largest/smallest communities", "communities about X topic", "find communities that include Y type of org"). |
+| `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, short_summary (one sentence for scanning), member count, and full member list. If omitted: returns all communities, each with id, title, summary, short_summary, size, top 5 hubs, and full member list. Use list-all mode for any question that requires scanning, comparing, ranking, or searching across communities ("most surprising community", "largest/smallest communities", "communities about X topic"). Scan with short_summary; read the full summary only when focusing on a specific community. |
 | `get_triadic_signals` | `organization` (string), `signal_type` (optional: cooperation/adversaries/both), `min_score` (optional, default 5) | `triadic_signals.json` | Get candidate undocumented relationships: pairs where the org and another share multiple common cooperation partners or common adversaries but have no direct edge. High-scoring pairs are statistical signals of real-world connections possibly missing from Wikipedia. |
 | `get_bridges` | `min_communities` (optional, default 3) | `bridges.json` | Get bridge organizations that span multiple communities. Returns orgs ranked by betweenness, showing which criminal ecosystems they connect. Each bridge lists the communities it spans and its betweenness/strength scores. |
 | `get_centrality` | `metric` (string: degree/betweenness/pagerank), `organization` (optional string), `limit` (optional, default 20, max 50), `country` (optional string) | `centrality.json` | Get network centrality rankings and per-org metrics. **degree** = raw connection count (popularity). **betweenness** = bridging importance — how often an org sits on shortest paths (gatekeeping power). **PageRank** = weighted importance (quality over quantity, connections to important orgs matter more). Use for "most important/powerful/influential/connected" questions. Can return global top-N, filter by country, or return all three metrics for a single org with ranks out of 3,521. |
@@ -256,7 +304,7 @@ The system prompt guides DeepSeek to:
 - Use `find_by_countries` for questions about orgs operating in multiple countries simultaneously (e.g., "which orgs have footprints in both Colombia and Venezuela?")
 - Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
 - For comparison questions ("compare X and Y"), limit to 2-4 focused tool calls, then synthesize — do not look up every organization individually
-- Use `get_community` for community membership, cross-community comparison, ranking, and search. List-all mode (no org) returns all 224 communities with full summaries and members — use it for "most surprising community", "largest communities", "communities about X topic", or any question that needs to scan across communities. Single-org mode returns the community a specific org belongs to.
+- Use `get_community` for community membership, cross-community comparison, ranking, and search. List-all mode (no org) returns all communities with short_summary (one sentence) for fast scanning and full summary for detail. Scan with short_summary; read the full summary only when focusing on a specific community. Use it for "most surprising community", "largest communities", "communities about X topic", or any question that needs to scan across communities. Single-org mode returns the community a specific org belongs to. When answering community questions, present the actual title and summary from the data faithfully. Do not embellish with facts or anecdotes not in the community data.
 - Use `get_centrality` for "most important / powerful / influential / connected" questions. Default to betweenness when the question is vague — it best captures structural importance. Combine with `find_by_country` to filter by country, or with `get_organization` to get details on top-ranked orgs.
 - The agent loop blocks exact duplicate tool calls automatically to prevent wasted iterations
 - Cite evidence quotes and relationship types precisely
@@ -305,8 +353,8 @@ python build/build_compact_data.py        --input data/crimenet.json --output ap
 python build/build_adjacency.py           --input data/crimenet.json --output app/data/crimenet_adj.json
 python build/build_evidence_shards.py     --input data/crimenet.json --output app/data/evidence
 python build/build_relationship_summaries.py --input data/crimenet.json --output app/data/relationship_summaries
-python build/build_communities_data.py    --input notebooks/v2/data/communities_cooperation.json --output app/data/communities.json
-python build/build_bridges_data.py        --input notebooks/v2/data/communities_cooperation.json --output app/data/bridges.json
+python build/build_communities_data.py    --input data/crimenet.json --output app/data/communities.json --workers 10
+python build/build_bridges_data.py        --input data/crimenet.json --communities app/data/communities.json --output app/data/bridges.json
 python build/build_triadic_data.py
 
 # Static pages (reads crimenet.json, generates index.html + CSS + sitemap)

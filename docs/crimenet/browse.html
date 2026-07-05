@@ -552,7 +552,8 @@ document.querySelectorAll('.browse-panel').forEach(function(p){p.addEventListene
 
     var html='';
     list.forEach(function(c){
-      var summary=c.m||'';
+      var shortSummary=c.b||c.m||'';
+      var fullSummary=c.m||'';
       html+='<article class="cc-card">';
       // Header — clickable to expand
       html+='<header class="cc-card-head" data-cc="'+c.i+'">';
@@ -561,7 +562,8 @@ document.querySelectorAll('.browse-panel').forEach(function(p){p.addEventListene
       html+='</header>';
       // Body — collapsed by default
       html+='<div class="cc-card-body collapsed">';
-      html+='<p class="cc-summary">'+esc(c.m)+'</p>';
+      html+='<p class="cc-short-summary">'+esc(shortSummary)+'</p>';
+      html+='<p class="cc-summary">'+esc(fullSummary)+'</p>';
       html+='<div class="cc-orgs" id="cc-orgs-'+c.i+'"></div>';
       html+='</div>';
       html+='</article>';

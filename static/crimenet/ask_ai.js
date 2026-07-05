@@ -314,7 +314,7 @@
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter to only follow edges of this type at the first hop'}
       },required:['organization']}}},
     {type:'function',function:{name:'get_community',
-      description:'Get the community (densely connected cooperation group) that an organization belongs to, or list all communities if no organization specified. With an org: returns community_id, title, summary, size, top_hubs, and full member list. Without an org: returns all 224 communities, each with id, title, summary, size, top_hubs (top 5), and full member list. Use the list-all mode for questions that compare, rank, or search across communities (e.g. "most surprising", "largest", "which communities relate to X topic"). Use the single-org mode to find which community a specific org belongs to.',
+      description:'Get the community (densely connected cooperation group) that an organization belongs to, or list all communities if no organization specified. With an org: returns community_id, title, summary, short_summary (one sentence for scanning), size, top_hubs, and full member list. Without an org: returns all communities, each with id, title, summary, short_summary, size, top_hubs (top 5), and full member list. Use the list-all mode for questions that compare, rank, or search across communities (e.g. "most surprising", "largest", "which communities relate to X topic"). Scan using short_summary; read the full summary only when focusing on a specific community. Use the single-org mode to find which community a specific org belongs to.',
       parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name. Omit to list all communities with full details.'}},required:[]}}},
     {type:'function',function:{name:'get_triadic_signals',
       description:'Get triadic signals for an organization: pairs where this org and another org share multiple common cooperation partners or common adversaries but have no direct edge between them. These are candidate undocumented relationships. High-scoring pairs are more likely to have a real-world connection not yet documented in Wikipedia.',
@@ -740,11 +740,11 @@
         if(!match)return JSON.stringify({error:'Organization not found: '+org});
         for(var i=0;i<comms.length;i++){
           var c=comms[i];
-          if(c.o&&c.o.indexOf(match)>=0)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,size:c.s,top_hubs:c.k||[],members:c.o});
+          if(c.o&&c.o.indexOf(match)>=0)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:c.o});
         }
         return JSON.stringify({message:'Organization "'+match+'" not found in any community.'});
       }
-      var list=comms.map(function(c){return {id:c.i,title:c.t,summary:c.m,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
+      var list=comms.map(function(c){return {id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
       return JSON.stringify({total_communities:list.length,communities:list});
     });
   }
@@ -911,12 +911,12 @@
     '  routes. Use for "do X cooperate with Y?"',
     'get_network_neighborhood — direct + second-degree connections around an org',
     'get_community — community membership, or list all communities. Without an',
-    '  org: returns all 224 communities with id, title, summary, size, top_hubs,',
-    '  and full member list. Use for any question that requires scanning, comparing,',
-    '  ranking, or searching across communities: "most surprising community",',
-    '  "largest/smallest communities", "communities about X topic", "which community',
-    '  has the most orgs", "find communities that include Y type of org", etc.',
-    '  With an org: returns just that org\'s community with the same full detail.',
+    '  org: returns all communities with id, title, summary, short_summary (one',
+    '  sentence for quick scanning), size, top_hubs, and full member list. Use for',
+    '  any question that requires scanning, comparing, ranking, or searching across',
+    '  communities. Scan with short_summary first; read full summary only when',
+    '  focusing on a specific community. With an org: returns just that org\'s',
+    '  community with the same full detail.',
     'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
     'get_bridges — orgs spanning multiple communities',
     'get_centrality — network centrality rankings (degree, betweenness, PageRank).',
@@ -965,6 +965,18 @@
     '- "Which [type] are defunct?": use get_organization with is_defunct:true.',
     '- "Which orgs are still active?": use get_organization with is_defunct:false.',
     '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
+    '- For community questions that require scanning or comparing across communities',
+    '  ("most surprising", "largest", "communities about X topic"): call',
+    '  get_community without an org to get the full list. Each community includes',
+    '  short_summary (one sentence for fast scanning) and summary (full paragraph).',
+    '  Scan using short_summary to find relevant communities, then present the',
+    '  chosen one(s) using their actual title and summary text.',
+    '  Do not embellish the summaries with your own training knowledge. Do not add',
+    '  facts, anecdotes, or analysis that are not in the summary or the member list.',
+    '  The community data is what CRIMENET knows. Present it faithfully.',
+    '  For "most surprising" or "most interesting" questions: pick one community,',
+    '  show its title and summary, and explain briefly why it stands out. Cite',
+    '  specific members or relationships from the data to make your case.',
     '- When citing facts, mention the Wikipedia article name inline where possible',
     '  (e.g. "according to the Jalisco New Generation Cartel article, CJNG broke away...").',
     '  This makes claims traceable even before the user expands the Evidence section.',
@@ -979,6 +991,7 @@
     '  bottom of your answer. The app appends all edges and sources below',
     '  automatically. Duplicating them confuses the reader.',
     '- Bullet points. Concise.',
+    '- Do not comment on tool output size ("that is a lot of data"). Just use it.',
     '- Outside scope? Say so.',
     '- If find_paths returns nothing, fall back to find_cooperation_routes.',
     '- Plan your tool calls before making them. If a question needs two tools,',
