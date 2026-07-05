@@ -1,7 +1,7 @@
 // ── Ask CRIMENET AI tab ──────────────────────────────────────────────────
 (function(){
   var initialized = false;
-  var MAX_ITERATIONS = 5;
+  var MAX_ITERATIONS = 8;
 
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
@@ -130,7 +130,7 @@
   var compactData=null, adjData=null, communitiesData=null;
   var adjNeighbors={}, evidenceCache={}, bucketPromises={};
   var EVIDENCE_DIR='data/evidence', EVIDENCE_BUCKETS=128;
-  var triadicData=null, bridgesData=null;
+  var triadicData=null, bridgesData=null, centralityData=null;
   var summaryCache={}, summaryBucketPromises={};
   var SUMMARY_DIR='data/relationship_summaries', SUMMARY_BUCKETS=128;
   var dataReady;
@@ -199,6 +199,14 @@
     }).then(function(d){bridgesData=d.bridge_nodes||[];return bridgesData;});
   }
 
+  function loadCentralityData(){
+    if(centralityData)return Promise.resolve(centralityData);
+    return fetch('data/centrality.json').then(function(r){
+      if(!r.ok)throw new Error('centrality');
+      return r.json();
+    }).then(function(d){centralityData=d.orgs||[];return centralityData;});
+  }
+
   function loadEvidence(orgName){
     if(orgName in evidenceCache)return Promise.resolve(evidenceCache[orgName]);
     var id=evidenceBucketId(orgName);
@@ -262,8 +270,11 @@
   // ── Tool schemas ──────────────────────────────────────────────────────
   var TOOLS=[
     {type:'function',function:{name:'get_organization',
-      description:'Search for organizations by name (exact or partial match). Returns matching orgs with metadata: description, country, time period, aliases, degree (number of connections), country footprints, and Wikipedia source URLs. Use this to look up details about a specific organization.',
-      parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to search for'}},required:['query']}}},
+      description:'Look up a SPECIFIC organization by its name or alias. Returns the best matching org with metadata: description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). Returns up to 15 results ranked by match quality and network degree.',
+      parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to look up'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['query']}}},
+    {type:'function',function:{name:'find_by_type',
+      description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
+      parameters:{type:'object',properties:{keyword:{type:'string',description:'Category, type, or keyword to find (e.g. "russian", "motorcycle", "political")'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['keyword']}}},
     {type:'function',function:{name:'get_connections',
       description:'Get all connections for an organization, optionally filtered by relationship type (cooperation/conflict/other), or get connections between two specific organizations. Each connection includes a verbatim evidence quote from Wikipedia.',
       parameters:{type:'object',properties:{
@@ -280,6 +291,9 @@
     {type:'function',function:{name:'find_by_country',
       description:'Find organizations associated with a country. Returns orgs based there (headquartered) and orgs with operational footprints there (active but not headquartered).',
       parameters:{type:'object',properties:{country:{type:'string',description:'Country name'}},required:['country']}}},
+    {type:'function',function:{name:'find_by_countries',
+      description:'Find organizations that have a documented footprint in ALL of the listed countries. Returns only orgs active in every country specified. Use this to answer questions like "which organizations operate in both X and Y?" or "which orgs have a presence across multiple countries?" Pass at least 2 countries.',
+      parameters:{type:'object',properties:{countries:{type:'array',items:{type:'string'},description:'List of country names. Returns orgs with a documented footprint in ALL of them.'}},required:['countries']}}},
     {type:'function',function:{name:'find_paths',
       description:'Find shortest paths between two organizations through the network. Shows how two orgs are connected through intermediate organizations.',
       parameters:{type:'object',properties:{
@@ -313,30 +327,67 @@
       description:'Get bridge organizations that span multiple communities. These are highly-connected orgs with ties across different criminal ecosystems. Use this when asked about which organizations connect different criminal networks or worlds.',
       parameters:{type:'object',properties:{
         min_communities:{type:'integer',description:'Minimum number of communities spanned (default 3)'}
-      },required:[]}}}
+      },required:[]}}},
+    {type:'function',function:{name:'get_centrality',
+      description:'Get network centrality rankings and metrics for organizations. Supports three metrics: degree (number of direct connections, raw popularity), betweenness (how often an org sits on shortest paths, bridging power), and PageRank (importance weighted by neighbor quality). Use for questions about "most important", "most connected", "most powerful", "most influential", "most central", or "most popular" organizations. Can return global top-N or metrics for one specific org.',
+      parameters:{type:'object',properties:{
+        metric:{type:'string',enum:['degree','betweenness','pagerank'],description:'Which centrality metric to use. degree = raw connection count. betweenness = bridging importance (gatekeeper role). pagerank = weighted importance (quality over quantity of connections).'},
+        organization:{type:'string',description:'Optional: get metrics for a specific organization instead of the global ranking.'},
+        limit:{type:'integer',description:'Number of top orgs to return (default 20, max 50). Ignored when organization is set.'},
+        country:{type:'string',description:'Optional: filter the ranking to orgs from a specific country.'}
+      },required:['metric']}}}
   ];
 
   // ── Tool implementations ──────────────────────────────────────────────
 
   function tool_get_organization(args){
-    var query=args.query||'';
+    var query=args.query||'', isDefunctFilter=args.hasOwnProperty('is_defunct')?args.is_defunct:null;
     if(!compactData)return JSON.stringify({error:'Data not loaded'});
     var q=fold(query);
-    var orgs=compactData.orgs||{}, matches=[];
+    var orgs=compactData.orgs||{}, matches=[], cap=isDefunctFilter!==null?100:15;
     for(var name in orgs){
       if(!orgs.hasOwnProperty(name))continue;
       var o=orgs[name], match=false;
       if(fold(name).indexOf(q)>=0){match=true;}
       else if(o.aliases){for(var i=0;i<o.aliases.length;i++){if(fold(o.aliases[i]).indexOf(q)>=0){match=true;break;}}}
       if(!match)continue;
+      // Apply is_defunct filter
+      if(isDefunctFilter===true&&o.is_defunct!==true)continue;
+      if(isDefunctFilter===false&&o.is_defunct!==false)continue;
       var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0};
       if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.slice(0,15).map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote};});
       if(o.own_sources&&o.own_sources.length)entry.sources=o.own_sources.slice(0,5).map(function(s){return {title:s.title,url:s.url};});
       matches.push(entry);
-      if(matches.length>=15)break;
+      if(matches.length>=cap)break;
     }
     matches.sort(function(a,b){return(b.description?1:0)-(a.description?1:0)||b.degree-a.degree;});
-    if(matches.length===0)return JSON.stringify({matches:[],hint:'No organizations found matching "'+query+'". Try a different spelling or a shorter query.'});
+    if(isDefunctFilter!==null){matches.sort(function(a,b){return(b.is_defunct===true?1:0)-(a.is_defunct===true?1:0)||(b.description?1:0)-(a.description?1:0)||b.degree-a.degree;});}
+    if(matches.length===0){var hint='No organizations found matching "'+query+'"';if(isDefunctFilter===true)hint+=' that are defunct.';else if(isDefunctFilter===false)hint+=' that are still active.';else hint+='. Try a different spelling or a shorter query.';return JSON.stringify({matches:[],hint:hint});}
+    return JSON.stringify({matches:matches,total_found:matches.length});
+  }
+
+  function tool_find_by_type(args){
+    var keyword=args.keyword||'', isDefunctFilter=args.hasOwnProperty('is_defunct')?args.is_defunct:null;
+    if(!compactData)return JSON.stringify({error:'Data not loaded'});
+    var q=fold(keyword);
+    var orgs=compactData.orgs||{}, matches=[], cap=isDefunctFilter!==null?100:25;
+    for(var name in orgs){
+      if(!orgs.hasOwnProperty(name))continue;
+      var o=orgs[name];
+      // Search name, aliases, and description
+      var haystack=fold(name);
+      if(o.description)haystack+=' '+fold(o.description);
+      if(o.aliases)for(var i=0;i<o.aliases.length;i++)haystack+=' '+fold(o.aliases[i]);
+      if(haystack.indexOf(q)<0)continue;
+      if(isDefunctFilter===true&&o.is_defunct!==true)continue;
+      if(isDefunctFilter===false&&o.is_defunct!==false)continue;
+      var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0};
+      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.slice(0,15).map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote};});
+      matches.push(entry);
+      if(matches.length>=cap)break;
+    }
+    matches.sort(function(a,b){return(b.description?1:0)-(a.description?1:0)||b.degree-a.degree;});
+    if(matches.length===0){var hint='No organizations found matching "'+keyword+'"';if(isDefunctFilter===true)hint+=' that are defunct.';else if(isDefunctFilter===false)hint+=' that are still active.';else hint+='. Try a different keyword.';return JSON.stringify({matches:[],hint:hint});}
     return JSON.stringify({matches:matches,total_found:matches.length});
   }
 
@@ -450,7 +501,56 @@
       country:match,total_connections:c.total||0,
       based_here:(c.based_here||[]).slice(0,30),
       footprints_here:(c.footprints_here||[]).slice(0,30).map(function(f){return {org:f.org,origin:f.origin,context:f.context,quote:f.quote};})
-    });
+	    });
+  }
+
+  function tool_find_by_countries(args){
+    var reqCountries=args.countries||[];
+    if(!compactData)return JSON.stringify({error:'Data not loaded'});
+    var countries=compactData.countries||{};
+    // Resolve each country name
+    var resolved=[], unresolved=[];
+    for(var i=0;i<reqCountries.length;i++){
+      var raw=reqCountries[i];
+      var q=fold(raw), found=null;
+      for(var name in countries){if(!countries.hasOwnProperty(name))continue;if(fold(name)===q){found=name;break;}}
+      if(!found){for(var name in countries){if(!countries.hasOwnProperty(name))continue;if(fold(name).indexOf(q)>=0){found=name;break;}}}
+      if(found)resolved.push(found);else unresolved.push(raw);
+    }
+    if(unresolved.length)return JSON.stringify({error:'Countries not found: '+unresolved.join(', ')+'. Try another spelling.'});
+    if(resolved.length<2)return JSON.stringify({error:'Pass at least 2 countries. Use find_by_country for single-country lookups.'});
+
+    // Build index: org name -> set of countries it has footprints in
+    var orgs=compactData.orgs||{};
+    var orgFootprints={};
+    for(var name in orgs){
+      if(!orgs.hasOwnProperty(name))continue;
+      var cls=orgs[name].country_links;
+      if(!cls||!cls.length)continue;
+      var fpSet={};
+      for(var j=0;j<cls.length;j++)fpSet[cls[j].country]=true;
+      // Also count the home country as a footprint
+      if(orgs[name].country)fpSet[orgs[name].country]=true;
+      orgFootprints[name]=Object.keys(fpSet);
+    }
+
+    // Find orgs with footprints in ALL resolved countries
+    var matches=[];
+    for(var name in orgFootprints){
+      var fps=orgFootprints[name];
+      var allMatch=true;
+      for(var k=0;k<resolved.length;k++){
+        if(fps.indexOf(resolved[k])<0){allMatch=false;break;}
+      }
+      if(!allMatch)continue;
+      var o=orgs[name];
+      var entry={standard_name:name,country:o.country||null,degree:o.degree||0,total_footprints:fps.length};
+      if(o.description)entry.description=o.description;
+      if(o.is_defunct)entry.is_defunct=o.is_defunct;
+      matches.push(entry);
+    }
+    matches.sort(function(a,b){return b.total_footprints-a.total_footprints||b.degree-a.degree;});
+    return JSON.stringify({countries:resolved,organizations_found:matches.length,organizations:matches.slice(0,50)});
   }
 
   function tool_find_paths(args){
@@ -699,18 +799,75 @@
     });
   }
 
+  function tool_get_centrality(args){
+    var metric=args.metric||'betweenness', orgName=args.organization||null, limit=args.limit||20, country=args.country||null;
+    if(limit<1)limit=1;if(limit>50)limit=50;
+    return loadCentralityData().then(function(orgs){
+      // Single org lookup
+      if(orgName){
+        var match=bestMatch(orgName);
+        if(!match)return JSON.stringify({error:'Organization not found: '+orgName});
+        for(var i=0;i<orgs.length;i++){
+          if(orgs[i].n===match){
+            var o=orgs[i];
+            return JSON.stringify({
+              organization:o.n,
+              country:o.c||null,
+              is_defunct:o.f||false,
+              description:o.desc||null,
+              degree:{value:o.d,rank:o.dr,out_of:orgs.length},
+              betweenness:{value:o.b,rank:o.br,out_of:orgs.length},
+              pagerank:{value:o.p,rank:o.pr,out_of:orgs.length},
+              cooperation_degree:o.cd,
+              conflict_degree:o.xd
+            });
+          }
+        }
+        return JSON.stringify({message:'Organization "'+match+'" is not in the connected component — no edges to any other org.'});
+      }
+      // Global ranking
+      var rankKey, valKey;
+      if(metric==='degree'){rankKey='dr';valKey='d';}
+      else if(metric==='pagerank'){rankKey='pr';valKey='p';}
+      else{rankKey='br';valKey='b';}  // default: betweenness
+      var sorted=orgs.slice().sort(function(a,b){return a[rankKey]-b[rankKey];});
+      if(country){
+        var cq=fold(country);
+        sorted=sorted.filter(function(o){return o.c&&fold(o.c)===cq;});
+        if(sorted.length===0)return JSON.stringify({error:'No orgs found for country: '+country+'. Make sure the country name is correct.'});
+      }
+      var results=sorted.slice(0,limit).map(function(o){
+        return {
+          organization:o.n,
+          country:o.c||null,
+          is_defunct:o.f||false,
+          degree:{value:o.d,rank:o.dr},
+          betweenness:{value:o.b,rank:o.br},
+          pagerank:{value:o.p,rank:o.pr},
+          cooperation_degree:o.cd,
+          conflict_degree:o.xd,
+          description:o.desc||null
+        };
+      });
+      return JSON.stringify({metric:metric,total_orgs_ranked:sorted.length,results:results});
+    });
+  }
+
   function executeTool(name, args){
     switch(name){
       case 'get_organization':return tool_get_organization(args);
+      case 'find_by_type':return tool_find_by_type(args);
       case 'get_connections':return tool_get_connections(args);
       case 'get_relationship_summary':return tool_get_relationship_summary(args);
       case 'find_by_country':return tool_find_by_country(args);
+      case 'find_by_countries':return tool_find_by_countries(args);
       case 'find_paths':return tool_find_paths(args);
       case 'find_cooperation_routes':return tool_find_cooperation_routes(args);
       case 'get_network_neighborhood':return tool_get_network_neighborhood(args);
       case 'get_community':return tool_get_community(args);
       case 'get_triadic_signals':return tool_get_triadic_signals(args);
       case 'get_bridges':return tool_get_bridges(args);
+      case 'get_centrality':return tool_get_centrality(args);
       default:return JSON.stringify({error:'Unknown tool: '+name});
     }
   }
@@ -725,13 +882,21 @@
     'wing, splinter, successor, merged into, truce). Every edge has a verbatim quote.',
     '',
     'Tools:',
-    'get_organization — search orgs by name (metadata, sources, footprints)',
+    'get_organization — search orgs by name (metadata, sources, footprints).',
+    '  Pass is_defunct:true to get only defunct orgs, is_defunct:false for active.',
+    'find_by_type — find orgs by category, type, or keyword (NOT specific',
+    '  names). Use for "Russian mafia", "motorcycle clubs", "political groups",',
+    '  "paramilitaries", etc. Searches names + aliases + descriptions. Use as',
+    '  fallback when get_organization returns empty on a category query.',
     'get_connections — connections for an org, or all edges between two orgs',
     '  (pass organization + target_organization). Returns every edge with evidence',
     '  quotes, time periods, and source_urls. Also returns a source_urls array',
     '  listing every Wikipedia article the evidence comes from.',
     'get_relationship_summary — LLM narrative for a specific org pair',
     'find_by_country — orgs in a country (headquartered or with footprints)',
+    'find_by_countries — orgs with documented footprints in ALL of the listed',
+    '  countries. Pass an array of country names. Use for "which orgs operate in',
+    '  both X and Y?" or "orgs with a presence across X, Y, and Z".',
     'find_paths — multi-hop paths between two orgs, any type (max 5 hops).',
     '  Returns paths with evidence quotes and source URLs per hop, plus a',
     '  consolidated source_urls list.',
@@ -741,9 +906,30 @@
     'get_community — community membership, or list all communities',
     'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
     'get_bridges — orgs spanning multiple communities',
+    'get_centrality — network centrality rankings (degree, betweenness, PageRank).',
+    '  Use for "most important/powerful/influential/connected" or "top N orgs".',
+    '  Metric: degree=raw connections, betweenness=bridging power, pagerank=',
+    '  weighted importance. Can filter by country or query a single org.',
     '',
     'Rules:',
     '- Use tools. Never guess org names.',
+    '- "Most important / powerful / influential" questions: use get_centrality.',
+    '  betweenness = gatekeeping/bridging power (who sits on the most paths),',
+    '  pagerank = weighted popularity (quality of connections matters),',
+    '  degree = raw number of connections. When the question is vague, default to',
+    '  betweenness — it best captures structural importance.',
+    '- You can combine get_centrality with other tools for richer answers:',
+    '  get_centrality to find top orgs, then get_organization for details on',
+    '  specific ones, or get_centrality filtered by country to compare regions.',
+    '- For SPECIFIC named orgs ("Tell me about X", "Who are CJNG?"):',
+    '  use get_organization. For CATEGORIES or types ("Russian mafia", "motorcycle',
+    '  clubs", "political crime groups"): use find_by_type. The distinction:',
+    '  get_organization = "I know the name", find_by_type = "find me orgs',
+    '  matching this description or type". If get_organization returns empty for',
+    '  what looks like a category, immediately try find_by_type.',
+    '- For comparison questions ("compare X and Y", "which is most connected"):',
+    '  limit yourself to 2-4 focused tool calls, then synthesize. Do NOT look up',
+    '  every organization individually — compare at the aggregate level instead.',
     '- "What are X\'s clans / factions / sub-units / wings / splinters?":',
     '  get_organization for X first — read the description, which often names',
     '  the specific term (e.g. \'ndrina for \'Ndrangheta, cosca for Sicilian mafia).',
@@ -761,6 +947,10 @@
     '- "Do X and Y cooperate?": find_cooperation_routes.',
     '- "Allies of allies" / "X\'s network position": get_network_neighborhood.',
     '- Multi-hop any type: find_paths. Sources are added automatically.',
+    '- "Which orgs operate in both X and Y?": use find_by_countries with an',
+    '  array of country names. Only returns orgs active in ALL countries.',
+    '- "Which [type] are defunct?": use get_organization with is_defunct:true.',
+    '- "Which orgs are still active?": use get_organization with is_defunct:false.',
     '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
     '- When citing facts, mention the Wikipedia article name inline where possible',
     '  (e.g. "according to the Jalisco New Generation Cartel article, CJNG broke away...").',
@@ -779,7 +969,13 @@
     '- Outside scope? Say so.',
     '- If find_paths returns nothing, fall back to find_cooperation_routes.',
     '- Plan your tool calls before making them. If a question needs two tools,',
-    '  call them in order. Do not repeat the same call.'
+    '  call them in order. Do not repeat the same call. The app blocks exact',
+    '  duplicate tool calls automatically — if you get a "Duplicate call" error,',
+    '  use different parameters or proceed with the data you already have.',
+    '- For "who might be working with X that we do not know about?", call',
+    '  get_triadic_signals with signal_type "cooperation". For potential hidden',
+    '  rivalries, use signal_type "adversaries". These are statistical signals,',
+    '  not confirmed facts — always caveat them as candidate undocumented ties.'
   ].join('\n');
 
 
@@ -789,6 +985,7 @@
     var messages=[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:userQuestion}];
     var collectedSources={};  // url -> {title, url}
     var collectedEvidence={pairs:{}, paths:[], routes:[], orgPairsSeen:new Set()};
+    var calledTools=new Set();  // "toolName||JSON.stringify(args)" dedup guard
 
     function extractSources(toolResult){
       // Parse JSON tool results and collect any source URLs found and edge evidence
@@ -1043,6 +1240,16 @@
         for(var i=0;i<msg.tool_calls.length;i++){
           var tc=msg.tool_calls[i], toolName=tc.function.name, toolArgs={};
           try{toolArgs=JSON.parse(tc.function.arguments||'{}');}catch(e){}
+          // Dedup guard: if this exact call was already made, feed back a warning
+          // so the LLM stops retrying and moves on instead of burning iterations.
+          var dedupKey=toolName+'||'+JSON.stringify(toolArgs);
+          if(calledTools.has(dedupKey)){
+            var dedupResult=JSON.stringify({error:'Duplicate call: '+toolName+' was already called with these exact arguments. Use a different query or proceed with the data you have.'});
+            extractSources(dedupResult);
+            messages.push({role:'tool',tool_call_id:tc.id,content:dedupResult});
+            continue;
+          }
+          calledTools.add(dedupKey);
           if(onStatus)onStatus('Looking up: '+toolName.replace(/_/g,' ')+'…');
           var result=await executeTool(toolName,toolArgs);
           extractSources(result);

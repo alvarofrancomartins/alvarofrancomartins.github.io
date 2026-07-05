@@ -12,9 +12,10 @@ All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
   right panel. Data comes from `data/compact.json`.
 - **`browse.html`** — standalone connection finder with five tabs (Ask CRIMENET AI shown first by default):
   - **Ask CRIMENET AI** — natural language queries proxied to DeepSeek via a Netlify Function
-    with tool calling that queries the graph data. 10 tools available covering org lookup,
-    connections, relationship summaries, country search, path finding, cooperation routes,
-    network neighborhoods, communities, triadic signals, and bridges (see section below).
+    with tool calling that queries the graph data. 12 tools available covering org lookup,
+    category/type search, connections, relationship summaries, country search, path finding,
+    cooperation routes, network neighborhoods, communities, triadic signals, and bridges
+    (see section below).
     This is the default tab when the page loads.
   - **Trace a Connection** — direct edge viewer using
     `data/evidence/NNN.json` and `data/relationship_summaries/NNN.json`.
@@ -43,6 +44,7 @@ app/data/
 ├── crimenet_adj.json          # adjacency list (autocomplete for the connection finder)
 ├── crimenet.json              # full dataset (~11 MB, loaded by footprints + graph viz)
 ├── bridges.json               # bridge nodes across Infomap communities
+├── centrality.json            # network centrality metrics (degree, betweenness, PageRank)
 ├── communities.json           # Infomap community clusters with LLM titles + summaries
 ├── triadic_signals.json       # triadic closure candidate pairs (2,561 rows)
 ├── evidence/
@@ -63,6 +65,7 @@ python build/build_relationship_summaries.py --input data/crimenet.json --output
 python build/build_communities_data.py    --input notebooks/v2/data/communities_cooperation.json --output app/data/communities.json
 python build/build_bridges_data.py        --input notebooks/v2/data/communities_cooperation.json --output app/data/bridges.json
 python build/build_triadic_data.py        # reads notebooks/v2/data/ → app/data/triadic_signals.json
+python build/build_centrality.py          --input data/crimenet.json --output app/data/centrality.json
 python build/build_static_pages.py        --input data/crimenet.json --output app --base-url https://www.alvarofrancomartins.com/crimenet
 ```
 
@@ -181,7 +184,7 @@ Browser executes tool functions against static JSON
   │  Appends tool results as {role:"tool", tool_call_id, content}
   │  Extracts source URLs from tool results (source_urls, sources, edges)
   │  Sends updated messages back to DeepSeek
-  │  Repeat until text answer or max 5 iterations
+  │  Repeat until text answer or max 8 iterations
   │
   ▼
 Netlify Function → Browser
@@ -215,33 +218,41 @@ a new question replaces the previous answer.
 
 ### Tool functions
 
-DeepSeek can call these 10 tools to query the graph. Each tool reads from existing static
+DeepSeek can call these 11 tools to query the graph. Each tool reads from existing static
 data files already served from `app/data/`. Tools execute in the browser — no server-side
 data loading.
 
 | Tool | Parameters | Data source | Description |
 |------|-----------|-------------|-------------|
-| `get_organization` | `query` (string) | `compact.json` | Search organizations by name (exact or partial match against standard_name and aliases). Returns matches with description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Limited to 15 results. |
+| `get_organization` | `query` (string), `is_defunct` (optional boolean) | `compact.json` | Look up a SPECIFIC organization by its name or alias. Returns the best matching org with metadata: description, country, time period, aliases, degree, country footprints, and Wikipedia source URLs. Use for named orgs ("Tell me about the Sinaloa Cartel"). Covered by `bestMatch()`: exact match → prefix match → substring match → alias match. Limited to 15 results by default, cap relaxed to 100 when `is_defunct` is set. |
+| `find_by_type` | `keyword` (string), `is_defunct` (optional boolean) | `compact.json` | Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use for category queries ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels"). Also use as a fallback after `get_organization` returns empty for a category query. Limited to 25 results by default, cap relaxed to 100 when `is_defunct` is set. |
 | `get_connections` | `organization` (string), `relationship_type` (optional: cooperation/conflict/other), `target_organization` (optional) | `crimenet_adj.json` + `evidence/NNN.json` | Get connections for an org, or all edges between two specific orgs. When `target_organization` is set, loads evidence from both orgs' shards and returns all edges (deduplicated), with evidence quotes, time periods, source URLs, and a consolidated `source_urls` array. Without a target, returns up to 25 connections. |
 | `get_relationship_summary` | `organization_a` (string), `organization_b` (string) | `relationship_summaries/NNN.json` | Get the pre-written LLM narrative summary (~150-250 words) synthesizing all documented interactions between two specific orgs. Includes whether a direct edge exists and its relationship types. Use for "how do X and Y relate?" questions. |
 | `find_by_country` | `country` (string) | `compact.json` | Find organizations associated with a country. Returns orgs based there (headquartered) and orgs with operational footprints there (with context and evidence quotes). |
+| `find_by_countries` | `countries` (array of strings) | `compact.json` | Find organizations that have a documented footprint in ALL of the listed countries simultaneously. Requires at least 2 countries. Returns orgs sorted by total footprint count then degree, capped at 50. Use for "which orgs operate in both X and Y?" questions. |
 | `find_paths` | `from_organization` (string), `to_organization` (string), `max_hops` (optional, default 3, max 5) | `crimenet_adj.json` + `evidence/NNN.json` | BFS shortest paths between two organizations. Returns up to 3 shortest paths, each hop listing relationship types and evidence (description, time period, evidence quote, source URLs). Also returns a consolidated `source_urls` array. |
 | `find_cooperation_routes` | `organization_a` (string), `organization_b` (string) | `crimenet_adj.json` + `evidence/NNN.json` | Check direct cooperation between two orgs, or find cooperation-only paths through intermediaries (BFS, max 5 hops). Use for "do X and Y cooperate?" questions. Each step includes evidence quotes and source URLs. Returns a consolidated `source_urls` array. |
 | `get_network_neighborhood` | `organization` (string), `relationship_type` (optional) | `crimenet_adj.json` | Get the local network around an org: direct connections (grouped by type with counts) and top second-degree connections (orgs connected to direct connections), ranked by number of paths. Answers "allies of allies" and "network position" questions. |
 | `get_community` | `organization` (optional) | `communities.json` | If org specified: returns its community id, title, summary, member count, and full member list. If omitted: returns list of all 224 communities with id, title, size, and top 5 hubs. |
 | `get_triadic_signals` | `organization` (string), `signal_type` (optional: cooperation/adversaries/both), `min_score` (optional, default 5) | `triadic_signals.json` | Get candidate undocumented relationships: pairs where the org and another share multiple common cooperation partners or common adversaries but have no direct edge. High-scoring pairs are statistical signals of real-world connections possibly missing from Wikipedia. |
 | `get_bridges` | `min_communities` (optional, default 3) | `bridges.json` | Get bridge organizations that span multiple communities. Returns orgs ranked by betweenness, showing which criminal ecosystems they connect. Each bridge lists the communities it spans and its betweenness/strength scores. |
+| `get_centrality` | `metric` (string: degree/betweenness/pagerank), `organization` (optional string), `limit` (optional, default 20, max 50), `country` (optional string) | `centrality.json` | Get network centrality rankings and per-org metrics. **degree** = raw connection count (popularity). **betweenness** = bridging importance — how often an org sits on shortest paths (gatekeeping power). **PageRank** = weighted importance (quality over quantity, connections to important orgs matter more). Use for "most important/powerful/influential/connected" questions. Can return global top-N, filter by country, or return all three metrics for a single org with ranks out of 3,521. |
 
 ### Tool guidance for the LLM
 
 The system prompt guides DeepSeek to:
-- Use `get_organization` first when an organization is mentioned, to verify it exists
+- Use `get_organization` first when a specific named organization is mentioned, to verify it exists; use the `is_defunct` flag for "which [type] are defunct?" or "which orgs are still active?" questions
+- Use `find_by_type` for category/type queries ("Russian mafia", "motorcycle clubs", "political crime groups") — searches names + aliases + descriptions. If `get_organization` returns empty on a category query, immediately fall back to `find_by_type`.
 - Use `get_relationship_summary` + `get_connections` (with `target_organization`) for questions about two specific orgs
 - Use `find_cooperation_routes` for "do X and Y cooperate?" questions
 - Use `get_network_neighborhood` for questions about network position, allies-of-allies, or indirect influence
 - Use `find_paths` for questions about how two orgs are connected through intermediaries
 - Use `get_connections` with `relationship_type: "other"` for structural decomposition questions (clans, factions, sub-units)
+- Use `find_by_countries` for questions about orgs operating in multiple countries simultaneously (e.g., "which orgs have footprints in both Colombia and Venezuela?")
 - Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
+- For comparison questions ("compare X and Y"), limit to 2-4 focused tool calls, then synthesize — do not look up every organization individually
+- Use `get_centrality` for "most important / powerful / influential / connected" questions. Default to betweenness when the question is vague — it best captures structural importance. Combine with `find_by_country` to filter by country, or with `get_organization` to get details on top-ranked orgs.
+- The agent loop blocks exact duplicate tool calls automatically to prevent wasted iterations
 - Cite evidence quotes and relationship types precisely
 - Sources are added automatically by code after every answer — no need to list them manually
 
@@ -259,8 +270,12 @@ chains from conflict chains.
 
 ### Code files
 
-- `app/ask_ai.js` — all tool definitions, tool implementations (10 tools), data loaders,
-  agent loop with automatic source URL collection and structured evidence section rendering
+- `app/ask_ai.js` — all tool definitions, tool implementations (13 tools: get_organization,
+  find_by_type, get_connections, get_relationship_summary, find_by_country, find_by_countries,
+  find_paths, find_cooperation_routes, get_network_neighborhood, get_community,
+  get_triadic_signals, get_bridges, get_centrality), data loaders,
+  agent loop (MAX_ITERATIONS=8) with dedup guard (blocks exact duplicate tool calls),
+  automatic source URL collection and structured evidence section rendering
   (collapsed by default, mirrors Trace a Connection format with Source/Time/Quote pills),
   full markdown renderer (headings, tables, lists, bold, italic, links, code), system prompt,
   and UI wiring. Loaded by `browse.html` via `<script src>`.
@@ -270,6 +285,9 @@ chains from conflict chains.
   grid, messages, input row, answers).
 - `netlify/functions/crimenet-ask.js` — thin proxy (lives in Hugo repo, unchanged
   since v1).
+- `build/build_centrality.py` — pre-computes network centrality metrics (degree,
+  betweenness, PageRank) on the full, cooperation, and conflict graphs using
+  networkx. Outputs `app/data/centrality.json` (~465 KB minified, 3,521 orgs).
 
 ## Build & deploy
 
