@@ -104,20 +104,33 @@ turns the data into this site.
 <div class="section-h">Ask CRIMENET AI</div>
 
 <p class="desc">
-You can now query the knowledge graph in natural language. This is a complete example of
-<strong>GraphRAG</strong> — retrieval-augmented generation over a knowledge graph. Instead
-of searching documents by keyword similarity, the AI queries the graph's actual structure:
-it looks up organizations, traces connections through intermediate nodes, finds shortest
-paths, inspects communities, and ranks by network centrality. This lets it answer questions
-that flat document search cannot — questions about indirect relationships, network position,
-community membership, and structural patterns that only emerge from the graph. The
-<a href="browse.html">Ask CRIMENET AI</a> tab on the connection finder lets you ask
-questions like "Which Mexican cartels operate in Europe?" or "How are the PCC and
-'Ndrangheta connected?" and get evidence backed answers drawn directly from the
-graph. The AI calls tools that search organizations, trace connections, find paths,
-and inspect relationship summaries, all running in the browser against the same static
-data files that power the rest of the site. Every answer cites the underlying Wikipedia
-sources, so claims remain traceable and auditable.
+<strong>When to use what.</strong> For specific, structured queries — looking up a single
+organization, finding all edges between two specific orgs, seeing which orgs operate in a
+given country, browsing community clusters, or exploring triadic signals — use the
+dedicated tabs on the <a href="browse.html">connection finder</a> and the
+<a href="index.html">dashboard</a>. These tabs render the data directly with no LLM
+involvement. For complex questions that combine multiple pieces of information — tracing
+indirect relationships through intermediaries, comparing organizations across countries,
+ranking by network influence, or asking about structural patterns — use
+<a href="browse.html">Ask CRIMENET AI</a>. The AI queries the graph's structure through
+tools and synthesizes an answer. As with any LLM response, verify claims against the
+source evidence the answer cites.
+</p>
+
+<p class="desc">
+This is a complete example of <strong>GraphRAG</strong> — retrieval-augmented generation
+over a knowledge graph. Instead of searching documents by keyword similarity, the AI
+queries the graph's actual structure: it looks up organizations, traces connections
+through intermediate nodes, finds shortest paths, inspects communities, and ranks by
+network centrality. This lets it answer questions that flat document search cannot —
+questions about indirect relationships, network position, community membership, and
+structural patterns that only emerge from the graph. You can ask questions like "Which
+Mexican cartels operate in Europe?" or "How are the PCC and 'Ndrangheta connected?" and
+get evidence backed answers drawn directly from the graph. The AI calls tools that search
+organizations, trace connections, find paths, and inspect relationship summaries, all
+running in the browser against the same static data files that power the rest of the
+site. Every answer cites the underlying Wikipedia sources, so claims remain traceable
+and auditable.
 </p>
 
 <div class="section-h">Explore</div>

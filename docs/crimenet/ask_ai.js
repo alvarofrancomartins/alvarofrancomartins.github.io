@@ -276,7 +276,7 @@
       description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
       parameters:{type:'object',properties:{keyword:{type:'string',description:'Category, type, or keyword to find (e.g. "russian", "motorcycle", "political")'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['keyword']}}},
     {type:'function',function:{name:'get_connections',
-      description:'Get all connections for an organization, optionally filtered by relationship type (cooperation/conflict/other), or get connections between two specific organizations. Each connection includes a verbatim evidence quote from Wikipedia.',
+      description:'Get all connections for an organization, optionally filtered by relationship type (cooperation/conflict/other), or get connections between two specific organizations. Every connection includes relationship types, evidence quote, time period, and source URLs. Returns type_counts (object with cooperation/conflict/other keys) and connections_total — always quote these exact numbers, never estimate from your own count.',
       parameters:{type:'object',properties:{
         organization:{type:'string',description:'Organization name'},
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter by relationship type'},
@@ -308,14 +308,14 @@
         organization_b:{type:'string',description:'Second organization name'}
       },required:['organization_a','organization_b']}}},
     {type:'function',function:{name:'get_network_neighborhood',
-      description:'Get the local network around an organization: all direct connections grouped by relationship type, plus second-degree connections (orgs connected to the direct connections). Optionally filter by relationship type. Use this to understand an org\'s position in the network or answer questions about allies-of-allies.',
+      description:'Get the local network around an organization. Returns direct connections each with a types array (cooperation/conflict/other), plus type_counts. Top second-degree connections include hop-by-hop relationship types: each via-org shows types (1st hop) and target_relationship (2nd hop). Use with relationship_type: "cooperation" to scope both hops to allies-of-allies.',
       parameters:{type:'object',properties:{
         organization:{type:'string',description:'Organization name'},
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter to only follow edges of this type at the first hop'}
       },required:['organization']}}},
     {type:'function',function:{name:'get_community',
-      description:'Get the community (densely connected cooperation group) that an organization belongs to, or list all communities if no organization specified. With an org: returns community_id, title, summary, short_summary (one sentence for scanning), size, top_hubs, and full member list. Without an org: returns all communities, each with id, title, summary, short_summary, size, top_hubs (top 5), and full member list. Use the list-all mode for questions that compare, rank, or search across communities (e.g. "most surprising", "largest", "which communities relate to X topic"). Scan using short_summary; read the full summary only when focusing on a specific community. Use the single-org mode to find which community a specific org belongs to.',
-      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name. Omit to list all communities with full details.'}},required:[]}}},
+      description:'Get a community or list all communities. Three modes: (1) no arguments — list all communities, each with id, title, short_summary (one sentence for scanning), size, top_hubs (top 5), and members. Full summaries are NOT included in list mode to save space. (2) community_id — get a single community by its numeric id, with the full summary, title, short_summary, size, top_hubs, and full member list. (3) organization — find which community a specific org belongs to, with the full summary. Always use mode (1) first to scan communities with short_summary; then use mode (2) with community_id to read the full summary of the one(s) you focus on.',
+      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name to find its community. Mutually exclusive with community_id.'},community_id:{type:'integer',description:'Numeric community id to fetch a single community with its full summary. Use after scanning the list to drill into a specific community.'}},required:[]}}},
     {type:'function',function:{name:'get_triadic_signals',
       description:'Get triadic signals for an organization: pairs where this org and another org share multiple common cooperation partners or common adversaries but have no direct edge between them. These are candidate undocumented relationships. High-scoring pairs are more likely to have a real-world connection not yet documented in Wikipedia.',
       parameters:{type:'object',properties:{
@@ -679,7 +679,7 @@
                 }
               }
             }
-            steps.push({from:f,to:t,evidence:ev});
+            steps.push({from:f,to:t,relationship:'cooperation',evidence:ev});
           }
           return {hops:path.length-1,steps:steps};
         });
@@ -696,45 +696,66 @@
       var edges=adjData[match]||[];
       if(relType)edges=edges.filter(function(e){return e.r.indexOf(relType)>=0;});
 
-      // Direct connections
-      var directNames=edges.map(function(e){return e.t;});
-      var directSet={};for(var i=0;i<directNames.length;i++)directSet[directNames[i]]=true;
+      var directSet={};
+      // Direct connections with types and counts
+      var directConnections=edges.map(function(e){
+        directSet[e.t]=true;
+        return {name:e.t,types:e.r};
+      });
+      directConnections.sort(function(a,b){return a.name.localeCompare(b.name);});
 
       // Count by type
       var typeCounts={cooperation:0,conflict:0,other:0};
       for(var i=0;i<edges.length;i++){var rs=edges[i].r;for(var j=0;j<rs.length;j++){var r=rs[j];if(typeCounts.hasOwnProperty(r))typeCounts[r]++;else typeCounts[r]=1;}}
 
-      // Second-degree: count how many paths lead to each 2nd-degree org
+      // Second-degree: build via with relationship types
       var secondDegree={};
       for(var i=0;i<edges.length;i++){
-        var nbrEdges=adjData[edges[i].t]||[];
+        var viaName=edges[i].t;
+        var viaTypes=edges[i].r;  // types of the 1st-hop edge
+        var nbrEdges=adjData[viaName]||[];
         for(var j=0;j<nbrEdges.length;j++){
           var target=nbrEdges[j].t;
+          var targetRel=nbrEdges[j].r;  // types of the 2nd-hop edge
           if(target===match||directSet[target])continue;
           if(!secondDegree[target])secondDegree[target]={paths:0,via:[]};
           secondDegree[target].paths++;
-          if(secondDegree[target].via.length<3)secondDegree[target].via.push(edges[i].t);
+          if(secondDegree[target].via.length<5){
+            var already=null;
+            for(var vi=0;vi<secondDegree[target].via.length;vi++){
+              if(secondDegree[target].via[vi].name===viaName){already=true;break;}
+            }
+            if(!already)secondDegree[target].via.push({name:viaName,types:viaTypes,target_relationship:targetRel});
+          }
         }
       }
 
-      // Sort by path count descending
+      // Sort second-degree by path count descending
       var secondList=Object.keys(secondDegree).map(function(k){return {name:k,paths:secondDegree[k].paths,via:secondDegree[k].via};});
       secondList.sort(function(a,b){return b.paths-a.paths;});
 
       return JSON.stringify({
         organization:match,
-        direct:{total:edges.length,type_counts:typeCounts},
-        second_degree:{total:secondList.length},
-        direct_connections:directNames.slice(0,50),
-        top_second_degree:secondList.slice(0,25)
+        direct:{total:edges.length,type_counts:typeCounts,connections:directConnections.slice(0,50)},
+        second_degree:{total:secondList.length,top:secondList.slice(0,25)}
       });
     });
   }
 
   function tool_get_community(args){
     var org=args.organization||null;
+    var cid=args.community_id!=null?args.community_id:null;
     return Promise.all([loadCommunitiesData(),loadCompact()]).then(function(results){
       var comms=results[0];
+      // Single-community by id: return full detail
+      if(cid!=null){
+        for(var i=0;i<comms.length;i++){
+          var c=comms[i];
+          if(c.i===cid)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:c.o});
+        }
+        return JSON.stringify({error:'Community '+cid+' not found.'});
+      }
+      // Single-org mode: find community containing that org, return full detail
       if(org){
         var match=bestMatch(org);
         if(!match)return JSON.stringify({error:'Organization not found: '+org});
@@ -744,7 +765,8 @@
         }
         return JSON.stringify({message:'Organization "'+match+'" not found in any community.'});
       }
-      var list=comms.map(function(c){return {id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
+      // List-all mode: short_summary only, no full summary — caller must use community_id to drill in
+      var list=comms.map(function(c){return {id:c.i,title:c.t,short_summary:c.b||null,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
       return JSON.stringify({total_communities:list.length,communities:list});
     });
   }
@@ -896,9 +918,11 @@
     '  "paramilitaries", etc. Searches names + aliases + descriptions. Use as',
     '  fallback when get_organization returns empty on a category query.',
     'get_connections — connections for an org, or all edges between two orgs',
-    '  (pass organization + target_organization). Returns every edge with evidence',
-    '  quotes, time periods, and source_urls. Also returns a source_urls array',
-    '  listing every Wikipedia article the evidence comes from.',
+    '  (pass organization + target_organization). Returns every edge with types,',
+    '  evidence quotes, time periods, and source_urls. Also returns type_counts',
+    '  (cooperation/conflict/other totals) and connections_total. Always use the',
+    '  exact type_counts numbers — they are computed from the full adjacency,',
+    '  not truncated.',
     'get_relationship_summary — LLM narrative for a specific org pair',
     'find_by_country — orgs in a country (headquartered or with footprints)',
     'find_by_countries — orgs with documented footprints in ALL of the listed',
@@ -909,14 +933,21 @@
     '  consolidated source_urls list.',
     'find_cooperation_routes — direct cooperation check, or cooperation-only',
     '  routes. Use for "do X cooperate with Y?"',
-    'get_network_neighborhood — direct + second-degree connections around an org',
-    'get_community — community membership, or list all communities. Without an',
-    '  org: returns all communities with id, title, summary, short_summary (one',
-    '  sentence for quick scanning), size, top_hubs, and full member list. Use for',
-    '  any question that requires scanning, comparing, ranking, or searching across',
-    '  communities. Scan with short_summary first; read full summary only when',
-    '  focusing on a specific community. With an org: returns just that org\'s',
-    '  community with the same full detail.',
+    'get_network_neighborhood — direct + second-degree connections around an org.',
+    '  Direct connections come with relationship types. Second-degree connections',
+    '  list paths and via-orgs with types at both hops. Use the type_counts and',
+    '  counts directly, do not override them.',
+    '  For "allies of allies" questions: call this with relationship_type:',
+    '  "cooperation" to scope both hops to cooperation only.',
+    'get_community — community membership. THREE modes, always use in this order:',
+    '  (1) No arguments: list ALL communities with id, title, short_summary (one',
+    '  sentence for fast scanning), size, top_hubs (top 5), and full member list.',
+    '  Full summaries are NOT included — short_summary is your scanning lens.',
+    '  (2) community_id: after scanning, call with community_id to get the FULL',
+    '  summary + all details for the one(s) you focus on. Always do this second step.',
+    '  (3) organization: find which community an org belongs to, includes full summary.',
+    '  NEVER use mode (1) alone to answer questions about a specific community\'s',
+    '  content — always follow up with mode (2) to read the full summary.',
     'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
     'get_bridges — orgs spanning multiple communities',
     'get_centrality — network centrality rankings (degree, betweenness, PageRank).',
@@ -925,7 +956,9 @@
     '  weighted importance. Can filter by country or query a single org.',
     '',
     'Rules:',
-    '- Use tools. Never guess org names.',
+    '- Use tools. Never guess org names or relationship counts.',
+    '- When a tool returns type_counts or connections_total, use its exact numbers',
+    '  in your answer. Never substitute your own count or estimate.',
     '- "Most important / powerful / influential" questions: use get_centrality.',
     '  betweenness = gatekeeping/bridging power (who sits on the most paths),',
     '  pagerank = weighted popularity (quality of connections matters),',
@@ -958,7 +991,10 @@
     '  (any relationship type, max 3 hops) to find indirect connections.',
     '  If that also fails, try find_cooperation_routes as a last resort.',
     '- "Do X and Y cooperate?": find_cooperation_routes.',
-    '- "Allies of allies" / "X\'s network position": get_network_neighborhood.',
+    '- "Allies of allies" / "X\'s network position": get_network_neighborhood with',
+    '  relationship_type: "cooperation". This gives you direct coop allies (with',
+    '  types) and second-degree allies with hop-by-hop relationship types.',
+    '  Report the counts exactly as the tool returns them.',
     '- Multi-hop any type: find_paths. Sources are added automatically.',
     '- "Which orgs operate in both X and Y?": use find_by_countries with an',
     '  array of country names. Only returns orgs active in ALL countries.',
@@ -966,17 +1002,19 @@
     '- "Which orgs are still active?": use get_organization with is_defunct:false.',
     '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
     '- For community questions that require scanning or comparing across communities',
-    '  ("most surprising", "largest", "communities about X topic"): call',
-    '  get_community without an org to get the full list. Each community includes',
-    '  short_summary (one sentence for fast scanning) and summary (full paragraph).',
-    '  Scan using short_summary to find relevant communities, then present the',
-    '  chosen one(s) using their actual title and summary text.',
-    '  Do not embellish the summaries with your own training knowledge. Do not add',
-    '  facts, anecdotes, or analysis that are not in the summary or the member list.',
-    '  The community data is what CRIMENET knows. Present it faithfully.',
-    '  For "most surprising" or "most interesting" questions: pick one community,',
-    '  show its title and summary, and explain briefly why it stands out. Cite',
-    '  specific members or relationships from the data to make your case.',
+    '  ("most surprising", "largest", "communities about X topic"): STEP 1: call',
+    '  get_community() with no arguments to get the full list (each has id, title,',
+    '  short_summary, size, top_hubs, members — but NO full summary). Scan using',
+    '  short_summary to find relevant communities. STEP 2: call get_community() with',
+    '  community_id for each community you want to present. This returns the FULL',
+    '  summary (the detailed paragraph). You MUST do step 2 before presenting a',
+    '  community. Never present a community using only its short_summary — the user',
+    '  wants the full detail. Do not embellish the summaries with your own training',
+    '  knowledge. Do not add facts, anecdotes, or analysis that are not in the full',
+    '  summary or the member list. The community data is what CRIMENET knows. Present',
+    '  it faithfully. For "most surprising" or "most interesting" questions: pick',
+    '  candidate communities from short_summaries in step 1, pull their full summaries',
+    '  in step 2, then present the winner(s) with their actual title and full summary.',
     '- When citing facts, mention the Wikipedia article name inline where possible',
     '  (e.g. "according to the Jalisco New Generation Cartel article, CJNG broke away...").',
     '  This makes claims traceable even before the user expands the Evidence section.',
@@ -992,6 +1030,9 @@
     '  automatically. Duplicating them confuses the reader.',
     '- Bullet points. Concise.',
     '- Do not comment on tool output size ("that is a lot of data"). Just use it.',
+    '- Always quote the exact counts from type_counts / connections_total /',
+    '  signals_found fields in your answer. These are computed from the full data.',
+    '  Never replace them with your own counting or approximations.',
     '- Outside scope? Say so.',
     '- If find_paths returns nothing, fall back to find_cooperation_routes.',
     '- Plan your tool calls before making them. If a question needs two tools,',
