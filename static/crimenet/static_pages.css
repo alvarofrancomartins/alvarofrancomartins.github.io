@@ -244,7 +244,7 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .explore-card:hover .explore-arrow{color:var(--amber);transform:translate(2px,-2px)}
 /* ── browse page: flex wrapper so columns fill the viewport exactly ─── */
 .browse-wrap{display:flex;flex-direction:column;height:100vh;overflow:hidden;padding-bottom:0}
-#tab-browse{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+#tab-browse{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;position:relative}
 /* ── browse: two-panel dashboard ────────────────────────────────────────
    Two bordered panels fill remaining viewport height; each has a sticky
    header, an internally-scrolling body, and a sticky footer. The left
@@ -574,9 +574,9 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 #ask-view{height:100%}
 .ask-chat{height:100%;overflow-y:auto;padding:12px 18px 22px;display:flex;flex-direction:column}
 .ask-msg{margin-bottom:16px}
-.ask-msg-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:4px}
-.ask-user .ask-msg-body{color:var(--text-bright)}
-.ask-assistant .ask-msg-body{color:var(--text-main);line-height:1.7}
+.ask-msg-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:4px}
+.ask-user .ask-msg-body{color:var(--text-bright);font-size:20px}
+.ask-assistant .ask-msg-body{color:var(--text-main);line-height:1.7;font-size:20px}
 .ask-assistant .ask-msg-body strong{color:var(--amber)}
 .ask-input-row{display:flex;gap:8px;padding:12px 4px 0;border-top:1px solid var(--b1)}
 .ask-answers{padding:20px 0 0}
@@ -589,22 +589,21 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .ask-spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--b2);border-left-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
 /* Welcome panel with example questions */
 .ask-welcome{padding:12px 0 0}
-.ask-examples-title{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-main);margin-bottom:10px}
-.ask-examples-toggle{margin-left:4px;padding:1px 7px;border:1px solid var(--b2);border-radius:4px;background:var(--s2);color:var(--amber);font-size:16px;line-height:1.5;cursor:pointer;vertical-align:middle;transition:background .2s,border-color .2s,transform .15s}
+.ask-examples-title{font-size:28px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-main);margin-bottom:16px}
+.ask-examples-toggle{margin-left:8px;padding:2px 12px;border:1px solid var(--b2);border-radius:6px;background:var(--s2);color:var(--amber);font-size:26px;line-height:1.5;cursor:pointer;vertical-align:middle;transition:background .2s,border-color .2s,transform .15s}
 .ask-examples-toggle:hover{background:var(--s3);border-color:var(--amber)}
-.ask-welcome.collapsed .ask-examples-toggle{transform:rotate(-90deg)}
-.ask-examples-body{overflow:hidden;max-height:1200px;transition:max-height .35s ease}
-.ask-welcome.collapsed .ask-examples-body{max-height:0}
-.ask-welcome.collapsed .ask-examples-title{margin-bottom:0}
-.ask-examples-group{margin-bottom:7px}
-.ask-examples-group-title{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);margin-bottom:4px;opacity:.8}
-.ask-example{display:block;width:100%;text-align:left;padding:7px 10px;margin-bottom:2px;background:var(--s2);border:1px solid var(--b1);border-radius:6px;color:var(--text-main);font-family:var(--body);font-size:16px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.35}
+.ds-suggestions.collapsed .ask-examples-toggle{transform:rotate(-90deg)}
+.ds-suggestions.collapsed .ask-examples-body{display:none}
+.ds-suggestions.collapsed .ask-examples-title{margin-bottom:0}
+.ask-examples-group{margin-bottom:14px}
+.ask-examples-group-title{font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);margin-bottom:6px;opacity:.8}
+.ask-example{display:block;width:100%;text-align:left;padding:12px 16px;margin-bottom:3px;background:var(--s2);border:1px solid var(--b1);border-radius:8px;color:var(--text-main);font-family:var(--body);font-size:24px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.35}
 .ask-example:hover{background:var(--s3);border-color:var(--b2);color:var(--text-bright)}
 .ask-example:active{background:var(--s1)}
 .ask-example.hidden-example{display:none}
-.ask-example-more-btn{display:block;width:100%;text-align:left;padding:4px 10px;margin-bottom:2px;background:none;border:1px solid transparent;border-radius:6px;color:var(--amber);font-family:var(--body);font-size:12px;font-weight:500;cursor:pointer;opacity:.7;transition:opacity .2s}
+.ask-example-more-btn{display:block;width:100%;text-align:left;padding:8px 16px;margin-bottom:3px;background:none;border:1px solid transparent;border-radius:8px;color:var(--amber);font-family:var(--body);font-size:22px;font-weight:500;cursor:pointer;opacity:.7;transition:opacity .2s}
 .ask-example-more-btn:hover{opacity:1}
-.ask-examples-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+.ask-examples-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* Ask AI rendered markdown */
@@ -653,4 +652,138 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
   .ask-input-row{padding:10px 0 0}
   .ask-send{padding:12px 18px;font-size:13px}
   .ask-examples-grid{grid-template-columns:1fr}
+  .ask-examples-title{font-size:22px}
+  .ask-example{font-size:20px;padding:10px 14px}
+  .ask-examples-group-title{font-size:20px}
+}
+
+/* ── Ask CRIMENET AI — DeepSeek-style centered layout ─────────────────── */
+
+#ask-centered{
+  display:flex;flex-direction:column;
+  position:absolute;top:0;bottom:0;left:0;right:0;
+  overflow:auto;background:var(--bg);z-index:1;
+  padding-top:env(safe-area-inset-top);
+  padding-left:env(safe-area-inset-left);
+  padding-right:env(safe-area-inset-right);
+}
+
+/* top bar — back arrow + logo left, nav pill buttons beside it */
+.ds-topbar{
+  z-index:10000;align-items:center;margin:28px 0 0 28px;
+  display:flex;position:fixed;top:0;left:0;gap:20px;
+}
+.ds-back-arrow{
+  font-family:var(--body);font-size:38px;font-weight:300;
+  color:var(--text2);text-decoration:none;flex-shrink:0;
+  line-height:1;transition:color .12s;
+}
+.ds-back-arrow:hover{color:var(--amber);text-decoration:none}
+.ds-logo-text{
+  font-family:var(--disp);font-size:32px;font-weight:600;
+  letter-spacing:1.8px;color:var(--amber);text-transform:uppercase;
+  text-decoration:none;flex-shrink:0;
+}
+.ds-logo-text:hover{color:#ffd27a;text-decoration:none}
+.ds-topbar-actions{display:flex;align-items:center;gap:12px}
+
+.ds-nav-btn{
+  font-family:var(--body);font-size:28px;font-weight:500;
+  color:var(--text-main);background:transparent;
+  border:1px solid var(--b2);border-radius:120px;
+  padding:12px 30px;cursor:pointer;
+  transition:background .12s,border-color .12s,color .12s;
+}
+.ds-nav-btn:hover{background:var(--s2);border-color:var(--b3);color:var(--text-bright)}
+
+/* wrapper: search bar + examples, centered vertically */
+.ds-centered-wrap{
+  display:flex;flex-direction:column;align-items:center;
+  flex-shrink:0;padding-top:18vh;
+}
+/* centered greeting + search area */
+.ds-centered{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:100%}
+.ds-centered-inner{text-align:center;width:100%;max-width:1100px;padding:0 24px;margin:0 auto}
+
+.ds-greeting{margin-bottom:40px}
+.ds-greeting-text{
+  font-family:var(--body);font-size:64px;font-weight:600;
+  color:var(--text-bright);line-height:1.2;
+}
+
+/* pill-shaped search input */
+.ds-search-wrapper{width:100%;margin:0 auto}
+.ds-search-pill{
+  border:1px solid var(--b2);background:var(--s1);
+  border-radius:120px;display:flex;align-items:flex-end;
+  gap:8px;padding:14px 14px 14px 36px;position:relative;overflow:hidden;
+  transition:border-color .2s;
+}
+.ds-search-pill:focus-within{border-color:var(--amber2)}
+
+.ds-textarea{
+  flex:1;border:none;outline:none;resize:none;
+  background:transparent;color:var(--text-bright);
+  caret-color:var(--amber);font-family:var(--body);
+  font-size:32px;line-height:1.5;padding:6px 0;
+  min-height:32px;max-height:200px;overflow-y:hidden;
+}
+.ds-textarea::placeholder{color:var(--text2)}
+
+.ds-send-btn{
+  flex-shrink:0;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--amber);color:var(--bg);border:none;cursor:pointer;
+  transition:filter .15s;
+}
+.ds-send-btn svg{width:26px;height:26px}
+.ds-send-btn:hover{filter:brightness(1.15)}
+.ds-send-btn:disabled{opacity:.5;cursor:default;filter:none}
+
+/* examples grid — scrollable independently below search bar */
+.ds-suggestions{
+  flex-shrink:0;text-align:center;
+  width:100%;padding:0 24px;margin-top:48px;
+}
+.ds-suggestions .ask-examples-title{
+  max-width:100%;margin-left:auto;margin-right:auto;
+}
+.ds-suggestions .ask-examples-body{
+  max-width:100%;margin-left:auto;margin-right:auto;
+}
+.ds-suggestions .ask-examples-grid{
+  max-width:100%;margin-left:auto;margin-right:auto;
+}
+
+/* answers scroll area (appears after first question) */
+.ds-answers-scroll{
+  display:none;width:100%;padding:0;
+}
+.ds-answers-scroll.show{display:block;padding-top:48px}
+
+.ds-answers{max-width:1100px;width:100%;margin:0 auto;padding:0 28px 52px}
+
+.ds-search-bottom{
+  position:sticky;bottom:0;padding:16px 0 32px;
+  background:linear-gradient(180deg,transparent,var(--bg) 40%);
+  display:none;
+}
+
+/* Scrollbar for answers area */
+.ds-answers-scroll::-webkit-scrollbar{width:18px}
+.ds-answers-scroll::-webkit-scrollbar-track{background:var(--bg)}
+.ds-answers-scroll::-webkit-scrollbar-thumb{background:var(--b3);border-radius:9px;border:5px solid var(--bg)}
+.ds-answers-scroll::-webkit-scrollbar-thumb:hover{background:var(--amber2)}
+.ds-answers-scroll{scrollbar-width:auto;scrollbar-color:var(--b3) var(--bg)}
+
+@media(max-width:640px){
+  .ds-greeting-text{font-size:36px}
+  .ds-nav-btn{font-size:18px;padding:8px 18px}
+  .ds-topbar{margin:16px 0 0 16px;gap:12px}
+  .ds-back-arrow{font-size:26px}
+  .ds-logo-text{font-size:22px}
+  .ds-textarea{font-size:22px}
+  .ds-search-pill{padding:10px 10px 10px 22px}
+  .ds-send-btn{width:44px;height:44px}
+  .ds-send-btn svg{width:20px;height:20px}
 }

@@ -1351,122 +1351,176 @@
     if(initialized)return;
     initialized=true;
 
-    var chat=document.getElementById('ask-chat');
-    var input=document.getElementById('ask-input');
-    var send=document.getElementById('ask-send');
-    var welcome=document.getElementById('ask-welcome');
-    var answers=document.getElementById('ask-answers');
+    var input = document.getElementById('ds-input');
+    var send = document.getElementById('ds-send');
+    var answers = document.getElementById('ds-answers');
+    var answersScroll = document.getElementById('ds-answers-scroll');
+    var centered = document.querySelector('.ds-centered-wrap');
+    var searchBottom = document.getElementById('ds-search-bottom');
+    var inputBottom = document.getElementById('ds-input-bottom');
+    var sendBottom = document.getElementById('ds-send-bottom');
+    var examplesWrap = document.querySelector('.ds-suggestions');
 
-    // Set panel subtitle when Ask tab activates
-    var sub=document.getElementById('finder-panel-sub');
-    if(sub)sub.textContent='Ask questions about organized crime in natural language. Backed by 4,505 organizations and 10,935 relationships with verbatim Wikipedia evidence.';
+    var firstQuestion = true;
 
     function collapseExamples(){
-      if(welcome&&!welcome.classList.contains('collapsed')){
-        welcome.classList.add('collapsed');
+      if(examplesWrap && !examplesWrap.classList.contains('collapsed')){
+        examplesWrap.classList.add('collapsed');
       }
     }
 
     function showAnswer(question, answer){
-      answers.innerHTML='';
-      var qDiv=document.createElement('div');
-      qDiv.className='ask-msg ask-user';
-      qDiv.innerHTML='<div class="ask-msg-label">You</div><div class="ask-msg-body">'+esc(question)+'</div>';
+      // On first question: hide examples and show answer area below
+      if(firstQuestion){
+        firstQuestion = false;
+        collapseExamples();
+        if(answersScroll) answersScroll.classList.add('show');
+        if(searchBottom) searchBottom.style.display = '';
+      }
+
+      // Clear any loading placeholder
+      var loadingEl = answers.querySelector('.ask-msg.ask-assistant');
+      if(loadingEl) loadingEl.remove();
+
+      var qDiv = document.createElement('div');
+      qDiv.className = 'ask-msg ask-user';
+      qDiv.innerHTML = '<div class="ask-msg-label">You</div><div class="ask-msg-body">'+esc(question)+'</div>';
       answers.appendChild(qDiv);
-      var aDiv=document.createElement('div');
-      aDiv.className='ask-msg ask-assistant';
-      aDiv.innerHTML='<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body">'+answer+'</div>';
+
+      var aDiv = document.createElement('div');
+      aDiv.className = 'ask-msg ask-assistant';
+      aDiv.innerHTML = '<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body">'+answer+'</div>';
       answers.appendChild(aDiv);
-      // Focus on the answer
-      setTimeout(function(){answers.scrollIntoView({behavior:'smooth',block:'start'});},50);
+
+      // Scroll to the new answer
+      setTimeout(function(){
+        aDiv.scrollIntoView({behavior:'smooth',block:'start'});
+      },50);
     }
 
     function showLoading(){
-      collapseExamples();
-      answers.innerHTML='';
-      var loading=document.createElement('div');
-      loading.className='ask-msg ask-assistant';
-      loading.innerHTML='<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body"><span class="ask-spinner"></span> Thinking…</div>';
+      // Remove any previous content from ds-answers (keep previous Q&A, just add loading)
+      var loading = document.createElement('div');
+      loading.className = 'ask-msg ask-assistant';
+      loading.innerHTML = '<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body"><span class="ask-spinner"></span> Thinking…</div>';
       answers.appendChild(loading);
-      setTimeout(function(){answers.scrollIntoView({behavior:'smooth',block:'start'});},50);
+
+      // Show answers scroll on first question
+      if(firstQuestion){
+        collapseExamples();
+        if(answersScroll) answersScroll.classList.add('show');
+        if(searchBottom) searchBottom.style.display = '';
+      }
+
+      setTimeout(function(){
+        loading.scrollIntoView({behavior:'smooth',block:'start'});
+      },50);
     }
 
     function updateStatus(text){
-      var body=answers.querySelector('.ask-msg-body');
-      if(body)body.innerHTML='<span class="ask-spinner"></span> '+esc(text);
+      var body = answers.querySelector('.ask-msg:last-child .ask-msg-body');
+      if(body) body.innerHTML = '<span class="ask-spinner"></span> '+esc(text);
     }
 
-    function submitQuestion(q){
-      q=(q||'').trim();if(!q)return;
+    function submitQuestion(q, isFollowUp){
+      q = (q||'').trim(); if(!q) return;
       showLoading();
-      send.disabled=true;input.disabled=true;
+      send.disabled = true; input.disabled = true;
+      if(sendBottom) sendBottom.disabled = true;
+      if(inputBottom) inputBottom.disabled = true;
 
-      runAgent(q,updateStatus).then(function(result){
+      runAgent(q, updateStatus).then(function(result){
         // Structured result: {markdown, evidenceHtml, sourcesHtml}
-        // Order: markdown (AI analysis), then sources, then evidence (verifiable data)
-        var answer=simpleMarkdown(result.markdown||'')
+        var answer = simpleMarkdown(result.markdown||'')
           + result.sourcesHtml
           + result.evidenceHtml;
-        showAnswer(q,answer);
+        showAnswer(q, answer);
+        // Clear the bottom input if this was a follow-up
+        if(isFollowUp && inputBottom) inputBottom.value = '';
       }).catch(function(err){
-        showAnswer(q,'Error: '+esc(err.message||'Failed to reach the API.'));
+        showAnswer(q, 'Error: '+esc(err.message||'Failed to reach the API.'));
       }).then(function(){
-        send.disabled=false;input.disabled=false;
-        // Focus on answer
-        setTimeout(function(){answers.scrollIntoView({behavior:'smooth',block:'start'});},100);
+        send.disabled = false; input.disabled = false;
+        if(sendBottom) sendBottom.disabled = false;
+        if(inputBottom) inputBottom.disabled = false;
+        // Focus back on the bottom input for follow-up conversation
+        if(!firstQuestion && inputBottom) inputBottom.focus();
       });
     }
 
-    send.addEventListener('click',function(){submitQuestion(input.value);});
-    input.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();submitQuestion(input.value);}});
+    send.addEventListener('click', function(){ submitQuestion(input.value); });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitQuestion(input.value); }
+    });
 
-    // Example click: copy to input
-    if(welcome){
-      var examples=welcome.querySelectorAll('.ask-example');
-      for(var i=0;i<examples.length;i++){
-        examples[i].addEventListener('click',function(){
-          input.value=this.dataset.prompt||'';
+    // Auto-grow textarea on input
+    input.addEventListener('input', function(){
+      this.style.height = 'auto';
+      this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+    });
+
+    // Wire up example buttons
+    if(examplesWrap){
+      var examples = examplesWrap.querySelectorAll('.ask-example');
+      for(var i = 0; i < examples.length; i++){
+        examples[i].addEventListener('click', function(){
+          input.value = this.dataset.prompt || '';
           input.focus();
+          input.style.height = 'auto';
+          input.style.height = Math.min(input.scrollHeight, 200) + 'px';
+        });
+      }
+
+      // Show 2 examples per group, rest hidden with a More button
+      var groups = examplesWrap.querySelectorAll('.ask-examples-group');
+      for(var g = 0; g < groups.length; g++){
+        var btns = groups[g].querySelectorAll('.ask-example');
+        if(btns.length <= 2) continue;
+        for(var ei = 2; ei < btns.length; ei++) btns[ei].classList.add('hidden-example');
+        var moreBtn = document.createElement('button');
+        moreBtn.className = 'ask-example-more-btn';
+        moreBtn.textContent = '+ ' + (btns.length - 2) + ' more';
+        (function(btn, total){
+          btn.addEventListener('click', function(e){
+            e.preventDefault(); e.stopPropagation();
+            var all = this.parentNode.querySelectorAll('.ask-example');
+            var expanded = all[2] && !all[2].classList.contains('hidden-example');
+            for(var j = 2; j < all.length; j++) all[j].classList.toggle('hidden-example', expanded);
+            this.textContent = expanded ? ('+ ' + (total - 2) + ' more') : 'Show less';
+          });
+        })(moreBtn, btns.length);
+        groups[g].appendChild(moreBtn);
+      }
+
+      // Toggle examples section
+      var toggleBtn = document.getElementById('ask-examples-toggle');
+      if(toggleBtn){
+        toggleBtn.addEventListener('click', function(e){
+          e.preventDefault(); e.stopPropagation();
+          examplesWrap.classList.toggle('collapsed');
+          this.textContent = examplesWrap.classList.contains('collapsed') ? '▸' : '▾';
         });
       }
     }
 
-    // Show 2 examples per group, rest hidden with a More button
-    if(welcome){
-      var groups=welcome.querySelectorAll('.ask-examples-group');
-      for(var g=0;g<groups.length;g++){
-        var btns=groups[g].querySelectorAll('.ask-example');
-        if(btns.length<=2)continue;
-        for(var ei=2;ei<btns.length;ei++)btns[ei].classList.add('hidden-example');
-        var moreBtn=document.createElement('button');
-        moreBtn.className='ask-example-more-btn';
-        moreBtn.textContent='+ '+(btns.length-2)+' more';
-        (function(btn,total){
-          btn.addEventListener('click',function(e){
-            e.preventDefault();e.stopPropagation();
-            var all=this.parentNode.querySelectorAll('.ask-example');
-            var expanded=all[2]&&!all[2].classList.contains('hidden-example');
-            for(var j=2;j<all.length;j++)all[j].classList.toggle('hidden-example',expanded);
-            this.textContent=expanded?('+ '+(total-2)+' more'):'Show less';
-          });
-        })(moreBtn,btns.length);
-        groups[g].appendChild(moreBtn);
-      }
-    }
-
-    // Toggle examples section
-    var toggleBtn=document.getElementById('ask-examples-toggle');
-    if(toggleBtn){
-      toggleBtn.addEventListener('click',function(e){
-        e.stopPropagation();
-        welcome.classList.toggle('collapsed');
+    // Bottom search bar for follow-up questions
+    if(sendBottom && inputBottom){
+      sendBottom.addEventListener('click', function(){ submitQuestion(inputBottom.value, true); });
+      inputBottom.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitQuestion(inputBottom.value, true); }
+      });
+      inputBottom.addEventListener('input', function(){
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
       });
     }
 
-    dataReady=Promise.all([loadCompact(),loadAdj()]);
+    dataReady = Promise.all([loadCompact(), loadAdj()]);
   }
 
-  var askBtn=document.querySelector('.browse-toggle-btn[data-view="ask"]');
-  if(askBtn)askBtn.addEventListener('click',function(){initAsk();});
-  if(document.getElementById('ask-view').style.display==='')initAsk();
+  var askBtn = document.querySelector('.browse-toggle-btn[data-view="ask"]');
+  if(askBtn) askBtn.addEventListener('click', function(){ initAsk(); });
+  // Activate on page load if Ask is the default view (#ask-centered visible)
+  var askCentered = document.getElementById('ask-centered');
+  if(askCentered && askCentered.style.display !== 'none') initAsk();
 })();
