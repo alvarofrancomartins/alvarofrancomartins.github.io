@@ -306,7 +306,7 @@
   // ── Tool schemas ──────────────────────────────────────────────────────
   var TOOLS=[
     {type:'function',function:{name:'get_organization',
-      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), footprint_summary (total count plus breakdown by continent with country names — always use its exact counts, never count from country_links yourself), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile also call get_connections and get_community. Returns up to 15 results ranked by match quality and network degree.',
+      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), footprint_summary (total count plus breakdown by continent with country names — always use its exact counts, never count from country_links yourself), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile, call get_connections, get_community, and get_centrality (with this org name) together in a single multi-tool batch. Returns up to 15 results ranked by match quality and network degree.',
       parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to look up'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['query']}}},
     {type:'function',function:{name:'find_by_type',
       description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
@@ -365,7 +365,7 @@
         min_communities:{type:'integer',description:'Minimum number of communities spanned (default 3)'}
       },required:[]}}},
     {type:'function',function:{name:'get_centrality',
-      description:'Get network centrality rankings and metrics for organizations. Supports three metrics: degree (number of direct connections, raw popularity), betweenness (how often an org sits on shortest paths, bridging power), and PageRank (importance weighted by neighbor quality). Use for questions about "most important", "most connected", "most powerful", "most influential", "most central", or "most popular" organizations. Can return global top-N or metrics for one specific org.',
+      description:'Get network centrality rankings and metrics for organizations. Supports three metrics: degree (number of direct connections, raw popularity), betweenness (how often an org sits on shortest paths, bridging power), and PageRank (importance weighted by neighbor quality). Use for questions about "most important", "most connected", "most powerful", "most influential", "most central", or "most popular" organizations. Can return global top-N or metrics for one specific org. IMPORTANT: only connected orgs have a centrality score, so this ranks fewer orgs than the full database. The response returns BOTH connected_orgs_ranked and total_orgs_in_database — quote total_orgs_in_database (not the ranked count) whenever you state how many organizations CRIMENET holds, and never present the ranked count as the database size.',
       parameters:{type:'object',properties:{
         metric:{type:'string',enum:['degree','betweenness','pagerank'],description:'Which centrality metric to use. degree = raw connection count. betweenness = bridging importance (gatekeeper role). pagerank = weighted importance (quality over quantity of connections).'},
         organization:{type:'string',description:'Optional: get metrics for a specific organization instead of the global ranking.'},
@@ -864,7 +864,18 @@
   function tool_get_centrality(args){
     var metric=args.metric||'betweenness', orgName=args.organization||null, limit=args.limit||20, country=args.country||null;
     if(limit<1)limit=1;if(limit>50)limit=50;
-    return loadCentralityData().then(function(orgs){
+    return Promise.all([loadCentralityData(),loadCompact()]).then(function(res){
+      var orgs=res[0];
+      // connected_orgs = orgs with >=1 edge (the ONLY orgs that have a centrality score / rank).
+      // total_orgs_in_database counts every org, connected or isolated. The two differ and must not be conflated.
+      var connectedCount=orgs.length;
+      var totalDb=(res[1]&&res[1].total_orgs)||null;
+      var isolatedCount=(totalDb!=null)?totalDb-connectedCount:null;
+      var scopeNote='Centrality is only defined for organizations that have at least one connection. '+
+        connectedCount+' organizations are connected and ranked here'+
+        (totalDb!=null?('; the database holds '+totalDb+' organizations in total, so '+isolatedCount+
+        ' are isolated (no documented relationship) and have no centrality score and no rank'):'')+
+        '. Never report the ranked count as the size of the database.';
       // Single org lookup
       if(orgName){
         var match=bestMatch(orgName);
@@ -877,15 +888,19 @@
               country:o.c||null,
               is_defunct:o.f||false,
               description:o.desc||null,
-              degree:{value:o.d,rank:o.dr,out_of:orgs.length},
-              betweenness:{value:o.b,rank:o.br,out_of:orgs.length},
-              pagerank:{value:o.p,rank:o.pr,out_of:orgs.length},
+              degree:{value:o.d,rank:o.dr,out_of:connectedCount},
+              betweenness:{value:o.b,rank:o.br,out_of:connectedCount},
+              pagerank:{value:o.p,rank:o.pr,out_of:connectedCount},
               cooperation_degree:o.cd,
-              conflict_degree:o.xd
+              conflict_degree:o.xd,
+              ranked_among_connected_orgs:connectedCount,
+              total_orgs_in_database:totalDb,
+              isolated_orgs_not_ranked:isolatedCount,
+              note:scopeNote
             });
           }
         }
-        return JSON.stringify({message:'Organization "'+match+'" is not in the connected component — no edges to any other org.'});
+        return JSON.stringify({message:'Organization "'+match+'" is not in the connected component — no edges to any other org.',connected_orgs_ranked:connectedCount,total_orgs_in_database:totalDb,isolated_orgs_not_ranked:isolatedCount});
       }
       // Global ranking
       var rankKey, valKey;
@@ -893,7 +908,9 @@
       else if(metric==='pagerank'){rankKey='pr';valKey='p';}
       else{rankKey='br';valKey='b';}  // default: betweenness
       var sorted=orgs.slice().sort(function(a,b){return a[rankKey]-b[rankKey];});
+      var countryFiltered=false;
       if(country){
+        countryFiltered=true;
         var cq=fold(country);
         sorted=sorted.filter(function(o){return o.c&&fold(o.c)===cq;});
         if(sorted.length===0)return JSON.stringify({error:'No orgs found for country: '+country+'. Make sure the country name is correct.'});
@@ -911,7 +928,16 @@
           description:o.desc||null
         };
       });
-      return JSON.stringify({metric:metric,total_orgs_ranked:sorted.length,results:results});
+      var out={
+        metric:metric,
+        connected_orgs_ranked:connectedCount,
+        total_orgs_in_database:totalDb,
+        isolated_orgs_not_ranked:isolatedCount,
+        note:scopeNote,
+        results:results
+      };
+      if(countryFiltered){out.country=country;out.orgs_matched_in_country=sorted.length;}
+      return JSON.stringify(out);
     });
   }
 
@@ -936,67 +962,14 @@
 
   // ── System prompt ─────────────────────────────────────────────────────
   var SYSTEM_PROMPT=[
-    'You are CRIMENET AI. Answer in English.',
+    'You are CRIMENET AI, a research assistant for CRIMENET, a knowledge graph of the global network of organized crime extracted from Wikipedia. Answer in English.',
     '',
+    // <!-- crimenet-stats:start — auto-generated by tools/update_readme_stats.py; do not edit by hand -->
     'CRIMENET: 4,505 criminal organizations and 10,935 relationships from Wikipedia.',
+    // <!-- crimenet-stats:end -->
     'Relationships: cooperation (alliances, joint operations, commercial dealings),',
     'conflict (wars, rivalries, clashes), other (structural ties: sub-unit, faction,',
     'wing, splinter, successor, merged into, truce). Every edge has a verbatim quote.',
-    '',
-    'Tools:',
-    'get_organization — search orgs by name. Returns full metadata: aliases,',
-    '  description, country, time_period, is_defunct, profiled flag, degree,',
-    '  country_links (footprints with source per footprint), footprint_summary',
-    '  (total count plus breakdown by continent: count + country names.',
-    '  Always use these exact counts — they are computed from the full data,',
-    '  not estimated. Never derive your own totals or regional counts from',
-    '  the country_links array), and sources (own_sources with fallback to',
-    '  mentioned_in). Pass is_defunct to filter.',
-    '  For comprehensive "tell me about X": also call get_connections (top',
-    '  connections + relationship types), get_community (which community it',
-    '  belongs to), and get_centrality with the org name (network ranking).',
-    '  Do this in a single multi-tool batch when the user asks about one org.',
-    'find_by_type — find orgs by category, type, or keyword (NOT specific',
-    '  names). Use for "Russian mafia", "motorcycle clubs", "political groups",',
-    '  "paramilitaries", etc. Searches names + aliases + descriptions. Use as',
-    '  fallback when get_organization returns empty on a category query.',
-    'get_connections — connections for an org, or all edges between two orgs',
-    '  (pass organization + target_organization). Returns every edge with types,',
-    '  evidence quotes, time periods, and source_urls. Also returns type_counts',
-    '  (cooperation/conflict/other totals) and connections_total. Always use the',
-    '  exact type_counts numbers — they are computed from the full adjacency,',
-    '  not truncated.',
-    'get_relationship_summary — LLM narrative for a specific org pair',
-    'find_by_country — orgs in a country (headquartered or with footprints)',
-    'find_by_countries — orgs with documented footprints in ALL of the listed',
-    '  countries. Pass an array of country names. Use for "which orgs operate in',
-    '  both X and Y?" or "orgs with a presence across X, Y, and Z".',
-    'find_paths — multi-hop paths between two orgs, any type (max 5 hops).',
-    '  Returns paths with evidence quotes and source URLs per hop, plus a',
-    '  consolidated source_urls list.',
-    'find_cooperation_routes — direct cooperation check, or cooperation-only',
-    '  routes. Use for "do X cooperate with Y?"',
-    'get_network_neighborhood — direct + second-degree connections around an org.',
-    '  Direct connections come with relationship types. Second-degree connections',
-    '  list paths and via-orgs with types at both hops. Use the type_counts and',
-    '  counts directly, do not override them.',
-    '  For "allies of allies" questions: call this with relationship_type:',
-    '  "cooperation" to scope both hops to cooperation only.',
-    'get_community — community membership. THREE modes, always use in this order:',
-    '  (1) No arguments: list ALL communities with id, title, short_summary (one',
-    '  sentence for fast scanning), size, top_hubs (top 5), and full member list.',
-    '  Full summaries are NOT included — short_summary is your scanning lens.',
-    '  (2) community_id: after scanning, call with community_id to get the FULL',
-    '  summary + all details for the one(s) you focus on. Always do this second step.',
-    '  (3) organization: find which community an org belongs to, includes full summary.',
-    '  NEVER use mode (1) alone to answer questions about a specific community\'s',
-    '  content — always follow up with mode (2) to read the full summary.',
-    'get_triadic_signals — candidate undocumented ties (shared partners/adversaries)',
-    'get_bridges — orgs spanning multiple communities',
-    'get_centrality — network centrality rankings (degree, betweenness, PageRank).',
-    '  Use for "most important/powerful/influential/connected" or "top N orgs".',
-    '  Metric: degree=raw connections, betweenness=bridging power, pagerank=',
-    '  weighted importance. Can filter by country or query a single org.',
     '',
     'Rules:',
     '- Use tools. Never guess org names or relationship counts.',

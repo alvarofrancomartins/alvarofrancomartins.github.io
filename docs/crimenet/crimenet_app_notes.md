@@ -357,7 +357,18 @@ data loading.
 
 ### Tool guidance for the LLM
 
-The system prompt guides DeepSeek to:
+**Single source of truth per fact.** Each tool's behavior (what it does, its
+parameters, what it returns, and its count caveats) lives **only** in that tool's
+schema `description` field in the `TOOLS` array. The system prompt no longer
+repeats those descriptions: it carries a `Rules:` block that holds **only** what a
+per-tool schema cannot express — cross-tool routing ("do X and Y cooperate? →
+find_cooperation_routes"), fallback chains, and output policy (no HTML, bullet
+points, do not repeat sources). So when a tool changes, edit its schema; when
+routing or output format changes, edit the `Rules:` block. There is no third
+"Tools:" prose block to keep in sync (it was removed to kill the drift where one
+tool fix meant editing the same fact in three places).
+
+The system prompt's `Rules:` block guides DeepSeek to:
 - Use `get_organization` first when a specific named organization is mentioned, to verify it exists; use the `is_defunct` flag for "which [type] are defunct?" or "which orgs are still active?" questions. For "tell me about X" questions, batch `get_organization` + `get_connections` + `get_community` + `get_centrality` in one multi-tool call to build a full profile matching the dashboard detail panel. When listing footprints by region, always use the exact counts from `footprint_summary` (total and per-continent) rather than counting from the `country_links` array.
 - Use `find_by_type` for category/type queries ("Russian mafia", "motorcycle clubs", "political crime groups") — searches names + aliases + descriptions. If `get_organization` returns empty on a category query, immediately fall back to `find_by_type`.
 - Use `get_relationship_summary` + `get_connections` (with `target_organization`) for questions about two specific orgs
@@ -415,6 +426,13 @@ chains from conflict chains.
   full markdown renderer (headings, tables, lists, bold, italic, links, code), system prompt,
   and UI wiring. Uses `CrimenetUtils` for all shared functions. All 7 `fetch()` calls have
   `.catch()` handlers. Loaded by `ask.html` via `<script src="js/ask_ai.js">`.
+  The system prompt's headline count line (`CRIMENET: N criminal organizations and M
+  relationships…`) is wrapped in `// <!-- crimenet-stats:start -->` / `end` comment markers
+  and auto-synced from `data/crimenet.json` by `tools/update_readme_stats.py` (same markers
+  as README.md and about.html, run by `7_apply_corrections.py`). Do NOT hand-edit that line.
+  The tool's other org counts (`connected_orgs_ranked`, `total_orgs_in_database`,
+  `isolated_orgs_not_ranked` returned by `get_centrality`) are computed at runtime from
+  `centrality.json` + `compact.json`, so they never go stale.
 - `app/ask.html` — standalone page containing the DeepSeek-style centered view (greeting,
   search pill, example questions grid, answers area, bottom follow-up bar). All DOM
   elements referenced by `ask_ai.js` live here.
