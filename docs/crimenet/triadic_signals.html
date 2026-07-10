@@ -12,86 +12,30 @@
 <meta property="og:description" content="Candidate undocumented allies discovered through triadic closure in the organized crime knowledge graph.">
 <meta property="og:url" content="https://www.alvarofrancomartins.com/crimenet/triadic_signals.html">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="static_pages.css">
+<link rel="stylesheet" href="css/main.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#07080a;background-image:radial-gradient(1100px 700px at 78% -12%,rgba(232,160,32,.06),transparent),radial-gradient(900px 700px at -12% 112%,rgba(94,234,212,.045),transparent)}
-.sig-wrap{max-width:100%;margin:0 auto;padding:30px 22px 90px}
-.sig-crumb{font-size:16px;color:var(--text-muted);margin-bottom:22px;letter-spacing:.3px}
-.sig-crumb a{color:var(--text2)}
-.sig-crumb span{color:var(--text-muted)}
-h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;color:var(--text-bright);line-height:1.08;margin-bottom:8px}
+/* page-specific overrides for standalone layout */
 .sig-sub{font-size:18px;color:var(--text-muted);margin-bottom:28px;max-width:74ch;line-height:1.55}
 .sig-sub code{color:var(--amber);font-size:15px;background:rgba(232,160,32,.08);padding:1px 6px;border-radius:3px}
 
-/* Signal filter pills */
-.sig-filters{display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap}
-.sig-filters-label{font-size:14px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-right:2px}
-.sig-pill{font-family:var(--body);font-size:14px;font-weight:600;padding:6px 14px;border:1px solid var(--b2);border-radius:6px;background:transparent;color:var(--text-muted);cursor:pointer;letter-spacing:.3px;transition:all .15s}
-.sig-pill:hover{color:var(--text-main);border-color:var(--b1)}
-.sig-pill.active{color:var(--amber);border-color:var(--amber2);background:rgba(232,160,32,.08)}
-.sig-pill .tag-count{font-weight:400;font-size:13px;margin-left:2px;opacity:.7}
-
-/* Table */
-.sig-table-wrap{overflow-x:auto;border:1px solid var(--b1);border-radius:9px}
-.sig-table{width:100%;border-collapse:collapse;font-size:15px;min-width:800px}
-.sig-table thead{background:var(--s2);position:sticky;top:0;z-index:1}
-.sig-table th{padding:10px 12px;text-align:left;font-weight:600;font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--b2);white-space:nowrap;cursor:pointer;user-select:none}
-.sig-table th:hover{color:var(--amber)}
-.sig-table th.sort-asc::after{content:" ▲";font-size:10px;color:var(--amber)}
-.sig-table th.sort-desc::after{content:" ▼";font-size:10px;color:var(--amber)}
-.sig-table td{padding:9px 12px;border-bottom:1px solid var(--b1);vertical-align:top;white-space:nowrap}
-.sig-table tbody tr:hover{background:rgba(232,160,32,.03)}
-.sig-table tbody tr:nth-child(even){background:rgba(255,255,255,.01)}
-.sig-table tbody tr:nth-child(even):hover{background:rgba(232,160,32,.04)}
-
-/* Cell types */
-.sig-table .org-name{color:var(--text-bright);font-weight:700;font-size:16px}
-.sig-table .count{font-weight:600;color:var(--text-bright);text-align:center}
-.sig-table .score{font-weight:600;color:var(--text-bright);text-align:center}
-.sig-table .zero{color:var(--text-muted);opacity:.4}
-.sig-total-w{font-weight:600;color:var(--text-bright);font-size:16px;text-align:center}
-
-/* Signal tag pill */
-.sig-tag{display:inline-block;font-size:13px;font-weight:600;padding:2px 8px;border-radius:4px;line-height:1.4;white-space:nowrap}
-.sig-tag.cp{color:#5eead4;border:1px solid rgba(94,234,212,.25);background:rgba(94,234,212,.06)}
-.sig-tag.sa{color:#fb7185;border:1px solid rgba(251,113,133,.25);background:rgba(251,113,133,.06)}
-.sig-tag.both{color:var(--amber);border:1px solid rgba(232,160,32,.25);background:rgba(232,160,32,.06)}
-
-/* Items */
-.sig-items{max-width:340px;white-space:normal;font-size:14px;color:var(--text-main);line-height:1.55}
-.sig-items .item-name{color:var(--text-main);font-weight:500}
-.sig-items .item-name:hover{color:var(--amber);cursor:pointer}
-.sig-items .item-more{color:var(--amber);cursor:pointer;font-size:13px;text-decoration:underline;text-underline-offset:2px}
-.sig-items .item-more:hover{color:#f0c040}
-.sig-items .item-rest{display:none}
-.sig-items.expanded .item-rest{display:inline}
-.sig-items.expanded .item-more{display:none}
-
-/* Responsive */
 @media(max-width:900px){
-  .sig-wrap{padding:20px 14px 60px}
-  h1{font-size:34px}
   .sig-table{font-size:14px;min-width:700px}
   .sig-table td,.sig-table th{padding:7px 8px}
 }
 </style>
 </head>
 <body>
-<div class="sig-wrap">
-<nav class="sig-crumb"><a href="index.html">CRIMENET</a> <span>/</span> Triadic Signals</nav>
+<div class="wrap">
+<nav class="crumb"><a href="index.html">CRIMENET</a> <span>/</span> Triadic Signals</nav>
 <h1>Candidate Undocumented Allies</h1>
 <p class="sig-sub">When two organizations A and B have no direct edge between them but share several of the same cooperation partners or the same adversaries, these common neighbors suggest a real-world relationship that may be missing from Wikipedia. This page lists every such pair. Each common neighbor Cᵢ contributes <code>min(statements A↔Cᵢ, statements B↔Cᵢ)</code> — the minimum number of Wikipedia statements linking each side to that neighbor — and the <b>Total Score</b> is the sum across all shared neighbors, so relationships backed by more evidence weigh proportionally. 2,561 unique pairs: 1,609 with both signals, 486 cooperation-partner-only, 466 adversary-only.</p>
 
 <div class="sig-filters">
   <span class="sig-filters-label">Signal:</span>
-  <button class="sig-pill active" data-sig="all">All <span class="tag-count">2,561</span></button>
-  <button class="sig-pill" data-sig="both">Both <span class="tag-count">1,609</span></button>
-  <button class="sig-pill" data-sig="cp">Only Common Partners <span class="tag-count">486</span></button>
-  <button class="sig-pill" data-sig="sa">Only Common Adversaries <span class="tag-count">466</span></button>
+  <button class="sig-pill active" data-sig="all">All <span class="sig-pill-count">2,561</span></button>
+  <button class="sig-pill" data-sig="both">Both <span class="sig-pill-count">1,609</span></button>
+  <button class="sig-pill" data-sig="cp">Only Common Partners <span class="sig-pill-count">486</span></button>
+  <button class="sig-pill" data-sig="sa">Only Common Adversaries <span class="sig-pill-count">466</span></button>
 </div>
 
 <div class="sig-table-wrap">
@@ -115,196 +59,107 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;co
 
 </div>
 
+<script src="js/triadic_signals.js"></script>
 <script>
 (function(){
-var DATA = null;
-var currentSignal = 'all';
-var currentSort = {col: 'total_weighted', dir: 'desc'};
-var sigPageSize = 100, sigVisible = 100;
+var T=CrimenetTriadic;
+var DATA=null;
+var currentSignal='all';
+var currentSort={col:'total_weighted',dir:'desc'};
+var pageSize=100, visible=100;
 
-var COLUMNS = [
-  {key:'rank', label:'#', sortable:true, cls:''},
-  {key:'signal', label:'Signal', sortable:true, cls:''},
-  {key:'a', label:'Org A', sortable:true, cls:''},
-  {key:'b', label:'Org B', sortable:true, cls:''},
-  {key:'cp_count', label:'CP Count', sortable:true, cls:'count', fmt:function(v){return v>0 ? v : '<span class="zero">0</span>'}},
-  {key:'adv_count', label:'CA Count', sortable:true, cls:'count', fmt:function(v){return v>0 ? v : '<span class="zero">0</span>'}},
-  {key:'total_weighted', label:'Total Score', sortable:true, cls:'sig-total-w'},
-  {key:'cp_items', label:'Common Partners', sortable:false, cls:''},
-  {key:'adv_items', label:'Common Adversaries', sortable:false, cls:''}
+var COLUMNS=[
+  {key:'rank',sortable:true,cell:function(v){return v;}},
+  {key:'signal',sortable:true,cell:function(v,r){return T.signalTag(r);}},
+  {key:'a',sortable:true,cell:function(v){return'<span class="sig-org-name">'+T.esc(v)+'</span>';}},
+  {key:'b',sortable:true,cell:function(v){return'<span class="sig-org-name">'+T.esc(v)+'</span>';}},
+  {key:'cp_count',sortable:true,cell:function(v){return v>0?v:'<span class="sig-val-zero">0</span>';},cls:function(v){return v>0?'sig-val-count':'sig-val-zero';}},
+  {key:'adv_count',sortable:true,cell:function(v){return v>0?v:'<span class="sig-val-zero">0</span>';},cls:function(v){return v>0?'sig-val-count':'sig-val-zero';}},
+  {key:'total_weighted',sortable:true,cell:function(v){return v;},cls:'sig-val-score'},
+  {key:'cp_items',sortable:false,cell:function(v){return'<div class="sig-items">'+T.formatItems(v,5)+'</div>';}},
+  {key:'adv_items',sortable:false,cell:function(v){return'<div class="sig-items">'+T.formatItems(v,5)+'</div>';}}
 ];
 
-function esc(s){
-  if (!s) return '';
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function formatItems(items, maxShow){
-  maxShow = maxShow || 5;
-  if (!items || items.length === 0) return '<span style="color:var(--text-muted);opacity:.4">—</span>';
-  var shown = items.slice(0, maxShow);
-  var rest = items.slice(maxShow);
-  var html = '<span class="item-shown">';
-  for (var i = 0; i < shown.length; i++){
-    if (i > 0) html += ', ';
-    html += '<span class="item-name">'+esc(shown[i])+'</span>';
-  }
-  html += '</span>';
-  if (rest.length > 0){
-    html += '<span class="item-more" onclick="this.parentElement.classList.toggle(\'expanded\');event.stopPropagation()">, +'+rest.length+' more</span>';
-    html += '<span class="item-rest">';
-    for (var k = 0; k < rest.length; k++){
-      html += ', <span class="item-name">'+esc(rest[k])+'</span>';
-    }
-    html += '</span>';
-  }
-  return html;
-}
-
-function signalTag(r){
-  if (r.is_cp && r.is_sa) return '<span class="sig-tag both">Both</span>';
-  if (r.is_cp) return '<span class="sig-tag cp">Only Common Partners</span>';
-  if (r.is_sa) return '<span class="sig-tag sa">Only Common Adversaries</span>';
-  return '';
-}
-
 function renderHeader(){
-  var ths = document.querySelectorAll('#sig-table thead th');
+  var ths=document.querySelectorAll('#sig-table thead th');
   ths.forEach(function(th){
-    var col = th.getAttribute('data-col');
-    // Clear sort classes
     th.classList.remove('sort-asc','sort-desc');
-    if (col && currentSort.col === col){
-      th.classList.add(currentSort.dir === 'asc' ? 'sort-asc' : 'sort-desc');
+    var col=th.getAttribute('data-col');
+    if(col&&currentSort.col===col){
+      th.classList.add(currentSort.dir==='asc'?'sort-asc':'sort-desc');
     }
   });
-}
-
-function getRows(){
-  var rows = DATA.slice();
-
-  // Signal filter
-  if (currentSignal !== 'all'){
-    rows = rows.filter(function(r){
-      if (currentSignal === 'cp') return r.is_cp && !r.is_sa;
-      if (currentSignal === 'sa') return r.is_sa && !r.is_cp;
-      if (currentSignal === 'both') return r.is_cp && r.is_sa;
-      return true;
-    });
-  }
-
-  // Sort
-  var col = currentSort.col;
-  var dir = currentSort.dir === 'asc' ? 1 : -1;
-  rows.sort(function(a, b){
-    var va = a[col], vb = b[col];
-    if (typeof va === 'string') va = va.toLowerCase();
-    if (typeof vb === 'string') vb = vb.toLowerCase();
-    if (va == null) va = '';
-    if (vb == null) vb = '';
-    if (va < vb) return -1 * dir;
-    if (va > vb) return 1 * dir;
-    return 0;
-  });
-
-  return rows;
 }
 
 function renderBody(){
-  var rows = getRows();
-  var tbody = document.querySelector('#sig-table tbody');
-  var html = '';
-  for (var i = 0; i < rows.length && i < sigVisible; i++){
-    var r = rows[i];
-    html += '<tr>';
-    for (var j = 0; j < COLUMNS.length; j++){
-      var c = COLUMNS[j];
-      var val = r[c.key];
-      var cls = c.cls || '';
-      var cellHtml;
-
-      if (c.key === 'a' || c.key === 'b'){
-        cellHtml = '<span class="org-name">'+esc(val)+'</span>';
-      } else if (c.key === 'cp_items' || c.key === 'adv_items'){
-        cellHtml = '<div class="sig-items">'+formatItems(val, 5)+'</div>';
-      } else if (c.key === 'signal'){
-        cellHtml = signalTag(r);
-      } else if (c.fmt){
-        cellHtml = c.fmt(val);
-      } else {
-        cellHtml = esc(String(val != null ? val : ''));
-      }
-      html += '<td class="'+cls+'">'+cellHtml+'</td>';
+  var rows=T.filterAndSort(DATA,currentSignal,currentSort.col,currentSort.dir);
+  var tbody=document.querySelector('#sig-table tbody');
+  var html='';
+  for(var i=0;i<rows.length&&i<visible;i++){
+    var r=rows[i];
+    html+='<tr>';
+    for(var j=0;j<COLUMNS.length;j++){
+      var c=COLUMNS[j];
+      var v=r[c.key];
+      var cls=typeof c.cls==='function'?c.cls(v):(c.cls||'');
+      html+='<td class="'+cls+'">'+c.cell(v,r)+'</td>';
     }
-    html += '</tr>';
+    html+='</tr>';
   }
-  tbody.innerHTML = html;
-  if (sigVisible < rows.length) {
-    var loadMore = document.getElementById('sig-load-more');
-    if (!loadMore) {
-      loadMore = document.createElement('button');
-      loadMore.id = 'sig-load-more';
-      loadMore.className = 'sig-load-more';
-      loadMore.addEventListener('click', function(){
-        sigVisible += sigPageSize;
-        renderAll();
-      });
-      tbody.parentElement.parentElement.parentElement.appendChild(loadMore);
+  tbody.innerHTML=html;
+  if(visible<rows.length){
+    var lm=document.getElementById('sig-load-more');
+    if(!lm){
+      lm=document.createElement('button');
+      lm.id='sig-load-more';
+      lm.className='sig-load-more';
+      lm.addEventListener('click',function(){visible+=pageSize;renderAll();});
+      tbody.parentElement.parentElement.parentElement.appendChild(lm);
     }
-    loadMore.textContent = 'Load more (' + (rows.length - sigVisible) + ' remaining)';
-    loadMore.style.display = '';
-  } else {
-    var lm = document.getElementById('sig-load-more');
-    if (lm) lm.style.display = 'none';
+    lm.textContent='Load more ('+(rows.length-visible)+' remaining)';
+    lm.style.display='';
+  }else{
+    var el=document.getElementById('sig-load-more');
+    if(el)el.style.display='none';
   }
 }
 
-function renderAll(){
-  renderHeader();
-  renderBody();
-}
+function renderAll(){renderHeader();renderBody();}
 
-// Header click → sort
-var thead = document.querySelector('#sig-table thead');
-thead.addEventListener('click', function(e){
-  var th = e.target.closest('th[data-col]');
-  if (!th) return;
-  var col = th.getAttribute('data-col');
-  // Find column def
-  var colDef = null;
-  for (var i = 0; i < COLUMNS.length; i++){
-    if (COLUMNS[i].key === col){ colDef = COLUMNS[i]; break; }
+// Header sort
+document.querySelector('#sig-table thead').addEventListener('click',function(e){
+  var th=e.target.closest('th[data-col]');
+  if(!th)return;
+  var col=th.getAttribute('data-col');
+  for(var i=0;i<COLUMNS.length;i++){
+    if(COLUMNS[i].key===col){
+      if(!COLUMNS[i].sortable)return;
+      break;
+    }
   }
-  if (!colDef || !colDef.sortable) return;
-  if (currentSort.col === col){
-    currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
-  } else {
-    currentSort.col = col;
-    currentSort.dir = 'desc';
-  }
-  sigVisible = sigPageSize;
+  if(currentSort.col===col){
+    currentSort.dir=currentSort.dir==='asc'?'desc':'asc';
+  }else{currentSort.col=col;currentSort.dir='desc';}
+  visible=pageSize;
   renderAll();
 });
 
 // Signal filter pills
 document.querySelectorAll('.sig-pill').forEach(function(btn){
-  btn.addEventListener('click', function(){
+  btn.addEventListener('click',function(){
     document.querySelectorAll('.sig-pill').forEach(function(b){b.classList.remove('active');});
     btn.classList.add('active');
-    currentSignal = btn.getAttribute('data-sig');
-    currentSort = {col: 'total_weighted', dir: 'desc'};
-    sigVisible = sigPageSize;
+    currentSignal=btn.getAttribute('data-sig');
+    currentSort={col:'total_weighted',dir:'desc'};
+    visible=pageSize;
     renderAll();
   });
 });
 
 // Init
 fetch('data/triadic_signals.json')
-  .then(function(r){ return r.json(); })
-  .then(function(d){
-    DATA = d;
-    renderAll();
-  });
+  .then(function(r){return r.json();})
+  .then(function(d){DATA=d;renderAll();});
 })();
 </script>
 </body>

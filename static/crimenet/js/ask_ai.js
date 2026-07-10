@@ -1,9 +1,9 @@
 // ── Ask CRIMENET AI tab ──────────────────────────────────────────────────
 (function(){
+  var U = window.CrimenetUtils;
+  var esc = U.esc, fold = U.fold, titleFromUrl = U.titleFromUrl;
   var initialized = false;
   var MAX_ITERATIONS = 8;
-
-  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 
   // Strip any HTML tags that leaked from the LLM (it's told not to, but safety net)
   // First removes entire <details> blocks (tags + content), then any
@@ -19,12 +19,6 @@
          .replace(/<\/?div[^>]*>/gi,'').replace(/<\/?p[^>]*>/gi,'')
          .replace(/<\/?span[^>]*>/gi,'').replace(/<\/?br\s*\/?>/gi,'');
     return t;
-  }
-
-  function titleFromUrl(u){
-    var m=u.match(/title=([^&]+)/);
-    if(m)return decodeURIComponent(m[1]).replace(/_/g,' ');
-    return u;
   }
 
   function renderMarkdown(t){
@@ -128,39 +122,19 @@
 
   // ── Data loading ──────────────────────────────────────────────────────
   var compactData=null, adjData=null, communitiesData=null;
-  var adjNeighbors={}, evidenceCache={}, bucketPromises={};
-  var EVIDENCE_DIR='data/evidence', EVIDENCE_BUCKETS=128;
+  var adjNeighbors={};
   var triadicData=null, bridgesData=null, centralityData=null;
-  var summaryCache={}, summaryBucketPromises={};
-  var SUMMARY_DIR='data/relationship_summaries', SUMMARY_BUCKETS=128;
+
+  var loadEvidence = U.evidenceLoader();
+  var loadRelationshipSummary = U.summaryLoader();
   var dataReady;
-
-  function hashName(name){
-    var b=new TextEncoder().encode(name), h=0x811c9dc5;
-    for(var i=0;i<b.length;i++){h^=b[i];h=Math.imul(h,0x01000193)>>>0;}
-    return h>>>0;
-  }
-
-  function evidenceBucketId(name){
-    var h=hashName(name);
-    var w=Math.max(3,String(EVIDENCE_BUCKETS-1).length);
-    return String((h>>>0)%EVIDENCE_BUCKETS).padStart(w,'0');
-  }
-
-  function summaryBucketId(a,b){
-    var key=[a,b].sort().join('||');
-    var b_arr=new TextEncoder().encode(key), h=0x811c9dc5;
-    for(var i=0;i<b_arr.length;i++){h^=b_arr[i];h=Math.imul(h,0x01000193)>>>0;}
-    var w=Math.max(3,String(SUMMARY_BUCKETS-1).length);
-    return String((h>>>0)%SUMMARY_BUCKETS).padStart(w,'0');
-  }
 
   function loadCompact(){
     if(compactData)return Promise.resolve(compactData);
     return fetch('data/compact.json').then(function(r){
       if(!r.ok)throw new Error('compact');
       return r.json();
-    }).then(function(d){compactData=d;return d;});
+    }).then(function(d){compactData=d;return d;}).catch(function(err){console.error('Failed to load compact:', err);throw err;});
   }
 
   function loadAdj(){
@@ -172,7 +146,7 @@
       adjData=d;
       for(var k in d){if(d.hasOwnProperty(k))adjNeighbors[k]=d[k].map(function(e){return e.t;});}
       return d;
-    });
+    }).catch(function(err){console.error('Failed to load adjacency:', err);throw err;});
   }
 
   function loadCommunitiesData(){
@@ -180,7 +154,7 @@
     return fetch('data/communities.json').then(function(r){
       if(!r.ok)throw new Error('communities');
       return r.json();
-    }).then(function(d){communitiesData=d.communities||[];return communitiesData;});
+    }).then(function(d){communitiesData=d.communities||[];return communitiesData;}).catch(function(err){console.error('Failed to load communities:', err);throw err;});
   }
 
   function loadTriadicSignals(){
@@ -188,7 +162,7 @@
     return fetch('data/triadic_signals.json').then(function(r){
       if(!r.ok)throw new Error('triadic');
       return r.json();
-    }).then(function(d){triadicData=d;return d;});
+    }).then(function(d){triadicData=d;return d;}).catch(function(err){console.error('Failed to load triadic signals:', err);throw err;});
   }
 
   function loadBridgesData(){
@@ -196,7 +170,7 @@
     return fetch('data/bridges.json').then(function(r){
       if(!r.ok)throw new Error('bridges');
       return r.json();
-    }).then(function(d){bridgesData=d.bridge_nodes||[];return bridgesData;});
+    }).then(function(d){bridgesData=d.bridge_nodes||[];return bridgesData;}).catch(function(err){console.error('Failed to load bridges:', err);throw err;});
   }
 
   function loadCentralityData(){
@@ -204,37 +178,99 @@
     return fetch('data/centrality.json').then(function(r){
       if(!r.ok)throw new Error('centrality');
       return r.json();
-    }).then(function(d){centralityData=d.orgs||[];return centralityData;});
+    }).then(function(d){centralityData=d.orgs||[];return centralityData;}).catch(function(err){console.error('Failed to load centrality:', err);throw err;});
   }
 
-  function loadEvidence(orgName){
-    if(orgName in evidenceCache)return Promise.resolve(evidenceCache[orgName]);
-    var id=evidenceBucketId(orgName);
-    if(!bucketPromises[id]){
-      bucketPromises[id]=fetch(EVIDENCE_DIR+'/'+id+'.json')
-        .then(function(r){if(!r.ok)throw new Error('bucket');return r.json();})
-        .catch(function(){return {};});
+  // ── Continent mapping for footprint summaries ────────────────────────
+  var CONTINENT_MAP={
+    'Albania':'Europe','Andorra':'Europe','Austria':'Europe','Belarus':'Europe',
+    'Belgium':'Europe','Bosnia and Herzegovina':'Europe','Bulgaria':'Europe',
+    'Croatia':'Europe','Cyprus':'Europe','Czech Republic':'Europe','Denmark':'Europe',
+    'Estonia':'Europe','Finland':'Europe','France':'Europe','Germany':'Europe',
+    'Greece':'Europe','Hungary':'Europe','Iceland':'Europe','Ireland':'Europe',
+    'Italy':'Europe','Kosovo':'Europe','Latvia':'Europe','Liechtenstein':'Europe',
+    'Lithuania':'Europe','Luxembourg':'Europe','Malta':'Europe','Moldova':'Europe',
+    'Monaco':'Europe','Montenegro':'Europe','Netherlands':'Europe',
+    'North Macedonia':'Europe','Norway':'Europe','Poland':'Europe','Portugal':'Europe',
+    'Romania':'Europe','Russia':'Europe','San Marino':'Europe','Serbia':'Europe',
+    'Slovakia':'Europe','Slovenia':'Europe','Spain':'Europe','Sweden':'Europe',
+    'Switzerland':'Europe','Ukraine':'Europe','United Kingdom':'Europe',
+    'Vatican City':'Europe',
+    'Canada':'North America','Mexico':'North America','United States':'North America',
+    'Belize':'North America','Costa Rica':'North America','Cuba':'North America',
+    'Dominican Republic':'North America','El Salvador':'North America',
+    'Guatemala':'North America','Haiti':'North America','Honduras':'North America',
+    'Jamaica':'North America','Nicaragua':'North America','Panama':'North America',
+    'Puerto Rico':'North America','Trinidad and Tobago':'North America',
+    'Argentina':'South America','Bolivia':'South America','Brazil':'South America',
+    'Chile':'South America','Colombia':'South America','Ecuador':'South America',
+    'Guyana':'South America','Paraguay':'South America','Peru':'South America',
+    'Suriname':'South America','Uruguay':'South America','Venezuela':'South America',
+    'Afghanistan':'Asia','Armenia':'Asia','Azerbaijan':'Asia','Bahrain':'Asia',
+    'Bangladesh':'Asia','Bhutan':'Asia','Brunei':'Asia','Cambodia':'Asia',
+    'China':'Asia','Georgia':'Asia','India':'Asia','Indonesia':'Asia','Iran':'Asia',
+    'Iraq':'Asia','Israel':'Asia','Japan':'Asia','Jordan':'Asia','Kazakhstan':'Asia',
+    'Kuwait':'Asia','Kyrgyzstan':'Asia','Laos':'Asia','Lebanon':'Asia','Malaysia':'Asia',
+    'Mongolia':'Asia','Myanmar':'Asia','Nepal':'Asia','North Korea':'Asia',
+    'Oman':'Asia','Pakistan':'Asia','Palestine':'Asia','Philippines':'Asia',
+    'Qatar':'Asia','Saudi Arabia':'Asia','Singapore':'Asia','South Korea':'Asia',
+    'Sri Lanka':'Asia','Syria':'Asia','Taiwan':'Asia','Tajikistan':'Asia',
+    'Thailand':'Asia','Timor-Leste':'Asia','Turkey':'Asia','Turkmenistan':'Asia',
+    'United Arab Emirates':'Asia','Uzbekistan':'Asia','Vietnam':'Asia','Yemen':'Asia',
+    'Algeria':'Africa','Angola':'Africa','Benin':'Africa','Botswana':'Africa',
+    'Burkina Faso':'Africa','Burundi':'Africa','Cameroon':'Africa','Cape Verde':'Africa',
+    'Central African Republic':'Africa','Chad':'Africa','Comoros':'Africa',
+    'Congo':'Africa',"Côte d'Ivoire":'Africa','Democratic Republic of the Congo':'Africa',
+    'Djibouti':'Africa','Egypt':'Africa','Equatorial Guinea':'Africa',
+    'Eritrea':'Africa','Eswatini':'Africa','Ethiopia':'Africa','Gabon':'Africa',
+    'Gambia':'Africa','Ghana':'Africa','Guinea':'Africa','Guinea-Bissau':'Africa',
+    'Kenya':'Africa','Lesotho':'Africa','Liberia':'Africa','Libya':'Africa',
+    'Madagascar':'Africa','Malawi':'Africa','Mali':'Africa','Mauritania':'Africa',
+    'Mauritius':'Africa','Morocco':'Africa','Mozambique':'Africa','Namibia':'Africa',
+    'Niger':'Africa','Nigeria':'Africa','Rwanda':'Africa','Senegal':'Africa',
+    'Seychelles':'Africa','Sierra Leone':'Africa','Somalia':'Africa',
+    'South Africa':'Africa','South Sudan':'Africa','Sudan':'Africa','Tanzania':'Africa',
+    'Togo':'Africa','Tunisia':'Africa','Uganda':'Africa','Zambia':'Africa',
+    'Zimbabwe':'Africa',
+    'Australia':'Oceania','Fiji':'Oceania','New Zealand':'Oceania',
+    'Papua New Guinea':'Oceania','Samoa':'Oceania','Tonga':'Oceania','Vanuatu':'Oceania'
+  };
+
+  function continentFor(country){
+    var c=CONTINENT_MAP[country];
+    return c||'Other';
+  }
+
+  function buildFootprintSummary(countryLinks, homeCountry){
+    // Group country_links by continent, excluding home country.
+    // Returns {total, by_continent: {continent: {count, countries: [...]}}}
+    var seen={};
+    var byCont={};
+    for(var i=0;i<countryLinks.length;i++){
+      var c=countryLinks[i].country;
+      if(c===homeCountry)continue; // home country is not a footprint
+      if(seen[c])continue;
+      seen[c]=true;
+      var cont=continentFor(c);
+      if(!byCont[cont])byCont[cont]={count:0,countries:[]};
+      byCont[cont].count++;
+      byCont[cont].countries.push(c);
     }
-    return bucketPromises[id].then(function(bk){
-      var e=bk[orgName]||null;evidenceCache[orgName]=e;return e;
-    });
-  }
-
-  function loadRelationshipSummary(a,b){
-    var key=[a,b].sort().join('||');
-    if(key in summaryCache)return Promise.resolve(summaryCache[key]);
-    var id=summaryBucketId(a,b);
-    if(!summaryBucketPromises[id]){
-      summaryBucketPromises[id]=fetch(SUMMARY_DIR+'/'+id+'.json')
-        .then(function(r){if(!r.ok)throw new Error('summary '+id);return r.json();})
-        .catch(function(){return {};});
+    var total=0;
+    var contKeys=Object.keys(byCont).sort();
+    for(var j=0;j<contKeys.length;j++){
+      var entry=byCont[contKeys[j]];
+      entry.countries.sort();
+      total+=entry.count;
     }
-    return summaryBucketPromises[id].then(function(bk){
-      var s=bk[key]||null;summaryCache[key]=s;return s;
-    });
+    // Order by count descending
+    contKeys.sort(function(a,b){return byCont[b].count-byCont[a].count;});
+    var ordered={};
+    for(var k=0;k<contKeys.length;k++){
+      ordered[contKeys[k]]=byCont[contKeys[k]];
+    }
+    return {total:total,by_continent:ordered};
   }
-
-  function fold(s){return (s||'').normalize('NFKD').replace(/[̀-ͯ]/g,'').toLowerCase().trim();}
 
   function bestMatch(query){
     if(!compactData)return null;
@@ -270,7 +306,7 @@
   // ── Tool schemas ──────────────────────────────────────────────────────
   var TOOLS=[
     {type:'function',function:{name:'get_organization',
-      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile also call get_connections and get_community. Returns up to 15 results ranked by match quality and network degree.',
+      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), footprint_summary (total count plus breakdown by continent with country names — always use its exact counts, never count from country_links yourself), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile also call get_connections and get_community. Returns up to 15 results ranked by match quality and network degree.',
       parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to look up'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['query']}}},
     {type:'function',function:{name:'find_by_type',
       description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
@@ -355,7 +391,10 @@
       if(isDefunctFilter===true&&o.is_defunct!==true)continue;
       if(isDefunctFilter===false&&o.is_defunct!==false)continue;
       var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0,profiled:o.profiled===true};
-      if(o.country_links&&o.country_links.length)entry.country_links=o.country_links.map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote,source_url:cl.source_url||null,source_title:cl.source_title||null};});
+      if(o.country_links&&o.country_links.length){
+        entry.country_links=o.country_links.map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote,source_url:cl.source_url||null,source_title:cl.source_title||null};});
+        entry.footprint_summary=buildFootprintSummary(o.country_links, o.country);
+      }
       if(o.own_sources&&o.own_sources.length)entry.sources=o.own_sources.slice(0,5).map(function(s){return {title:s.title,url:s.url};});
       if(!entry.sources&&o.mentioned_in&&o.mentioned_in.length)entry.sources=o.mentioned_in.slice(0,5).map(function(s){return {title:s.title,url:s.url};});
       matches.push(entry);
@@ -907,8 +946,12 @@
     'Tools:',
     'get_organization — search orgs by name. Returns full metadata: aliases,',
     '  description, country, time_period, is_defunct, profiled flag, degree,',
-    '  country_links (footprints with source per footprint), and sources',
-    '  (own_sources with fallback to mentioned_in). Pass is_defunct to filter.',
+    '  country_links (footprints with source per footprint), footprint_summary',
+    '  (total count plus breakdown by continent: count + country names.',
+    '  Always use these exact counts — they are computed from the full data,',
+    '  not estimated. Never derive your own totals or regional counts from',
+    '  the country_links array), and sources (own_sources with fallback to',
+    '  mentioned_in). Pass is_defunct to filter.',
     '  For comprehensive "tell me about X": also call get_connections (top',
     '  connections + relationship types), get_community (which community it',
     '  belongs to), and get_centrality with the org name (network ranking).',
@@ -1110,8 +1153,11 @@
     }
 
     // ── Render evidence section (matching Trace a Connection format) ──
-    var EDGE_LABELS={cooperation:'Cooperation',conflict:'Conflict',other:'Other'};
-    var FAMILY_COLORS={cooperation:'var(--fam-coop)',conflict:'var(--fam-hostile)',other:'var(--fam-loose)'};
+    var EDGE_LABELS=U.EDGE_META;
+    var FAMILY_COLORS={};
+    Object.keys(EDGE_LABELS).forEach(function(k){
+      FAMILY_COLORS[k]=U.FAMILY_COLOR[EDGE_LABELS[k].family];
+    });
 
     function renderSourcePill(url){
       return '<div class="ev-srcs"><span class="ev-srcs-label">Source:</span> <a href="'+esc(url)+'" target="_blank" rel="noopener nofollow">'+esc(titleFromUrl(url))+'</a></div>';
@@ -1212,7 +1258,7 @@
           if(!deduped[r]||!deduped[r].length)return;
           var color=FAMILY_COLORS[r]||FAMILY_COLORS.other;
           html+='<div class="rp-section" style="--rc:'+color+'">';
-          html+='<div class="rp-section-title collapsed" onclick="var b=this.nextElementSibling;this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">'+(EDGE_LABELS[r]||r)+'<span class="rp-section-count">'+deduped[r].length+'</span></div>';
+          html+='<div class="rp-section-title collapsed" onclick="var b=this.nextElementSibling;this.classList.toggle(\'collapsed\');b.classList.toggle(\'collapsed\');">'+((EDGE_LABELS[r]||{}).label||r)+'<span class="rp-section-count">'+deduped[r].length+'</span></div>';
           html+='<div class="rp-section-body collapsed">';
           deduped[r].forEach(function(e){html+=renderEdgeBlock(e);});
           html+='</div></div>';
@@ -1362,6 +1408,7 @@
     var examplesWrap = document.querySelector('.ds-suggestions');
 
     var firstQuestion = true;
+    var currentTurn = null;
 
     function collapseExamples(){
       if(examplesWrap && !examplesWrap.classList.contains('collapsed')){
@@ -1369,8 +1416,20 @@
       }
     }
 
-    function showAnswer(question, answer){
-      // On first question: hide examples and show answer area below
+    function newTurn(question){
+      // Newest turn goes on top; demote the previously-current turn.
+      var prev = answers.querySelectorAll('.ask-turn.ask-current');
+      for(var i=0;i<prev.length;i++) prev[i].classList.remove('ask-current');
+
+      var turn = document.createElement('div');
+      turn.className = 'ask-turn ask-current';
+      turn.innerHTML =
+        '<div class="ask-msg ask-user"><div class="ask-msg-label">You</div><div class="ask-msg-body">'+esc(question)+'</div></div>'+
+        '<div class="ask-msg ask-assistant"><div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body"><span class="ask-spinner"></span> Thinking…</div></div>';
+      answers.insertBefore(turn, answers.firstChild);
+      currentTurn = turn;
+
+      // On first question: collapse examples and reveal the answers area.
       if(firstQuestion){
         firstQuestion = false;
         collapseExamples();
@@ -1378,53 +1437,27 @@
         if(searchBottom) searchBottom.style.display = '';
       }
 
-      // Clear any loading placeholder
-      var loadingEl = answers.querySelector('.ask-msg.ask-assistant');
-      if(loadingEl) loadingEl.remove();
-
-      var qDiv = document.createElement('div');
-      qDiv.className = 'ask-msg ask-user';
-      qDiv.innerHTML = '<div class="ask-msg-label">You</div><div class="ask-msg-body">'+esc(question)+'</div>';
-      answers.appendChild(qDiv);
-
-      var aDiv = document.createElement('div');
-      aDiv.className = 'ask-msg ask-assistant';
-      aDiv.innerHTML = '<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body">'+answer+'</div>';
-      answers.appendChild(aDiv);
-
-      // Scroll to the new answer
       setTimeout(function(){
-        aDiv.scrollIntoView({behavior:'smooth',block:'start'});
+        turn.scrollIntoView({behavior:'smooth',block:'start'});
       },50);
     }
 
-    function showLoading(){
-      // Remove any previous content from ds-answers (keep previous Q&A, just add loading)
-      var loading = document.createElement('div');
-      loading.className = 'ask-msg ask-assistant';
-      loading.innerHTML = '<div class="ask-msg-label">CRIMENET AI</div><div class="ask-msg-body"><span class="ask-spinner"></span> Thinking…</div>';
-      answers.appendChild(loading);
-
-      // Show answers scroll on first question
-      if(firstQuestion){
-        collapseExamples();
-        if(answersScroll) answersScroll.classList.add('show');
-        if(searchBottom) searchBottom.style.display = '';
-      }
-
-      setTimeout(function(){
-        loading.scrollIntoView({behavior:'smooth',block:'start'});
-      },50);
+    // Fill the current turn's answer body (replaces the loading spinner in place).
+    function setAnswer(answer){
+      if(!currentTurn) return;
+      var body = currentTurn.querySelector('.ask-assistant .ask-msg-body');
+      if(body) body.innerHTML = answer;
     }
 
     function updateStatus(text){
-      var body = answers.querySelector('.ask-msg:last-child .ask-msg-body');
+      if(!currentTurn) return;
+      var body = currentTurn.querySelector('.ask-assistant .ask-msg-body');
       if(body) body.innerHTML = '<span class="ask-spinner"></span> '+esc(text);
     }
 
     function submitQuestion(q, isFollowUp){
       q = (q||'').trim(); if(!q) return;
-      showLoading();
+      newTurn(q);
       send.disabled = true; input.disabled = true;
       if(sendBottom) sendBottom.disabled = true;
       if(inputBottom) inputBottom.disabled = true;
@@ -1434,11 +1467,11 @@
         var answer = simpleMarkdown(result.markdown||'')
           + result.sourcesHtml
           + result.evidenceHtml;
-        showAnswer(q, answer);
+        setAnswer(answer);
         // Clear the bottom input if this was a follow-up
         if(isFollowUp && inputBottom) inputBottom.value = '';
       }).catch(function(err){
-        showAnswer(q, 'Error: '+esc(err.message||'Failed to reach the API.'));
+        setAnswer('Error: '+esc(err.message||'Failed to reach the API.'));
       }).then(function(){
         send.disabled = false; input.disabled = false;
         if(sendBottom) sendBottom.disabled = false;
@@ -1515,12 +1548,29 @@
       });
     }
 
+    // About: "About" toggles a modal box; close via X, overlay click, or Escape.
+    var aboutToggle = document.getElementById('ds-about-toggle');
+    var aboutModal = document.getElementById('ds-about-modal');
+    var aboutClose = document.getElementById('ds-about-close');
+    if(aboutToggle && aboutModal){
+      function closeAbout(){
+        aboutModal.classList.remove('open');
+        aboutToggle.setAttribute('aria-expanded','false');
+        aboutToggle.focus();
+      }
+      aboutToggle.addEventListener('click', function(){
+        var open = aboutModal.classList.toggle('open');
+        aboutToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      if(aboutClose) aboutClose.addEventListener('click', closeAbout);
+      aboutModal.addEventListener('click', function(e){ if(e.target === aboutModal) closeAbout(); });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && aboutModal.classList.contains('open')) closeAbout();
+      });
+    }
+
     dataReady = Promise.all([loadCompact(), loadAdj()]);
   }
 
-  var askBtn = document.querySelector('.browse-toggle-btn[data-view="ask"]');
-  if(askBtn) askBtn.addEventListener('click', function(){ initAsk(); });
-  // Activate on page load if Ask is the default view (#ask-centered visible)
-  var askCentered = document.getElementById('ask-centered');
-  if(askCentered && askCentered.style.display !== 'none') initAsk();
+  document.addEventListener('DOMContentLoaded', function(){ initAsk(); });
 })();
