@@ -486,8 +486,16 @@
           });
         });
       }
-      // General case: return up to 25 unique org connections
+      // Count by type from the FULL adjacency before capping to 25
       var total=edges.length;
+      var typeCounts={cooperation:0,conflict:0,other:0};
+      for(var j=0;j<edges.length;j++){
+        var rs=edges[j].r;
+        for(var k=0;k<rs.length;k++){
+          var r=rs[k];
+          if(typeCounts.hasOwnProperty(r))typeCounts[r]++;else typeCounts[r]=1;
+        }
+      }
       if(edges.length>25)edges=edges.slice(0,25);
       return loadEvidence(match).then(function(entry){
         var evidenceEdges=(entry&&entry.edges)?entry.edges:[];
@@ -500,9 +508,7 @@
           if(found)return {source:found.source,target:found.target,relationship:found.relationship,description:found.descriptions?found.descriptions[0]:'',time_period:found.time_periods?found.time_periods.join(', '):'',evidence_quote:found.evidence_quote||'',source_urls:found.source_urls||[]};
           return {source:match,target:n.t,relationship:n.r.join(', '),description:'',time_period:'',evidence_quote:'',source_urls:[]};
         });
-        var counts={cooperation:0,conflict:0,other:0};
-        for(var j=0;j<edges.length;j++){var rs=edges[j].r;for(var k=0;k<rs.length;k++){var r=rs[k];if(counts.hasOwnProperty(r))counts[r]++;else counts[r]=1;}}
-        return JSON.stringify({organization:match,connections_shown:results.length,connections_total:total,type_counts:counts,connections:results});
+        return JSON.stringify({organization:match,connections_shown:results.length,connections_total:total,type_counts:typeCounts,connections:results});
       });
     });
   }
@@ -1068,7 +1074,8 @@
     '  — the user wants the full detail. Do not embellish the summaries with your own',
     '  training knowledge. Do not add facts, anecdotes, or analysis that are not in',
     '  the full summary or the member list. The community data is what CRIMENET knows.',
-    '  Present it faithfully.',
+    '  Present it faithfully. Never claim what a tool result says or does not say',
+    '  unless you called that tool in this conversation — do not assume.',
     '- Member lists include "[unprofiled — no data]" markers on orgs that have no',
     '  profiled Wikipedia article. These orgs have no description, no country, and',
     '  no other data — only a name. Do not invent background, location, or activity',

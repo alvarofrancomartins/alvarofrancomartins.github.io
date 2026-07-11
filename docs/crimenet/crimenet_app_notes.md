@@ -402,7 +402,7 @@ The system prompt's `Rules:` block guides DeepSeek to:
 - Use `find_by_countries` for questions about orgs operating in multiple countries simultaneously (e.g., "which orgs have footprints in both Colombia and Venezuela?")
 - Use `get_triadic_signals` for questions about potential/undocumented relationships (caveat: statistical signals, not confirmed)
 - For comparison questions ("compare X and Y"), limit to 2-4 focused tool calls, then synthesize — do not look up every organization individually
-- Use `get_community` for community membership, cross-community comparison, ranking, and search. Pass `keyword` to filter the list to only communities whose member names, title, or summary contain the term — always use it when searching for communities containing a specific org or term, never scan 224 member lists yourself. List-all mode (no org, no community_id) returns all communities with short_summary (one sentence) for fast scanning; keyword narrows the list further. Follow up with `community_id` to get the full summary of communities you present. Member lists include `[unprofiled — no data]` markers on orgs that have no profiled Wikipedia article — do not invent background, location, or activity for them. Single-org mode returns the community a specific org belongs to. When answering community questions, present the actual title and summary from the data faithfully. Do not embellish with facts or anecdotes not in the community data.
+- Use `get_community` for community membership, cross-community comparison, ranking, and search. Pass `keyword` to filter the list to only communities whose member names, title, or summary contain the term — always use it when searching for communities containing a specific org or term, never scan 224 member lists yourself. List-all mode (no org, no community_id) returns all communities with short_summary (one sentence) for fast scanning; keyword narrows the list further. Follow up with `community_id` to get the full summary of communities you present. Member lists include `[unprofiled — no data]` markers on orgs that have no profiled Wikipedia article — do not invent background, location, or activity for them. Single-org mode returns the community a specific org belongs to. When answering community questions, present the actual title and summary from the data faithfully. Do not embellish with facts or anecdotes not in the community data. Never claim what a tool result says or does not say unless you called that tool in this conversation — do not assume content you have not fetched.
 - Use `get_centrality` for "most important / powerful / influential / connected" questions. Default to betweenness when the question is vague — it best captures structural importance. Combine with `find_by_country` to filter by country, or with `get_organization` to get details on top-ranked orgs.
 - The agent loop blocks exact duplicate tool calls automatically to prevent wasted iterations
 - Cite evidence quotes and relationship types precisely
@@ -461,6 +461,10 @@ chains from conflict chains.
   and knows the org has no description, country, or other data to draw on. The `keyword`
   parameter filters communities in code via `fold()` (case-insensitive matching against
   member names, title, and short summary) so the LLM never has to scan 224 member lists.
+  `get_connections` computes `type_counts` from the FULL adjacency list (before applying
+  the 25-connection display cap), so the numbers always add up to `connections_total`.
+  Previously it counted from the capped slice, yielding wrong conflict/other counts for
+  highly-connected orgs.
 - `app/ask.html` — standalone page containing the DeepSeek-style centered view (greeting,
   search pill, example questions grid, answers area, bottom follow-up bar). All DOM
   elements referenced by `ask_ai.js` live here.
