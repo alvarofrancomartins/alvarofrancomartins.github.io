@@ -350,8 +350,8 @@
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter to only follow edges of this type at the first hop'}
       },required:['organization']}}},
     {type:'function',function:{name:'get_community',
-      description:'Get a community or list all communities. Three modes: (1) no arguments — list all communities, each with id, title, short_summary (one sentence for scanning), size, top_hubs (top 5), and members. Full summaries are NOT included in list mode to save space. (2) community_id — get a single community by its numeric id, with the full summary, title, short_summary, size, top_hubs, and full member list. (3) organization — find which community a specific org belongs to, with the full summary. Always use mode (1) first to scan communities with short_summary; then use mode (2) with community_id to read the full summary of the one(s) you focus on.',
-      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name to find its community. Mutually exclusive with community_id.'},community_id:{type:'integer',description:'Numeric community id to fetch a single community with its full summary. Use after scanning the list to drill into a specific community.'}},required:[]}}},
+      description:'Get a community or list all communities. Three modes: (1) no arguments — list all communities, each with id, title, short_summary (one sentence for scanning), size, top_hubs (top 5), and members. Full summaries are NOT included in list mode to save space. (2) community_id — get a single community by its numeric id, with the full summary, title, short_summary, size, top_hubs, and full member list. (3) organization — find which community a specific org belongs to, with the full summary. Always use mode (1) first to scan communities with short_summary; then use mode (2) with community_id to read the full summary of the one(s) you focus on. Pass the keyword parameter to return only communities whose member names, title, or summary contain the keyword. Use keyword to search for a specific org name or term inside communities — never scan member lists yourself, let the tool filter for you.',
+      parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name to find its community. Mutually exclusive with community_id and keyword.'},community_id:{type:'integer',description:'Numeric community id to fetch a single community with its full summary. Use after scanning the list to drill into a specific community.'},keyword:{type:'string',description:'Filter communities: return only those whose member names, title, or summary contain this keyword (case-insensitive). In list-all mode only (ignored with community_id or organization).'}},required:[]}}},
     {type:'function',function:{name:'get_triadic_signals',
       description:'Get triadic signals for an organization: pairs where this org and another org share multiple common cooperation partners or common adversaries but have no direct edge between them. These are candidate undocumented relationships. High-scoring pairs are more likely to have a real-world connection not yet documented in Wikipedia.',
       parameters:{type:'object',properties:{
@@ -784,6 +784,7 @@
   function tool_get_community(args){
     var org=args.organization||null;
     var cid=args.community_id!=null?args.community_id:null;
+    var keyword=args.keyword||null;
     return Promise.all([loadCommunitiesData(),loadCompact()]).then(function(results){
       var comms=results[0];
       // Single-community by id: return full detail
@@ -805,8 +806,44 @@
         return JSON.stringify({message:'Organization "'+match+'" not found in any community.'});
       }
       // List-all mode: short_summary only, no full summary — caller must use community_id to drill in
-      var list=comms.map(function(c){return {id:c.i,title:c.t,short_summary:c.b||null,size:c.s,top_hubs:(c.k||[]).slice(0,5),members:c.o};});
-      return JSON.stringify({total_communities:list.length,communities:list});
+      // Keyword filter: only return communities whose member names, title, or summary contain the keyword
+      var list=comms;
+      if(keyword){
+        var kw=fold(keyword);
+        list=comms.filter(function(c){
+          // Check title
+          if(fold(c.t).indexOf(kw)>=0)return true;
+          // Check short summary
+          if(c.b&&fold(c.b).indexOf(kw)>=0)return true;
+          // Check member names
+          if(c.o){for(var mi=0;mi<c.o.length;mi++){if(fold(c.o[mi]).indexOf(kw)>=0)return true;}}
+          return false;
+        });
+      }
+      // Annotate members with [unprofiled] when they have no data so the LLM knows
+      // not to invent details about them.
+      function annotateMembers(memberNames){
+        if(!memberNames)return memberNames;
+        return memberNames.map(function(m){
+          var isProfiled=false;
+          if(compactData&&compactData.orgs){
+            var o=compactData.orgs[m];
+            if(o&&o.profiled===true)isProfiled=true;
+          }
+          return isProfiled?m:m+' [unprofiled — no data]';
+        });
+      }
+      var result=list.map(function(c){
+        return {
+          id:c.i,
+          title:c.t,
+          short_summary:c.b||null,
+          size:c.s,
+          top_hubs:c.k?c.k.slice(0,5):[],
+          members:annotateMembers(c.o)
+        };
+      });
+      return JSON.stringify({total_communities:result.length,communities:result});
     });
   }
 
@@ -1018,17 +1055,26 @@
     '- "Which orgs are still active?": use get_organization with is_defunct:false.',
     '- Potential undocumented ties: get_triadic_signals (statistical, not confirmed).',
     '- For community questions that require scanning or comparing across communities',
-    '  ("most surprising", "largest", "communities about X topic"): STEP 1: call',
-    '  get_community() with no arguments to get the full list (each has id, title,',
-    '  short_summary, size, top_hubs, members — but NO full summary). Scan using',
-    '  short_summary to find relevant communities. STEP 2: call get_community() with',
-    '  community_id for each community you want to present. This returns the FULL',
-    '  summary (the detailed paragraph). You MUST do step 2 before presenting a',
-    '  community. Never present a community using only its short_summary — the user',
-    '  wants the full detail. Do not embellish the summaries with your own training',
-    '  knowledge. Do not add facts, anecdotes, or analysis that are not in the full',
-    '  summary or the member list. The community data is what CRIMENET knows. Present',
-    '  it faithfully. For "most surprising" or "most interesting" questions: pick',
+    '  ("most surprising", "largest", "communities about X topic", "communities',
+    '  containing orgs named Y"): STEP 1: call get_community() with keyword to filter',
+    '  to only communities whose member names, title, or summary contain the term.',
+    '  This returns a short list you can scan. Always use keyword to narrow the search',
+    '  when looking for communities containing a specific org or term — never scan 224',
+    '  member lists yourself, you will miss results. STEP 2: if the keyword filter',
+    '  returned too many communities, use keyword with a more specific term. STEP 3:',
+    '  call get_community() with community_id for each community you want to present.',
+    '  This returns the FULL summary (the detailed paragraph). You MUST do this before',
+    '  presenting a community. Never present a community using only its short_summary',
+    '  — the user wants the full detail. Do not embellish the summaries with your own',
+    '  training knowledge. Do not add facts, anecdotes, or analysis that are not in',
+    '  the full summary or the member list. The community data is what CRIMENET knows.',
+    '  Present it faithfully.',
+    '- Member lists include "[unprofiled — no data]" markers on orgs that have no',
+    '  profiled Wikipedia article. These orgs have no description, no country, and',
+    '  no other data — only a name. Do not invent background, location, or activity',
+    '  for them. If you need their details, call get_organization first; if it returns',
+    '  no description, say the org is unprofiled and no information is available.',
+    '- For "most surprising" or "most interesting" questions: pick',
     '  candidate communities from short_summaries in step 1, pull their full summaries',
     '  in step 2, then present the winner(s) with their actual title and full summary.',
     '- When citing facts, mention the Wikipedia article name inline where possible',
