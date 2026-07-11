@@ -1542,6 +1542,19 @@
       });
     }
 
+    // Evidence Time/Quote reveals — delegated toggle (mirrors browse.js).
+    // The evidence section is injected after each answer, so a single
+    // document-level handler covers every current and future .ev-toggle.
+    document.addEventListener('click', function(ev){
+      var b = ev.target.closest('.ev-toggle');
+      if(!b) return;
+      var t = document.getElementById(b.dataset.target);
+      if(!t) return;
+      var opening = t.hasAttribute('hidden');
+      if(opening) t.removeAttribute('hidden'); else t.setAttribute('hidden','');
+      b.classList.toggle('open', opening);
+    });
+
     dataReady = Promise.all([loadCompact(), loadAdj()]);
   }
 

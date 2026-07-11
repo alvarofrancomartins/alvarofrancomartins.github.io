@@ -56,21 +56,39 @@
 
 /* Auto-appended evidence section (matches Trace a Connection format) */
 .ask-evid{margin:1.2em 0 0;padding-top:1em;border-top:1px solid var(--b1)}
-.ask-evid-head{font-size:14px;font-weight:700;color:var(--amber);cursor:pointer;user-select:none;margin-bottom:.6em;display:flex;align-items:center;gap:8px}
-.ask-evid-head::before{content:"▸ ";font-size:12px}
+.ask-evid-head{font-size:22px;font-weight:700;color:var(--amber);cursor:pointer;user-select:none;margin-bottom:.6em;display:flex;align-items:center;gap:8px}
+.ask-evid-head::before{content:"▸ ";font-size:18px}
 .ask-evid-head.open::before{content:"▾ "}
-.ask-evid-head .ask-evid-badge{font-size:11px;font-weight:600;color:var(--bg);background:var(--amber);padding:1px 8px;border-radius:10px;text-transform:none;letter-spacing:0}
-.ask-evid-subhead{font-size:13px;color:var(--text-muted);margin-bottom:14px;line-height:1.6;font-style:italic}
+.ask-evid-head .ask-evid-badge{font-size:16px;font-weight:600;color:var(--bg);background:var(--amber);padding:2px 12px;border-radius:12px;text-transform:none;letter-spacing:0}
+.ask-evid-subhead{font-size:18px;color:var(--text-muted);margin-bottom:16px;line-height:1.6;font-style:italic}
 .ask-evid-body.collapsed{display:none}
 /* rs-evidence-divider is used by ask_ai.js inside AI-rendered markdown */
-.rs-evidence-divider{font-family:var(--disp);font-size:20px;letter-spacing:1.5px;color:var(--amber2);border-bottom:2px solid var(--b1);padding-bottom:6px;margin:10px 0 16px}
+.rs-evidence-divider{font-family:var(--disp);font-size:24px;letter-spacing:1.5px;color:var(--amber2);border-bottom:2px solid var(--b1);padding-bottom:6px;margin:10px 0 16px}
+
+/* Evidence body renders shared .rp-*/.ev-*/.rs-* classes from main.css, which
+   are sized for browse.html's compact layout. On this page everything reads at
+   the ~26px .ask-msg-body scale, so scale the evidence body to match. Scoped to
+   .ask-evid so browse.html is untouched (main.css is the shared source). */
+.ask-evid .rp-section-title{font-size:24px}
+.ask-evid .rp-section-title::after{font-size:20px}
+.ask-evid .rp-linkage-desc{font-size:24px;line-height:1.7;margin-bottom:16px}
+.ask-evid .rs-heading{font-size:26px}
+.ask-evid .rs-ai-note{font-size:18px}
+.ask-evid .rs-summary{font-size:24px;line-height:1.7}
+.ask-evid .ev-meta{gap:20px}
+.ask-evid .ev-toggle{font-size:17px}
+.ask-evid .ev-toggle .chev{font-size:14px}
+.ask-evid .ev-srcs,.ask-evid .ev-meta .ev-srcs{font-size:18px}
+.ask-evid .ev-srcs-label{font-size:15px}
+.ask-evid .ev-quote{font-size:23px;line-height:1.7}
+.ask-evid .rp-linkage .ev-time{font-size:18px}
 
 /* Auto-appended source links */
-.ask-src-head{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin:1.2em 0 .4em;padding-top:1em;border-top:1px solid var(--b1)}
-.ask-src-list{display:flex;flex-wrap:wrap;gap:6px}
-.ask-src-list a{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:2px 8px;border:1px solid var(--b2);border-radius:4px;color:var(--amber);text-decoration:none;transition:background .2s,border-color .2s}
-.ask-src-list a::before{content:"";flex-shrink:0;width:12px;height:12px;background:currentColor;mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>') center/contain no-repeat;-webkit-mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>') center/contain no-repeat}
-.ask-src-list a::after{content:"\2197";font-size:11px;opacity:.85}
+.ask-src-head{font-size:26px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin:1.2em 0 .5em;padding-top:1em;border-top:1px solid var(--b1)}
+.ask-src-list{display:flex;flex-wrap:wrap;gap:10px}
+.ask-src-list a{display:inline-flex;align-items:center;gap:8px;font-size:22px;font-weight:600;padding:6px 14px;border:1px solid var(--b2);border-radius:6px;color:var(--amber);text-decoration:none;transition:background .2s,border-color .2s}
+.ask-src-list a::before{content:"";flex-shrink:0;width:20px;height:20px;background:currentColor;mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>') center/contain no-repeat;-webkit-mask:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>') center/contain no-repeat}
+.ask-src-list a::after{content:"\2197";font-size:18px;opacity:.85}
 .ask-src-list a:hover{background:rgba(232,160,32,.15);border-color:var(--amber);color:#ffd27a}
 
 @media(max-width:900px){
@@ -104,8 +122,8 @@
 
 .ds-greeting{margin-bottom:40px}
 .ds-greeting-text{
-  font-family:var(--body);font-size:64px;font-weight:600;
-  color:var(--text-bright);line-height:1.2;
+  font-family:var(--disp);font-size:64px;font-weight:600;letter-spacing:.5px;
+  color:var(--text-bright);line-height:1.08;
 }
 /* top bar: breadcrumb */
 .ask-topbar{display:flex;align-items:center;justify-content:space-between;gap:16px}

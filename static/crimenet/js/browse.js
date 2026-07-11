@@ -29,6 +29,11 @@
       switchToPanel(this.dataset.view);
     });
   });
+
+  // Show the default (finder) view on load — the *-view containers start
+  // display:none in the HTML, so without this the Trace results render into a
+  // hidden #finder-view and nothing appears until another tab is clicked.
+  switchToPanel('finder');
 })();
 
 // ── Browser connection finder ──────────────────────────────────────────────────

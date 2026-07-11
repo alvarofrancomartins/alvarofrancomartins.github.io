@@ -44,10 +44,18 @@ All HTML, CSS, and data files live in `app/`. Deploying is just publishing the
   (base styles, browse layout, finder, communities, bridges, signals, AI evidence rendering
   extensions). Also loaded by hand-authored pages. The build script's CSS constant is the
   single source of truth — do not edit `app/css/main.css` directly.
+  `main.css` styles headings with `var(--disp)` (Oswald) and body with `var(--body)` (Inter),
+  so every page that loads it must also include the Google Fonts `<link>` (Inter + Oswald)
+  that `index.html` carries. `browse.html` and `ask.html` include it. Without it those two
+  fonts fall back to a system font while keeping their Oswald tuned letter spacing, so
+  section titles render stretched and out of place.
 - **`css/ask.css`** — **hand-authored.** Ask CRIMENET AI styles (DeepSeek-style centered
   layout with `.ds-*` selectors, message rendering, example grid, evidence/sources). Only
   loaded by `ask.html`. Ask AI styling is cleanly separated: no `.ask-evid`, `.ask-src-*`,
-  or `.ds-*` rules appear in `main.css`.
+  or `.ds-*` rules appear in `main.css`. Because this page renders at a larger type scale
+  than `browse.html`, `ask.css` also carries `.ask-evid`-scoped overrides that bump the
+  shared `main.css` evidence classes (`.rp-*`, `.ev-*`, `.rs-*`) and the `.ask-src-*` source
+  pills up to match `.ask-msg-body`. Scoped to `.ask-evid` so `browse.html` is untouched.
 
 ## JavaScript files (`app/js/`)
 
@@ -66,11 +74,16 @@ All modules that need shared utilities reference `window.CrimenetUtils` (defined
 - **`js/browse.js`** — tab toggle (four tabs: Trace a Connection, Communities, Bridges,
   Triadic Signals), connection finder, communities renderer, bridges renderer, and triadic
   signals renderer (delegates data functions to `js/triadic_signals.js`). Uses
-  `CrimenetUtils` for all shared functions. Loaded by `browse.html`.
+  `CrimenetUtils` for all shared functions. Calls `switchToPanel('finder')` once on load so
+  the default view is visible (the four `*-view` containers start `display:none` in the HTML,
+  so without this the Trace results render into a hidden `#finder-view`). Loaded by
+  `browse.html`.
 - **`js/ask_ai.js`** — Ask CRIMENET AI tool definitions (13 tools), tool implementations,
   data loaders, agent loop (MAX_ITERATIONS=8), automatic source/evidence collection, full
-  markdown renderer, system prompt, and UI wiring. Uses `CrimenetUtils` for all shared
-  functions. All 7 `fetch()` calls have `.catch()` handlers. Loaded by `ask.html`.
+  markdown renderer, system prompt, and UI wiring. Wires a delegated `.ev-toggle` click
+  handler (same as `browse.js`) so the Time/Quote reveals in the evidence section work.
+  Uses `CrimenetUtils` for all shared functions. All 7 `fetch()` calls have `.catch()`
+  handlers. Loaded by `ask.html`.
 - **`js/triadic_signals.js`** — shared triadic signals data functions (`esc`, `signalTag`,
   `formatItems`, `filterAndSort`) exposed on `window.CrimenetTriadic`. Uses
   `window.CrimenetUtils` for `esc()`. Loaded by both `browse.html` and

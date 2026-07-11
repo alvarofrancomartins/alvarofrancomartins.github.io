@@ -12,6 +12,9 @@
 <meta property="og:description" content="About CRIMENET: the most extensive open source catalog of criminal organizations worldwide, built by Álvaro Franco Martins.">
 <meta property="og:url" content="https://www.alvarofrancomartins.com/crimenet/about.html">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -22,7 +25,7 @@
 <h1>About CRIMENET</h1>
 
 <div class="desc">
-CRIMENET is the first open source knowledge graph of global organized crime, and
+CRIMENET is the first open source Knowledge Graph of global organized crime, and
 to my knowledge the most extensive catalog of criminal organizations ever assembled.
 Every node and every relationship is traceable to a versioned Wikipedia source.
 </div>
@@ -67,7 +70,7 @@ Wikipedia source.
 </p>
 
 <p class="desc">
-This was an accidental achievement. The goal was to build a knowledge graph of how
+This was an accidental achievement. The goal was to build a Knowledge Graph of how
 criminal organizations relate to each other, not to catalog every group mentioned on
 Wikipedia. But because the LLM pipeline reads nearly 1,500 articles across four
 languages and extracts every organization mentioned in each one, it ended up
@@ -80,7 +83,7 @@ list that did not exist before.
 
 <p class="desc">
 The graph reflects what was found in the articles processed. Not every organization
-retrieved in the process is necessarily a criminal organization — some state forces,
+retrieved in the process is necessarily a criminal organization. Some state forces,
 political parties, or other non-criminal entities may have slipped in. The LLM pipeline
 is not perfect and occasionally misses a connection or misclassifies one. More
 importantly, Wikipedia itself does not document every real world tie. An absent
@@ -98,28 +101,28 @@ The GitHub repository has the full pipeline, the audit tools, and the build syst
 turns the data into this site.
 </p>
 
-<div class="section-h">Ask CRIMENET AI</div>
+<div class="section-h">CRIMENET AI</div>
 
 <p class="desc">
-<strong>When to use what.</strong> For specific, structured queries — looking up a single
+<strong>When to use what.</strong> For specific, structured queries (looking up a single
 organization, finding all edges between two specific orgs, seeing which orgs operate in a
-given country, browsing community clusters, or exploring triadic signals — use the
+given country, browsing community clusters, or exploring triadic signals), use the
 dedicated tabs on the <a href="browse.html">connection finder</a> and the
 <a href="index.html">dashboard</a>. These tabs render the data directly with no LLM
-involvement. For complex questions that combine multiple pieces of information — tracing
+involvement. For complex questions that combine multiple pieces of information (tracing
 indirect relationships through intermediaries, comparing organizations across countries,
-ranking by network influence, or asking about structural patterns — use
-<a href="ask.html">Ask CRIMENET AI</a>. The AI queries the graph's structure through
+ranking by network influence, or asking about structural patterns), use
+<a href="ask.html">CRIMENET AI</a>. The AI queries the graph's structure through
 tools and synthesizes an answer. As with any LLM response, verify claims against the
 source evidence the answer cites.
 </p>
 
 <p class="desc">
-This is a complete example of <strong>GraphRAG</strong> — retrieval-augmented generation
-over a knowledge graph. Instead of searching documents by keyword similarity, the AI
+This is a complete example of <strong>GraphRAG</strong>, retrieval-augmented generation
+over a Knowledge Graph. Instead of searching documents by keyword similarity, the AI
 queries the graph's actual structure: it looks up organizations, traces connections
 through intermediate nodes, finds shortest paths, inspects communities, and ranks by
-network centrality. This lets it answer questions that flat document search cannot —
+network centrality. This lets it answer questions that flat document search cannot:
 questions about indirect relationships, network position, community membership, and
 structural patterns that only emerge from the graph. You can ask questions like "Which
 Mexican cartels operate in Europe?" or "How are the PCC and 'Ndrangheta connected?" and
@@ -145,7 +148,7 @@ from CRIMENET's documented country footprints.
 </a>
 
 <p class="desc" style="margin-top:28px">
-An interactive 3D network of the full graph — nearly 5,000 organizations and nearly
+An interactive 3D network of the full graph, nearly 5,000 organizations and nearly
 11,000 relationships rendered as a force-directed layout. Pan, zoom, and hover to
 explore how criminal organizations connect.
 </p>
