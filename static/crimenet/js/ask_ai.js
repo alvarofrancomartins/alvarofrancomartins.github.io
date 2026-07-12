@@ -306,7 +306,7 @@
   // ── Tool schemas ──────────────────────────────────────────────────────
   var TOOLS=[
     {type:'function',function:{name:'get_organization',
-      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, country_links (footprints with country, context, quote, source_url, source_title), footprint_summary (total count plus breakdown by continent with country names — always use its exact counts, never count from country_links yourself), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization ("Tell me about the Sinaloa Cartel", "Who are CJNG?"). For a complete profile, call get_connections, get_community, and get_centrality (with this org name) together in a single multi-tool batch. Returns up to 15 results ranked by match quality and network degree.',
+      description:'Look up a SPECIFIC organization by its name or alias. Returns: standard_name, aliases, description, country, time_period, is_defunct, founded_year, dissolved_year, degree, profiled flag, network_rank (degree/betweenness/pagerank each with value and rank out of ~3,500 connected orgs — gives immediate comparative context), country_links (footprints with country, context, quote, source_url, source_title), footprint_summary (total count plus breakdown by continent with country names — always use its exact counts, never count from country_links yourself), and sources (own_sources or mentioned_in fallback). Use this when the user asks about a named organization (“Tell me about the Sinaloa Cartel”, “Who are CJNG?”). For a complete profile, also call get_connections and get_community. Returns up to 15 results ranked by match quality and network degree.',
       parameters:{type:'object',properties:{query:{type:'string',description:'Organization name to look up'},is_defunct:{type:'boolean',description:'Optional filter: true returns only defunct orgs, false returns only active orgs. Omit to return both.'}},required:['query']}}},
     {type:'function',function:{name:'find_by_type',
       description:'Find organizations by CATEGORY, TYPE, or KEYWORD — not a specific name. Searches across names, aliases, and descriptions. Use this when the user asks about a kind of group ("Russian mafia", "motorcycle clubs", "political crime groups", "paramilitaries", "women-led cartels") or any descriptive trait. Also use as a fallback after get_organization returns empty for a category query. Returns up to 25 results.',
@@ -391,6 +391,21 @@
       if(isDefunctFilter===true&&o.is_defunct!==true)continue;
       if(isDefunctFilter===false&&o.is_defunct!==false)continue;
       var entry={standard_name:name,aliases:o.aliases||[],description:o.description||null,country:o.country||null,time_period:o.time_period||null,is_defunct:o.is_defunct||'unknown',founded_year:o.founded_year||null,dissolved_year:o.dissolved_year||null,degree:o.degree||0,profiled:o.profiled===true};
+      // Attach centrality rank data if available — gives the LLM comparative context
+      // without requiring a separate get_centrality call.
+      if(centralityData){
+        for(var ci=0;ci<centralityData.length;ci++){
+          if(centralityData[ci].n===name){
+            entry.network_rank={
+              degree:{value:centralityData[ci].d,rank:centralityData[ci].dr},
+              betweenness:{value:centralityData[ci].b,rank:centralityData[ci].br},
+              pagerank:{value:centralityData[ci].p,rank:centralityData[ci].pr},
+              out_of:centralityData.length
+            };
+            break;
+          }
+        }
+      }
       if(o.country_links&&o.country_links.length){
         entry.country_links=o.country_links.map(function(cl){return {country:cl.country,context:cl.context,quote:cl.evidence_quote,source_url:cl.source_url||null,source_title:cl.source_title||null};});
         entry.footprint_summary=buildFootprintSummary(o.country_links, o.country);
@@ -1018,7 +1033,7 @@
     '- Use tools. Never guess org names or relationship counts.',
     '- When a tool returns type_counts or connections_total, use its exact numbers',
     '  in your answer. Never substitute your own count or estimate.',
-    '- "Most important / powerful / influential" questions: use get_centrality.',
+    '- For superlative or ranking questions ("highest X", "most connected", "largest", "most powerful", "#1 in Y"): use get_centrality. get_organization now returns network_rank with degree/betweenness/pagerank values and ranks for individual orgs, but for comparative or superlative claims across orgs you must still call get_centrality to see the full ranking. Never claim an org is "the most" or "the highest" in any network metric without checking get_centrality first.',
     '  betweenness = gatekeeping/bridging power (who sits on the most paths),',
     '  pagerank = weighted popularity (quality of connections matters),',
     '  degree = raw number of connections. When the question is vague, default to',
