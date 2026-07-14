@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #ffffff; }
+canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const W = 2400, H = 1800;
+const canvas = document.getElementById('c');
+canvas.width = W; canvas.height = H;
+canvas.style.width = '800px';
+canvas.style.height = '600px';
+const ctx = canvas.getContext('2d');
+
+const nodeA = { x: 600, y: 1200, r: 64, color: '#2563eb' };
+const nodeB = { x: 1800, y: 1200, r: 64, color: '#ea580c' };
+const partner = { x: 1200, y: 540, r: 64, color: '#16a34a' };
+
+[nodeA, nodeB].forEach(n => {
+  ctx.beginPath();
+  ctx.moveTo(partner.x, partner.y);
+  ctx.lineTo(n.x, n.y);
+  ctx.strokeStyle = '#1c1c1c';
+  ctx.lineWidth = 6;
+  ctx.stroke();
+});
+
+ctx.beginPath();
+ctx.moveTo(nodeA.x, nodeA.y);
+ctx.lineTo(nodeB.x, nodeB.y);
+ctx.strokeStyle = '#1c1c1c';
+ctx.lineWidth = 6;
+ctx.setLineDash([36, 30]);
+ctx.stroke();
+ctx.setLineDash([]);
+
+[nodeA, nodeB, partner].forEach(n => {
+  ctx.beginPath();
+  ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+  ctx.fillStyle = n.color;
+  ctx.fill();
+  ctx.strokeStyle = '#1c1c1c';
+  ctx.lineWidth = 3.6;
+  ctx.stroke();
+});
+
+ctx.font = 'bold 66px "Oswald", sans-serif';
+ctx.textAlign = 'center';
+ctx.fillStyle = '#1e293b';
+ctx.fillText('C', partner.x, partner.y - 88);
+ctx.fillText('A', nodeA.x - 100, nodeA.y + 28);
+ctx.fillText('B', nodeB.x + 100, nodeB.y + 28);
+
+ctx.font = '45px "Oswald", sans-serif';
+ctx.fillStyle = '#475569';
+ctx.fillText('PREDICTED LINK', 1200, 1305);
+
+ctx.fillText('COMMON PARTNER', 1200, 350);
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/open-source/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/open-source/index.xml" rel="self" type="application/rss+xml" />
     <description>open source</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 28 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 13 Jul 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>open source</title>
@@ -13,10 +13,224 @@
     </image>
     
     <item>
-      <title>The global network of organized crime</title>
+      <title>CRIMENET: An AI assistant on global organized crime</title>
       <link>https://alvarofrancomartins.com/post/crimenet/</link>
-      <pubDate>Tue, 28 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 13 Jul 2026 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/crimenet/</guid>
+      <description>&lt;p&gt;Six months ago I published the first version of CRIMENET: 1,857 organizations and 3,338 relationships extracted from 771 Wikipedia articles. It proved the idea worked, but it was rough. No quality control. No way to trace connections between two specific organizations. No way to ask a question in plain English and get an evidence-backed answer.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;I rebuilt it from the ground up into a knowledge graph of &lt;strong&gt;4,505 criminal organizations&lt;/strong&gt; and &lt;strong&gt;10,935 relationships&lt;/strong&gt;, extracted from 1,418 Wikipedia articles across four languages. Every edge carries a verbatim evidence quote, a description, and a versioned Wikipedia URL. Most carry a time period when the source article provides one. Every claim is auditable. On top of the graph sits a &lt;strong&gt;GraphRAG AI&lt;/strong&gt; that answers natural language questions by calling tools against the data and citing its sources. The whole thing runs in your browser, no server, no database.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Everything is open source. The &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;full pipeline&lt;/a&gt; is on GitHub, and the &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;live app&lt;/a&gt; runs entirely in your browser.&lt;/p&gt;
+&lt;h1 id=&#34;how-the-knowledge-graph-is-built&#34;&gt;How the knowledge graph is built&lt;/h1&gt;
+&lt;p&gt;The raw material is 1,418 Wikipedia articles about criminal organizations across English, Italian, Portuguese, and Spanish Wikipedia. The extraction pipeline fetches each article, walks the HTML to extract clean body text and infobox tables, then sends it to DeepSeek to extract nodes and edges.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; The taxonomy has three types: &lt;strong&gt;cooperation&lt;/strong&gt;, &lt;strong&gt;conflict&lt;/strong&gt;, and &lt;strong&gt;other&lt;/strong&gt;.&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; The pipeline then profiles each organization from its own Wikipedia article (description, country of origin, time period, defunct status, and country footprints, each with its own evidence quote) and merges everything into a single graph, folding variant names across languages so the Sinaloa Cartel and the Cártel de Sinaloa become one node.&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. I built an audit pipeline that targets each class of error, one audit per error type.&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; The correction loop is designed to be iterative: spot an error, add one line to the corrections file, re-run the apply step. Manual overrides always win over auto-suggestions.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/pipeline.png&#34;&gt;
+&lt;figcaption&gt;Figure 1: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;what-is-in-the-graph&#34;&gt;What is in the graph&lt;/h1&gt;
+&lt;p&gt;The graph holds &lt;strong&gt;4,505 organizations&lt;/strong&gt; and &lt;strong&gt;10,935 relationships&lt;/strong&gt;.&lt;sup id=&#34;fnref:5&#34;&gt;&lt;a href=&#34;#fn:5&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;5&lt;/a&gt;&lt;/sup&gt; Organizations are based in &lt;strong&gt;80 countries&lt;/strong&gt; with operational footprints in &lt;strong&gt;163 countries&lt;/strong&gt;. The edges break down into 4,907 cooperation ties, 3,731 conflict ties, and 2,297 structural or other ties. The scope is criminal organizations: cartels, mafias, gangs, motorcycle clubs, triads, clans, factions, militias, and terrorist groups. Individuals and cybercrime groups are not modeled yet. Both are deliberate current limitations, not oversights.&lt;/p&gt;
+&lt;h1 id=&#34;the-dashboard-and-connection-finder&#34;&gt;The dashboard and connection finder&lt;/h1&gt;
+&lt;p&gt;The home page is a two-panel dashboard. The left panel toggles between Organizations (sorted by how connected they are) and Countries (sorted by total activity). Click any name and its full profile renders in the right panel: description, aliases, country of origin, time period, founding and dissolution years, country footprints each with its own evidence quote, and source articles.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The connection finder lets you pick any two organizations and see exactly how they relate. It loads evidence from sharded data files, so the browser fetches tens of kilobytes, not the full dataset.&lt;sup id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;6&lt;/a&gt;&lt;/sup&gt; You get a &lt;strong&gt;Relationship Summary&lt;/strong&gt; (an LLM-written paragraph synthesizing the full interaction between the two organizations, built offline) and &lt;strong&gt;Direct linkages&lt;/strong&gt;: every edge grouped by relationship type, each with Source, Time, and Quote pills. The evidence quote is the verbatim Wikipedia sentence; the source URL points to the exact article revision. Every claim is auditable.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/dashboard.png&#34;&gt;
+&lt;figcaption&gt;Figure 2: The two-panel dashboard (left) and the connection finder showing direct linkages between two organizations (right).&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;crimenet-ai&#34;&gt;CRIMENET AI&lt;/h1&gt;
+&lt;p&gt;The dashboard and the connection finder are powerful, but they require you to know what you are looking for. You have to pick organizations, browse lists, navigate tabs.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;What if you could just ask a question?&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Which Mexican cartels have a presence in Colombia?&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Trace the cooperation network between Italian mafias and South American cartels.&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Which motorcycle clubs are the most central in the rivalry network?&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Are there organizations that bridge Russian and Chinese criminal networks?&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Who might the &amp;lsquo;Ndrangheta be secretly allied with, based on shared connections?&amp;quot;&lt;/strong&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;These are complex questions. Answering them requires looking up multiple organizations, finding their connections, tracing paths, checking community membership, filtering by country, computing centrality, and synthesizing the results. A standard chatbot would hallucinate because its training data does not contain a structured database of criminal organizations with source-verified relationships.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;I built &lt;strong&gt;CRIMENET AI&lt;/strong&gt;, a GraphRAG system that answers natural language questions by tool calling against the knowledge graph.&lt;sup id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;7&lt;/a&gt;&lt;/sup&gt; The language model becomes a reasoning engine: it decides which tools to call, interprets their outputs, and synthesizes an answer. The facts come from the graph, and every fact carries a citation.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The system has &lt;strong&gt;13 tools&lt;/strong&gt; that give the model full access to the graph.&lt;sup id=&#34;fnref:8&#34;&gt;&lt;a href=&#34;#fn:8&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;8&lt;/a&gt;&lt;/sup&gt; The agent loop runs entirely in the browser. You ask a question. The browser sends it to DeepSeek with the system prompt and tool definitions. DeepSeek returns either a text answer or a tool call. If a tool call, the browser executes the tool against static JSON files (no server, no database), appends the result to the conversation, and sends it back. The loop repeats until the model produces a final answer, up to 8 iterations.&lt;sup id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;9&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The answer comes with two automatically generated sections the AI does not write. &lt;strong&gt;Evidence&lt;/strong&gt;: a structured rendering of every edge the AI used, with Source, Time, and Quote pills, mirroring the connection finder. &lt;strong&gt;Sources&lt;/strong&gt;: every Wikipedia URL that appeared in any tool result, collected automatically and rendered as clickable pills. The AI cannot hallucinate a source because sources are extracted from tool outputs, not from the model&amp;rsquo;s text.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The design principle is: depend as little as possible on the language model and as much as possible on tool output. Counts are computed in code. Relationship types are returned alongside names. Evidence quotes are carried through every tool. The model reasons; the graph provides the facts.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/crimenet_ai.png&#34;&gt;
+&lt;figcaption&gt;Figure 3: CRIMENET AI. Ask a question in plain English, get an evidence-backed answer with citations to specific Wikipedia sentences. The Evidence and Sources sections are generated automatically from tool outputs.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;Here is what it can do.&lt;/p&gt;
+&lt;h2 id=&#34;communities&#34;&gt;Communities&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/crimenet_ai_communities.png&#34;&gt;
+&lt;figcaption&gt;Figure 4: Communities. Infomap community detection reveals 224 clusters of cooperating organizations. Each community is titled and summarized by DeepSeek.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;A network of 4,505 nodes is too large to read as a list. I ran Infomap community detection on the cooperation graph.&lt;sup id=&#34;fnref:10&#34;&gt;&lt;a href=&#34;#fn:10&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;10&lt;/a&gt;&lt;/sup&gt; The result is &lt;strong&gt;224 communities&lt;/strong&gt;, each titled and summarized by DeepSeek.&lt;sup id=&#34;fnref:11&#34;&gt;&lt;a href=&#34;#fn:11&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;11&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Now ask the AI: &lt;strong&gt;&amp;ldquo;What community does the Sinaloa Cartel belong to?&amp;quot;&lt;/strong&gt; It calls the community tool, finds the &lt;strong&gt;Mexican and Colombian Cartel Alliance Network&lt;/strong&gt; (88 members, the largest), and tells you the Sinaloa Cartel sits at its core alongside CJNG, Los Zetas, Gulf Cartel, and the Beltrán-Leyva Organization.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask &lt;strong&gt;&amp;ldquo;What are the largest criminal communities?&amp;quot;&lt;/strong&gt; and the AI enumerates them. The &lt;strong&gt;Global Jihadist Network and Allies&lt;/strong&gt; (81 members) unites the Taliban, Al-Qaeda, Islamic State Khorasan Province, Lashkar-e-Taiba, and Tehreek-e-Taliban Pakistan. The &lt;strong&gt;American Mafia Network&lt;/strong&gt; (76 members) connects the Chicago Outfit with the Gambino, Genovese, Bonanno, and Lucchese crime families. The &lt;strong&gt;Nuova Famiglia Camorra Alliance&lt;/strong&gt; (53 members) captures the Campania clans. The &lt;strong&gt;Hells Angels and Allied Outlaw Gangs&lt;/strong&gt; community (49 members) reveals the biker network: Hells Angels, Red Scorpions, Independent Soldiers, and the Wolfpack Alliance.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Some communities are smaller but tell a sharper story. The &lt;strong&gt;Neo-Nazi Terror Network&lt;/strong&gt; (26 members) connects Atomwaffen Division, Hammerskins, Feuerkrieg Division, The Base, and Blood &amp;amp; Honour. The &lt;strong&gt;Canadian Outlaw Motorcycle Gangs Alliance&lt;/strong&gt; (23 members) is a coalition united against the Hells Angels: Rock Machine, Satan&amp;rsquo;s Choice, Popeye Moto Club, and Devil&amp;rsquo;s Disciples. The &lt;strong&gt;PKK-Led Revolutionary Alliance Network&lt;/strong&gt; (17 members) links the Kurdistan Workers&amp;rsquo; Party with Armenian, Palestinian, and Turkish leftist militant groups.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask &lt;strong&gt;&amp;ldquo;Show me communities related to motorcycle clubs&amp;rdquo;&lt;/strong&gt; and the AI filters by keyword. &lt;strong&gt;&amp;ldquo;Find communities with &amp;lsquo;mafia&amp;rsquo; in the title&amp;rdquo;&lt;/strong&gt; surfaces the Italian and Italian-American networks.&lt;/p&gt;
+&lt;h2 id=&#34;bridges&#34;&gt;Bridges&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/crimenet_ai_bridges.png&#34;&gt;
+&lt;figcaption&gt;Figure 5: Bridges. Organizations that cooperate across community boundaries, connecting otherwise isolated criminal ecosystems.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;Some organizations cooperate across community boundaries. These are the bridges: they sit at the intersection of different criminal ecosystems and connect groups that would otherwise be isolated from each other.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask the AI: &lt;strong&gt;&amp;ldquo;Which organizations bridge the most communities?&amp;quot;&lt;/strong&gt; The &lt;strong&gt;Hells Angels Motorcycle Club&lt;/strong&gt; is the top bridge, with 88 cross-community edges spanning 27 communities. It connects the cartel network, the American Mafia, the &amp;lsquo;Ndrangheta clans, Italian mafia alliances, and Canadian outlaw biker gangs: five worlds that share little other common ground. The &lt;strong&gt;American Mafia&lt;/strong&gt; follows with 84 cross-community edges across 22 communities, linking Mexican cartels, Camorra clans, the Hells Angels network, and US street gangs. The &lt;strong&gt;&amp;lsquo;Ndrangheta&lt;/strong&gt; bridges 28 communities with 83 cross edges, the most communities reached of any organization. The &lt;strong&gt;Sinaloa Cartel&lt;/strong&gt; spans 20 communities with 72 cross edges. The &lt;strong&gt;Mexican Mafia&lt;/strong&gt; spans only 9 communities but bridges the cartel network, the American Mafia, the Hells Angels, the Brazilian PCC network, and white supremacist prison gangs: five ecosystems that share almost no other common ground.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;A bridge is structurally important not because it has many connections, but because its connections reach into different worlds. Ask the reverse: &lt;strong&gt;&amp;ldquo;What communities does the &amp;lsquo;Ndrangheta bridge?&amp;quot;&lt;/strong&gt; and the AI lists all 28.&lt;/p&gt;
+&lt;h2 id=&#34;triadic-signals&#34;&gt;Triadic signals&lt;/h2&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/crimenet_ai_triadic.png&#34;&gt;
+&lt;figcaption&gt;Figure 6: Triadic signals. Missing relationships inferred from graph topology: common partners, common adversaries, or both.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;br&gt;
+&lt;p&gt;The graph has 10,935 documented relationships, but those are only the relationships Wikipedia happens to record. Many real-world connections are undocumented: an alliance nobody has written about, a rivalry between two groups that operate in the same region but have never been discussed together in the same article.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;We can infer some of these missing links from the structure of the graph itself. The principle is triadic closure. There are three kinds of signal:&lt;sup id=&#34;fnref:12&#34;&gt;&lt;a href=&#34;#fn:12&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;12&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Common cooperation partners.&lt;/strong&gt; Friends of friends might be friends.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Common adversaries.&lt;/strong&gt; Enemies of enemies might be friends.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Both.&lt;/strong&gt; The two signals combine. An organization pair that shares both cooperation partners and adversaries. This is the strongest signal, because two independent structural patterns point to the same missing relationship.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;I computed all three across the entire graph. The result is &lt;strong&gt;2,561 candidate pairs&lt;/strong&gt;, each scored by how many common partners and adversaries they share, weighted by the strength of those connections.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Now ask the AI: &lt;strong&gt;&amp;ldquo;Who might the &amp;lsquo;Ndrangheta be secretly allied with?&amp;quot;&lt;/strong&gt; It calls the triadic signals tool and returns candidate pairs ranked by signal strength.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The strongest signal in the entire dataset comes from the &lt;strong&gt;Cleveland crime family&lt;/strong&gt; and the &lt;strong&gt;Patriarca crime family&lt;/strong&gt;. They share 8 cooperation partners (Bufalino, Chicago Outfit, DeCavalcante, Detroit Partnership, Gambino, Genovese, Hells Angels, and Los Angeles crime family) yet have no documented direct edge. The &lt;strong&gt;New Orleans crime family&lt;/strong&gt; and the &lt;strong&gt;Patriarca crime family&lt;/strong&gt; share 6 partners. The &lt;strong&gt;Gambino crime family&lt;/strong&gt; and the &lt;strong&gt;Rizzuto crime family&lt;/strong&gt; share 4 cooperation partners plus a common adversary (the Bonanno crime family): a &amp;ldquo;Both&amp;rdquo; signal.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Some signals come purely from shared enemies. The &lt;strong&gt;Mongols MC&lt;/strong&gt; and the &lt;strong&gt;Rebels Motorcycle Club&lt;/strong&gt; share two common adversaries (Bandidos and Hells Angels) with no direct edge. The &lt;strong&gt;Comanchero Motorcycle Club&lt;/strong&gt; and the &lt;strong&gt;Rebels Motorcycle Club&lt;/strong&gt; share three (Bandidos, Hells Angels, and Rock Machine Motorcycle Club). Inside the Mexican cartel system, the &lt;strong&gt;Cártel de Santa Rosa de Lima&lt;/strong&gt; and the &lt;strong&gt;Knights Templar Cartel&lt;/strong&gt; share both cooperation partners (Gulf Cartel, Los Viagras, Sinaloa Cartel) and common adversaries (CJNG, Los Zetas). &lt;strong&gt;La Familia Michoacana&lt;/strong&gt; and the &lt;strong&gt;Nueva Plaza Cartel&lt;/strong&gt; share the Sinaloa Cartel as a common partner and CJNG as a common adversary.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask the reverse: &lt;strong&gt;&amp;ldquo;What potential rivalries does the Sinaloa Cartel have based on shared adversaries?&amp;quot;&lt;/strong&gt; The AI filters for the adversary-only signal and returns candidate pairs.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;What makes this powerful is that it uses only the topology. No new data. No additional LLM calls. The graph&amp;rsquo;s structure alone encodes information about relationships that have not been explicitly recorded.&lt;/p&gt;
+&lt;h2 id=&#34;centrality&#34;&gt;Centrality&lt;/h2&gt;
+&lt;p&gt;The centrality tools give the AI access to degree, betweenness, and PageRank rankings across all 3,521 connected organizations, computed on the full graph and separately on the cooperation and conflict subgraphs.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask &lt;strong&gt;&amp;ldquo;What is the most important criminal organization in the global network?&amp;quot;&lt;/strong&gt; and the AI consults the centrality rankings, then answers with context: which metrics drive the ranking, how the top organizations compare, and what the edges that give them their position actually represent.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask &lt;strong&gt;&amp;ldquo;Which Mexican cartels have the most network influence?&amp;quot;&lt;/strong&gt; and the AI cross-references centrality rankings with Mexican organizations. &lt;strong&gt;&amp;ldquo;How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?&amp;quot;&lt;/strong&gt; The AI retrieves both profiles with their centrality ranks and produces a comparison grounded in the numbers.&lt;/p&gt;
+&lt;h2 id=&#34;paths&#34;&gt;Paths&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Are the Yakuza and the Sicilian Mafia connected?&amp;quot;&lt;/strong&gt; The AI calls the path finding tool, which runs BFS across the graph up to 5 hops. It returns the shortest path with the evidence quote at each step. The AI walks you through the chain of intermediaries, citing the specific relationship at each link.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Ask &lt;strong&gt;&amp;ldquo;Does the Sinaloa Cartel cooperate with the Sicilian Mafia?&amp;quot;&lt;/strong&gt; and the AI searches for cooperation-only paths. If one exists, it traces the route. If not, it tells you there is no documented cooperation path and may suggest alternatives: a conflict relationship, a shorter path through any relationship type, or a shared third party.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Who are the allies of allies of Mara Salvatrucha?&amp;quot;&lt;/strong&gt; The AI calls the network neighborhood tool, which returns first-degree and second-degree connections, then groups them by relationship type.&lt;/p&gt;
+&lt;h2 id=&#34;countries&#34;&gt;Countries&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;What criminal organizations operate in Brazil?&amp;quot;&lt;/strong&gt; The AI calls the country tool and returns every organization with a documented footprint in Brazil, each with its evidence quote. &lt;strong&gt;&amp;ldquo;Which countries does the &amp;lsquo;Ndrangheta have a footprint in?&amp;quot;&lt;/strong&gt; The AI retrieves the &amp;lsquo;Ndrangheta&amp;rsquo;s profile, which includes all documented country footprints with evidence sources.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ldquo;Which criminal organizations operate in both Colombia and Venezuela?&amp;quot;&lt;/strong&gt; The AI calls the multi-country intersection tool and returns only organizations that appear in both lists. &lt;strong&gt;&amp;ldquo;Compare organized crime in Mexico and Colombia&amp;rdquo;&lt;/strong&gt; triggers a broader synthesis: the AI retrieves organizations from both countries, examines their types and connections, and produces a comparative analysis.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Every country footprint is backed by a verbatim evidence quote from Wikipedia. When the AI says an organization operates in a country, you can open the source and read the exact sentence that documents it.&lt;/p&gt;
+&lt;h1 id=&#34;3d-knowledge-graph&#34;&gt;3D knowledge graph&lt;/h1&gt;
+&lt;p&gt;The full network is viewable as an &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/knowledge_graph.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;interactive 3D force-directed graph&lt;/a&gt; built with three.js. Nodes are colored by organization type, edges by relationship type. You can rotate, zoom, click any node to see its details, and filter by relationship type.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The 3D view does something a 2D layout cannot: it uses the third dimension to disentangle dense clusters. In a 2D force layout, highly connected hubs pull everything into a hairball. In 3D, you can rotate around a cluster and see its internal structure.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 80%; display: inline-block;&#34; src=&#34;videos/crimenet_3d_video.gif&#34;&gt;
+&lt;figcaption&gt;Figure 7: The 3D knowledge graph in motion. Nodes are criminal organizations; edges are colored by relationship type. The third dimension disentangles dense clusters that would collapse into a hairball in 2D.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;world-footprints-map&#34;&gt;World footprints map&lt;/h1&gt;
+&lt;p&gt;The &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/footprints.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;footprints map&lt;/a&gt; shows country-to-country operational presence on a D3.js world map. Each organization&amp;rsquo;s country of origin and its documented footprints create arcs across the map.&lt;sup id=&#34;fnref:13&#34;&gt;&lt;a href=&#34;#fn:13&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;13&lt;/a&gt;&lt;/sup&gt; The underlying data comes from the pipeline&amp;rsquo;s country footprint pass: each link is backed by a verbatim evidence quote from Wikipedia documenting the organization&amp;rsquo;s presence in that country. Not a statistical guess. A specific sentence.&lt;/p&gt;
+&lt;figure&gt;
+&lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/footprints_map.png&#34;&gt;
+&lt;figcaption&gt;Figure 8: The footprints world map showing country-to-country operational presence arcs.&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;what-this-enables&#34;&gt;What this enables&lt;/h1&gt;
+&lt;p&gt;Before CRIMENET, if you wanted to know which criminal organizations operate in a given country, or how two specific groups relate to each other, or which organizations bridge different criminal ecosystems, you had to read hundreds of Wikipedia articles and piece it together yourself. The information existed but was not structured.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Now you can ask any question in plain English and get an evidence-backed answer that cites specific Wikipedia sentences. You can trace the exact relationship between any two organizations with verbatim evidence quotes. You can browse 224 communities of organizations that cooperate with each other. You can identify which organizations bridge different criminal ecosystems. You can discover 2,561 candidate relationships that likely exist but have not been documented, inferred purely from the structure of the graph.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Because every edge carries a versioned Wikipedia URL, any claim can be verified in under thirty seconds: open the link, search for the quote, confirm it is there.&lt;/p&gt;
+&lt;h1 id=&#34;limitations&#34;&gt;Limitations&lt;/h1&gt;
+&lt;p&gt;Wikipedia coverage skews toward English-language and Western sources. The pipeline processes four languages (English, Italian, Portuguese, and Spanish), which is better than one but still leaves gaps.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Relationships are aggregated across time. Every edge carries its own time period, so the data is there, but the graph view flattens time into a single snapshot.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The graph models organizations, not individuals. If you want to trace how a specific boss connects to a specific cartel, you cannot yet: individuals appear only in descriptions and evidence quotes, not as nodes.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;Purely cyber criminal groups (ransomware crews, carding rings) are not modeled. The extraction pipeline focuses on physical-world organizations.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;None of this is fatal. The architecture is designed for iteration: add more languages, widen the scope, add temporal weights, promote individuals to nodes. Each is a pipeline extension, not a rewrite.&lt;/p&gt;
+&lt;h1 id=&#34;open-source&#34;&gt;Open source&lt;/h1&gt;
+&lt;p&gt;Everything is open source. The full pipeline (extraction, audit, build, app) is on &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;. The &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;live app&lt;/a&gt; runs entirely in your browser.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;The project is designed to be extended. The pipeline is modular: each step reads from and writes to a distinct place. The audit pipeline is modular: each audit targets one class of error. The build scripts are independent: add a new data file by writing one Python script and one JS consumer.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;If you find an error, want to add a Wikipedia article, or have ideas for new features, open an issue or pull request on GitHub.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;If you have questions or ideas, get in touch.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The pipeline proceeds in five steps, each independently re-runnable: (0) resolve plain Wikipedia URLs to versioned URLs with &lt;code&gt;oldid&lt;/code&gt;; (1) fetch HTML via the MediaWiki API and extract clean body text with infobox tables; (2) send the text to DeepSeek, chunked at ~2500 words with the infobox appended to every chunk, to extract organizations and relationships; (3) DeepSeek enriches each profiled organization with description, aliases, country, time period, defunct status, and country footprints; (4) merge all fragments, auto-dedup via fuzzy matching and containment, attach org profiles, and normalize country names.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Cooperation covers alliances, joint operations, and commercial dealings. Conflict covers fighting, war, and clashes. Other covers structural ties (sub-units, splinters), truces, and unspecified links.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The name folding handles the common case where an organization appears under different names in different language Wikipedias. A single canonical name is chosen for the merged node, with all variant forms preserved as aliases.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Seven steps in total. Audits 0 through 5 find wrong merges, missed merges, spurious edges, unsupported country links, umbrella terms, and non-criminal entities. Audit 6 provides an LLM second opinion that can veto identity corrections. A confident-but-wrong split or merge is the most damaging error class. Audit 7 applies all corrections, with manual overrides from a curated file (&lt;code&gt;curated_corrections.py&lt;/code&gt;) always winning over auto-suggestions.&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Of the 4,505 organizations, 1,032 are profiled from their own Wikipedia article (with full descriptions, aliases, country of origin, country footprints, time periods, and defunct status), 3,473 are mention-only (they appear in other orgs&#39; articles but have no dedicated Wikipedia page), and 317 are flagged as defunct. 3,521 organizations (78%) are connected to at least one other; 984 (22%) are isolated.&amp;#160;&lt;a href=&#34;#fnref:5&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Evidence shards are keyed by FNV-1a hash of the organization name, split across 128 files. The browser only fetches the shard that contains the requested org.&amp;#160;&lt;a href=&#34;#fnref:6&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:7&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;GraphRAG stands for Graph Retrieval-Augmented Generation. A standard RAG system retrieves relevant text chunks and asks the model to reason over them. A GraphRAG system retrieves structured data from a knowledge graph by calling tools that traverse nodes, edges, communities, and paths. The key difference: standard RAG retrieves paragraphs; GraphRAG retrieves structured records with typed relationships.&amp;#160;&lt;a href=&#34;#fnref:7&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:8&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The full tool set: &lt;code&gt;get_organization&lt;/code&gt; (profile by name or alias, with centrality ranks); &lt;code&gt;find_by_type&lt;/code&gt; (filter by category like cartel, mafia, motorcycle club); &lt;code&gt;get_connections&lt;/code&gt; (all edges for an org, or all edges between two orgs, with type counts computed in code); &lt;code&gt;get_relationship_summary&lt;/code&gt; (pre-written LLM paragraph for any pair); &lt;code&gt;find_by_country&lt;/code&gt; / &lt;code&gt;find_by_countries&lt;/code&gt; (single or multi-country footprint lookup); &lt;code&gt;find_paths&lt;/code&gt; (BFS shortest path up to 5 hops with evidence at each step); &lt;code&gt;find_cooperation_routes&lt;/code&gt; (cooperation-only paths through intermediaries); &lt;code&gt;get_network_neighborhood&lt;/code&gt; (first and second degree connections); &lt;code&gt;get_community&lt;/code&gt; / &lt;code&gt;find_communities_by_keyword&lt;/code&gt; (browse all 224 communities, find which community an org belongs to, or filter by keyword); &lt;code&gt;get_triadic_signals&lt;/code&gt; (candidate pairs for any org); &lt;code&gt;get_bridges&lt;/code&gt; (ranked cross-community bridge list); &lt;code&gt;get_centrality&lt;/code&gt; (degree, betweenness, PageRank across full, cooperation, and conflict graphs).&amp;#160;&lt;a href=&#34;#fnref:8&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:9&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Only the DeepSeek API call goes through a Netlify Function proxy. This keeps the API key server-side. Everything else (tool execution, conversation state, evidence collection) runs client-side against static JSON files.&amp;#160;&lt;a href=&#34;#fnref:9&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:10&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Infomap simulates a random walk across the network. The walker tends to get trapped inside dense clusters of cooperating organizations and only occasionally jumps between them. Compressing a description of where the walker goes naturally reveals community structure: organizations that cooperate with each other more than with outsiders form a cluster.&amp;#160;&lt;a href=&#34;#fnref:10&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:11&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The first run calls the DeepSeek API. Subsequent rebuilds cache by the exact membership set (frozenset of org names), so re-running when the partition is unchanged costs zero API calls.&amp;#160;&lt;a href=&#34;#fnref:11&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:12&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Common cooperation partners: two organizations that share at least 3 cooperation partners but have no direct edge between them. Common adversaries: two organizations that share at least 2 common adversaries but have no direct edge between them. The &amp;ldquo;Both&amp;rdquo; signal requires both conditions simultaneously.&amp;#160;&lt;a href=&#34;#fnref:12&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:13&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;The map is on &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/footprints.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;footprints.html&lt;/a&gt;. Each arc represents an organization&amp;rsquo;s footprint from its country of origin to a country where it operates.&amp;#160;&lt;a href=&#34;#fnref:13&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The global network of organized crime</title>
+      <link>https://alvarofrancomartins.com/post/crimenet_1.0/</link>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://alvarofrancomartins.com/post/crimenet_1.0/</guid>
       <description>&lt;p&gt;There is no map of the world&amp;rsquo;s criminal organizations and how they connect to each other. The pieces exist, scattered across thousands of Wikipedia articles and news reports, but no one has assembled them into a single, structured network.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;LLMs change that. I used DeepSeek to read 771 Wikipedia articles and extract every criminal organization mentioned and every relationship between them. The result is &lt;strong&gt;CRIMENET&lt;/strong&gt;: the first open-source global map of criminal organizations and the alliances and rivalries between them, with 1,890 organizations connected by 3,354 relationships. Every node and edge is traceable back to a Wikipedia source. The full &lt;a href=&#34;https://alvarofrancomartins.com/crimenet/&#34;&gt;interactive visualization&lt;/a&gt; is live&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; on this site, and the entire pipeline is &lt;a href=&#34;https://github.com/alvarofrancomartins/CRIMENET&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;open-source on GitHub&lt;/a&gt;.&lt;/p&gt;
