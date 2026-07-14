@@ -6,7 +6,7 @@ projects: []
 
 date: "2026-07-13"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -103,27 +103,7 @@ The dashboard and the connection finder are powerful, but they require you to kn
 
 <br>
 
-What if you could just ask a question?
-
-<br>
-
-**"Which Mexican cartels have a presence in Colombia?"**
-
-<br>
-
-**"Trace the cooperation network between Italian mafias and South American cartels."**
-
-<br>
-
-**"Which motorcycle clubs are the most central in the rivalry network?"**
-
-<br>
-
-**"Are there organizations that bridge Russian and Chinese criminal networks?"**
-
-<br>
-
-**"Who might the 'Ndrangheta be secretly allied with, based on shared connections?"**
+What if you could just ask a question? Which Mexican cartels have a presence in Colombia? Trace the cooperation network between Italian mafias and South American cartels. Which motorcycle clubs are the most central in the rivalry network? Are there organizations that bridge Russian and Chinese criminal networks? Who might the 'Ndrangheta be secretly allied with, based on shared connections?
 
 <br>
 
@@ -169,15 +149,19 @@ Here is what it can do.
 
 <br>
 
-A network of 4,505 nodes is too large to read as a list. I ran Infomap community detection on the cooperation graph.[^10] The result is **224 communities**, each titled and summarized by DeepSeek.[^11]
+A network of 4,505 nodes is too large to read as a list. A community is a group of nodes more tightly connected to each other than to the rest of the network. I ran Infomap community detection on the cooperation graph.[^10] The result is **224 communities** of criminal organizations worldwide, each titled and summarized by DeepSeek.[^11] No one has detected these communities on a global scale before.
 
 <br>
 
-Now ask the AI: **"What community does the Sinaloa Cartel belong to?"** It calls the community tool, finds the **Mexican and Colombian Cartel Alliance Network** (88 members, the largest), and tells you the Sinaloa Cartel sits at its core alongside CJNG, Los Zetas, Gulf Cartel, and the Beltrán-Leyva Organization.
+> What community does the Sinaloa Cartel belong to?
+
+The AI finds the **Mexican and Colombian Cartel Alliance Network** (88 members, the largest) and tells you the Sinaloa Cartel sits at its core alongside CJNG, Los Zetas, Gulf Cartel, and the Beltrán-Leyva Organization.
 
 <br>
 
-Ask **"What are the largest criminal communities?"** and the AI enumerates them. The **Global Jihadist Network and Allies** (81 members) unites the Taliban, Al-Qaeda, Islamic State Khorasan Province, Lashkar-e-Taiba, and Tehreek-e-Taliban Pakistan. The **American Mafia Network** (76 members) connects the Chicago Outfit with the Gambino, Genovese, Bonanno, and Lucchese crime families. The **Nuova Famiglia Camorra Alliance** (53 members) captures the Campania clans. The **Hells Angels and Allied Outlaw Gangs** community (49 members) reveals the biker network: Hells Angels, Red Scorpions, Independent Soldiers, and the Wolfpack Alliance.
+> What are the largest criminal communities?
+
+The **Global Jihadist Network and Allies** (81 members) unites the Taliban, Al-Qaeda, Islamic State Khorasan Province, Lashkar-e-Taiba, and Tehreek-e-Taliban Pakistan. The **American Mafia Network** (76 members) connects the Chicago Outfit with the Gambino, Genovese, Bonanno, and Lucchese crime families. The **Nuova Famiglia Camorra Alliance** (53 members) captures the Campania clans. The **Hells Angels and Allied Outlaw Gangs** community (49 members) reveals the biker network: Hells Angels, Red Scorpions, Independent Soldiers, and the Wolfpack Alliance.
 
 <br>
 
@@ -185,7 +169,11 @@ Some communities are smaller but tell a sharper story. The **Neo-Nazi Terror Net
 
 <br>
 
-Ask **"Show me communities related to motorcycle clubs"** and the AI filters by keyword. **"Find communities with 'mafia' in the title"** surfaces the Italian and Italian-American networks.
+Show me communities related to motorcycle clubs. Find communities with "mafia" in the title.
+
+<br>
+
+The AI filters by keyword, surfacing the relevant networks.
 
 [^10]: Infomap simulates a random walk across the network. The walker tends to get trapped inside dense clusters of cooperating organizations and only occasionally jumps between them. Compressing a description of where the walker goes naturally reveals community structure: organizations that cooperate with each other more than with outsiders form a cluster.
 
@@ -200,15 +188,21 @@ Ask **"Show me communities related to motorcycle clubs"** and the AI filters by 
 
 <br>
 
-Some organizations cooperate across community boundaries. These are the bridges: they sit at the intersection of different criminal ecosystems and connect groups that would otherwise be isolated from each other.
+Some organizations cooperate across community boundaries. A bridge is a node that connects different communities, sitting at the intersection of criminal ecosystems that would otherwise be isolated from each other.
 
 <br>
 
-Ask the AI: **"Which organizations bridge the most communities?"** The **Hells Angels Motorcycle Club** is the top bridge, with 88 cross-community edges spanning 27 communities. It connects the cartel network, the American Mafia, the 'Ndrangheta clans, Italian mafia alliances, and Canadian outlaw biker gangs: five worlds that share little other common ground. The **American Mafia** follows with 84 cross-community edges across 22 communities, linking Mexican cartels, Camorra clans, the Hells Angels network, and US street gangs. The **'Ndrangheta** bridges 28 communities with 83 cross edges, the most communities reached of any organization. The **Sinaloa Cartel** spans 20 communities with 72 cross edges. The **Mexican Mafia** spans only 9 communities but bridges the cartel network, the American Mafia, the Hells Angels, the Brazilian PCC network, and white supremacist prison gangs: five ecosystems that share almost no other common ground.
+> Which organizations bridge the most communities?
+
+The **Hells Angels Motorcycle Club** is the top bridge, with 88 cross-community edges spanning 27 communities. It connects the cartel network, the American Mafia, the 'Ndrangheta clans, Italian mafia alliances, and Canadian outlaw biker gangs: five worlds that share little other common ground. The **American Mafia** follows with 84 cross-community edges across 22 communities, linking Mexican cartels, Camorra clans, the Hells Angels network, and US street gangs. The **'Ndrangheta** bridges 28 communities with 83 cross edges, the most communities reached of any organization. The **Sinaloa Cartel** spans 20 communities with 72 cross edges. The **Mexican Mafia** spans only 9 communities but bridges the cartel network, the American Mafia, the Hells Angels, the Brazilian PCC network, and white supremacist prison gangs: five ecosystems that share almost no other common ground.
 
 <br>
 
-A bridge is structurally important not because it has many connections, but because its connections reach into different worlds. Ask the reverse: **"What communities does the 'Ndrangheta bridge?"** and the AI lists all 28.
+A bridge is structurally important not because it has many connections, but because its connections reach into different worlds.
+
+> What communities does the 'Ndrangheta bridge?
+
+The AI lists all 28.
 
 ## Triadic signals
 
@@ -219,11 +213,11 @@ A bridge is structurally important not because it has many connections, but beca
 
 <br>
 
-The graph has 10,935 documented relationships, but those are only the relationships Wikipedia happens to record. Many real-world connections are undocumented: an alliance nobody has written about, a rivalry between two groups that operate in the same region but have never been discussed together in the same article.
+The graph has 10,935 documented relationships, but those are only the relationships Wikipedia happens to record. Many real-world connections are undocumented.
 
 <br>
 
-We can infer some of these missing links from the structure of the graph itself. The principle is triadic closure. There are three kinds of signal:[^12]
+We can infer some of these missing links from the structure of the graph itself. If two organizations share many of the same partners, or the same enemies, it is likely they have a relationship with each other, even if nobody has written it down. This is triadic closure. There are three kinds of signal:[^12]
 
 <br>
 
@@ -243,7 +237,9 @@ I computed all three across the entire graph. The result is **2,561 candidate pa
 
 <br>
 
-Now ask the AI: **"Who might the 'Ndrangheta be secretly allied with?"** It calls the triadic signals tool and returns candidate pairs ranked by signal strength.
+> Who might the 'Ndrangheta be secretly allied with?
+
+The AI returns candidate pairs ranked by signal strength.
 
 <br>
 
@@ -255,7 +251,9 @@ Some signals come purely from shared enemies. The **Mongols MC** and the **Rebel
 
 <br>
 
-Ask the reverse: **"What potential rivalries does the Sinaloa Cartel have based on shared adversaries?"** The AI filters for the adversary-only signal and returns candidate pairs.
+> What potential rivalries does the Sinaloa Cartel have based on shared adversaries?
+
+The AI filters for the adversary-only signal and returns candidate pairs.
 
 <br>
 
@@ -265,35 +263,47 @@ What makes this powerful is that it uses only the topology. No new data. No addi
 
 ## Centrality
 
-The centrality tools give the AI access to degree, betweenness, and PageRank rankings across all 3,521 connected organizations, computed on the full graph and separately on the cooperation and conflict subgraphs.
+Centrality measures how important a node is in the network. Not all nodes are equal. Some are hubs with many connections. Others sit on the shortest paths between many pairs, controlling the flow of information. The centrality tools give the AI access to degree, betweenness, and PageRank rankings across all 3,521 connected organizations, computed on the full graph and separately on the cooperation and conflict subgraphs.
 
 <br>
 
-Ask **"What is the most important criminal organization in the global network?"** and the AI consults the centrality rankings, then answers with context: which metrics drive the ranking, how the top organizations compare, and what the edges that give them their position actually represent.
+> What is the most important criminal organization in the global network?
+
+The AI consults the centrality rankings and answers with context: which metrics drive the ranking, how the top organizations compare, and what the edges that give them their position actually represent.
 
 <br>
 
-Ask **"Which Mexican cartels have the most network influence?"** and the AI cross-references centrality rankings with Mexican organizations. **"How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?"** The AI retrieves both profiles with their centrality ranks and produces a comparison grounded in the numbers.
+Which Mexican cartels have the most network influence? How does the Sinaloa Cartel rank in network importance, and how does it compare to the American Mafia?
+
+The AI cross-references centrality rankings with Mexican organizations, retrieves both profiles with their centrality ranks, and produces a comparison grounded in the numbers.
 
 ## Paths
 
-**"Are the Yakuza and the Sicilian Mafia connected?"** The AI calls the path finding tool, which runs BFS across the graph up to 5 hops. It returns the shortest path with the evidence quote at each step. The AI walks you through the chain of intermediaries, citing the specific relationship at each link.
+A path is a chain of relationships connecting two organizations through intermediaries. If A cooperates with B and B cooperates with C, then A and C are connected by a path of length two, even if they have no direct relationship.
+
+> Are the Yakuza and the Sicilian Mafia connected?
+
+The AI runs BFS across the graph up to 5 hops. It returns the shortest path with the evidence quote at each step and walks you through the chain of intermediaries, citing the specific relationship at each link.
 
 <br>
 
-Ask **"Does the Sinaloa Cartel cooperate with the Sicilian Mafia?"** and the AI searches for cooperation-only paths. If one exists, it traces the route. If not, it tells you there is no documented cooperation path and may suggest alternatives: a conflict relationship, a shorter path through any relationship type, or a shared third party.
+Does the Sinaloa Cartel cooperate with the Sicilian Mafia?
+
+The AI searches for cooperation-only paths. If one exists, it traces the route. If not, it tells you there is no documented cooperation path and may suggest alternatives: a conflict relationship, a shorter path through any relationship type, or a shared third party.
 
 <br>
 
-**"Who are the allies of allies of Mara Salvatrucha?"** The AI calls the network neighborhood tool, which returns first-degree and second-degree connections, then groups them by relationship type.
+Who are the allies of allies of Mara Salvatrucha?
+
+The AI returns first-degree and second-degree connections, grouped by relationship type.
 
 ## Countries
 
-**"What criminal organizations operate in Brazil?"** The AI calls the country tool and returns every organization with a documented footprint in Brazil, each with its evidence quote. **"Which countries does the 'Ndrangheta have a footprint in?"** The AI retrieves the 'Ndrangheta's profile, which includes all documented country footprints with evidence sources.
+Every profiled organization carries a list of countries where Wikipedia documents its presence, each backed by a verbatim evidence quote. The AI can query this data directly.
 
 <br>
 
-**"Which criminal organizations operate in both Colombia and Venezuela?"** The AI calls the multi-country intersection tool and returns only organizations that appear in both lists. **"Compare organized crime in Mexico and Colombia"** triggers a broader synthesis: the AI retrieves organizations from both countries, examines their types and connections, and produces a comparative analysis.
+What criminal organizations operate in Brazil? The AI returns every organization with a documented footprint. Which countries does the 'Ndrangheta have a footprint in? The AI lists all documented country footprints with evidence. Which criminal organizations operate in both Colombia and Venezuela? Compare organized crime in Mexico and Colombia. The multi-country intersection returns only organizations that appear in both lists. A comparison query triggers a broader synthesis: the AI retrieves organizations from both countries, examines their types and connections, and produces a comparative analysis.
 
 <br>
 
@@ -324,6 +334,14 @@ The [footprints map](https://www.alvarofrancomartins.com/crimenet/footprints.htm
 </figure>
 
 # What this enables
+
+There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia's own list of criminal enterprises, gangs, and syndicates covers a few hundred groups. CRIMENET comes closer than anything else: nearly 5,000 organizations mapped across nearly 11,000 relationships, each backed by a specific Wikipedia source.
+
+<br>
+
+This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the LLM pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia. CRIMENET became the comprehensive list that did not exist.
+
+<br>
 
 Before CRIMENET, if you wanted to know which criminal organizations operate in a given country, or how two specific groups relate to each other, or which organizations bridge different criminal ecosystems, you had to read hundreds of Wikipedia articles and piece it together yourself. The information existed but was not structured.
 

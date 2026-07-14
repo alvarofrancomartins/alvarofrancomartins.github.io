@@ -70,24 +70,31 @@ const extractSteps = [
   { label: '0', sub: 'RESOLVE URLS' },
   { label: '1', sub: 'FETCH ARTICLES' },
   { label: '2', sub: 'EXTRACT NETWORK' },
-  { label: '3', sub: 'ENRICH NODES' },
+  { label: '3', sub: 'PROFILE ORGS' },
   { label: '4', sub: 'MERGE & DEDUP' },
 ];
 const auditSteps = [
-  { label: '0–5', sub: 'FIND ERRORS' },
+  { label: '0–5', sub: 'LLM FIND ERRORS' },
   { label: '6', sub: 'LLM REVIEW' },
   { label: '7', sub: 'APPLY CORRECTIONS' },
 ];
 const buildSteps = [
   { label: 'DATA', sub: 'BUILD ALL DATA FILES' },
-  { label: 'PAGES', sub: 'GENERATE SITE' },
+  { label: 'PAGES', sub: 'GENERATE HTML/CSS' },
   { label: 'DEPLOY', sub: 'PUBLISH TO HOST' },
 ];
 
 function drawPills(steps, sectionY, color) {
   const y = sectionY + 160;
-  const totalW = steps.length * 260 + (steps.length - 1) * 50;
+  const totalW = steps.length * 260 + (steps.length - 1) * 50 + 60 + 20; // + STEPS label + gap
   let x = (W - totalW) / 2;
+
+  // "STEPS" label
+  ctx.font = 'bold 24px "Oswald", sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('STEPS', x + 52, y + 50);
+  x += 80;
 
   steps.forEach((s, i) => {
     roundRect(x, y, 260, 95, 14);
