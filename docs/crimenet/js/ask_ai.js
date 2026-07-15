@@ -365,12 +365,14 @@
         min_communities:{type:'integer',description:'Minimum number of communities spanned (default 3)'}
       },required:[]}}},
     {type:'function',function:{name:'get_centrality',
-      description:'Get network centrality rankings and metrics for organizations. Supports three metrics: degree (number of direct connections, raw popularity), betweenness (how often an org sits on shortest paths, bridging power), and PageRank (importance weighted by neighbor quality). Use for questions about "most important", "most connected", "most powerful", "most influential", "most central", or "most popular" organizations. Can return global top-N or metrics for one specific org. IMPORTANT: only connected orgs have a centrality score, so this ranks fewer orgs than the full database. The response returns BOTH connected_orgs_ranked and total_orgs_in_database — quote total_orgs_in_database (not the ranked count) whenever you state how many organizations CRIMENET holds, and never present the ranked count as the database size.',
+      description:'Get network centrality rankings and metrics for organizations. Supports three metrics: degree (number of direct connections, raw popularity), betweenness (how often an org sits on shortest paths, bridging power), and PageRank (importance weighted by neighbor quality). Use for questions about "most important", "most connected", "most powerful", "most influential", "most central", or "most popular" organizations. Can return global top-N or metrics for one specific org. IMPORTANT: only connected orgs have a centrality score, so this ranks fewer orgs than the full database. The response returns BOTH connected_orgs_ranked and total_orgs_in_database — quote total_orgs_in_database (not the ranked count) whenever you state how many organizations CRIMENET holds, and never present the ranked count as the database size. Also supports filtering by relationship composition: use min_conflicts to find orgs with at least N conflict edges, and max_cooperation to cap cooperation edges (set to 0 to find orgs that have only conflicts and no cooperation).',
       parameters:{type:'object',properties:{
         metric:{type:'string',enum:['degree','betweenness','pagerank'],description:'Which centrality metric to use. degree = raw connection count. betweenness = bridging importance (gatekeeper role). pagerank = weighted importance (quality over quantity of connections).'},
         organization:{type:'string',description:'Optional: get metrics for a specific organization instead of the global ranking.'},
         limit:{type:'integer',description:'Number of top orgs to return (default 20, max 50). Ignored when organization is set.'},
-        country:{type:'string',description:'Optional: filter the ranking to orgs from a specific country.'}
+        country:{type:'string',description:'Optional: filter the ranking to orgs from a specific country.'},
+        min_conflicts:{type:'integer',description:'Optional: only return orgs with at least this many conflict edges.'},
+        max_cooperation:{type:'integer',description:'Optional: only return orgs with at most this many cooperation edges. Set to 0 to exclude orgs that have any cooperation.'}
       },required:['metric']}}}
   ];
 
@@ -921,6 +923,8 @@
 
   function tool_get_centrality(args){
     var metric=args.metric||'betweenness', orgName=args.organization||null, limit=args.limit||20, country=args.country||null;
+    var minConflicts=args.min_conflicts!=null?args.min_conflicts:null;
+    var maxCooperation=args.max_cooperation!=null?args.max_cooperation:null;
     if(limit<1)limit=1;if(limit>50)limit=50;
     return Promise.all([loadCentralityData(),loadCompact()]).then(function(res){
       var orgs=res[0];
@@ -973,6 +977,17 @@
         sorted=sorted.filter(function(o){return o.c&&fold(o.c)===cq;});
         if(sorted.length===0)return JSON.stringify({error:'No orgs found for country: '+country+'. Make sure the country name is correct.'});
       }
+      // Relationship-profile filters (applied after country, before limit)
+      var relFiltered=false;
+      if(minConflicts!=null){
+        relFiltered=true;
+        sorted=sorted.filter(function(o){return (o.xd||0)>=minConflicts;});
+      }
+      if(maxCooperation!=null){
+        relFiltered=true;
+        sorted=sorted.filter(function(o){return (o.cd||0)<=maxCooperation;});
+      }
+      if(relFiltered && sorted.length===0)return JSON.stringify({error:'No orgs found matching the relationship filters (min_conflicts='+minConflicts+', max_cooperation='+maxCooperation+'). Try different values or remove the filters.',connected_orgs_ranked:connectedCount,total_orgs_in_database:totalDb,isolated_orgs_not_ranked:isolatedCount});
       var results=sorted.slice(0,limit).map(function(o){
         return {
           organization:o.n,
@@ -995,6 +1010,7 @@
         results:results
       };
       if(countryFiltered){out.country=country;out.orgs_matched_in_country=sorted.length;}
+      if(relFiltered){out.filtered_orgs_matched=sorted.length;}
       return JSON.stringify(out);
     });
   }
@@ -1041,6 +1057,14 @@
     '- You can combine get_centrality with other tools for richer answers:',
     '  get_centrality to find top orgs, then get_organization for details on',
     '  specific ones, or get_centrality filtered by country to compare regions.',
+    '- For questions about relationship profiles ("which orgs have only conflicts",',
+    '  "which orgs never cooperate", "orgs with at least 5 conflicts", "pure rivals"):',
+    '  use get_centrality with min_conflicts and/or max_cooperation. These filter',
+    '  by conflict_degree and cooperation_degree on the full connected set, then',
+    '  rank the filtered orgs by your metric. For "only conflicts, no cooperation",',
+    '  pass max_cooperation: 0 and min_conflicts: 1. For "what is the most hostile"',
+    '  sort by degree or betweenness after filtering. The filters also combine',
+    '  with country to narrow the ranking to a specific region.',
     '- For SPECIFIC named orgs ("Tell me about X", "Who are CJNG?"):',
     '  use get_organization. For CATEGORIES or types ("Russian mafia", "motorcycle',
     '  clubs", "political crime groups"): use find_by_type. The distinction:',
