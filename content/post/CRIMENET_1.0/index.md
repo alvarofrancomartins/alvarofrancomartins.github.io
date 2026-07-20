@@ -8,7 +8,7 @@ date: "2026-04-28"
 
 draft: false
 
-featured: true
+featured: false
 
 authors:
 - admin
