@@ -6,7 +6,7 @@ projects: []
 
 date: "2026-07-13"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -47,21 +47,24 @@ image:
  preview_only: false
 ---
 
-A few months ago I published the <a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/">first version of CRIMENET</a>, a knowledge graph of criminal organizations and their connections. Everything extracted from hundreds of Wikipedia articles. Now I have rebuilt it into something much larger: 4,505 organizations (up from 1,857), 10,935 relationships (up from 3,338), extracted from 1,418 Wikipedia articles (up from 771) across four languages (English, Italian, Portuguese, and Spanish). For each profiled organization[^1], the graph now captures its description, country of origin, activity period, founding year, and so on. Every edge carries a verbatim evidence quote, a description, a versioned Wikipedia URL, and a time period when the source provides one. The three relationship types are cooperation, conflict, and other (mainly structural ties).
-
-[^1]: Of the 4,505 organizations, 1,032 are profiled from their own Wikipedia article (with full descriptions, aliases, country of origin, country footprints, time periods, and defunct status), 3,473 are mention-only (they appear in other orgs' articles but have no dedicated Wikipedia page), and 317 are flagged as defunct. 3,521 organizations (78%) are connected to at least one other; 984 (22%) are isolated.
+A few months ago I published the <a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/">first version of CRIMENET</a>, a knowledge graph of criminal organizations and their connections. Everything extracted from hundreds of Wikipedia articles. Now I have rebuilt it into something much larger: 4,505 organizations and 10,935 relationships extracted from 1,418 Wikipedia articles across four languages. I built it with a three-layer pipeline (extraction, audit, and build) described <a href="#building-the-graph">at the end of this post</a>.
 
 <br>
 
-The new version is built with a three-layer pipeline: extraction, audit, and build. The extraction layer uses DeepSeek to pull out organizations and the relationships between them from Wikipedia articles. The audit layer catches the errors LLMs inevitably make, producing a graph with fewer mistakes. The build layer turns that graph into the static web app. On top of the graph sits an AI that answers natural language questions by querying the graph. The full pipeline is described <a href="#how-it-is-built">at the end of this post</a>. 
+For each profiled organization[^1], the graph now captures its description, country of origin, activity period, founding year, and so on. Every edge carries a verbatim evidence quote, a description, a versioned Wikipedia URL, and a time period when the source provides one. The three relationship types are cooperation, conflict, and other (mainly structural ties).
+
+[^1]: Of the 4,505 organizations, 1,032 are profiled from their own Wikipedia article (with full descriptions, aliases, country of origin, country footprints, time periods, and defunct status), 3,473 are mention-only (they appear in other orgs' articles but have no dedicated Wikipedia page). 3,521 organizations (78%) are connected to at least one other; 984 (22%) are isolated.
 
 <br>
 
-The <a href="https://www.alvarofrancomartins.com/crimenet/">dashboard</a> lets you browse all 4,505 organizations and filter by country. The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> shows connections between organizations, with the evidence behind each link. <a href="#Overview the entire project">The overview</a> covers everything else you can explore. I will start with what I find most interesting: the AI that answers questions by querying the graph.
+In this new version I also built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG system that answers natural language questions by querying the graph. I will start there because it is the part I find most interesting. If you just want to browse the data directly, the <a href="https://www.alvarofrancomartins.com/crimenet/">dashboard</a> lists all organizations and lets you filter by country. The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> shows connections between organizations, with the evidence behind each link. For everything else, see <a href="#what-you-can-explore">what you can explore</a>. 
 
 # CRIMENET AI
 
-Answering interesting questions requires combining information from across the graph. What are some of the biggest criminal communities of the global network of organized crime and which organizations bridge the most communities? Who might the 'Ndrangheta be secretly allied with, based on shared partners? How do organized crime patterns in Mexico and Colombia compare? What is the most central organization in the global network? How are the Yakuza and the Sicilian Mafia connected? [give more examples and improve the current ones]
+Answering simple questions like what is the most important organization in the network or [... fill here and improve the first example] is just a matter of look up. However, to answer more interesting questions like [... fill here] requires combining information from across the graph. For instance, what are some of the biggest criminal communities of the global network of organized crime and which organizations bridge the most communities? Who might the 'Ndrangheta be secretly allied with, based on shared partners? How do organized crime patterns in Mexico and Colombia compare? What is the most central organization in the global network? How are the Yakuza and the Sicilian Mafia connected? [give more examples and improve the current ones] What is the most unique/unusual criminal community? 
+
+<!-- Answering simple questions like "Tell me about the Sinaloa Cartel" or "What criminal organizations operate in Brazil?" is just a matter of looking up a node or filtering by country. But to answer questions like "Are the Yakuza and the Sicilian Mafia connected?" or "Who might the 'Ndrangheta be secretly allied with, based on shared partners?" requires combining information from across the graph. For instance, what are the largest criminal communities and which organizations bridge the most communities? How do organized crime patterns in Mexico and Colombia compare? Who are the most connected criminal organizations in the world?  -->
+
 
 <br>
 
@@ -320,34 +323,7 @@ The AI returns every organization with a documented footprint. The AI lists all 
 
 Every country footprint is backed by a verbatim evidence quote from Wikipedia. When the AI says an organization operates in a country, you can open the source and read the exact sentence that documents it.
 
-# How it is built
-
-The raw material is 1,418 Wikipedia articles about criminal organizations across English, Italian, Portuguese, and Spanish Wikipedia. The extraction pipeline fetches each article, cleans the HTML into plain text, then sends it to DeepSeek to identify organizations and the relationships between them: cooperation, conflict, and other.[^7] The pipeline then profiles each organization from its own Wikipedia article (canonical name, aliases, description, country of origin, time period, founded and dissolved years, defunct status, and country footprints, each backed by a verbatim evidence quote) and merges everything into a single graph, folding variant names across languages so the Sinaloa Cartel and the Cártel de Sinaloa become one node.
-
-<br>
-
-An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. I built an audit pipeline that targets each class of error, one audit per error type.[^8] The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions.
-
-<figure>
-<img style="width: 100%; display: inline-block;" src="figs/pipeline.png">
-<figcaption>Figure 7: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).</figcaption>
-</figure>
-
-Every detail is documented in README (github).
-
-[^7]: Cooperation covers alliances, joint operations, and commercial dealings. Conflict covers fighting, war, and clashes. Other covers structural ties (sub-units, splinters), truces, and unspecified links. The pipeline proceeds in five steps: (0) resolve Wikipedia URLs to versioned URLs; (1) fetch HTML and extract clean body text with infobox tables; (2) send text to DeepSeek to extract organizations and relationships; (3) DeepSeek enriches each profiled organization with description, aliases, country, time period, defunct status, and country footprints; (4) merge all fragments, auto-dedup, attach profiles, and normalize country names. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
-
-[^8]: Seven steps in total. Audits 0 through 5 find wrong merges, missed merges, spurious edges, unsupported country links, umbrella terms, and non-criminal entities. Audit 6 provides an LLM second opinion that can veto identity corrections. Audit 7 applies all corrections, with manual overrides from a curated file always winning over auto-suggestions. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
-
-# Overview the entire project
-
-There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia's most extensive list <a href="https://en.wikipedia.org/wiki/List_of_criminal_enterprises,_gangs,_and_syndicates">list of criminal enterprises, gangs, and syndicates</a> covers a few hundred groups. And it only mentions organizations, not their relationships. CRIMENET is by far the most complete catalog of this kind: nearly 5,000 organizations mapped across nearly 11,000 relationships, each backed by a specific Wikipedia source.
-
-<br>
-
-This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia. 
-
-<br>
+# What you can explore
 
 The <a href="https://www.alvarofrancomartins.com/crimenet/">home page</a> is a dashboard with two panels. On the left, you can browse all 4,505 organizations or browse by country. Click any name and the right panel shows its full profile: description, aliases, country of origin, time period, and where it operates, each backed by an evidence quote. If you just want to see which organizations are based in Brazil, or what the Sinaloa Cartel's profile looks like, the dashboard has it.
 
@@ -368,9 +344,35 @@ The full network is viewable as an [interactive 3D force-directed graph](https:/
 <figcaption>Figure 5: The 3D knowledge graph in motion. Nodes are criminal organizations; edges are colored by relationship type. The third dimension disentangles dense clusters that would collapse into a hairball in 2D.</figcaption>
 </figure>
 
+The 3D view does something a 2D layout cannot: it uses the third dimension to disentangle dense clusters. In a 2D force layout, highly connected hubs pull everything into a hairball. In 3D, you can rotate around a cluster and see its internal structure.
+
 <br>
 
-The 3D view does something a 2D layout cannot: it uses the third dimension to disentangle dense clusters. In a 2D force layout, highly connected hubs pull everything into a hairball. In 3D, you can rotate around a cluster and see its internal structure.
+There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia's most extensive list <a href="https://en.wikipedia.org/wiki/List_of_criminal_enterprises,_gangs,_and_syndicates">list of criminal enterprises, gangs, and syndicates</a> covers a few hundred groups. And it only mentions organizations, not their relationships. CRIMENET is by far the most complete catalog of this kind: nearly 5,000 organizations mapped across nearly 11,000 relationships, each backed by a specific Wikipedia source.
+
+<br>
+
+This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia. 
+
+
+# Building the graph
+
+The raw material is 1,418 manually curated Wikipedia articles about criminal organizations across English, Italian, Portuguese, and Spanish Wikipedia. The extraction pipeline fetches each article, cleans the HTML into plain text, then sends it to DeepSeek to identify organizations and the relationships between them: cooperation, conflict, and other.[^7] The pipeline then profiles each organization from its own Wikipedia article (canonical name, aliases, description, country of origin, time period, founded and dissolved years, defunct status, and country footprints, each backed by a verbatim evidence quote) and merges everything into a single graph, folding variant names across languages so the Sinaloa Cartel and the Cártel de Sinaloa become one node.
+
+<br>
+
+An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. I built an audit pipeline that targets each class of error, one audit per error type.[^8] The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions.
+
+<figure>
+<img style="width: 100%; display: inline-block;" src="figs/pipeline.png">
+<figcaption>Figure 7: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).</figcaption>
+</figure>
+
+Every detail is documented on [GitHub](https://github.com/alvarofrancomartins/CRIMENET).
+
+[^7]: Cooperation covers alliances, joint operations, and commercial dealings. Conflict covers fighting, war, and clashes. Other covers structural ties (sub-units, splinters), truces, and unspecified links. The pipeline proceeds in five steps: (0) resolve Wikipedia URLs to versioned URLs; (1) fetch HTML and extract clean body text with infobox tables; (2) send text to DeepSeek to extract organizations and relationships; (3) DeepSeek enriches each profiled organization with description, aliases, country, time period, defunct status, and country footprints; (4) merge all fragments, auto-dedup, attach profiles, and normalize country names. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
+
+[^8]: Seven steps in total. Audits 0 through 5 find wrong merges, missed merges, spurious edges, unsupported country links, umbrella terms, and non-criminal entities. Audit 6 provides an LLM second opinion that can veto identity corrections. Audit 7 applies all corrections, with manual overrides from a curated file always winning over auto-suggestions. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
 
 # Limitations
 
@@ -382,23 +384,11 @@ Relationships are aggregated across time. Every edge carries its own time period
 
 <br>
 
-The graph models organizations and their relationships, not individuals or cyber criminal groups. Both are out of scope for now.
+The current graph models organizations and their relationships, not individuals or cyber criminal groups. This means we lose some information about criminal organizations built around a single person.
 
 <br>
 
-None of this is fatal. The architecture is designed for iteration: add more languages, widen the scope, add temporal weights, promote individuals to nodes. Each is a pipeline extension, not a rewrite.
-
-# Open source
-
-Everything is open source. The full pipeline (extraction, audit, build, app) is on [GitHub](https://github.com/alvarofrancomartins/CRIMENET). The [live app](https://www.alvarofrancomartins.com/crimenet) runs entirely in your browser.
-
-<br>
-
-The project is designed to be extended. The pipeline is modular: each step reads from and writes to a distinct place. The audit pipeline is modular: each audit targets one class of error. The build scripts are independent: add a new data file by writing one Python script and one JS consumer.
-
-<br>
-
-If you find an error, want to add a Wikipedia article, or have ideas for new features, open an issue or pull request on GitHub.
+None of this is fatal. The architecture is designed for iteration: add more languages, widen the scope, promote individuals to nodes. Each is a pipeline extension, not a rewrite.
 
 <br>
 
