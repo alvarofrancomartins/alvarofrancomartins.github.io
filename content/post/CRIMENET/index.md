@@ -6,7 +6,7 @@ projects: []
 
 date: "2026-07-13"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -61,18 +61,15 @@ In this new version I also built <a href="https://www.alvarofrancomartins.com/cr
 
 # CRIMENET AI
 
-Answering simple questions like what is the most important organization in the network or [... fill here and improve the first example] is just a matter of look up. However, to answer more interesting questions like [... fill here] requires combining information from across the graph. For instance, what are some of the biggest criminal communities of the global network of organized crime and which organizations bridge the most communities? Who might the 'Ndrangheta be secretly allied with, based on shared partners? How do organized crime patterns in Mexico and Colombia compare? What is the most central organization in the global network? How are the Yakuza and the Sicilian Mafia connected? [give more examples and improve the current ones] What is the most unique/unusual criminal community? 
-
-<!-- Answering simple questions like "Tell me about the Sinaloa Cartel" or "What criminal organizations operate in Brazil?" is just a matter of looking up a node or filtering by country. But to answer questions like "Are the Yakuza and the Sicilian Mafia connected?" or "Who might the 'Ndrangheta be secretly allied with, based on shared partners?" requires combining information from across the graph. For instance, what are the largest criminal communities and which organizations bridge the most communities? How do organized crime patterns in Mexico and Colombia compare? Who are the most connected criminal organizations in the world?  -->
-
+Simple network-science tools can answer some questions directly. Which organizations are the most central? What are the communities in the cooperation graph? What is a shortest path between two organizations? But answering other questions means combining multiple pieces of information across the graph. These are the questions where an LLM becomes useful: not as a source of facts, but as an orchestrator that plans which tools to call and how to combine their results.
 
 <br>
 
-A standard LLM would most likely hallucinate the answers. Or simply would not know how to answer those questions. Its training data does not contain a structured database of criminal organizations such as CRIMENET, so it would guess.
+An LLM can answer these questions by querying the graph with the right tools, combining information, filtering, comparing results, and synthesizing an answer. For example: "How do organized crime patterns in Mexico and Colombia compare?" "Which motorcycle clubs have direct ties to Italian mafia organizations?" "Do any Mexican cartels and Italian mafias share the same cooperation partners?" "How does the Sinaloa Cartel's network position compare to the 'Ndrangheta's?" "Which organizations have footprints in both Brazil and Lebanon, and are any of them connected?" Each requires multiple lookups. A standard LLM without access to CRIMENET would simply guess. Its training data contains no structured catalog of criminal organizations.
 
 <br>
 
-I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG[^2] that answers questions by querying the knowledge graph. The language model decides what to look up, the browser runs the queries against static data files, and the model synthesizes the results. The facts come from the graph. The model reasons and the graph provides the evidence. Every answer carries two automatically generated sections the AI does not write: Evidence (every edge used, with source link, time period, and verbatim quote) and Sources (every Wikipedia URL that appeared in the results).
+Therefore, I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG[^2] that answers questions by querying the knowledge graph. The language model decides what to look up, the browser runs the queries against static data files, and the model synthesizes the results. The facts come from the graph. The model reasons and the graph provides the evidence. Every answer carries two automatically generated sections the AI does not write: Evidence (every edge used, with source link, time period, and verbatim quote) and Sources (every Wikipedia URL that appeared in the results).
 
 [^2]: GraphRAG stands for Graph Retrieval-Augmented Generation. A standard RAG system retrieves text chunks and asks the model to reason over them. A GraphRAG system retrieves structured data from a knowledge graph by calling tools that traverse nodes, edges, communities, and paths. The 13 tools available to the AI are documented in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
 
