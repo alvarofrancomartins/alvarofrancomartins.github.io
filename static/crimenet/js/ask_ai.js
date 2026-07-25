@@ -350,7 +350,7 @@
         relationship_type:{type:'string',enum:['cooperation','conflict','other'],description:'Optional filter to only follow edges of this type at the first hop'}
       },required:['organization']}}},
     {type:'function',function:{name:'get_community',
-      description:'Get a community or list all communities. Three modes: (1) no arguments — list all communities, each with id, title, short_summary (one sentence for scanning), size, top_hubs (top 5), and members. Full summaries are NOT included in list mode to save space. (2) community_id — get a single community by its numeric id, with the full summary, title, short_summary, size, top_hubs, and full member list. (3) organization — find which community a specific org belongs to, with the full summary. Always use mode (1) first to scan communities with short_summary; then use mode (2) with community_id to read the full summary of the one(s) you focus on. Pass the keyword parameter to return only communities whose member names, title, or summary contain the keyword. Use keyword to search for a specific org name or term inside communities — never scan member lists yourself, let the tool filter for you.',
+      description:'Get a community or list all communities. Three modes: (1) no arguments — list all communities, each with id, title, short_summary (one sentence for scanning), size, and top_hubs (top 5). Member lists are NOT included in list mode to keep the response compact. Full summaries are also NOT included in list mode. (2) community_id — get a single community by its numeric id, with the full summary, title, short_summary, size, top_hubs, and full member list. (3) organization — find which community a specific org belongs to, with the full summary and full member list. Always use mode (1) first to scan communities with short_summary; then use mode (2) with community_id to read the full summary and members of the one(s) you focus on. Pass the keyword parameter to return only communities whose member names, title, or summary contain the keyword. Use keyword to search for a specific org name or term inside communities — never scan member lists yourself, let the tool filter for you.',
       parameters:{type:'object',properties:{organization:{type:'string',description:'Organization name to find its community. Mutually exclusive with community_id and keyword.'},community_id:{type:'integer',description:'Numeric community id to fetch a single community with its full summary. Use after scanning the list to drill into a specific community.'},keyword:{type:'string',description:'Filter communities: return only those whose member names, title, or summary contain this keyword (case-insensitive). In list-all mode only (ignored with community_id or organization).'}},required:[]}}},
     {type:'function',function:{name:'get_triadic_signals',
       description:'Get triadic signals for an organization: pairs where this org and another org share multiple common cooperation partners or common adversaries but have no direct edge between them. These are candidate undocumented relationships. High-scoring pairs are more likely to have a real-world connection not yet documented in Wikipedia.',
@@ -810,11 +810,24 @@
     var keyword=args.keyword||null;
     return Promise.all([loadCommunitiesData(),loadCompact()]).then(function(results){
       var comms=results[0];
+      // Annotate members with [unprofiled] when they have no data so the LLM knows
+      // not to invent details about them.
+      function annotateMembers(memberNames){
+        if(!memberNames)return memberNames;
+        return memberNames.map(function(m){
+          var isProfiled=false;
+          if(compactData&&compactData.orgs){
+            var o=compactData.orgs[m];
+            if(o&&o.profiled===true)isProfiled=true;
+          }
+          return isProfiled?m:m+' [unprofiled — no data]';
+        });
+      }
       // Single-community by id: return full detail
       if(cid!=null){
         for(var i=0;i<comms.length;i++){
           var c=comms[i];
-          if(c.i===cid)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:c.o});
+          if(c.i===cid)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:annotateMembers(c.o)});
         }
         return JSON.stringify({error:'Community '+cid+' not found.'});
       }
@@ -824,7 +837,7 @@
         if(!match)return JSON.stringify({error:'Organization not found: '+org});
         for(var i=0;i<comms.length;i++){
           var c=comms[i];
-          if(c.o&&c.o.indexOf(match)>=0)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:c.o});
+          if(c.o&&c.o.indexOf(match)>=0)return JSON.stringify({community_id:c.i,title:c.t,summary:c.m,short_summary:c.b||null,size:c.s,top_hubs:c.k||[],members:annotateMembers(c.o)});
         }
         return JSON.stringify({message:'Organization "'+match+'" not found in any community.'});
       }
@@ -843,27 +856,17 @@
           return false;
         });
       }
-      // Annotate members with [unprofiled] when they have no data so the LLM knows
-      // not to invent details about them.
-      function annotateMembers(memberNames){
-        if(!memberNames)return memberNames;
-        return memberNames.map(function(m){
-          var isProfiled=false;
-          if(compactData&&compactData.orgs){
-            var o=compactData.orgs[m];
-            if(o&&o.profiled===true)isProfiled=true;
-          }
-          return isProfiled?m:m+' [unprofiled — no data]';
-        });
-      }
+      // No members in list mode — the full member list bloats the response to
+      // ~108 KB, which makes subsequent API calls hit the Netlify function
+      // timeout (10–26 s). Use community_id to get the full member list for a
+      // specific community when you need it.
       var result=list.map(function(c){
         return {
           id:c.i,
           title:c.t,
           short_summary:c.b||null,
           size:c.s,
-          top_hubs:c.k?c.k.slice(0,5):[],
-          members:annotateMembers(c.o)
+          top_hubs:c.k?c.k.slice(0,5):[]
         };
       });
       return JSON.stringify({total_communities:result.length,communities:result});
