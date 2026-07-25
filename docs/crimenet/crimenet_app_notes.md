@@ -307,7 +307,7 @@ Netlify Function as a thin proxy and avoids loading data files server-side.
 Browser (ask.html)
   │  User question + system prompt + tool definitions
   │  POST https://afmartins.netlify.app/.netlify/functions/crimenet-ask
-  │  Body: { model: "deepseek-chat", messages: [...], tools: [...] }
+  │  Body: { model: "deepseek-v4-pro", messages: [...], tools: [...] }
   │
   ▼
 Netlify Function (netlify/functions/crimenet-ask.js)

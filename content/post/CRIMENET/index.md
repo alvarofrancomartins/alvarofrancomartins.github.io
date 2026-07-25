@@ -6,7 +6,7 @@ projects: []
 
 date: "2026-07-13"
 
-draft: true
+draft: false
 
 featured: true
 
@@ -61,36 +61,32 @@ In this new version I also built <a href="https://www.alvarofrancomartins.com/cr
 
 # CRIMENET AI
 
-Simple network-science tools can answer some questions directly. Which organizations are the most central? What are the communities in the cooperation graph? What is a shortest path between two organizations? But answering other questions means combining multiple pieces of information across the graph. These are the questions where an LLM becomes useful: not as a source of facts, but as an orchestrator that plans which tools to call and how to combine their results.
+Network-science tools answer some questions directly: which organizations are the most central? What are the communities in the cooperation graph? What is a shortest path between two organizations? The answers are just a computation away. Then there are questions that need you to combine information from across the graph. That is where a language model fits. It extracts, classifies, and summarizes.
 
 <br>
 
-An LLM can answer these questions by querying the graph with the right tools, combining information, filtering, comparing results, and synthesizing an answer. For example: "How do organized crime patterns in Mexico and Colombia compare?" "Which motorcycle clubs have direct ties to Italian mafia organizations?" "Do any Mexican cartels and Italian mafias share the same cooperation partners?" "How does the Sinaloa Cartel's network position compare to the 'Ndrangheta's?" "Which organizations have footprints in both Brazil and Lebanon, and are any of them connected?" Each requires multiple lookups. A standard LLM without access to CRIMENET would simply guess. Its training data contains no structured catalog of criminal organizations.
+"Which motorcycle clubs have direct ties to Italian mafia organizations?", "How does the Sinaloa Cartel's network position compare to the 'Ndrangheta's?", "Which organizations have footprints in both Brazil and Lebanon, and are any of them connected?" "How do organized crime patterns in Mexico and Colombia compare?", "What potential rivalries does the Sinaloa Cartel have based on shared adversaries?" An LLM answers these by querying the graph with the right tools and synthesizing an answer. A standard LLM without access to CRIMENET would simply guess, since its training data contains no structured catalog of criminal organizations.
 
 <br>
 
-Therefore, I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG[^2] that answers questions by querying the knowledge graph. The language model decides what to look up, the browser runs the queries against static data files, and the model synthesizes the results. The facts come from the graph. The model reasons and the graph provides the evidence. Every answer carries two automatically generated sections the AI does not write: Evidence (every edge used, with source link, time period, and verbatim quote) and Sources (every Wikipedia URL that appeared in the results).
+I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG[^2] that answers questions by querying the knowledge graph. I gave it 13 tools: functions that look up organizations, find connections, search by country, trace paths. The model decides which function to call. The browser runs it against static data files. The results go back to the model, which can call another function or synthesize an answer. Every Wikipedia URL and edge from the tool results is collected and appended below the answer as Sources and Evidence.
 
 [^2]: GraphRAG stands for Graph Retrieval-Augmented Generation. A standard RAG system retrieves text chunks and asks the model to reason over them. A GraphRAG system retrieves structured data from a knowledge graph by calling tools that traverse nodes, edges, communities, and paths. The 13 tools available to the AI are documented in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
 
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/crimenet_ai.png">
-<figcaption>Figure 1: CRIMENET AI. Ask a question in plain English, get an evidence-backed answer with citations to specific Wikipedia sentences.</figcaption>
+<figcaption>Figure 1: CRIMENET AI. Ask a question in plain English. Sources and evidence are collected from the tool results and appended below the answer.</figcaption>
 </figure>
 
-Here are the kinds of questions it can answer, covering communities, bridges, direct connections, and triadic signals.
+The sections that follow walk through the kinds of questions CRIMENET AI can answer: communities, bridges, centrality, paths, and countries. It handles simple lookups too, but those are the interesting ones. Each section includes examples you can try.
 
 ## Communities
 
-Communities are groups of nodes more connected to each other than to the rest of the network. Here, I applied the Infomap algorithm to the cooperation graph to find all its communities.
+Communities are groups of nodes more connected to each other than to the rest of the network. Infomap finds them by detecting where random walks tend to stay. I ran it on the cooperation graph and got 224 communities. Before CRIMENET, there was no data to answer "What are the communities within global organized crime?" Now each is named and described. It is definitely an incomplete picture, but the first one.
 
 <br>
 
-Before CRIMENET, if someone asked "How do criminal organizations group together around the world?" the honest answer was: nobody knew. The question was too big to answer. Now this have an approximate (which i do not claim to be the absolute truth but it is at least it is a first) answer: 224 communities, named and described.
-
-<br>
-
-I fed each community's member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all 224 communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Community Browser</a> (select the Communities tab). Here are the top 10.
+I fed each community's member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Community Browser</a> (select the Communities tab). Here are the top 10.
 
 <br>
 
@@ -115,7 +111,7 @@ I fed each community's member organizations, their descriptions, and their relat
 
 <br>
 
-Examples of questions to ask the AI: What community does the Sinaloa Cartel belong to? Show me communities related to motorcycle clubs. Find communities with "mafia" in the title. Which communities span the most countries? Compare the top five communities by size.
+There are several examples you can ask CRIMENET AI. For instance, give me all the mafia related communities. Or even more complex questions like which communities span the most countries? Compare the top five communities by size.
 
 ## Bridges
 
@@ -330,7 +326,7 @@ The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connectio
 
 <br>
 
-The <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a> lets you ask any question in plain English and get an evidence-backed answer that cites specific Wikipedia sentences. You can trace the exact relationship between any two organizations with verbatim evidence quotes. You can browse 224 communities of organizations that cooperate with each other. You can identify which organizations bridge different criminal ecosystems. You can discover 2,561 candidate relationships that likely exist but have not been documented, inferred purely from the structure of the graph.
+The <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a> lets you ask any question in plain English. Every Wikipedia URL and edge from the tool results is collected and appended below the answer as Sources and Evidence. You can trace the exact relationship between any two organizations with verbatim evidence quotes. You can browse 224 communities of organizations that cooperate with each other. You can identify which organizations bridge different criminal ecosystems. You can discover 2,561 candidate relationships that likely exist but have not been documented, inferred purely from the structure of the graph.
 
 <br>
 

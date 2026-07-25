@@ -1396,7 +1396,7 @@
 
     for(var iter=0;iter<MAX_ITERATIONS;iter++){
       if(onStatus)onStatus(iter===0?'Reasoning…':'Looking up data…');
-      var payload={model:'deepseek-chat',messages:messages,tools:TOOLS};
+      var payload={model:'deepseek-v4-pro',messages:messages,tools:TOOLS};
 
       var resp=await fetch('https://afmartins.netlify.app/.netlify/functions/crimenet-ask',{
         method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
@@ -1414,7 +1414,10 @@
 
       // Tool calls?
       if(msg.tool_calls&&msg.tool_calls.length>0){
-        messages.push({role:'assistant',content:msg.content||null,tool_calls:msg.tool_calls});
+        var assistantMsg={role:'assistant',tool_calls:msg.tool_calls};
+        if(msg.content)assistantMsg.content=msg.content;
+        if(msg.reasoning_content)assistantMsg.reasoning_content=msg.reasoning_content;
+        messages.push(assistantMsg);
         for(var i=0;i<msg.tool_calls.length;i++){
           var tc=msg.tool_calls[i], toolName=tc.function.name, toolArgs={};
           try{toolArgs=JSON.parse(tc.function.arguments||'{}');}catch(e){}
