@@ -754,16 +754,16 @@ text-align: justify;
   <ul>
     <li><a href="#crimenet-ai">CRIMENET AI</a>
       <ul>
+        <li><a href="#centrality">Centrality</a></li>
         <li><a href="#communities">Communities</a></li>
         <li><a href="#bridges">Bridges</a></li>
-        <li><a href="#triadic-signals">Triadic signals</a></li>
-        <li><a href="#centrality">Centrality</a></li>
         <li><a href="#paths">Paths</a></li>
+        <li><a href="#hidden-connections">Hidden connections</a></li>
         <li><a href="#countries">Countries</a></li>
       </ul>
     </li>
-    <li><a href="#what-you-can-explore">What you can explore</a></li>
     <li><a href="#building-the-graph">Building the graph</a></li>
+    <li><a href="#closing-thoughts">Closing thoughts</a></li>
     <li><a href="#limitations">Limitations</a></li>
   </ul>
 </nav>
@@ -872,143 +872,19 @@ text-align: justify;
 
             <div class="article-container">
               <div class="article-style">
-                <p>A few months ago I published the <a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/">first version</a> of CRIMENET, a knowledge graph of criminal organizations and their connections. Everything extracted from hundreds of Wikipedia articles. Now I have rebuilt it into something much larger: 4,505 organizations and 10,935 relationships extracted from 1,418 Wikipedia articles<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> across four languages. I built it with a three-layer pipeline (extraction, audit, and build) described <a href="#building-the-graph">at the end</a> of this post.</p>
+                <p><a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/" target="_blank">A few months ago</a>, I created the first map of the world’s criminal organizations and how they connect to each other. I applied an LLM to read hundreds of Wikipedia articles, extracting every criminal organization mentioned and every relationship between them. The result was CRIMENET: the first open-source network of criminal organizations.</p>
 <br>
-<p>For each profiled organization<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, the graph now captures its description, country of origin, activity period, founding year, and so on. Every edge carries a verbatim evidence quote, a description, a versioned Wikipedia URL, and a time period when the source provides one. The three relationship types are cooperation, conflict, and other (mainly structural ties).</p>
+<p>I have now significantly expanded it: <a href="https://www.alvarofrancomartins.com/crimenet/" target="_blank"> 4,505 organizations and 10,935 relationships</a> extracted from 1,418 Wikipedia articles<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> across four languages. For each profiled organization<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, the graph captures its description, country of origin, activity period, founding year, footprints in other countries, and defunct status. Every edge carries a verbatim evidence quote, a description, a versioned Wikipedia URL, and a time period when the source provides one. The three relationship types are cooperation, conflict, and other.</p>
 <br>
-<p>In this new version I also built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, an AI assistant that answers natural language questions by querying the graph. I will start there because it is the part I find most interesting. If you just want to browse the data directly, the <a href="https://www.alvarofrancomartins.com/crimenet/">dashboard</a> lists all organizations and the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> shows connections between organizations. For everything else, see <a href="#what-you-can-explore">what you can explore</a>.</p>
+<p>In this new version I also created an AI assistant that answers natural language questions by querying the graph. I will start there because it is the part I find most interesting.</p>
 <h1 id="crimenet-ai">CRIMENET AI</h1>
-<p>Which organizations are the most central? What are the communities in the cooperation graph? Answering these questions is just a matter of computation. However, there are questions that require combining information from across the graph:</p>
-<br>
-<ul>
-<li>Which motorcycle clubs have direct ties to Italian mafia organizations?</li>
-<li>How does the Sinaloa Cartel&rsquo;s network position compare to the &lsquo;Ndrangheta&rsquo;s?</li>
-<li>Which organizations have footprints in both Brazil and Lebanon, and are any of them connected?</li>
-<li>How do organized crime patterns in Mexico and Colombia compare?</li>
-<li>What potential rivalries does the Sinaloa Cartel have based on shared adversaries?</li>
-</ul>
-<br>
-<p>A standard LLM would guess at answering these questions; its training data has no catalog of criminal organizations. However, give it tools to query the graph and it can combine results and synthesize an answer. I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> that works this way.</p>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/crimenet_ai.png">
-<figcaption>Figure 1: CRIMENET AI. Ask a question in plain English. Sources and evidence are collected from the tool results and appended below the answer.</figcaption>
+<figcaption style="font-size: 0.9em;">Figure 1: CRIMENET AI. Ask a question in plain English. Sources and evidence are collected from the tool results and appended below the answer.</figcaption>
 </figure>
-<p>The sections that follow walk through the kinds of questions CRIMENET AI can answer: communities, bridges, centrality, paths, hidden connections and countries. It handles simple lookups too, but those are the interesting ones. Each section includes examples you can try.</p>
-<h2 id="communities">Communities</h2>
-<p>Communities are groups of nodes more connected to each other than to the rest of the network. I ran a community algorithm<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> on the cooperation graph and it returned 224 communities. Before CRIMENET, there was no data to answer &ldquo;What are the communities within global organized crime?&rdquo; Now each is named and described. It is definitely an incomplete picture, but the first one.</p>
+<p>Answering questions such as &ldquo;What is the most connected criminal organization?&rdquo; or &ldquo;How many communities does the global network of organized crime contain?&rdquo; are just a  matter of running a computation on the graph. However, answering questions such as &ldquo;Which motorcycle clubs have direct ties to Italian mafia organizations?&rdquo; or &ldquo;What potential rivalries does the Sinaloa Cartel have based on shared adversaries?&rdquo; require combining information from across the graph.</p>
 <br>
-<p>I fed each community&rsquo;s member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Community Browser</a> (select the Communities tab). Here are the top 10.</p>
-<br>
-<table style="display:block; overflow:hidden; max-width:100%; margin:0 auto;">
-<thead>
-<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Community</th><th style="text-align:left; padding:8px;">Short description</th><th style="text-align:right; padding:8px;">Members</th></tr>
-</thead>
-<tbody>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network</td><td style="padding:8px; vertical-align:top;">A dense network of Mexican and Colombian cartels, paramilitaries, and street gangs cooperating in drug trafficking and shifting alliances.</td><td style="padding:8px; text-align:right; vertical-align:top;">88</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Global Jihadist Network and Allies</td><td style="padding:8px; vertical-align:top;">A global jihadist network uniting al-Qaeda, Taliban, and allied militant groups across Asia, Africa, and the Middle East.</td><td style="padding:8px; text-align:right; vertical-align:top;">81</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">American Mafia Network</td><td style="padding:8px; vertical-align:top;">A dense network of Italian-American Mafia families and allied gangs cooperating across the U.S. in traditional organized crime.</td><td style="padding:8px; text-align:right; vertical-align:top;">76</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Nuova Famiglia Camorra Alliance</td><td style="padding:8px; vertical-align:top;">A Camorra alliance of clans united against the Nuova Camorra Organizzata, dominating Campania through drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">53</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Hells Angels and Allied Outlaw Gangs</td><td style="padding:8px; vertical-align:top;">A Hells Angels-led network of outlaw biker gangs and Canadian organized crime groups cooperating in drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">49</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; vertical-align:top;">A network of Calabrian 'Ndrangheta clans cooperating in international drug trafficking, money laundering, and extortion across Europe and beyond.</td><td style="padding:8px; text-align:right; vertical-align:top;">42</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Brazilian PCC-Led Criminal Alliance Network</td><td style="padding:8px; vertical-align:top;">A PCC-centered network of Brazilian criminal factions and international allies cooperating in drug trafficking and prison control.</td><td style="padding:8px; text-align:right; vertical-align:top;">36</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">US Street and Prison Gang Alliances</td><td style="padding:8px; vertical-align:top;">A network of US street and prison gangs, centered on the People Nation alliance, cooperating in drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">34</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sicilian Mafia Corleonesi Alliance Network</td><td style="padding:8px; vertical-align:top;">A coalition of Sicilian Mafia families led by the Corleonesi, united through drug trafficking, extortion, and violent power consolidation.</td><td style="padding:8px; text-align:right; vertical-align:top;">34</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cutro-based 'Ndrangheta Clans Alliance</td><td style="padding:8px; vertical-align:top;">A network of Cutro-based 'Ndrangheta clans cooperating in drug trafficking, extortion, and money laundering across Italy and Europe.</td><td style="padding:8px; text-align:right; vertical-align:top;">31</td></tr>
-</tbody>
-</table>
-<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 1: The top 10 communities by membership, titled and described by DeepSeek.</p>
-<br>
-<div style="text-align:center;">
-<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
-  <ul style="margin:0; padding-left:18px; color:#334155;">
-    <li style="margin-bottom:4px;">What community does the Sinaloa Cartel belong to?</li>
-    <li style="margin-bottom:4px;">Show me communities related to motorcycle clubs</li>
-    <li style="margin-bottom:4px;">Find communities related to the mafia</li>
-    <li style="margin-bottom:4px;">Which communities span the most countries?</li>
-    <li>Compare the top five communities by size</li>
-  </ul>
-</div>
-</div>
-<h2 id="bridges">Bridges</h2>
-<p>Some organizations cooperate across community boundaries. Here, a bridge is a node that connects different communities.</p>
-<br>
-<p>Before CRIMENET, if someone asked &ldquo;Which criminal organizations connect different communities?&rdquo; the honest answer was: nobody knew. The question was too big to answer. Now it has an answer: every bridge organization, ranked by how many communities it connects, with the evidence for each cross-community edge.</p>
-<br>
-<div style="text-align:center;">
-<table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
-<thead>
-<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Organization</th><th style="text-align:left; padding:8px; white-space:nowrap;">Top communities bridged (top 3 shown)</th><th style="text-align:right; padding:8px; white-space:nowrap;">Cross-community edges</th><th style="text-align:right; padding:8px; white-space:nowrap;">Communities spanned</th></tr>
-</thead>
-<tbody>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Hells Angels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">88</td><td style="padding:8px; text-align:right; vertical-align:top;">27</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">American Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">84</td><td style="padding:8px; text-align:right; vertical-align:top;">22</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrangheta</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">83</td><td style="padding:8px; text-align:right; vertical-align:top;">28</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sinaloa Cartel</td><td style="padding:8px; vertical-align:top;">Hells Angels and Allied Outlaw Gangs, US Street and Prison Gang Alliances, Italian Mafia Alliances and Offshoots</td><td style="padding:8px; text-align:right; vertical-align:top;">72</td><td style="padding:8px; text-align:right; vertical-align:top;">20</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Camorra</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, Global Jihadist Network and Allies, Sicilian Mafia Corleonesi Alliance Network</td><td style="padding:8px; text-align:right; vertical-align:top;">52</td><td style="padding:8px; text-align:right; vertical-align:top;">16</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Outlaws Motorcycle Club</td><td style="padding:8px; vertical-align:top;">American Mafia Network, Neo-Nazi Terror Network, Canadian Outlaw Motorcycle Gangs Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">52</td><td style="padding:8px; text-align:right; vertical-align:top;">10</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sicilian Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">48</td><td style="padding:8px; text-align:right; vertical-align:top;">14</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mexican Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Hells Angels and Allied Outlaw Gangs</td><td style="padding:8px; text-align:right; vertical-align:top;">44</td><td style="padding:8px; text-align:right; vertical-align:top;">9</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrina Mancuso</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, Nuova Famiglia Camorra Alliance, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">43</td><td style="padding:8px; text-align:right; vertical-align:top;">11</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Gambino crime family</td><td style="padding:8px; vertical-align:top;">Nuova Famiglia Camorra Alliance, Hells Angels and Allied Outlaw Gangs, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">32</td><td style="padding:8px; text-align:right; vertical-align:top;">12</td></tr>
-</tbody>
-</table>
-</div>
-<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 2: The top 10 bridge organizations, ranked by cross-community cooperation edges.</p>
-<br>
-<div style="text-align:center;">
-<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
-  <ul style="margin:0; padding-left:18px; color:#334155;">
-    <li style="margin-bottom:4px;">Which organizations bridge the most communities?</li>
-    <li style="margin-bottom:4px;">How does the 'Ndrangheta's bridging role compare to the Camorra's?</li>
-    <li style="margin-bottom:4px;">Which Mexican organizations bridge the most communities?</li>
-    <li style="margin-bottom:4px;">What cross-community connections does the Sinaloa Cartel have?</li>
-    <li>Which organizations bridge Latin American and European criminal networks?</li>
-  </ul>
-</div>
-</div>
-<h2 id="triadic-signals">Triadic signals</h2>
-<p>The graph has 10,935 documented relationships drawn from the 1,418 articles I processed. Others are documented elsewhere, outside Wikipedia. Most real-world connections are never written down at all.</p>
-<br>
-<p>However, I can infer missing links from the structure of the graph itself. If two organizations share many of the same partners, or the same enemies, it is likely they have a relationship with each other, even if nobody has written it down. This is triadic closure. I computed three kinds of signal. Common cooperation partners: Friends of friends might be friends. Common adversaries: Enemies of enemies might be friends. Both: A pair that shares both cooperation partners and adversaries. This is the strongest signal, because two independent structural patterns point to the same missing relationship.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
-<br>
-<p>I computed all three across the entire graph. The result is 2,561 candidate pairs, each scored by how many common partners and adversaries they share. Every pair is listed in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Triadic Signals tab</a>, with the actual names of the shared partner and adversary organizations, signal types, and scores. Table 3 shows some examples of each kind of signal.</p>
-<br>
-<div style="text-align:center;">
-<table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
-<thead>
-<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Organization A</th><th style="text-align:left; padding:8px;">Organization B</th><th style="text-align:left; padding:8px;">Signal</th><th style="text-align:right; padding:8px;">Shared partners</th><th style="text-align:right; padding:8px;">Shared adversaries</th></tr>
-</thead>
-<tbody>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Gambino crime family</td><td style="padding:8px; vertical-align:top;">Rizzuto crime family</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">4</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cártel de Santa Rosa de Lima</td><td style="padding:8px; vertical-align:top;">Knights Templar Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cártel de Santa Rosa de Lima</td><td style="padding:8px; vertical-align:top;">Nueva Plaza Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">La Familia Michoacana</td><td style="padding:8px; vertical-align:top;">Nueva Plaza Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cleveland crime family</td><td style="padding:8px; vertical-align:top;">Patriarca crime family</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">8</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrina Pesce</td><td style="padding:8px; vertical-align:top;">Commisso 'ndrina</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">8</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">New Orleans crime family</td><td style="padding:8px; vertical-align:top;">Patriarca crime family</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">6</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Comanchero Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Rebels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Nuestra Familia</td><td style="padding:8px; vertical-align:top;">Texas Syndicate</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td></tr>
-<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mongols MC</td><td style="padding:8px; vertical-align:top;">Rebels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td></tr>
-</tbody>
-</table>
-</div>
-<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 3: The strongest signals for each type, scored by weighted common partners and adversaries.</p>
-<p>The strongest signal in the dataset belongs to the Cleveland and Patriarca families: 8 shared cooperation partners (Bufalino, Chicago Outfit, DeCavalcante, Detroit Partnership, Gambino, Genovese, Hells Angels, and Los Angeles crime family) and no direct edge between them. &lsquo;Ndrina Pesce and Commisso &lsquo;ndrina also share 8 partners, seven fellow Calabrian clans plus the Gulf Cartel. Two &lsquo;ndrine from different towns connected through a dense web of shared allies. Other signals come purely from shared enemies. Nuestra Familia and the Texas Syndicate share three adversaries (Aryan Brotherhood, Mexican Mafia, Mexikanemi): prison gangs united by shared enemies rather than shared allies.</p>
-<br>
-<div style="text-align:center;">
-<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
-  <ul style="margin:0; padding-left:18px; color:#334155;">
-    <li style="margin-bottom:4px;">What undocumented alliances might exist between the 'Ndrangheta and other organizations?</li>
-    <li style="margin-bottom:4px;">Which Canadian organizations might have undocumented alliances, indicated by shared partners and adversaries?</li>
-    <li style="margin-bottom:4px;">What potential rivalries does the Sinaloa Cartel have based on shared adversaries?</li>
-    <li style="margin-bottom:4px;">Are there potential connections between Mexican cartels and European mafia groups?</li>
-    <li>Which pairs have the strongest signal from shared enemies?</li>
-  </ul>
-</div>
-</div>
+<p>A standard LLM would guess at the answers because its training data has no catalog of criminal organizations. However, give it tools to query the graph and it can combine results and synthesize an answer. I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> that works this way. The sections that follow walk you through the kinds of questions CRIMENET AI can answer.</p>
 <h2 id="centrality">Centrality</h2>
 <p>Some organizations are hubs. Others sit on the shortest paths between many pairs. I computed three centrality measures (degree, betweenness, and PageRank) across all 3,521 connected organizations. Here are the top 10 by betweenness.</p>
 <br>
@@ -1031,7 +907,7 @@ text-align: justify;
 </tbody>
 </table>
 </div>
-<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 4: The top 10 organizations by betweenness centrality, with their degree and PageRank ranks across 3,521 connected organizations.</p>
+<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 1: The top 10 organizations by betweenness centrality, with their degree and PageRank ranks across 3,521 connected organizations.</p>
 <br>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
@@ -1042,6 +918,78 @@ text-align: justify;
     <li style="margin-bottom:4px;">How does the Sinaloa Cartel's network importance compare to the American Mafia?</li>
     <li style="margin-bottom:4px;">How does Hezbollah rank across the three centrality measures?</li>
     <li>Which organizations rank highest in betweenness but not in degree?</li>
+  </ul>
+</div>
+</div>
+<h2 id="communities">Communities</h2>
+<p>Communities are groups of nodes more connected to each other than to the rest of the network. I ran a community algorithm<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> on the cooperation graph and it returned 224 communities. Each is now named and described.</p>
+<br>
+<p>I fed each community&rsquo;s member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Community Browser</a> (select the Communities tab). Here are the top 10.</p>
+<br>
+<table style="display:block; overflow:hidden; max-width:100%; margin:0 auto;">
+<thead>
+<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Community</th><th style="text-align:left; padding:8px;">Short description</th><th style="text-align:right; padding:8px;">Members</th></tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network</td><td style="padding:8px; vertical-align:top;">A dense network of Mexican and Colombian cartels, paramilitaries, and street gangs cooperating in drug trafficking and shifting alliances.</td><td style="padding:8px; text-align:right; vertical-align:top;">88</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Global Jihadist Network and Allies</td><td style="padding:8px; vertical-align:top;">A global jihadist network uniting al-Qaeda, Taliban, and allied militant groups across Asia, Africa, and the Middle East.</td><td style="padding:8px; text-align:right; vertical-align:top;">81</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">American Mafia Network</td><td style="padding:8px; vertical-align:top;">A dense network of Italian-American Mafia families and allied gangs cooperating across the U.S. in traditional organized crime.</td><td style="padding:8px; text-align:right; vertical-align:top;">76</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Nuova Famiglia Camorra Alliance</td><td style="padding:8px; vertical-align:top;">A Camorra alliance of clans united against the Nuova Camorra Organizzata, dominating Campania through drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">53</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Hells Angels and Allied Outlaw Gangs</td><td style="padding:8px; vertical-align:top;">A Hells Angels-led network of outlaw biker gangs and Canadian organized crime groups cooperating in drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">49</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; vertical-align:top;">A network of Calabrian 'Ndrangheta clans cooperating in international drug trafficking, money laundering, and extortion across Europe and beyond.</td><td style="padding:8px; text-align:right; vertical-align:top;">42</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Brazilian PCC-Led Criminal Alliance Network</td><td style="padding:8px; vertical-align:top;">A PCC-centered network of Brazilian criminal factions and international allies cooperating in drug trafficking and prison control.</td><td style="padding:8px; text-align:right; vertical-align:top;">36</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">US Street and Prison Gang Alliances</td><td style="padding:8px; vertical-align:top;">A network of US street and prison gangs, centered on the People Nation alliance, cooperating in drug trafficking and violence.</td><td style="padding:8px; text-align:right; vertical-align:top;">34</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sicilian Mafia Corleonesi Alliance Network</td><td style="padding:8px; vertical-align:top;">A coalition of Sicilian Mafia families led by the Corleonesi, united through drug trafficking, extortion, and violent power consolidation.</td><td style="padding:8px; text-align:right; vertical-align:top;">34</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cutro-based 'Ndrangheta Clans Alliance</td><td style="padding:8px; vertical-align:top;">A network of Cutro-based 'Ndrangheta clans cooperating in drug trafficking, extortion, and money laundering across Italy and Europe.</td><td style="padding:8px; text-align:right; vertical-align:top;">31</td></tr>
+</tbody>
+</table>
+<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 2: The top 10 communities by membership, titled and described by DeepSeek.</p>
+<br>
+<div style="text-align:center;">
+<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <ul style="margin:0; padding-left:18px; color:#334155;">
+    <li style="margin-bottom:4px;">What community does the Sinaloa Cartel belong to?</li>
+    <li style="margin-bottom:4px;">Show me communities related to motorcycle clubs</li>
+    <li style="margin-bottom:4px;">Find communities related to the mafia</li>
+    <li style="margin-bottom:4px;">Which communities span the most countries?</li>
+    <li>Compare the top five communities by size</li>
+  </ul>
+</div>
+</div>
+<h2 id="bridges">Bridges</h2>
+<p>Some organizations cooperate across community boundaries. I call them bridges. Before CRIMENET, if someone asked &ldquo;Which criminal organizations connect different communities?&rdquo; the honest answer was: nobody knew. The question was too big to answer. Now it has an answer (incomplete, but an answer nonetheless): every bridging organization, ranked by how many communities it connects.</p>
+<br>
+<div style="text-align:center;">
+<table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
+<thead>
+<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Organization</th><th style="text-align:left; padding:8px; white-space:nowrap;">Top communities bridged (top 3 shown)</th><th style="text-align:right; padding:8px; white-space:nowrap;">Cross-community edges</th><th style="text-align:right; padding:8px; white-space:nowrap;">Communities spanned</th></tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Hells Angels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">88</td><td style="padding:8px; text-align:right; vertical-align:top;">27</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">American Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">84</td><td style="padding:8px; text-align:right; vertical-align:top;">22</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrangheta</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">83</td><td style="padding:8px; text-align:right; vertical-align:top;">28</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sinaloa Cartel</td><td style="padding:8px; vertical-align:top;">Hells Angels and Allied Outlaw Gangs, US Street and Prison Gang Alliances, Italian Mafia Alliances and Offshoots</td><td style="padding:8px; text-align:right; vertical-align:top;">72</td><td style="padding:8px; text-align:right; vertical-align:top;">20</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Camorra</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, Global Jihadist Network and Allies, Sicilian Mafia Corleonesi Alliance Network</td><td style="padding:8px; text-align:right; vertical-align:top;">52</td><td style="padding:8px; text-align:right; vertical-align:top;">16</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Outlaws Motorcycle Club</td><td style="padding:8px; vertical-align:top;">American Mafia Network, Neo-Nazi Terror Network, Canadian Outlaw Motorcycle Gangs Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">52</td><td style="padding:8px; text-align:right; vertical-align:top;">10</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Sicilian Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Nuova Famiglia Camorra Alliance</td><td style="padding:8px; text-align:right; vertical-align:top;">48</td><td style="padding:8px; text-align:right; vertical-align:top;">14</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mexican Mafia</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, American Mafia Network, Hells Angels and Allied Outlaw Gangs</td><td style="padding:8px; text-align:right; vertical-align:top;">44</td><td style="padding:8px; text-align:right; vertical-align:top;">9</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrina Mancuso</td><td style="padding:8px; vertical-align:top;">Mexican and Colombian Cartel Alliance Network, Nuova Famiglia Camorra Alliance, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">43</td><td style="padding:8px; text-align:right; vertical-align:top;">11</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Gambino crime family</td><td style="padding:8px; vertical-align:top;">Nuova Famiglia Camorra Alliance, Hells Angels and Allied Outlaw Gangs, Calabrian 'Ndrangheta Clans Network</td><td style="padding:8px; text-align:right; vertical-align:top;">32</td><td style="padding:8px; text-align:right; vertical-align:top;">12</td></tr>
+</tbody>
+</table>
+</div>
+<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 3: The top 10 bridge organizations, ranked by cross-community cooperation edges.</p>
+<br>
+<div style="text-align:center;">
+<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <ul style="margin:0; padding-left:18px; color:#334155;">
+    <li style="margin-bottom:4px;">Which organizations bridge the most communities?</li>
+    <li style="margin-bottom:4px;">How does the 'Ndrangheta's bridging role compare to the Camorra's?</li>
+    <li style="margin-bottom:4px;">Which Mexican organizations bridge the most communities?</li>
+    <li style="margin-bottom:4px;">What cross-community connections does the Sinaloa Cartel have?</li>
+    <li>Which organizations bridge Latin American and European criminal networks?</li>
   </ul>
 </div>
 </div>
@@ -1060,8 +1008,49 @@ text-align: justify;
   </ul>
 </div>
 </div>
+<h2 id="hidden-connections">Hidden connections</h2>
+<p>The graph has 10,935 documented relationships drawn from the 1,418 articles I processed. However, most real-world connections are never written down at all. Others are documented elsewhere, outside Wikipedia.</p>
+<br>
+<p>A step towards filling this gap is to infer missing links from the structure of the graph itself. If two organizations share many of the same partners, or the same enemies, it is likely they have a relationship with each other, even if nobody has written it down. This is triadic closure. I computed three kinds of signal. Common cooperation partners: Friends of friends might be friends. Common adversaries: Enemies of enemies might be friends. Both: A pair that shares both cooperation partners and adversaries, so two independent structural patterns point to the same missing relationship.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup></p>
+<br>
+<p>I computed all three across the entire graph. The result is 2,561 candidate pairs, each scored by how many common partners and adversaries they share. Every pair is listed in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Triadic Signals tab</a>, with the actual names of the shared partner and adversary organizations, signal types, and scores. Table 4 shows some examples of each kind of signal.</p>
+<br>
+<div style="text-align:center;">
+<table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
+<thead>
+<tr style="border-bottom:2px solid #cbd5e1;"><th style="text-align:left; padding:8px;">Organization A</th><th style="text-align:left; padding:8px;">Organization B</th><th style="text-align:left; padding:8px;">Signal</th><th style="text-align:right; padding:8px;">Shared partners</th><th style="text-align:right; padding:8px;">Shared adversaries</th></tr>
+</thead>
+<tbody>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Gambino crime family</td><td style="padding:8px; vertical-align:top;">Rizzuto crime family</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">4</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cártel de Santa Rosa de Lima</td><td style="padding:8px; vertical-align:top;">Knights Templar Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cártel de Santa Rosa de Lima</td><td style="padding:8px; vertical-align:top;">Nueva Plaza Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">La Familia Michoacana</td><td style="padding:8px; vertical-align:top;">Nueva Plaza Cartel</td><td style="padding:8px; vertical-align:top;">Both</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td><td style="padding:8px; text-align:right; vertical-align:top;">1</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Cleveland crime family</td><td style="padding:8px; vertical-align:top;">Patriarca crime family</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">8</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">'Ndrina Pesce</td><td style="padding:8px; vertical-align:top;">Commisso 'ndrina</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">8</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">New Orleans crime family</td><td style="padding:8px; vertical-align:top;">Patriarca crime family</td><td style="padding:8px; vertical-align:top;">Only Common Partners</td><td style="padding:8px; text-align:right; vertical-align:top;">6</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Comanchero Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Rebels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Nuestra Familia</td><td style="padding:8px; vertical-align:top;">Texas Syndicate</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">3</td></tr>
+<tr style="border-bottom:1px solid #e2e8f0;"><td style="padding:8px; vertical-align:top;">Mongols MC</td><td style="padding:8px; vertical-align:top;">Rebels Motorcycle Club</td><td style="padding:8px; vertical-align:top;">Only Common Adversaries</td><td style="padding:8px; text-align:right; vertical-align:top;">-</td><td style="padding:8px; text-align:right; vertical-align:top;">2</td></tr>
+</tbody>
+</table>
+</div>
+<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 4: The strongest signals for each type, scored by weighted common partners and adversaries.</p>
+<p>A Both signal draws on two independent structural patterns converging on the same missing relationship. The Gambino and Rizzuto crime families, for example, share 4 cooperation partners and 1 adversary with no direct edge between them. The highest partner counts come from single-metric pairs. The Cleveland and Patriarca families share 8 cooperation partners (Bufalino, Chicago Outfit, DeCavalcante, Detroit Partnership, Gambino, Genovese, Hells Angels, and Los Angeles crime family) and no direct edge between them. &lsquo;Ndrina Pesce and Commisso &lsquo;ndrina also share 8 partners, seven fellow Calabrian clans plus the Gulf Cartel. Two &lsquo;ndrine from different towns connected through a dense web of shared allies. Other signals come purely from shared enemies. Nuestra Familia and the Texas Syndicate share three adversaries (Aryan Brotherhood, Mexican Mafia, Mexikanemi): prison gangs united by shared enemies rather than shared allies.</p>
+<br>
+<div style="text-align:center;">
+<div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <ul style="margin:0; padding-left:18px; color:#334155;">
+    <li style="margin-bottom:4px;">What undocumented alliances might exist between the 'Ndrangheta and other organizations?</li>
+    <li style="margin-bottom:4px;">Which Canadian organizations might have undocumented alliances, indicated by shared partners and adversaries?</li>
+    <li style="margin-bottom:4px;">What potential rivalries does the Sinaloa Cartel have based on shared adversaries?</li>
+    <li style="margin-bottom:4px;">Are there potential connections between Mexican cartels and European mafia groups?</li>
+    <li>Which pairs have the strongest signal from shared enemies?</li>
+  </ul>
+</div>
+</div>
 <h2 id="countries">Countries</h2>
-<p>Every profiled organization carries a list of countries where Wikipedia documents its presence, each backed by a verbatim evidence quote. The AI can query this data directly. Here are the top 10 countries by how many organizations are based there.</p>
+<p>Each profiled organization carries its country of origin. Beyond that, every organization accumulates a set of country footprints (countries where one or more Wikipedia articles document its presence). Here are the top 10 countries by how many organizations are based there.</p>
 <br>
 <div style="text-align:center;">
 <table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
@@ -1084,10 +1073,10 @@ text-align: justify;
 </div>
 <p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 5: The 10 countries where the most criminal organizations are based.</p>
 <br>
-<p>You can also see the footprints directly on a <a href="https://www.alvarofrancomartins.com/crimenet/footprints.html" target="_blank" rel="noopener">world map</a>. Each organization&rsquo;s country of origin and its documented footprints create arcs across the map. Each arc represents an organization&rsquo;s footprint from its country of origin to a country where it operates. Each footprint is backed by a verbatim evidence quote from Wikipedia.</p>
+<p>You can also see the footprints directly on a <a href="https://www.alvarofrancomartins.com/crimenet/footprints.html" target="_blank" rel="noopener">world map</a>. Each organization&rsquo;s country of origin and its documented footprints create arcs across the map.</p>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/footprints.png">
-<figcaption>Figure 2: Each arc traces an organization's footprint from its country of origin to a country where it operates.</figcaption>
+<figcaption style="font-size: 0.9em;">Figure 2: Each arc traces an organization's footprint from its country of origin to a country where it operates.</figcaption>
 </figure>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
@@ -1100,40 +1089,33 @@ text-align: justify;
   </ul>
 </div>
 </div>
-<h1 id="what-you-can-explore">What you can explore</h1>
-<p>The <a href="https://www.alvarofrancomartins.com/crimenet/">home page</a> is a dashboard with two panels. On the left, you can browse all 4,505 organizations or browse by country. Click any name and the right panel shows its full profile: description, aliases, country of origin, time period, and where it operates, each backed by an evidence quote. If you just want to see which organizations are based in Brazil, or what the Sinaloa Cartel&rsquo;s profile looks like, the dashboard has it.</p>
-<br>
-<p>The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> lets you pick any two organizations and see exactly how they relate. Each connection comes with a source link, a time period, and the verbatim Wikipedia sentence that documents it. The browser loads only the data it needs, fetching tens of kilobytes instead of the full dataset. The Communities tab lists all 224 Infomap communities with their LLM-generated titles and summaries. Bridges ranks the organizations that span multiple communities. Triadic Signals lists 2,561 candidate pairs that share common partners or adversaries but have no direct edge: statistical signals of undocumented relationships.</p>
-<br>
-<p>The <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a> lets you ask any question in plain English. Every Wikipedia URL and edge from the tool results is collected and appended below the answer as Sources and Evidence. You can trace the exact relationship between any two organizations with verbatim evidence quotes. You can browse 224 communities of organizations that cooperate with each other. You can identify which organizations bridge different criminal ecosystems. You can discover 2,561 candidate relationships that likely exist but have not been documented, inferred purely from the structure of the graph.</p>
-<br>
-<p>The full network is viewable as an <a href="https://www.alvarofrancomartins.com/crimenet/knowledge_graph.html" target="_blank" rel="noopener">interactive 3D force-directed graph</a> built with three.js. Nodes are organizations and edges are colored by relationship type (green for cooperation and red for conflict). You can rotate, zoom, click any node to see its details, and filter by relationship type.</p>
-<figure>
-<img style="width: 80%; display: inline-block;" src="videos/crimenet_3d_video.gif">
-<figcaption>Figure 3: The 3D knowledge graph in motion. Nodes are criminal organizations; edges are colored by relationship type. The third dimension disentangles dense clusters that would collapse into a hairball in 2D.</figcaption>
-</figure>
-<p>In 3D, you can rotate around a cluster and see its internal structure, something impossible in a flat 2D view.</p>
-<br>
-<p>There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia&rsquo;s most extensive list <a href="https://en.wikipedia.org/wiki/List_of_criminal_enterprises,_gangs,_and_syndicates">list of criminal enterprises, gangs, and syndicates</a> covers a few hundred groups. And it only mentions organizations, not their relationships. CRIMENET is by far the most complete catalog of this kind: nearly 5,000 organizations mapped across nearly 11,000 relationships, each backed by a specific Wikipedia source.</p>
-<br>
-<p>This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia.</p>
 <h1 id="building-the-graph">Building the graph</h1>
 <p>The raw material is 1,418 manually curated Wikipedia articles about criminal organizations across English, Italian, Portuguese, and Spanish Wikipedia. The extraction pipeline fetches each article, cleans the HTML into plain text, then sends it to DeepSeek to identify organizations and the relationships between them: cooperation, conflict, and other.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> The pipeline then profiles each organization from its own Wikipedia article (canonical name, aliases, description, country of origin, time period, founded and dissolved years, defunct status, and country footprints, each backed by a verbatim evidence quote) and merges everything into a single graph, folding variant names across languages so the Sinaloa Cartel and the Cártel de Sinaloa become one node.</p>
 <br>
-<p>An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. I built an audit pipeline that targets each class of error, one audit per error type.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions.</p>
+<p>An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. In order to fix these problems, I built an audit pipeline that targets each class of error, one audit per error type.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions. Every detail is documented on <a href="https://github.com/alvarofrancomartins/CRIMENET" target="_blank" rel="noopener">GitHub</a>.</p>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/pipeline.png">
-<figcaption>Figure 4: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).</figcaption>
+<figcaption style="font-size: 0.9em;">Figure 3: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).</figcaption>
 </figure>
-<p>Every detail is documented on <a href="https://github.com/alvarofrancomartins/CRIMENET" target="_blank" rel="noopener">GitHub</a>.</p>
+<p>CRIMENET&rsquo;s <a href="https://www.alvarofrancomartins.com/crimenet/">home page</a> is a dashboard with two panels where you can browse all organizations. The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> lets you pick any two organizations and see exactly how they relate. The other tabs cover communities, bridges, and triadic signals.</p>
+<h1 id="closing-thoughts">Closing thoughts</h1>
+<p>There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia’s most extensive list of criminal enterprises, gangs, and syndicates covers a few hundred groups. And it only mentions organizations, not their relationships. CRIMENET is by far the most complete catalog of this kind: nearly 5,000 organizations mapped across nearly 11,000 relationships, each backed by a specific Wikipedia source.</p>
+<br>
+<p>This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia.</p>
+<figure>
+<img style="width: 80%; display: inline-block;" src="videos/crimenet_3d_video.gif">
+<figcaption style="font-size: 0.9em;">Figure 4: The full network is viewable as an <a href="https://www.alvarofrancomartins.com/crimenet/knowledge_graph.html">interactive 3D force-directed graph</a> built with three.js. Nodes are organizations and edges are colored by relationship type (green for cooperation and red for conflict). You can rotate, zoom, click any node to see its details, and filter by relationship type. In 3D, you can rotate around a cluster and see its internal structure, something impossible in a flat 2D view.</figcaption>
+</figure>
 <h1 id="limitations">Limitations</h1>
-<p>Wikipedia coverage skews toward English-language and Western sources. The pipeline processes four languages (English, Italian, Portuguese, and Spanish), which is better than one but still leaves gaps. Because the data comes from Wikipedia, the graph inherits the biases and gaps of its source material.</p>
+<p>CRIMENET inherits the biases of its source and the boundaries of its scope:</p>
 <br>
-<p>Relationships are aggregated across time. Every edge carries its own time period, so the data is there, but the graph view flattens time into a single snapshot.</p>
-<br>
-<p>The current graph models organizations and their relationships, not individuals or cyber criminal groups. This means we lose some information about criminal organizations built around a single person.</p>
-<br>
-<p>None of this is fatal. The architecture is designed for iteration: add more languages, widen the scope, promote individuals to nodes. Each is a pipeline extension, not a rewrite.</p>
+<ul>
+<li>Wikipedia coverage skews toward English-language and Western sources. The pipeline processes four languages (English, Italian, Portuguese, and Spanish), which is better than one but still leaves gaps. Because the data comes from Wikipedia, the graph inherits the biases and gaps of its source material.</li>
+<li>Relationships are aggregated across time. Every edge carries its own time period, so the data is there, but the graph view flattens time into a single snapshot.</li>
+<li>The current graph models organizations and their relationships, not individuals or cyber criminal groups. This means we lose some information about criminal organizations built around a single person.</li>
+<li>CRIMENET AI will not work for long, at least publicly. It is spending my personal tokens so once my balance hits zero I will not recharge it.</li>
+</ul>
+<p>None of this is fatal. The architecture is designed for iteration: add more languages, widen the scope, promote individuals to nodes.</p>
 <br>
 <p>If you have questions or ideas, get in touch.</p>
 <section class="footnotes" role="doc-endnotes">
