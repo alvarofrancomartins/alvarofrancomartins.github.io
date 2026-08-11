@@ -1,4 +1,4 @@
-# CRIMENET — app architecture and deploy
+# CRIMENET — app architecture & deploy
 
 The front end is **fully static** — no database, no backend, no single-page app.
 All HTML, CSS, and data files live in `app/`. Deploying is just publishing the

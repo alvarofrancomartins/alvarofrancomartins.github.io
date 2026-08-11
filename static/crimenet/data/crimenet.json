@@ -1,17 +1,17 @@
 {
   "metadata": {
-    "n_nodes": 4505,
+    "n_nodes": 4504,
     "n_edges": 10935,
     "n_profiled": 1032,
-    "n_unprofiled": 3473,
+    "n_unprofiled": 3472,
     "n_defunct": 317,
     "corrections_applied": {
       "nodes_dropped": 630,
-      "nodes_merged": 433,
+      "nodes_merged": 434,
       "nodes_split": 18,
       "edges_dropped": 1018
     },
-    "generated": "2026-06-28T12:26:37"
+    "generated": "2026-08-11T13:09:58"
   },
   "nodes": [
     {
@@ -84423,33 +84423,11 @@
       ]
     },
     {
-      "standard_name": "Kinahan clan",
-      "aliases": [
-        "Irish Kinahan clan"
-      ],
-      "original_text_names": [
-        "Kinahan clan"
-      ],
-      "description": null,
-      "country": null,
-      "country_links": [],
-      "time_period": null,
-      "is_defunct": "unknown",
-      "founded_year": null,
-      "dissolved_year": null,
-      "profiled": false,
-      "own_sources": [],
-      "mentioned_in": [
-        {
-          "url": "https://en.wikipedia.org/w/index.php?title=Moroccan_mafia&oldid=1358369254",
-          "title": "Moroccan mafia"
-        }
-      ]
-    },
-    {
       "standard_name": "Kinahan Organised Crime Group",
       "aliases": [
+        "Irish Kinahan clan",
         "Kinahan Cartel",
+        "Kinahan clan",
         "KOCG"
       ],
       "original_text_names": [
@@ -84457,6 +84435,7 @@
         "Kinahan Organised Crime Group",
         "Kinahan Organized Crime Group",
         "Kinahan cartel",
+        "Kinahan clan",
         "cartello di Kinahan"
       ],
       "description": "Major Irish transnational organised crime syndicate founded by Christy Kinahan in the 1990s. Based in Dublin, it is one of the largest criminal groups globally, involved in drug trafficking, money laundering, and arms trafficking. Estimated wealth up to €1 billion. Engaged in a violent feud with the Hutch Gang since 2015.",
@@ -264148,7 +264127,7 @@
     },
     {
       "source": "Noffel clan",
-      "target": "Kinahan clan",
+      "target": "Kinahan Organised Crime Group",
       "relationship": "cooperation",
       "descriptions": [
         "Noffel clan had a strong relationship with Kinahan clan, sharing hideouts."
