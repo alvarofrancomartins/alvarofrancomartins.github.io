@@ -312,6 +312,17 @@
     loadCompact().then(function(){renderCountry(row.dataset.country);});
   });
 
+  // ── Deep link (?org=<name>) ──────────────────────────────────
+  (function(){
+    var name=null;
+    try{name=new URLSearchParams(location.search).get('org');}catch(e){}
+    if(name){
+      var orgBtn=document.querySelector('.panel-browse .browse-toggle-btn[data-view="orgs"]');
+      if(orgBtn)orgBtn.click();
+      loadCompact().then(function(){renderOrg(name);});
+    }
+  })();
+
   // ── Pagination ────────────────────────────────────────────────
   function paginate(listId,rowSel,btnId,batch,searchId){
     var list=document.getElementById(listId),btn=document.getElementById(btnId);
