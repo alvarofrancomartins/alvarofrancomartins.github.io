@@ -307,17 +307,19 @@ Netlify Function as a thin proxy and avoids loading data files server-side.
 Browser (ask.html)
   │  User question + system prompt + tool definitions
   │  POST https://afmartins.netlify.app/.netlify/functions/crimenet-ask
-  │  Body: { model: "deepseek-v4-pro", messages: [...], tools: [...] }
+  │  Body: { model: "deepseek-v4-flash", messages: [...], tools: [...] }
   │
   ▼
 Netlify Function (netlify/functions/crimenet-ask.js)
   │  CORS → method check → origin check → rate limit (20 req/min/IP)
   │  Attaches Authorization: Bearer DEEPSEEK_KEY (env var)
-  │  Forwards payload unchanged to DeepSeek
+  │  Forwards payload unchanged to DeepSeek, waits for the FULL JSON (no streaming)
+  │  Hard 26s timeout: killed if DeepSeek has not responded by then
   │
   ▼
 DeepSeek Chat API (api.deepseek.com/chat/completions)
-  │  Returns either:
+  │  Reasoning model: emits reasoning_content (hidden chain-of-thought) first,
+  │  then returns either:
   │    a) text answer → display to user, DONE
   │    b) tool_calls → browser executes tools locally
   │
@@ -335,6 +337,79 @@ Netlify Function → Browser
   │  Sources section auto-appended by code (not left to the LLM) as styled pills
 ```
 
+### Operational constraints & failure modes
+
+The DeepSeek hop is the only place where latency or a timeout can fail a query. Tool
+execution in the browser (fetching and filtering static JSON) is milliseconds. Two facts
+govern the whole system:
+
+**The model is a reasoning model.** Both `deepseek-v4-flash` (current) and
+`deepseek-v4-pro` (previous) are chain-of-thought models: they emit a `reasoning_content`
+field (hidden reasoning, never shown to the user) before returning `tool_calls` or the
+final `content`. Those reasoning tokens, not the tool execution, dominate the latency.
+`flash` reasons much more lightly than `pro` (a simple tool call measured ~2s with ~123
+reasoning chars), which is why it was switched to: it keeps the multi-step loop fast
+without changing the agent logic.
+
+**`reasoning_content` must be echoed back.** When the model returns `tool_calls`, the
+assistant message appended to `messages` must carry the `reasoning_content` field. In
+thinking mode DeepSeek rejects a follow-up without it (HTTP 400: "reasoning_content ...
+must be passed back"). The agent loop already does this
+(`if(msg.reasoning_content) assistantMsg.reasoning_content = msg.reasoning_content`). Do
+not drop it when editing the loop.
+
+**Latency grows with context.** Every iteration appends the previous tool results to
+`messages`, so the model has more to reason over each round. The numbers below are
+single-run samples from one representative multi-step community-analysis question, not
+means over many runs. They show the shape (reasoning cost compounding with context) and
+the rough scale, but latency varies run to run, so treat them as order-of-magnitude, not
+as a stable benchmark. On that one question, `deepseek-v4-pro` per-iteration latency was
+5.0s → 24.9s → 72.6s → 76.3s → 78.7s in a single run (one round emitted ~8,600 reasoning
+tokens to decide two tool calls). `deepseek-v4-flash` on the same question completed in 3
+iterations, ~34s total in a single run, with full per-iteration response times of 2.7s →
+12.4s → 19.2s and reasoning tokens of 153 → 1,233 → 1,851. The last step is the longest
+because it generates the final answer; at ~19s in that run it cleared the 26s ceiling by
+only ~7s.
+
+**Measure the full response, not time-to-first-byte.** The reasoning model streams its
+output: the HTTP headers arrive in a constant ~0.6 to 0.8s, but the body (reasoning tokens
+then content) keeps streaming for seconds more. The Netlify function does
+`await res.json()`, so it waits for the full body, not the headers. A `fetch` timing that
+stops when the promise resolves (headers) reports ~0.8s while the real cost was 12 to 19s
+in that run. When timing a DeepSeek call, measure to the end of `response.json()`, not to
+the `fetch` resolution.
+
+**The Netlify function has a hard 26s timeout.** `timeout = 26` is set in `netlify.toml`
+in the Hugo site repo (not this repo). The function waits for the full DeepSeek JSON
+response with no streaming, so if DeepSeek is still reasoning past ~26s, Netlify kills the
+function and returns an **HTTP 504 "Inactivity Timeout"** with **no
+`Access-Control-Allow-Origin` header**.
+
+**A timeout surfaces as "Failed to fetch", not "HTTP 504".** Because the 504 lacks the
+CORS header, the browser blocks the cross-origin response and `fetch()` rejects with a
+bare `TypeError: Failed to fetch`. The agent loop's `.catch` renders
+`'Error: ' + err.message`, so the user sees `Error: Failed to fetch` with no hint of a
+timeout. This is a CORS side effect of the kill, not an API error. Any query slow enough
+to exceed 26s presents this way.
+
+**Two failure signatures to distinguish.** The agent loop checks `resp.ok` then `data.error`:
+- If the function completes and DeepSeek returns a non-2xx status, the function forwards
+  that status *with* a CORS header, and the loop throws `API error: HTTP <status>` (or
+  `Rate limited. Wait a moment and try again.` when the message mentions rate limiting).
+- If the function is killed before DeepSeek answers, the browser never gets a
+  CORS-validated response and throws `Failed to fetch`.
+So `API error: HTTP 4xx/5xx` means DeepSeek answered but errored; `Failed to fetch` means
+the function was killed (timeout) or the network dropped.
+
+**The proxy sends a bare payload.** The request body is `{ model, messages, tools }` only.
+No `max_tokens`, no `stream`, no `thinking`/`reasoning_effort`. `max_tokens` is a known
+footgun: a low cap truncates the response (`finish_reason: "length"`) with zero
+`tool_calls`, which silently ends the loop mid-analysis.
+
+**Proxy env var is `DEEPSEEK_KEY`.** The Netlify function reads `process.env.DEEPSEEK_KEY`,
+not `DEEPSEEK_API_KEY` (which the pipeline scripts use). Rate limit is 20 req/min/IP,
+returned as HTTP 429 *with* a CORS header so it surfaces as "Rate limited...".
+
 Sources are collected automatically: `extractSources()` parses every tool result and
 extracts `source_urls`, `sources` (own_sources), per-edge source URLs, and per-path
 evidence source URLs. After the LLM's final answer, the loop appends a "Sources" section
@@ -349,6 +424,9 @@ full per-edge audit trails without relying on the LLM to cite sources correctly.
 
 Important: the function file (`netlify/functions/crimenet-ask.js`) lives in the **Hugo
 site repo**, not in this CRIMENET repo. The function is a thin proxy with rate limiting and CORS.
+Its 26s timeout is set in that repo's `netlify.toml` (`timeout = 26`), and it reads
+`process.env.DEEPSEEK_KEY`. It forwards the payload unchanged and waits for the full DeepSeek
+JSON response (no streaming). See "Operational constraints & failure modes" above.
 
 ### UI
 
@@ -444,7 +522,9 @@ chains from conflict chains.
   find_by_type, get_connections, get_relationship_summary, find_by_country, find_by_countries,
   find_paths, find_cooperation_routes, get_network_neighborhood, get_community,
   get_triadic_signals, get_bridges, get_centrality), data loaders,
-  agent loop (MAX_ITERATIONS=8) with dedup guard (blocks exact duplicate tool calls),
+  agent loop (MAX_ITERATIONS=8, model `deepseek-v4-flash`, request body `{model, messages, tools}`
+  with no `max_tokens`/`stream`, echoes `reasoning_content` back in assistant messages on tool
+  calls) with dedup guard (blocks exact duplicate tool calls),
   automatic source URL collection and structured evidence section rendering
   (collapsed by default, mirrors Trace a Connection format with Source/Time/Quote pills),
   full markdown renderer (headings, tables, lists, bold, italic, links, code), system prompt,
@@ -474,8 +554,12 @@ chains from conflict chains.
   elements referenced by `ask_ai.js` live here.
 - `app/css/ask.css` — Ask AI styles (DeepSeek-style centered layout with `.ds-*`
   selectors, message rendering, example grid, evidence/sources).
-- `netlify/functions/crimenet-ask.js` — thin proxy (lives in Hugo repo, unchanged
-  since v1).
+- `netlify/functions/crimenet-ask.js` — thin proxy (lives in Hugo repo). CORS preflight,
+  origin allowlist, 20 req/min/IP rate limit, then forwards the request body unchanged to
+  DeepSeek with `Authorization: Bearer DEEPSEEK_KEY` and waits for the full JSON response
+  (no streaming). Its 26s timeout is set by `netlify.toml` in the Hugo repo. On success it
+  returns DeepSeek's status + body with a CORS header; on timeout Netlify returns a 504 with
+  no CORS header (see "Operational constraints & failure modes").
 - `build/build_centrality.py` — pre-computes network centrality metrics (degree,
   betweenness, PageRank) on the full, cooperation, and conflict graphs using
   networkx. Outputs `app/data/centrality.json` (~465 KB minified, 3,521 orgs).

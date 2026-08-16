@@ -1399,7 +1399,7 @@
 
     for(var iter=0;iter<MAX_ITERATIONS;iter++){
       if(onStatus)onStatus(iter===0?'Reasoning…':'Looking up data…');
-      var payload={model:'deepseek-v4-pro',messages:messages,tools:TOOLS};
+      var payload={model:'deepseek-v4-flash',messages:messages,tools:TOOLS};
 
       var resp=await fetch('https://afmartins.netlify.app/.netlify/functions/crimenet-ask',{
         method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)
