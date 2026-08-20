@@ -14,12 +14,12 @@
 .ask-spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--b2);border-left-color:var(--amber);border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
 
 /* Example question buttons */
-.ask-examples-title{font-size:28px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-main);margin-bottom:16px}
-.ask-examples-toggle{margin-left:8px;padding:2px 12px;border:1px solid var(--b2);border-radius:6px;background:var(--s2);color:var(--amber);font-size:26px;line-height:1.5;cursor:pointer;vertical-align:middle;transition:background .2s,border-color .2s,transform .15s}
-.ask-examples-toggle:hover{background:var(--s3);border-color:var(--amber)}
-.ds-suggestions.collapsed .ask-examples-toggle{transform:rotate(-90deg)}
+.ask-examples-toggle{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--body);font-size:20px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-main);background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:12px 20px;cursor:pointer;margin-bottom:16px;transition:background .2s,border-color .2s,color .2s}
+.ask-examples-toggle:hover{background:var(--s3);border-color:var(--amber);color:var(--text-bright)}
+.ask-examples-toggle svg{flex-shrink:0;width:16px;height:16px;color:var(--amber);transition:transform .2s}
+.ds-suggestions.collapsed .ask-examples-toggle svg{transform:rotate(-90deg)}
+.ds-suggestions.collapsed .ask-examples-toggle{margin-bottom:0}
 .ds-suggestions.collapsed .ask-examples-body{display:none}
-.ds-suggestions.collapsed .ask-examples-title{margin-bottom:0}
 .ask-examples-group{margin-bottom:14px}
 .ask-examples-group-title{font-size:24px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--amber);margin-bottom:6px;opacity:.8}
 .ask-example{display:block;width:100%;text-align:left;padding:12px 16px;margin-bottom:3px;background:var(--s2);border:1px solid #000;border-radius:8px;color:var(--text-main);font-family:var(--body);font-size:24px;cursor:pointer;transition:border-color .2s,background .2s;line-height:1.35}
@@ -93,7 +93,7 @@
 
 @media(max-width:900px){
   .ask-examples-grid{grid-template-columns:1fr}
-  .ask-examples-title{font-size:22px}
+  .ask-examples-toggle{font-size:18px;padding:10px 16px}
   .ask-example{font-size:20px;padding:10px 14px}
   .ask-examples-group-title{font-size:20px}
 }
@@ -218,9 +218,6 @@
 .ds-suggestions{
   flex-shrink:0;text-align:center;
   width:100%;padding:0 24px;margin-top:48px;
-}
-.ds-suggestions .ask-examples-title{
-  max-width:100%;margin-left:auto;margin-right:auto;
 }
 .ds-suggestions .ask-examples-body{
   max-width:100%;margin-left:auto;margin-right:auto;

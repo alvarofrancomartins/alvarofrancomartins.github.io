@@ -97,8 +97,12 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .c-conf{color:var(--red);font-weight:700}
 .c-other{color:#8090a0;font-weight:700}
 @media(max-width:820px){
-  .org-meta{justify-content:flex-start;font-size:16px;gap:12px}
-  .org-meta>span+span::before{margin-right:12px}
+  .org-meta{flex-direction:column;align-items:stretch;font-size:16px;gap:10px}
+  .org-meta>span{white-space:normal}
+  .org-meta>span+span::before{content:none;margin-right:0}
+  .org-title-line{flex-direction:column;align-items:flex-start;gap:6px}
+  .org-aka{white-space:normal;font-size:16px}
+  .org-aka::before{content:none;margin:0}
 }
 .section-h{font-family:var(--disp);font-size:22px;font-weight:600;letter-spacing:1.4px;
   text-transform:uppercase;color:var(--amber);margin:42px 0 16px;
@@ -356,9 +360,10 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
   .head-col-a h1{white-space:normal}
   .head-col-b{gap:14px}
   .head-col-b .desc{font-size:24px}
+  .browse-stats{flex-direction:column;align-items:flex-start;gap:8px;width:100%}
   .head-nav{width:100%;flex-wrap:wrap;gap:10px}
   .nav-btn{flex:1 1 auto;justify-content:center}
-  .nav-ai{order:-1;width:100%}
+  .nav-ai{order:3;width:100%}
   .browse-cards{flex-direction:row;flex-wrap:wrap;width:100%}
   .browse-cols{grid-template-columns:1fr;flex:none;height:auto;gap:20px}
   .browse-panel{height:auto}

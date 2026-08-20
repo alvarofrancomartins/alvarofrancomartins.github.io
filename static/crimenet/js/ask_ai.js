@@ -1601,8 +1601,8 @@
       if(toggleBtn){
         toggleBtn.addEventListener('click', function(e){
           e.preventDefault(); e.stopPropagation();
-          examplesWrap.classList.toggle('collapsed');
-          this.textContent = examplesWrap.classList.contains('collapsed') ? '▸' : '▾';
+          var collapsed = examplesWrap.classList.toggle('collapsed');
+          this.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
         });
       }
     }
