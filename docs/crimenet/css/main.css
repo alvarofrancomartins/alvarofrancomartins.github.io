@@ -219,15 +219,9 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 /* ── browse: header (title+desc spans cols 1-2, cards in col 3, aligned with panel-finder) ─── */
 /* ── browse tabs ───────────────────────────────────────────────────────── */
 /* ── browse head ────────────────────────────────────────────────────────── */
-.browse-head{display:grid;grid-template-columns:1fr 2.2fr;gap:20px;align-items:center;margin-bottom:16px}
+.browse-head{display:grid;grid-template-columns:1fr;gap:20px;align-items:center;margin-bottom:16px}
 .head-col-a{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
 .head-col-a h1{margin:0;white-space:nowrap;text-align:center}
-.browse-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 30px}
-.browse-stat{display:flex;align-items:baseline;gap:8px}
-.browse-stat b{font-family:var(--disp);font-size:34px;font-weight:600;line-height:1;color:var(--amber)}
-.browse-stat span{font-size:18px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
-.head-col-b{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
-.head-col-b .desc{margin:0;font-family:var(--disp);font-size:30px;font-weight:600;letter-spacing:.4px;color:var(--text-main);line-height:1.2;text-align:center}
 /* ── header nav: two quiet secondary chips + the AI hero card ───────────── */
 .head-nav{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap}
 .nav-btn{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 15px;
@@ -358,9 +352,6 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
   .browse-head{grid-template-columns:1fr;gap:14px;align-items:stretch}
   .head-col-a{gap:16px}
   .head-col-a h1{white-space:normal}
-  .head-col-b{gap:14px}
-  .head-col-b .desc{font-size:24px}
-  .browse-stats{flex-direction:column;align-items:flex-start;gap:8px;width:100%}
   .head-nav{width:100%;flex-wrap:wrap;gap:10px}
   .nav-btn{flex:1 1 auto;justify-content:center}
   .nav-ai{order:3;width:100%}
