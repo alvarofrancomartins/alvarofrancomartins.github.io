@@ -243,6 +243,10 @@
 @media(max-width:640px){
   .ds-greeting-text{font-size:36px}
   .ds-notice-item{font-size:16px}
+  .ds-suggestions .ask-examples-toggle{font-size:16px}
+  .ds-suggestions .ask-examples-group-title{font-size:16px}
+  .ds-suggestions .ask-example{font-size:16px}
+  .ds-suggestions .ask-example-more-btn{font-size:16px}
   .ds-textarea{font-size:22px}
   #ds-input{min-height:78px}
   .ds-search-pill{padding:10px 10px 10px 22px}
