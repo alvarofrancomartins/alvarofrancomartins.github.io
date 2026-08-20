@@ -442,7 +442,18 @@ h1{font-family:var(--disp);font-weight:600;font-size:48px;letter-spacing:.5px;
 .ev-reveal-block.quote .qt{color:var(--text-main);font-style:italic;border-left:2px solid var(--b2);padding-left:11px;display:block}
 .ev-reveal-block .muted{color:var(--text-muted);font-style:italic}
 @media(max-width:640px){h1{font-size:34px}.index-list{columns:2}.index-list.ranked{columns:1}
-  .finder-row{flex-direction:column;align-items:stretch}.pf-arrow{display:none}}
+  .finder-row{flex-direction:column;align-items:stretch}.pf-arrow{display:none}
+  .panel-browse .panel-head,.panel-detail .panel-head{padding:14px 16px 12px}
+  .panel-browse .panel-head h2,.panel-detail .panel-head h2{font-size:22px}
+  .panel-browse .panel-sub,.panel-detail .panel-sub{font-size:16px}
+  .bo{padding:12px 16px;gap:12px}
+  .bo-name{font-size:17px}
+  .bo-deg{min-width:0}
+  .country-list .cn{padding:12px 16px}
+  .desc-card .desc,.desc-stats{font-size:17px}
+  .org-title-line{flex-wrap:wrap;row-gap:4px}
+  .org-aka{white-space:normal;font-size:16px}
+  .org-aka::before{margin:0 10px}}
 
 
 /* ── AI evidence rendering extensions ── */

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRIMENET · Triadic signal — Latin Kings and Mexican Mafia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07080aff;
+    --surface: #0d1117;
+    --text: #bdd0e8;
+    --cooperation: #2db87d;
+    --conflict: #d63b3b;
+    --predicted: #e8a020;
+    --node: #637f99;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: radial-gradient(120% 120% at 50% 0%, var(--surface) 0%, var(--bg) 60%);
+    display: flex; align-items: center; justify-content: center; min-height: 100vh;
+    padding: 28px;
+  }
+  svg { display: block; width: 100%; max-width: 1150px; height: auto; }
+  .edge { fill: none; stroke-linecap: round; }
+  .coop { stroke: var(--cooperation); stroke-width: 4.5; opacity: .55; }
+  .conf { stroke: var(--conflict); stroke-width: 4.5; opacity: .55; }
+  .pred { stroke: var(--predicted); stroke-width: 4.5; stroke-dasharray: 10 7; opacity: .9; }
+  .node { stroke: #07080a; stroke-width: 2; }
+  .nlabel { font-family: 'Inter', sans-serif; font-size: 19px; text-anchor: middle; fill: var(--text); font-weight: 500; }
+  .nlabel.hub { fill: var(--predicted); font-weight: 600; }
+  .plabel {
+    font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: .18em;
+    text-transform: uppercase; fill: var(--predicted); text-anchor: middle;
+  }
+</style>
+</head>
+<body>
+  <svg viewBox="0 0 1200 660" role="img" aria-label="Latin Kings and Mexican Mafia share five cooperation partners and three adversaries, with a predicted link between them">
+    <!-- shared cooperation partners (top) -->
+    <g>
+      <line class="edge coop" x1="130"  y1="130" x2="440" y2="340"/>
+      <line class="edge coop" x1="130"  y1="130" x2="760" y2="340"/>
+      <line class="edge coop" x1="365"  y1="130" x2="440" y2="340"/>
+      <line class="edge coop" x1="365"  y1="130" x2="760" y2="340"/>
+      <line class="edge coop" x1="600"  y1="130" x2="440" y2="340"/>
+      <line class="edge coop" x1="600"  y1="130" x2="760" y2="340"/>
+      <line class="edge coop" x1="835"  y1="130" x2="440" y2="340"/>
+      <line class="edge coop" x1="835"  y1="130" x2="760" y2="340"/>
+      <line class="edge coop" x1="1070" y1="130" x2="440" y2="340"/>
+      <line class="edge coop" x1="1070" y1="130" x2="760" y2="340"/>
+    </g>
+    <!-- shared adversaries (bottom) -->
+    <g>
+      <line class="edge conf" x1="430" y1="540" x2="440" y2="340"/>
+      <line class="edge conf" x1="430" y1="540" x2="760" y2="340"/>
+      <line class="edge conf" x1="600" y1="540" x2="440" y2="340"/>
+      <line class="edge conf" x1="600" y1="540" x2="760" y2="340"/>
+      <line class="edge conf" x1="770" y1="540" x2="440" y2="340"/>
+      <line class="edge conf" x1="770" y1="540" x2="760" y2="340"/>
+    </g>
+    <!-- predicted link (dashed) -->
+    <line class="edge pred" x1="440" y1="340" x2="760" y2="340"/>
+    <text class="plabel" x="600" y="320">predicted</text>
+
+    <!-- nodes -->
+    <g>
+      <!-- shared cooperation partners -->
+      <circle class="node" cx="130"  cy="130" r="12" fill="#637f99"/>
+      <text class="nlabel" x="130" y="108">Gulf Cartel</text>
+
+      <circle class="node" cx="365"  cy="130" r="12" fill="#637f99"/>
+      <text class="nlabel" x="365" y="108">18th Street Gang</text>
+
+      <circle class="node" cx="600"  cy="130" r="12" fill="#637f99"/>
+      <text class="nlabel" x="600" y="108">Sinaloa Cartel</text>
+
+      <circle class="node" cx="835"  cy="130" r="12" fill="#637f99"/>
+      <text class="nlabel" x="835" y="108">American Mafia</text>
+
+      <circle class="node" cx="1070" cy="130" r="12" fill="#637f99"/>
+      <text class="nlabel" x="1070" y="108">Gambino crime family</text>
+
+      <!-- the pair being linked -->
+      <circle class="node" cx="440" cy="340" r="20" fill="#e8a020"/>
+      <text class="nlabel hub" x="440" y="386">Latin Kings</text>
+
+      <circle class="node" cx="760" cy="340" r="20" fill="#e8a020"/>
+      <text class="nlabel hub" x="760" y="386">Mexican Mafia</text>
+
+      <!-- shared adversaries -->
+      <circle class="node" cx="430" cy="540" r="12" fill="#637f99"/>
+      <text class="nlabel" x="430" y="574">Mara Salvatrucha</text>
+
+      <circle class="node" cx="600" cy="540" r="12" fill="#637f99"/>
+      <text class="nlabel" x="600" y="574">Crips</text>
+
+      <circle class="node" cx="770" cy="540" r="12" fill="#637f99"/>
+      <text class="nlabel" x="770" y="574">Tiny Rascal Gang</text>
+    </g>
+  </svg>
+</body>
+</html>

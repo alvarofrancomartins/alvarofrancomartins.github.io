@@ -250,4 +250,28 @@
   .ds-search-pill{padding:10px 10px 10px 22px}
   .ds-send-btn{width:44px;height:44px}
   .ds-send-btn svg{width:20px;height:20px}
+  /* reading scale: message + evidence text sized down for phone */
+  .ask-msg-label{font-size:15px}
+  .ask-user .ask-msg-body,.ask-assistant .ask-msg-body{font-size:17px}
+  .ask-turn{padding:14px 16px;border-radius:12px}
+  .ds-answers{width:100%;padding:0 0 12px}
+  .ask-evid-head{font-size:17px}
+  .ask-evid-subhead{font-size:15px}
+  .ask-evid .rp-section-title{font-size:17px}
+  .ask-evid .rp-section-title::after{font-size:15px}
+  .ask-evid .rp-linkage-desc{font-size:17px}
+  .ask-evid .rs-heading{font-size:18px}
+  .ask-evid .rs-summary{font-size:17px}
+  .ask-evid .rs-ai-note{font-size:15px}
+  .ask-evid .ev-quote{font-size:17px}
+  .ask-evid .ev-srcs,.ask-evid .ev-meta .ev-srcs{font-size:15px}
+  .ask-evid .ev-toggle{font-size:15px}
+  .ask-evid .rp-linkage .ev-time{font-size:15px}
+  .ask-src-head{font-size:16px}
+  .ask-src-list a{font-size:16px}
+  /* centered layout tighten */
+  .ds-greeting{margin-bottom:24px}
+  .ds-centered-inner{padding:0 16px}
+  .ds-suggestions{padding:0 12px;margin-top:32px}
+  .ds-about-box{padding:26px 20px 22px}
 }
