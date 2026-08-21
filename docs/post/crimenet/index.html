@@ -872,21 +872,23 @@ text-align: justify;
 
             <div class="article-container">
               <div class="article-style">
-                <p><a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/" target="_blank">A few months ago</a>, I created a map of the world’s criminal organizations and how they connect to each other. I applied an LLM to read hundreds of Wikipedia articles, extracting every criminal organization mentioned and every relationship between them. The result was CRIMENET: the first open-source network of criminal organizations.</p>
+                <p><a href="https://www.alvarofrancomartins.com/post/crimenet_1.0/" target="_blank">A few months ago</a>, I created a network of criminal organizations and how they connect to each other. I applied an LLM to read hundreds of Wikipedia articles, extracting every criminal organization mentioned and every relationship between them. The result was CRIMENET: the first open-source knowledge graph of criminal organizations.</p>
 <br>
 <p>I have now significantly expanded it: <a href="https://www.alvarofrancomartins.com/crimenet/" target="_blank"> 4,504 organizations and 10,935 relationships</a> extracted from 1,418 Wikipedia articles<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> across four languages. For each profiled organization<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, the graph captures its description, country of origin, activity period, founding year, footprints in other countries, and defunct status. Every edge carries a verbatim evidence quote, a description, a versioned Wikipedia URL, and a time period when the source provides one. The three edge types are cooperation, conflict, and other<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
 <br>
-<p>In this new version I also created an AI assistant that answers natural language questions by querying the graph. I will start there because it is the part I find most interesting.</p>
+<p>In this new version I also created an AI assistant that answers natural language questions by querying the graph. I will start there, since it covers all the new findings.</p>
 <h1 id="crimenet-ai">CRIMENET AI</h1>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/crimenet_ai.png">
-<figcaption style="font-size: 0.9em;">Figure 1: CRIMENET AI. Ask a question in plain English. Sources and evidence are collected from the tool results and appended below the answer.</figcaption>
+<figcaption style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Figure 1: GraphRAG user interface. </figcaption>
 </figure>
-<p>Answering questions such as &ldquo;What is the most connected criminal organization?&rdquo; or &ldquo;How many communities does the global network of organized crime contain?&rdquo; are just a  matter of running a computation on the graph. However, answering questions such as &ldquo;Which motorcycle clubs have direct ties to Italian mafia organizations?&rdquo; or &ldquo;What potential rivalries does the Sinaloa Cartel have based on shared adversaries?&rdquo; require combining information from across the graph.</p>
+<p>Answering a question such as &ldquo;What is the most connected criminal organization?&rdquo; is just a matter of running a single computation on the graph. However, answering questions such as &ldquo;Which motorcycle clubs have direct ties to Italian mafia organizations?&rdquo; or &ldquo;What potential rivalries does the Sinaloa Cartel have based on shared adversaries?&rdquo; require combining information from across the graph.</p>
 <br>
-<p>A standard LLM would guess at the answers because its training data has no catalog of criminal organizations. However, give it tools to query the graph and it can combine results and synthesize an answer. I built <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a>, a GraphRAG<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> that works this way. The sections that follow walk you through the kinds of questions CRIMENET AI can answer.</p>
+<p>A standard LLM would guess at the answers. However, give it tools to query the graph and it can combine results to synthesize a response. Not only that, a LLM able to reason over the graph can try answering more subjetive questions, such as &ldquo;What is the community containing the most unlikely criminal organizations cooperating?&rdquo;</p>
+<br>
+<p>Based on all of that, I created <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a>, a GraphRAG<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> system I built from scratch. The following sections walk you through the kinds of questions this AI can answer.</p>
 <h2 id="centrality">Centrality</h2>
-<p>Some organizations are hubs. Others sit on the shortest paths between many pairs. I computed three centrality measures (degree, betweenness, and PageRank) across all 3,520 connected organizations. Here are the top 10 by betweenness.</p>
+<p>In the entire network, only 984 (22%) nodes are isolated. All the other 3,520 organizations are pretty much connected. For them, I computed three centrality measures (degree, betweenness, and PageRank) across. Here are the top 10 ranked by betweenness.</p>
 <br>
 <div style="text-align:center;">
 <table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
@@ -907,10 +909,10 @@ text-align: justify;
 </tbody>
 </table>
 </div>
-<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 1: The top 10 organizations by betweenness centrality, with their degree and PageRank ranks across 3,520 connected organizations.</p>
+<p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 1: Top 10 organizations by betweenness centrality.</p>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">Which Mexican cartels have the most network influence?</li>
     <li style="margin-bottom:4px;">How does the Sinaloa Cartel's network importance compare to the American Mafia?</li>
@@ -920,7 +922,7 @@ text-align: justify;
 <h2 id="communities">Communities</h2>
 <p>Communities are groups of nodes more connected to each other than to the rest of the network. I ran a community algorithm<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup> on the cooperation graph and it returned 229 communities. Each is now named and described.</p>
 <br>
-<p>I fed each community&rsquo;s member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Community Browser</a> (select the Communities tab). Here are the top 10.</p>
+<p>I fed each community&rsquo;s member organizations, their descriptions, and their relationships to DeepSeek to generate a title and a summary. You can browse all communities with their full descriptions and member lists in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html" target="_blank">Community Browser</a> (select the Communities tab). Here are the top 10.</p>
 <br>
 <table style="display:block; overflow:hidden; max-width:100%; margin:0 auto;">
 <thead>
@@ -943,7 +945,7 @@ text-align: justify;
 <br>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">What community does the Sinaloa Cartel belong to?</li>
     <li style="margin-bottom:4px;">Find communities related to the mafia</li>
@@ -977,7 +979,7 @@ text-align: justify;
 <br>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">Which Mexican organizations bridge the most communities?</li>
     <li>Which organizations bridge Latin American and European criminal networks?</li>
@@ -989,7 +991,7 @@ text-align: justify;
 <br>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">Are the Yakuza and the Sicilian Mafia connected?</li>
     <li style="margin-bottom:4px;">Who are the allies of allies of Mara Salvatrucha?</li>
@@ -1002,7 +1004,7 @@ text-align: justify;
 <br>
 <p>A step towards filling this gap is to infer missing links from the structure of the graph itself. If two organizations share many of the same partners, or the same enemies, they might have a relationship with each other, even if nobody has written it down. The analysis could also return pairs of organizations that occupy structurally similar roles in the network.</p>
 <br>
-<p>I computed three types of signals (inspired by the concept of <a href="https://en.wikipedia.org/wiki/Triadic_closure" target="_blank">Triadic Closure</a>). Common cooperation partners: Friends of friends might be friends. Common adversaries: Enemies of enemies might be friends. Both: A pair that shares both cooperation partners and adversaries, so two independent structural patterns point to the same missing relationship. The result is 2,561 pairs, all of them listed in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">Triadic Signals tab</a>. Table 4 shows some examples of each kind of signal.</p>
+<p>I computed three types of signals (inspired by the concept of <a href="https://en.wikipedia.org/wiki/Triadic_closure" target="_blank">Triadic Closure</a>). Common cooperation partners: Friends of friends might be friends. Common adversaries: Enemies of enemies might be friends. Both: A pair that shares both cooperation partners and adversaries. The result is 2,561 pairs, all of them listed in the <a href="https://www.alvarofrancomartins.com/crimenet/browse.html" target="_blank">Triadic Signals tab</a>. Table 4 shows some examples of each kind of signal.</p>
 <br>
 <div style="text-align:center;">
 <table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
@@ -1025,18 +1027,18 @@ text-align: justify;
 </div>
 <p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 4: The strongest signals for each type, scored by weighted common partners and adversaries.</p>
 <br>
-<p>An important note. We have to take these results with a grain of salt. I do not check whether the two organizations in each pair are operating in the same timeline, so the results may link groups from different periods. Nor do I limit the pairs to organizations in the same country. Howeve, we can use CRIMENET AI for that. Ultimately, these calculations serve more as a basis for asking complex questions in CRIMENET AI.</p>
+<p>An important note. We have to take these results with a grain of salt. I do not check whether the two organizations in each pair are operating in the same timeline, so the results may link groups from different periods. Nor do I limit the pairs to organizations in the same country. Ultimately, these calculations serve more as a basis for asking complex questions in CRIMENET AI.</p>
 <br>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">Find two criminal organizations based in Brazil that share allies and rivals but whose partnership is not documented. Both must still be active, with overlapping activity periods.</li>
   </ul>
 </div>
 </div>
 <h2 id="countries">Countries</h2>
-<p>Each profiled organization carries its country of origin. Beyond that, every organization accumulates a set of country footprints (countries where one or more Wikipedia articles document its presence). Here are the top 10 countries by how many organizations are based there.</p>
+<p>Most profiled organization carries its country of origin and each accumulate footprints in other countries (that is to say, countries where one or more Wikipedia articles document its presence). Here are the top 10 countries by how many organizations are based there.</p>
 <br>
 <div style="text-align:center;">
 <table style="display:inline-table; overflow:hidden; text-align:left; width:auto; max-width:900px; max-width:100%;">
@@ -1059,14 +1061,14 @@ text-align: justify;
 </div>
 <p style="margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;">Table 5: The 10 countries where the most criminal organizations are based.</p>
 <br>
-<p>You can also see the footprints directly on a <a href="https://www.alvarofrancomartins.com/crimenet/footprints.html" target="_blank" rel="noopener">world map</a>. Each organization&rsquo;s country of origin and its documented footprints create arcs across the map.</p>
+<p>You can also see the footprints directly on this <a href="https://www.alvarofrancomartins.com/crimenet/footprints.html" target="_blank" rel="noopener">interactive world map</a>. Each organization&rsquo;s country of origin and its documented footprints create arcs across the map.</p>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/footprints.png">
 <figcaption style="font-size: 0.9em;">Figure 2: Each arc traces an organization's footprint from its country of origin to a country where it operates.</figcaption>
 </figure>
 <div style="text-align:center;">
 <div style="display:inline-block; text-align:left; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 20px; margin:16px 0;">
-  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html">CRIMENET AI</a></div>
+  <div style="font-size:0.8em; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:10px;">Try asking <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a></div>
   <ul style="margin:0; padding-left:18px; color:#334155;">
     <li style="margin-bottom:4px;">Which countries does the 'Ndrangheta have a footprint in?</li>
     <li style="margin-bottom:4px;">Which criminal organizations operate in both Colombia and Venezuela?</li>
@@ -1074,24 +1076,25 @@ text-align: justify;
 </div>
 </div>
 <h1 id="building-the-graph">Building the graph</h1>
-<p>The raw material is 1,418 manually curated Wikipedia articles about criminal organizations across English, Italian, Portuguese, and Spanish Wikipedia. The extraction pipeline fetches each article, cleans the HTML into plain text, then sends it to DeepSeek to identify organizations and the relationships between them: cooperation, conflict, and other.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> The pipeline then profiles each organization from its own Wikipedia article (canonical name, aliases, description, country of origin, time period, founded and dissolved years, defunct status, and country footprints, each backed by a verbatim evidence quote) and merges everything into a single graph, folding variant names across languages so the Sinaloa Cartel and the Cártel de Sinaloa become one node.</p>
+<p>The raw material is 1,418 manually curated Wikipedia articles about criminal organizations across 4 languages (English, Italian, Portuguese, and Spanish). The extraction pipeline fetches each article, cleans the HTML into plain text, then sends it to DeepSeek to identify organizations and the relationships between them: cooperation, conflict, and other.<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> The pipeline then profiles each organization from its own Wikipedia article (canonical name, aliases, description, country of origin, time period, founded and dissolved years, defunct status, and country footprints, each backed by a verbatim evidence quote) and merges everything into a single graph, folding variant names across languages so that Sinaloa Cartel and the Cártel de Sinaloa become one node.</p>
 <br>
-<p>An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. In order to fix these problems, I built an audit pipeline that targets each class of error, one audit per error type.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions. Every detail is documented on <a href="https://github.com/alvarofrancomartins/CRIMENET" target="_blank" rel="noopener">GitHub</a>.</p>
+<p>An LLM extraction pipeline produces errors: it conflates names, misses duplicates, invents edges between orgs that were merely mentioned in the same paragraph, and sometimes pulls in non-criminal entities. In order to fix these problems, I built an audit pipeline that targets each class of error, one audit per error type.<sup id="fnref:7"><a href="#fn:7" class="footnote-ref" role="doc-noteref">7</a></sup> The correction loop is designed to be iterative: spot an error, add one line to a corrections file, re-run the apply step. Manual overrides always win over auto-suggestions.</p>
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/pipeline.png">
-<figcaption style="font-size: 0.9em;">Figure 3: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app).</figcaption>
+<figcaption style="font-size: 0.9em;">Figure 3: The three-layer architecture. Extraction (Wikipedia to raw graph), audit and correction (find and fix errors), build and deploy (generate the static web app). Every detail is documented on <a href="https://github.com/alvarofrancomartins/CRIMENET" target="_blank">GitHub</a>.
+ </figcaption>
 </figure>
-<p>CRIMENET&rsquo;s <a href="https://www.alvarofrancomartins.com/crimenet/">home page</a> is a dashboard with two panels where you can browse all organizations. The <a href="https://www.alvarofrancomartins.com/crimenet/browse.html">connection finder</a> lets you pick any two organizations and see exactly how they relate. The other tabs cover communities, bridges, and triadic signals.</p>
+<p>CRIMENET&rsquo;s <a href="https://www.alvarofrancomartins.com/crimenet/" target="_blank">home page</a> is a dashboard with two panels where you can browse all organizations. Moreover, <a href="https://www.alvarofrancomartins.com/crimenet/browse.html" target="_blank">connection finder</a> page lets you pick any two organizations to see if and how they are connected. The other tabs in <a href="https://www.alvarofrancomartins.com/crimenet/browse.html" target="_blank">Browse the network</a> cover communities, bridges, and triadic signals.</p>
 <h1 id="closing-thoughts">Closing thoughts</h1>
-<p>There is, to my knowledge, no larger directory of criminal organizations anywhere. Wikipedia’s most extensive list of criminal enterprises, gangs, and syndicates covers a few hundred groups. And it only mentions organizations, not their relationships. CRIMENET is by far the most complete catalog of this kind: 4,5k organizations mapped across nearly 11k relationships, each backed by a specific Wikipedia source.</p>
+<p>There is, to my knowledge, no publicly larger directory of criminal organizations. Wikipedia’s most <a href="https://en.wikipedia.org/wiki/List_of_criminal_enterprises,_gangs,_and_syndicates" target="_blank">extensive list</a> of criminal enterprises, gangs, and syndicates covers a few hundred groups. And it only mentions organizations, not their relationships.</p>
 <br>
-<p>This was an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other, not to catalog every group mentioned on Wikipedia. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing the vast majority of criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia.</p>
+<p>This was honestly an accidental achievement. The goal was to build a knowledge graph of how criminal organizations relate to each other. But because the pipeline reads nearly 1,500 articles across four languages and extracts every organization mentioned in each one, it ended up capturing many criminal organizations documented on English, Italian, Portuguese, and Spanish Wikipedia.</p>
 <figure>
 <img style="width: 80%; display: inline-block;" src="videos/crimenet_3d_video.gif">
 <figcaption style="font-size: 0.9em;">Figure 4: The full network is viewable as an <a href="https://www.alvarofrancomartins.com/crimenet/knowledge_graph.html">interactive 3D force-directed graph</a> built with three.js. Nodes are organizations and edges are colored by relationship type (green for cooperation and red for conflict). You can rotate, zoom, click any node to see its details, and filter by relationship type. In 3D, you can rotate around a cluster and see its internal structure, something impossible in a flat 2D view.</figcaption>
 </figure>
 <h1 id="limitations">Limitations</h1>
-<p>CRIMENET inherits the biases of its source and the boundaries of its scope:</p>
+<p>There are some relevant considerations worth mentioning:</p>
 <br>
 <ul>
 <li>Wikipedia coverage skews toward English-language and Western sources. The pipeline processes four languages (English, Italian, Portuguese, and Spanish), which is better than one but still leaves gaps. Because the data comes from Wikipedia, the graph inherits the biases and gaps of its source material.</li>
@@ -1108,7 +1111,7 @@ text-align: justify;
 <p>Most of these articles are about criminal organizations themselves. The rest cover: individual criminals, events, law enforcement agencies, and other topics that mention criminal groups but are not about a specific organization.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>Of the 4,504 organizations, 1,032 are profiled from their own Wikipedia article (with full descriptions, aliases, country of origin, country footprints, time periods, and defunct status), 3,472 are mention-only (they appear in other orgs' articles but have no dedicated Wikipedia page). 3,520 organizations (78%) are connected to at least one other; 984 (22%) are isolated.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Of the 4,504 organizations, 1,032 are profiled from their own Wikipedia article (with full descriptions, aliases, country of origin, country footprints, time periods, and defunct status), 3,472 are mention-only (they appear in other orgs' articles but have no dedicated Wikipedia page). Some of these mention-only organizations are referenced in many articles. You can see them in this <a href="https://github.com/alvarofrancomartins/CRIMENET/blob/main/tools/data/coverage_statistics.json" target="_blank">json file</a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
 <p>The type &lsquo;other&rsquo; is when the relationship between two orgs is genuinely not cooperation nor conflict. Most of these fall into a structural category, such as subgroups.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -1117,13 +1120,13 @@ text-align: justify;
 <p>GraphRAG stands for Graph Retrieval-Augmented Generation. A standard RAG system retrieves text chunks and asks the model to reason over them. A GraphRAG system retrieves structured data from a knowledge graph by calling tools that traverse nodes, edges, communities, and paths. I gave it 13 tools: functions that look up organizations, find connections, search by country, trace paths. The model decides which function to call, the code runs it against static data files, and the results feed back to the model, which can call another function or synthesize an answer. Every Wikipedia URL and edge from the tool results is collected and appended below the answer as Sources and Evidence. The tools are documented in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:5" role="doc-endnote">
-<p>The algorithm is <a href="https://mapequation.org/infomap/">Infomap</a>, which finds communities by detecting where random walks tend to stay.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>The algorithm is <a href="https://mapequation.org/infomap/" target="_blank">Infomap</a>, which finds communities by detecting where random walks tend to stay.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:6" role="doc-endnote">
-<p>Cooperation covers alliances, joint operations, and commercial dealings. Conflict covers fighting, war, and clashes. Other covers structural ties (sub-units, splinters), truces, and unspecified links. The pipeline proceeds in five steps: (0) resolve Wikipedia URLs to versioned URLs; (1) fetch HTML and extract clean body text with infobox tables; (2) send text to DeepSeek to extract organizations and relationships; (3) DeepSeek enriches each profiled organization with description, aliases, country, time period, defunct status, and country footprints; (4) merge all fragments, auto-dedup, attach profiles, and normalize country names. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Cooperation covers alliances, joint operations, and commercial dealings. Conflict covers fighting, war, and clashes. Other covers structural ties (sub-units, splinters), truces, and unspecified links.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:7" role="doc-endnote">
-<p>Seven steps in total. Audits 0 through 5 find wrong merges, missed merges, spurious edges, unsupported country links, umbrella terms, and non-criminal entities. Audit 6 provides an LLM second opinion that can veto identity corrections. Audit 7 applies all corrections, with manual overrides from a curated file always winning over auto-suggestions. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Seven steps in total. Audits 0 through 5 find wrong merges, missed merges, spurious edges, unsupported country links, umbrella terms, and non-criminal entities. Audit 6 provides an LLM second opinion. Audit 7 applies all corrections, with manual overrides from a curated file always winning over auto-suggestions. Full details in the <a href="https://github.com/alvarofrancomartins/CRIMENET" target="_blank">GitHub repository</a>.&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
