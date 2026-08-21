@@ -886,7 +886,7 @@ text-align: justify;
 <br>
 <p>A standard LLM would guess at the answers. However, give it tools to query the graph and it can combine results to synthesize a response. Not only that, a LLM able to reason over the graph can try answering more subjetive questions, such as &ldquo;What is the community containing the most unlikely criminal organizations cooperating?&rdquo;</p>
 <br>
-<p>Based on all of that, I created <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a>, a GraphRAG<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> system I built from scratch. The following sections walk you through the kinds of questions this AI can answer.</p>
+<p>Based on all of that, I created <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a>, a GraphRAG<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup> system I built from scratch. A practical note: answers can take a few seconds, because the AI may run several steps before responding. The following sections walk you through the kinds of questions this AI can answer.</p>
 <h2 id="centrality">Centrality</h2>
 <p>In the entire network, only 984 (22%) nodes are isolated. All the other 3,520 organizations are pretty much connected. For them, I computed three centrality measures (degree, betweenness, and PageRank) across. Here are the top 10 ranked by betweenness.</p>
 <br>

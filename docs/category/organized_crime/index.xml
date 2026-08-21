@@ -31,7 +31,7 @@
 &lt;br&gt;
 &lt;p&gt;A standard LLM would guess at the answers. However, give it tools to query the graph and it can combine results to synthesize a response. Not only that, a LLM able to reason over the graph can try answering more subjetive questions, such as &amp;ldquo;What is the community containing the most unlikely criminal organizations cooperating?&amp;rdquo;&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;Based on all of that, I created &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/ask.html&#34; target=&#34;_blank&#34;&gt;CRIMENET AI&lt;/a&gt;, a GraphRAG&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; system I built from scratch. The following sections walk you through the kinds of questions this AI can answer.&lt;/p&gt;
+&lt;p&gt;Based on all of that, I created &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/ask.html&#34; target=&#34;_blank&#34;&gt;CRIMENET AI&lt;/a&gt;, a GraphRAG&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; system I built from scratch. A practical note: answers can take a few seconds, because the AI may run several steps before responding. The following sections walk you through the kinds of questions this AI can answer.&lt;/p&gt;
 &lt;h2 id=&#34;centrality&#34;&gt;Centrality&lt;/h2&gt;
 &lt;p&gt;In the entire network, only 984 (22%) nodes are isolated. All the other 3,520 organizations are pretty much connected. For them, I computed three centrality measures (degree, betweenness, and PageRank) across. Here are the top 10 ranked by betweenness.&lt;/p&gt;
 &lt;br&gt;

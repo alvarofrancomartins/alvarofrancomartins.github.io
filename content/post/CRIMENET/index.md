@@ -78,7 +78,7 @@ A standard LLM would guess at the answers. However, give it tools to query the g
 
 <br>
 
-Based on all of that, I created <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a>, a GraphRAG[^graph_rag] system I built from scratch. The following sections walk you through the kinds of questions this AI can answer. 
+Based on all of that, I created <a href="https://www.alvarofrancomartins.com/crimenet/ask.html" target="_blank">CRIMENET AI</a>, a GraphRAG[^graph_rag] system I built from scratch. A practical note: answers can take a few seconds, because the AI may run several steps before responding. The following sections walk you through the kinds of questions this AI can answer. 
 
 [^graph_rag]: GraphRAG stands for Graph Retrieval-Augmented Generation. A standard RAG system retrieves text chunks and asks the model to reason over them. A GraphRAG system retrieves structured data from a knowledge graph by calling tools that traverse nodes, edges, communities, and paths. I gave it 13 tools: functions that look up organizations, find connections, search by country, trace paths. The model decides which function to call, the code runs it against static data files, and the results feed back to the model, which can call another function or synthesize an answer. Every Wikipedia URL and edge from the tool results is collected and appended below the answer as Sources and Evidence. The tools are documented in the <a href="https://github.com/alvarofrancomartins/CRIMENET">GitHub repository</a>.
 
