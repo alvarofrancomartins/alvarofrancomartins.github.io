@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/three.js/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/three.js/index.xml" rel="self" type="application/rss+xml" />
     <description>three.js</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 13 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 21 Aug 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>three.js</title>
@@ -15,7 +15,7 @@
     <item>
       <title>An AI assistant on global organized crime</title>
       <link>https://alvarofrancomartins.com/post/crimenet/</link>
-      <pubDate>Mon, 13 Jul 2026 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 21 Aug 2026 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/crimenet/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.alvarofrancomartins.com/post/crimenet_1.0/&#34; target=&#34;_blank&#34;&gt;A few months ago&lt;/a&gt;, I created a network of criminal organizations and how they connect to each other. I applied an LLM to read hundreds of Wikipedia articles, extracting every criminal organization mentioned and every relationship between them. The result was CRIMENET: the first open-source knowledge graph of criminal organizations.&lt;/p&gt;
 &lt;br&gt;
@@ -206,7 +206,9 @@
 &lt;/div&gt;
 &lt;p style=&#34;margin:8px 0 24px 0; text-align:center; font-weight:600; font-size:0.95em;&#34;&gt;Table 5: The 10 countries where the most criminal organizations are based.&lt;/p&gt;
 &lt;br&gt;
-&lt;p&gt;You can also see the footprints directly on this &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/footprints.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;interactive world map&lt;/a&gt;. Each organization&amp;rsquo;s country of origin and its documented footprints create arcs across the map.&lt;/p&gt;
+&lt;p&gt;Table 5 stops at ten. For any country in the graph, the &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/index.html&#34; target=&#34;_blank&#34;&gt;dashboard&lt;/a&gt; has the rest: switch the left panel to Countries and pick one. For instance, Japan gives you both the organizations based there and the foreign groups with a documented footprint in the country. It is also possible to just skip the browsing and ask CRIMENET AI.&lt;/p&gt;
+&lt;br&gt;
+&lt;p&gt;You can also visualize footprints of orgs in each country through this nice &lt;a href=&#34;https://www.alvarofrancomartins.com/crimenet/footprints.html&#34; target=&#34;_blank&#34;&gt;interactive world map&lt;/a&gt;. Each organization&amp;rsquo;s country of origin and its documented footprints create arcs across the map.&lt;/p&gt;
 &lt;figure&gt;
 &lt;img style=&#34;width: 100%; display: inline-block;&#34; src=&#34;figs/footprints.png&#34;&gt;
 &lt;figcaption style=&#34;font-size: 0.9em;&#34;&gt;Figure 2: Each arc traces an organization&#39;s footprint from its country of origin to a country where it operates.&lt;/figcaption&gt;
