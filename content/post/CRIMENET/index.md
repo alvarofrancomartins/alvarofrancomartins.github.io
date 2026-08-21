@@ -6,7 +6,7 @@ projects: []
 
 date: "2026-07-13"
 
-draft: false
+draft: true
 
 featured: true
 
@@ -298,7 +298,11 @@ Most profiled organization carries its country of origin and each accumulate foo
 
 <br>
 
-You can also see the footprints directly on this [interactive world map](https://www.alvarofrancomartins.com/crimenet/footprints.html). Each organization's country of origin and its documented footprints create arcs across the map. 
+Table 5 stops at ten. For any country in the graph, the <a href="https://www.alvarofrancomartins.com/crimenet/index.html" target="_blank">dashboard</a> has the rest: switch the left panel to Countries and pick one. For instance, Japan gives you both the organizations based there and the foreign groups with a documented footprint in the country. It is also possible to just skip the browsing and ask CRIMENET AI.
+
+<br>
+
+You can also visualize footprints of orgs in each country through this nice <a href="https://www.alvarofrancomartins.com/crimenet/footprints.html" target="_blank">interactive world map</a>. Each organization's country of origin and its documented footprints create arcs across the map. 
 
 <figure>
 <img style="width: 100%; display: inline-block;" src="figs/footprints.png">
