@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/graphrag/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/graphrag/index.xml" rel="self" type="application/rss+xml" />
     <description>GraphRAG</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 21 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 22 Aug 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>GraphRAG</title>
@@ -15,7 +15,7 @@
     <item>
       <title>An AI assistant on global organized crime</title>
       <link>https://alvarofrancomartins.com/post/crimenet/</link>
-      <pubDate>Fri, 21 Aug 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/crimenet/</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.alvarofrancomartins.com/post/crimenet_1.0/&#34; target=&#34;_blank&#34;&gt;A few months ago&lt;/a&gt;, I created a network of criminal organizations and how they connect to each other. I applied an LLM to read hundreds of Wikipedia articles, extracting every criminal organization mentioned and every relationship between them. The result was CRIMENET: the first open-source knowledge graph of criminal organizations.&lt;/p&gt;
 &lt;br&gt;

@@ -4,9 +4,9 @@ subtitle: "A knowledge graph of global organized crime, with an AI you can ask a
 summary: "A knowledge graph of 4,504 criminal organizations and 10,935 relationships extracted from 1,418 Wikipedia articles across four languages. A GraphRAG AI answers questions about the global organized crime network. Every claim cites a specific Wikipedia source."
 projects: []
 
-date: "2026-08-21"
+date: "2026-08-22"
 
-draft: true
+draft: false
 
 featured: true
 
