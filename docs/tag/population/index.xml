@@ -5,7 +5,7 @@
     <link>https://alvarofrancomartins.com/tag/population/</link>
       <atom:link href="https://alvarofrancomartins.com/tag/population/index.xml" rel="self" type="application/rss+xml" />
     <description>Population</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 03 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 11 Nov 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alvarofrancomartins.com/media/sharing.png</url>
       <title>Population</title>
@@ -13,14 +13,11 @@
     </image>
     
     <item>
-      <title>When does the world take a day off? A map of 2025 national holidays</title>
+      <title>When does the world take a day off?</title>
       <link>https://alvarofrancomartins.com/post/holidays/</link>
-      <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 11 Nov 2026 00:00:00 +0000</pubDate>
       <guid>https://alvarofrancomartins.com/post/holidays/</guid>
-      <description>&lt;br&gt;
-&lt;p&gt;I crossed the national holidays of 195 countries (the 193 UN members plus the Holy See and Palestine) with population estimates and built two interactive 2025 calendars. The first counts how many countries have a holiday each day; the second weights each holiday by population.&lt;/p&gt;
-&lt;br&gt;
-&lt;h2 id=&#34;how-many-countries-are-off&#34;&gt;How many countries are off?&lt;/h2&gt;
+      <description>&lt;p&gt;In this short post, you&amp;rsquo;ll see two calendars of national holidays. I created these (interactive) data visualizations because I was curious about the dates of holidays around the world. Keep in mind this data is based on the 2025 Gregorian Calendar, which is used by most countries but not all.&lt;/p&gt;
 &lt;br&gt;
 
 &lt;style&gt;
@@ -172,16 +169,7 @@ function hideTip(){ tip.style.opacity = &#34;0&#34;; }
 })();
 &lt;/script&gt;
 
-&lt;br&gt;
-&lt;p&gt;Three dates tower over the rest: January 1 (177 of 195 countries), Christmas (150) and Labour Day (148). Then come the feasts that move every year: Easter in mid-April (Good Friday, 101; Easter Monday, 94), Eid al-Fitr in late March, Eid al-Adha on June 6, 7 or 8. Everything else is a long tail of national days, each lit by only a handful of countries. The exceptions tell the better stories:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;January 1, the 18 exceptions&lt;/strong&gt;: mostly Muslim-majority countries on the Hijri calendar, plus Israel&amp;rsquo;s Hebrew calendar, Ethiopia&amp;rsquo;s calendar and several South Asian countries, none of which start the year in January. A few others use the day for something else, like Sudan&amp;rsquo;s Independence Day and Cuba&amp;rsquo;s Liberation Day.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;December 24&lt;/strong&gt;: Christmas Eve, the main celebration day in Slovakia, Poland and the Nordics, is a holiday in only 15. Germany, where the presents also arrive on the 24th, has no holiday that day at all.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;May 1, minus the United States&lt;/strong&gt;: its Labor Day falls on the first Monday of September (September 1 in 2025), a tradition begun in 1882, before May 1 became International Workers&#39; Day after the 1886 Haymarket affair in Chicago.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br&gt;
-&lt;h2 id=&#34;how-many-people-are-off&#34;&gt;How many people are off?&lt;/h2&gt;
-&lt;br&gt;
+&lt;p&gt;On the other hand&amp;hellip;&lt;/p&gt;
 
 &lt;style&gt;
 .hm-population { --ink: #1a1a1a; --cell-font: 16px; }
@@ -332,45 +320,7 @@ function hideTip(){ tip.style.opacity = &#34;0&#34;; }
 })();
 &lt;/script&gt;
 
-&lt;br&gt;
-&lt;p&gt;Weighting by population keeps the same top three (January 1 at 5.7 billion, May 1 at 5.6 billion, December 25 at 5.2 billion) but rewrites everything below them. The middle of the calendar becomes a map of when India and China are off. Each holds roughly 18% of humanity, so a holiday in either one alone outweighs a holiday in almost every other country combined. Two days deserve a closer look:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;January 29&lt;/strong&gt;: Chinese New Year, the new year that matters most in East Asia, is shared by only 14 countries, but those 14 hold 2.13 billion people. China alone supplies 1.41 billion of them, two thirds of the day&amp;rsquo;s total. Only October 2, the India plus China collision covered below, beats it among days with fewer than 15 countries.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;August 15&lt;/strong&gt;: 50 countries and 2.39 billion people, because the Assumption of Mary, observed in 39 mostly Catholic and Orthodox countries, falls on India&amp;rsquo;s Independence Day. The same date ranks high in both calendars for unrelated reasons.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br&gt;
-&lt;h2 id=&#34;the-few-country-spikes&#34;&gt;The few-country spikes&lt;/h2&gt;
-&lt;p&gt;Some dates carry a billion people or more with only a handful of countries celebrating. Almost all of them are India or China, because only those two are populous enough to reach a billion alone. The same pattern repeats at a smaller scale with the next tier of populous countries.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;India&amp;rsquo;s festivals:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;April 10&lt;/strong&gt;: 1 country, 1.46 billion. India alone, for Mahavir Jayanti. The most extreme day in the calendar.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;January 26&lt;/strong&gt;: 5 countries, 1.56 billion. India&amp;rsquo;s Republic Day, plus Uganda, Australia and the Dominican Republic.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;February 26&lt;/strong&gt;: 6 countries, 1.53 billion. India&amp;rsquo;s Maha Shivaratri, plus Nepal, Sri Lanka, Kuwait and Mauritius.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;August 16&lt;/strong&gt;: 5 countries, 1.51 billion. India&amp;rsquo;s Janmashtami, plus Nepal, the Dominican Republic and Gabon.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;November 5&lt;/strong&gt;: 4 countries, 1.51 billion. India&amp;rsquo;s Guru Nanak Jayanti, plus Sri Lanka, Cambodia and Panama.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;October 20&lt;/strong&gt;: 12 countries, 1.60 billion. India&amp;rsquo;s Diwali, plus Kenya, Nepal, Sri Lanka and the Indian diaspora (Trinidad, Mauritius, Guyana, Suriname, Singapore).&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;China&amp;rsquo;s Golden Week and substituted days off:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;China stretches its holidays by shifting weekends, declaring extra substituted days off that are holidays in China alone.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;May 31&lt;/strong&gt;: 2 countries, 1.41 billion. China&amp;rsquo;s Dragon Boat Festival, plus Brunei.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;February 4&lt;/strong&gt;: 3 countries, 1.47 billion. A substituted day off that lengthens the New Year break, plus Angola and Sri Lanka.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;October 8&lt;/strong&gt;: 3 countries, 1.49 billion. Another substituted day off, plus South Korea and Peru.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;February 3&lt;/strong&gt;: 8 countries, 1.63 billion. A substituted day off, plus Mexico&amp;rsquo;s Constitution Day, Angola and Mozambique.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Both giants at once:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;October 2&lt;/strong&gt;: 8 countries, 2.94 billion. India marks Dussehra and Gandhi Jayanti while China sits inside its National Day Golden Week. The biggest mismatch of the year.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Beyond India and China:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;June 12&lt;/strong&gt;: 3 countries, 498 million. Nigeria&amp;rsquo;s Democracy Day, Russia&amp;rsquo;s Russia Day and the Philippines&#39; Independence Day all land on the same date.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;September 1&lt;/strong&gt;: 10 countries, 676 million. US and Canadian Labour Day coincide with Vietnam&amp;rsquo;s National Day and Uzbekistan&amp;rsquo;s Independence Day.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;March 23&lt;/strong&gt;: 7 countries, 439 million. Pakistan Day, plus the Nowruz cluster (Iran, Kazakhstan, Tajikistan, Azerbaijan) and Angola.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;August 14&lt;/strong&gt;: 5 countries, 394 million. Pakistan&amp;rsquo;s Independence Day, plus Iran&amp;rsquo;s Arbaeen, Morocco and Libya.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;February 17&lt;/strong&gt;: 4 countries, 382 million. The United States&#39; Washington&amp;rsquo;s Birthday (Presidents&#39; Day), plus North Korea, Libya and Serbia.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;April 14&lt;/strong&gt;: 8 countries, 390 million. A shared South and Southeast Asian New Year: Bangladesh, Thailand, Myanmar, Nepal, Sri Lanka, Cambodia and Laos.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Overall, three dates dominate: January 1st, Christmas and Labour Day. And then, weighting by population keeps the same top three dates but redraws the rest of the calendar. I assume populous countries like India and China drive most of the other holidays&#39; figures.&lt;/p&gt;
 &lt;br&gt;
 &lt;p&gt;Source: national holidays via &lt;a href=&#34;https://github.com/vacanza/holidays&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;python-holidays&lt;/a&gt; (v0.83); population from the &lt;a href=&#34;https://data.worldbank.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;World Bank&lt;/a&gt; (2025).&lt;/p&gt;
 </description>
