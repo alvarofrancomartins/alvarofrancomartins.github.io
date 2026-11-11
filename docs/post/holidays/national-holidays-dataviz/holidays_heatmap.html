@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Number of countries with a national holiday</title>
+<style>
+:root { --ink: #1a1a1a; --cell-font: 16px; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  background: #ffffff;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.page {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 14px 20px;
+}
+h1 {
+  flex: 0 0 auto;
+  font-size: 26px; line-height: 1.2; font-weight: 700;
+  text-align: center; margin: 0 0 32px; max-width: 680px;
+}
+.grid {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: 680px;
+  max-height: 780px;
+  display: grid;
+  grid-template-columns: 36px repeat(12, 1fr);
+  grid-template-rows: auto repeat(31, 1fr);
+  gap: 3px;
+  background: #ffffff;
+}
+.month {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  line-height: 1;
+}
+.day {
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 6px; font-size: 20px; color: var(--ink);
+  line-height: 1;
+}
+.cell {
+  display: flex; align-items: center; justify-content: center;
+  padding-top: 2px;
+  font-size: var(--cell-font); color: #2d2d2d; background: #ffffff;
+  line-height: 1;
+}
+.cell.live { cursor: default; }
+.cell.live:hover { box-shadow: inset 0 0 0 2px rgba(0,0,0,.35); }
+.month, .day, .cell { min-height: 0; }
+#tip {
+  position: fixed; left: 0; top: 0; z-index: 20;
+  pointer-events: none; opacity: 0;
+  background: #000000; color: #ffffff;
+  padding: 12px 16px; border-radius: 8px;
+  font-size: 18px; font-weight: 500; line-height: 1.4; white-space: nowrap;
+  box-shadow: 0 6px 24px rgba(0,0,0,.45);
+  transition: opacity .07s ease;
+}
+#tip .dim { opacity: .72; }
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 24px repeat(12, 1fr); }
+  .day { font-size: 9px; padding-right: 2px; }
+  .month { font-size: 9px; }
+  .cell { font-size: 9px; }
+  h1 { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Number of countries with a national holiday<br>on each day of the month (195 countries, year 2025)</h1>
+  <div class="grid" id="grid"></div>
+</div>
+<div id="tip"></div>
+<script>
+const DATA = {"title":["Number of countries with a national holiday","on each day of the month (195 countries, year 2025)"],"legendLeft":"less common","legendRight":"more common","unit":"countries","months":["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"],"days":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],"cells":[[{"v":177,"fill":"#000004","text":"#ffffff","label":"177","show":true},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":31,"fill":"#feac76","text":"#2d2d2d","label":"31","show":true},{"v":148,"fill":"#2a115c","text":"#ffffff","label":"148","show":true},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":11,"fill":"#fde2a3","text":"#2d2d2d","label":"","show":false},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":43,"fill":"#fc8a62","text":"#2d2d2d","label":"43","show":true},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false}],[{"v":25,"fill":"#febb81","text":"#2d2d2d","label":"25","show":true},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":11,"fill":"#fde2a3","text":"#2d2d2d","label":"","show":false},{"v":11,"fill":"#fde2a3","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":18,"fill":"#fecd90","text":"#2d2d2d","label":"18","show":true},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":13,"fill":"#fddc9e","text":"#2d2d2d","label":"13","show":true},{"v":31,"fill":"#feac76","text":"#2d2d2d","label":"31","show":true},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":17,"fill":"#fed194","text":"#2d2d2d","label":"17","show":true},{"v":16,"fill":"#fed395","text":"#2d2d2d","label":"16","show":true},{"v":15,"fill":"#fed799","text":"#2d2d2d","label":"15","show":true},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":16,"fill":"#fed395","text":"#2d2d2d","label":"16","show":true},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false}],[{"v":22,"fill":"#fec488","text":"#2d2d2d","label":"22","show":true},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":59,"fill":"#f1605d","text":"#2d2d2d","label":"59","show":true},{"v":9,"fill":"#fde5a7","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":9,"fill":"#fde5a7","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":17,"fill":"#fed194","text":"#2d2d2d","label":"17","show":true},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":44,"fill":"#fc8961","text":"#2d2d2d","label":"44","show":true},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":30,"fill":"#feae77","text":"#2d2d2d","label":"30","show":true},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":37,"fill":"#fd9b6b","text":"#2d2d2d","label":"37","show":true},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":25,"fill":"#febb81","text":"#2d2d2d","label":"25","show":true}],[{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":47,"fill":"#fa815f","text":"#2d2d2d","label":"47","show":true},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false}],[{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":10,"fill":"#fde3a5","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":50,"fill":"#f9785d","text":"#2d2d2d","label":"50","show":true},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":19,"fill":"#fecc8f","text":"#2d2d2d","label":"19","show":true},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":101,"fill":"#982d80","text":"#ffffff","label":"101","show":true},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":24,"fill":"#febf84","text":"#2d2d2d","label":"24","show":true},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":18,"fill":"#fecd90","text":"#2d2d2d","label":"18","show":true},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":42,"fill":"#fc8e64","text":"#2d2d2d","label":"42","show":true},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":11,"fill":"#fde2a3","text":"#2d2d2d","label":"","show":false},{"v":94,"fill":"#aa337d","text":"#ffffff","label":"94","show":true},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":15,"fill":"#fed799","text":"#2d2d2d","label":"15","show":true}],[{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":13,"fill":"#fddc9e","text":"#2d2d2d","label":"13","show":true},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":150,"fill":"#271258","text":"#ffffff","label":"150","show":true}],[{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":9,"fill":"#fde5a7","text":"#2d2d2d","label":"","show":false},{"v":23,"fill":"#fec185","text":"#2d2d2d","label":"23","show":true},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":73,"fill":"#d9466b","text":"#ffffff","label":"73","show":true}],[{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":7,"fill":"#fdebac","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false}],[{"v":14,"fill":"#fed89a","text":"#2d2d2d","label":"14","show":true},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":32,"fill":"#fea973","text":"#2d2d2d","label":"32","show":true},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":8,"fill":"#fde9aa","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":54,"fill":"#f66c5c","text":"#2d2d2d","label":"54","show":true},{"v":1,"fill":"#fcfbbd","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":5,"fill":"#fcf0b2","text":"#2d2d2d","label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false}],[{"v":3,"fill":"#fcf6b8","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":58,"fill":"#f2645c","text":"#2d2d2d","label":"58","show":true},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":2,"fill":"#fcf9bb","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":6,"fill":"#fceeb0","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":4,"fill":"#fcf4b6","text":"#2d2d2d","label":"","show":false},{"v":null,"fill":null,"text":null,"label":"","show":false},{"v":12,"fill":"#fddea0","text":"#2d2d2d","label":"","show":false}]],"gradient":["#fcfdbf","#fed395","#fea973","#fa7d5e","#e95462","#c83e73","#a3307e","#7e2482","#59157e","#331067","#120d31","#000004"]};
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const nf = new Intl.NumberFormat("en-US");
+function fmtPop(v){
+  if (v >= 1e9){ var s = (v/1e9).toFixed(1); s = s.replace(/\.0$/,""); return s + "B"; }
+  if (v >= 1e6) return Math.floor(v/1e6) + "M";
+  if (v >= 1e3) return Math.floor(v/1e3) + "K";
+  return String(v);
+}
+var grid = document.getElementById("grid");
+var tip = document.getElementById("tip");
+
+var corner = document.createElement("div");
+corner.className = "corner";
+grid.appendChild(corner);
+DATA.months.forEach(function(m){
+  var d = document.createElement("div");
+  d.className = "month";
+  d.textContent = m;
+  grid.appendChild(d);
+});
+
+DATA.cells.forEach(function(row, di){
+  var dl = document.createElement("div");
+  dl.className = "day";
+  dl.textContent = DATA.days[di];
+  grid.appendChild(dl);
+  row.forEach(function(c, mi){
+    var el = document.createElement("div");
+    if (c.v == null) {
+      el.className = "cell";
+    } else {
+      el.className = "cell live";
+      el.style.background = c.fill;
+      if (c.label) {
+        el.textContent = c.label;
+        el.style.color = c.text;
+      }
+      el.addEventListener("mousemove", function(e){ moveTip(e, di, mi, c.v); });
+      el.addEventListener("mouseleave", hideTip);
+    }
+    grid.appendChild(el);
+  });
+});
+
+function moveTip(e, di, mi, v){
+  var date = MONTHS[mi] + " " + DATA.days[di];
+  var html = "<b>" + date + "</b><br>";
+  if (DATA.unit === "countries") {
+    html += nf.format(v) + " countries";
+  } else {
+    html += nf.format(v) + " people";
+  }
+  tip.innerHTML = html;
+  tip.style.opacity = "1";
+  var pad = 14;
+  var x = e.clientX + pad, y = e.clientY + pad;
+  var r = tip.getBoundingClientRect();
+  if (x + r.width > window.innerWidth - 8) x = e.clientX - r.width - pad;
+  if (y + r.height > window.innerHeight - 8) y = e.clientY - r.height - pad;
+  tip.style.left = x + "px";
+  tip.style.top = y + "px";
+}
+function hideTip(){ tip.style.opacity = "0"; }
+</script>
+</body>
+</html>
